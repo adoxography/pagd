@@ -1,0 +1,94 @@
+.alert {
+  padding: 10px; }
+
+.alert--info {
+  background: #e3e3e3; }
+
+.alert--success {
+  background: #8ac48a; }
+
+alert--error {
+  background: red;
+  color: white; }
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: white; }
+
+#header ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #c0c0ff;
+  overflow: hidden; }
+
+#header li {
+  float: left; }
+  #header li a {
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-family: "Helvetica";
+    color: #000; }
+    #header li a:hover {
+      background-color: #a0a0c0;
+      color: #000; }
+
+#content {
+  padding: 20px; }
+  #content div.show {
+    background-color: #f0f0f0;
+    width: 600px;
+    border-radius: 10px;
+    border: 1px solid #555;
+    margin: auto;
+    padding: 20px; }
+    #content div.show h1 {
+      font-family: "Helvetica";
+      text-align: center;
+      font-size: 22px;
+      color: #000;
+      margin: 0;
+      margin-bottom: 15px;
+      padding: 0; }
+    #content div.show table {
+      margin: auto; }
+      #content div.show table tr:nth-child(2n) {
+        background-color: #fffff0; }
+      #content div.show table tr:nth-child(2n+1) {
+        background-color: #f6f6e5; }
+      #content div.show table tr td {
+        vertical-align: top;
+        margin: 10px;
+        padding: 10px;
+        width: 250px;
+        font-family: "Helvetica";
+        font-size: 16px;
+        color: #000; }
+    #content div.show .itemList {
+      width: 200px; }
+      #content div.show .itemList ul {
+        list-style-type: none;
+        margin: auto;
+        padding: 0;
+        max-height: 250px;
+        overflow: auto; }
+        #content div.show .itemList ul li {
+          background-color: #e0e0e0;
+          font-family: "Helvetica"; }
+          #content div.show .itemList ul li a {
+            display: block;
+            text-decoration: none;
+            color: #000; }
+            #content div.show .itemList ul li a:hover {
+              color: #000;
+              background-color: #b0b0b0; }
+    #content div.show .deleteButton {
+      width: 200px;
+      margin: auto; }
+      #content div.show .deleteButton button {
+        width: 200px; }
+
+/*# sourceMappingURL=style.css.map */

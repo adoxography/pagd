@@ -1,0 +1,172 @@
+@import 'components/alert';
+
+$formBG: #e0e0e0;
+$borderColour: #c0c0c0;
+$inputBorderColour: #c6c6c6;
+$font: 'Helvetica';
+$borderRadius: 5px;
+$headerColour: #c0c0ff;
+$fontColour: #000;
+$bgColour: white;
+
+@mixin header-style($size) {
+	font-family: $font;
+	text-align: center;
+	font-size: $size;
+	color: $fontColour;
+}
+	
+body {
+	margin: 0;
+	padding: 0;
+	background-color: $bgColour;
+}
+
+.inputForm {
+	// background-color: $formBG;
+	// border: 1px solid $borderColour;
+	// border-radius: $borderRadius;
+	// font-family: $font;
+	// overflow: hidden;
+	// margin: auto;
+	// width: 400px;
+
+	// fieldset {
+	// 	border: 0;
+	// 	margin-bottom: 5px;
+	// }
+
+	// h4{
+	// 	text-align: center;
+	// 	margin: 10px;
+	// 	padding: 0;
+	// }
+
+	// label {
+	// 	font-size: 12px;
+	// 	float: left;
+	// 	margin-top: 5px;
+	// 	clear: both;
+	// }
+
+	// input,select,textarea {
+	// 	clear: both;
+	// 	margin: 0;
+	// 	width: 370px;
+	// 	border-radius: $borderRadius;
+	// 	border: 1px solid $inputBorderColour;
+	// 	box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
+	// 	font: 14px $font;
+	// }
+}
+
+#header {
+
+	ul {
+		list-style-type:none;
+	 	margin: 0;
+	   	padding: 0;
+	    background-color: $headerColour;
+	    overflow: hidden;
+	}
+
+  	li {
+  		float:left;
+
+	  	a {
+	  		display: block;
+	  		text-align:center;
+	    	padding: 14px 16px;
+	    	text-decoration: none;
+	    	font-family: $font;
+	    	color: $fontColour;
+
+	    	&:hover {
+	    		background-color: #a0a0c0;
+	    		color: $fontColour;
+	    	}
+	    }
+  	}
+}
+
+#content {
+	padding: 20px;
+
+	div.show{
+		background-color: #f0f0f0;
+		width: 600px;
+		border-radius: 10px;
+		border: 1px solid #555;
+		margin: auto;
+		padding: 20px;
+
+		h1 {
+			font-family: $font;
+			text-align: center;
+			font-size: 22px;
+			color: $fontColour;
+			margin: 0;
+			margin-bottom: 15px;
+			padding: 0;
+		}
+
+		table {
+			margin: auto;
+			tr {
+				&:nth-child(2n){
+					background-color: #fffff0;
+				}
+				&:nth-child(2n+1){
+					background-color: #f6f6e5;
+				}
+
+				td {
+					vertical-align: top;
+					margin: 10px;
+					padding: 10px;
+					width: 250px;
+					font-family: $font;
+					font-size: 16px;
+					color: $fontColour;
+				}
+			}
+		}
+
+		.itemList{
+			width: 200px;
+
+			ul { //The list of items
+				list-style-type: none;
+				margin: auto;
+				padding: 0;
+				max-height: 250px;
+				overflow: auto;
+
+				li {
+					background-color: $formBG;
+					font-family: $font;
+
+					a {
+						display: block;
+						text-decoration: none;
+						color: $fontColour;
+
+						&:hover{
+							color: $fontColour;
+							background-color: #b0b0b0;
+						}
+					}
+				}
+			}
+		}
+
+		.deleteButton {
+			width: 200px;
+			margin: auto;
+
+			button {
+				width: 200px;
+			}
+		}
+	}
+}

@@ -2,8 +2,14 @@
 
 @section('content')
 
-Insert welcome information here later
+<p>Insert welcome information here later</p>
 
-Update success!
+{{ Form::open(['url' => '/login']) }}
+	{{ Form::label('email', 'Email:')}}
+	{{ Form::text('email') }}
+	{{ Form::label('password', 'Password:') }}
+	{{ Form::password('password') }}
+	{{ Form::submit() }}
+{{ Form::close() }}
 
 @stop

@@ -29,7 +29,7 @@ class LangFormRequest extends FormRequest
             'formData.phoneticForm'  => ['nullable'],
             'formData.morphemicForm' => ['required'],
             'formData.language_id'   => ['required','integer','exists:Languages,id'],
-            'formData.parent_id'     => ['nullable','integer','exists:Languages,id']
+            'formData.parent_id'     => ['nullable','integer','exists:Forms,id']
         ];
 
         return $rules;

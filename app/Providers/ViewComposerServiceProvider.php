@@ -25,6 +25,7 @@ class ViewComposerServiceProvider extends ServiceProvider
         $this->composeFormForm();
         $this->composeLanguageForm();
         $this->composeMorphemeForm();
+        $this->composeMultiMorphemeForm();
     }
 
     private function composeLanguageForm()
@@ -63,6 +64,18 @@ class ViewComposerServiceProvider extends ServiceProvider
                 'languages' => Language::select('id','name as value')->get(),
                 'glosses'   => Gloss::select('id','abv as value')->get(),
                 'slots'     => Slot::select('id','abv as value')->get()
+            ];
+            $view->with($data);
+        });
+    }
+
+    private function composeMultiMorphemeForm()
+    {
+        view()->composer('morphemes.createMulti', function($view)
+        {
+            $data = [
+                'glosses' => Gloss::select('id', 'abv as value')->get(),
+                'slots'   => Slot::select('id', 'abv as value')->get()
             ];
             $view->with($data);
         });

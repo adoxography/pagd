@@ -62,7 +62,7 @@ class CustomFormServiceProvider extends ServiceProvider
             return $this->toHtmlString($output);
         });
 
-        Form::macro('radioList', function($name, $choices, $options = []){
+        Form::macro('radioList', function($name, $choices, $selected = null, $options = []){
             $legend = isset($options['legend']) ? $options['legend'] : $name;
 
             $output = '<fieldset class = "radio"><legend>'.$legend.'</legend>';
@@ -70,8 +70,8 @@ class CustomFormServiceProvider extends ServiceProvider
             for($i = 0; $i < count($choices); $i++)
             {
                 $choice = $choices[$i];
-                $output .= $this->label("$name-$i", $choice['value']);
-                $output .= $this->radio("$name-$i", $choice['id'], null, $options);
+                $output .= $this->radio($name, $choice['id'], ($i == 0) ? true : $selected === $choice['id'], $options);
+                $output .= $choice['value'];
             }
 
             $output .= '</fieldset>';

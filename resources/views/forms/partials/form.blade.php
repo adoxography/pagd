@@ -62,45 +62,51 @@
 	{{ Form::label('class','Class') }}
 	{{ Form::datalist('class', $classes, [], ['visible' => ['name' => 'formType[class][name]']]) }}
 
-	{{ Form::radioList('order', $orders, ['name' => 'formType[order][id]']) }}
+	{{ Form::radioList(
+		'order',
+		$orders,
+		isset($form) ? $form->formType->order->id : null,
+		['name' => 'formType[order][id]'])
+	}}
 
 	{{ Form::label('mood','Mood') }}
 	{{ Form::datalist('mood', $moods, [], ['visible' => ['name' => 'formType[mood][name]']]) }}
 
-	{{ Form::radioList('tense', $tenses, ['name' => 'formType[tense][id]']) }}
+	{{ Form::radioList(
+		'tense',
+		$tenses, 
+		isset($form) ? $form->formType->tense->id : null,
+		['name' => 'formType[tense][id]']
+	) }}
 </fieldset>
 <fieldset>
 	{{ Form::radioList(
 		'isAbsolute',
 		[
 			[
-				'id'    => '',
+				'id'    => null,
 				'value' => 'N/A'
 			],
 			[
-				'id'    => '1',
+				'id'    => 1,
 				'value' => 'Absolute'
 			],
 			[
-				'id'    => '0',
+				'id'    => 0,
 				'value' => 'Objective'
 			]
 		],
+		isset($form) ? $form->formType->isAbsolute : null,
 		[
 			'name'   => 'formType[isAbsolute]',
 			'legend' => 'Abs/Erg'
 		]
 	) }}
-{{-- 	{{ Form::label('isAbsolute','Abs/Erg') }}
-	{{ Form::select('isAbsolute', [
-		'' => 'N/A',
-		'1' => 'Absolute', 
-		'0' => 'Objective'
-	]) }} --}}
+
 	{{ Form::label('isNegative','Negative') }}
-	{{ Form::checkbox('isNegative','true') }}
+	{{ Form::checkbox('isNegative',1) }}
 	{{ Form::label('isDiminutive','Diminutive') }}
-	{{ Form::checkbox('isDiminutive','true') }}
+	{{ Form::checkbox('isDiminutive',1) }}
 </fieldset>
 <fieldset>
 	{{ Form::submit('Submit') }}

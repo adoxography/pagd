@@ -68,6 +68,7 @@ class FormController extends Controller
     {
         $formData = $request->formData;
         $destination;
+        //dd($request);
         
         //Set a point to rollback to in case something goes wrong
         DB::beginTransaction();
@@ -180,7 +181,6 @@ class FormController extends Controller
 
     private function insertMorphemes($requests, $language_id)
     {
-        //dd($requests);
         foreach ($requests as $request) {
             $morpheme = new Morpheme($request);
             $morpheme->language_id = $language_id;

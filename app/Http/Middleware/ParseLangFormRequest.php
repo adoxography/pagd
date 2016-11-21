@@ -20,14 +20,13 @@ class ParseLangFormRequest
         // This might have already been set if morphemes were missing.
         // Don't worry about re-parsing if this is the case.
         if (!isset($request->formData)) {
-
             // The form type information - these ones can go straight in
+            //dd($request);
             $formTypeData = $request->only([
                 'subject_id',
                 'primaryObject_id',
                 'secondaryObject_id',
                 'class_id',
-                'order_id',
                 'mood_id',
                 'tense_id',
                 'isAbsolute',
@@ -35,7 +34,10 @@ class ParseLangFormRequest
                 'isDiminutive'
             ]);
 
-            // Handle the checkboxes so SQL can recognize them
+            $formTypeData['order_id'] = $request['formType']['order']['id'];
+            $formTypeData['tense_id'] = $request['formType']['tense']['id'];
+
+            // Handle empty checkboxes so SQL can recognize them
             if (!$formTypeData['isNegative']) {
                 $formTypeData['isNegative'] = 0;
             }
@@ -57,6 +59,7 @@ class ParseLangFormRequest
             if (!$type) {
                 $type = FormType::create(array_filter($formTypeData, 'strlen'));
             }//if
+            //dd($type);
 
             // Pull out the regular form information and bundle it into its own array
             $formData = array_filter($request->only([

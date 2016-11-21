@@ -15,11 +15,73 @@ $bgColour: white;
 	font-size: $size;
 	color: $fontColour;
 }
-	
+
+*,
+*:before,
+*:after{
+	box-sizing:border-box;
+}
+
 body {
 	margin: 0;
 	padding: 0;
 	background-color: $bgColour;
+}
+
+.inputform{
+	width: 500px;
+	overflow: hidden;
+}
+
+fieldset{
+	width: 100%;
+}
+
+input[type="color"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+select,
+textarea {
+	border-color: #e0e0e0;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+	border-width: 1px;
+	border-style: solid;
+	color: #474e57;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 10px;
+	width: 100%;
+
+	&:hover{
+		border-color: #e0e0e0;
+	}
+
+	&:focus{
+		border-color: #adadad;
+		-webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 5px rgba(160, 160, 160, 0.7);
+		box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 5px rgba(160, 160, 160, 0.7);
+		outline: none;
+	}
+}
+
+input[type="checkbox"],
+input[type="image"],
+input[type="radio"] {
+	width: auto;
 }
 
 .inputForm {

@@ -16,6 +16,11 @@ require('laravel-elixir-vue');
 elixir.config.cssOutput = '/../public/css';
 
 elixir(mix => {
-    mix.sass('style.scss')
+    mix.sass('style.scss', 'resources/assets/css/style.css')
+       .styles(
+       	[
+       		'resources/assets/css/normalize.css',
+       		'resources/assets/css/style.css'
+       	], 'public/css/style.css')
        .version('css/style.css');
 });

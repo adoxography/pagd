@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<title>Pan-Algonquian Grammar Database</title>
 		
-		<link rel='stylesheet' href="{{ elixir('css/style.css') }}">
+		{{ Html::style(elixir('css/style.css')) }}
 		
 		@yield('header')
 	</head>

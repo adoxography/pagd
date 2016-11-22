@@ -63,7 +63,7 @@ class CustomFormServiceProvider extends ServiceProvider
         });
 
         Form::macro('radioList', function($name, $choices, $selected = null, $options = []){
-            $legend = isset($options['legend']) ? $options['legend'] : $name;
+            $legend = isset($options['legend']) ? $options['legend'] : ucfirst($name);
 
             $output = '<fieldset class = "radio"><legend>'.$legend.'</legend>';
 

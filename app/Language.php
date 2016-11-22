@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Morpheme;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -30,6 +31,10 @@ class Language extends Model
             foreach ($model->morphemes as $morpheme) {
                 $morpheme->delete();
             }//foreach
+        });
+
+        static::saved(function ($model) {
+            return Morpheme::createV($model);
         });
     }//boot
     

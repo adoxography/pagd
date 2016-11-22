@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(seed_glosses::class);
         $this->call(seed_slots::class);
         $this->call(seed_languages::class);
+        $this->call(seed_morphemes::class);
     }
 }

@@ -67,7 +67,9 @@ class LanguageController extends Controller
 
     public function show(Language $language)
     {
-        $language->load('group', 'parent', 'children', 'morphemes');
+        $language->load(['group', 'parent', 'children', 'morphemes' => function( $query ){
+            $query->where('name','!=','V');
+        }]);
         return view('languages.show', compact('language'));
     }
 

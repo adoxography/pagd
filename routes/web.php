@@ -17,6 +17,8 @@ Route::get('home', 'HomeController@index');
 
 Route::get('search', 'SearchController@index');
 Route::post('search', 'SearchController@search');
+Route::get('glossary', 'GlossaryController@index');
+Route::get('glossary/{model}', 'GlossaryController@show');
 
 Route::get('autocomplete', 'AutocompleteController@autocomplete');
 Route::get('autocomplete/groups', 'AutocompleteController@groups');

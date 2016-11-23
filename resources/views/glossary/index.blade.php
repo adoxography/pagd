@@ -3,6 +3,7 @@
 @section('content')
 
 <ul>
+	<li><a href = '/glossary/groups'>Groups</a></li>
 	<li><a href = '/glossary/classes'>Classes</a></li>
 	<li><a href = '/glossary/glosses'>Glosses</a></li>
 	<li><a href = '/glossary/moods'>Moods</a></li>

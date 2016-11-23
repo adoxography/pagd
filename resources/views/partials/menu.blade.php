@@ -1,7 +1,6 @@
 <div id='header'>
 	<ul>
 		<li><a href = '/'>Home</a></li>
-		<li><a href = '/groups'>Groups</a></li>
 		<li><a href = '/languages'>Languages</a></li>
 		<li><a href = '/glossary'>Glossary</a></li>
 		<li><a href = '/search'>Search</a></li>

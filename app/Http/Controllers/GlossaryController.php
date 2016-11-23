@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\FormClass;
 use App\Gloss;
+use App\Group;
 use App\Mood;
 use App\Slot;
 use Illuminate\Http\Request;
@@ -26,6 +27,9 @@ class GlossaryController extends Controller
     		case('glosses'):
     			$items = Gloss::all();
     			break;
+            case('groups'):
+                $items = Group::all();
+                break;
     		case('moods'):
     			$items = Mood::all();
     			break;

@@ -39,7 +39,7 @@ class LangFormRequest extends FormRequest
             'formType.subject.name'         => ['required','exists:Arguments,name'],            
             'formType.primaryObject.name'   => ['nullable','exists:Arguments,name'],            
             'formType.secondaryObject.name' => ['nullable','exists:Arguments,name'],
-            'formType.class.name'           => ['required','exists:Classes,name'],
+            'formType.formClass.name'       => ['required','exists:Classes,name'],
             'formType.mood.name'            => ['required','exists:Moods,name'],
 
             'language_id'         => ['required','integer','exists:Languages,id'],
@@ -69,8 +69,8 @@ class LangFormRequest extends FormRequest
             'formType.subject.name.exists'         => 'There is no subject by that name in the database',            
             'formType.primaryObject.name.exists'   => 'There is no primary object by that name in the database',            
             'formType.secondaryObject.name.exists' => 'There is no secondary object by that name in the database',
-            'formType.class.name.required'         => 'Please enter a class.',
-            'formType.class.name.exists'           => 'There is no class by that name in the database.',
+            'formType.formClass.name.required'     => 'Please enter a class.',
+            'formType.formClass.name.exists'       => 'There is no class by that name in the database.',
             'formType.mood.name.required'          => 'Please enter a mood.',
             'formType.mood.name.exists'            => 'There is no mood by that name in the database.'
         ];

@@ -50,7 +50,7 @@ class FormType extends Model
         return $rc;
     }
 
-    public function class(){
+    public function formClass(){
     	return $this->belongsTo(FormClass::class,'class_id');
     }
 

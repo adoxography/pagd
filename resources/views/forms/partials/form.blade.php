@@ -60,7 +60,7 @@
 	</fieldset>
 
 	{{ Form::label('class','Class') }}
-	{{ Form::datalist('class', $classes, [], ['visible' => ['name' => 'formType[class][name]']]) }}
+	{{ Form::datalist('class', $classes, [], ['visible' => ['name' => 'formType[formClass][name]']]) }}
 
 	{{ Form::radioList(
 		'order',

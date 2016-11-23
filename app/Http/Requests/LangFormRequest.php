@@ -33,7 +33,7 @@ class LangFormRequest extends FormRequest
             'formData'                      => ['required'],
             'surfaceForm'                   => ['required'],
             'phoneticForm'                  => ['nullable'],
-            'morphemicForm'                 => ['required'],
+            'morphemicForm'                 => ['required','has:V'],
             'language.name'                 => ['required','exists:Languages,name'],
             'parent.name'                   => ['nullable','exists:Forms,surfaceForm'],
             'formType.subject.name'         => ['required','exists:Arguments,name'],            
@@ -51,7 +51,7 @@ class LangFormRequest extends FormRequest
             'formType.order.id'   => ['required','integer','exists:Orders,id'],
             'mood_id'             => ['required','integer','exists:Moods,id'],
             'formType.tense.id'   => ['required','integer','exists:Tenses,id'],
-            'formType.isAbsolute' => ['nullable','integer'],
+            'formType.isAbsolute' => ['nullable'],
         ];
 
         return $rules;
@@ -61,6 +61,7 @@ class LangFormRequest extends FormRequest
         return [
             'surfaceForm.required'                 => 'Please enter a surface form.',
             'morphemicForm.required'               => 'Please enter a morphemic form.',
+            'morphemicForm.has'                    => 'The morphemic form must include a placeholder for the Vstem.',
             'language.name.required'               => 'Please enter a language.',
             'language.name.exists'                 => 'There is no language by that name in the database.',
             'parent.name.exists'                   => 'There is no parent form by that name in the database.',

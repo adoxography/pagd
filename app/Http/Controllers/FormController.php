@@ -84,7 +84,7 @@ class FormController extends Controller
         if (!$form->save()) {
             DB::rollback();
             if (!isset($form->errors['missing'])) {
-                //Send them back to the form submit page
+                $destination = back()->withInput();
             } else {
                 $missing = $form->errors['missing'];
                 $destination = view('morphemes.createMulti', compact('missing', 'formData'));

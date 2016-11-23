@@ -68,13 +68,33 @@ class Form extends Model
         });
     }
 
+    private function  hasV()
+    {
+        $found = false;
+        $morphemes = explode('-', $this->morphemicForm);
+
+        for($i = 0; $i < count($morphemes) && !$found; $i++)
+        {
+            $found = $morphemes[$i] === 'V';
+        }
+
+        return $found;
+    }
+
     public function validate()
     {
-        $rc = true;
+        $rc = false;
         $validator = Validator::make($this->getAttributes(), $this->rules);
         if ($validator->fails()) {
             $this->errors = $validator->messages();
-            $rc = false;
+        }
+        else if(!$this->hasV())
+        {
+            $this->errors = ['No V'];
+        }
+        else
+        {
+            $rc = true;
         }
         return $rc;
     }

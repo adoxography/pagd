@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(seed_slots::class);
         $this->call(seed_languages::class);
         $this->call(seed_morphemes::class);
+        $this->call(seed_users::class);
     }
 }

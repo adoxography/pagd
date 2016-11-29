@@ -58,12 +58,8 @@
 				<td class = 'value'>{{ $form->formType->order->name }}</td>
 			</tr>
 			<tr>
-				<td class = 'label'>Tense</td>
-				<td class = 'value'>{{ $form->formType->tense->name }}</td>
-			</tr>
-			<tr>
-				<td class = 'label'>Mood</td>
-				<td class = 'value'>{{ $form->formType->mood->name }}</td>
+				<td class = 'label'>Mode</td>
+				<td class = 'value'>{{ $form->formType->mode->name }}</td>
 			</tr>
 			<tr>
 				<td class = 'label'>Duplicates</td>

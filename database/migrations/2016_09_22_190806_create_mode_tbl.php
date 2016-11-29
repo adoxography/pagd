@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTenseTbl extends Migration
+class CreateModeTbl extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTenseTbl extends Migration
      */
     public function up()
     {
-        Schema::create('Tenses', function (Blueprint $table) {
+        Schema::create('Modes', function (Blueprint $table) {
         	$table->engine = 'InnoDB';
         	
             $table->increments('id');
@@ -29,6 +29,6 @@ class CreateTenseTbl extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Tenses');
+        Schema::dropIfExists('Modes');
     }
 }

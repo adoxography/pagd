@@ -7,10 +7,9 @@ use App\FormClass;
 use App\Gloss;
 use App\Group;
 use App\Language;
-use App\Mood;
+use App\Mode;
 use App\Order;
 use App\Slot;
-use App\Tense;
 use Illuminate\Support\ServiceProvider;
 
 class ViewComposerServiceProvider extends ServiceProvider
@@ -48,9 +47,8 @@ class ViewComposerServiceProvider extends ServiceProvider
                 'arguments' => Argument::select('id','name as value')->get(),
                 'classes'   => FormClass::select('id','name as value')->get(),
                 'languages' => Language::select('id','name as value')->get(),
-                'moods'     => Mood::select('id','name as value')->get(),
-                'orders'    => Order::select('id','name as value')->get(),
-                'tenses'    => Tense::select('id','name as value')->get()
+                'modes'     => Mode::select('id','name as value')->get(),
+                'orders'    => Order::select('id','name as value')->get()
             ];
             $view->with($data);
         });

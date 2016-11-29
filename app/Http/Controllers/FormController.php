@@ -43,9 +43,8 @@ class FormController extends Controller
             'formType.subject',
             'formType.primaryObject',
             'formType.secondaryObject',
-            'formType.mood',
-            'formType.class',
-            'formType.tense',
+            'formType.mode',
+            'formType.formClass',
             'formType.order'
         );
         return view('forms.edit', compact('form'));
@@ -113,9 +112,8 @@ class FormController extends Controller
             'formType.primaryObject',
             'formType.secondaryObject',
             'formType.order',
-            'formType.mood',
-            'formType.formClass',
-            'formType.tense'
+            'formType.mode',
+            'formType.formClass'
         ]);
         return view('forms.show', compact('form'));
     }

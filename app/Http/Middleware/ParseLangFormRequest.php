@@ -49,8 +49,7 @@ class ParseLangFormRequest
             'primaryObject_id',
             'secondaryObject_id',
             'class_id',
-            'mood_id',
-            'tense_id',
+            'mode_id',
             'isAbsolute',
             'isNegative',
             'isDiminutive'
@@ -58,7 +57,6 @@ class ParseLangFormRequest
 
         // Pull out the radio data
         $data['order_id'] = $request['formType']['order']['id'];
-        $data['tense_id'] = $request['formType']['tense']['id'];
 
         return $data;
     }

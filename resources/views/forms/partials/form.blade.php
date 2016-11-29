@@ -42,10 +42,8 @@
 
 	{{ Form::radioList('order', $orders, isset($form) ? $form->formType->order->id : null, ['name' => 'formType[order][id]']) }}
 
-	{{ Form::label('mood','Mood') }}
-	{{ Form::datalist('mood', $moods, [], ['visible' => ['name' => 'formType[mood][name]', 'required' => 'required']]) }}
-
-	{{ Form::radioList('tense', $tenses, isset($form) ? $form->formType->tense->id : null, ['name' => 'formType[tense][id]']) }}
+	{{ Form::label('mode','Mode') }}
+	{{ Form::datalist('mode', $modes, [], ['visible' => ['name' => 'formType[mode][name]', 'required' => 'required']]) }}
 </fieldset>
 <fieldset>
 	{{ Form::radioList(
@@ -80,7 +78,7 @@
 		datalist('primaryObject');
 		datalist('secondaryObject');
 		datalist('class');
-		datalist('mood');
+		datalist('mode');
 
 		defaultRadios();
 		defaultDatalists();

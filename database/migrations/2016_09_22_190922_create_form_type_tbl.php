@@ -22,8 +22,7 @@ class CreateFormTypeTbl extends Migration
             $table->unsignedInteger('primaryObject_id')->nullable();
             $table->unsignedInteger('secondaryObject_id')->nullable();
             $table->unsignedInteger('order_id');
-            $table->unsignedInteger('mood_id');
-            $table->unsignedInteger('tense_id');
+            $table->unsignedInteger('mode_id');
             $table->boolean('isAbsolute')->nullable();
             $table->boolean('isDiminutive')->default(0);
             $table->boolean('isNegative')->default(0);
@@ -34,8 +33,7 @@ class CreateFormTypeTbl extends Migration
             $table->foreign('primaryObject_id')->references('id')->on('Arguments');
             $table->foreign('secondaryObject_id')->references('id')->on('Arguments');
             $table->foreign('order_id')->references('id')->on('Orders');
-            $table->foreign('mood_id')->references('id')->on('Moods');
-            $table->foreign('tense_id')->references('id')->on('Tenses');
+            $table->foreign('mode_id')->references('id')->on('Modes');
         });
     }
 

@@ -11,9 +11,8 @@ class FormType extends Model
     public $errors;
     protected $fillable = [
         'class_id',
-        'mood_id',
+        'mode_id',
         'order_id',
-        'tense_id',
         'subject_id',
         'primaryObject_id',
         'secondaryObject_id',
@@ -28,8 +27,7 @@ class FormType extends Model
         'secondaryObject_id' => ['nullable','integer','exists:Arguments,id'],
         'class_id'           => ['required','integer','exists:Classes,id'],
         'order_id'           => ['required','integer','exists:Orders,id'],
-        'tense_id'           => ['required','integer','exists:Tenses,id'],
-        'mood_id'            => ['required','integer','exists:Moods,id'],
+        'mode_id'            => ['required','integer','exists:Modes,id'],
         'isAbsolute'         => ['nullable','boolean'],
         'isNegative'         => ['required','boolean'],
         'isDiminutive'       => ['required','boolean']
@@ -60,16 +58,12 @@ class FormType extends Model
     	return $this->belongsTo(FormClass::class,'class_id');
     }
 
-    public function mood(){
-    	return $this->belongsTo(Mood::class,'mood_id');
+    public function mode(){
+    	return $this->belongsTo(Mode::class,'mode_id');
     }
 
     public function order(){
  	  	return $this->belongsTo(Order::class,'order_id');
-    }
-
-    public function tense(){
-    	return $this->belongsTo(Tense::class,'tense_id');
     }
 
     public function subject(){

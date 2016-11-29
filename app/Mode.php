@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tense extends Model
+class Mode extends Model
 {
-    public $table = 'Tenses';
+    public $table = 'Modes';
 }

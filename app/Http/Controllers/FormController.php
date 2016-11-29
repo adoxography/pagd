@@ -84,7 +84,6 @@ class FormController extends Controller
             if (isset($form->errors['missing'])) {
                 session(['formData' => $formData, 'missing' => $form->errors['missing']]);
                 return redirect()->action('MorphemeController@createMulti');
-                //$destination = view('morphemes.createMulti', compact('missing', 'formData'));
             }
             else
             {

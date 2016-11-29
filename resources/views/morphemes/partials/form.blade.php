@@ -2,25 +2,33 @@
 	<link rel = "stylesheet" type = "text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css"/>
 	<script src = "https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 	<script src = "http://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-	<script src="/js/datalist.js"></script>
+	<script src="/js/formUtil.js"></script>
 @stop
 
 <fieldset>
 	{{ Form::label('morphemeName','Morpheme') }}
-	{{ Form::text('name', null, ['autocomplete' => 'off']) }}
+	{{ Form::text('name', null, ['autocomplete' => 'off', 'required' => 'required']) }}
 	{{ Form::label('gloss','Gloss') }}
-	{{ Form::datalist('gloss',$glosses) }}
+	{{ Form::datalist('gloss',$glosses,[],['visible' => ['required' => 'required']]) }}
 
 	{{ Form::label('slot','Slot') }}
-	{{ Form::datalist('slot',$slots) }}
+	{{ Form::datalist('slot',$slots,[],['visible' => ['required' => 'required']]) }}
 </fieldset>
 <fieldset>
 	{{ Form::label('language','Language') }}
 	{{ Form::datalist(
 		'language',
 		$languages,
-		isset($presetLanguage) ? $presetLanguage->name : null,
-		isset($presetLanguage) ? $presetLanguage->id   : null
+		[
+			'visible' => isset($presetLanguage) ? $presetLanguage->name : null,
+			'hidden'  => isset($presetLanguage) ? $presetLanguage->id   : null
+		],
+		[
+			'visible' => [
+				'required' => 'required',
+				'default'  => 'Proto-Algonquian'
+			]
+		]
 	) }}
 	{{ Form::label('parent','Parent') }}
 	{{ Form::text('parent') }}
@@ -38,14 +46,11 @@
 	{{ Form::submit('Submit') }}
 </fieldset>
 
-@include('footer')
 @section('footer')
 	<script src = "/js/autosuggest_morpheme.js"></script>
 	<script>
 		$(document).ready(function(){
-			datalist('slot');
-			datalist('gloss');
-			datalist('language');
+			formUtil.initDatalists();
 		});
 	</script>
 @stop

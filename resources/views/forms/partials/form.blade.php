@@ -3,7 +3,7 @@
 	<script src = "https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 	<script src = "http://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 	<script src = '/js/autosuggest_form.js'></script>
-	<script src = '/js/datalist.js'></script>
+	<script src = '/js/formUtil.js'></script>
 @stop
 
 <!-- Form Text Information -->
@@ -19,7 +19,7 @@
 <!-- Lineage Information -->
 <fieldset>
 	{{ Form::label('language','Language') }}
-	{{ Form::datalist('language', $languages, ['visible' => isset($presetLanguage) ? $presetLanguage->name : null, 'hidden'  => isset($presetLanguage) ? $presetLanguage->id : null], ['visible' => ['required' => 'required']]) }}
+	{{ Form::datalist('language', $languages, ['visible' => isset($presetLanguage) ? $presetLanguage->name : null, 'hidden'  => isset($presetLanguage) ? $presetLanguage->id : null], ['visible' => ['required' => 'required', 'default' => 'Proto-Algonquian']]) }}
 	{{ Form::label('parent','Parent') }}
 	{{ Form::autofill('parent',null,null,['placeholder' => 'Search for a parent form']) }}
 </fieldset>
@@ -30,7 +30,7 @@
 	<fieldset class = 'arguments'>
 		<legend>Arguments</legend>
 		{{ Form::label('subject', 'Subject') }}
-		{{ Form::datalist('subject', $arguments, [], ['visible' => ['name' => 'formType[subject][name]', 'required' => 'required']]) }}
+		{{ Form::datalist('subject', $arguments, [], ['visible' => ['name' => 'formType[subject][name]', 'required' => 'required', 'default' => '1s']]) }} <!-- Maybe remove this in production -->
 		{{ Form::label('primaryObject', 'P. Object') }}
 		{{ Form::datalist('primaryObject', $arguments, [], ['visible' => ['name' => 'formType[primaryObject][name]', 'placeholder' => 'None']]) }}
 		{{ Form::label('secondaryObject', 'S. Object') }}
@@ -38,12 +38,12 @@
 	</fieldset>
 
 	{{ Form::label('class','Class') }}
-	{{ Form::datalist('class', $classes, [], ['visible' => ['name' => 'formType[formClass][name]', 'required' => 'required']]) }}
+	{{ Form::datalist('class', $classes, [], ['visible' => ['name' => 'formType[formClass][name]', 'required' => 'required', 'default' => 'AI']]) }}
 
 	{{ Form::radioList('order', $orders, isset($form) ? $form->formType->order->id : null, ['name' => 'formType[order][id]']) }}
 
 	{{ Form::label('mode','Mode') }}
-	{{ Form::datalist('mode', $modes, [], ['visible' => ['name' => 'formType[mode][name]', 'required' => 'required']]) }}
+	{{ Form::datalist('mode', $modes, [], ['visible' => ['name' => 'formType[mode][name]', 'required' => 'required', 'default' => 'Indicative']]) }}
 </fieldset>
 <fieldset>
 	{{ Form::radioList(
@@ -73,54 +73,9 @@
 
 <script>
 	$(document).ready(function(){
-		datalist('language');
-		datalist('subject');
-		datalist('primaryObject');
-		datalist('secondaryObject');
-		datalist('class');
-		datalist('mode');
-
-		defaultRadios();
-		defaultDatalists();
+		formUtil.initDatalists();
+		formUtil.initRadios();
 	});
-
-	function defaultDatalists()
-	{
-		$('input[list][required]').each(function(i,e){
-			var textField = $(this);
-			var datalist = textField.next();
-			var hiddenField = datalist.next();
-			var defaultOption = datalist.children().first();
-
-			textField.val(defaultOption.val());
-			hiddenField.val(defaultOption.data('value'));
-		});
-	}
-
-	function defaultRadios()
-	{
-		var all = $('input:radio').map(function(i,e) {
-			return $(e).attr('name');
-		}).get();
-
-		function filter(array) {
-			var result = [];
-			$.each(array, function(i, e){
-				if($.inArray(e,result) == -1){
-					result.push(e);
-				}
-			});
-			return result;
-		};
-
-		var radios = filter(all);
-
-		$.each(radios,function(i, e){
-			if(!$('input:radio[name="'+e+'"]:checked').val()){
-				$('input:radio[name="'+e+'"]:first').attr('checked','checked');
-			}
-		});
-	}
 </script>
 
 @stop

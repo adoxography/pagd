@@ -38,11 +38,17 @@ class CustomFormServiceProvider extends ServiceProvider
             $hiddenOptions = isset($options['hidden'])  ? $options['hidden']  : [];
 
             $inputName = $name.'[name]';
+            $default = null;
+
             if(isset($textOptions['name'])){
                 $inputName = $textOptions['name'];
                 unset($textOptions['name']);
             }//if
-
+            if(isset($textOptions['default'])){
+                $default = $textOptions['default'];
+                unset($textOptions['default']);
+            }
+            
             $output .= $this->text(
                 $inputName,
                 $textValue,
@@ -50,7 +56,11 @@ class CustomFormServiceProvider extends ServiceProvider
             );
             $output .= "<datalist id='$name-datalist'>";
             foreach($choices as $choice){
-                $output .= "<option data-value = '$choice->id'>$choice->value</option>";
+                $output .= "<option ";
+                if($choice->value == $default){
+                    $output .= "data-default = 'true' ";
+                }
+                $output .= "data-value = '$choice->id'>$choice->value</option>";
             }//foreach
             $output .= '</datalist>';
             $output .= $this->hidden(

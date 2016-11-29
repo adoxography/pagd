@@ -116,36 +116,6 @@ class FormController extends Controller
         ]);
         return view('forms.show', compact('form'));
     }
-
-    public function autofill(Request $request)
-    {
-        $term = $request->get('term');
-        $language = Language::with('parent')->find($request->language);
-        $results = $this->autofillParents($language, $term);
-
-        return Response::json($results);
-    }
-    
-    private function autofillParents(Language $language, $term)
-    {
-        $results = array();
-
-        if ($language->parent) {
-            $parent = Language::with(['parent', 'forms' => function ($query) use ($term) {
-                $query->where('surfaceForm', 'LIKE', "%$term%");
-            }])->find($language->parent->id);
-            foreach ($parent->forms as $form) {
-                $results[] = [
-                    'id' => $form->id,
-                    'value' => $form->surfaceForm . ' (' . $parent->name . ')'
-                ];
-            }//forech
-            $results += $this->autofillParents($parent, $term);
-        }//if
-        //Base case: do nothing
-
-        return $results;
-    }
     
     private function getType($data)
     {

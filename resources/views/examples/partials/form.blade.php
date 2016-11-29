@@ -6,22 +6,13 @@
 @stop
 
 <fieldset>
-	{{ Form::label('morphemeName','Morpheme') }}
-	{{ Form::text('name', null, ['autocomplete' => 'off', 'required' => 'required']) }}
-	{{ Form::label('gloss','Gloss') }}
-	{{ Form::datalist('gloss',$glosses,[],['visible' => ['required' => 'required']]) }}
-
-	{{ Form::label('slot','Slot') }}
-	{{ Form::datalist('slot',$slots,[],['visible' => ['required' => 'required']]) }}
-</fieldset>
-<fieldset>
-	{{ Form::label('language','Language') }}
+	{{ Form::label('language') }}
 	{{ Form::datalist(
 		'language',
 		$languages,
 		[
-			'visible' => isset($presetLanguage) ? $presetLanguage->name : null,
-			'hidden'  => isset($presetLanguage) ? $presetLanguage->id   : null
+			'visible' => (isset($presetForm) ? $presetForm->language->name : null),
+			'hidden'  => (isset($presetForm) ? $presetForm->language_id    : null)
 		],
 		[
 			'visible' => [
@@ -30,19 +21,23 @@
 			]
 		]
 	) }}
-	{{ Form::label('parent','Parent') }}
+	{{ Form::label('form') }}
+	{{ Form::text('form',(isset($presetForm) ? $presetForm->morphemicForm : null)) }}
+	{{ Form::hidden('form_id',(isset($presetForm) ? $presetForm->id : null),['id' => 'form_id']) }}
+{{-- 		{{ Form::label('parent','Parent') }}
 	{{ Form::text('parent') }}
-	{{ Form::hidden('parent_id',null,['id' => 'parent_id']) }}
+	{{ Form::hidden('parent_id',null,['id' => 'parent_id']) }} --}}
+
+	{{ Form::label('name','Example') }}
+	{{ Form::text('name') }}
+	{{ Form::label('translation', 'Translation') }}
+	{{ Form::text('translation') }}
 </fieldset>
 <fieldset>
-	{{ Form::label('allomorphyNotes','Allomorphy Notes') }}
-	{{ Form::textarea('allomorphyNotes') }}
-	{{ Form::label('historicalNotes','Historical Notes') }}
-	{{ Form::textarea('historicalNotes') }}	
 	{{ Form::label('comments','Comments') }}
 	{{ Form::textarea('comments') }}
 </fieldset>
-<fieldset class = 'formButtons'>
+<fieldset>
 	{{ Form::submit('Submit') }}
 </fieldset>
 
@@ -50,7 +45,7 @@
 	<script>
 		$(document).ready(function(){
 			formUtil.initDatalists();
-			formUtil.initAutocomplete('parent','morphemes');
+			formUtil.initAutocomplete('form','forms');
 		});
 	</script>
 @stop

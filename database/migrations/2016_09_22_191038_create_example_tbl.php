@@ -19,12 +19,13 @@ class CreateExampleTbl extends Migration
             $table->increments('id');
             $table->string('name',100);
             $table->string('translation',100);
-            $table->integer('form_id')->unsigned();
+            $table->unsignedInteger('vStem_id');
+            $table->unsignedInteger('form_id');
             $table->text('comments')->nullable();
             $table->timestamps();
-            $table->softDeletes();
 
             $table->foreign('form_id')->references('id')->on('Forms');
+            $table->foreign('vStem_id')->references('id')->on('Morphemes');
         });
     }
 

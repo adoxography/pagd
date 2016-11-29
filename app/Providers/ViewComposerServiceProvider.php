@@ -21,10 +21,22 @@ class ViewComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->composeExampleForm();
         $this->composeFormForm();
         $this->composeLanguageForm();
         $this->composeMorphemeForm();
         $this->composeMultiMorphemeForm();
+    }
+
+    private function composeExampleForm()
+    {
+        view()->composer('examples.partials.form', function($view)
+        {
+            $data = [
+                'languages' => Language::select('id', 'name as value')->get()
+            ];
+            $view->with($data);
+        });
     }
 
     private function composeLanguageForm()

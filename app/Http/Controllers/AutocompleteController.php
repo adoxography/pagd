@@ -2,52 +2,53 @@
 
 namespace App\Http\Controllers;
 
-use App\Group;
 use App\Http\Requests;
 use App\Language;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Response;
+use Response;
 
 class AutocompleteController extends Controller
 {
+    public function forms(Request $request)
+    {
+        $term     = $request->get('term');                              // What we're searching for
+        $language = Language::with('parent')->find($request->language); // The language we're in
+        $results = $this->findParents($language,$term,'forms','surfaceForm');
 
-	public function autocomplete(Request $request){
-		return Response::json(['alpha','beta']);
-		$term = $request->term;
-		$table = $request->table;
-		$field = $request->field;
-
-		$returnArray = array();
-		$queries = DB::table($table)->where($field, 'LIKE', "%$term%")->get();
-		foreach($queries as $query){
-			$returnArray[] = ['id' => $query->id, 'value' => $query->$field];
-		}
-		return Response::json($returnArray);
-	}
-	
-    
-    public function groups(Request $request){
-    	$term = $request->term;
-    	$returnArray = array();
-    	$groups = Group::where('name','LIKE','%'.$term.'%')->get();
-
-    	foreach($groups as $group){
-    		$returnArray[] = ['id' => $group->id, 'value' => $group->name];
-    	}//foreach
-
-    	return Response::json($returnArray);
-    }
-
-    public function languages(Request $request){
-    	$term = $request->term;
-    	$returnArray = array();
-    	$languages = Language::where('name','LIKE','%'.$term.'%')->get();
-    	foreach($languages as $language){
-    		$returnArray[] = ['id' => $language->id, 'value' => $language->name];
-    	}
-    	return Response::json($returnArray);
+        return Response::json($results);
     }
     
-    
+    public function morphemes(Request $request)
+    {
+        $term     = $request->term;
+        $language = Language::with('parent')->find($request->language);
+        $results  = $this->findParents($language, $term, 'morphemes', 'name');
+
+        return Response::json($results);
+    }
+
+    private function findParents(Language $language, $term, $items, $field)
+    {
+        $results = array();
+
+        if($language->parent) { // Recursive case: the language has a parent
+
+            $parent = Language::with([
+                'parent',
+                $items => function ($query) use ($term, $field) {
+                    $query->where($field, 'LIKE', "%$term%");
+                }]
+            )->find($language->parent->id);
+
+            foreach($parent->getAttribute($items) as $item) {
+                $results[] = [
+                    'id' => $item->id,
+                    'value' => $item->getAttribute($field) . ' (' . $parent->name . ')'
+                ];
+            }
+            $results += $this->findParents($parent, $term, $items, $field);
+        }
+
+        return $results;
+    }
 }

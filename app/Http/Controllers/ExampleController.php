@@ -9,11 +9,19 @@ use Illuminate\Support\Facades\Redirect;
 
 class ExampleController extends Controller
 {
+	public function index(){
+		return view('examples.index');
+	}
+
     public function create(){
     	return view('examples.create');
     }
 
-    public function insert(Request $request){
+    public function edit(Example $example){
+    	return view('examples.edit', compact('example'));
+    }
+
+    public function store(Request $request){
     	$example = new Example($request->all());
     	$example->save();
 

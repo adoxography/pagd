@@ -86,6 +86,31 @@ var formUtil = (function(){
 	 * Public methods
 	 */
 	return {
+		initAutocomplete: function(textFieldID, model){
+			var uri = '/autocomplete/' + model;
+			var langInput = '#language_id';
+
+			$('#'+textFieldID).autocomplete({
+				source: function(request, response){
+				    $.ajax({
+				        url: uri,
+				        dataType: 'json',
+				        data: {
+				          	term: request.term,
+				          	language: $(langInput).val()
+				        },
+				        success: function(data){
+				          	response(data);
+				        }
+				    });
+			    },
+			    select: function(event, ui) {
+			        $('#'+textFieldID).val(ui.item.value);
+			        $('#'+textFieldID+'_id').val(ui.item.id);
+			    }
+			});
+		},
+
 		initDatalists: function(){
 			$('input[list]').each(function(i, e) {
 				initDatalist($(this));

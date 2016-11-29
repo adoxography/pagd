@@ -20,11 +20,9 @@ Route::post('search', 'SearchController@search');
 Route::get('glossary', 'GlossaryController@index');
 Route::get('glossary/{model}', 'GlossaryController@show');
 
-Route::get('autocomplete', 'AutocompleteController@autocomplete');
-Route::get('autocomplete/groups', 'AutocompleteController@groups');
-Route::get('autocomplete/languages/', 'AutocompleteController@languages');
-
-Route::get('forms/autofill', 'FormController@autofill');
+Route::get('autocomplete', 'AutocompleteController@test');
+Route::get('autocomplete/forms', 'AutocompleteController@forms');
+Route::get('autocomplete/morphemes', 'AutocompleteController@morphemes');
 
 Route::get('morphemes/autofill', 'MorphemeController@autofill');
 Route::get('morphemes/multi', 'MorphemeController@createMulti');

@@ -32,21 +32,21 @@ class CustomFormServiceProvider extends ServiceProvider
 
         Form::macro('datalist',function($name,$choices,$values = [], $options = []){
             $output = "";
-            $inputValue    = isset($values['visible'])  ? $values['visible']  : null;
+            $textValue     = isset($values['visible'])  ? $values['visible']  : null;
             $hiddenValue   = isset($values['hidden'])   ? $values['hidden']   : null;
-            $inputOptions  = isset($options['visible']) ? $options['visible'] : [];
+            $textOptions   = isset($options['visible']) ? $options['visible'] : [];
             $hiddenOptions = isset($options['hidden'])  ? $options['hidden']  : [];
 
             $inputName = $name.'[name]';
-            if(isset($inputOptions['name'])){
-                $inputName = $inputOptions['name'];
-                unset($inputOptions['name']);
+            if(isset($textOptions['name'])){
+                $inputName = $textOptions['name'];
+                unset($textOptions['name']);
             }//if
 
             $output .= $this->text(
                 $inputName,
-                $inputValue,
-                ['id' => $name, 'list' => $name.'-datalist', 'autocomplete' => 'off'] + $inputOptions
+                $textValue,
+                ['id' => $name, 'list' => $name.'-datalist', 'autocomplete' => 'off'] + $textOptions
             );
             $output .= "<datalist id='$name-datalist'>";
             foreach($choices as $choice){
@@ -70,7 +70,7 @@ class CustomFormServiceProvider extends ServiceProvider
             for($i = 0; $i < count($choices); $i++)
             {
                 $choice = $choices[$i];
-                $output .= $this->radio($name, $choice['id'], ($i == 0) ? true : $selected === $choice['id'], $options);
+                $output .= $this->radio($name, $choice['id'], $selected === $choice['id'], $options);
                 $output .= $choice['value'];
             }
 

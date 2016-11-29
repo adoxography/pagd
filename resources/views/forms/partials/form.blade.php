@@ -9,24 +9,17 @@
 <!-- Form Text Information -->
 <fieldset>
 	{{ Form::label('surfaceForm','Surface Form') }}
-	{{ Form::text('surfaceForm',null,['placeholder' => 'The form as written in a text']) }}	
+	{{ Form::text('surfaceForm',null,['placeholder' => 'The form as written in a text', 'autocomplete' => "off", 'required' => 'required']) }}	
 	{{ Form::label('phoneticForm','Phonetic Form') }}
-	{{ Form::text('phoneticForm',null,['placeholder' => 'The Algonquianist phonetic transcription']) }}
+	{{ Form::text('phoneticForm',null,['placeholder' => 'The Algonquianist phonetic transcription', 'autocomplete' => "off"]) }}
 	{{ Form::label('morphemicForm','Morphemic Form') }}
-	{{ Form::text('morphemicForm',null,['placeholder' => 'The morphemes, separated by hyphens']) }}
+	{{ Form::text('morphemicForm',null,['placeholder' => 'The morphemes, separated by hyphens', 'autocomplete' => "off", 'required' => 'required']) }}
 </fieldset>
 
 <!-- Lineage Information -->
 <fieldset>
 	{{ Form::label('language','Language') }}
-	{{ Form::datalist(
-		'language',
-		$languages,
-		[
-			'visible' => isset($presetLanguage) ? $presetLanguage->name : null,
-			'hidden'  => isset($presetLanguage) ? $presetLanguage->id   : null
-		]
-	) }}
+	{{ Form::datalist('language', $languages, ['visible' => isset($presetLanguage) ? $presetLanguage->name : null, 'hidden'  => isset($presetLanguage) ? $presetLanguage->id : null], ['visible' => ['required' => 'required']]) }}
 	{{ Form::label('parent','Parent') }}
 	{{ Form::autofill('parent',null,null,['placeholder' => 'Search for a parent form']) }}
 </fieldset>
@@ -37,64 +30,30 @@
 	<fieldset class = 'arguments'>
 		<legend>Arguments</legend>
 		{{ Form::label('subject', 'Subject') }}
-		{{ Form::datalist(
-			'subject',
-			$arguments,
-			[],
-			['visible' => ['name' => 'formType[subject][name]']]
-		) }}
+		{{ Form::datalist('subject', $arguments, [], ['visible' => ['name' => 'formType[subject][name]', 'required' => 'required']]) }}
 		{{ Form::label('primaryObject', 'P. Object') }}
-		{{ Form::datalist(
-			'primaryObject',
-			$arguments,
-			[],
-			['visible' => ['name' => 'formType[primaryObject][name]', 'placeholder' => 'None']]
-		) }}
+		{{ Form::datalist('primaryObject', $arguments, [], ['visible' => ['name' => 'formType[primaryObject][name]', 'placeholder' => 'None']]) }}
 		{{ Form::label('secondaryObject', 'S. Object') }}
-		{{ Form::datalist(
-			'secondaryObject',
-			$arguments,
-			[],
-			['visible' => ['name' => 'formType[secondaryObject][name]', 'placeholder' => 'None']]
-		) }}
+		{{ Form::datalist('secondaryObject', $arguments, [], ['visible' => ['name' => 'formType[secondaryObject][name]', 'placeholder' => 'None']]) }}
 	</fieldset>
 
 	{{ Form::label('class','Class') }}
-	{{ Form::datalist('class', $classes, [], ['visible' => ['name' => 'formType[formClass][name]']]) }}
+	{{ Form::datalist('class', $classes, [], ['visible' => ['name' => 'formType[formClass][name]', 'required' => 'required']]) }}
 
-	{{ Form::radioList(
-		'order',
-		$orders,
-		isset($form) ? $form->formType->order->id : null,
-		['name' => 'formType[order][id]'])
-	}}
+	{{ Form::radioList('order', $orders, isset($form) ? $form->formType->order->id : null, ['name' => 'formType[order][id]']) }}
 
 	{{ Form::label('mood','Mood') }}
-	{{ Form::datalist('mood', $moods, [], ['visible' => ['name' => 'formType[mood][name]']]) }}
+	{{ Form::datalist('mood', $moods, [], ['visible' => ['name' => 'formType[mood][name]', 'required' => 'required']]) }}
 
-	{{ Form::radioList(
-		'tense',
-		$tenses, 
-		isset($form) ? $form->formType->tense->id : null,
-		['name' => 'formType[tense][id]']
-	) }}
+	{{ Form::radioList('tense', $tenses, isset($form) ? $form->formType->tense->id : null, ['name' => 'formType[tense][id]']) }}
 </fieldset>
 <fieldset>
 	{{ Form::radioList(
 		'isAbsolute',
 		[
-			[
-				'id'    => null,
-				'value' => 'N/A'
-			],
-			[
-				'id'    => 1,
-				'value' => 'Absolute'
-			],
-			[
-				'id'    => 0,
-				'value' => 'Objective'
-			]
+			['id'    => null, 'value' => 'N/A'],
+			['id'    => 1,    'value' => 'Absolute'],
+			['id'    => 0,    'value' => 'Objective']
 		],
 		isset($form) ? $form->formType->isAbsolute : null,
 		[
@@ -104,9 +63,9 @@
 	) }}
 
 	{{ Form::label('isNegative','Negative') }}
-	{{ Form::checkbox('isNegative',1) }}
+	{{ Form::checkbox('isNegative', 1, isset($form) ? $form->formType->isNegative : null, ['name' => 'formType[isNegative]']) }}
 	{{ Form::label('isDiminutive','Diminutive') }}
-	{{ Form::checkbox('isDiminutive',1) }}
+	{{ Form::checkbox('isDiminutive', 1, isset($form) ? $form->formType->isDiminutive : null, ['name' => 'formType[isDiminutive]']) }}
 </fieldset>
 <fieldset>
 	{{ Form::submit('Submit') }}
@@ -122,7 +81,48 @@
 		datalist('secondaryObject');
 		datalist('class');
 		datalist('mood');
+
+		defaultRadios();
+		defaultDatalists();
 	});
+
+	function defaultDatalists()
+	{
+		$('input[list][required]').each(function(i,e){
+			var textField = $(this);
+			var datalist = textField.next();
+			var hiddenField = datalist.next();
+			var defaultOption = datalist.children().first();
+
+			textField.val(defaultOption.val());
+			hiddenField.val(defaultOption.data('value'));
+		});
+	}
+
+	function defaultRadios()
+	{
+		var all = $('input:radio').map(function(i,e) {
+			return $(e).attr('name');
+		}).get();
+
+		function filter(array) {
+			var result = [];
+			$.each(array, function(i, e){
+				if($.inArray(e,result) == -1){
+					result.push(e);
+				}
+			});
+			return result;
+		};
+
+		var radios = filter(all);
+
+		$.each(radios,function(i, e){
+			if(!$('input:radio[name="'+e+'"]:checked').val()){
+				$('input:radio[name="'+e+'"]:first').attr('checked','checked');
+			}
+		});
+	}
 </script>
 
 @stop

@@ -1,7 +1,6 @@
 @extends('layout')
 
 @section('content')
-
 	<div class = 'show'>
 		<h1>{{ $form->surfaceForm }} (<a href = '/languages/{{ $form->language->id }}'>{{ $form->language->name }}</a>) (<a href = '/forms/{{ $form->id }}/edit'>Edit</a>)</h1>
 		<table>
@@ -19,7 +18,13 @@
 				<td class = 'label'>Morphemes</td>
 				<td class = 'value'>
 					@foreach($form->morphemes as $morpheme)
-						<a href = '/morphemes/{{ $morpheme->id }}'>{{ $morpheme->name }}</a>
+						@if($morpheme->name !== 'V')
+							<a href = '/morphemes/{{ $morpheme->id }}'>
+						@endif
+						{{ $morpheme->name }}
+						@if($morpheme->name !== 'V')
+							</a>
+						@endif
 					@endforeach
 				</td>
 			</tr>
@@ -46,7 +51,7 @@
 				</td>
 			<tr>
 				<td class = 'label'>Class</td>
-				<td class = 'value'>{{ $form->formType->class->name }}</td>
+				<td class = 'value'>{{ $form->formType->formClass->name }}</td>
 			</tr>
 			<tr>
 				<td class = 'label'>Order</td>

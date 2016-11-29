@@ -5,7 +5,7 @@ use Illuminate\Database\Seeder;
 
 class seed_morphemes extends Seeder
 {
-	private $numLanguages = 2;
+	private $numLanguages = 3;
 
     /**
      * Run the database seeds.

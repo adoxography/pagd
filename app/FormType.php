@@ -21,21 +21,25 @@ class FormType extends Model
         'isNegative',
         'isDiminutive'
     ];
+
     protected $rules = [
-        'subject_id'         => ['required','integer'],
-        'primaryObject_id'   => ['nullable'],
-        'secondaryObject_id' => ['nullable'],
-        'class_id'           => ['required','integer'],
-        'order_id'           => ['required','integer'],
-        'tense_id'           => ['required','integer'],
-        'mood_id'            => ['required','integer'],
-        'isAbsolute'         => ['nullable'],
+        'subject_id'         => ['required','integer','exists:Arguments,id'],
+        'primaryObject_id'   => ['nullable','integer','exists:Arguments,id'],
+        'secondaryObject_id' => ['nullable','integer','exists:Arguments,id'],
+        'class_id'           => ['required','integer','exists:Classes,id'],
+        'order_id'           => ['required','integer','exists:Orders,id'],
+        'tense_id'           => ['required','integer','exists:Tenses,id'],
+        'mood_id'            => ['required','integer','exists:Moods,id'],
+        'isAbsolute'         => ['nullable','boolean'],
+        'isNegative'         => ['required','boolean'],
+        'isDiminutive'       => ['required','boolean']
     ];
 
     public static function boot(){
         parent::boot();
 
         static::saving(function($model){
+            // The request's validator should catch any errors, but just to be safe
             return $model->validate();
         });
     }
@@ -43,10 +47,12 @@ class FormType extends Model
     public function validate(){
         $rc = true;
         $v = Validator::make($this->getAttributes(),$this->rules);
+
         if($v->fails()){
             $this->errors = $v->messages();
             $rc = false;
         }
+
         return $rc;
     }
 

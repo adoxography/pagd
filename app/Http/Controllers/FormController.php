@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Form;
+use App\FormType;
 use App\Http\Requests\LangFormRequest;
 use App\Language;
 use App\Morpheme;
@@ -20,6 +21,7 @@ class FormController extends Controller
     
     public function index()
     {
+        dd('wtf');
         $forms = Form::all();
 
         return view('forms.index', compact('forms'));
@@ -66,28 +68,28 @@ class FormController extends Controller
 
     public function store(LangFormRequest $request)
     {
-        $formData = $request->formData;
         $destination;
-        //dd($request);
-        
+        $formData = $request->formData;
+
+        //Set the type
+        $formData['formType_id'] = $this->getType($request->formTypeData);
+
         //Set a point to rollback to in case something goes wrong
         DB::beginTransaction();
-
-        //Input any extra morphemes
-        if ($request->morphemes) {
-            $this->insertMorphemes($request->morphemes, $request->formData['language_id']);
-        }//if
 
         //Try to insert the form
         $form = new Form($formData);
 
         if (!$form->save()) {
             DB::rollback();
-            if (!isset($form->errors['missing'])) {
-                $destination = back()->withInput();
-            } else {
-                $missing = $form->errors['missing'];
-                $destination = view('morphemes.createMulti', compact('missing', 'formData'));
+            if (isset($form->errors['missing'])) {
+                session(['formData' => $formData, 'missing' => $form->errors['missing']]);
+                return redirect()->action('MorphemeController@createMulti');
+                //$destination = view('morphemes.createMulti', compact('missing', 'formData'));
+            }
+            else
+            {
+                dd($form);
             }
         } else {
             DB::commit();
@@ -109,9 +111,10 @@ class FormController extends Controller
             'parent.language',
             'formType.subject',
             'formType.primaryObject',
+            'formType.secondaryObject',
             'formType.order',
             'formType.mood',
-            'formType.class',
+            'formType.formClass',
             'formType.tense'
         ]);
         return view('forms.show', compact('form'));
@@ -147,7 +150,6 @@ class FormController extends Controller
         return $results;
     }
     
-
     private function getType($data)
     {
         $type = null;
@@ -158,11 +160,10 @@ class FormController extends Controller
 
         //If it's not there, create a new one
         if (!$type) {
-            $type = new FormType(array_filter($data, 'strlen'));
-            $type->save();
+            $type = FormType::create(array_filter($data, 'strlen'));
         }
 
-        return $type;
+        return $type->id;
     }
 
     private function convertToRules($data)

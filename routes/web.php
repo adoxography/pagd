@@ -27,6 +27,8 @@ Route::get('autocomplete/languages/', 'AutocompleteController@languages');
 Route::get('forms/autofill', 'FormController@autofill');
 
 Route::get('morphemes/autofill', 'MorphemeController@autofill');
+Route::get('morphemes/multi', 'MorphemeController@createMulti');
+Route::post('morphemes/multi', 'MorphemeController@storeMulti');
 
 Route::resource('examples',  'ExampleController');
 Route::resource('forms',     'FormController');

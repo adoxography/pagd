@@ -9,11 +9,7 @@
 @stop
 
 @section('content')
-	{{ Form::open(['method' => 'POST', 'url' => '/forms']) }}
-		@foreach($formData as $key => $value)
-			{{ Form::hidden("formData[$key]", $value) }}
-		@endforeach
-
+	{{ Form::open() }}
 		<fieldset>
 			<ul>
 				@for($i = 0; $i < count($missing); $i++)
@@ -40,8 +36,11 @@
 
 <script>
 	$(document).ready(function(){
-		datalist('slot-0');
-		datalist('gloss-0');
+		for(var i = 0; i < {{ count($missing) }}; i++)
+		{
+			datalist('slot-' + i);
+			datalist('gloss-' + i);
+		}
 	});
 </script>
 

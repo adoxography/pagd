@@ -40,18 +40,11 @@ class LangFormRequest extends FormRequest
             'formType.primaryObject.name'   => ['nullable','exists:Arguments,name'],            
             'formType.secondaryObject.name' => ['nullable','exists:Arguments,name'],
             'formType.formClass.name'       => ['required','exists:Classes,name'],
+            'formType.order.id'             => ['required','integer','exists:Orders,id'],
             'formType.mood.name'            => ['required','exists:Moods,name'],
-
-            'language_id'         => ['required','integer','exists:Languages,id'],
-            'formData.parent_id'  => ['nullable','integer','exists:Forms,id'],
-            'subject_id'          => ['required','integer','exists:Arguments,id'],
-            'primaryObject_id'    => ['nullable','integer','exists:Arguments,id'],
-            'secondaryObject_id'  => ['nullable','integer','exists:Arguments,id'],
-            'class_id'            => ['required','integer','exists:Classes,id'],
-            'formType.order.id'   => ['required','integer','exists:Orders,id'],
-            'mood_id'             => ['required','integer','exists:Moods,id'],
-            'formType.tense.id'   => ['required','integer','exists:Tenses,id'],
-            'formType.isAbsolute' => ['nullable'],
+            'formType.tense.id'             => ['required','integer','exists:Tenses,id'],
+            'formType.isNegative'           => ['boolean'],
+            'formType.isDiminutive'         => ['boolean']
         ];
 
         return $rules;

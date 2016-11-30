@@ -39,7 +39,7 @@ class MorphemeController extends Controller
     }
 
     public function store(MorphemeRequest $request){
-        $morpheme = Morpheme::create($request->all());
+        $morpheme = Morpheme::create(array_filter($request->all(), 'validDatabaseInput'));
         flash($morpheme->name.' created successfully.', 'success');
         return Redirect::to('/morphemes/' . $morpheme->id);
     }

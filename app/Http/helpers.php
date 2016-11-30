@@ -27,16 +27,6 @@ function binarySearch($item, $list)
     return $spot;
 }//binarySearch
 
-// function getOptions($collection, $field = 'name'){
-//     $options = array();
-
-//     foreach($collection as $item){
-//         $options += [$item->id => $item->$field];
-//     }
-
-//     return $options;
-// }
-
 function getOptions($collection, $field = 'name'){
     $options = array();
 
@@ -113,4 +103,8 @@ function printOptions($items, $preset = null, $presetField = null, $display = 'n
             echo "<option value = '" . $item->id . "'>" . $item->getAttribute($display) . '</option>';
         }
     }
+}
+
+function validDatabaseInput($val){
+    return !is_null($val) && $val !== '';
 }

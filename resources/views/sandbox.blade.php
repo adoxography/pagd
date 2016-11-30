@@ -1,5 +1,8 @@
 <?php
-	$moods = App\Mood::select('id','name as value')->get();
+
+use Netcarver\Textile\Parser;
+$parser = new Parser();
+
 ?>
 
 @extends('layout')
@@ -12,17 +15,17 @@
 @stop
 
 @section('content')
-	{{ Form::open(['url' => '/sandbox']) }}
-		{{ Form::label('mood','Mood') }}
-		{{ Form::datalist('mood',$moods) }}
-		{{ Form::submit('Submit') }}
-	{{ Form::close() }}
+	{!! $parser->setRestricted(true)->parse(
+		'|^.
+		|_. row |_. row |
+		|-.
+		| row | row |'
+	) !!}
 @stop
 
 @section('footer')
 	<script>
 		$(document).ready(function(){
-			datalist('mood');
 		});
 	</script>
 @stop

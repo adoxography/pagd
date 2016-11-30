@@ -84,6 +84,10 @@ input[type="radio"] {
 	width: auto;
 }
 
+table, td{
+	border: 1px solid black;
+}
+
 .inputForm {
 	// background-color: $formBG;
 	// border: 1px solid $borderColour;
@@ -172,63 +176,63 @@ input[type="radio"] {
 			padding: 0;
 		}
 
-		table {
-			margin: auto;
-			tr {
-				&:nth-child(2n){
-					background-color: #fffff0;
-				}
-				&:nth-child(2n+1){
-					background-color: #f6f6e5;
-				}
+		// table {
+		// 	margin: auto;
+		// 	tr {
+		// 		&:nth-child(2n){
+		// 			background-color: #fffff0;
+		// 		}
+		// 		&:nth-child(2n+1){
+		// 			background-color: #f6f6e5;
+		// 		}
 
-				td {
-					vertical-align: top;
-					margin: 10px;
-					padding: 10px;
-					width: 250px;
-					font-family: $font;
-					font-size: 16px;
-					color: $fontColour;
-				}
-			}
-		}
+		// 		td {
+		// 			vertical-align: top;
+		// 			margin: 10px;
+		// 			padding: 10px;
+		// 			width: 250px;
+		// 			font-family: $font;
+		// 			font-size: 16px;
+		// 			color: $fontColour;
+		// 		}
+		// 	}
+		// }
 
-		.itemList{
-			width: 200px;
+		// .itemList{
+		// 	width: 200px;
 
-			ul { //The list of items
-				list-style-type: none;
-				margin: auto;
-				padding: 0;
-				max-height: 250px;
-				overflow: auto;
+		// 	ul { //The list of items
+		// 		list-style-type: none;
+		// 		margin: auto;
+		// 		padding: 0;
+		// 		max-height: 250px;
+		// 		overflow: auto;
 
-				li {
-					background-color: $formBG;
-					font-family: $font;
+		// 		li {
+		// 			background-color: $formBG;
+		// 			font-family: $font;
 
-					a {
-						display: block;
-						text-decoration: none;
-						color: $fontColour;
+		// 			a {
+		// 				display: block;
+		// 				text-decoration: none;
+		// 				color: $fontColour;
 
-						&:hover{
-							color: $fontColour;
-							background-color: #b0b0b0;
-						}
-					}
-				}
-			}
-		}
+		// 				&:hover{
+		// 					color: $fontColour;
+		// 					background-color: #b0b0b0;
+		// 				}
+		// 			}
+		// 		}
+		// 	}
+		// }
 
-		.deleteButton {
-			width: 200px;
-			margin: auto;
+		// .deleteButton {
+		// 	width: 200px;
+		// 	margin: auto;
 
-			button {
-				width: 200px;
-			}
-		}
+		// 	button {
+		// 		width: 200px;
+		// 	}
+		// }
 	}
 }

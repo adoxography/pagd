@@ -11,6 +11,7 @@ use App\Mode;
 use App\Order;
 use App\Slot;
 use Illuminate\Support\ServiceProvider;
+use Netcarver\Textile\Parser;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,8 @@ class ViewComposerServiceProvider extends ServiceProvider
         $this->composeLanguageForm();
         $this->composeMorphemeForm();
         $this->composeMultiMorphemeForm();
+
+        $this->composeShow();
     }
 
     private function composeExampleForm()
@@ -86,6 +89,17 @@ class ViewComposerServiceProvider extends ServiceProvider
             $data = [
                 'glosses' => Gloss::select('id', 'abv as value')->get(),
                 'slots'   => Slot::select('id', 'abv as value')->get()
+            ];
+            $view->with($data);
+        });
+    }
+
+    private function composeShow()
+    {
+        view()->composer('morphemes.show', function($view)
+        {
+            $data = [
+                'parser' => new Parser()
             ];
             $view->with($data);
         });

@@ -11,10 +11,7 @@ class SandboxController extends Controller
 {
     
     public function index(){
-    	JavaScript::put([
-            'foo' => 'bar',
-            'age' => 29
-        ]);
+
     	return view('sandbox');
     }
 

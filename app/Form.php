@@ -218,8 +218,7 @@ class Form extends Model
         return new ColHeader(
             $this->language,
             $this->formType->order,
-            $this->formType->mood,
-            $this->formType->tense,
+            $this->formType->mode,
             $this->formType->isNegative,
             $this->formType->isDiminutive,
             $this->formType->isAbsolute

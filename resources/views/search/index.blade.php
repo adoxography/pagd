@@ -18,13 +18,9 @@
 				<option value = 'NULL'>Do not limit</option>
 				{{ printOptions($orders) }}
 			</select>
-			<label id = 'moodSelect'>Mood</label><select name = 'mood' id = 'moodSelect'>
+			<label id = 'modeSelect'>Mode</label><select name = 'mode' id = 'modeSelect'>
 				<option value = 'NULL'>Do not limit</option>
-				{{ printOptions($moods) }}
-			</select>
-			<label id = 'tenseSelect'>Tense</label><select name = 'tense' id = 'tenseSelect'>
-				<option value = 'NULL'>Do not limit</option>
-				{{ printOptions($tenses) }}
+				{{ printOptions($modes) }}
 			</select>
 			<label id = 'classSelect'>Class</label><select name = 'class' id = 'classSelect'>
 				<option value = 'NULL'>Do not limit</option>

@@ -5,14 +5,12 @@ namespace App\Search;
 class ColHeader{
 	private $language;
 	private $order;
-	private $mood;
-	private $tense;
+	private $mode;
 
-	public function __construct($language,$order,$mood,$tense,$isNegative,$isDiminutive,$isAbsolute){
+	public function __construct($language,$order,$mode,$isNegative,$isDiminutive,$isAbsolute){
 		$this->language = $language;
 		$this->order    = $order;
-		$this->mood     = $mood;
-		$this->tense    = $tense;
+		$this->mode     = $mode;
 		$this->isNegative   = $isNegative;
 		$this->isDiminutive = $isDiminutive;
 		$this->isAbsolute   = $isAbsolute;

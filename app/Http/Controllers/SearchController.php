@@ -5,29 +5,26 @@ namespace App\Http\Controllers;
 use App\Form;
 use App\FormClass;
 use App\Http\Requests;
-use App\Mood;
+use App\Mode;
 use App\Order;
 use App\Search\SearchTable;
-use App\Tense;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
     public function index(){
     	$orders = Order::all();
-    	$moods = Mood::all();
+    	$modes = Mode::all();
     	$classes = FormClass::all();
-    	$tenses = Tense::all();
 
-    	return view('search.index', compact('orders','moods','classes','tenses'));
+    	return view('search.index', compact('orders','modes','classes'));
     }
 
     public function search(Request $request){
     	$forms = Form::with(
     		'language.group',
-    		'formType.mood',
-    		'formType.tense',
-    		'formType.class',
+    		'formType.mode',
+    		'formType.formClass',
     		'formType.order',
     		'formType.subject',
     		'formType.primaryObject',

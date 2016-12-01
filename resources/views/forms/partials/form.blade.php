@@ -12,7 +12,7 @@
 	{{ Form::label('phoneticForm','Phonetic Form') }}
 	{{ Form::text('phoneticForm',null,['placeholder' => 'The Algonquianist phonetic transcription', 'autocomplete' => "off"]) }}
 	{{ Form::label('morphemicForm','Morphemic Form') }}
-	{{ Form::text('morphemicForm',null,['placeholder' => 'The morphemes, separated by hyphens', 'autocomplete' => "off", 'required' => 'required']) }}
+	{{ Form::text('morphemicForm',null,['placeholder' => 'The morphemes, separated by hyphens', 'autocomplete' => "off"]) }}
 </fieldset>
 
 <!-- Lineage Information -->

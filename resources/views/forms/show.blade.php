@@ -17,15 +17,19 @@
 			<tr>
 				<td class = 'label'>Morphemes</td>
 				<td class = 'value'>
-					@foreach($form->morphemes as $morpheme)
-						@if($morpheme->name !== 'V')
-							<a href = '/morphemes/{{ $morpheme->id }}'>
-						@endif
-						{{ $morpheme->name }}
-						@if($morpheme->name !== 'V')
-							</a>
-						@endif
-					@endforeach
+					@if(count($form->morphemes) > 0)
+						@foreach($form->morphemes as $morpheme)
+							@if($morpheme->name !== 'V')
+								<a href = '/morphemes/{{ $morpheme->id }}'>
+							@endif
+							{{ $morpheme->name }}
+							@if($morpheme->name !== 'V')
+								</a>
+							@endif
+						@endforeach
+					@else
+						Unclear
+					@endif
 				</td>
 			</tr>
 			<tr>

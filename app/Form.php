@@ -25,7 +25,7 @@ class Form extends Model
     protected $rules = [
         'surfaceForm'   => ['required'],
         'phoneticForm'  => ['nullable'],
-        'morphemicForm' => ['required'],
+        'morphemicForm' => ['nullable'],
         'language_id'   => ['required','integer'],
         'parent_id'     => ['nullable'],
     ];
@@ -88,7 +88,7 @@ class Form extends Model
         if ($validator->fails()) {
             $this->errors = $validator->messages();
         }
-        else if(!$this->hasV())
+        else if($this->morphemicForm && !$this->hasV())
         {
             $this->errors = ['No V'];
         }
@@ -110,16 +110,20 @@ class Form extends Model
     private function morphemesMissing($morphemicForm, $language_id)
     {
         $missing = array();
-        $morphemeNames = explode('-', $morphemicForm);
 
-        foreach ($morphemeNames as $morphemeName) {
-            if ($morphemeName !== '') {
-                try {
-                    Morpheme::where('name', $morphemeName)
-                            ->where('language_id', $language_id)
-                            ->firstOrFail();
-                } catch (ModelNotFoundException $e) {
-                    array_push($missing, $morphemeName);
+        if($morphemicForm)
+        {
+            $morphemeNames = explode('-', $morphemicForm);
+
+            foreach ($morphemeNames as $morphemeName) {
+                if ($morphemeName !== '') {
+                    try {
+                        Morpheme::where('name', $morphemeName)
+                                ->where('language_id', $language_id)
+                                ->firstOrFail();
+                    } catch (ModelNotFoundException $e) {
+                        array_push($missing, $morphemeName);
+                    }
                 }
             }
         }

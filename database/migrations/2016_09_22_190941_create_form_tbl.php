@@ -21,7 +21,7 @@ class CreateFormTbl extends Migration
             $table->unsignedInteger('formType_id');
             $table->string('surfaceForm',100);
             $table->string('phoneticForm',100)->nullable();
-            $table->string('morphemicForm',100);
+            $table->string('morphemicForm',100)->nullable();
             $table->unsignedInteger('parent_id')->nullable();
             $table->text('historicalNotes')->nullable();
             $table->text('comments')->nullable();

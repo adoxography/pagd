@@ -33,7 +33,7 @@ class LangFormRequest extends FormRequest
             'formData'                      => ['required'],
             'surfaceForm'                   => ['required'],
             'phoneticForm'                  => ['nullable'],
-            'morphemicForm'                 => ['required','has:V'],
+            'morphemicForm'                 => ['nullable','has:V'],
             'language.name'                 => ['required','exists:Languages,name'],
             'parent.name'                   => ['nullable','exists:Forms,surfaceForm'],
             'formType.subject.name'         => ['required','exists:Arguments,name'],            

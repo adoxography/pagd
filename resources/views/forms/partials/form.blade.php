@@ -10,9 +10,9 @@
 	{{ Form::label('surfaceForm','Surface Form') }}
 	{{ Form::text('surfaceForm',null,['placeholder' => 'The form as written in a text', 'autocomplete' => "off", 'required' => 'required']) }}	
 	{{ Form::label('phoneticForm','Phonetic Form') }}
-	{{ Form::text('phoneticForm',null,['placeholder' => 'The Algonquianist phonetic transcription', 'autocomplete' => "off"]) }}
+	{{ Form::text('phoneticForm',null,['placeholder' => 'The Algonquianist phonetic transcription (Leave blank if unknown or unclear)', 'autocomplete' => "off"]) }}
 	{{ Form::label('morphemicForm','Morphemic Form') }}
-	{{ Form::text('morphemicForm',null,['placeholder' => 'The morphemes, separated by hyphens', 'autocomplete' => "off"]) }}
+	{{ Form::text('morphemicForm',null,['placeholder' => 'The morphemes, separated by hyphens (Leave blank if unknown or unclear)', 'autocomplete' => "off"]) }}
 </fieldset>
 
 <!-- Lineage Information -->
@@ -36,10 +36,10 @@
 		{{ Form::datalist('secondaryObject', $arguments, [], ['visible' => ['name' => 'formType[secondaryObject][name]', 'placeholder' => 'None']]) }}
 	</fieldset>
 
-	{{ Form::label('class','Class') }}
-	{{ Form::datalist('class', $classes, [], ['visible' => ['name' => 'formType[formClass][name]', 'required' => 'required', 'default' => 'AI']]) }}
-
-	{{ Form::radioList('order', $orders, isset($form) ? $form->formType->order->id : null, ['name' => 'formType[order][id]']) }}
+{{-- 	{{ Form::label('class','Class') }}
+	{{ Form::datalist('class', $classes, [], ['visible' => ['name' => 'formType[formClass][name]', 'required' => 'required', 'default' => 'AI']]) }} --}}
+	{{ Form::radioList('class', $classes, isset($form) ? $form->formType->class_id : null,  ['name' => 'formType[class_id]']) }}
+	{{ Form::radioList('order', $orders, isset($form)  ? $form->formType->order->id : null, ['name' => 'formType[order_id]']) }}
 
 	{{ Form::label('mode','Mode') }}
 	{{ Form::datalist('mode', $modes, [], ['visible' => ['name' => 'formType[mode][name]', 'required' => 'required', 'default' => 'Indicative']]) }}

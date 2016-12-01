@@ -56,7 +56,8 @@ class ParseLangFormRequest
         ]);
 
         // Pull out the radio data
-        $data['order_id'] = $request['formType']['order']['id'];
+        $data['order_id'] = $request['formType']['order_id'];
+        $data['class_id'] = $request['formType']['class_id'];
 
         return $data;
     }

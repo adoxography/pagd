@@ -63,8 +63,11 @@ class Form extends Model
         });
 
         static::saved(function ($model) {
-            $model->connectMorphemes($model);
-            $model->connectDuplicates($model);
+            if($model->morphemicForm)
+            {
+                $model->connectMorphemes($model);
+                $model->connectDuplicates($model);
+            }
         });
     }
 

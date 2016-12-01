@@ -21,7 +21,6 @@ class FormController extends Controller
     
     public function index()
     {
-        dd('wtf');
         $forms = Form::all();
 
         return view('forms.index', compact('forms'));
@@ -52,7 +51,6 @@ class FormController extends Controller
     
     public function update(LangFormRequest $request, Form $form)
     {
-        dd($request);
         $form->update($request->all());
         flash($form->surfaceForm.' updated successfully', 'success');
         return redirect('/forms/'.$form->id);

@@ -39,8 +39,9 @@ class LangFormRequest extends FormRequest
             'formType.subject.name'         => ['required','exists:Arguments,name'],            
             'formType.primaryObject.name'   => ['nullable','exists:Arguments,name'],            
             'formType.secondaryObject.name' => ['nullable','exists:Arguments,name'],
-            'formType.formClass.name'       => ['required','exists:Classes,name'],
-            'formType.order.id'             => ['required','integer','exists:Orders,id'],
+            // 'formType.formClass.name'       => ['required','exists:Classes,name'],
+            'formType.class_id'             => ['required', 'integer','exists:Classes,id'],
+            'formType.order_id'             => ['required','integer','exists:Orders,id'],
             'formType.mode.name'            => ['required','exists:Modes,name'],
             'formType.isNegative'           => ['boolean'],
             'formType.isDiminutive'         => ['boolean']
@@ -61,8 +62,6 @@ class LangFormRequest extends FormRequest
             'formType.subject.name.exists'         => 'There is no subject by that name in the database',            
             'formType.primaryObject.name.exists'   => 'There is no primary object by that name in the database',            
             'formType.secondaryObject.name.exists' => 'There is no secondary object by that name in the database',
-            'formType.formClass.name.required'     => 'Please enter a class.',
-            'formType.formClass.name.exists'       => 'There is no class by that name in the database.',
             'formType.mode.name.required'          => 'Please enter a mode.',
             'formType.mode.name.exists'            => 'There is no mode by that name in the database.'
         ];

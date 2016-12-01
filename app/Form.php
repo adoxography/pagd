@@ -209,7 +209,7 @@ class Form extends Model
             $this->formType->subject,
             $this->formType->primaryObject,
             $this->formType->secondaryObject,
-            $this->formType->class
+            $this->formType->formClass
         );
     }
 
@@ -227,15 +227,21 @@ class Form extends Model
 
     public function toHTML()
     {
-        $formRow     = "<tr><td colspan = '" . count($this->morphemes) . "'><a href='/forms/" . $this->id . "'>" . $this->surfaceForm . "</a><td></tr>";
-        $morphemeRow = '<tr>';
-        $glossRow    = '<tr>';
-        foreach ($this->morphemes as $morpheme) {
-            $morphemeRow .= "<td><a href='/morphemes/" . $morpheme->id . "'>" . $morpheme->name . '</a></td>';
-            $glossRow    .= "<td><a href='/glosses/" . $morpheme->gloss->id . "'>" . $morpheme->gloss->abv . '</a></td>';
+        $numMorphemes = count($this->morphemes);
+        $morphemeRow = "";
+        $glossRow = "";
+        $formRow     = "<tr><td colspan = '".max(1,$numMorphemes)."'><a href='/forms/" . $this->id . "'>" . $this->surfaceForm . "</a></td></tr>";
+
+        if($numMorphemes > 0)
+        {
+            foreach ($this->morphemes as $morpheme) {
+                $morphemeRow .= "<td><a href='/morphemes/" . $morpheme->id . "'>" . $morpheme->name . '</a></td>';
+                $glossRow    .= "<td><a href='/glosses/" . $morpheme->gloss->id . "'>" . $morpheme->gloss->abv . '</a></td>';
+            }
+            $morphemeRow = "<tr>$morphemeRow</tr>";
+            $glossRow    = "<tr>$glossRow</tr>";
         }
-        $morphemeRow .= '</tr>';
-        $glossRow    .= '</tr>';
+
         return '<table>' . $formRow . $morphemeRow . $glossRow . '</table>';
     }
 }

@@ -29,6 +29,7 @@ class ViewComposerServiceProvider extends ServiceProvider
         $this->composeMultiMorphemeForm();
 
         $this->composeShow();
+        $this->composeSearch();
     }
 
     private function composeExampleForm()
@@ -103,6 +104,29 @@ class ViewComposerServiceProvider extends ServiceProvider
             ];
             $view->with($data);
         });
+    }
+
+    private function composeSearch()
+    {
+        view()->composer('search.index', function($view)
+        {
+            $data = [
+                'classes'   => $this->toArray(FormClass::select('id','name as value')->get()),
+                'modes'     => $this->toArray(Mode::select('id','name as value')->get()),
+                'orders'    => $this->toArray(Order::select('id','name as value')->get())
+            ];
+            $view->with($data);
+        });
+    }
+
+    private function toArray($collection){
+        $output = [];
+
+        foreach($collection as $item){
+            $output[] = [$item->id => $item->value];
+        }
+
+        return $output;
     }
 
     /**

@@ -54,7 +54,7 @@ class FormController extends Controller
     {
         $sourceData = $request->sourceData;
 
-        $form->update($request->all());
+        $form->update($request->formData);
 
         $form->sources()->detach();
         for($i = 0; $i < count($sourceData); $i++){
@@ -80,8 +80,8 @@ class FormController extends Controller
         $formData = $request->formData;
         $sourceData = $request->sourceData;
 
-        //Set the type
-        $formData['formType_id'] = $this->getType($request->formTypeData);
+        // //Set the type
+        // $formData['formType_id'] = $this->getType($request->formTypeData);
 
         //Set a point to rollback to in case something goes wrong
         DB::beginTransaction();
@@ -134,42 +134,32 @@ class FormController extends Controller
         return view('forms.show', compact('form'));
     }
     
-    private function getType($data)
-    {
-        $type = null;
+    // private function getType($data)
+    // {
+    //     $type = null;
 
-        //Try to find the type in the database
-        $rules = $this->convertToRules($data);
-        $type = FormType::where($rules)->first();
+    //     //Try to find the type in the database
+    //     $rules = $this->convertToRules($data);
+    //     $type = FormType::where($rules)->first();
 
-        //If it's not there, create a new one
-        if (!$type) {
-            $type = FormType::create(array_filter($data, 'strlen'));
-        }
+    //     //If it's not there, create a new one
+    //     if (!$type) {
+    //         $type = FormType::create(array_filter($data, 'strlen'));
+    //     }
 
-        return $type->id;
-    }
+    //     return $type->id;
+    // }
 
-    private function convertToRules($data)
-    {
-        $rules = array();
+    // private function convertToRules($data)
+    // {
+    //     $rules = array();
 
-        foreach ($data as $key => $value) {
-            if ($value === "") {
-                $value = null;
-            }
-            array_push($rules, [$key, $value]);
-        }
+    //     foreach ($data as $key => $value) {
+    //         if ($value === "") {
+    //             $value = null;
+    //         }
+    //         array_push($rules, [$key, $value]);
+    //     }
 
-        return $rules;
-    }
-
-    private function insertMorphemes($requests, $language_id)
-    {
-        foreach ($requests as $request) {
-            $morpheme = new Morpheme($request);
-            $morpheme->language_id = $language_id;
-            $morpheme->save();
-        }
-    }
+    //     return $rules;
 }

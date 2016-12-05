@@ -20,10 +20,7 @@ class ParseLangFormRequest
         // This might have already been set if morphemes were missing.
         // Don't worry about re-parsing if this is the case.
         if (!isset($request->formData)) {
-            $request['isNegative']   = $this->handleCheck($request,'isNegative');
-            $request['isDiminutive'] = $this->handleCheck($request,'isDiminutive');
-
-            $request['formTypeData'] = $this->parseFormTypeData($request);
+            //$request['formTypeData'] = $this->parseFormTypeData($request);
             $request['formData']     = $this->parseFormData($request);
             $request['sourceData']   = $this->parseSourceData($request);
         }
@@ -33,34 +30,72 @@ class ParseLangFormRequest
 
     private function parseFormData($request)
     {
-        return array_filter($request->only([
+        $data = array_filter($request->only([
             'surfaceForm',
             'phoneticForm',
             'morphemicForm',
             'language_id',
             'parent_id'
         ]), 'strlen');
+
+        $data['formType_id'] = $this->getType($request);
+
+        return $data;
+    }
+
+    private function getType($request)
+    {
+        $data = $this->parseFormTypeData($request);
+        $type = null;
+
+        //Try to find the type in the database
+        $rules = $this->convertToRules($data);
+        $type = FormType::where($rules)->first();
+
+        //If it's not there, create a new one
+        if (!$type) {
+            $type = FormType::create(array_filter($data, 'strlen'));
+        }
+
+        return $type->id;
     }
 
     private function parseFormTypeData($request)
     {
-        // Pull out the easy stuff
         $data = $request->only([
-            'subject_id',
-            'primaryObject_id',
-            'secondaryObject_id',
-            'class_id',
-            'mode_id',
-            'isAbsolute',
-            'isNegative',
-            'isDiminutive'
+            'formType.subject_id',
+            'formType.primaryObject_id',
+            'formType.secondaryObject_id',
+            'formType.mode_id',
+            'formType.isAbsolute',
+            'formType.class_id',
+            'formType.order_id',
+            'formType.isNegative',
+            'formType.isDiminutive'
         ]);
+        $data = $data['formType'];
 
-        // Pull out the radio data
-        $data['order_id'] = $request['formType']['order_id'];
-        $data['class_id'] = $request['formType']['class_id'];
+        $data['isNegative']   = $this->handleCheck($data,'isNegative');
+        $data['isDiminutive'] = $this->handleCheck($data,'isDiminutive');
+        if($data['isAbsolute'] === 'null'){
+            $data['isAbsolute'] = null;
+        }
 
         return $data;
+    }
+
+    private function convertToRules($data)
+    {
+        $rules = array();
+
+        foreach ($data as $key => $value) {
+            if ($value === "") {
+                $value = null;
+            }
+            array_push($rules, [$key, $value]);
+        }
+
+        return $rules;
     }
 
     private function parseSourceData($request)

@@ -31,7 +31,10 @@ class CustomFormServiceProvider extends ServiceProvider
         });
 
         Form::macro('datalist',function($name,$choices,$values = [], $options = []){
-            $output = "";
+            $textInput = '';
+            $datalist = '';
+            $hiddenInput = '';
+
             $textValue     = isset($values['visible'])  ? $values['visible']  : null;
             $hiddenValue   = isset($values['hidden'])   ? $values['hidden']   : null;
             $textOptions   = isset($options['visible']) ? $options['visible'] : [];
@@ -49,27 +52,31 @@ class CustomFormServiceProvider extends ServiceProvider
                 unset($textOptions['default']);
             }
             
-            $output .= $this->text(
+            //Make the textbox
+            $textInput = $this->text(
                 $inputName,
                 $textValue,
                 ['id' => $name, 'list' => $name.'-datalist', 'autocomplete' => 'off'] + $textOptions
             );
-            $output .= "<datalist id='$name-datalist'>";
+
+            //Make the datalist
             foreach($choices as $choice){
-                $output .= "<option ";
+                $datalist .= "<option ";
                 if($choice->value == $default){
-                    $output .= "data-default = 'true' ";
+                    $datalist .= "data-default = 'true' ";
                 }
-                $output .= "data-value = '$choice->id'>$choice->value</option>";
+                $datalist .= "data-value = '$choice->id'>$choice->value</option>";
             }//foreach
-            $output .= '</datalist>';
-            $output .= $this->hidden(
+            $datalist = "<datalist id='$name-datalist'>$datalist</datalist>";
+
+            //Make the hidden input to store the ID
+            $hiddenInput = $this->hidden(
                 $name.'_id',
                 $hiddenValue,
                 ['id' => $name.'_id'] + $hiddenOptions
             );
 
-            return $this->toHtmlString($output);
+            return $this->toHtmlString($textInput.$datalist.$hiddenInput);
         });
 
         Form::macro('radioList', function($name, $choices, $selected = null, $options = []){

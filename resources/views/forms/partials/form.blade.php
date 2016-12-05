@@ -26,24 +26,24 @@
 	<fieldset class = 'arguments'>
 		<legend>Arguments</legend>
 		{{ Form::label('subject', 'Subject') }}
-		{{ Form::datalist('subject', $arguments, [], ['visible' => ['name' => 'formType[subject][name]', 'required' => 'required', 'default' => '1s']]) }} <!-- Maybe remove this in production -->
+		{{ Form::datalist('subject', $arguments, [], ['visible' => ['name' => 'formType[subject][name]', 'required' => 'required', 'default' => '1s'], 'hidden' => ['name' => 'formType[subject_id]']]) }} <!-- Maybe remove this in production -->
 		{{ Form::label('primaryObject', 'P. Object') }}
-		{{ Form::datalist('primaryObject', $arguments, [], ['visible' => ['name' => 'formType[primaryObject][name]', 'placeholder' => 'None']]) }}
+		{{ Form::datalist('primaryObject', $arguments, [], ['visible' => ['name' => 'formType[primaryObject][name]', 'placeholder' => 'None'], 'hidden' => ['name' => 'formType[primaryObject_id]']]) }}
 		{{ Form::label('secondaryObject', 'S. Object') }}
-		{{ Form::datalist('secondaryObject', $arguments, [], ['visible' => ['name' => 'formType[secondaryObject][name]', 'placeholder' => 'None']]) }}
+		{{ Form::datalist('secondaryObject', $arguments, [], ['visible' => ['name' => 'formType[secondaryObject][name]', 'placeholder' => 'None'], 'hidden' => ['name' => 'formType[secondaryObject_id]']]) }}
 	</fieldset>
 
 	{{ Form::radioList('class', $classes, isset($form) ? $form->formType->class_id : null,  ['name' => 'formType[class_id]']) }}
 	{{ Form::radioList('order', $orders, isset($form)  ? $form->formType->order->id : null, ['name' => 'formType[order_id]']) }}
 
 	{{ Form::label('mode','Mode') }}
-	{{ Form::datalist('mode', $modes, [], ['visible' => ['name' => 'formType[mode][name]', 'required' => 'required', 'default' => 'Indicative']]) }}
+	{{ Form::datalist('mode', $modes, [], ['visible' => ['name' => 'formType[mode][name]', 'required' => 'required', 'default' => 'Indicative'], 'hidden' => ['name' => 'formType[mode_id]']]) }}
 </fieldset>
 <fieldset>
 	{{ Form::radioList(
 		'isAbsolute',
 		[
-			['id'    => null, 'value' => 'N/A'],
+			['id'    => 'null', 'value' => 'N/A'],
 			['id'    => 1,    'value' => 'Absolute'],
 			['id'    => 0,    'value' => 'Objective']
 		],

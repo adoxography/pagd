@@ -20,11 +20,12 @@ class ParseLangFormRequest
         // This might have already been set if morphemes were missing.
         // Don't worry about re-parsing if this is the case.
         if (!isset($request->formData)) {
-            $request['isNegative'] = $this->handleCheck($request,'isNegative');
+            $request['isNegative']   = $this->handleCheck($request,'isNegative');
             $request['isDiminutive'] = $this->handleCheck($request,'isDiminutive');
 
             $request['formTypeData'] = $this->parseFormTypeData($request);
             $request['formData']     = $this->parseFormData($request);
+            $request['sourceData']   = $this->parseSourceData($request);
         }
 
         return $next($request);
@@ -58,6 +59,16 @@ class ParseLangFormRequest
         // Pull out the radio data
         $data['order_id'] = $request['formType']['order_id'];
         $data['class_id'] = $request['formType']['class_id'];
+
+        return $data;
+    }
+
+    private function parseSourceData($request)
+    {
+        $data = $request->only([
+            'source_id',
+            'extraInfo'
+        ]);
 
         return $data;
     }

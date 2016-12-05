@@ -88,6 +88,18 @@ table, td{
 	border: 1px solid black;
 }
 
+.ui-menu {
+	width: 150px;
+}
+
+#menu {
+	float:left;
+}
+
+#content {
+	float:left;
+}
+
 .inputForm {
 	// background-color: $formBG;
 	// border: 1px solid $borderColour;
@@ -126,34 +138,34 @@ table, td{
 	// }
 }
 
-#header {
+// #header {
 
-	ul {
-		list-style-type:none;
-	 	margin: 0;
-	   	padding: 0;
-	    background-color: $headerColour;
-	    overflow: hidden;
-	}
+// 	ul {
+// 		list-style-type:none;
+// 	 	margin: 0;
+// 	   	padding: 0;
+// 	    background-color: $headerColour;
+// 	    overflow: hidden;
+// 	}
 
-  	li {
-  		float:left;
+//   	li {
+//   		float:left;
 
-	  	a {
-	  		display: block;
-	  		text-align:center;
-	    	padding: 14px 16px;
-	    	text-decoration: none;
-	    	font-family: $font;
-	    	color: $fontColour;
+// 	  	a {
+// 	  		display: block;
+// 	  		text-align:center;
+// 	    	padding: 14px 16px;
+// 	    	text-decoration: none;
+// 	    	font-family: $font;
+// 	    	color: $fontColour;
 
-	    	&:hover {
-	    		background-color: #a0a0c0;
-	    		color: $fontColour;
-	    	}
-	    }
-  	}
-}
+// 	    	&:hover {
+// 	    		background-color: #a0a0c0;
+// 	    		color: $fontColour;
+// 	    	}
+// 	    }
+//   	}
+// }
 
 #content {
 	padding: 20px;

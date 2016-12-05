@@ -30,6 +30,17 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         $this->composeShow();
         $this->composeSearch();
+        $this->composeLayout();
+    }
+
+    private function composeLayout(){
+        view()->composer('layout', function($view){
+            $data = [
+                'languageHeadings' => Language::select('id','name')->get()
+            ];
+
+            $view->with($data);
+        });
     }
 
     private function composeExampleForm()

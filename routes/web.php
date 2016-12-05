@@ -33,6 +33,7 @@ Route::resource('forms',     'FormController');
 Route::resource('groups',    'GroupController');
 Route::resource('languages', 'LanguageController');
 Route::resource('morphemes', 'MorphemeController');
+Route::resource('sources',   'SourceController');
 
 Route::get('languages/{language}/addChild',    'LanguageController@addChild');
 Route::get('languages/{language}/addForm',     'LanguageController@addForm');

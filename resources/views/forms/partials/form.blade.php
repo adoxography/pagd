@@ -1,7 +1,4 @@
 @section('header')
-	<link rel = "stylesheet" type = "text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css"/>
-	<script src = "https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-	<script src = "http://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 	<script src = '/js/formUtil.js'></script>
 @stop
 
@@ -36,8 +33,6 @@
 		{{ Form::datalist('secondaryObject', $arguments, [], ['visible' => ['name' => 'formType[secondaryObject][name]', 'placeholder' => 'None']]) }}
 	</fieldset>
 
-{{-- 	{{ Form::label('class','Class') }}
-	{{ Form::datalist('class', $classes, [], ['visible' => ['name' => 'formType[formClass][name]', 'required' => 'required', 'default' => 'AI']]) }} --}}
 	{{ Form::radioList('class', $classes, isset($form) ? $form->formType->class_id : null,  ['name' => 'formType[class_id]']) }}
 	{{ Form::radioList('order', $orders, isset($form)  ? $form->formType->order->id : null, ['name' => 'formType[order_id]']) }}
 
@@ -65,6 +60,9 @@
 	{{ Form::checkbox('isDiminutive', 1, isset($form) ? $form->formType->isDiminutive : null, ['name' => 'formType[isDiminutive]']) }}
 </fieldset>
 <fieldset>
+	@include('sources.partials.select_source')
+</fieldset>
+<fieldset>
 	{{ Form::submit('Submit') }}
 </fieldset>
 
@@ -75,6 +73,10 @@
 		formUtil.initAutocomplete('parent','forms');
 		formUtil.initDatalists();
 		formUtil.initRadios();
+
+		$('.remove-source-button').click(function(){
+			$(this).parent().remove();
+		})
 	});
 </script>
 

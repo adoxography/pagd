@@ -35,7 +35,7 @@
 </fieldset>
 <fieldset>
 	{{ Form::label('comments','Comments') }}
-	{{ Form::textarea('comments') }}
+	{{ Form::textarea('comments', null, ['rows' => 3]) }}
 </fieldset>
 <fieldset>
 	{{ Form::submit('Submit') }}

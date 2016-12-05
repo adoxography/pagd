@@ -576,30 +576,16 @@ table, td {
   border: 1px solid black;
 }
 
-#header ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  background-color: #c0c0ff;
-  overflow: hidden;
+.ui-menu {
+  width: 150px;
 }
 
-#header li {
+#menu {
   float: left;
 }
 
-#header li a {
-  display: block;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-family: "Helvetica";
-  color: #000;
-}
-
-#header li a:hover {
-  background-color: #a0a0c0;
-  color: #000;
+#content {
+  float: left;
 }
 
 #content {

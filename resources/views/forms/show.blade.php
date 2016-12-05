@@ -92,6 +92,19 @@
 				@else
 					<td class = 'value'>None</td>
 				@endif
+			</tr>
+			<tr>
+				<td class = 'label'>Sources</td>
+				@if(count($form->sources) > 0)
+					<td class = 'itemList'>
+						<ul>
+							@foreach($form->sources as $source)
+								<li><span title = '{{ $source->long }}'>{{ $source->short }}</span>, {{ $source->pivot->extraInfo }}</li>
+							@endforeach
+						</ul>
+					</td>
+				@endif
+			</tr>
 		</table>
 		<form method = 'POST' action = '/forms/{{ $form->id }}' class = 'deleteButton'>
 			{{ method_field('DELETE') }}

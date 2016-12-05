@@ -38,6 +38,9 @@ class Form extends Model
             //Other forms might be using the morphemes, but unlink them from this one
             $model->morphemes()->detach();
 
+            //Unlink all of this form's sources
+            $model->sources()->detach();
+
             //Delete all of its examples, though
             foreach ($model->examples as $example) {
                 $example->delete();
@@ -201,6 +204,11 @@ class Form extends Model
     public function examples()
     {
         return $this->hasMany(Example::class, 'form_id');
+    }
+
+    public function sources()
+    {
+        return $this->belongstoMany(Source::class, 'Sources_Forms')->withPivot('extraInfo');
     }
 
     public function getTableRow()

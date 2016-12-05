@@ -44,14 +44,25 @@ class FormController extends Controller
             'formType.secondaryObject',
             'formType.mode',
             'formType.formClass',
-            'formType.order'
+            'formType.order',
+            'sources'
         );
         return view('forms.edit', compact('form'));
     }
     
     public function update(LangFormRequest $request, Form $form)
     {
+        $sourceData = $request->sourceData;
+
         $form->update($request->all());
+
+        $form->sources()->detach();
+        for($i = 0; $i < count($sourceData); $i++){
+            if(isset($sourceData['source_id'][$i])){
+                $form->sources()->attach($sourceData['source_id'][$i], ['extraInfo' => $sourceData['extraInfo'][$i]]);
+            }
+        }
+
         flash($form->surfaceForm.' updated successfully', 'success');
         return redirect('/forms/'.$form->id);
     }
@@ -67,6 +78,7 @@ class FormController extends Controller
     {
         $destination;
         $formData = $request->formData;
+        $sourceData = $request->sourceData;
 
         //Set the type
         $formData['formType_id'] = $this->getType($request->formTypeData);
@@ -88,6 +100,12 @@ class FormController extends Controller
                 dd($form);
             }
         } else {
+            for($i = 0; $i < count($sourceData); $i++){
+                if(isset($sourceData['source_id'][$i])){
+                    $form->sources()->attach($sourceData['source_id'][$i], ['extraInfo' => $sourceData['extraInfo'][$i]]);
+                }
+            }
+
             DB::commit();
             flash($form->surfaceForm.' created successfully.', 'success');
             $destination = redirect('/forms/' . $form->id);
@@ -110,7 +128,8 @@ class FormController extends Controller
             'formType.secondaryObject',
             'formType.order',
             'formType.mode',
-            'formType.formClass'
+            'formType.formClass',
+            'sources'
         ]);
         return view('forms.show', compact('form'));
     }

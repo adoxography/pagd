@@ -8,9 +8,8 @@
 </div>
 
 <fieldset id='old_source'>
-	<p>Select a source</p>
-	{{ Form::text('source') }}
-	{{ Form::hidden('source') }}
+	{{ Form::label('existing-source', 'Select an existing source') }}
+	{{ Form::text('existing-source') }}
 </fieldset>
 <fieldset id='new_source'>
 	<p>Enter a new source</p>
@@ -34,7 +33,27 @@
 		var sourceDialog, form, sourceField,
 		short = $('#short'),
 		long  = $('#long'),
-		numSources = {{ isset($form) ? count($form->sources) : 0 }};
+		numSources = {!! isset($form) ? count($form->sources) : 0 !!};
+
+		$('#existing-source').autocomplete({
+			source: function(request, response){
+			    $.ajax({
+			        url: '/autocomplete/sources',
+			        dataType: 'json',
+			        data: {
+			          	term: request.term
+			        },
+			        success: function(data){
+			          	response(data);
+			        }
+			    });
+			},
+			select: function(event, ui){
+				$('#source-list').append(sourceField(ui.item.value, ui.item.id));
+				$(this).val('');
+				return false;
+			}
+		});
 
 		sourceField = function(text, id){
 			var source = $('<li>').append(

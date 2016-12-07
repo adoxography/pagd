@@ -22,7 +22,7 @@
 		]
 	) }}
 	{{ Form::label('form') }}
-	{{ Form::text('form',(isset($presetForm) ? $presetForm->morphemicForm : null)) }}
+	{{ Form::text('form',(isset($presetForm) ? $presetForm->surfaceForm : null)) }}
 	{{ Form::hidden('form_id',(isset($presetForm) ? $presetForm->id : null),['id' => 'form_id']) }}
 {{-- 		{{ Form::label('parent','Parent') }}
 	{{ Form::text('parent') }}

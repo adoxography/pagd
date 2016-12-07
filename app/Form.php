@@ -62,10 +62,12 @@ class Form extends Model
                     $model->errors = ['missing' => $missing];
                 }
             }
+
             return $rc;
         });
 
         static::saved(function ($model) {
+
             if($model->morphemicForm)
             {
                 $model->connectMorphemes($model);

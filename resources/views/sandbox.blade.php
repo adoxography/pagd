@@ -15,17 +15,15 @@ $parser = new Parser();
 @stop
 
 @section('content')
-	{!! $parser->setRestricted(true)->parse(
-		'|^.
-		|_. row |_. row |
-		|-.
-		| row | row |'
-	) !!}
+	{{ Form::open(['url' => '/morphemes/createOTG']) }}
+	{{ Form::submit('Submit') }}
+	{{ Form::close() }}
 @stop
 
 @section('footer')
 	<script>
 		$(document).ready(function(){
+			$('select').combobox();
 		});
 	</script>
 @stop

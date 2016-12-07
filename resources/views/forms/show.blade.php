@@ -80,7 +80,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td class = 'label'>Examples (<a href = '/forms/addExampleTo/{{ $form->id }}'>Add another</a>)</td>
+				<td class = 'label'>Examples (<a href = '/forms/{{ $form->id }}/addExample'>Add another</a>)</td>
 				@if(count($form->examples) > 0)
 					<td class = 'itemList'>
 						<ul>
@@ -103,6 +103,8 @@
 							@endforeach
 						</ul>
 					</td>
+				@else
+					<td class = 'value'>None</td>
 				@endif
 			</tr>
 		</table>

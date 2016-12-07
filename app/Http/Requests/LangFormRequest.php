@@ -36,13 +36,14 @@ class LangFormRequest extends FormRequest
             'morphemicForm'                 => ['nullable','has:V'],
             'language.name'                 => ['required','exists:Languages,name'],
             'parent.name'                   => ['nullable','exists:Forms,surfaceForm'],
-            'formType.subject.name'         => ['required','exists:Arguments,name'],            
+            'formType.subject.name'         => ['required','exists:Arguments,name'],
+            'formType.subject_id'           => ['required','exists:Arguments,id'],
             'formType.primaryObject.name'   => ['nullable','exists:Arguments,name'],            
             'formType.secondaryObject.name' => ['nullable','exists:Arguments,name'],
-            // 'formType.formClass.name'       => ['required','exists:Classes,name'],
             'formType.class_id'             => ['required', 'integer','exists:Classes,id'],
             'formType.order_id'             => ['required','integer','exists:Orders,id'],
             'formType.mode.name'            => ['required','exists:Modes,name'],
+            'formType.mode_id'              => ['required','exists:Modes,id'],
             'formType.isNegative'           => ['boolean'],
             'formType.isDiminutive'         => ['boolean']
         ];

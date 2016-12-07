@@ -27,6 +27,7 @@ class ViewComposerServiceProvider extends ServiceProvider
         $this->composeLanguageForm();
         $this->composeMorphemeForm();
         $this->composeMultiMorphemeForm();
+        $this->composerMorphemeOTGForm();
 
         $this->composeShow();
         $this->composeSearch();
@@ -89,6 +90,18 @@ class ViewComposerServiceProvider extends ServiceProvider
                 'languages' => Language::select('id','name as value')->get(),
                 'glosses'   => Gloss::select('id','abv as value')->get(),
                 'slots'     => Slot::select('id','abv as value')->get()
+            ];
+            $view->with($data);
+        });
+    }
+
+    private function composerMorphemeOTGForm()
+    {
+        view()->composer('morphemes.partials.create-otg', function($view)
+        {
+            $data = [
+                'glosses'   => Gloss::select('id as value','abv as label')->get(),
+                'slots'     => Slot::select('id as value','abv as label')->get()
             ];
             $view->with($data);
         });

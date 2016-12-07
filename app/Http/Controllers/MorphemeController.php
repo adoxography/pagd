@@ -44,6 +44,18 @@ class MorphemeController extends Controller
         return Redirect::to('/morphemes/' . $morpheme->id);
     }
 
+    public function createOTG(Request $request){
+        $names = $request->names;
+        $glosses = $request->glosses;
+        $slots = $request->slots;
+
+        for($i = 0; $i < $request->numMorphemes; $i++){
+            Morpheme::create(['name' => $names[$i], 'gloss_id' => $glosses[$i], 'slot_id' => $slots[$i]]);
+        }
+
+        return $glosses;
+    }
+
     public function storeMulti(Request $request){
         $morphemes = $request->morphemes;
         $formData = session('formData');
@@ -77,36 +89,21 @@ class MorphemeController extends Controller
         flash($morpheme->name.' updated successfully.', 'success');
         return Redirect::to('/morphemes/'.$morpheme->id);
     }
+    
+    public function exists(Request $request){
+        $language = $request->language;
+        $morphemes = explode('-', $request->morphemes);
+        $missing = array();
 
-    public function autofill(Request $request)
-    {
-        $term = $request->term;
-        $language = Language::with('parent')->find($request->language);
-        $results = $this->autofillParents($language, $term);
+        foreach($morphemes as $morpheme){
+            if($morpheme !== ''){
+                $query = Morpheme::where('language_id',$language)->where('name',$morpheme)->get();
+                if(count($query) == 0){
+                    array_push($missing,$morpheme);
+                }
+            }
+        }
 
-        return Response::json($results);
+        return response()->json($missing);
     }
-    
-    private function autofillParents(Language $language, $term)
-    {
-        $results = array();
-
-        if ($language->parent) {
-            $parent = Language::with(['parent', 'morphemes' => function ($query) use ($term) {
-                $query->where('name', 'LIKE', "%$term%");
-            }])->find($language->parent->id);
-            foreach ($parent->morphemes as $morpheme) {
-                $results[] = [
-                    'id' => $morpheme->id,
-                    'value' => $morpheme->name . ' (' . $parent->name . ')'
-                ];
-            }//forech
-            $results += $this->autofillParents($parent, $term);
-        }//if
-        //Base case: do nothing
-
-        return $results;
-    }
-    
-    
 }

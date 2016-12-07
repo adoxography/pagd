@@ -23,8 +23,10 @@ Route::get('glossary/{model}', 'GlossaryController@show');
 Route::get('autocomplete', 'AutocompleteController@test');
 Route::get('autocomplete/forms', 'AutocompleteController@forms');
 Route::get('autocomplete/morphemes', 'AutocompleteController@morphemes');
+Route::get('autocomplete/sources', 'AutocompleteController@sources');
 
-Route::get('morphemes/autofill', 'MorphemeController@autofill');
+Route::get('morphemes/exists', 'MorphemeController@exists');
+Route::post('morphemes/createOTG', 'MorphemeController@createOTG');
 Route::get('morphemes/multi', 'MorphemeController@createMulti');
 Route::post('morphemes/multi', 'MorphemeController@storeMulti');
 
@@ -34,6 +36,8 @@ Route::resource('groups',    'GroupController');
 Route::resource('languages', 'LanguageController');
 Route::resource('morphemes', 'MorphemeController');
 Route::resource('sources',   'SourceController');
+
+Route::get('forms/{form}/addExample', 'FormController@addExample');
 
 Route::get('languages/{language}/addChild',    'LanguageController@addChild');
 Route::get('languages/{language}/addForm',     'LanguageController@addForm');

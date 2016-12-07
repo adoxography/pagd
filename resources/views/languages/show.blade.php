@@ -5,9 +5,9 @@
 	<div class = 'show'>
 		<h1>
 			{{ $language->name }}
-			@if(Auth::user())
+			{{-- @if(Auth::user()) --}}
 				<a href='/languages/{{ $language->id }}/edit'>(Edit)</a>
-			@endif
+			{{-- @endif --}}
 		</h1>
 		<table>
 			<tr>
@@ -48,9 +48,9 @@
 			<tr>
 				<td class = 'label'>
 					Forms 
-					@if(Auth::user())
+					{{-- @if(Auth::user()) --}}
 						(<a href = '/languages/{{ $language->id }}/addForm' class = 'newItem'>Add another</a>)
-					@endif
+					{{-- @endif --}}
 				</td>
 				@if($language->forms && count($language->forms) > 0)
 					<td class = 'itemList'>
@@ -67,9 +67,9 @@
 			<tr>
 				<td class = 'label'>
 					Morphemes 
-					@if(Auth::user())
+					{{-- @if(Auth::user()) --}}
 						(<a href = '/languages/{{ $language->id }}/addMorpheme' class = 'newItem'>Add another</a>)
-					@endif
+					{{-- @endif --}}
 				</td>
 				@if($language->morphemes && count($language->morphemes) > 0)
 					<td class = 'itemList'>
@@ -84,10 +84,10 @@
 				@endif
 			</tr>
 		</table>
-		@if(!$language->verified && Auth::user())
+		{{-- @if(!$language->verified && Auth::user()) --}}
 			{{ Form::open(['url' => '/languages/'.$language->id, 'method' => 'delete', 'class' => 'deleteButton']) }}
 			{{ Form::submit('Delete') }}
 			{{ Form::close() }}
-		@endif
+		{{-- @endif --}}
 	</div>
 @stop

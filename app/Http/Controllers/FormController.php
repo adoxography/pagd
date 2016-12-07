@@ -80,9 +80,6 @@ class FormController extends Controller
         $formData = $request->formData;
         $sourceData = $request->sourceData;
 
-        // //Set the type
-        // $formData['formType_id'] = $this->getType($request->formTypeData);
-
         //Set a point to rollback to in case something goes wrong
         DB::beginTransaction();
 
@@ -133,33 +130,12 @@ class FormController extends Controller
         ]);
         return view('forms.show', compact('form'));
     }
-    
-    // private function getType($data)
-    // {
-    //     $type = null;
 
-    //     //Try to find the type in the database
-    //     $rules = $this->convertToRules($data);
-    //     $type = FormType::where($rules)->first();
+    public function addExample(Form $form)
+    {
+        $presetForm = $form;
 
-    //     //If it's not there, create a new one
-    //     if (!$type) {
-    //         $type = FormType::create(array_filter($data, 'strlen'));
-    //     }
+        return view('examples.create', compact('presetForm'));
+    }
 
-    //     return $type->id;
-    // }
-
-    // private function convertToRules($data)
-    // {
-    //     $rules = array();
-
-    //     foreach ($data as $key => $value) {
-    //         if ($value === "") {
-    //             $value = null;
-    //         }
-    //         array_push($rules, [$key, $value]);
-    //     }
-
-    //     return $rules;
 }

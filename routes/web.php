@@ -30,6 +30,8 @@ Route::post('morphemes/createOTG', 'MorphemeController@createOTG');
 Route::get('morphemes/multi', 'MorphemeController@createMulti');
 Route::post('morphemes/multi', 'MorphemeController@storeMulti');
 
+Route::get('sources/ajax', 'SourceController@store');
+
 Route::resource('examples',  'ExampleController');
 Route::resource('forms',     'FormController');
 Route::resource('groups',    'GroupController');

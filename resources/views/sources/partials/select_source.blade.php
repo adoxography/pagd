@@ -39,7 +39,7 @@
 			source: function(request, response){
 			    $.ajax({
 			        url: '/autocomplete/sources',
-			        dataType: 'json',
+			        dataType: 'JSON',
 			        data: {
 			          	term: request.term
 			        },
@@ -79,22 +79,18 @@
 			var valid = true;
 
 			if(valid){
-				$.ajax({
-					method: 'POST',
-					data: {
+				$.get('/sources/ajax',{
 						'_token': $('input[name=_token]').val(), //Include CSRF Token
 						'short': short.val(),
 						'long' : long.val()
-					},
-					dataType: 'json',
-					success: function(data){
+					})
+					.done(function(data){
+						console.log(data);
 						$('#source-list').append(sourceField(data.short, data.id));
-					},
-					error: function(jqXHR, textStatus, errorThrown){
-						alert('jqXHR: '+jqXHR+'\ntextStatus: '+textStatus+'\nerrorThrown: '+errorThrown);
-					},
-					url: '/sources'
-				});
+					})
+					.fail(function(jqXHR, textStatus, errorThrown){
+						console.log('textStatus: '+textStatus+'\nerrorThrown: '+errorThrown);
+					});
 				sourceDialog.dialog('close');
 			}
 

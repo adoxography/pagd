@@ -15,15 +15,14 @@ $parser = new Parser();
 @stop
 
 @section('content')
-	{{ Form::open(['url' => '/morphemes/createOTG']) }}
+	{{ Form::open(['url' => '/sources']) }}
+	{{ Form::hidden('short', 'shortSource') }}
+	{{ Form::hidden('long', 'longSource') }}
 	{{ Form::submit('Submit') }}
 	{{ Form::close() }}
 @stop
 
 @section('footer')
 	<script>
-		$(document).ready(function(){
-			$('select').combobox();
-		});
 	</script>
 @stop

@@ -21,6 +21,7 @@ class SourceController extends Controller
     	$long  = $request->long;
 
     	$newSource = Source::create(['short' => $short, 'long' => $long]);
+        dd($newSource->toJson());
     	return $newSource->toJson();
     }
 }

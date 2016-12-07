@@ -16,8 +16,8 @@ class seed_classes extends Seeder
         $classes = array(
         	['id' => 1, 'name' => 'AI'],
         	['id' => 2, 'name' => 'II'],
-        	['id' => 3, 'name' => 'AT'],
-        	['id' => 4, 'name' => 'IT'],
+        	['id' => 3, 'name' => 'TA'],
+        	['id' => 4, 'name' => 'TI'],
         );
         
         DB::table('Classes')->insert($classes);

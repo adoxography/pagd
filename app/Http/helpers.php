@@ -67,7 +67,10 @@ function linearSearch($item, $list)
 {
     $pos = NOT_FOUND;
     for ($i=0; $i<count($list) && $pos === NOT_FOUND; $i++) {
-        if (isset($list[$i]) && $list[$i]->compareTo($item) == 0) {
+        // if (isset($list[$i]) && $list[$i]->compareTo($item) == 0) {
+        //     $pos = $i;
+        // }
+        if(isset($list[$i]) && $list[$i] === $item){
             $pos = $i;
         }
     }//for

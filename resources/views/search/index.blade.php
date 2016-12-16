@@ -2,24 +2,54 @@
 
 @section('content')
 
-	{{ Form::open(['method' => 'POST', 'url' => '/search']) }}
+	{{ Form::open(['method' => 'GET', 'url' => '/search/paradigm']) }}
+		<h1>Paradigm Search</h1>
+		<h4>Enter the parameters for the paradigm you would like to see:</h4>
+
 		<fieldset>
-			<legend>Search for:</legend>
-			{{ Form::select('searchType', ['lang' => 'Language', 'form' => 'Form', 'morph' => 'Morpheme']) }}
-			<input type = 'text' name = 'lookup' />
+			<legend>Languages</legend>
+			{{ Form::text('language[]') }}
+			{{ Form::text('language[]') }}
 		</fieldset>
 		<fieldset>
-			<legend>Limit by:</legend>
-			{{ Form::label('order') }}
-			{{ Form::select('order', ['NULL' => 'Do not limit'] + $orders) }}
-			{{ Form::label('mode') }}
-			{{ Form::select('mode', ['NULL' => 'Do not limit'] + $modes) }}
-			{{ Form::label('class') }}
-			{{ Form::select('class', ['NULL' => 'Do not limit'] + $classes) }}
+			<legend>Classes</legend>
+			@foreach($classes as $class)
+				{{ Form::checkbox($class->name, $class->name) }}
+				{{ Form::label($class->name) }}
+			@endforeach
 		</fieldset>
 		<fieldset>
-			{{ Form::submit('Submit') }}
+			<legend>Inflection Types</legend>
+			@foreach($orders as $order)
+				{{ Form::checkbox($order->name, $order->name) }}
+				{{ Form::label($order->name, ucfirst($order->name).' Order') }}
+			@endforeach
+			{{ Form::checkbox('includeNegative', 'negative') }}
+			{{ Form::label('includeNegative', 'Include negative forms') }}			
+			{{ Form::checkbox('includeDiminutive', 'diminutive') }}
+			{{ Form::label('includeDiminutive', 'Include diminutive forms') }}
 		</fieldset>
+		<fieldset>
+			<legend>Modes</legend>
+			{{ Form::radio('indicative-only', 'indicativeOnly', true, ['name' => 'modeSelect']) }}
+			{{ Form::label('indicative-only', 'Indicative Only') }}
+			{{ Form::radio('all-modes', 'allModes', null, ['name' => 'modeSelect']) }}
+			{{ Form::label('all-modes', 'All available modes') }}
+			{{ Form::radio('mode-select', 'selectModes', null, ['name' => 'modeSelect']) }}
+			{{ Form::label('mode-select', 'The following modes:') }}
+			<fieldset id = 'mode-list'>
+				@foreach($modes as $mode)
+					{{ Form::checkbox($mode->name, $mode->name) }}
+					{{ Form::label($mode->name) }}
+				@endforeach
+			</fieldset>
+		</fieldset>
+		{{ Form::submit('Search') }}
+	{{ Form::close() }}
+
+	{{ Form::open(['method' => 'GET', 'url' => '/search/form']) }}
+		<h1>Form Search</h1>
+		<h4>Enter the parameters for a particular form:</h4>
 	{{ Form::close() }}
 
 @stop

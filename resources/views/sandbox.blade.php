@@ -15,11 +15,10 @@ $parser = new Parser();
 @stop
 
 @section('content')
-	{{ Form::open(['url' => '/sources']) }}
-	{{ Form::hidden('short', 'shortSource') }}
-	{{ Form::hidden('long', 'longSource') }}
-	{{ Form::submit('Submit') }}
-	{{ Form::close() }}
+	<?php
+		$testList = ['alpha', 'beta', 'gamma'];
+		echo linearSearch('beta', $testList);
+	?>
 @stop
 
 @section('footer')

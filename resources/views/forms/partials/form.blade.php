@@ -10,9 +10,9 @@
 	{{ Form::label('phoneticForm','Phonetic Form') }}
 	{{ Form::text('phoneticForm',null,['placeholder' => 'The Algonquianist phonetic transcription (Leave blank if unknown or unclear)', 'autocomplete' => "off"]) }}
 	{{ Form::label('morphemicForm','Morphemic Form') }}
-	{{ Form::text('morphemicForm',null,['placeholder' => 'This feature still under construction. :)', 'autocomplete' => "off", 'disabled' => 'disabled']) }}
+	{{ Form::text('morphemicForm',null,['placeholder' => 'This feature still under construction. :)', 'autocomplete' => "off"]) }}
 	{{-- The morphemes, separated by hyphens (Leave blank if unknown or unclear) --}}
-	{{-- @include('morphemes.partials.create-otg') --}}
+	@include('morphemes.partials.create-otg')
 </fieldset>
 
 <!-- Lineage Information -->

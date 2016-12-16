@@ -45,15 +45,24 @@ class MorphemeController extends Controller
     }
 
     public function createOTG(Request $request){
-        $names = $request->names;
-        $glosses = $request->glosses;
-        $slots = $request->slots;
+        $names        = $request->names;
+        $glosses      = $request->glosses;
+        $slots        = $request->slots;
+        $numMorphemes = $request->numMorphemes;
+        $language     = $request->language;
 
-        for($i = 0; $i < $request->numMorphemes; $i++){
-            Morpheme::create(['name' => $names[$i], 'gloss_id' => $glosses[$i], 'slot_id' => $slots[$i]]);
+        for($i = 0; $i < $numMorphemes; $i++){
+            Morpheme::create(
+                [
+                    'name'        => $names[$i],
+                    'language_id' => $language,
+                    'gloss_id'    => $glosses[$i],
+                    'slot_id'     => $slots[$i]
+                ]
+            );
         }
 
-        return $glosses;
+        return "Hello";
     }
 
     public function storeMulti(Request $request){
@@ -93,10 +102,12 @@ class MorphemeController extends Controller
     public function exists(Request $request){
         $language = $request->language;
         $morphemes = explode('-', $request->morphemes);
+        $checked = array();
         $missing = array();
 
         foreach($morphemes as $morpheme){
-            if($morpheme !== ''){
+            if($morpheme !== '' && !in_array($morpheme, $checked)){
+                array_push($checked, $morpheme);
                 $query = Morpheme::where('language_id',$language)->where('name',$morpheme)->get();
                 if(count($query) == 0){
                     array_push($missing,$morpheme);

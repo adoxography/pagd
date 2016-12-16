@@ -79,13 +79,12 @@
 			var valid = true;
 
 			if(valid){
-				$.get('/sources/ajax',{
+				$.get('/sources/ajax',{ {{-- This should be a post request, but NFS has a problem with that. --}}
 						'_token': $('input[name=_token]').val(), //Include CSRF Token
 						'short': short.val(),
 						'long' : long.val()
 					})
 					.done(function(data){
-						console.log(data);
 						$('#source-list').append(sourceField(data.short, data.id));
 					})
 					.fail(function(jqXHR, textStatus, errorThrown){

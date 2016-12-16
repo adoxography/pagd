@@ -100,8 +100,8 @@ class ViewComposerServiceProvider extends ServiceProvider
         view()->composer('morphemes.partials.create-otg', function($view)
         {
             $data = [
-                'glosses'   => Gloss::select('id as value','abv as label')->get(),
-                'slots'     => Slot::select('id as value','abv as label')->get()
+                'glosses'   => Gloss::select('id','abv as value')->get(),
+                'slots'     => Slot::select('id','abv as value')->get()
             ];
             $view->with($data);
         });
@@ -135,9 +135,9 @@ class ViewComposerServiceProvider extends ServiceProvider
         view()->composer('search.index', function($view)
         {
             $data = [
-                'classes'   => $this->toArray(FormClass::select('id','name as value')->get()),
-                'modes'     => $this->toArray(Mode::select('id','name as value')->get()),
-                'orders'    => $this->toArray(Order::select('id','name as value')->get())
+                'classes'   => FormClass::select('id','name')->get(),
+                'modes'     => Mode::select('id','name')->get(),
+                'orders'    => Order::select('id','name')->get()
             ];
             $view->with($data);
         });

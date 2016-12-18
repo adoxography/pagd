@@ -168,6 +168,7 @@ return [
          */
 		'Collective\Html\HtmlServiceProvider',
         'Laracasts\Utilities\JavaScript\JavaScriptServiceProvider',
+        BackupManager\Laravel\Laravel5ServiceProvider::class,
 
         //
 
@@ -182,7 +183,7 @@ return [
         App\Providers\CustomFormServiceProvider::class,
         App\Providers\CustomHtmlServiceProvider::class,
         App\Providers\ViewComposerServiceProvider::class,
-        App\Providers\CustomValidationProvider::class
+        App\Providers\CustomValidationProvider::class,
 
     ],
 

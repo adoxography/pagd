@@ -10,7 +10,9 @@
         "laravelcollective/html": "^5.3",
         "illuminate/html": "^5.0",
         "laracasts/utilities": "~2.0",
-        "netcarver/textile": "3.6.*"
+        "netcarver/textile": "3.6.*",
+        "backup-manager/laravel": "^1.1",
+        "league/flysystem-dropbox": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

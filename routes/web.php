@@ -10,10 +10,12 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-Route::get('sandbox', 'SandboxController@index');
-Route::post('sandbox', 'SandboxController@store');
+Route::get('sandbox', 'BackupController@store');
+
 Route::get('', 'HomeController@index');
 Route::get('home', 'HomeController@index');
+
+Route::post('backup', 'BackupController@store');
 
 Route::get('contact', 'ContactController@index');
 Route::post('contact', 'ContactController@send');

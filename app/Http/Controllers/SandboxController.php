@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use JavaScript;
-use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+use JavaScript;
 
 class SandboxController extends Controller
 {
@@ -16,7 +16,8 @@ class SandboxController extends Controller
     }
 
     public function store(Request $request){
-    	dd($request);
+    	Artisan::call('db:backup',['--database' => 'mysql', '--destination' => 'local', '--destinationPath' => '/backups/test', '--compression' => 'null']);
+    	return response()->file(storage_path('app/backups/test'));
     }
     
     

@@ -15,6 +15,9 @@ Route::post('sandbox', 'SandboxController@store');
 Route::get('', 'HomeController@index');
 Route::get('home', 'HomeController@index');
 
+Route::get('contact', 'ContactController@index');
+Route::post('contact', 'ContactController@send');
+
 Route::get('search', 'SearchController@index');
 Route::post('search', 'SearchController@search');
 Route::get('glossary', 'GlossaryController@index');

@@ -56,6 +56,9 @@
 			</li>
 		</ul>
 	</li>
+	<li>
+		<div><a href = '/contact'>Contact</a></div>
+	</li>
 	@if(Auth::user())
 		<li><div>Logged in as {{ Auth::user()->email }}</div></li>
 	@endif

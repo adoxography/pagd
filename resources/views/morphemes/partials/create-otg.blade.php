@@ -17,21 +17,21 @@
 
 		morphemeEntry = function(morpheme){
 			var entry = $('<li>').append(
-				$('<label>').text('Morpheme'),
-				$('<input>').attr('type', 'text')
+				$('<label>').text('Morpheme'),             // the name label
+				$('<input>').attr('type', 'text')          // the name itself - disabled
 							.attr('name', 'morpheme-name')
 							.attr('value', morpheme)
-							.attr('required', 'required'),
-				$('<label>').text('Gloss'),
-				$('<input>').attr('type', 'text')
+							.attr('disabled', 'disabled'),
+				$('<label>').text('Gloss'),                // the gloss label
+				$('<input>').attr('type', 'text')          // the gloss name
 							.attr('class', 'gloss-input'),
-				$('<input>').attr('type', 'hidden')
+				$('<input>').attr('type', 'hidden')        // the gloss ID
 							.attr('name', 'morpheme-gloss')
 							.attr('class', 'gloss-hidden'),
-				$('<label>').text('Slot'),
-				$('<input>').attr('type', 'text')
+				$('<label>').text('Slot'),                 // the slot label
+				$('<input>').attr('type', 'text')          // the slot name
 							.attr('class', 'slot-input'),
-				$('<input>').attr('type', 'hidden')
+				$('<input>').attr('type', 'hidden')        // the slot ID
 							.attr('name', 'morpheme-slot')
 							.attr('class', 'slot-hidden')
 			);
@@ -52,29 +52,45 @@
 			var glosses = packageData('morpheme-gloss');
 			var slots = packageData('morpheme-slot');
 
-			$.ajax({
-				method: 'POST',
-				url: '/morphemes/createOTG',
-				datatype: 'html',
-				data: {
-					'_token': $('input[name=_token]').val(), //Include CSRF Token
-					'names': names,
-					'glosses': glosses,
-					'slots': slots,
-					'numMorphemes': numMorphemes,
-					'language': language
-				}
-			})
-			.done(function(data){
-				alert(data);
-			})
-			.fail(function(jqXHR, textStatus, errorThrown){
-				alert(errorThrown);
-			});
+			if(validIDs(glosses) && validIDs(slots)){
+				$.ajax({
+					method: 'POST',
+					url: '/morphemes/createOTG',
+					datatype: 'html',
+					data: {
+						'_token': $('input[name=_token]').val(), //Include CSRF Token
+						'names': names,
+						'glosses': glosses,
+						'slots': slots,
+						'numMorphemes': numMorphemes,
+						'language': language
+					}
+				})
+				.done(function(data){
+					alert(data);
+				})
+				.fail(function(jqXHR, textStatus, errorThrown){
+					alert(errorThrown);
+				});
 
-			morphemeDialog.dialog('close');
+				morphemeDialog.dialog('close');
+			}
+			else{
+				alert('Please fill in all the information.');
+				return false;
+			}
 
 			return true;
+		}
+
+		function validIDs(array){
+			var result = true;
+
+			for(var i = 0; i < array.length && result; i++){
+				result = array[i].length > 0 && array[i].isInteger();
+			}
+
+			return result;
 		}
 
 		function hasV(){
@@ -147,11 +163,13 @@
 			modal: true,
 			buttons: {
 				'Add Morphemes': addMorphemes
-			}
+			},
+			maxHeight: 600
 		});
 
 		alertDialog = $('#alert-dialog').dialog({
-			autoOpen: false
+			autoOpen: false,
+			modal: true
 		});
 
 	});

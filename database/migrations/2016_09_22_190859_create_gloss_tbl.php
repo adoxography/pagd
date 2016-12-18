@@ -19,6 +19,7 @@ class CreateGlossTbl extends Migration
             $table->increments('id');
             $table->string('name',100);
             $table->string('abv',8);
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

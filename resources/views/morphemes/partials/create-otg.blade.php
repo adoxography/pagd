@@ -47,6 +47,11 @@
 			}).get();
 		}
 
+		function customAlert(message){
+			alertMessage.html(message);
+			alertDialog.dialog('open');
+		}
+
 		function addMorphemes(){
 			var names = packageData('morpheme-name');
 			var glosses = packageData('morpheme-gloss');
@@ -67,16 +72,17 @@
 					}
 				})
 				.done(function(data){
-					alert(data);
+					alertDialog.html("Morphemes added successfully.");
+					alertDialog.dialog('open');
 				})
 				.fail(function(jqXHR, textStatus, errorThrown){
-					alert(errorThrown);
+					customAlert("An error occurred. Please try again.");
 				});
 
 				morphemeDialog.dialog('close');
 			}
 			else{
-				alert('Please fill in all the information.');
+				customAlert("Please fill in all the information");
 				return false;
 			}
 
@@ -87,7 +93,7 @@
 			var result = true;
 
 			for(var i = 0; i < array.length && result; i++){
-				result = array[i].length > 0 && array[i].isInteger();
+				result = array[i].length > 0 && !isNaN(array[i]);
 			}
 
 			return result;
@@ -137,8 +143,7 @@
 					morphemeDialog.dialog('open');
 				}
 				else{
-					alertMessage.html('All morphemes exist.');
-					alertDialog.dialog('open');
+					customAlert('All morphemes exist.');
 				}
 			});
 		}
@@ -152,9 +157,11 @@
 					validateMorphemesFromServer();
 				}
 				else{
-					alertMessage.html("Please include a position from the Vstem.");
-					alertDialog.dialog('open');
+					customAlert("Please include a position from the Vstem.");
 				}
+			}
+			else{
+				customAlert('Please enter a morphemic form before validating.');
 			}
 		});
 

@@ -76,39 +76,27 @@ class FormController extends Controller
 
     public function store(LangFormRequest $request)
     {
-        $destination;
         $formData = $request->formData;
         $sourceData = $request->sourceData;
 
-        //Set a point to rollback to in case something goes wrong
-        DB::beginTransaction();
+        // Insert the form
+        $form = Form::create($formData);
 
-        //Try to insert the form
-        $form = new Form($formData);
-
-        if (!$form->save()) {
-            DB::rollback();
-            if (isset($form->errors['missing'])) {
-                session(['formData' => $formData, 'missing' => $form->errors['missing']]);
-                return redirect()->action('MorphemeController@createMulti');
-            }
-            else
-            {
-                dd($form);
-            }
-        } else {
-            for($i = 0; $i < count($sourceData); $i++){
-                if(isset($sourceData['source_id'][$i])){
-                    $form->sources()->attach($sourceData['source_id'][$i], ['extraInfo' => $sourceData['extraInfo'][$i]]);
-                }
-            }
-
-            DB::commit();
-            flash($form->surfaceForm.' created successfully.', 'success');
-            $destination = redirect('/forms/' . $form->id);
+        if(!$form){
+            dd($form);
         }
 
-        return $destination;
+        // Connect the sources
+        for($i = 0; $i < count($sourceData); $i++){
+            if(isset($sourceData['source_id'][$i])){
+                $form->sources()->attach($sourceData['source_id'][$i], ['extraInfo' => $sourceData['extraInfo'][$i]]);
+            }
+        }
+
+        // Flash a message to the session
+        flash($form->surfaceForm.' created successfully.', 'success');
+
+        return redirect('/forms/' . $form->id);
     }
 
     public function show(Form $form)

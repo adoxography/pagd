@@ -50,6 +50,10 @@
 	{{ Form::open(['method' => 'GET', 'url' => '/search/form']) }}
 		<h1>Form Search</h1>
 		<h4>Enter the parameters for a particular form:</h4>
+		<fieldset>
+			{{ Form::label('class') }}
+			{{ Form::select()}}
+		</fieldset>
 	{{ Form::close() }}
 
 @stop

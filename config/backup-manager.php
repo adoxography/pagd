@@ -31,11 +31,11 @@ return [
     ],
     'dropbox' => [
         'type' => 'Dropbox',
-        'token' => '',
-        'key' => '',
-        'secret' => '',
-        'app' => '',
-        'root' => '',
+        'token' => 'NUgJYUPuXjQAAAAAAAAA_YiZG7Uq91J7_f9d5Q8Yzjep-XSS81Gv3JXFgnrg0NeD',
+        'key' => 'b0koyua2y3o1hrt',
+        'secret' => 'sezinbx2cwzuaif',
+        'app' => 'algling',
+        'root' => '/backups',
     ],
     'ftp' => [
         'type' => 'Ftp',

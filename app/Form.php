@@ -76,14 +76,14 @@ class Form extends Model
         });
     }
 
-    private function  hasV()
+    private function hasV()
     {
         $found = false;
         $morphemes = explode('-', $this->morphemicForm);
 
         for($i = 0; $i < count($morphemes) && !$found; $i++)
         {
-            $found = $morphemes[$i] === 'V';
+            $found = strtolower($morphemes[$i]) === 'v';
         }
 
         return $found;

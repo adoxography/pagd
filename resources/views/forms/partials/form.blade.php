@@ -10,8 +10,7 @@
 	{{ Form::label('phoneticForm','Phonetic Form') }}
 	{{ Form::text('phoneticForm',null,['placeholder' => 'The Algonquianist phonetic transcription (Leave blank if unknown or unclear)', 'autocomplete' => "off"]) }}
 	{{ Form::label('morphemicForm','Morphemic Form') }}
-	{{ Form::text('morphemicForm',null,['placeholder' => 'This feature still under construction. :)', 'autocomplete' => "off"]) }}
-	{{-- The morphemes, separated by hyphens (Leave blank if unknown or unclear) --}}
+	{{ Form::text('morphemicForm',null,['placeholder' => 'The morphemes, separated by hyphens (Leave blank if unknown or unclear)', 'autocomplete' => "off"]) }}
 	@include('morphemes.partials.create-otg')
 </fieldset>
 
@@ -29,18 +28,18 @@
 	<fieldset class = 'arguments'>
 		<legend>Arguments</legend>
 		{{ Form::label('subject', 'Subject') }}
-		{{ Form::datalist('subject', $arguments, [], ['visible' => ['name' => 'formType[subject][name]', 'required' => 'required', 'default' => '1s'], 'hidden' => ['name' => 'formType[subject_id]']]) }} <!-- Maybe remove this in production -->
+		{{ Form::datalist('subject', $arguments, ['hidden' => old('formType.subject_id')], ['visible' => ['name' => 'formType[subject][name]', 'required' => 'required', 'default' => '1s'], 'hidden' => ['name' => 'formType[subject_id]']]) }} <!-- Maybe remove this in production -->
 		{{ Form::label('primaryObject', 'P. Object') }}
-		{{ Form::datalist('primaryObject', $arguments, [], ['visible' => ['name' => 'formType[primaryObject][name]', 'placeholder' => 'None'], 'hidden' => ['name' => 'formType[primaryObject_id]']]) }}
+		{{ Form::datalist('primaryObject', $arguments, ['hidden' => old('formType.primaryObject_id')], ['visible' => ['name' => 'formType[primaryObject][name]', 'placeholder' => 'None'], 'hidden' => ['name' => 'formType[primaryObject_id]']]) }}
 		{{ Form::label('secondaryObject', 'S. Object') }}
-		{{ Form::datalist('secondaryObject', $arguments, [], ['visible' => ['name' => 'formType[secondaryObject][name]', 'placeholder' => 'None'], 'hidden' => ['name' => 'formType[secondaryObject_id]']]) }}
+		{{ Form::datalist('secondaryObject', $arguments, ['hidden' => old('formType.secondaryObject_id')], ['visible' => ['name' => 'formType[secondaryObject][name]', 'placeholder' => 'None'], 'hidden' => ['name' => 'formType[secondaryObject_id]']]) }}
 	</fieldset>
 
 	{{ Form::radioList('class', $classes, isset($form) ? $form->formType->class_id : null,  ['name' => 'formType[class_id]']) }}
 	{{ Form::radioList('order', $orders, isset($form)  ? $form->formType->order->id : null, ['name' => 'formType[order_id]']) }}
 
 	{{ Form::label('mode','Mode') }}
-	{{ Form::datalist('mode', $modes, [], ['visible' => ['name' => 'formType[mode][name]', 'required' => 'required', 'default' => 'Indicative'], 'hidden' => ['name' => 'formType[mode_id]']]) }}
+	{{ Form::datalist('mode', $modes, ['hidden' => old('formType.mode_id')], ['visible' => ['name' => 'formType[mode][name]', 'required' => 'required', 'default' => 'Indicative'], 'hidden' => ['name' => 'formType[mode_id]']]) }}
 </fieldset>
 <fieldset>
 	{{ Form::radioList(

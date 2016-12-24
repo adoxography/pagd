@@ -1,5 +1,9 @@
 @extends('layout')
 
+@section('header')
+	<script src = '/js/formUtil.js'></script>
+@stop
+
 @section('content')
 
 	{{ Form::open(['method' => 'GET', 'url' => '/search/paradigm']) }}
@@ -8,20 +12,21 @@
 
 		<fieldset>
 			<legend>Languages</legend>
-			{{ Form::text('language[]') }}
-			{{ Form::text('language[]') }}
+			<i>(Press CTRL+click to select multiple entries)</i>
+			{{ Form::select('languages[]', organizeForDropdown($languages), null, ['multiple' => true]) }}
+			{{-- {{ Form::text('languages[]') }} --}}
 		</fieldset>
 		<fieldset>
 			<legend>Classes</legend>
 			@foreach($classes as $class)
-				{{ Form::checkbox($class->name, $class->name) }}
+				{{ Form::checkbox('classes[]', $class->id, null, ['id' => $class->name]) }}
 				{{ Form::label($class->name) }}
 			@endforeach
 		</fieldset>
 		<fieldset>
 			<legend>Inflection Types</legend>
 			@foreach($orders as $order)
-				{{ Form::checkbox($order->name, $order->name) }}
+				{{ Form::checkbox('orders[]', $order->id, null, ['id' => $order->name]) }}
 				{{ Form::label($order->name, ucfirst($order->name).' Order') }}
 			@endforeach
 			{{ Form::checkbox('includeNegative', 'negative') }}
@@ -39,7 +44,7 @@
 			{{ Form::label('mode-select', 'The following modes:') }}
 			<fieldset id = 'mode-list'>
 				@foreach($modes as $mode)
-					{{ Form::checkbox($mode->name, $mode->name) }}
+					{{ Form::checkbox('modes[]', $mode->id, null, ['id' => $mode->name]) }}
 					{{ Form::label($mode->name) }}
 				@endforeach
 			</fieldset>
@@ -91,5 +96,15 @@
 		</fieldset>
 		{{ Form::submit('Search') }}
 	{{ Form::close() }}
+
+@stop
+
+@section('footer')
+
+<script>
+	$(document).ready(function(){
+		formUtil.initDatalists();
+	});
+</script>
 
 @stop

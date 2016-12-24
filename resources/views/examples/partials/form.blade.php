@@ -30,12 +30,18 @@
 
 	{{ Form::label('name','Example') }}
 	{{ Form::text('name') }}
+	{{ Form::label('vStem', 'Verb Stem') }}
+	{{ Form::text('vStem') }}
+	{{ Form::hidden('vStem_id',null,['id' => 'vStem_id']) }}
 	{{ Form::label('translation', 'Translation') }}
 	{{ Form::text('translation') }}
 </fieldset>
 <fieldset>
 	{{ Form::label('comments','Comments') }}
 	{{ Form::textarea('comments', null, ['rows' => 3]) }}
+</fieldset>
+<fieldset>
+	@include('sources.partials.select_source')
 </fieldset>
 <fieldset>
 	{{ Form::submit('Submit') }}
@@ -45,6 +51,7 @@
 	<script>
 		$(document).ready(function(){
 			formUtil.initDatalists();
+			formUtil.initAutocomplete('vStem','morphemes');
 			formUtil.initAutocomplete('form','forms');
 		});
 	</script>

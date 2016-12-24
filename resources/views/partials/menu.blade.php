@@ -14,25 +14,22 @@
 		<div>Glossary</div>
 		<ul>
 			<li>
-				<div><a href = '/glossary/groups'>Groups</a></div>
+				<div><a href = '/groups'>Groups</a></div>
 			</li>
 			<li>
-				<div><a href = '/glossary/classes'>Classes</a></div>
+				<div><a href = '/classes'>Classes</a></div>
 			</li>
 			<li>
-				<div><a href = '/glossary/glosses'>Glosses</a></div>
+				<div><a href = '/glosses'>Glosses</a></div>
 			</li>
 			<li>
-				<div><a href = '/glossary/modes'>Modes</a></div>
+				<div><a href = '/modes'>Modes</a></div>
 			</li>
 			<li>
-				<div><a href = '/glossary/orders'>Orders</a></div>
+				<div><a href = '/orders'>Orders</a></div>
 			</li>
 			<li>
-				<div><a href = '/glossary/tenses'>Tenses</a></div>
-			</li>
-			<li>
-				<div><a href = '/glossary/slots'>Slots</a></div>
+				<div><a href = '/slots'>Slots</a></div>
 			</li>
 		</ul>
 	</li>

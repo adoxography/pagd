@@ -8,8 +8,8 @@
 				<li><a href='/{{ $itemName }}/{{ $item->id }}'>{{ $item->name }}</a></li>
 			@endforeach
 		</ul>
-		@if(Auth::user())
+		{{-- @if(Auth::user()) --}}
 			<h3><a href='/{{ $itemName }}/create' class = 'newItem'>Add new</a></h3>
-		@endif
+		{{-- @endif --}}
 	</div>
 @stop

@@ -2,26 +2,23 @@
 
 @section('content')
 
-	<h1>{{ $itemName }} Input</h1>
+	<h1>{{ $modelSg }} Input</h1>
 
-	<form method = 'POST' action = '{{ $action }}' class = 'inputForm'>
-		{{ csrf_field() }}
+	{{ Form::open(['url' => '/'.strtolower($modelPl), 'class' => 'inputForm'])}}
+
 		<fieldset>
-			<label>Name</label>
-			<input type = 'text' name = 'name'/>
-			<label>Abbreviation</label>
-			<input type = 'text' name = 'abv' />
+			{{ Form::label('name') }}
+			{{ Form::text('name') }}
+			{{ Form::label('abv', 'Abreviation') }}
+			{{ Form::text('abv') }}
+			{{ Form::label('description') }}
+			{{ Form::textarea('description') }}
 		</fieldset>
 		<fieldset class = 'formButtons'>
-			<button type = 'reset' class = 'clearButton'>Clear</button>
-			<button type = 'submit' class = 'submitButton'>Submit</button> 
+			{{ Form::submit('Submit') }}
 		</fieldset>
-	</form>
-	@if(count($errors) > 0)
-		<ul>
-			@foreach($errors->all() as $error)
-				<li>{{ $error }}</li>
-			@endforeach
-		</ul>
-	@endif
+
+	{{ Form::close() }}
+
+	@include('errors.list')
 @stop

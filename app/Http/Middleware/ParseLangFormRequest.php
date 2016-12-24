@@ -22,7 +22,7 @@ class ParseLangFormRequest
         if (!isset($request->formData)) {
             //$request['formTypeData'] = $this->parseFormTypeData($request);
             $request['formData']     = $this->parseFormData($request);
-            $request['sourceData']   = $this->parseSourceData($request);
+            // $request['sourceData']   = $this->parseSourceData($request);
         }
 
         return $next($request);
@@ -98,15 +98,15 @@ class ParseLangFormRequest
         return $rules;
     }
 
-    private function parseSourceData($request)
-    {
-        $data = $request->only([
-            'source_id',
-            'extraInfo'
-        ]);
+    // private function parseSourceData($request)
+    // {
+    //     $data = $request->only([
+    //         'source_id',
+    //         'extraInfo'
+    //     ]);
 
-        return $data;
-    }
+    //     return $data;
+    // }
 
     private function handleCheck($request, $field){
         return isset($request[$field]) ? 1 : 0;

@@ -4,7 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ClosedWithAbv extends Model
+class ClosedWithAbv extends Closed
 {
-    protected $fillable = ['name','abv'];
+    public function __construct(){
+    	parent::__construct();
+    	$this->fillable[] = 'abv';
+    	$this->rules['abv'] = ['required',"unique:{$this->table},abv"];
+    }
 }

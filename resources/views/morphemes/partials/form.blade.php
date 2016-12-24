@@ -50,7 +50,7 @@
 	<script>
 		$(document).ready(function(){
 			formUtil.initDatalists();
-			formUtil.initAutocomplete('parent','morphemes');
+			formUtil.initAutocomplete('parent','morphemeParents');
 		});
 	</script>
 @stop

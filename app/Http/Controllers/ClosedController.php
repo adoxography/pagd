@@ -2,20 +2,58 @@
 
 namespace App\Http\Controllers;
 
+use App\Closed;
+use App\Http\Requests;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
-class ClosedController extends Controller
+abstract class ClosedController extends Controller
 {
+    protected $plural;
+    protected $singular;
+    abstract protected function getMembers();
+    abstract protected function createNew();
+    abstract protected function getItem($id);
     
-    public static function index($items,$itemName,$itemLink){
-    	return view('closed.index', compact('items','itemName','itemLink'));
-    }
-    
+    public function index()
+    {
+        $model   = $this->plural;
+        $members = $this->getMembers();
 
-    public static function create($item,$action){
-    	return view('closed.create', compact('item','action'));
+        return view('closed.index', compact('model', 'members'));
     }
     
+    public function create()
+    {
+        $singular = $this->singular;
+        $plural   = $this->plural;
+
+        return view('closed.create', compact('singular', 'plural'));
+    }
+
+    public function destroy($id)
+    {
+        $this->getItem($id)->delete();
+
+        return redirect('/'.strtolower($this->plural));
+    }
+
+    public function show($id)
+    {
+        $item   = $this->getItem($id);
+        $plural = $this->plural;
+
+        return view('closed.show', compact('item', 'plural'));
+    }
+
+    public function store(Request $request)
+    {
+        $newModel = $this->createNew();
+
+        $newModel->name        = $request->name;
+        $newModel->description = $request->description;
+
+        $newModel->save();
+        
+        return redirect('/'.strtolower($this->plural).'/'.$newModel->id);
+    }
 }

@@ -19,7 +19,7 @@ class CreateLanguageTbl extends Migration
             $table->increments('id');
             $table->string('name')->unique();
             $table->string('iso',3)->unique();
-            $table->string('algoCode',3)->unique();
+            $table->string('algoCode',5)->unique();
             $table->unsignedInteger('parent_id')->nullable();
             $table->unsignedInteger('group_id');
             $table->boolean('verified')->default(0);

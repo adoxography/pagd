@@ -10,6 +10,15 @@ class Example extends Model
     public $table = 'Examples';
     protected $fillable = ['name','translation','vStem_id','form_id','comments'];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function($model){
+            //dd($model);
+        });
+    }
+
     public function form()
     {
         return $this->belongsTo(Form::class, 'form_id');
@@ -23,5 +32,15 @@ class Example extends Model
     public function vStem()
     {
         return $this->belongsto(Morpheme::class, 'morpheme_id');
+    }
+
+    public function addSources($sourceData){
+        for($i = 0; $i < count($sourceData); $i++){
+            if(isset($sourceData['source_id'][$i])){
+                $this->sources()->attach($sourceData['source_id'][$i], ['extraInfo' => $sourceData['extraInfo'][$i]]);
+            }
+        }
+
+        dd($this->load('sources'));
     }
 }

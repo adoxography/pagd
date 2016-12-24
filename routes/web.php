@@ -22,13 +22,13 @@ Route::post('contact', 'ContactController@send');
 
 Route::get('search', 'SearchController@index');
 Route::post('search', 'SearchController@search');
-Route::get('glossary', 'GlossaryController@index');
-Route::get('glossary/{model}', 'GlossaryController@show');
 
-Route::get('autocomplete', 'AutocompleteController@test');
-Route::get('autocomplete/forms', 'AutocompleteController@forms');
-Route::get('autocomplete/morphemes', 'AutocompleteController@morphemes');
-Route::get('autocomplete/sources', 'AutocompleteController@sources');
+Route::get('autocomplete',                 'AutocompleteController@test');
+Route::get('autocomplete/forms',           'AutocompleteController@forms');
+Route::get('autocomplete/formParents',     'AutocompleteController@formParents');
+Route::get('autocomplete/morphemes',       'AutocompleteController@morphemes');
+Route::get('autocomplete/morphemeParents', 'AutocompleteController@morphemeParents');
+Route::get('autocomplete/sources',         'AutocompleteController@sources');
 
 Route::get('morphemes/exists', 'MorphemeController@exists');
 Route::post('morphemes/createOTG', 'MorphemeController@createOTG');
@@ -37,14 +37,21 @@ Route::post('morphemes/multi', 'MorphemeController@storeMulti');
 
 Route::get('sources/ajax', 'SourceController@store');
 
+Route::resource('classes',   'ClassController');
+Route::resource('glosses',   'GlossController');
 Route::resource('examples',  'ExampleController');
 Route::resource('forms',     'FormController');
 Route::resource('groups',    'GroupController');
 Route::resource('languages', 'LanguageController');
+Route::resource('modes',     'ModeController');
 Route::resource('morphemes', 'MorphemeController');
+Route::resource('orders',    'OrderController');
+Route::resource('slots',     'SlotController');
 Route::resource('sources',   'SourceController');
 
 Route::get('forms/{form}/addExample', 'FormController@addExample');
+
+Route::get('groups/{group}/addLanguage', 'GroupController@addLanguage');
 
 Route::get('languages/{language}/addChild',    'LanguageController@addChild');
 Route::get('languages/{language}/addForm',     'LanguageController@addForm');

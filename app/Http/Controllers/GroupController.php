@@ -3,52 +3,44 @@
 namespace App\Http\Controllers;
 
 use App\Group;
-use App\Http\Controllers\ClosedController;
 use App\Http\Requests;
 use App\Language;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
-class GroupController extends Controller
+class GroupController extends ClosedController
 {
-    public function index(){
-    	$groups = Group::all();
-    	return ClosedController::index($groups,'Groups','groups');
-	}
+
+    protected $plural   = 'Groups';
+    protected $singular = 'Group';
+
+    protected function getMembers()
+    {
+        return Group::all();
+    }
+
+    protected function createNew()
+    {
+        return new Group();
+    }
+
+    protected function getItem($id)
+    {
+        return Group::where('id', $id)->first();
+    }
 	
-	public function show(Group $group){
-		$group->load('languages');
+	// public function show($id){
+	// 	$group = Group::where('id', $id)->with('languages')->first();
 
-		return view('groups.show', compact('group'));
-	}
+	// 	return view('groups.show', compact('group'));
+	// }
 
-	public function create(){
-		return ClosedController::create('Group','/groups');
-	}
+	// public function addLanguage(Group $group){
+	// 	$preset = ['group_id' => $group->id];
+	// 	$groups = Group::all();
+	// 	$parents = Language::all();
 
-	public function addTo(Group $group){
-		$preset = ['group_id' => $group->id];
-		$groups = Group::all();
-		$parents = Language::all();
-
-		return view('languages.create', compact('groups', 'parents', 'preset'));
-	}
-
-	public function insert(Request $request, Group $group){
-		$this->validate($request,[
-			'name' => ['required','unique:Groups,name']
-		]);
-
-		$group = new Group($request->all());
-		$group->save();
-
-		return Redirect::to('/groups/' . $group->id);
-	}
-
-	public function destroy(Group $group){
-		$group->delete();
-
-		return Redirect::to('/groups');
-	}
+	// 	return view('languages.create', compact('groups', 'parents', 'preset'));
+	// }
 	
 }

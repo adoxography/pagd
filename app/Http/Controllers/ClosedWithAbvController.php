@@ -6,19 +6,34 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class ClosedWithAbvController extends Controller
+abstract class ClosedWithAbvController extends ClosedController
 {
-    
-    public static function index($items,$itemTitle,$itemLink){
-    	return view('closedWithAbv.index', compact('items','itemTitle','itemLink'));
+    public function index()
+    {
+        $model   = $this->plural;
+        $members = $this->getMembers();
+
+        return view('closedWithAbv.index', compact('model', 'members'));
     }
 
-    public static function create($itemName,$action){
-    	return view('closedWithAbv.create', compact('itemName','action'));
+    public function create()
+    {
+        $modelPl = $this->plural;
+        $modelSg = $this->singular;
+
+        return view('closedWithAbv.create', compact('modelPl', 'modelSg'));
     }
-    
-    public static function show($item,$itemName,$itemLink){
-    	return view('closedWithAbv.show', compact('item','itemName','itemLink'));
+
+    public function store(Request $request)
+    {
+        $newModel = $this->createNew();
+
+        $newModel->name        = $request->name;
+        $newModel->abv         = $request->abv;
+        $newModel->description = $request->description;
+
+        $newModel->save();
+        
+        return redirect('/'.strtolower($this->plural).'/'.$newModel->id);
     }
-      
 }

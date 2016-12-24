@@ -17,6 +17,7 @@ class FormController extends Controller
     public function __construct()
     {
         $this->middleware('parseForm')->only('store', 'update');
+        $this->middleware('parseSources')->only('store', 'update');
     }
     
     public function index()

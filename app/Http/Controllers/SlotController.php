@@ -2,46 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\ClosedWithAbvController;
 use App\Http\Requests;
 use App\Slot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
-class SlotController extends Controller
+class SlotController extends ClosedWithAbvController
 {
     
-    public function index(){
-    	$slots = Slot::all();
+    protected $plural   = 'Slots';
+    protected $singular = 'Slot';
 
-    	return ClosedWithAbvController::index($slots,'Slots','slots');
+    protected function getMembers()
+    {
+        return Slot::all();
     }
 
-    public function create(){
-		return ClosedWithAbvController::create('Slots','/slots');
+    protected function createNew()
+    {
+        return new Slot();
     }
 
-	public function destroy(Slot $slot){
-		$slot->delete();
-
-		return Redirect::to('/slots');
-	}
-
-	public function insert(Request $request, Slot $slot){
-		$this->validate($request, [
-			'name' => 'required',
-			'abv'  => 'required'
-		]);
-
-		$slot = new Slot($request->all());
-		$slot->save();
-
-		return Redirect::to('/slots/' . $slot->id);
-	}
-	
-
-    public function show(Slot $slot){
-    	return ClosedWithAbvController::show($slot,'Slot','slots');
+    protected function getItem($id)
+    {
+        return Slot::where('id', $id)->first();
     }
     
 }

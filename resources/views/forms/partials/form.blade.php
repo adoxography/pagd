@@ -72,7 +72,7 @@
 
 <script>
 	$(document).ready(function(){
-		formUtil.initAutocomplete('parent','forms');
+		formUtil.initAutocomplete('parent','formParents');
 		formUtil.initDatalists();
 		formUtil.initRadios();
 

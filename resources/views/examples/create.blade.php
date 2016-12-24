@@ -6,4 +6,6 @@
 		@include('examples.partials.form')
 	{{ Form::close() }}
 
+	@include('errors.list')
+
 @stop

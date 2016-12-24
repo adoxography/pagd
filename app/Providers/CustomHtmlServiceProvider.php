@@ -14,23 +14,22 @@ class CustomHtmlServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Html::macro('field', function($label,$value,$link = null){
-            if($link){
+        Html::macro('field', function ($label, $value, $link = null) {
+            if ($link) {
                 $value = "<a href='$link'>$value</a>";
             }
 
             return $this->toHtmlString("<li><span class = 'label'>$label</span><span class = 'value'>$value</span></li>");
         });
 
-        Html::macro('multi', function($label, $array, $link = null, $field = 'name'){
+        Html::macro('multi', function ($label, $array, $link = null, $field = 'name') {
             $entries = "";
 
-            if(count($array) > 0)
-            {
-                foreach($array as $item){
+            if (count($array) > 0) {
+                foreach ($array as $item) {
                     $value = $item->getAttribute($field);
     
-                    if($link){
+                    if ($link) {
                         $value = "<a href='$link/".$item->id."'>$value</a>";
                     }
     
@@ -38,16 +37,21 @@ class CustomHtmlServiceProvider extends ServiceProvider
                 }
 
                 return $this->toHtmlString("<li><span class = 'label'>$label</span><ul class = 'multi-value'>$entries</ul></li>");
+            } else {
+                return $this->field($label, 'Unknown');
             }
-            else
-            {
-                return $this->field($label,'Unknown');
-            }
-
         });
 
-        Html::macro('para', function($label, $value, $parser){
-            return $this->toHtmlString("<li><span class = 'label'>$label</span><div class = 'paragraph'>".$parser->setRestricted(true)->parse($value)."</div>");
+        Html::macro('para', function ($label, $value, $parser = null) {
+            if ($value == '') {
+                $body = 'None';
+            } elseif ($parser) {
+                $body = $parser->setRestricted(true)->parse($value);
+            } else {
+                $body = $value;
+            }
+
+            return $this->toHtmlString("<li><span class = 'label'>$label</span><div class = 'paragraph'>$body</div>");
         });
     }
 

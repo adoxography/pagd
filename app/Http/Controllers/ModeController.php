@@ -4,26 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\ClosedController;
 use App\Http\Requests;
-use App\Order;
+use App\Mode;
 use Illuminate\Http\Request;
 
-class OrderController extends ClosedController
+class ModeController extends ClosedController
 {
-    protected $plural   = 'Orders';
-    protected $singular = 'Order';
+    protected $plural   = 'Modes';
+    protected $singular = 'Mode';
 
     protected function getMembers()
     {
-        return Order::all();
+        return Mode::all();
     }
 
     protected function createNew()
     {
-        return new Order();
+        return new Mode();
     }
 
     protected function getItem($id)
     {
-        return Order::where('id', $id)->first();
+        return Mode::where('id', $id)->first();
     }
 }

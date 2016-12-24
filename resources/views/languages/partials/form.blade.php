@@ -19,7 +19,7 @@
 		[
 			'visible' => [
 				'required' => 'required', 
-				'default'  => 'Eastern'
+				'default'  => 'Plains'
 			]
 		]
 	) }}

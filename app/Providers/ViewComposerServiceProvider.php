@@ -135,6 +135,7 @@ class ViewComposerServiceProvider extends ServiceProvider
         view()->composer('search.index', function($view)
         {
             $data = [
+                'arguments' => Argument::select('id','name')->get(),
                 'classes'   => FormClass::select('id','name')->get(),
                 'modes'     => Mode::select('id','name')->get(),
                 'orders'    => Order::select('id','name')->get()

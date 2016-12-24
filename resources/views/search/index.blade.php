@@ -52,8 +52,44 @@
 		<h4>Enter the parameters for a particular form:</h4>
 		<fieldset>
 			{{ Form::label('class') }}
-			{{ Form::select()}}
+			{{ Form::select('class', organizeForDropdown($classes)) }}
 		</fieldset>
+		<fieldset>
+			<legend>Arguments</legend>
+			{{ Form::select('subject', organizeForDropdown($arguments)) }}
+			{{ Form::select('primaryObject', organizeForDropdown($arguments)) }}
+			{{ Form::select('secondaryObject', organizeForDropdown($arguments)) }}
+		</fieldset>
+		<fieldset>
+			{{ Form::label('order') }}
+			{{ Form::select('order', organizeForDropdown($orders)) }}
+		</fieldset>
+		<fieldset>
+			{{ Form::label('mode') }}
+			{{ Form::select('mode', organizeForDropdown($modes)) }}
+		</fieldset>
+		<fieldset>
+			<legend>Extras</legend>
+			{{ Form::checkbox('isNegative', 'negative') }}
+			{{ Form::label('isNegative', 'Negative') }}			
+			{{ Form::checkbox('isDiminutive', 'diminutive') }}
+			{{ Form::label('isDiminutive', 'Diminutive') }}			
+			{{ Form::checkbox('isAbsolute', 'absolute') }}
+			{{ Form::label('isAbsolute', 'Absolute') }}			
+			{{ Form::checkbox('isObjective', 'objective') }}
+			{{ Form::label('isObjective', 'Objective') }}
+		</fieldset>
+		<fieldset>
+			<legend>Language</legend>
+			{{ Form::radio('all-languages', 'allLanguages') }}
+			{{ Form::label('all-languages', 'All languages') }}
+			{{ Form::radio('all-languages', 'someLanguages') }}
+			{{ Form::label('all-languages', 'The following languages...') }}
+			<fieldset>
+				{{ Form::text('language') }}
+			</fieldset>
+		</fieldset>
+		{{ Form::submit('Search') }}
 	{{ Form::close() }}
 
 @stop

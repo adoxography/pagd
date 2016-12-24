@@ -37,6 +37,16 @@ function getOptions($collection, $field = 'name'){
     return $options;
 }
 
+function organizeForDropdown($collection){
+    $output = [];
+
+    foreach($collection as $item){
+        $output += [$item->id => $item->name];
+    }
+
+    return $output;
+}
+
 function flash($message, $level = 'info'){
     session()->flash('flashMessage',$message);
     session()->flash('flashLevel',$level);

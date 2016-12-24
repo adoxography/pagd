@@ -33,7 +33,7 @@ Route::get('autocomplete/morphemeParents', 'AutocompleteController@morphemeParen
 Route::get('autocomplete/sources',         'AutocompleteController@sources');
 
 Route::get('morphemes/exists', 'MorphemeController@exists');
-Route::post('morphemes/createOTG', 'MorphemeController@createOTG');
+Route::get('morphemes/createOTG', 'MorphemeController@createOTG'); //FIGURE OUT HOW TO MAKE ME A POST
 Route::get('morphemes/multi', 'MorphemeController@createMulti');
 Route::post('morphemes/multi', 'MorphemeController@storeMulti');
 

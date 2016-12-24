@@ -59,7 +59,7 @@
 
 			if(validIDs(glosses) && validIDs(slots)){
 				$.ajax({
-					method: 'POST',
+					method: 'GET',
 					url: '/morphemes/createOTG',
 					datatype: 'html',
 					data: {

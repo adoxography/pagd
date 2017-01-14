@@ -14,7 +14,7 @@
 		<div class="nav-right">
 			<a href="/contact" class="nav-item is-tab @if(URL::current() == URL::to("/contact")) is-active @endif">Contact</a>
 			@if(Auth::user())
-				<form action="logout" method="post" style="display:-webkit-inline-box;">
+				<form action="/logout" method="post" style="display:-webkit-inline-box;">
 					{{ csrf_field() }}
 					<a href="#" class="nav-item is-tab" onclick="event.preventDefault(); this.parentNode.submit()">Log out</a>
 				</form>

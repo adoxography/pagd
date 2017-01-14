@@ -64,25 +64,33 @@ Route::get('languages/{language}/addMorpheme', 'LanguageController@addMorpheme')
 
 Auth::routes();
 
-Route::get('/{fileName}', function ($file) {
-	return $file;
-	if(File::exists("/home/public/etc/$file.php")) {
+Route::get('/{file}', function ($file) {
+	if(File::exists("/home/protected/laravel/resources/views/etc/$file.php")) {
 		$page = "etc.$file";
 		return view('etc', compact(['page']));
+	}
+	else {
+		App::abort(404);
 	}
 });
 
 Route::get('/{folder}/{file}', function ($folder, $file) {
-	if(File::exists("/home/public/etc/$folder/$file.php")) {
+	if(File::exists("/home/protected/laravel/resources/views/etc/$folder/$file.php")) {
 		$page = "etc.$folder.$file";
 		return view('etc', compact(['page']));
 	}
+		else {
+		App::abort(404);
+	}
 });
 
-Route::get('/{folder1}/{folder2}/{file}', function ($folder1, $folder2 $file) {
-	if(File::exists("/home/public/etc/$folder1/$folder2/$file.php")) {
+Route::get('/{folder1}/{folder2}/{file}', function ($folder1, $folder2, $file) {
+	if(File::exists("/home/protected/laravel/resources/views/etc/$folder1/$folder2/$file.php")) {
 		$page = "etc.$folder1.$folder2.$file";
 		return view('etc', compact(['page']));
+	}
+	else {
+		App::abort(404);
 	}
 });
 

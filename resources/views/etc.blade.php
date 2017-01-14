@@ -2,6 +2,8 @@
 
 @section('content')
 
-@include($page)
+<div id="etc">
+	@include($page)
+</div>
 
 @stop

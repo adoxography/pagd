@@ -63,3 +63,26 @@ Route::get('languages/{language}/addForm',     'LanguageController@addForm');
 Route::get('languages/{language}/addMorpheme', 'LanguageController@addMorpheme');
 
 Auth::routes();
+
+Route::get('/{fileName}', function ($file) {
+	return $file;
+	if(File::exists("/home/public/etc/$file.php")) {
+		$page = "etc.$file";
+		return view('etc', compact(['page']));
+	}
+});
+
+Route::get('/{folder}/{file}', function ($folder, $file) {
+	if(File::exists("/home/public/etc/$folder/$file.php")) {
+		$page = "etc.$folder.$file";
+		return view('etc', compact(['page']));
+	}
+});
+
+Route::get('/{folder1}/{folder2}/{file}', function ($folder1, $folder2 $file) {
+	if(File::exists("/home/public/etc/$folder1/$folder2/$file.php")) {
+		$page = "etc.$folder1.$folder2.$file";
+		return view('etc', compact(['page']));
+	}
+});
+

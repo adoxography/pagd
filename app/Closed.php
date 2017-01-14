@@ -13,10 +13,10 @@ class Closed extends Model
 
     public function __construct()
     {
-        $this->fillable = [
-            'name',
-            'description'
-        ];
+        // $this->fillable = [
+        //     'name',
+        //     'description'
+        // ];
 
         $this->rules = [
             'name' => ['required',"unique:{$this->table},name"],

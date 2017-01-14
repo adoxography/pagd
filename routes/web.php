@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,7 +12,8 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-Route::get('sandbox', 'BackupController@store');
+Route::get('sandbox', 'SandboxController@index');
+Route::post('sandbox', 'SandboxController@store');
 
 Route::get('', 'HomeController@index');
 Route::get('home', 'HomeController@index');

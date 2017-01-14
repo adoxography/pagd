@@ -34,6 +34,8 @@ class SearchController extends Controller
             'morphemes.slot'
         ])->get();
 
+        dd($forms);
+
         $result = new SearchTable($forms);
         return view('search.result', compact('result'));
     }

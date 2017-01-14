@@ -2,18 +2,13 @@
 
 @section('content')
 
-<p>Insert welcome information here later</p>
+<div class="heading">
+	<h1 class="title">Welcome{{ Auth::user() ? ", " . Auth::user()->name : "" }}</h1>
+</div>
+<br />
 
-{{-- {{ Form::open(['url' => '/login']) }}
-	{{ Form::label('email', 'Email:')}}
-	{{ Form::text('email') }}
-	{{ Form::label('password', 'Password:') }}
-	{{ Form::password('password') }}
-	{{ Form::submit() }}
-{{ Form::close() }} --}}
-
-{{ Form::open(['url' => '/backup']) }}
-	{{ Form::submit('Download a Backup') }}
-{{ Form::close() }}
+<div class="box">
+	<p>Insert welcome information here later</p>
+</div>
 
 @stop

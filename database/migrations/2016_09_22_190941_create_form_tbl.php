@@ -15,6 +15,8 @@ class CreateFormTbl extends Migration
     {
         Schema::create('Forms', function (Blueprint $table) {
         	$table->engine = 'InnoDB';
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_unicode_ci';
         	
             $table->increments('id');
             $table->unsignedInteger('language_id');

@@ -16,28 +16,14 @@ class seed_morphemes extends Seeder
     {
     	DB::table('Morphemes')->delete();
 
-        for($i = 1; $i <= $this->numLanguages; $i++)
-        {
-        	$morpheme = [
-        		'id'          => $i,
-        		'name'        => 'V',
-        		'language_id' => $i,
-        		'gloss_id'    => 1,
-        		'slot_id'     => 1
-        	];
+    	$morphemes = [
+    		'id'          => 1,
+    		'name'        => 'V',
+    		'language_id' => 1,
+    		'gloss_id'    => 1,
+    		'slot_id'     => 1
+    	];
 
-        	if($i == 1)
-        	{
-        		$morpheme['parent_id'] = null;
-        	}
-        	else
-        	{
-        		$morpheme['parent_id'] = Language::where('id',$i)->first()->parent->morphemes->where('name','V')->first()->id;
-        	}
-
-        	DB::table('Morphemes')->insert($morpheme);
-        }
-
-        //DB::table('Morphemes')->insert($morphemes);
+        DB::table('Morphemes')->insert($morphemes);
     }
 }

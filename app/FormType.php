@@ -2,8 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Form;
 use Validator;
+use Illuminate\Database\Eloquent\Model;
 
 class FormType extends Model
 {
@@ -33,20 +34,22 @@ class FormType extends Model
         'isDiminutive'       => ['required','boolean']
     ];
 
-    public static function boot(){
+    public static function boot()
+    {
         parent::boot();
 
-        static::saving(function($model){
+        static::saving(function ($model) {
             // The request's validator should catch any errors, but just to be safe
             return $model->validate();
         });
     }
 
-    public function validate(){
+    public function validate()
+    {
         $rc = true;
-        $v = Validator::make($this->getAttributes(),$this->rules);
+        $v = Validator::make($this->getAttributes(), $this->rules);
 
-        if($v->fails()){
+        if ($v->fails()) {
             $this->errors = $v->messages();
             $rc = false;
         }
@@ -54,27 +57,38 @@ class FormType extends Model
         return $rc;
     }
 
-    public function formClass(){
-    	return $this->belongsTo(FormClass::class,'class_id');
+    public function formClass()
+    {
+        return $this->belongsTo(FormClass::class, 'class_id');
     }
 
-    public function mode(){
-    	return $this->belongsTo(Mode::class,'mode_id');
+    public function mode()
+    {
+        return $this->belongsTo(Mode::class, 'mode_id');
     }
 
-    public function order(){
- 	  	return $this->belongsTo(Order::class,'order_id');
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_id');
     }
 
-    public function subject(){
-    	return $this->belongsTo(Argument::class,'subject_id');
+    public function subject()
+    {
+        return $this->belongsTo(Argument::class, 'subject_id');
     }
     
-  	public function primaryObject(){
-    	return $this->belongsTo(Argument::class,'primaryObject_id');
+    public function primaryObject()
+    {
+        return $this->belongsTo(Argument::class, 'primaryObject_id');
     }
     
-  	public function secondaryObject(){
-    	return $this->belongsTo(Argument::class,'secondaryObject_id');
+    public function secondaryObject()
+    {
+        return $this->belongsTo(Argument::class, 'secondaryObject_id');
+    }
+
+    public function forms()
+    {
+        return $this->hasMany(Form::class, 'formType_id');
     }
 }

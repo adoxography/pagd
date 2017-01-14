@@ -2,10 +2,11 @@
 
 namespace App;
 
-use App\ClosedWithAbv;
 use Illuminate\Database\Eloquent\Model;
 
-class Slot extends ClosedWithAbv
+class Slot extends Model
 {
     public $table = 'Slots';
+
+    protected $fillable = ['name', 'abv', 'description'];
 }

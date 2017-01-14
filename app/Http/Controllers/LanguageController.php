@@ -56,6 +56,8 @@ class LanguageController extends Controller
     {
         $language = Language::create($request->all());
         if ($language) {
+            
+            
             flash($language->name.' added successfully.', 'success');
             return redirect('/languages/' . $language->id);
         }//if

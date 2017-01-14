@@ -2,14 +2,47 @@
 
 @section('content')
 
-{{ Form::open() }}
-	{{ Form::label('subject') }}
-	{{ Form::text('subject') }}
-	{{ Form::label('body', 'Message') }}
-	{{ Form::textarea('body') }}
-	{{ Form::label('from', 'Your email')}}
-	{{ Form::email('from') }}
-	{{ Form::submit('Send') }}
-{{ Form::close() }}
+	<div class="heading">
+		<h1 class="title">Contact</h1>
+	</div>
+	<br />
+
+
+	{{ Form::open() }}
+		<div class="box">
+			<div class="control is-horizontal">
+				<div class="control-label">
+					<label class="label">From</label>
+				</div>
+				<div class="control is-grouped">
+					<p class="control is-expanded">
+						<input class="input" type="text" placeholder="Name">
+					</p>
+					<p class="control is-expanded">
+						<input class="input" type="email" placeholder="Email">
+					</p>
+				</div>
+			</div>
+			<div class="control is-horizontal">
+				<div class="control-label">
+					<label class="label">Subject</label>
+				</div>
+				<div class="control">
+					<input class="input" type="text" placeholder="Subject">
+				</div>
+			</div>
+			<div class="control is-horizontal">
+				<div class="control-label">
+					<label class="label">Message</label>
+				</div>
+				<div class="control">
+					<textarea class="textarea"></textarea>
+				</div>
+			</div>
+				<p class="control is-pulled-right">
+					<button type="submit" class="button is-success">Send</button>
+				</p>
+				<br /><br />
+		</div>
 
 @stop

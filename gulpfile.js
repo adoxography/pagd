@@ -1,4 +1,6 @@
 const elixir = require('laravel-elixir');
+const gutils = require('gulp-util');
+var browserify = elixir.config.js.browserify;
 
 require('laravel-elixir-vue');
 
@@ -23,4 +25,9 @@ elixir(mix => {
        		'resources/assets/css/style.css'
        	], 'public/css/style.css')
        .version('css/style.css');
+
+    mix.scripts([
+    	'vendor/vue.js',
+    	'vendor/axios.js'
+    ], 'public/js/vendor.js');
 });

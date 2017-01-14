@@ -1,18 +1,40 @@
 @extends('layout')
 
 @section('content')
-	<div class = 'show'> <!-- Make sure to change this to index class at some point -->
-		<h1>Languages 
+	<div class="heading">
+		<h1 class="title">Languages</h1>
 		@if(Auth::user())
-			(<a href='/languages/create' class = 'newItem'>Add new</a>)
+			<h3 class="subtitle"><a href="/languages/create">Add another</a></h3>
 		@endif
-		</h1>
-		<div class = 'itemList'>
-			<ul>
-				@foreach($languages as $language)
-					<li><a href='/languages/{{ $language->id }}'>{{ $language->name }}</a></li>
-				@endforeach
-			</ul>
-		</div>
 	</div>
+	<br />
+	<ul class="box">
+		@foreach($languages as $language)
+			<li class="level">
+				<div class="level-left">
+					<div class="level-item">
+						<a href='/languages/{{ $language->id }}'>{{ $language->name }}</a>
+					</div>
+				</div>
+				@if(Auth::user())
+					<div class="level-right">
+						<div class="level-item">
+							<a class="button" href="/languages/{{ $language->id }}/edit">
+								<span class="icon" title="Edit">
+									<i class="fa fa-pencil"></i>
+								</span>
+							</a>
+						</div>					
+						<div class="level-item">
+							<a class="button">
+								<span class="icon" title="Delete">
+									<i class="fa fa-times"></i>
+								</span>
+							</a>
+						</div>
+					</div>
+				@endif
+			</li>
+		@endforeach
+	</ul>
 @stop

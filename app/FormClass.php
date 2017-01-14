@@ -7,4 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class FormClass extends Model
 {
     public $table = 'Classes';
+
+    public $fillable = ['name'];
 }

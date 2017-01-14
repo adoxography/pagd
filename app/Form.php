@@ -195,7 +195,7 @@ class Form extends Model
 
     public function morphemes()
     {
-        return $this->belongsToMany(Morpheme::class, 'Forms_Morphemes');
+        return $this->belongsToMany(Morpheme::class, 'Forms_Morphemes')->orderBy('position');
     }
 
     public function duplicates()

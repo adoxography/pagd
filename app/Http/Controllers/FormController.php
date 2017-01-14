@@ -64,14 +64,14 @@ class FormController extends Controller
             }
         }
 
-        flash($form->surfaceForm.' updated successfully', 'success');
+        flash($form->surfaceForm.' updated successfully', 'is-success');
         return redirect('/forms/'.$form->id);
     }
     
     public function destroy(Form $form)
     {
         $form->delete();
-        flash($form->surfaceForm.' deleted successfully.');
+        flash($form->surfaceForm.' deleted successfully.', 'is-info');
         return redirect('/languages/' . $form->language_id);
     }
 
@@ -95,7 +95,7 @@ class FormController extends Controller
         }
 
         // Flash a message to the session
-        flash($form->surfaceForm.' created successfully.', 'success');
+        flash($form->surfaceForm.' created successfully.', 'is-success');
 
         return redirect('/forms/' . $form->id);
     }

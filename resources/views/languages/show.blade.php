@@ -1,93 +1,130 @@
 @extends('layout')
 
 @section('content')
-
-	<div class = 'show'>
-		<h1>
-			{{ $language->name }}
-			{{-- @if(Auth::user()) --}}
-				<a href='/languages/{{ $language->id }}/edit'>(Edit)</a>
-			{{-- @endif --}}
-		</h1>
-		<table>
-			<tr>
-				<td class = 'label'>Group</td>
-				<td class = 'value'><a href = "/groups/{{ $language->group->id }}">{{ $language->group->name }}</a></td>
-			</tr>
-			<tr>
-				<td class = 'label'>Parent</td>
-				<td class = 'value'>
-					@if($language->parent)
-						<a href = "/languages/{{ $language->parent->id }}">{{ $language->parent->name }}</a>
-					@else
-						None
-					@endif
-				</td>
-			</tr>
-			<tr>
-				<td class = 'label'>
-					Children 
-					@if(Auth::user())
-						(<a href = '/languages/{{ $language->id }}/addChild' class = 'newItem'>Add another</a>)
-					@endif
-				</td>
-				@if(count($language->children) > 0)
-					<td class = 'itemList'>
-						<ul>
-						@foreach($language->children as $child)
-							<li><a href = "/languages/{{ $child->id }}">{{ $child->name }}</a></li>
-						@endforeach
-						</ul>
-					</td>
-				@else
-					<td class = 'value'>
-						None
-					</td>
-				@endif
-			</tr>
-			<tr>
-				<td class = 'label'>
-					Forms 
-					{{-- @if(Auth::user()) --}}
-						(<a href = '/languages/{{ $language->id }}/addForm' class = 'newItem'>Add another</a>)
-					{{-- @endif --}}
-				</td>
-				@if($language->forms && count($language->forms) > 0)
-					<td class = 'itemList'>
-						<ul>
-							@foreach($language->forms as $form)
-								<li><a href = '/forms/{{ $form->id }}'>{{ $form->surfaceForm }}</a></li>
-							@endforeach
-						</ul>
-					</td>
-				@else
-					<td class = 'value'>None</td>
-				@endif
-			</tr>
-			<tr>
-				<td class = 'label'>
-					Morphemes 
-					{{-- @if(Auth::user()) --}}
-						(<a href = '/languages/{{ $language->id }}/addMorpheme' class = 'newItem'>Add another</a>)
-					{{-- @endif --}}
-				</td>
-				@if($language->morphemes && count($language->morphemes) > 0)
-					<td class = 'itemList'>
-						<ul>
-							@foreach($language->morphemes as $morpheme)
-								<li><a href = "/morphemes/{{ $morpheme->id }}">{{ $morpheme->name }}</a></li>
-							@endforeach
-						</ul>
-					</td>
-				@else
-					<td class = 'value'>None</td>
-				@endif
-			</tr>
-		</table>
-		{{-- @if(!$language->verified && Auth::user()) --}}
-			{{ Form::open(['url' => '/languages/'.$language->id, 'method' => 'delete', 'class' => 'deleteButton']) }}
-			{{ Form::submit('Delete') }}
-			{{ Form::close() }}
-		{{-- @endif --}}
+	
+	<div class="heading">
+		<h1 class="title">Language Details</h1>
 	</div>
+	<br />
+
+	<div id="root">
+		<model-card>
+
+			<template slot="header">
+				{{ $language->name }}
+			</template>
+
+			<field-card width="is-half">
+				<template slot="label">
+					<p class="card-header-title">Group</p>
+				</template>
+				<a href="/groups/{{ $language->group_id }}">{{ $language->group->name }}</a>
+			</field-card>
+
+			<field-card width="is-half">
+				<template slot="label">
+					<p class="card-header-title">Parent</p>
+				</template>
+				@if($language->parent)
+					<a href="/languages/{{ $language->parent_id }}">{{ $language->parent->name }}</a>
+				@else
+					<a href="#">None</a>
+				@endif
+			</field-card>
+
+			<field-card width="is-half">
+				<template slot="label">
+					<p class="card-header-title">Children</p>
+					@if(Auth::user())
+						<a class="card-header-icon" href="/languages/{{ $language->id }}/addChild">
+							<span class="icon" title="Add another">
+								<i class="fa fa-plus-square"></i>
+							</span>
+						</a>
+					@endif
+				</template>
+				@if(count($language->children) > 0)
+					<ul>
+						@foreach($language->children as $child)
+							<li><a href="/languages/{{ $child->id }}">{{ $child->name }}</a></li>
+						@endforeach
+					</ul>
+				@else
+					None
+				@endif
+			</field-card>
+
+			<div class="column is-half">
+			</div>
+
+			<field-card width="is-half">
+				<template slot="label">
+					<p class="card-header-title">ISO Code</p>
+				</template>
+				{{ $language->iso }}
+			</field-card>
+
+			<field-card width="is-half">
+				<template slot="label">
+					<p class="card-header-title">Algonquianist Code</p>
+				</template>
+				{{ $language->algoCode }}
+			</field-card>
+
+			<field-card width="is-one-third">
+				<template slot="label">
+					<p class="card-header-title">Forms</p>
+				</template>
+				@if(count($language->forms) > 0)
+					<ul>
+						@foreach($language->forms as $form)
+							<li><a href="/forms/{{ $form->id }}">{{ $form->surfaceForm }}</a></li>
+						@endforeach
+					</ul>
+				@else
+					None
+				@endif
+			</field-card>			
+			<field-card width="is-one-third">
+				<template slot="label">
+					<p class="card-header-title">Morphemes</p>
+				</template>
+				@if(count($language->morphemes) > 0)
+					<ul>
+						@foreach($language->morphemes as $morpheme)
+							@if($morpheme->name != "V")
+								<li><a href="/morphemes/{{ $morpheme->id }}">{{ $morpheme->name }}</a></li>
+							@endif
+						@endforeach
+					</ul>
+				@else
+					None
+				@endif
+			</field-card>			
+			<field-card width="is-one-third">
+				<template slot="label">
+					<p class="card-header-title">Examples</p>
+				</template>
+				@if(count($language->examples) > 0)
+					<ul>
+						@foreach($language->examples as $example)
+							<li><a href="/examples/{{ $example->id }}">{{ $example->name }}</a></li>
+						@endforeach
+					</ul>
+				@else
+					None
+				@endif
+			</field-card>
+
+			@if(Auth::user())
+				<template slot="footer">
+					<a class="card-footer-item">Edit</a>
+					<a class="card-footer-item">Delete</a>
+				</template>
+			@endif
+
+		</model-card>
+
+	</div>
+
 @stop

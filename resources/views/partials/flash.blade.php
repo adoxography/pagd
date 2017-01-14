@@ -1,5 +1,6 @@
 @if(session()->has('flashMessage'))
-	<div class = 'alert--{{ session()->get('flashLevel') }}'>
+	<div class="notification {{ session()->get('flashLevel') }}">
+		<button class="delete"></button>
 		{{ session()->get('flashMessage') }}
 	</div>
 @endif

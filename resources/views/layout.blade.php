@@ -58,6 +58,11 @@
 								<div class="columns is-multiline">
 									<slot></slot>
 								</div>
+								<div class="level">
+									<div class="level-right">
+										<slot name="tags"></slot>
+									</div>
+								</div>
 							</div>
 						</div>
 						<footer class="card-footer">

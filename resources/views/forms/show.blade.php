@@ -101,6 +101,30 @@
 				@endif
 			</field-card>
 
+			<template slot="tags">
+				@if($form->formType->isNegative)
+					<div class="level-item">
+						<span class="tag is-info">Negative</span>
+					</div>	
+				@endif
+				@if($form->formType->isDiminutive)			
+					<div class="level-item">
+						<span class="tag is-info">Diminutive</span>
+					</div>
+				@endif
+				@if(isset($form->formType->isAbsolute))
+					<div class="level-item">
+						<span class="tag is-info">
+							@if($form->formType->isAbsolute)
+								Absolute
+							@else
+								Objective
+							@endif
+						</span>
+					</div>
+				@endif
+			</template>
+
 			<template slot="footer">
 				<a class="card-footer-item" href = "/forms/{{ $form->id }}/edit">Edit</a>
 				<a class="card-footer-item">Delete</a>

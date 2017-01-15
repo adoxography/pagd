@@ -3,7 +3,7 @@
 		<div class="nav-left">
 			<a href="/home" class="nav-item is-tab @if(URL::current() == URL::to("/home")) is-active @endif">Home</a>
 			<a href="/languages" class="nav-item is-tab @if(URL::current() == URL::to("/languages")) is-active @endif">Languages</a>
-			<a href="/glossary" class="nav-item is-tab @if(URL::current() == URL::to("/glossary")) is-active @endif">Glossary</a>
+			<a href="#" class="nav-item is-tab @if(URL::current() == URL::to("/glossary")) is-active @endif">Glossary</a>
 			<a href="/search" class="nav-item is-tab @if(URL::current() == URL::to("/search")) is-active @endif">Search</a>
 		</div>
 		@if(Auth::user())

@@ -38,7 +38,7 @@
 					@if($language->parent)
 						<a href="/languages/{{ $language->parent_id }}">{{ $language->parent->name }}</a>
 					@else
-						<a href="#">None</a>
+						None
 					@endif
 				</field-card>
 
@@ -80,9 +80,7 @@
 						None
 					@endif
 				</field-card>
-
-				<div class="column is-half">
-				</div>
+				
 			</model-card-tab>
 
 			<model-card-tab name="Forms">

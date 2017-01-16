@@ -25,6 +25,16 @@ Vue.component("alg-tabs", {
 		this.tabs = this.$children;
 	},
 
+	mounted() {
+		let hash = location.hash;
+
+		if(hash != '') {
+			this.tabs.forEach(tab => {
+				tab.isActive = (tab.href == location.hash);
+			});
+		}
+	},
+
 	methods: {
 		selectTab(targetTab) {
 			this.tabs.forEach(tab => {

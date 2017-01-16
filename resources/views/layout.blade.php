@@ -19,10 +19,10 @@
 			<div class="hero-body">
 				<div class="container">
 					<h1 class="title">
-						Algling.net
+						The Pan-Algonquian Grammar Database
 					</h1>
 					<h2 class="subtitle">
-						Or another name...
+						Some subtitle here
 					</h2>
 				</div>
 			</div>

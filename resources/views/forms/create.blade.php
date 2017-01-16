@@ -1,9 +1,12 @@
 @extends('layout')
 
 @section('content')
-	<h1>Form Input</h1>
+	<div class="heading">
+		<h1 class="title">Add a form</h1>
+	</div>
+	<br />
 
-	{{ Form::open(['url' => '/forms', 'class' => 'inputForm']) }}
+	{{ Form::open(['url' => '/forms', 'class' => "box"]) }}
 		@include('forms.partials.form')
 	{{ Form::close() }}
 

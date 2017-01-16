@@ -42,7 +42,7 @@ class LanguageController extends Controller
     public function destroy(Language $language)
     {
         $language->delete();
-        flash($language->name.' deleted successfully.');
+        flash($language->name.' deleted successfully.', 'is-info');
         return redirect('/languages');
     }
 
@@ -58,11 +58,11 @@ class LanguageController extends Controller
         if ($language) {
             
             
-            flash($language->name.' added successfully.', 'success');
+            flash($language->name.' added successfully.', 'is-success');
             return redirect('/languages/' . $language->id);
         }//if
         else {
-            flash($request->name.' could not be added.', 'error');
+            flash($request->name.' could not be added.', 'is-error');
             return redirect('/languages');
         }//else
     }
@@ -79,10 +79,10 @@ class LanguageController extends Controller
     {
         // try{
             $language->update($request->all());
-        flash($language->name.' updated successfully.', 'success');
+        flash($language->name.' updated successfully.', 'is-success');
         // }//try
         // catch(){
-        //     flash($language->name.' could not be updated.', 'error');
+        //     flash($language->name.' could not be updated.', 'is-error');
         // }//else
         return redirect('/languages/' . $language->id);
     }

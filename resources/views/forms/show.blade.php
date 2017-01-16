@@ -10,6 +10,9 @@
 		<model-card>
 			<template slot="header">
 				<em>{{ $form->surfaceForm }}</em>
+				<p>
+					(<a href="/languages/{{ $form->language_id }}">{{ $form->language->name }}</a>)
+				</p>
 			</template>
 
 			<field-card width="is-half">
@@ -125,10 +128,12 @@
 				@endif
 			</template>
 
-			<template slot="footer">
-				<a class="card-footer-item" href = "/forms/{{ $form->id }}/edit">Edit</a>
-				<a class="card-footer-item">Delete</a>
-			</template>
+			@if(Auth::user())
+				<template slot="footer">
+					<a class="card-footer-item" href = "/forms/{{ $form->id }}/edit">Edit</a>
+					<a class="card-footer-item">Delete</a>
+				</template>
+			@endif
 		</model-card>
 	</div>
 

@@ -24,14 +24,18 @@
 									<i class="fa fa-pencil"></i>
 								</span>
 							</a>
-						</div>					
+						</div>
+						
 						<div class="level-item">
-							<a class="button">
+						{{ Form::open(['method' => 'DELETE', 'url' => "/languages/{$language->id}"]) }}
+							<a class="button" onclick="event.preventDefault(); this.parentNode.submit()">
 								<span class="icon" title="Delete">
 									<i class="fa fa-times"></i>
 								</span>
 							</a>
+							{{ Form::close() }}
 						</div>
+						
 					</div>
 				@endif
 			</li>

@@ -43,59 +43,7 @@
 		
 		@yield('footer')
 
-		<script>
-
-			Vue.component("model-card", {
-				template: `
-					<div class="card">
-						<header class="card-header">
-							<p class="card-header-title is-4" style="font-size: 20px;">
-								<slot name="header"></slot>
-							</p>
-						</header>
-						<div class="card-content">
-							<div class="content">
-								<div class="columns is-multiline">
-									<slot></slot>
-								</div>
-								<div class="level">
-									<div class="level-right">
-										<slot name="tags"></slot>
-									</div>
-								</div>
-							</div>
-						</div>
-						<footer class="card-footer">
-							<slot name="footer"></slot>
-						</footer>
-					</div>
-				`
-			});
-
-			Vue.component("field-card", {
-				props: ['width'],
-				template: `
-					<div class="column" :class="width">
-					<div class="card" style="box-shadow:none;">
-						<div class="card-header">
-							<slot name="label"></slot>
-						</div>
-						<div class="card-content">
-							<slot></slot>
-						</div>
-					</div>
-				`
-			});
-
-			new Vue({
-				el: '#root'
-			});
-		</script>
-{{-- 		<script>
-			$(document).ready(function(){
-				$('#nav').menu();
-			});
-		</script> --}}
+		<script src="/js/vue-components.js"></script>
 	
 	</body>
 </html>

@@ -1,3 +1,177 @@
+Vue.component("form-search-form", {
+	props: ['arguments', 'classes', 'modes', 'orders'],
+	template: `
+		<form>
+			<div v-for="line in lines" class="box">
+				<div class="columns">
+
+					<div class="column">
+						<h5 class="title is-5">Class</h5>
+						<p class="control">
+							<span class="select">
+								<select name="classes[]" v-model="line.formClass">
+									<option v-for="formClass in classArray" :value="formClass.id">{{ formClass.name }}</option>
+								</select>
+							</span>
+						</p>
+					</div>
+
+					<div class="column">
+						<h5 class="title is-5">Arguments</h5>
+						<div class="control is-horizontal">
+							<div class="control is-grouped">
+								<p class="control">
+									<span class="select">
+										<select name="subjects[]" v-model="line.subject">
+											<option v-for="argument in argumentArray" :value="argument.id">{{ argument.name }}</option>
+										</select>
+									</span>
+								</p>								
+								<p class="control">
+									<span class="select">
+										<select name="primaryObjects[]" v-model="line.primaryObject">
+											<option value="0">None</option>
+											<option v-for="argument in argumentArray" :value="argument.id">{{ argument.name }}</option>
+										</select>
+									</span>
+								</p>								
+								<p class="control">
+									<span class="select">
+										<select name="secondaryObjects[]" v-model="line.secondaryObject">
+											<option value="0">None</option>
+											<option v-for="argument in argumentArray" :value="argument.id">{{ argument.name }}</option>
+										</select>
+									</span>
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="column">
+						<h5 class="title is-5">Order</h5>
+						<p class="control">
+							<span class="select">
+								<select name="orders[]" v-model="line.order">
+									<option v-for="order in orderArray" :value="order.id">{{ order.name }}</option>
+								</select>
+							</span>
+						</p>
+					</div>					
+
+					<div class="column">
+						<h5 class="title is-5">Order</h5>
+						<p class="control">
+							<span class="select">
+								<select name="modes[]" v-model="line.mode">
+									<option v-for="mode in modeArray" :value="mode.id">{{ mode.name }}</option>
+								</select>
+							</span>
+						</p>
+					</div>
+
+					<div class="column">
+						<p class="control">
+							<label class="radio">
+								<input :name="'searchAll['+line.index+']'" type="radio" class="radio" v-model="line.searchAllLanguages" value="true" />
+								All languages
+							</label>
+						<p>						
+						<p class="control">
+							<label class="radio">
+								<input name="searchAll" type="radio" class="radio" v-model="line.searchAllLanguages" value="false" />
+								The following languages...
+							</label>
+							<div class="box">
+								<p class="control">
+									<input type="text" class="input" :disabled="line.searchAllLanguages == 'true'" v-model="line.language" />
+								</p>
+							</div>
+						<p>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="level">
+				<div class="level-left">
+					<div class="level-item">
+						<button type="submit" class="button is-success">Search</button>
+					</div>
+				</div>
+				<div class="level-right">
+					<div class="level-item">
+						<a class="button is-info" @click="addLine" :disabled="numLines >= 10" title="Add">
+							<span class="icon">
+								<i class="fa fa-plus"></i>
+							</span>
+						</a>
+					</div>
+					<div class="level-item">
+						<a class="button is-info" @click="removeLine" :disabled="numLines <= 1" title="Remove">
+							<span class="icon">
+								<i class="fa fa-minus"></i>
+							</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</form>
+	`,
+
+	data() {
+		return {
+			argumentArray: [],
+			classArray: [],
+			modeArray: [],
+			orderArray: [],
+
+			lines: [{
+				index: 0,
+
+				name: "",
+				formClass: 1,
+				subject: 1,
+				primaryObject: 0,
+				secondaryObject: 0,
+				order: 1,
+				mode: 1,
+				language: '',
+
+				searchAllLanguages: "true"
+			}]
+		};
+	},
+
+	computed: {
+		numLines() {
+			return this.lines.length;
+		}
+	},
+
+	created() {
+		this.argumentArray = JSON.parse(this.arguments);
+		this.classArray = JSON.parse(this.classes);
+		this.modeArray = JSON.parse(this.modes);
+		this.orderArray = JSON.parse(this.orders);
+	},
+
+	methods: {
+		addLine() {
+			if(this.numLines < 10) {
+				let newLine = JSON.parse(JSON.stringify(this.lines[this.lines.length - 1]));
+				newLine.index++;
+				this.lines.push(newLine);
+			}
+		},
+
+		removeLine() {
+			if(this.numLines > 1){
+				this.lines.pop();
+			}
+		}
+	}
+});
+
 Vue.component("form-search-dropdown", {
 	props: {
 		options: {
@@ -28,7 +202,7 @@ Vue.component("form-search-dropdown", {
 	}
 })
 
-Vue.component("form-search-form", {
+Vue.component("form-search-form-old", {
 	props: ['arguments','classes','modes','orders'],
 
 	template: `

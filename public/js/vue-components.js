@@ -1,3 +1,118 @@
+Vue.component("form-search-dropdown", {
+	props: {
+		options: {
+			type: Array
+		},
+		name: {
+			type: String
+		},
+		nullable: {
+			default: false
+		}
+	},
+	template: `
+		<p class="control">
+			<span class="select">
+				<select :name="name" @input="updateSelection($event.target.value)">
+					<option v-if="nullable" value="0">None</option>
+					<option v-for="option in options" :value="option.id">{{ option.name }}</option>
+				</select>
+			</span>
+		</p>
+	`,
+	methods: {
+		updateSelection(newSelection) {
+			this.$emit('input', newSelection);
+		}
+	}
+})
+
+Vue.component("form-search-form", {
+	props: ['arguments','classes','modes','orders'],
+
+	template: `
+		<form class="box">
+			<div class="columns">
+				<div class="column box">
+					<h5 class="title is-5">Class</h5>
+					<form-search-dropdown name="classes[]" v-model="classValue" :options="classArray"></form-search-dropdown>
+				</div>
+				<div class="column box">
+					<h5 class="title is-5">Arguments</h5>
+					<div class="control is-horizontal">
+						<div class="control is-grouped">
+							<form-search-dropdown name="subjects[]" v-model="subjectValue" :options="argumentArray"></form-search-dropdown>							
+							<form-search-dropdown name="primaryObjects[]" v-model="primaryObjectValue" :options="argumentArray" nullable="true"></form-search-dropdown>								
+							<form-search-dropdown name="secondaryObjects[]" v-model="secondaryObjectValue" :options="argumentArray" nullable="true"></form-search-dropdown>								
+						</div>
+					</div>
+				</div>
+				<div class="column box">
+					<h5 class="title is-5">Order</h5>
+					<form-search-dropdown name="orders[]" v-model="orderValue" :options="orderArray"></form-search-dropdown>
+				</div>				
+				<div class="column box">
+					<h5 class="title is-5">Mode</h5>
+					<form-search-dropdown name="modes[]" v-model="modeValue" :options="modeArray"></form-search-dropdown>
+				</div>
+				<div class="column box">
+					<p class="control">
+						<label class="radio">
+							<input type="radio" name="allLanguages" v-model="languageSearchChoice" value="all" @change="selectAllLanguages" />
+							All languages
+						</label>
+					</p>					
+					<p class="control">
+						<label class="radio">
+							<input type="radio" name="allLanguages" v-model="languageSearchChoice" value="some" />
+							The following languages...
+						</label>
+					</p>
+					<div class="box">
+						<p class="control">
+							<input type="text" class="input" name="languages[]" v-model="languageValue" :disabled="this.languageSearchChoice == 'all'" />
+						</p>
+					</div>
+				</div>
+			</div>
+			<button type="submit" class="button is-success">Search</button>
+		</form>
+	`,
+
+	data() {
+		return {
+			argumentArray: [],
+			classArray: [],
+			modeArray: [],
+			orderArray: [],
+
+			classValue: 1,
+			modeValue: 1,
+			orderValue: 1,
+			primaryObjectValue: 0,
+			secondaryObjectValue: 0,
+			subjectValue: 1,
+
+			languageSearchChoice: 'all',
+
+			languageValue: ''
+		};
+	},
+
+	created() {
+		this.classArray = JSON.parse(this.classes);
+		this.argumentArray = JSON.parse(this.arguments);
+		this.orderArray = JSON.parse(this.orders);
+		this.modeArray = JSON.parse(this.modes);
+	},
+
+	methods: {
+		selectAllLanguages() {
+			this.languageValue = '';
+		}
+	}
+});
+
 Vue.component("alg-tabs", {
 	template: `
 		<div>
@@ -129,7 +244,7 @@ Vue.component("alg-message", {
 				<p>
 					<slot name="header"></slot>
 				</p>
-				<button class="delete" @click="hide"></button>
+				<button class="delete" @click="hide($event)"></button>
 			</div>
 			<div class="message-body">
 				<slot></slot>
@@ -144,7 +259,8 @@ Vue.component("alg-message", {
 	},
 
 	methods: {
-		hide() {
+		hide(event) {
+			event.preventDefault();
 			this.isVisible = false;
 		}
 	}

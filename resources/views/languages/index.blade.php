@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('content')
+	<div id="root">
 	<div class="heading">
 		<h1 class="title">Languages</h1>
 		@if(Auth::user())
@@ -8,14 +9,9 @@
 		@endif
 	</div>
 	<br />
-	<ul class="box">
+	<model-index>
 		@foreach($languages as $language)
-			<li class="level">
-				<div class="level-left">
-					<div class="level-item">
-						<a href='/languages/{{ $language->id }}'>{{ $language->name }}</a>
-					</div>
-				</div>
+			<model-index-line name="{{ $language->name }}" model="languages" id="{{ $language->id }}">
 				@if(Auth::user())
 					<div class="level-right">
 						<div class="level-item">
@@ -38,7 +34,8 @@
 						
 					</div>
 				@endif
-			</li>
+			</model-index-line>
 		@endforeach
-	</ul>
+	</model-index>
+	</div>
 @stop

@@ -46,11 +46,13 @@
 		<script src="/js/vue-components.js"></script>
 		<script>
 			$(document).ready(function(){
-				const button = $(".dropdown-switch");
-				const dropdown = $(".dropdown-options");
+				const target = $(".dropdown");
+				const dropdown = target.children('.dropdown-options');
 
-				button.click(function() {
-					dropdown.toggleClass('is-open');
+				target.mouseenter(() => {
+					dropdown.addClass('is-open');
+				}).mouseleave(() => {
+					dropdown.removeClass('is-open');
 				});
 			});
 		</script>

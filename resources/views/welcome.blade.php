@@ -7,7 +7,11 @@
 </div>
 <br />
 
-<div class="box">
+<div class="box" id="root">
+	<alg-message>
+		<template slot="header">Hi Will!</template>
+		Since my last email, I did get the dropdown menu for the "add" tab working. (You can only see that if you're logged in, though, remember.) I still need to make the JavaScript functionality work - right now you have to click directly on the tab to open and close the menu, as opposed to mouse over/out. I just wanted to make sure the styling would work. :)
+	</alg-message>
 	<p>Insert welcome information here later</p>
 </div>
 

@@ -1,3 +1,26 @@
+<style>
+	.dropdown-options {
+		box-shadow: 0 0 8px #777;
+		display: none;
+		position: absolute;
+		top: 100%;
+		z-index: 1000;
+		padding: .5rem;
+	}
+
+	.dropdown-options.is-open {
+		display: block;
+	}
+
+	.dropdown-options a {
+		display: block;
+	}
+
+	.dropdown-options a:hover {
+		background-color: #f0f0f0;
+	}
+</style>
+
 <nav class="nav has-shadow">
 	<div class="container">
 		<div class="nav-left">
@@ -8,7 +31,15 @@
 		</div>
 		@if(Auth::user())
 			<div class="nav-center">
-				<a class="nav-item is-tab">Add</a>
+				<a class="control nav-item dropdown-switch is-tab" style="margin-bottom: 0;">
+					Add
+				</a>			
+				<ul class="box dropdown-options">
+					<li><a href="/languages/create">Language</a></li>
+					<li><a href="/forms/create">Form</a></li>
+					<li><a href="/examples/create">Example</a></li>
+					<li><a href="/morphemes/create">Morpheme</a></li>
+				</ul>
 			</div>
 		@endif
 		<div class="nav-right">

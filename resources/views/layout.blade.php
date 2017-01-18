@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.js"></script>
 		<script src = "https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-		{{-- <script src = "http://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script> --}}
+		<script src = "http://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 		{{-- {{ Html::style(elixir('css/style.css')) }} --}}
 		
 		@yield('header')
@@ -49,11 +49,22 @@
 				const target = $(".dropdown");
 				const dropdown = target.children('.dropdown-options');
 
+				var menuMoving = false;
+
 				target.mouseenter(() => {
-					dropdown.addClass('is-open');
+					toggleMenu();
 				}).mouseleave(() => {
-					dropdown.removeClass('is-open');
+					toggleMenu();
 				});
+
+				function toggleMenu() {
+					if(!menuMoving) {
+						menuMoving = true;
+						dropdown.slideToggle('fast', function() {
+							menuMoving = false;
+						});
+					}
+				};
 			});
 		</script>
 	

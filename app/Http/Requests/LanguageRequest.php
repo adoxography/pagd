@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Language;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LanguageRequest extends FormRequest
@@ -13,7 +16,7 @@ class LanguageRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::user();
     }
 
     /**
@@ -25,19 +28,21 @@ class LanguageRequest extends FormRequest
     {
         $rules = [
             'group_id'  => ['required','integer','exists:Groups,id'],
-            'parent_id' => ['nullable','integer','exists:Languages,id'],
+            'parent_id' => ['nullable','integer','exists:Languages,id']
         ];
 
         switch($this->method()){
-            case 'GET':
+            case 'POST':
                     $rules['name']     = ['required','unique:Languages,name'];
                     $rules['iso']      = ['required','unique:Languages,iso','size:3'];
-                    $rules['algoCode'] = ['required','unique:Languages,algoCode','size:3'];
+                    $rules['algoCode'] = ['required','unique:Languages,algoCode','between:3,5'];
                 break;
             case 'PATCH':
-                    $rules['name']     = ['required'];
-                    $rules['iso']      = ['required','size:3'];
-                    $rules['algoCode'] = ['required','size:3'];
+                    $language = $this->route('language');
+
+                    $rules['name']     = ['required', Rule::unique('Languages','name')->ignore($language->id)];
+                    $rules['iso']      = ['required', Rule::unique('Languages','iso')->ignore($language->id), 'size:3'];
+                    $rules['algoCode'] = ['required', Rule::unique('Languages','algoCode')->ignore($language->id), 'between:3,5'];
                 break;
             default:
                 break;

@@ -60,8 +60,8 @@ class ViewComposerServiceProvider extends ServiceProvider
         view()->composer('languages.partials.form', function($view)
         {
             $data = [
-                'parents' => Language::select('id','name as value')->get(),
-                'groups'  => Group::select('id','name as value')->get()
+                'parents' => Language::select('id','name')->get(),
+                'groups'  => Group::select('id','name')->get()
             ];
             $view->with($data);
         });

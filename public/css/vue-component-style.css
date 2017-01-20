@@ -1,0 +1,26 @@
+.alg-datalist-container {
+	position: relative;
+	display: flex;
+	flex-grow: 1;
+}
+
+.alg-datalist-dropdown {
+	box-shadow: 0 0 8px #777;
+	display: block;
+	left: 0;
+	right: 0;
+	position: absolute;
+	top: 100%;
+	z-index: 1000;
+	padding: .5rem;
+	max-height: 400%;
+	overflow: overlay;
+}
+
+.alg-datalist-dropdown li a {
+	display: block;
+}
+
+.alg-datalist-dropdown a.is-active {
+	background-color: #f0f0f0;
+}

@@ -1,3 +1,142 @@
+Vue.component("alg-datalist", {
+	props: ['list', 'name', 'init'],
+	directives: {
+		focus: focus
+	},
+	template: `
+		<div class="alg-datalist">
+			<div class="control has-addons">
+				<div class="alg-datalist-container">
+					<input type="text" class="input is-expanded" v-model="text" @keyup="handleKeyUp($event)" @keyup.down="handleDownKey" @keyup.up="handleUpKey" @keydown.enter="handleEnterKey($event)" ref="textInput" />
+					<div class="box alg-datalist-dropdown" v-show="showList">
+						<ul>
+							<li v-for="(option, index) in options">
+								<a @click="selectItem($event.target.text)" @mouseover="handleHover($event.target.text)" :class="{ 'is-active': activeItem(index) }">{{ option.name }}</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<a class="button" @click="handleButtonClicked">
+					<span class="icon is-small">
+						<i class="fa fa-chevron-down"></i>
+					</span>
+				</a>
+			</div>
+			<input type="hidden" :name="name" v-model="value" />
+		</div>
+	`,
+
+	data() {
+		return {
+			text: '',
+			parsedList: [],
+			options: [],
+			showList: false,
+			curr: 0,
+			focused: false
+		};
+	},
+
+	created() {
+		this.parsedList = JSON.parse(this.list);
+
+		if(this.init) {
+
+			let curr = this.parsedList.find((item) => {
+				return item.id == this.init;
+			});
+
+			if(curr) {
+				this.text = curr.name;
+			}
+		}
+	},
+
+	computed: {
+		value() {
+			let val = '';
+
+			for(let i = 0; i < this.parsedList.length && val === ''; i++) {
+				if(this.parsedList[i].name.toLowerCase() === this.text.toLowerCase()) {
+					val = this.parsedList[i].id;
+				}
+			}
+
+			return val;
+		}
+	},
+
+	methods: {
+		toggleList() {
+			// Reset the list
+			this.options = this.parsedList;
+
+			// Toggle its visibility
+			this.showList = !this.showList;
+		},
+
+		selectItem(item) {
+			// Set the text
+			this.text = item;
+
+			// Hide the list
+			this.showList = false;
+
+			this.curr = 0;
+		},
+
+		handleKeyUp(event) {
+			if(event.keyCode != 40 && event.keyCode != 38 && event.keyCode != 13){
+				this.filterOptions();
+
+				// Only show the list if there is text in the field and there are options in the list
+				this.showList = this.text.length > 0 && this.options.length > 0;
+			}
+		},
+
+		handleHover(item) {
+			for(let i = 0; i < this.options.length; i++) {
+				if(this.options[i].name == item) {
+					this.curr = i + 1;
+				}
+			}
+			//this.$forceUpdate();
+		},
+
+		handleButtonClicked() {
+			this.toggleList();
+			this.$refs.textInput.focus();
+		},
+
+		filterOptions() {
+			this.options = this.parsedList.filter((item) => {
+				return item.name.toLowerCase().includes(this.text.toLowerCase()) && this.text.length < item.name.length;
+			});
+		},
+
+		handleDownKey() {
+			this.curr++;
+			this.curr %= this.options.length + 1;
+		},
+
+		handleUpKey() {
+			this.curr += this.options.length;
+			this.curr %= this.options.length + 1;
+		},
+
+		handleEnterKey(event) {
+			if(this.curr > 0) {
+				event.preventDefault();
+				this.selectItem(this.options[this.curr - 1].name);
+			}
+		},
+
+		activeItem(n) {
+			return n + 1 == this.curr;
+		}
+	}
+});
+
 Vue.component("form-search-form", {
 	props: ['arguments', 'classes', 'modes', 'orders'],
 	template: `

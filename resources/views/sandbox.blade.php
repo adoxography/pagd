@@ -1,18 +1,13 @@
 @extends('layout')
 
 @section('header')
-	{{-- <script src="js/vendor.js"></script> --}}
-<!-- 	<script src="https://unpkg.com/vue/dist/vue.js"></script>
-	<script src="https://unpkg.com/axios/dist/axios.js"></script> -->
-
 @stop
 
 @section('content')
 	<div id="root">
-
+		<alg-datalist list="{{ App\Mode::select('name','id')->get()->toJson() }}"></alg-datalist>
 	</div>
 @stop
 
 @section('footer')
-
 @stop

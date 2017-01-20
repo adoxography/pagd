@@ -179,7 +179,7 @@
 
 			@if(Auth::user())
 				<template slot="footer">
-					<a class="card-footer-item">Edit</a>
+					<a href="/languages/{{ $language->id }}/edit" class="card-footer-item">Edit</a>
 					<a class="card-footer-item">Delete</a>
 				</template>
 			@endif

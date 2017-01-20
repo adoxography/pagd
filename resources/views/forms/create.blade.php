@@ -6,9 +6,11 @@
 	</div>
 	<br />
 
-	{{ Form::open(['url' => '/forms', 'class' => "box"]) }}
-		@include('forms.partials.form')
-	{{ Form::close() }}
+	<div id="root">
+		{{ Form::open(['url' => '/forms', 'class' => "box"]) }}
+			@include('forms.partials.form')
+		{{ Form::close() }}
+	</div>
 
 	@include('errors.list')
 @stop

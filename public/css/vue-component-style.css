@@ -34,7 +34,7 @@ html {
 	background-color: #f0f0f0;
 }
 
-.form-search-form label {
+.form-search-form .argument-label {
 	font-weight: normal;
 	font-style: italic;
 }

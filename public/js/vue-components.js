@@ -1,3 +1,53 @@
+Vue.component("alg-multi-datalist", {
+	props: ['list', 'name'],
+
+	template: `
+		<div>
+			<alg-datalist :list="list" v-for="n in numFields" :name="name"></alg-datalist>
+				<div class="level">
+					<div class="level-left">
+					</div>
+					<div class="level-right">
+						<div class="level-item">	
+							<a class="button is-info is-small" :class="{ 'is-disabled': numFields >= 5 }" @click="addField()">
+								<span class="icon">
+									<i class="fa fa-plus"></i>
+								</span>
+							</a>
+						</div>
+						<div class="level-item">
+							<a class="button is-info is-small" :class="{ 'is-disabled': numFields <= 1 }" @click="removeField()">
+								<span class="icon">
+									<i class="fa fa-minus"></i>
+								</span>
+							</a>
+						</div>
+					</div>
+				</div>
+		</div>
+	`,
+
+	data() {
+		return {
+			numFields: 1
+		};
+	},
+
+	methods: {
+		addField() {
+			if(this.numFields < 5) {
+				this.numFields++;
+			}
+		},
+
+		removeField() {
+			if(this.numFields > 1) {
+				this.numFields--;
+			}
+		}
+	}
+});
+
 Vue.component("alg-datalist", {
 	props: {
 		list: String,
@@ -200,7 +250,7 @@ Vue.component("form-search-form", {
 						<div class="control is-horizontal">
 							<div class="control is-grouped">
 								<p class="control">
-									<label class="label">Subject</label>
+									<label class="label argument-label">Subject</label>
 									<span class="select">
 										<select name="subjects[]" v-model="line.subject">
 											<option v-for="argument in argumentArray" :value="argument.id">{{ argument.name }}</option>
@@ -208,7 +258,7 @@ Vue.component("form-search-form", {
 									</span>
 								</p>								
 								<p class="control">
-									<label class="label">P. Object</label>
+									<label class="label argument-label">P. Object</label>
 									<span class="select">
 										<select name="primaryObjects[]" v-model="line.primaryObject">
 											<option value="0">None</option>
@@ -217,7 +267,7 @@ Vue.component("form-search-form", {
 									</span>
 								</p>								
 								<p class="control">
-									<label class="label">S. Object</label>
+									<label class="label argument-label">S. Object</label>
 									<span class="select">
 										<select name="secondaryObjects[]" v-model="line.secondaryObject">
 											<option value="0">None</option>

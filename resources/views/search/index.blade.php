@@ -14,15 +14,15 @@
 		<div class="box">
 			<alg-tabs>
 				<alg-tab name="For a paradigm" selected="true">
+					<alg-message>
+						<template slot="header">Note</template>
+						Not selecting anything in a category runs a search for all of that category, which is what I want for being able to check on the whole database quickly. In the future, I'll restrict it so that the form cannot be submitted without at least one of each category checked.
+					</alg-message>
 					<form method="GET" action="/search/paradigm">
 						<div class="columns">
 							<div class="column box" style="margin-bottom: 0;">
 								<h5 class="title is-5">Languages</h5>
-								<alg-datalist name="languages[]" list="{{ $languages->toJson() }}"></alg-datalist>
-								<alg-message>
-									<template slot="header">Note</template>
-									I'm going to work on a component that will let you select multiple languages
-								</alg-message>
+								<alg-multi-datalist name="languages[]" list="{{ $languages->toJson() }}"></alg-multi-datalist>
 							</div>
 							<div class="column box" style="margin-bottom: 0;">
 								<h5 class="title is-5">Classes</h5>
@@ -34,10 +34,6 @@
 										</label>
 									</p>
 								@endforeach
-								<alg-message>
-									<template slot="header">Note</template>
-									Not selecting anything runs a search for all classes, which is what I want for being able to check on the whole database quickly. In the future, I'll restrict it so that the form cannot be submitted without one of these checked.
-								</alg-message>
 							</div>				
 							<div class="column box" style="margin-bottom: 0;">
 								<h5 class="title is-5">Inflection Types</h5>
@@ -49,6 +45,7 @@
 										</label>
 									</p>
 								@endforeach
+								<hr>
 								<p class="control">
 									<label class="checkbox">
 										<input type="checkbox" name="includeNegative" id="includeNegative" value="true" />

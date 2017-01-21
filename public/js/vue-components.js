@@ -238,7 +238,7 @@ Vue.component("form-search-form", {
 					</div>					
 
 					<div class="column">
-						<h5 class="title is-5">Order</h5>
+						<h5 class="title is-5">Mode</h5>
 						<p class="control">
 							<span class="select">
 								<select name="modes[]" v-model="line.mode">

@@ -42,6 +42,8 @@ class SearchController extends Controller
 
     public function paradigm(Request $request)
     {
+
+        //dd($request);
         $languages  = $request->languages;
         $modeSelect = $request->modeSelect;
         $modes      = $request->modes;

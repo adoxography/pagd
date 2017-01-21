@@ -1,3 +1,7 @@
+html {
+	overflow-x: hidden;
+}
+
 .alg-datalist-container {
 	position: relative;
 	display: flex;
@@ -15,6 +19,11 @@
 	padding: .5rem;
 	max-height: 400%;
 	overflow: overlay;
+}
+
+.alg-datalist-dropdown ul {
+	list-style: none;
+	margin: 0;
 }
 
 .alg-datalist-dropdown li a {

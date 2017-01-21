@@ -180,13 +180,13 @@ Vue.component("alg-datalist", {
 Vue.component("form-search-form", {
 	props: ['arguments', 'classes', 'modes', 'orders', 'languages'],
 	template: `
-		<form>
+		<form class="form-search-form">
 			<div v-for="(line, index) in lines" class="box">
 				<div class="columns">
 
 					<div class="column">
 						<h5 class="title is-5">Class</h5>
-						<p class="control">
+						<p class="control" style="padding-top: 1.5rem;">
 							<span class="select">
 								<select name="classes[]" v-model="line.formClass">
 									<option v-for="formClass in classArray" :value="formClass.id">{{ formClass.name }}</option>
@@ -196,10 +196,11 @@ Vue.component("form-search-form", {
 					</div>
 
 					<div class="column">
-						<h5 class="title is-5">Arguments</h5>
+						<h5 class="title is-5" style="margin-bottom: 1rem;">Arguments</h5>
 						<div class="control is-horizontal">
 							<div class="control is-grouped">
 								<p class="control">
+									<label class="label">Subject</label>
 									<span class="select">
 										<select name="subjects[]" v-model="line.subject">
 											<option v-for="argument in argumentArray" :value="argument.id">{{ argument.name }}</option>
@@ -207,6 +208,7 @@ Vue.component("form-search-form", {
 									</span>
 								</p>								
 								<p class="control">
+									<label class="label">P. Object</label>
 									<span class="select">
 										<select name="primaryObjects[]" v-model="line.primaryObject">
 											<option value="0">None</option>
@@ -215,6 +217,7 @@ Vue.component("form-search-form", {
 									</span>
 								</p>								
 								<p class="control">
+									<label class="label">S. Object</label>
 									<span class="select">
 										<select name="secondaryObjects[]" v-model="line.secondaryObject">
 											<option value="0">None</option>
@@ -228,7 +231,7 @@ Vue.component("form-search-form", {
 
 					<div class="column">
 						<h5 class="title is-5">Order</h5>
-						<p class="control">
+						<p class="control" style="padding-top: 1.5rem;">
 							<span class="select">
 								<select name="orders[]" v-model="line.order">
 									<option v-for="order in orderArray" :value="order.id">{{ order.name }}</option>
@@ -239,7 +242,7 @@ Vue.component("form-search-form", {
 
 					<div class="column">
 						<h5 class="title is-5">Mode</h5>
-						<p class="control">
+						<p class="control" style="padding-top: 1.5rem;">
 							<span class="select">
 								<select name="modes[]" v-model="line.mode">
 									<option v-for="mode in modeArray" :value="mode.id">{{ mode.name }}</option>

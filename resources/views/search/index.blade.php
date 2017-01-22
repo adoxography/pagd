@@ -95,6 +95,10 @@
 					</form>
 				</alg-tab>				
 				<alg-tab name="For a form">
+					<alg-message>
+						<template slot="header">Note</template>
+						The actual search isn't in place, but I <em>think</em> this form is coded up to your specifications: you supply all of the form details, with up to five languages (an arbitrary number I picked - too many and it starts to look unwieldly), and you can add up to ten more lines, with each new line copying the data that was entered in the previous line. (Again, ten was an arbitrary number I picked, which is probably too high. You can let me know how many languages/lines you think you'll need, and those numbers can always be changed.)
+					</alg-message>
 					<form-search-form classes="{{ $classes }}" arguments="{{ $arguments }}" orders="{{ $orders }}" modes="{{ $modes }}" languages="{{ $languages }}"></form-search-form>
 				</alg-tab>
 			</alg-tabs>

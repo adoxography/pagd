@@ -40,6 +40,11 @@ class SearchController extends Controller
         return view('search.result', compact('result'));
     }
 
+    public function form(Request $request)
+    {
+        dd($request);
+    }
+
     public function paradigm(Request $request)
     {
 

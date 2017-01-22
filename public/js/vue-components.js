@@ -230,7 +230,7 @@ Vue.component("alg-datalist", {
 Vue.component("form-search-form", {
 	props: ['arguments', 'classes', 'modes', 'orders', 'languages'],
 	template: `
-		<form class="form-search-form">
+		<form class="form-search-form" method="GET" action="/search/form">
 			<div v-for="(line, index) in lines" class="box">
 				<div class="columns">
 
@@ -314,7 +314,7 @@ Vue.component("form-search-form", {
 								The following languages...
 							</label>
 							<div class="box">
-								<alg-datalist v-for="n in line.numLanguages" :list="languages" v-model="line.languages[n - 1]" :disabled="line.searchAllLanguages"></alg-datalist>
+								<alg-datalist v-for="n in line.numLanguages" :list="languages" v-model="line.languages[n - 1]" :disabled="line.searchAllLanguages" :name="'languages['+index+'][]'"></alg-datalist>
 								<div class="level">
 									<div class="level-left">
 									</div>

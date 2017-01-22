@@ -2,13 +2,14 @@
 
 namespace App;
 
+use Validator;
 use App\Morpheme;
 use App\MorphemeLink;
 use App\Search\ColHeader;
 use App\Search\RowHeader;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Validator;
 
 class Form extends Model
 {
@@ -20,7 +21,11 @@ class Form extends Model
         'morphemicForm',
         'language_id',
         'parent_id',
-        'formType_id'
+        'formType_id',
+        'historicalNotes',
+        'allomorphyNotes',
+        'usageNotes',
+        'comments'
     ];
     protected $rules = [
         'surfaceForm'   => ['required'],
@@ -253,5 +258,10 @@ class Form extends Model
         }
 
         return '<table>' . $formRow . $morphemeRow . $glossRow . '</table>';
+    }
+
+    public function hasNotes()
+    {
+        return $this->historicalNotes || $this->allomorphyNotes || $this->usageNotes || (Auth::user() && $this->comments);
     }
 }

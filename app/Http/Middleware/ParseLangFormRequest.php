@@ -20,9 +20,7 @@ class ParseLangFormRequest
         // This might have already been set if morphemes were missing.
         // Don't worry about re-parsing if this is the case.
         if (!isset($request->formData)) {
-            //$request['formTypeData'] = $this->parseFormTypeData($request);
             $request['formData']     = $this->parseFormData($request);
-            // $request['sourceData']   = $this->parseSourceData($request);
         }
 
         return $next($request);
@@ -35,7 +33,11 @@ class ParseLangFormRequest
             'phoneticForm',
             'morphemicForm',
             'language_id',
-            'parent_id'
+            'parent_id',
+            'historicalNotes',
+            'allomorphyNotes',
+            'usageNotes',
+            'comments'
         ]), 'strlen');
 
         $data['formType_id'] = $this->getType($request);
@@ -97,16 +99,6 @@ class ParseLangFormRequest
 
         return $rules;
     }
-
-    // private function parseSourceData($request)
-    // {
-    //     $data = $request->only([
-    //         'source_id',
-    //         'extraInfo'
-    //     ]);
-
-    //     return $data;
-    // }
 
     private function handleCheck($request, $field){
         return isset($request[$field]) ? 1 : 0;

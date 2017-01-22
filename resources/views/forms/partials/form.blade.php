@@ -63,6 +63,16 @@
 <fieldset>
 	@include('sources.partials.select_source')
 </fieldset>
+
+<label>Historical Notes</label>
+<textarea name="historicalNotes"></textarea>
+<label>Allomorphy Notes</label>
+<textarea name="allomorphyNotes"></textarea>
+<label>Usage Notes</label>
+<textarea name="usageNotes"></textarea>
+<label>Comments</label>
+<textarea name="comments"></textarea>
+
 <fieldset>
 	{{ Form::submit('Submit') }}
 </fieldset>

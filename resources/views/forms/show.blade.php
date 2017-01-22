@@ -2,15 +2,6 @@
 
 @section('content')
 	<div id="root">
-		<alg-message>
-			<template slot="header">Hi Will!</template>
-			This is what happens when it takes you too long to respond to my emails - all of the information becomes obsolete! As you can see, I've split the form details page into tabs as well. The Examples and Duplicates tabs will be conditioned to only appear if a form actually has examples or duplicates, but I wanted to have them appear all the time for now just so you can see how it would look.
-			<br /><br />
-			Take a look at the "Syntax Details" tab for the "test" form - what do you think of the little tags at the bottom? I kind of like that for simple details like "is it negative or not?" The "negative" tag appears when a form is negative, and doesn't when the form isn't, which seems pretty close to reality. There are seperate tags for Absolute and Objective, which are mutually exclusive, obviously. But if there's ever any other kind of tagging you'd like to do, this seems like a really nice way to do it.
-			<br /><br />
-			I'm going to have to do some messing with the styling of the title on my own, because I want the language to be part of the "title" of a form, since in a lot of cases, the form by itself could be from one of many different languages.
-		</alg-message>
-
 		<div class="heading">
 			<h1 class="title">Form Details</h1>
 		</div>
@@ -152,6 +143,43 @@
 					@endif
 				</field-card>
 			</model-card-tab>
+
+			@if($form->hasNotes())
+				<model-card-tab name="Notes">
+						@if($form->historicalNotes)
+							<field-card width="is-12">
+								<template slot="label">
+									<p class="card-header-title">Historical Notes</p>
+								</template>
+								{{ $form->historicalNotes }}
+							</field-card>
+						@endif					
+						@if($form->allomorphyNotes)
+							<field-card width="is-12">
+								<template slot="label">
+									<p class="card-header-title">Allomorphy Notes</p>
+								</template>
+								{{ $form->allomorphyNotes }}
+							</field-card>
+						@endif					
+						@if($form->usageNotes)
+							<field-card width="is-12">
+								<template slot="label">
+									<p class="card-header-title">Usage Notes</p>
+								</template>
+								{{ $form->usageNotes }}
+							</field-card>
+						@endif				
+						@if(Auth::user() && $form->comments)
+							<field-card width="is-12">
+								<template slot="label">
+									<p class="card-header-title">Private Comments</p>
+								</template>
+								{{ $form->comments }}
+							</field-card>
+						@endif
+				</model-card-tab>
+			@endif
 
 			<model-card-tab name="Sources">
 				<field-card width="is-half">

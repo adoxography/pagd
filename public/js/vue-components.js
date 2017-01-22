@@ -512,7 +512,7 @@ Vue.component("alg-tab", {
 
 Vue.component("model-card-tab", {
 	template: `
-		<div class="card-content" v-show="isActive">
+		<div class="card-content" v-show="isActive" style="padding-top: 0;">
 			<div class="tabs-details">
 				<div class="content">
 					<div class="columns is-multiline">
@@ -598,10 +598,10 @@ Vue.component("field-card", {
 	template: `
 		<div class="column" :class="{'width': width}">
 		<div class="card" style="box-shadow:none;">
-			<div class="card-header">
+			<div class="card-header" style="box-shadow:none;">
 				<slot name="label"></slot>
 			</div>
-			<div class="card-content">
+			<div class="card-content" style="padding-left: .75rem; padding-bottom: 0; padding-top: 0;">
 				<div class="content">
 					<slot></slot>
 				</div>

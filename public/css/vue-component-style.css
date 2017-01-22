@@ -41,7 +41,7 @@ html {
 
 .description-list {
 	list-style: none;
-	margin-left: 0 !important;
+	margin: 0 !important;
 }
 
 .description-list li {

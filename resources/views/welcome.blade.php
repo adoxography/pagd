@@ -11,7 +11,10 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
-			22-01-17: <a href="/forms/10#basic-details">Reformatted form details</a>
+			22-01-17: <a href="/forms/10#basic-details">Updated detail styling (May need to press CTRL + F5 to view properly)</a>
+		</li>			
+		<li>
+			22-01-17: Reformatted form details
 		</li>			
 		<li>
 			21-01-17: <a href="/search#for-a-form">Pulled language selection out of line in form search and added negative and diminutive options</a>

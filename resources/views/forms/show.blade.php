@@ -16,16 +16,37 @@
 			</template>
 
 			<model-card-tab name="Basic Details" selected = "true">
+				<field-card width="is-2">
+					<template slot="label">
+						<p class="card-header-title">Class</p>
+					</template>
+					<a href="/classes/{{ $form->formType->class_id }}">{{ $form->formType->formClass->name }}</a>
+				</field-card>				
+				<field-card width="is-2">
+					<template slot="label">
+						<p class="card-header-title">Order</p>
+					</template>
+					<a href="/classes/{{ $form->formType->order_id }}">{{ $form->formType->order->name }}</a>
+				</field-card>				
+				<field-card width="is-2">
+					<template slot="label">
+						<p class="card-header-title">Mode</p>
+					</template>
+					<a href="/classes/{{ $form->formType->mode_id }}">{{ $form->formType->mode->name }}</a>
+				</field-card>
 				<field-card width="is-half">
 					<template slot="label">
-						<p class="card-header-title">Pronunciation</p>
+						<p class="card-header-title">Argument Structure</p>
 					</template>
-					@if($form->phoneticForm)
-						{{ $form->phoneticForm }}
-					@else
-						Unknown/Unclear
+					{{ $form->formType->subject->name }}
+					@if($form->formType->primaryObject)
+						- {{ $form->formType->primaryObject->name }}
+					@endif
+					@if($form->formType->secondaryObject)
+						+ {{ $form->formType->secondaryObject->name }}
 					@endif
 				</field-card>
+
 				<field-card width="is-half">
 					<template slot="label">
 						<p class="card-header-title">Morphemes</p>
@@ -46,6 +67,16 @@
 						Unknown/Unclear
 					@endif
 				</field-card>
+				<field-card width="is-half">
+					<template slot="label">
+						<p class="card-header-title">Pronunciation</p>
+					</template>
+					@if($form->phoneticForm)
+						{{ $form->phoneticForm }}
+					@else
+						Unknown/Unclear
+					@endif
+				</field-card>
 
 				<field-card width="is-half">
 					<template slot="label">
@@ -56,41 +87,6 @@
 					@else
 						Unknown/Unclear
 					@endif
-				</field-card>
-			</model-card-tab>
-
-			<model-card-tab name="Syntax Details">
-
-				<field-card width="is-half">
-					<template slot="label">
-						<p class="card-header-title">Argument Structure</p>
-					</template>
-					{{ $form->formType->subject->name }}
-					@if($form->formType->primaryObject)
-						- {{ $form->formType->primaryObject->name }}
-					@endif
-					@if($form->formType->secondaryObject)
-						+ {{ $form->formType->secondaryObject->name }}
-					@endif
-				</field-card>
-				<field-card width="is-half">
-					<template slot="label">
-						<p class="card-header-title">Class</p>
-					</template>
-					<a href="/classes/{{ $form->formType->class_id }}">{{ $form->formType->formClass->name }}</a>
-				</field-card>
-
-				<field-card width="is-half">
-					<template slot="label">
-						<p class="card-header-title">Order</p>
-					</template>
-					<a href="/orders/{{ $form->formType->order_id }}">{{ $form->formType->order->name }}</a>
-				</field-card>
-				<field-card width="is-half">
-					<template slot="label">
-						<p class="card-header-title">Mode</p>
-					</template>
-					<a href="/modes/{{ $form->formType->mode_id }}">{{ $form->formType->mode->name }}</a>
 				</field-card>
 
 				<template slot="tags">

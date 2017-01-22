@@ -14,10 +14,6 @@
 		<div class="box">
 			<alg-tabs>
 				<alg-tab name="For a paradigm" selected="true">
-					<alg-message>
-						<template slot="header">Note</template>
-						Not selecting anything in a category runs a search for all of that category, which is what I want for being able to check on the whole database quickly. In the future, I'll restrict it so that the form cannot be submitted without at least one of each category checked.
-					</alg-message>
 					<form method="GET" action="/search/paradigm">
 						<div class="columns">
 							<div class="column box" style="margin-bottom: 0;">
@@ -95,10 +91,6 @@
 					</form>
 				</alg-tab>				
 				<alg-tab name="For a form">
-					<alg-message>
-						<template slot="header">Note</template>
-						The actual search isn't in place, but I <em>think</em> this form is coded up to your specifications: you supply all of the form details, with up to five languages (an arbitrary number I picked - too many and it starts to look unwieldly), and you can add up to ten more lines, with each new line copying the data that was entered in the previous line. (Again, ten was an arbitrary number I picked, which is probably too high. You can let me know how many languages/lines you think you'll need, and those numbers can always be changed.)
-					</alg-message>
 					<form-search-form classes="{{ $classes }}" arguments="{{ $arguments }}" orders="{{ $orders }}" modes="{{ $modes }}" languages="{{ $languages }}"></form-search-form>
 				</alg-tab>
 			</alg-tabs>

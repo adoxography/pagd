@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			21-01-17: <a href="/search#for-a-form">Pulled language selection out of line in form search and added negative and diminutive options</a>
+		</li>		
+		<li>
 			21-01-17: <a href="/forms/10#basic-details">Merged form syntax details into basic details</a>
 		</li>
 		<li>

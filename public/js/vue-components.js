@@ -1,29 +1,29 @@
 Vue.component("alg-multi-datalist", {
-	props: ['list', 'name'],
+	props: ['list', 'name', 'disabled'],
 
 	template: `
 		<div>
-			<alg-datalist :list="list" v-for="n in numFields" :name="name"></alg-datalist>
-				<div class="level">
-					<div class="level-left">
+			<alg-datalist :list="list" v-for="n in numFields" :name="name" :disabled="disabled"></alg-datalist>
+			<div class="level">
+				<div class="level-left">
+				</div>
+				<div class="level-right">
+					<div class="level-item">	
+						<a class="button is-info is-small" :class="{ 'is-disabled': numFields >= 5 || disabled }" @click="addField()">
+							<span class="icon">
+								<i class="fa fa-plus"></i>
+							</span>
+						</a>
 					</div>
-					<div class="level-right">
-						<div class="level-item">	
-							<a class="button is-info is-small" :class="{ 'is-disabled': numFields >= 5 }" @click="addField()">
-								<span class="icon">
-									<i class="fa fa-plus"></i>
-								</span>
-							</a>
-						</div>
-						<div class="level-item">
-							<a class="button is-info is-small" :class="{ 'is-disabled': numFields <= 1 }" @click="removeField()">
-								<span class="icon">
-									<i class="fa fa-minus"></i>
-								</span>
-							</a>
-						</div>
+					<div class="level-item">
+						<a class="button is-info is-small" :class="{ 'is-disabled': numFields <= 1 || disabled }" @click="removeField()">
+							<span class="icon">
+								<i class="fa fa-minus"></i>
+							</span>
+						</a>
 					</div>
 				</div>
+			</div>
 		</div>
 	`,
 
@@ -231,136 +231,137 @@ Vue.component("form-search-form", {
 	props: ['arguments', 'classes', 'modes', 'orders', 'languages'],
 	template: `
 		<form class="form-search-form" method="GET" action="/search/form">
-			<div v-for="(line, index) in lines" class="box">
-				<div class="columns">
+			<div class="columns">
+				<div class="column is-one-quarter">
+					<p class="control">
+						<label class="radio">
+							<input name="searchAll" type="radio" class="radio" v-model="searchAllLanguages" :value="true" />
+							All languages
+						</label>
+					</p>
+					<p class="control">
+						<label class="radio">
+							<input name="searchAll" type="radio" class="radio" v-model="searchAllLanguages" :value="false" />
+							The following languages...
+						</label>
+						<div class="box">
+							<alg-multi-datalist :list="languages" name="languages[]" :disabled="searchAllLanguages"></alg-multi-datalist>
+						</div>
+					</p>
+				</div>
+				<div class="column">
+					<div v-for="(line, index) in lines" class="box">
+						<div class="columns">
 
-					<div class="column">
-						<h5 class="title is-5">Class</h5>
-						<p class="control" style="padding-top: 1.5rem;">
-							<span class="select">
-								<select name="classes[]" v-model="line.formClass">
-									<option v-for="formClass in classArray" :value="formClass.id">{{ formClass.name }}</option>
-								</select>
-							</span>
-						</p>
-					</div>
-
-					<div class="column">
-						<h5 class="title is-5" style="margin-bottom: 1rem;">Arguments</h5>
-						<div class="control is-horizontal">
-							<div class="control is-grouped">
-								<p class="control">
-									<label class="label argument-label">Subject</label>
+							<div class="column">
+								<h5 class="title is-5">Class</h5>
+								<p class="control" style="padding-top: 1.5rem;">
 									<span class="select">
-										<select name="subjects[]" v-model="line.subject">
-											<option v-for="argument in argumentArray" :value="argument.id">{{ argument.name }}</option>
-										</select>
-									</span>
-								</p>								
-								<p class="control">
-									<label class="label argument-label">P. Object</label>
-									<span class="select">
-										<select name="primaryObjects[]" v-model="line.primaryObject">
-											<option value="0">None</option>
-											<option v-for="argument in argumentArray" :value="argument.id">{{ argument.name }}</option>
-										</select>
-									</span>
-								</p>								
-								<p class="control">
-									<label class="label argument-label">S. Object</label>
-									<span class="select">
-										<select name="secondaryObjects[]" v-model="line.secondaryObject">
-											<option value="0">None</option>
-											<option v-for="argument in argumentArray" :value="argument.id">{{ argument.name }}</option>
+										<select name="classes[]" v-model="line.formClass">
+											<option v-for="formClass in classArray" :value="formClass.id">{{ formClass.name }}</option>
 										</select>
 									</span>
 								</p>
 							</div>
-						</div>
-					</div>
 
-					<div class="column">
-						<h5 class="title is-5">Order</h5>
-						<p class="control" style="padding-top: 1.5rem;">
-							<span class="select">
-								<select name="orders[]" v-model="line.order">
-									<option v-for="order in orderArray" :value="order.id">{{ order.name }}</option>
-								</select>
-							</span>
-						</p>
-					</div>					
-
-					<div class="column">
-						<h5 class="title is-5">Mode</h5>
-						<p class="control" style="padding-top: 1.5rem;">
-							<span class="select">
-								<select name="modes[]" v-model="line.mode">
-									<option v-for="mode in modeArray" :value="mode.id">{{ mode.name }}</option>
-								</select>
-							</span>
-						</p>
-					</div>
-
-					<div class="column">
-						<p class="control">
-							<label class="radio">
-								<input :name="'searchAll['+index+']'" type="radio" class="radio" v-model="line.searchAllLanguages" :value="true" />
-								All languages
-							</label>
-						<p>
-						<p class="control">
-							<label class="radio">
-								<input :name="'searchAll['+index+']'" type="radio" class="radio" v-model="line.searchAllLanguages" :value="false" />
-								The following languages...
-							</label>
-							<div class="box">
-								<alg-datalist v-for="n in line.numLanguages" :list="languages" v-model="line.languages[n - 1]" :disabled="line.searchAllLanguages" :name="'languages['+index+'][]'"></alg-datalist>
-								<div class="level">
-									<div class="level-left">
-									</div>
-									<div class="level-right">
-										<div class="level-item">	
-											<a class="button is-info is-small" :class="{ 'is-disabled': line.searchAllLanguages || line.numLanguages >= 5 }" @click="addLanguage(line)">
-												<span class="icon">
-													<i class="fa fa-plus"></i>
-												</span>
-											</a>
-										</div>
-										<div class="level-item">
-											<a class="button is-info is-small" :class="{ 'is-disabled': line.searchAllLanguages || line.numLanguages <= 1 }" @click="removeLanguage(line)">
-												<span class="icon">
-													<i class="fa fa-minus"></i>
-												</span>
-											</a>
-										</div>
+							<div class="column">
+								<h5 class="title is-5" style="margin-bottom: 1rem;">Arguments</h5>
+								<div class="control is-horizontal">
+									<div class="control is-grouped">
+										<p class="control">
+											<label class="label argument-label">Subject</label>
+											<span class="select">
+												<select name="subjects[]" v-model="line.subject">
+													<option v-for="argument in argumentArray" :value="argument.id">{{ argument.name }}</option>
+												</select>
+											</span>
+										</p>								
+										<p class="control">
+											<label class="label argument-label">P. Object</label>
+											<span class="select">
+												<select name="primaryObjects[]" v-model="line.primaryObject">
+													<option value="0">None</option>
+													<option v-for="argument in argumentArray" :value="argument.id">{{ argument.name }}</option>
+												</select>
+											</span>
+										</p>								
+										<p class="control">
+											<label class="label argument-label">S. Object</label>
+											<span class="select">
+												<select name="secondaryObjects[]" v-model="line.secondaryObject">
+													<option value="0">None</option>
+													<option v-for="argument in argumentArray" :value="argument.id">{{ argument.name }}</option>
+												</select>
+											</span>
+										</p>
 									</div>
 								</div>
 							</div>
-						<p>
+
+							<div class="column">
+								<h5 class="title is-5">Order</h5>
+								<p class="control" style="padding-top: 1.5rem;">
+									<span class="select">
+										<select name="orders[]" v-model="line.order">
+											<option v-for="order in orderArray" :value="order.id">{{ order.name }}</option>
+										</select>
+									</span>
+								</p>
+							</div>					
+
+							<div class="column">
+								<h5 class="title is-5">Mode</h5>
+								<p class="control" style="padding-top: 1.5rem;">
+									<span class="select">
+										<select name="modes[]" v-model="line.mode">
+											<option v-for="mode in modeArray" :value="mode.id">{{ mode.name }}</option>
+										</select>
+									</span>
+								</p>
+							</div>
+
+							<div class="column">
+								<p class="control">
+									<label class="checkbox">
+										<input type="checkbox" name="isNegative[]" v-model="line.isNegative" />
+										Negative
+									</label>
+								</p>								
+								<p class="control">
+									<label class="checkbox">
+										<input type="checkbox" name="isDiminutive[]" v-model="line.isDiminutive" />
+										Diminutive
+									</label>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="level">
+						<div class="level-left">
+						</div>
+						<div class="level-right">
+							<div class="level-item">
+								<a class="button is-info" @click="addLine" :disabled="numLines >= 10" title="Add">
+									<span class="icon">
+										<i class="fa fa-plus"></i>
+									</span>
+								</a>
+							</div>
+							<div class="level-item">
+								<a class="button is-info" @click="removeLine" :disabled="numLines <= 1" title="Remove">
+									<span class="icon">
+										<i class="fa fa-minus"></i>
+									</span>
+								</a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-
 			<div class="level">
 				<div class="level-left">
 					<div class="level-item">
 						<button type="submit" class="button is-success">Search</button>
-					</div>
-				</div>
-				<div class="level-right">
-					<div class="level-item">
-						<a class="button is-info" @click="addLine" :disabled="numLines >= 10" title="Add">
-							<span class="icon">
-								<i class="fa fa-plus"></i>
-							</span>
-						</a>
-					</div>
-					<div class="level-item">
-						<a class="button is-info" @click="removeLine" :disabled="numLines <= 1" title="Remove">
-							<span class="icon">
-								<i class="fa fa-minus"></i>
-							</span>
-						</a>
 					</div>
 				</div>
 			</div>
@@ -375,18 +376,17 @@ Vue.component("form-search-form", {
 			orderArray: [],
 
 			lines: [{
-				name: "",
 				formClass: 1,
 				subject: 1,
 				primaryObject: 0,
 				secondaryObject: 0,
 				order: 1,
 				mode: 1,
-				languages: [''],
-				numLanguages: 1,
+				isNegative: false,
+				isDiminutive: false
+			}],
 
-				searchAllLanguages: true
-			}]
+			searchAllLanguages: true
 		};
 	},
 

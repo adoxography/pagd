@@ -596,7 +596,7 @@ Vue.component("model-index-line", {
 Vue.component("field-card", {
 	props: ['width'],
 	template: `
-		<div class="column" :class="width">
+		<div class="column" :class="{'width': width}">
 		<div class="card" style="box-shadow:none;">
 			<div class="card-header">
 				<slot name="label"></slot>

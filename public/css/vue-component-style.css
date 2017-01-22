@@ -38,3 +38,17 @@ html {
 	font-weight: normal;
 	font-style: italic;
 }
+
+.description-list {
+	list-style: none;
+	margin-left: 0 !important;
+}
+
+.description-list li {
+	float: left;
+	margin-top: 0 !important;
+}
+
+.description-list li:not(:first-child) {
+	margin-left: .5rem;
+}

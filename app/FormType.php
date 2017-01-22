@@ -91,4 +91,9 @@ class FormType extends Model
     {
         return $this->hasMany(Form::class, 'formType_id');
     }
+
+    public function hasModifiers()
+    {
+        return $this->isNegative || $this->isDiminutive || isset($this->isAbsolute);
+    }
 }

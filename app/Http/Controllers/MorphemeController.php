@@ -90,7 +90,7 @@ class MorphemeController extends Controller
     }
 
     public function update(MorphemeRequest $request, Morpheme $morpheme){
-        $morpheme->update($request->all());
+        $morpheme->update(array_filter($request->all(), 'validDatabaseInput'));
 
         foreach(Form::where('language_id', $morpheme->language_id)->get() as $form) {
             $form->connectMorphemes();

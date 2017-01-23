@@ -53,16 +53,10 @@ class FormController extends Controller
     
     public function update(LangFormRequest $request, Form $form)
     {
-        $sourceData = $request->sourceData;
-
         $form->update($request->formData);
 
-        $form->sources()->detach();
-        for($i = 0; $i < count($sourceData); $i++){
-            if(isset($sourceData['source_id'][$i])){
-                $form->sources()->attach($sourceData['source_id'][$i], ['extraInfo' => $sourceData['extraInfo'][$i]]);
-            }
-        }
+        $form->connectMorphemes();
+        $form->connectSources($request->sourceData);
 
         flash($form->surfaceForm.' updated successfully', 'is-success');
         return redirect('/forms/'.$form->id);
@@ -77,22 +71,11 @@ class FormController extends Controller
 
     public function store(LangFormRequest $request)
     {
-        $formData = $request->formData;
-        $sourceData = $request->sourceData;
-
         // Insert the form
-        $form = Form::create($formData);
+        $form = Form::create($request->formData);
 
-        if(!$form){
-            dd($form);
-        }
-
-        // Connect the sources
-        for($i = 0; $i < count($sourceData); $i++){
-            if(isset($sourceData['source_id'][$i])){
-                $form->sources()->attach($sourceData['source_id'][$i], ['extraInfo' => $sourceData['extraInfo'][$i]]);
-            }
-        }
+        $form->connectMorphemes();
+        $form->connectSources($request->sourceData);
 
         // Flash a message to the session
         flash($form->surfaceForm.' created successfully.', 'is-success');
@@ -126,5 +109,4 @@ class FormController extends Controller
 
         return view('examples.create', compact('presetForm'));
     }
-
 }

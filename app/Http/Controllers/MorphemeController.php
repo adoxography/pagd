@@ -13,19 +13,35 @@ use Illuminate\Support\Facades\Response;
 
 class MorphemeController extends Controller
 {
+    public function confirmDelete()
+    {
+        $morpheme = session('morphemeToDelete');
+        $forms = session('formsThatWillBeOrphans');
+
+        return view('morphemes.confirmDelete', compact('morpheme', 'forms'));
+    }
+
     public function create(){
         return view('morphemes.create');
     }
 
-    public function createMulti(){
-        $missing = session('missing');
-        return view('morphemes.createMulti', compact('missing'));
-    }
-
     public function destroy(Morpheme $morpheme){
-        $morpheme->delete();
-        flash($morpheme->name.' deleted successfully.');
-        return Redirect::to('/languages/' . $morpheme->language_id);
+        $forms = $morpheme->forms;
+
+        if(count($forms) == 0 || request()->confirmDelete) {
+            $morpheme->delete();
+
+            foreach(Form::where('language_id', $morpheme->language_id)->get() as $form) {
+                $form->connectMorphemes();
+            }
+
+            flash($morpheme->name.' deleted successfully.');
+            return Redirect::to('/languages/' . $morpheme->language_id);
+        }
+        else {
+            session(['morphemeToDelete' => $morpheme, 'formsThatWillBeOrphans' => $forms]);
+            return redirect()->to('/morphemes/confirm-delete');
+        }
     }
 
     public function edit(Morpheme $morpheme){
@@ -39,82 +55,48 @@ class MorphemeController extends Controller
     }
 
     public function store(MorphemeRequest $request){
-        $morpheme = Morpheme::create(array_filter($request->all(), 'validDatabaseInput'));
+        $morpheme = new Morpheme(array_filter($request->all(), 'validDatabaseInput'));
+
+        $duplicates = Morpheme::where('name', $morpheme->name)
+                              ->where('language_id', $morpheme->language_id)
+                              ->orderBy('disambiguator')
+                              ->get();
+
+        $morpheme->disambiguator = $this->firstOpenSpace($duplicates);
+
+        $morpheme->save();
+
+        foreach(Form::where('language_id', $morpheme->language_id)->get() as $form) {
+            $form->connectMorphemes();
+        }
+
         flash($morpheme->name.' created successfully.', 'success');
         return Redirect::to('/morphemes/' . $morpheme->id);
     }
 
-    public function createOTG(Request $request){
-        $names        = $request->names;
-        $glosses      = $request->glosses;
-        $slots        = $request->slots;
-        $numMorphemes = $request->numMorphemes;
-        $language     = $request->language;
-
-        for($i = 0; $i < $numMorphemes; $i++){
-            Morpheme::create(
-                [
-                    'name'        => $names[$i],
-                    'language_id' => $language,
-                    'gloss_id'    => $glosses[$i],
-                    'slot_id'     => $slots[$i]
-                ]
-            );
+    protected function firstOpenSpace($morphemes)
+    {
+        $found = false;
+        $i;
+        for($i = 1; $i <= count($morphemes) && !$found; $i++) {
+            $found = $i != $morphemes[$i]->disambiguator;
         }
 
-        return "Hello";
-    }
-
-    public function storeMulti(Request $request){
-        $morphemes = $request->morphemes;
-        $formData = session('formData');
-        $failed = array();
-
-        //Store the new morphemes
-        foreach($morphemes as $morphemeData)
-        {
-            $morpheme = new Morpheme($morphemeData);
-            $morpheme->language_id = $formData['language_id'];
-            if(!$morpheme->save())
-            {
-                $failed[] = $morphemeData;
-            }
+        if(!$found) {
+            $i++;
         }
 
-        if(count($failed) > 0) //If any were wrong, redirect back with just the missing morphemes
-        {
-            session(['missing' => $failed]);
-            return redirect()->action('MorphemeController@createMulti');
-        }
-        else //Otherwise, go ahead and add the form
-        {
-            $form = Form::create($formData);
-            return redirect('/forms/' . $form->id);
-        }
+        return $i;
     }
 
     public function update(MorphemeRequest $request, Morpheme $morpheme){
         $morpheme->update($request->all());
-        flash($morpheme->name.' updated successfully.', 'success');
-        return Redirect::to('/morphemes/'.$morpheme->id);
-    }
-    
-    public function exists(Request $request){
-        $language = $request->language;
-        $morphemes = explode('-', $request->morphemes);
-        $checked = array();
-        $missing = array();
 
-        foreach($morphemes as $morpheme){
-            if($morpheme !== '' && !in_array($morpheme, $checked)){
-                array_push($checked, $morpheme);
-                $query = Morpheme::where('language_id',$language)->where('name',$morpheme)->get();
-                if(count($query) == 0){
-                    array_push($missing,$morpheme);
-                }
-            }
+        foreach(Form::where('language_id', $morpheme->language_id)->get() as $form) {
+            $form->connectMorphemes();
         }
 
-        return response()->json($missing);
+        flash($morpheme->name.' updated successfully.', 'success');
+        return Redirect::to('/morphemes/'.$morpheme->id);
     }
 }

@@ -76,23 +76,42 @@
 						@else
 							<p>{{ $form->surfaceForm }}</p>
 						@endif
-						<p>
-							@if(count($form->morphemes) > 0)
-								@foreach($form->morphemes as $morpheme)
+						<div class="columns">
+							@foreach($form->morphemeList() as $morpheme)
+								<div class="column is-narrow">
+								@if($morpheme instanceof App\Morpheme)
 									@if($morpheme->name !== 'V')
 										<a href='/morphemes/{{ $morpheme->id }}'>{{ $morpheme->name }}</a>
 									@else
 										{{ $morpheme->name }}
 									@endif
 
-									@if(!$loop->last)
-										-
+									<p><a href="/glosses/{{ $morpheme->gloss_id }}">{{ $morpheme->gloss->abv }}</a></p>
+								@else
+									{{ $morpheme['name'] }}
+									@if(Auth::user())
+										<a class="icon is-danger">
+											@if($morpheme['exists'])
+											<span class="icon is-small" title="Disambiguation required">
+												<i class="fa fa-exclamation-triangle"></i>
+											</span>
+											@else
+											<span class="icon is-small" title="No such morpheme in the database">
+												<i class="fa fa-exclamation-triangle"></i>
+											</span>
+											@endif
+										</a>
 									@endif
-								@endforeach
-							@else
-								Unknown/Unclear
-							@endif
-						</p>
+								@endif
+								</div>
+
+								@if(!$loop->last)
+									<div class="column is-narrow" style="padding-left: 0; padding-right: 0;">
+									-
+									</div>
+								@endif
+							@endforeach
+						</div>
 					</field-card>
 
 					<field-card width="is-12">

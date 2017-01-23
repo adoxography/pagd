@@ -57,25 +57,24 @@ class Form extends Model
             $model->duplicates()->detach();
         });
 
-        static::saving(function ($model) {
-            $model->removeNulls();
-            $rc = $model->validate();
-            if ($rc) {
-                $missing = $model->morphemesMissing($model->morphemicForm, $model->language_id);
-                if (count($missing) > 0) {
-                    $rc = false;
-                    $model->errors = ['missing' => $missing];
-                }
-            }
+        // static::saving(function ($model) {
+        //     $model->removeNulls();
+        //     $rc = $model->validate();
+        //     if ($rc) {
+        //         $missing = $model->morphemesMissing($model->morphemicForm, $model->language_id);
+        //         if (count($missing) > 0) {
+        //             $rc = false;
+        //             $model->errors = ['missing' => $missing];
+        //         }
+        //     }
 
-            return $rc;
-        });
+        //     return $rc;
+        // });
 
         static::saved(function ($model) {
 
             if($model->morphemicForm)
             {
-                $model->connectMorphemes($model);
                 $model->connectDuplicates($model);
             }
         });
@@ -143,23 +142,6 @@ class Form extends Model
 
         return $missing;
     }
-
-    private function connectMorphemes(Form $form)
-    {
-        $this->morphemes()->detach();
-
-        $morphemeNames = explode('-', $form->morphemicForm);
-        $position = 1;
-        foreach ($morphemeNames as $morphemeName) {
-            if ($morphemeName !== '') {
-                $morpheme = Morpheme::where('name', $morphemeName)
-                                    ->where('language_id', $form->language->id)
-                                    ->firstOrFail();
-                $form->morphemes()->attach($morpheme->id, ['position' => $position]);
-                $position++;
-            }//if
-        }//foreach
-    }
     
     public function connectDuplicates(Form $newForm)
     {
@@ -200,7 +182,37 @@ class Form extends Model
 
     public function morphemes()
     {
-        return $this->belongsToMany(Morpheme::class, 'Forms_Morphemes')->orderBy('position');
+        return $this->belongsToMany(Morpheme::class, 'Forms_Morphemes')->orderBy('position')->withPivot('position');
+    }
+
+    public function morphemeList()
+    {
+        $output = [];
+        $savedMorphemes = $this->morphemes;
+        $curr = 0;
+        $slots = explode('-', $this->morphemicForm);
+
+        foreach($slots as $index => $slot) {
+            if($curr < count($savedMorphemes) && $savedMorphemes[$curr]->pivot->position == $index + 1) {
+                $output[] = $savedMorphemes[$curr++];
+            }
+            else {
+                $output[] = ['name' => explode('.', $slot)[0]];
+                if(Auth::user()) {
+                    $search = Morpheme::where('name', $slot)
+                                      ->where('language_id', $this->language_id)
+                                      ->get();
+                    if(count($search) > 0) {
+                        $output[count($output) - 1] += ['exists' => true];
+                    }
+                    else {
+                        $output[count($output) - 1] += ['exists' => false];
+                    }
+                }
+            }
+        }
+
+        return $output;
     }
 
     public function duplicates()
@@ -263,5 +275,48 @@ class Form extends Model
     public function hasNotes()
     {
         return $this->historicalNotes || $this->allomorphyNotes || $this->usageNotes || (Auth::user() && $this->comments);
+    }
+
+
+
+    public function connectMorphemes()
+    {
+        $segments = explode('-', $this->morphemicForm);
+        $lookup;
+        $chunk;
+
+        $this->morphemes()->detach();
+
+        foreach ($segments as $index => $segment) {
+            $chunk = explode('.', $segment);
+
+            if(count($chunk) > 0) {
+                if (count($chunk) == 1) { // Chunk does not have a disambiguator
+                    $lookup = Morpheme::where('name', $chunk[0])
+                                      ->where('language_id', $this->language_id)
+                                      ->get();
+                } elseif (count($chunk) > 1) { // Chunk has a disambiguator
+                    $lookup = Morpheme::where('name', $chunk[0])
+                                      ->where('disambiguator', $chunk[1])
+                                      ->where('language_id', $this->language_id)
+                                      ->get();
+                }
+
+                if (count($lookup) == 1) {
+                    $this->morphemes()->attach($lookup[0]->id, ['position' => $index + 1]);
+                }
+            }
+        }
+    }
+
+    public function connectSources($sourceData)
+    {
+        $this->sources()->detach();
+
+        for ($i = 0; $i < count($sourceData); $i++) {
+            if (isset($sourceData['source_id'][$i])) {
+                $this->sources()->attach($sourceData['source_id'][$i], ['extraInfo' => $sourceData['extraInfo'][$i]]);
+            }
+        }
     }
 }

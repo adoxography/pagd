@@ -19,7 +19,6 @@ class LangFormRequest extends FormRequest
 
     protected function formatErrors(Validator $validator)
     {
-        //dd($validator);
         return $validator->errors()->all();
     }
 
@@ -34,7 +33,7 @@ class LangFormRequest extends FormRequest
             //Base form info
             'surfaceForm'                   => ['required'],
             'phoneticForm'                  => ['nullable'],
-            'morphemicForm'                 => ['nullable','has:V','morphemesExist:language_id'],
+            'morphemicForm'                 => ['nullable','has:V'],
 
             //Language Info
             'language.name'                 => ['required','exists:Languages,name'],
@@ -71,7 +70,6 @@ class LangFormRequest extends FormRequest
         return [
             'surfaceForm.required'                 => 'Please enter a surface form.',
             'morphemicForm.has'                    => 'The morphemic form must include a placeholder for the Vstem.',
-            'morphemicForm.morphemesExist'         => 'Not all of the morphemes could be found. Please validate the morphemic form.',
             'language.name.required'               => 'Please enter a language.',
             'language.name.exists'                 => 'There is no language by that name in the database.',
             'parent.name.exists'                   => 'There is no parent form by that name in the database.',

@@ -1,4 +1,5 @@
 <?php
+
 define("NOT_FOUND", -1);
 
 function binarySearch($item, $list)

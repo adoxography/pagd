@@ -24,7 +24,7 @@ class Morpheme extends Model
 
         static::deleting(function($model){
             foreach($model->forms as $form){
-                $form->delete();
+                $form->morphemes()->detach($model->id);
             }//foreach
         });
     }

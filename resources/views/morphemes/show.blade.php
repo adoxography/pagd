@@ -37,6 +37,16 @@
 					@else
 						Unknown/Unclear
 					@endif
+				</field-card>				
+				<field-card width="is-half">
+					<template slot="label">
+						<p class="card-header-title">Disambiguator</p>
+					</template>
+					@if($morpheme->disambiguator > 0)
+						{{$morpheme->disambiguator}}
+					@else
+						None
+					@endif
 				</field-card>
 			</model-card-tab>			
 
@@ -118,29 +128,12 @@
 			@if(Auth::user())
 				<template slot="footer">
 					<a class="card-footer-item" href = "/morphemes/{{ $morpheme->id }}/edit">Edit</a>
-					<a class="card-footer-item">Delete</a>
+					{{ Form::open(['method' => 'DELETE', 'url' => "/morphemes/".$morpheme->id])}}
+					<a class="card-footer-item" onclick="event.preventDefault(); this.parentNode.submit()">Delete</a>
+					{{ Form::close() }}
 				</template>
 			@endif
 		</model-card>
 	</div>
-
-{{-- 	<div class = 'show'>
-		<h1>{{ $morpheme->name }} (<a href='/languages/{{ $morpheme->language->id }}'>{{ $morpheme->language->name}}</a>) (<a href = '/morphemes/{{ $morpheme->id }}/edit'>Edit</a>)</h1>
-		<ul>
-			{{ Html::field('Gloss:',                      $morpheme->gloss->abv,                                   '/glosses/'.$morpheme->gloss->id           ) }}
-			{{ Html::field('Slot:',                       $morpheme->slot->abv,                                    '/slots/'.$morpheme->slot->id              ) }}
-			{{ Html::field('Parent:', $morpheme->parent ? $morpheme->parent->name : 'Unknown', $morpheme->parent ? '/morphemes/'.$morpheme->parent->id : false) }}
-			{{ Html::multi('Found in:', $morpheme->forms, '/forms', 'surfaceForm') }}
-			{{ Html::para('Comments:',         $morpheme->comments,        $parser) }}
-			{{ Html::para('Historical Notes:', $morpheme->historicalNotes, $parser) }}
-			{{ Html::para('Allomorphy Notes:', $morpheme->allomorphyNotes, $parser) }}
-		</ul>
-
-		<form method = 'POST' action = '/morphemes/{{ $morpheme->id }}' class = 'deleteButton'>
-			{{ method_field('DELETE') }}
-			{{ csrf_field() }}
-			<button type='submit'>Delete</button>
-		</form>
-	</div> --}}
 
 @stop

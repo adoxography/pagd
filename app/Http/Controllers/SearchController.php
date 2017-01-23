@@ -42,13 +42,22 @@ class SearchController extends Controller
 
     public function form(Request $request)
     {
+        $languages = $request->languages;
+        $classes = $request->classes;
+        $primaryObjects = $request->primaryObjects;
+        $secondaryObjects = $request->secondaryObjects;
+        $orders = $request->orders;
+        $modes = $request->modes;
+        $searchAll = $request->searchAll;
+
         dd($request);
+
+        $result = Form::where('language_id', $languages[0])
+                      ->where()
     }
 
     public function paradigm(Request $request)
     {
-
-        //dd($request);
         $languages  = $request->languages;
         $modeSelect = $request->modeSelect;
         $modes      = $request->modes;

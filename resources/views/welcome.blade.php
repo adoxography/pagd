@@ -11,7 +11,13 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
-			22-01-17: <a href="/forms/10#basic-details">Updated detail styling (May need to press CTRL + F5 to view properly)</a>
+			22-01-17: <a href="/forms/1#basic-details">Added glosses to morphemes in form detail</a>
+		</li>		
+		<li>
+			22-01-17: Altered form table such that morphemes are not required to exist prior to form existence
+		</li>		
+		<li>
+			22-01-17: Updated detail styling
 		</li>			
 		<li>
 			22-01-17: Reformatted form details

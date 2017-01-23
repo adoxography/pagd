@@ -77,13 +77,14 @@ class MorphemeController extends Controller
     protected function firstOpenSpace($morphemes)
     {
         $found = false;
-        $i;
-        for($i = 1; $i <= count($morphemes) && !$found; $i++) {
-            $found = $i != $morphemes[$i]->disambiguator;
-        }
+        $i = 1;
 
-        if(!$found) {
-            $i++;
+        while($i <= count($morphemes) && !$found) {
+            $found = $i != $morphemes[$i - 1]->disambiguator;
+
+            if(!$found) {
+                $i++;
+            }
         }
 
         return $i;

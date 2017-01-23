@@ -52,8 +52,8 @@ class SearchController extends Controller
 
         dd($request);
 
-        $result = Form::where('language_id', $languages[0])
-                      ->where()
+        // $result = Form::where('language_id', $languages[0])
+        //               ->where()
     }
 
     public function paradigm(Request $request)
@@ -143,6 +143,8 @@ class SearchController extends Controller
                 $query->where('isDiminutive', false);
             });
         }
+
+        //dd($query->get());
 
         $result = new SearchTable($query->get());
         return view('search.result', compact('result'));

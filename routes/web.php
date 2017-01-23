@@ -23,10 +23,10 @@ Route::post('backup', 'BackupController@store');
 Route::get('contact',  'ContactController@index');
 Route::post('contact', 'ContactController@send');
 
-// Route::get('search',          'SearchController@index');
-// Route::post('search',         'SearchController@search');
-// Route::get('search/paradigm', 'SearchController@paradigm');
-// Route::get('search/form',     'SearchController@form');
+Route::get('search',          'SearchController@index');
+Route::post('search',         'SearchController@search');
+Route::get('search/paradigm', 'SearchController@paradigm');
+Route::get('search/form',     'SearchController@form');
 
 Route::get('autocomplete',                 'AutocompleteController@test');
 Route::get('autocomplete/forms',           'AutocompleteController@forms');

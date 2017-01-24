@@ -1,9 +1,17 @@
 @extends('layout')
 
 @section('content')
-	<h1>Edit a Form</h1>
-	{{ Form::model($form->toArray(),['method' => 'PATCH', 'url' => '/forms/'.$form->id, 'class' => 'box']) }}
-		@include('forms.partials.form');
-	{{ Form::close() }}
+
+	<div class="heading">
+		<h1 class="title">Edit a form</h1>
+	</div>
+	<br />
+
+	<div id="root">
+		@component('components.form', ['method' => 'PATCH', 'url' => '/forms/'.$form->id, 'class' => 'box'])
+			@include('forms.partials.form')
+		@endcomponent
+	</div>
+
 	@include('errors.list')
 @stop

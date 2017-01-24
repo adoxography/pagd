@@ -2,82 +2,209 @@
 	<script src = '/js/formUtil.js'></script>
 @stop
 
-<!-- Form Text Information -->
-<fieldset>
-	{{ Form::label('surfaceForm','Surface Form') }}
-	{{ Form::text('surfaceForm',null,['placeholder' => 'The form as written in a text', 'autocomplete' => "off", 'required' => 'required']) }}	
-	{{ Form::label('phoneticForm','Phonetic Form') }}
-	{{ Form::text('phoneticForm',null,['placeholder' => 'The Algonquianist phonetic transcription (Leave blank if unknown or unclear)', 'autocomplete' => "off"]) }}
-	{{ Form::label('morphemicForm','Morphemic Form') }}
-	{{ Form::text('morphemicForm',null,['placeholder' => 'The morphemes, separated by hyphens (Leave blank if unknown or unclear)', 'autocomplete' => "off"]) }}
-	{{-- @include('morphemes.partials.create-otg') --}}
-</fieldset>
+{{-- Form Text Information --}}
+<div class="columns">
+	<div class="column is-half">
 
-<!-- Lineage Information -->
-<fieldset>
-	{{ Form::label('language','Language') }}
-	{{ Form::datalist('language', $languages, ['visible' => isset($presetLanguage) ? $presetLanguage->name : null, 'hidden'  => isset($presetLanguage) ? $presetLanguage->id : null], ['visible' => ['required' => 'required', 'default' => 'Proto-Algonquian']]) }}
-	{{ Form::label('parent','Parent') }}
-	{{ Form::autofill('parent',null,null,['placeholder' => 'Search for a parent form']) }}
-</fieldset>
+		{{-- Surface form field --}}
+		@component('components.form.text', ['name' => 'surfaceForm', 'label' => 'Surface Form', 'placeholder' => 'The form as written in a text', 'required' => 'required'])
+			@slot('value')
+				@if(old('surfaceForm'))
+					{{ old('surfaceForm') }}
+				@elseif(isset($form))
+					{{ $form->surfaceForm }}
+				@endif
+			@endslot
+		@endcomponent
 
-<!-- Syntax Information -->
-<fieldset>
-	<!-- Argument Information -->
-	<fieldset class = 'arguments'>
-		<legend>Arguments</legend>
-		{{ Form::label('subject', 'Subject') }}
-		{{ Form::datalist('subject', $arguments, ['hidden' => old('formType.subject_id')], ['visible' => ['name' => 'formType[subject][name]', 'required' => 'required', 'default' => '1s'], 'hidden' => ['name' => 'formType[subject_id]']]) }} <!-- Maybe remove this in production -->
-		{{ Form::label('primaryObject', 'P. Object') }}
-		{{ Form::datalist('primaryObject', $arguments, ['hidden' => old('formType.primaryObject_id')], ['visible' => ['name' => 'formType[primaryObject][name]', 'placeholder' => 'None'], 'hidden' => ['name' => 'formType[primaryObject_id]']]) }}
-		{{ Form::label('secondaryObject', 'S. Object') }}
-		{{ Form::datalist('secondaryObject', $arguments, ['hidden' => old('formType.secondaryObject_id')], ['visible' => ['name' => 'formType[secondaryObject][name]', 'placeholder' => 'None'], 'hidden' => ['name' => 'formType[secondaryObject_id]']]) }}
-	</fieldset>
+	</div>
+	<div class="column is-half">
 
-	{{ Form::radioList('class', $classes, isset($form) ? $form->formType->class_id : null,  ['name' => 'formType[class_id]']) }}
-	{{ Form::radioList('order', $orders, isset($form)  ? $form->formType->order->id : null, ['name' => 'formType[order_id]']) }}
+		{{-- Language field --}}
+		@component('components.form.datalist', ['name' => 'language_id', 'label' => 'Language', 'list' => $languages, 'required' => true])
+			@slot('value')
+				@if(old('language_id'))
+					{{ old('language_id') }}
+				@elseif(isset($presetLanguage))
+					{{ $presetLanguage->id }}
+				@elseif(isset($form))
+					{{ $form->language_id }}
+				@else
+				 	1 {{-- Proto-Algonquian --}}
+				@endif
+			@endslot
+		@endcomponent
 
-	{{ Form::label('mode','Mode') }}
-	{{ Form::datalist('mode', $modes, ['hidden' => old('formType.mode_id')], ['visible' => ['name' => 'formType[mode][name]', 'required' => 'required', 'default' => 'Indicative'], 'hidden' => ['name' => 'formType[mode_id]']]) }}
-</fieldset>
-<fieldset>
-	{{ Form::radioList(
-		'isAbsolute',
-		[
-			['id'    => 'null', 'value' => 'N/A'],
-			['id'    => 1,    'value' => 'Absolute'],
-			['id'    => 0,    'value' => 'Objective']
-		],
-		isset($form) ? $form->formType->isAbsolute : null,
-		[
-			'name'   => 'formType[isAbsolute]',
-			'legend' => 'Abs/Erg'
-		]
-	) }}
+	</div>
+</div>
 
-	{{ Form::label('isNegative','Negative') }}
-	{{ Form::checkbox('isNegative', 1, isset($form) ? $form->formType->isNegative : null, ['name' => 'formType[isNegative]']) }}
-	{{ Form::label('isDiminutive','Diminutive') }}
-	{{ Form::checkbox('isDiminutive', 1, isset($form) ? $form->formType->isDiminutive : null, ['name' => 'formType[isDiminutive]']) }}
-</fieldset>
-<fieldset>
-	@include('sources.partials.select_source')
-</fieldset>
+<div class="columns">
+	<div class="column is-one-quarter">
+		<label class="label">Arguments</label>
+		<div class="arguments control is-grouped">
+			@component('components.form.datalist', ['name' => 'subject_id', 'list' => $arguments, 'required' => true])
+				@slot('value')
+					@if(old('subject_id'))
+						{{ old('subject_id') }}
+					@elseif(isset($form))
+						{{ $form->formType->subject_id }}
+					@else
+					 	1
+					@endif
+				@endslot
+			@endcomponent
 
-<label>Historical Notes</label>
-<textarea name="historicalNotes"></textarea>
-<label>Allomorphy Notes</label>
-<textarea name="allomorphyNotes"></textarea>
-<label>Usage Notes</label>
-<textarea name="usageNotes"></textarea>
-<label>Comments</label>
-<textarea name="comments"></textarea>
+			@component('components.form.datalist', ['name' => 'primaryObject_id', 'list' => $arguments])
+				@slot('value')
+					@if(old('primaryObject_id'))
+						{{ old('primaryObject_id') }}
+					@elseif(isset($form))
+						{{ $form->formType->primaryObject_id }}
+					@endif
+				@endslot
+			@endcomponent
 
-<fieldset>
-	{{ Form::submit('Submit') }}
-</fieldset>
+			@component('components.form.datalist', ['name' => 'secondaryObject_id', 'list' => $arguments])
+				@slot('value')
+					@if(old('secondaryObject_id'))
+						{{ old('secondaryObject_id') }}
+					@elseif(isset($form))
+						{{ $form->formType->secondaryObject_id }}
+					@endif
+				@endslot
+			@endcomponent
+		</div>
+	</div>
+	<div class="column is-one-quarter">
+		@component('components.form.datalist', ['name' => 'class_id', 'label' => 'Class', 'list' => $classes, 'required' => true])
+			@slot('value')
+				@if(old('class_id'))
+					{{ old('class_id') }}
+				@elseif(isset($form))
+					{{ $form->formType->class_id }}
+				@else
+				 	1 {{-- AI --}}
+				@endif
+			@endslot
+		@endcomponent
+	</div>
+	<div class="column is-one-quarter">
+		@component('components.form.datalist', ['name' => 'order_id', 'label' => 'Order', 'list' => $orders, 'required' => true])
+			@slot('value')
+				@if(old('order_id'))
+					{{ old('order_id') }}
+				@elseif(isset($form))
+					{{ $form->formType->order_id }}
+				@else
+				 	1 {{-- Conjunct --}}
+				@endif
+			@endslot
+		@endcomponent
+	</div>
+	<div class="column is-one-quarter">
+		@component('components.form.datalist', ['name' => 'mode_id', 'label' => 'Mode', 'list' => $modes, 'required' => true])
+			@slot('value')
+				@if(old('mode_id'))
+					{{ old('mode_id') }}
+				@elseif(isset($form))
+					{{ $form->formType->mode_id }}
+				@else
+				 	1 {{-- Indicative --}}
+				@endif
+			@endslot
+		@endcomponent
+	</div>
+</div>
 
-@section('footer')
+<div class="columns">
+	<div class="column is-half">
+	@component('components.form.text', ['name' => 'phoneticForm', 'label' => 'Phonemic Representation', 'placeholder' => 'The Algonquianist phonemic transcription (Leave blank if unknown or unclear)'])
+		@slot('value')
+			@if(old('phoneticForm'))
+				{{ old('phoneticForm') }}
+			@elseif(isset($form))
+				{{ $form->phoneticForm }}
+			@endif
+		@endslot
+	@endcomponent
+	</div>
+
+	<div class="column is-half">
+		@component('components.form.text', ['name' => 'morphemicForm', 'label' => 'Morphemes', 'placeholder' => 'The morphemes, separated by hyphens (Leave blank if unknown or unclear)'])
+			@slot('value')
+				@if(old('morphemicForm'))
+					{{ old('morphemicForm') }}
+				@elseif(isset($form))
+					{{ $form->morphemicForm }}
+				@endif
+			@endslot
+		@endcomponent
+	</div>
+</div>
+
+@component('components.form.textarea', ['name' => 'usageNotes', 'label' => 'Usage Notes'])
+	@slot('placeholder')
+		Enter notes about the usage of this form.
+	@endslot
+	@slot('value')
+		@if(old('usageNotes'))
+			{{ old('usageNotes') }}
+		@elseif(isset($form))
+			{{ $form->usageNotes }}
+		@endif
+	@endslot
+@endcomponent
+
+@component('components.form.textarea', ['name' => 'allomorphyNotes', 'label' => 'Allomorphy Notes'])
+	@slot('placeholder')
+		Enter notes about this form's allomorphs.
+	@endslot
+	@slot('value')
+		@if(old('allomorphyNotes'))
+			{{ old('allomorphyNotes') }}
+		@elseif(isset($form))
+			{{ $form->allomorphyNotes }}
+		@endif
+	@endslot
+@endcomponent
+
+{{-- Insert component here for AJAX datalist --}}
+{{-- {{ Form::label('parent','Parent') }}
+{{ Form::autofill('parent',null,null,['placeholder' => 'Search for a parent form']) }} --}}
+<input type="hidden" name="parent_id" value="1" />
+@component('components.form.textarea', ['name' => 'historicalNotes', 'label' => 'Historical Notes'])
+	@slot('placeholder')
+		Enter historical information about this form.
+	@endslot
+	@slot('value')
+		@if(old('historicalNotes'))
+			{{ old('historicalNotes') }}
+		@elseif(isset($form))
+			{{ $form->historicalNotes }}
+		@endif
+	@endslot
+@endcomponent
+
+@component('components.form.textarea', ['name' => 'comments', 'label' => 'Private Comments'])
+	@slot('placeholder')
+		Comments here will not be available to the public.
+	@endslot
+	@slot('value')
+		@if(old('comments'))
+			{{ old('comments') }}
+		@elseif(isset($form))
+			{{ $form->comments }}
+		@endif
+	@endslot
+@endcomponent
+
+{{-- @include('sources.partials.select_source') --}}
+
+<p class="control">
+	<button type="submit" class="button is-primary">Submit</button>
+</p>
+
+{{-- @section('footer')
 
 <script>
 	$(document).ready(function(){
@@ -91,4 +218,4 @@
 	});
 </script>
 
-@stop
+@stop --}}

@@ -1,9 +1,78 @@
 
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+//@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
 // Variables
-@import "variables";
+//@import "variables";
 
 // Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+//@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+.arguments {
+	.alg-datalist {
+		margin-right: .5rem;
+	}
+
+	.alg-datalist-container {
+		width: 3.75rem;
+	}
+}
+
+.textarea {
+	min-height: 2.75rem;
+}
+
+html {
+	overflow-x: hidden;
+}
+
+.alg-datalist-container {
+	position: relative;
+	display: flex;
+	flex-grow: 1;
+}
+
+.alg-datalist-dropdown {
+	box-shadow: 0 0 8px #777;
+	display: block;
+	left: 0;
+	right: 0;
+	position: absolute;
+	top: 100%;
+	z-index: 1000;
+	padding: .5rem;
+	max-height: 400%;
+	overflow: overlay;
+
+	ul {
+		list-style: none;
+		margin: 0;
+	}
+
+	li a {
+		display: block;
+
+		.is-active {
+			background-color: #f0f0f0;
+		}
+	}
+}
+
+.form-search-form .argument-label {
+	font-weight: normal;
+	font-style: italic;
+}
+
+.description-list {
+	list-style: none;
+	margin: 0 !important;
+
+	li {
+		float: left;
+		margin-top: 0 !important;
+	}
+
+	li:not(:first-child) {
+		margin-left: .5rem;
+	}
+}

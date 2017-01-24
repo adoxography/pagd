@@ -26,14 +26,6 @@
 		</style>
 	
 	<div id="root">
-		<alg-message>
-			<template slot="header">
-				Hi Will!
-			</template>
-			I've updated this since my last email. Instead of trying to display everything on one page, I've separated the language detail into tabs, with dedicated tabs for data that will end up being lengthy. I think I will also either paginate those pages or list the first n forms (or whatever) and then include a field for filtering the data. What do you think?
-			<br /><br />
-			I'm not sure if examples (visible in the forms tab) and morphemes really belong on here, but having them accessible like this makes it convenient for me. Those could be taken out in full production.
-		</alg-message>
 
 		<div class="heading">
 			<h1 class="title">Language Details</h1>

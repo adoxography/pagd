@@ -1,9 +1,16 @@
 @extends('layout')
 
 @section('content')
-	<h1>Morpheme Input</h1>
-	{{ Form::open(['url' => '/morphemes', 'class' => 'inputForm']) }}
-		@include('morphemes.partials.form')
-	{{ Form::close() }}
+	<div class="heading">
+		<h1 class="title">Add a Morpheme</h1>
+	</div>
+	<br />
+	
+	<div id="root">
+		@component('components.form', ['url' => '/morphemes', 'class' => 'box'])
+			@include('morphemes.partials.form')
+		@endcomponent
+	</div>
+
 	@include('errors.list')
 @stop

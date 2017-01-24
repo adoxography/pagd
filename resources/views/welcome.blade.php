@@ -11,10 +11,22 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			24-01-17: Now using Laravel Mix for versioning - no need to press CTRL + F5 anymore.
+		</li>
+		<li>
+			24-01-17: <a href="/morphemes/create">Styled morpheme creation form</a>
+		</li>	
+		<li>
+			24-01-17: <a href="/forms/create">Styled form creation form</a>
+		</li>		
+		<li>
+			24-01-17: Upgraded to Laravel 5.4!
+		</li>			
+		<li>
 			22-01-17: <a href="/forms/1#basic-details">Added glosses to morphemes in form detail</a>
 		</li>		
 		<li>
-			22-01-17: Altered form table such that morphemes are not required to exist prior to form existence
+			22-01-17: <a href="/forms/11">Altered form table such that morphemes are not required to exist prior to form existence</a>
 		</li>		
 		<li>
 			22-01-17: Updated detail styling

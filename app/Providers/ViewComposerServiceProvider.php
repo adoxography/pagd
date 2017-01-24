@@ -72,11 +72,11 @@ class ViewComposerServiceProvider extends ServiceProvider
         view()->composer('forms.partials.form', function($view)
         {
             $data = [
-                'arguments' => Argument::select('id','name as value')->get(),
-                'classes'   => FormClass::select('id','name as value')->get(),
-                'languages' => Language::select('id','name as value')->get(),
-                'modes'     => Mode::select('id','name as value')->get(),
-                'orders'    => Order::select('id','name as value')->get()
+                'arguments' => Argument::select('id','name')->get(),
+                'classes'   => FormClass::select('id','name')->get(),
+                'languages' => Language::select('id','name')->get(),
+                'modes'     => Mode::select('id','name')->get(),
+                'orders'    => Order::select('id','name')->get()
             ];
             $view->with($data);
         });
@@ -87,9 +87,9 @@ class ViewComposerServiceProvider extends ServiceProvider
         view()->composer('morphemes.partials.form', function($view)
         {
             $data = [
-                'languages' => Language::select('id','name as value')->get(),
-                'glosses'   => Gloss::select('id','abv as value')->get(),
-                'slots'     => Slot::select('id','abv as value')->get()
+                'languages' => Language::select('id','name')->get(),
+                'glosses'   => Gloss::select('id','abv as name')->get(),
+                'slots'     => Slot::select('id','abv as name')->get()
             ];
             $view->with($data);
         });

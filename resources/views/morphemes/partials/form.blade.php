@@ -1,56 +1,111 @@
-@section('header')
-	<link rel = "stylesheet" type = "text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css"/>
-	<script src = "https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-	<script src = "http://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-	<script src="/js/formUtil.js"></script>
-@stop
+<div class="columns is-multiline">
+	<div class="column is-half">
 
-<fieldset>
-	{{ Form::label('morphemeName','Morpheme') }}
-	{{ Form::text('name', null, ['autocomplete' => 'off', 'required' => 'required']) }}
-	{{ Form::label('gloss','Gloss') }}
-	{{ Form::datalist('gloss',$glosses,[],['visible' => ['required' => 'required']]) }}
+		{{-- Name field --}}
+		@component('components.form.text', ['name' => 'name', 'required' => 'required', 'label' => 'Name'])
+			@slot('value')
+				@if(old('name'))
+					{{ old('name') }}
+				@elseif(isset($morpheme))
+					{{ $morpheme->name }}
+				@endif
+			@endslot
+		@endcomponent
 
-	{{ Form::label('slot','Slot') }}
-	{{ Form::datalist('slot',$slots,[],['visible' => ['required' => 'required']]) }}
-</fieldset>
-<fieldset>
-	{{ Form::label('language','Language') }}
-	{{ Form::datalist(
-		'language',
-		$languages,
-		[
-			'visible' => isset($presetLanguage) ? $presetLanguage->name : null,
-			'hidden'  => isset($presetLanguage) ? $presetLanguage->id   : null
-		],
-		[
-			'visible' => [
-				'required' => 'required',
-				'default'  => 'Proto-Algonquian'
-			]
-		]
-	) }}
-	{{ Form::label('parent','Parent') }}
-	{{ Form::text('parent') }}
-	{{ Form::hidden('parent_id',null,['id' => 'parent_id']) }}
-</fieldset>
-<fieldset>
-	{{ Form::label('allomorphyNotes','Allomorphy Notes') }}
-	{{ Form::textarea('allomorphyNotes') }}
-	{{ Form::label('historicalNotes','Historical Notes') }}
-	{{ Form::textarea('historicalNotes') }}	
-	{{ Form::label('comments','Comments') }}
-	{{ Form::textarea('comments') }}
-</fieldset>
-<fieldset class = 'formButtons'>
-	{{ Form::submit('Submit') }}
-</fieldset>
+	</div>
+	<div class="column is-half">
 
-@section('footer')
-	<script>
-		$(document).ready(function(){
-			formUtil.initDatalists();
-			formUtil.initAutocomplete('parent','morphemeParents');
-		});
-	</script>
-@stop
+		{{-- Language field --}}
+		@component('components.form.datalist', ['name' => 'language_id', 'label' => 'Language', 'list' => $languages, 'required' => true])
+			@slot('value')
+				@if(old('language_id'))
+					{{ old('language_id') }}
+				@elseif(isset($presetLanguage))
+					{{ $presetLanguage->id }}
+				@elseif(isset($morpheme))
+					{{ $morpheme->language_id }}
+				@else
+				 	1 {{-- Proto-Algonquian --}}
+				@endif
+			@endslot
+		@endcomponent
+
+	</div>
+	<div class="column is-half">
+
+		{{-- Gloss field --}}
+		@component('components.form.datalist', ['name' => 'gloss_id', 'label' => 'Gloss', 'list' => $glosses, 'required' => true])
+			@slot('value')
+				@if(old('gloss_id'))
+					{{ old('gloss_id') }}
+				@elseif(isset($morpheme))
+					{{ $morpheme->gloss_id }}
+				@else
+				 	1 {{-- V --}}
+				@endif
+			@endslot
+		@endcomponent
+
+	</div>
+	<div class="column is-half">
+
+		{{-- Slot field --}}
+		@component('components.form.datalist', ['name' => 'slot_id', 'label' => 'Slot', 'list' => $slots, 'required' => true])
+			@slot('value')
+				@if(old('slot_id'))
+					{{ old('slot_id') }}
+				@elseif(isset($morpheme))
+					{{ $morpheme->slot_id }}
+				@else
+				 	1 {{-- V --}}
+				@endif
+			@endslot
+		@endcomponent
+
+	</div>
+</div>
+
+{{-- Allomorphy notes field --}}
+@component('components.form.textarea', ['name' => 'allomorphyNotes', 'label' => 'Allomorphy Notes'])
+	@slot('placeholder')
+		Enter notes about this morpheme's allomorphs.
+	@endslot
+	@slot('value')
+		@if(old('allomorphyNotes'))
+			{{ old('allomorphyNotes') }}
+		@elseif(isset($morpheme))
+			{{ $morpheme->allomorphyNotes }}
+		@endif
+	@endslot
+@endcomponent
+
+{{-- <input type="hidden" name="parent_id" value="1" /> --}}
+
+{{-- Historical notes field --}}
+@component('components.form.textarea', ['name' => 'historicalNotes', 'label' => 'Historical Notes'])
+	@slot('placeholder')
+		Enter historical information about this morpheme.
+	@endslot
+	@slot('value')
+		@if(old('historicalNotes'))
+			{{ old('historicalNotes') }}
+		@elseif(isset($morpheme))
+			{{ $morpheme->historicalNotes }}
+		@endif
+	@endslot
+@endcomponent
+
+@component('components.form.textarea', ['name' => 'comments', 'label' => 'Private Comments'])
+	@slot('placeholder')
+		Comments here will not be available to the public.
+	@endslot
+	@slot('value')
+		@if(old('comments'))
+			{{ old('comments') }}
+		@elseif(isset($form))
+			{{ $form->comments }}
+		@endif
+	@endslot
+@endcomponent
+
+<button type="submit" class="button is-primary">Submit</button>

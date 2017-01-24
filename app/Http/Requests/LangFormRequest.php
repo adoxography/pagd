@@ -36,31 +36,31 @@ class LangFormRequest extends FormRequest
             'morphemicForm'                 => ['nullable','has:V'],
 
             //Language Info
-            'language.name'                 => ['required','exists:Languages,name'],
+            //'language.name'                 => ['required','exists:Languages,name'],
             'language_id'                   => ['required','integer','exists:Languages,id'],
-            'parent.name'                   => ['nullable','exists:Langauges,name'],
+            //'parent.name'                   => ['nullable','exists:Langauges,name'],
             'parent_id'                     => ['nullable','exists:Forms,id'],
 
             //Type info
             'formData'                      => ['required'],
 
             //Argument info
-            'formType.subject.name'         => ['required','exists:Arguments,name'],
-            'formType.subject_id'           => ['required','exists:Arguments,id'],
-            'formType.primaryObject.name'   => ['nullable','exists:Arguments,name'],            
-            'formType.primaryObject_id'     => ['nullable','integer','exists:Arguments,id'],
-            'formType.secondaryObject.name' => ['nullable','exists:Arguments,name'],
-            'formType.secondaryObject_id'   => ['nullable','integer','exists:Arguments,id'],
+            //'formType.subject.name'         => ['required','exists:Arguments,name'],
+            'subject_id'           => ['required','exists:Arguments,id'],
+            //'formType.primaryObject.name'   => ['nullable','exists:Arguments,name'],            
+            'primaryObject_id'     => ['nullable','integer','exists:Arguments,id'],
+            //'formType.secondaryObject.name' => ['nullable','exists:Arguments,name'],
+            'secondaryObject_id'   => ['nullable','integer','exists:Arguments,id'],
 
             //These are entered via radio button - no name is submitted
-            'formType.class_id'             => ['required','integer','exists:Classes,id'],
-            'formType.order_id'             => ['required','integer','exists:Orders,id'],
+            'class_id'             => ['required','integer','exists:Classes,id'],
+            'order_id'             => ['required','integer','exists:Orders,id'],
 
-            'formType.mode.name'            => ['required','exists:Modes,name'],
-            'formType.mode_id'              => ['required','exists:Modes,id'],
+            //'formType.mode.name'            => ['required','exists:Modes,name'],
+            'mode_id'              => ['required','exists:Modes,id'],
 
-            'formType.isNegative'           => ['boolean'],
-            'formType.isDiminutive'         => ['boolean']
+            'isNegative'           => ['boolean'],
+            'isDiminutive'         => ['boolean']
         ];
 
         return $rules;

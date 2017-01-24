@@ -52,15 +52,12 @@ Vue.component("alg-datalist", {
 	props: {
 		list: String,
 		name: String,
-		init: Number,
+		init: {},
 		disabled: Boolean,
 
 		value: {
 			default: function () {
-				return {
-					text: "",
-					code: ""
-				};
+				return null;
 			}
 		}
 	},
@@ -71,7 +68,7 @@ Vue.component("alg-datalist", {
 		<div class="alg-datalist">
 			<div class="control has-addons">
 				<div class="alg-datalist-container">
-					<input type="text" :disabled="disabled" class="input is-expanded" v-model="text" @keyup="handleKeyUp($event)" @input="update" @keydown.enter="handleEnterKey($event)" ref="textInput" />
+					<input type="text" :disabled="disabled" class="input is-expanded" v-model="text" @keyup="onKeyUp($event.keyCode)" @keydown="onKeyDown($event.keyCode)" @input="update" ref="textInput" />
 					<div class="box alg-datalist-dropdown" v-show="showList">
 						<ul>
 							<li v-for="(option, index) in options">
@@ -106,7 +103,7 @@ Vue.component("alg-datalist", {
 		if(this.init) {
 
 			let curr = this.parsedList.find((item) => {
-				return item.id == this.init;
+				return item.id == parseInt(this.init);
 			});
 
 			if(curr) {
@@ -159,19 +156,30 @@ Vue.component("alg-datalist", {
 			this.$emit("input", { text: this.text, code: this.code });
 		},
 
-		handleKeyUp(event) {
-			if(event.keyCode == 40) { // Down arrow
+		onKeyUp(keyCode) {
+			if(keyCode == 40) { // Down arrow
 				this.handleDownKey();
 			}
-			else if(event.keyCode == 38) { // Up arrow
+			else if(keyCode == 38) { // Up arrow
 				this.handleUpKey();
 			}
-			else if(event.keyCode != 13){ // Anything else, aside from the enter key
+			else if(keyCode != 13){ // Anything else, aside from the enter key
 				// Filter the options based on the current text
 				this.filterOptions();
 
 				// Only show the list if there is text in the field and there are options in the list
-				this.showList = this.text.length > 0 && this.options.length > 0;
+				if(keyCode != 9) {
+					this.showList = this.text.length > 0 && this.options.length > 0;
+				}
+			}
+		},
+
+		onKeyDown(keyCode) {
+			if(keyCode == 9) { // Tab key
+				this.showList = false;
+			}
+			else if(keyCode == 13) { // Enter key
+				this.handleEnterKey
 			}
 		},
 
@@ -195,10 +203,16 @@ Vue.component("alg-datalist", {
 		},
 
 		handleDownKey() {
-			this.curr++;
-			this.curr %= this.options.length + 1;
-			if(this.curr > 0){
-				this.text = this.options[this.curr - 1].name;
+			if(this.showList) {
+				this.curr++;
+				this.curr %= this.options.length + 1;
+				if(this.curr > 0){
+					this.text = this.options[this.curr - 1].name;
+				}
+			}
+			else {
+				this.options = this.parsedList;
+				this.showList = true;
 			}
 		},
 

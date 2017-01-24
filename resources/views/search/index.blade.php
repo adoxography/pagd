@@ -1,9 +1,5 @@
 @extends('layout')
 
-@section('header')
-	<script src = '/js/formUtil.js'></script>
-@stop
-
 @section('content')
 	<div id="root">
 		<div class="heading">
@@ -96,16 +92,6 @@
 			</alg-tabs>
 		</div>
 		
-	</div>
-
-@stop
-
-@section('footer')
-
-<script>
-	$(document).ready(function(){
-		formUtil.initDatalists();
-	});
-</script>
+		</div>
 
 @stop

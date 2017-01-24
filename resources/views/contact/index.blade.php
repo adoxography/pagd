@@ -8,7 +8,7 @@
 	<br />
 
 
-	{{ Form::open() }}
+	@component('components.form')
 		<div class="box">
 			<div class="control is-horizontal">
 				<div class="control-label">
@@ -39,10 +39,11 @@
 					<textarea class="textarea"></textarea>
 				</div>
 			</div>
-				<p class="control is-pulled-right">
-					<button type="submit" class="button is-success">Send</button>
-				</p>
-				<br /><br />
+			<p class="control is-pulled-right">
+				<button type="submit" class="button is-success">Send</button>
+			</p>
+			<br /><br />
 		</div>
+	@endcomponent
 
 @stop

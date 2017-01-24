@@ -17,10 +17,8 @@ class ParseLangFormRequest
      */
     public function handle($request, Closure $next)
     {
-        // This might have already been set if morphemes were missing.
-        // Don't worry about re-parsing if this is the case.
         if (!isset($request->formData)) {
-            $request['formData']     = $this->parseFormData($request);
+            $request['formData'] = $this->parseFormData($request);
         }
 
         return $next($request);
@@ -65,17 +63,16 @@ class ParseLangFormRequest
     private function parseFormTypeData($request)
     {
         $data = $request->only([
-            'formType.subject_id',
-            'formType.primaryObject_id',
-            'formType.secondaryObject_id',
-            'formType.mode_id',
-            'formType.isAbsolute',
-            'formType.class_id',
-            'formType.order_id',
-            'formType.isNegative',
-            'formType.isDiminutive'
+            'subject_id',
+            'primaryObject_id',
+            'secondaryObject_id',
+            'mode_id',
+            'isAbsolute',
+            'class_id',
+            'order_id',
+            'isNegative',
+            'isDiminutive'
         ]);
-        $data = $data['formType'];
 
         $data['isNegative']   = $this->handleCheck($data,'isNegative');
         $data['isDiminutive'] = $this->handleCheck($data,'isDiminutive');

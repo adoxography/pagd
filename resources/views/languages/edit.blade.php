@@ -8,9 +8,9 @@
 	<br />
 
 	<div id="root">
-		{{ Form::model($language, ['url' => '/languages/'.$language->id, 'method' => 'PATCH', 'class' => 'box']) }}
+		@component('components.form', ['method' => 'PATCH', 'class' => 'box', 'url' => '/languages/'.$language->id])
 			@include('languages.partials.form')
-		{{ Form::close() }}
+		@endcomponent
 	</div>
 
 	@include('errors.list')

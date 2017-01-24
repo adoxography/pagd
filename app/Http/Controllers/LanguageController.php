@@ -55,9 +55,7 @@ class LanguageController extends Controller
     public function store(LanguageRequest $request)
     {
         $language = Language::create($request->all());
-        if ($language) {
-            
-            
+        if ($language) { 
             flash($language->name.' added successfully.', 'is-success');
             return redirect('/languages/' . $language->id);
         }//if

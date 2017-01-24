@@ -1,25 +1,64 @@
-@section('header')
-	<script src = '/js/formUtil.js'></script>
-@stop
+{{-- Name field --}}
+@component('components.form.text', ['required' => true, 'label' => 'Name', 'name' => 'name'])
+	@slot('value')
+		@if(old('name'))
+			{{ old('name') }}
+		@elseif(isset($language))
+			{{ $language->name }}
+		@endif
+	@endslot
+@endcomponent
 
-{{ Form::algLabel('name') }}
-{{ Form::algText('name', null, ['autocomplete' => 'off', 'required' => 'required']) }}
+{{-- Group field --}}
+@component('components.form.datalist', ['name' => 'group_id', 'label' => 'Group', 'list' => $groups, 'required' => true])
+	@slot('value')
+		@if(old('group_id'))
+			{{ old('group_id') }}
+		@elseif(isset($presetParent))
+			{{ $presetParent->group_id }}
+		@elseif(isset($language))
+			{{ $language->group_id }}
+		@else
+		 	2
+		@endif
+	@endslot
+@endcomponent
 
-{{ Form::algLabel('group') }}
-<alg-datalist init="@if(old('group_id')) {{ old('group_id') }} @else {{ isset($language) ? $language->group_id : '2' }} @endif" list="{{ $groups->toJson() }}" name="group_id" required="required"></alg-datalist>
-{{ Form::algLabel('parent') }}
-<alg-datalist init="@if(old('parent_id')) {{ old('parent_id') }} @else {{ isset($language) ? $language->parent_id : '1' }} @endif" list="{{ $parents->toJson() }}" name="parent_id" required="required"></alg-datalist>
+{{-- Parent field --}}
+@component('components.form.datalist', ['name' => 'parent_id', 'label' => 'Parent', 'list' => $parents, 'required' => true])
+	@slot('value')
+		@if(old('parent_id'))
+			{{ old('parent_id') }}
+		@elseif(isset($presetParent))
+			{{ $presetParent->id }}
+		@elseif(isset($language))
+			{{ $language->parent_id }}
+		@else
+		 	1
+		@endif
+	@endslot
+@endcomponent
 
-{{ Form::algLabel('iso', 'ISO') }}
-{{ Form::algText('iso',null,['autocomplete' => "off", 'required' => 'required']) }}
-{{ Form::algLabel('algoCode', 'Algonquianist Code') }}
-{{ Form::algText('algoCode',null,['autocomplete' => "off", 'required' => 'required']) }}
+{{-- ISO field --}}
+@component('components.form.text', ['name' => 'iso', 'label' => 'ISO', 'required' => true,])
+	@slot('value')
+		@if(old('iso'))
+			{{ old('iso') }}
+		@elseif(isset($language))
+			{{ $language->iso }}
+		@endif
+	@endslot
+@endcomponent
+
+{{-- Algonquianist Code field --}}
+@component('components.form.text', ['name' => 'algoCode', 'label' => 'Algonquianist Code', 'required' => true,])
+	@slot('value')
+		@if(old('algoCode'))
+			{{ old('algoCode') }}
+		@elseif(isset($language))
+			{{ $language->algoCode }}
+		@endif
+	@endslot
+@endcomponent
+
 <button type="submit" class="button is-primary">Submit</button>
-
-@section('footer')
-	<script>
-		$(document).ready(function(){
-			formUtil.initDatalists();
-		});
-	</script>
-@stop

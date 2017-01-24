@@ -58,7 +58,7 @@ class Morpheme extends Model
             'name'        => 'V',
             'language_id' => $language->id,
             'gloss_id'    => 1,
-            'slot_id'     => 1
+            'slot_id'     => 1,
         ]);
 
         if($language->parent) {

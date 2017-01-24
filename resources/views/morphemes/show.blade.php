@@ -128,9 +128,9 @@
 			@if(Auth::user())
 				<template slot="footer">
 					<a class="card-footer-item" href = "/morphemes/{{ $morpheme->id }}/edit">Edit</a>
-					{{ Form::open(['method' => 'DELETE', 'url' => "/morphemes/".$morpheme->id])}}
-					<a class="card-footer-item" onclick="event.preventDefault(); this.parentNode.submit()">Delete</a>
-					{{ Form::close() }}
+					@component('components.form', ['method' => 'DELETE', 'url' => "/morphemes/".$morpheme->id])
+						<a class="card-footer-item" onclick="event.preventDefault(); this.parentNode.submit()">Delete</a>
+					@endcomponent
 				</template>
 			@endif
 		</model-card>

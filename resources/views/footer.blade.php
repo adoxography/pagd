@@ -3,9 +3,9 @@
 		<div class="content has-text-centered">
 			<p>Some footer info here</p>
 			@if(Auth::user())
-				{{ Form::open(['url' => '/backup']) }}
+				@component('components.form', ['url' => '/backup'])
 					<button type="submit" class="button is-info is-small">Download a Backup</button>
-				{{ Form::close() }}
+				@endcomponent
 			@endif
 		</div>
 	</div>

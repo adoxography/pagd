@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layout', ['title' => "{$morpheme->name} ({$morpheme->language->name})"])
 
 @section('content')
 	<div id="root">

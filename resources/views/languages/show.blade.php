@@ -1,29 +1,6 @@
-@extends('layout')
+@extends('layout', ['title' => $language->name])
 
 @section('content')
-
-		<style>
-			[v-cloak] .v-cloak--block {
-			  display: block;
-			}
-			[v-cloak] .v-cloak--inline {
-			  display: inline;
-			}
-			[v-cloak] .v-cloak--inlineBlock {
-			  display: inline-block;
-			}
-			[v-cloak] .v-cloak--hidden {
-			  display: none;
-			}
-			[v-cloak] .v-cloak--invisible {
-			  visibility: hidden;
-			}
-			.v-cloak--block,
-			.v-cloak--inline,
-			.v-cloak--inlineBlock {
-			  display: none;
-			}
-		</style>
 	
 	<div id="root">
 

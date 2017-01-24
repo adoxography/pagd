@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layout', ['title' => "Edit {$language->name}"])
 
 @section('content')
 

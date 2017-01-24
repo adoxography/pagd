@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layout', ['title' => 'Available languages'])
 
 @section('content')
 	<div id="root">

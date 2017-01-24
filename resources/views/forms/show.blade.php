@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layout', ['title' => "{$form->surfaceForm} ({$form->language->name})"])
 
 @section('content')
 	<div id="root">

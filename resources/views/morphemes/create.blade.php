@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layout', ['title' => "Add a morpheme"])
 
 @section('content')
 	<div class="heading">

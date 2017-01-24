@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			24-01-17: Added context-specific titles.
+		</li>
+		<li>
 			24-01-17: Now using Laravel Mix for versioning - no need to press CTRL + F5 anymore.
 		</li>
 		<li>

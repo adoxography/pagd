@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layout', ['title' => 'Search the database'])
 
 @section('content')
 	<div id="root">

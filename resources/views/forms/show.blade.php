@@ -7,27 +7,25 @@
 		</div>
 		<br />
 
-		<model-card>
-			<template slot="header">
+		@component('components.model', ['uri' => "/forms/{$form->id}"])
+			@slot('header')
 				<em>{{ $form->surfaceForm }}</em>
 				<span style="margin-left: .5rem">
 					(<a href="/languages/{{ $form->language_id }}">{{ $form->language->name }}</a>)
 				</span>
-			</template>
+			@endslot
 
-			<model-card-tab name="Basic Details" selected = "true">
+			<model-tab name="Basic Details" selected = "true">
 				<div class="column is-half" style="padding: 0;">
-					<field-card width="is-12">
-						<template slot="label">
-							<p class="card-header-title" style="margin-bottom: 0;">
-								Description
-								<a class="icon">
-									<span class="icon is-small" title="?">
-										<i class="fa fa-question-circle-o"></i>
-									</span>
-								</a>
-							</p>
-						</template>
+					@component('components.model.field', ['width' => 'is-12'])
+						@slot('label')
+							Description
+							<a class="icon">
+								<span class="icon is-small" title="?">
+									<i class="fa fa-question-circle-o"></i>
+								</span>
+							</a>
+						@endslot
 						<ul class="description-list" style="list-style: none;">
 							<li>
 								{{ $form->formType->subject->name }}
@@ -65,12 +63,10 @@
 								)</li>
 							@endif
 						</ul>
-						<br />
-					</field-card>
-					<field-card width="is-12">
-						<template slot="label">
-							<p class="card-header-title">Morphology</p>
-						</template>
+						</br />
+					@endcomponent
+
+					@component('components.model.field', ['width' => 'is-12', 'label' => 'Morphology'])
 						@if($form->phoneticForm)
 							<p>{{ $form->phoneticForm }}</p>
 						@else
@@ -112,40 +108,29 @@
 								@endif
 							@endforeach
 						</div>
-					</field-card>
+					@endcomponent
 
-					<field-card width="is-12">
-						<template slot="label">
-							<p class="card-header-title">Duplicates</p>
-						</template>
+					@component('components.model.field', ['width' => 'is-12', 'label' => 'Duplicates'])
 						@if(count($form->duplicates) > 0)
 							<!-- fill in later -->
 						@else
 							None
 						@endif
-					</field-card>
-				</div>				
+					@endcomponent
+				</div>
+
 				<div class="column is-half" style="padding: 0;">
 					@if($form->usageNotes)
-						<field-card width="is-12">
-							<template slot="label">
-								<p class="card-header-title">Usage Notes</p>
-							</template>
+						@component('components.model.field', ['width' => 'is-12', 'label' => 'Usage Notes'])
 							{{ $form->usageNotes }}
-						</field-card>
+						@endcomponent
 					@endif	
 					@if($form->allomorphyNotes)
-						<field-card width="is-12">
-							<template slot="label">
-								<p class="card-header-title">Allomorphy Notes</p>
-							</template>
+						@component('components.model.field', ['width' => 'is-12', 'label' => 'Allomorphy Notes'])
 							{{ $form->allomorphyNotes }}
-						</field-card>
-					@endif	
-					<field-card width="is-12">
-						<template slot="label">
-							<p class="card-header-title">Historical Notes</p>
-						</template>
+						@endcomponent
+					@endif
+					@component('components.model.field', ['width' => 'is-12', 'label' => 'Historical Notes'])
 						<p>
 							<em>Parent Form: </em>
 							@if($form->parent)
@@ -157,21 +142,15 @@
 						@if($form->historicalNotes)
 							{{ $form->historicalNotes }}
 						@endif
-					</field-card>											
+					@endcomponent											
 					@if(Auth::user() && $form->comments)
-						<field-card width="is-12">
-							<template slot="label">
-								<p class="card-header-title">Private Comments</p>
-							</template>
+						@component('components.model.field', ['width' => 'is-12', 'label' => 'Private Comments'])
 							{{ $form->comments }}
-						</field-card>
+						@endcomponent
 					@endif
 				</div>
 
-				<field-card width="is-12">
-					<template slot="label">
-						<p class="card-header-title">Sources (hover over a source for the full citation)</p>
-					</template>
+				@component('components.model.field', ['width' => 'is-12', 'label' => 'Sources (hover over a source for the full citation)'])
 					@if(count($form->sources) > 0)
 						<ol>
 							@foreach($form->sources as $source)
@@ -181,30 +160,20 @@
 					@else
 						None
 					@endif
-				</field-card>
+				@endcomponent
 
-			</model-card-tab>
+			</model-tab>
 
-			<model-card-tab name="Examples">
-				<field-card width="is-half">
-					<template slot="label">
-						<p class="card-header-title">Examples</p>
-					</template>
+			<model-tab name="Examples">
+				@component('components.model.field', ['width' => 'is-half', 'label' => 'Examples'])
 					@if(count($form->examples) > 0)
 						<!-- fill in later -->
 					@else
 						None
 					@endif
-				</field-card>
-			</model-card-tab>
-
-			@if(Auth::user())
-				<template slot="footer">
-					<a class="card-footer-item" href = "/forms/{{ $form->id }}/edit">Edit</a>
-					<a class="card-footer-item">Delete</a>
-				</template>
-			@endif
-		</model-card>
+				@endcomponent
+			</model-tab>
+		@endcomponent
 	</div>
 
 @stop

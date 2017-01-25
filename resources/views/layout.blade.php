@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<title>{{ $title or "Pan-Algonquian Grammar Database" }}</title>
 		
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+		{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"> --}}
 
 		<link rel="stylesheet" type="text/css" href="{{ mix("/css/app.css") }}" />
 		

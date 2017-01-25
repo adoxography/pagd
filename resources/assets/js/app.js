@@ -17,7 +17,7 @@ Vue.component('alg-datalist',       require('./components/DataList.vue'));
 Vue.component('alg-multi-datalist', require('./components/Multi-DataList.vue'));
 Vue.component('alg-tabs',           require('./components/Tabs.vue'));
 Vue.component('alg-tab',            require('./components/Tab.vue'));
-Vue.component('model-card-tab',     require('./components/Model-Tab.vue'));
+Vue.component('model-tab',          require('./components/Model-Tab.vue'));
 Vue.component('alg-message',        require('./components/Message.vue'));
 
 Vue.component("form-search-form", {
@@ -222,66 +222,6 @@ Vue.component("form-search-form", {
 			}
 		}
 	}
-});
-
-Vue.component("model-card", {
-	template: `
-		<div class="card">
-
-			<header class="card-header">
-				<p class="card-header-title is-4" style="font-size: 20px;">
-					<slot name="header"></slot>
-				</p>
-			</header>
-
-			<alg-tabs>
-				<slot></slot>
-			</alg-tabs>
-
-			<footer class="card-footer">
-				<slot name="footer"></slot>
-			</footer>
-		</div>
-	`
-});
-
-Vue.component("model-index", {
-	template: `
-		<ul class="box">
-			<slot>Nothing to display!</slot>
-		</ul>
-	`
-});
-
-Vue.component("model-index-line", {
-	props: ['name', 'model', 'id'],
-	template: `
-		<li class="level">
-			<div class="level-left">
-				<div class="level-item">
-					<a :href="'/'+model+'/'+id">{{ name }}</a>
-				</div>
-			</div>
-			<slot></slot>
-		</li>
-	`
-});
-
-Vue.component("field-card", {
-	props: ['width'],
-	template: `
-		<div class="column" :class="{'width': width}">
-		<div class="card" style="box-shadow:none;">
-			<div class="card-header" style="box-shadow:none;">
-				<slot name="label"></slot>
-			</div>
-			<div class="card-content" style="padding-left: .75rem; padding-bottom: 0; padding-top: 0;">
-				<div class="content">
-					<slot></slot>
-				</div>
-			</div>
-		</div>
-	`
 });
 
 const app = new Vue({

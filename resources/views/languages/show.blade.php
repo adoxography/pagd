@@ -9,59 +9,38 @@
 		</div>
 		<br />
 
-		<model-card>
-
-			<template slot="header">
-				{{ $language->name }}
-			</template>
-
-			<model-card-tab name="Basic Details" selected="true">
-				<field-card width="is-half">
-					<template slot="label">
-						<p class="card-header-title">Group</p>
-					</template>
+		@component('components.model', ['header' => $language->name, 'uri' => "/languages/{$language->id}"])
+			<model-tab name="Basic Details" selected="true">
+				{{-- Group field --}}
+				@component('components.model.field', ['width' => 'is-half', 'label' => 'Group'])
 					<a href="/groups/{{ $language->group_id }}">{{ $language->group->name }}</a>
-				</field-card>
+				@endcomponent
 
-				<field-card width="is-half">
-					<template slot="label">
-						<p class="card-header-title">Parent</p>
-					</template>
+				{{-- Parent field --}}
+				@component('components.model.field', ['width' => 'is-half', 'label' => 'Parent'])
 					@if($language->parent)
 						<a href="/languages/{{ $language->parent_id }}">{{ $language->parent->name }}</a>
 					@else
 						None
 					@endif
-				</field-card>
+				@endcomponent
 
-				<field-card width="is-half">
-					<template slot="label">
-						<p class="card-header-title">ISO Code</p>
-					</template>
+				{{-- ISO field --}}
+				@component('components.model.field', ['width' => 'is-half', 'label' => 'ISO Code'])
 					{{ $language->iso }}
-				</field-card>
+				@endcomponent
 
-				<field-card width="is-half">
-					<template slot="label">
-						<p class="card-header-title">Algonquianist Code</p>
-					</template>
+				{{-- Algonquianist code field --}}
+				@component('components.model.field', ['width' => 'is-half', 'label' => 'Algonquianist Code'])
 					{{ $language->algoCode }}
-				</field-card>
-						
-			</model-card-tab>
+				@endcomponent					
+			</model-tab>
 
-			<model-card-tab name="Children">
-				<field-card width="is-half">
-					<template slot="label">
-						<p class="card-header-title">Children</p>
-						@if(Auth::user())
-							<a class="card-header-icon" href="/languages/{{ $language->id }}/addChild">
-								<span class="icon" title="Add another">
-									<i class="fa fa-plus-square"></i>
-								</span>
-							</a>
-						@endif
-					</template>
+			<model-tab name="Children">
+				@component('components.model.field', ['width' => 'is-half', 'label' => 'Children'])
+					@slot('label')
+						Children @component('components.model.add-icon', ['uri' => "/languages/{$language->id}/addChild"]) @endcomponent
+					@endslot
 					@if(count($language->children) > 0)
 						<ul>
 							@foreach($language->children as $child)
@@ -71,22 +50,14 @@
 					@else
 						None
 					@endif
-				</field-card>
-				
-			</model-card-tab>
+				@endcomponent	
+			</model-tab>
 
-			<model-card-tab name="Forms">
-				<field-card width="is-half">
-					<template slot="label">
-						<p class="card-header-title">Forms</p>
-						@if(Auth::user())
-							<a class="card-header-icon" href="/languages/{{ $language->id }}/addForm">
-								<span class="icon" title="Add another">
-									<i class="fa fa-plus-square"></i>
-								</span>
-							</a>
-						@endif
-					</template>
+			<model-tab name="Forms">
+				@component('components.model.field', ['width' => 'is-half'])
+					@slot('label')
+						Forms @component('components.model.add-icon', ['uri' => "/languages/{$language->id}/addForm"]) @endcomponent
+					@endslot
 					@if(count($language->forms) > 0)
 						<ul>
 							@foreach($language->forms as $form)
@@ -96,18 +67,12 @@
 					@else
 						None
 					@endif
-				</field-card>
-				<field-card width="is-half">
-					<template slot="label">
-						<p class="card-header-title">Examples</p>
-						@if(Auth::user())
-							<a class="card-header-icon" href="/languages/{{ $language->id }}/addExample">
-								<span class="icon" title="Add another">
-									<i class="fa fa-plus-square"></i>
-								</span>
-							</a>
-						@endif
-					</template>
+				@endcomponent
+
+				@component('components.model.field', ['width' => 'is-half', 'label' => 'Examples'])
+					@slot('label')
+						Examples @component('components.model.add-icon', ['uri' => "/languages/{$language->id}/addExample"]) @endcomponent
+					@endslot
 					@if(count($language->examples) > 0)
 						<ul>
 							@foreach($language->examples as $example)
@@ -117,21 +82,14 @@
 					@else
 						None
 					@endif
-				</field-card>
-			</model-card-tab>
+				@endcomponent
+			</model-tab>
 
-			<model-card-tab name="Morphemes">
-				<field-card width="is-half">
-					<template slot="label">
-						<p class="card-header-title">Morphemes</p>
-						@if(Auth::user())
-							<a class="card-header-icon" href="/languages/{{ $language->id }}/addMorpheme">
-								<span class="icon" title="Add another">
-									<i class="fa fa-plus-square"></i>
-								</span>
-							</a>
-						@endif
-					</template>
+			<model-tab name="Morphemes">
+				@component('components.model.field', ['width' => 'is-half'])
+					@slot('label')
+						Morphemes @component('components.model.add-icon', ['uri' => "/languages/{$language->id}/addMorpheme"]) @endcomponent
+					@endslot
 					@if(count($language->morphemes) > 0)
 						<ul>
 							@foreach($language->morphemes as $morpheme)
@@ -143,17 +101,9 @@
 					@else
 						None
 					@endif
-				</field-card>
-			</model-card-tab>
-
-			@if(Auth::user())
-				<template slot="footer">
-					<a href="/languages/{{ $language->id }}/edit" class="card-footer-item">Edit</a>
-					<a class="card-footer-item">Delete</a>
-				</template>
-			@endif
-
-		</model-card>
+				@endcomponent
+			</model-tab>
+		@endcomponent
 
 	</div>
 

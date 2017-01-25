@@ -87,7 +87,23 @@
 					</form>
 				</alg-tab>				
 				<alg-tab name="For a form">
-					<form-search-form classes="{{ $classes }}" arguments="{{ $arguments }}" orders="{{ $orders }}" modes="{{ $modes }}" languages="{{ $languages }}"></form-search-form>
+					@component('components.form', ['method' => 'GET', 'url' => '/search/form', 'class' => 'form-search-form'])
+						<div class="columns">
+							<div class="column is-one-quarter">
+								<alg-radio-toggle languages="{{ $languages }}"></alg-radio-toggle>
+							</div>
+							<div class="column">
+								<alg-form-search arguments="{{ $arguments }}" classes="{{ $classes }}" modes="{{ $modes }}" orders="{{ $orders }}"></alg-form-search>
+							</div>
+						</div>
+						<div class="level">
+							<div class="level-left">
+								<div class="level-item">
+									<button type="submit" class="button is-success">Search</button>
+								</div>
+							</div>
+						</div>
+					@endcomponent
 				</alg-tab>
 			</alg-tabs>
 		</div>

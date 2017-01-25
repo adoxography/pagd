@@ -59,12 +59,12 @@ html {
 		margin: 0;
 	}
 
-	li a {
+	a {
 		display: block;
+	}
 
-		.is-active {
-			background-color: #f0f0f0;
-		}
+	.is-highlighted {
+		background-color: #f0f0f0;
 	}
 }
 

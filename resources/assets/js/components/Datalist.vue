@@ -2,11 +2,11 @@
 	<div class="alg-datalist">
 		<div class="control has-addons">
 			<div class="alg-datalist-container">
-				<input type="text" :disabled="disabled" class="input is-expanded" v-model="text" @keyup="onKeyUp($event.keyCode)" @keydown="onKeyDown($event.keyCode)" @input="update" ref="textInput" />
+				<input type="text" :disabled="disabled" class="input is-expanded" v-model="text" @keyup="onKeyUp($event.keyCode)" @keydown="onKeyDown($event)" @input="update" ref="textInput" />
 				<div class="box alg-datalist-dropdown" v-show="showList">
 					<ul>
 						<li v-for="(option, index) in options">
-							<a @click="selectItem(option.name)" @mouseover="handleHover(option.name)" :class="{ 'is-active': activeItem(index) }">{{ option.name }}</a>
+							<a @click="selectItem(option.name)" @mouseover="handleHover(option.name)" :class="{ 'is-highlighted': activeItem(index) }">{{ option.name }}</a>
 						</li>
 					</ul>
 				</div>
@@ -129,12 +129,12 @@
 				}
 			},
 
-			onKeyDown(keyCode) {
-				if(keyCode == 9) { // Tab key
+			onKeyDown(event) {
+				if(event.keyCode == 9) { // Tab key
 					this.showList = false;
 				}
-				else if(keyCode == 13) { // Enter key
-					this.handleEnterKey
+				else if(event.keyCode == 13) { // Enter key
+					this.handleEnterKey(event);
 				}
 			},
 
@@ -158,15 +158,23 @@
 			},
 
 			handleDownKey() {
-				if(this.showList) {
+				if(this.showList) { // The list is open
+
+					// Increment the current selection, making sure to wrap it around the list
 					this.curr++;
 					this.curr %= this.options.length + 1;
+
+					// If the current selection isn't the textbox itself, set the textbox to the current selection
 					if(this.curr > 0){
 						this.text = this.options[this.curr - 1].name;
 					}
 				}
-				else {
+				else { // The list is closed
+
+					// Reset the list
 					this.options = this.parsedList;
+
+					// Open the list
 					this.showList = true;
 				}
 			},
@@ -180,7 +188,7 @@
 			},
 
 			handleEnterKey(event) {
-				if(this.curr > 0) {
+				if(this.curr > 0) { // The list is open
 					event.preventDefault();
 					this.selectItem(this.options[this.curr - 1].name);
 				}

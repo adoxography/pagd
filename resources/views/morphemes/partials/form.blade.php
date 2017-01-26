@@ -85,14 +85,14 @@
 	@slot('text')
 		@if(old('parent'))
 			{{ old('parent') }}
-		@elseif(isset($morpheme))
+		@elseif(isset($morpheme) && $morpheme->parent)
 			{{ $morpheme->parent->name }} ({{ $morpheme->parent->language->name }})
 		@endif
 	@endslot
 	@slot('value')
 		@if(old('parent_id'))
 			{{ old('parent_id') }}
-		@elseif(isset($morpheme))
+		@elseif(isset($morpheme) && $morpheme->parent)
 			{{ $morpheme->parent_id }}
 		@endif
 	@endslot

@@ -11,6 +11,12 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			25-01-17: Fixed bug where comment fields would not appear on edit
+		</li>
+		<li>
+			25-01-17: Datalists now include whatever was typed as an option (if available as an option)
+		</li>
+		<li>
 			25-01-17: Added parent fields to <a href="/forms/create">form</a> and <a href="/morphemes/create">morpheme</a> creation forms
 		</li>
 		<li>
@@ -26,10 +32,10 @@
 			24-01-17: Now using Laravel Mix for versioning - no need to press CTRL + F5 anymore
 		</li>
 		<li>
-			24-01-17: <a href="/morphemes/create">Styled morpheme creation form</a>
+			24-01-17: Styled morpheme creation form
 		</li>	
 		<li>
-			24-01-17: <a href="/forms/create">Styled form creation form</a>
+			24-01-17: Styled form creation form
 		</li>		
 		<li>
 			24-01-17: Upgraded to Laravel 5.4!

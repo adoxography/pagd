@@ -168,7 +168,7 @@
 
 			filterOptions() {
 				this.options = this.parsedList.filter((item) => {
-					return item.name.toLowerCase().includes(this.text.toLowerCase()) && this.text.length < item.name.length;
+					return item.name.toLowerCase().includes(this.text.toLowerCase());
 				});
 			},
 

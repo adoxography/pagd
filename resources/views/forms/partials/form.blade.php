@@ -173,14 +173,14 @@
 	@slot('text')
 		@if(old('parent'))
 			{{ old('parent') }}
-		@elseif(isset($form))
+		@elseif(isset($form) && $form->parent)
 			{{ $form->parent->surfaceForm }} ({{ $form->parent->language->name }})
 		@endif
 	@endslot
 	@slot('value')
 		@if(old('parent_id'))
 			{{ old('parent_id') }}
-		@elseif(isset($form))
+		@elseif(isset($form) && $form->parent)
 			{{ $form->parent_id }}
 		@endif
 	@endslot

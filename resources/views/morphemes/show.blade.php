@@ -8,14 +8,6 @@
 		</div>
 		<br />
 
-		<alg-message title="Hi Will">
-			<p>This is the morpheme detail page. I styled it to follow the schema you wanted for the forms, with specific details on the left and comments running down the right. There's also a "forms that contain this morpheme tab," which may or may not be useful.</p>
-			<br />
-			<p>In the "title," you'll see what I've been calling the morpheme's "disambiguator" - it's a number that uniquely identifies that morpheme amongst a given language. I think I will set it up in the future so that only morphemes that have duplicates will display that number, but for now, it's been useful for debugging to be able to see it. Is having it appear in square brackets okay, or is there another standard that already exists for this sort of thing? (I know that some writing systems use numbers to represent particular sounds/letters, which is why I opted for square brackets instead of just putting it next to the morpheme.)</p>
-			<br />
-			<p>One thing that we never did add was a "translation" field for the morphemes. For a lot of the more structural morphemes, this is fine, but if we ever want to represent verb or noun stems, I'm thinking that we'll need a field for their translations, in addition to their gloss, no?</p>
-		</alg-message>
-
 		@component('components.model', ['uri' => "/morphemes/{$morpheme->id}"])
 			@slot('header')
 				<em>{{ $morpheme->name }}</em> [{{ $morpheme->disambiguator }}]

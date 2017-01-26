@@ -57,7 +57,14 @@ class MorphemeController extends Controller
     public function store(MorphemeRequest $request){
         $morpheme = new Morpheme(array_filter($request->all(), 'validDatabaseInput'));
 
-        $duplicates = Morpheme::where('name', $morpheme->name)
+        $nameNoHyphens = str_replace('-', '', $morpheme->name);
+
+        $duplicates = Morpheme::whereIn('name', [
+                                    $nameNoHyphens,
+                                    '-'.$nameNoHyphens,
+                                    '-'.$nameNoHyphens.'-',
+                                    $nameNoHyphens.'-',
+                                ])
                               ->where('language_id', $morpheme->language_id)
                               ->orderBy('disambiguator')
                               ->get();

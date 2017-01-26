@@ -77,7 +77,7 @@
 								<div class="column is-narrow">
 								@if($morpheme instanceof App\Morpheme)
 									@if($morpheme->name !== 'V')
-										<a href='/morphemes/{{ $morpheme->id }}'>{{ $morpheme->name }}</a>
+										<a href='/morphemes/{{ $morpheme->id }}'>{{ str_replace('-', '', $morpheme->name) }}</a>
 									@else
 										{{ $morpheme->name }}
 									@endif

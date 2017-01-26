@@ -32,22 +32,28 @@ class CustomValidationProvider extends ServiceProvider
             return str_replace(':lookup',$parameters[0],$message);
         });
 
-        Validator::extend('morphemesExist', function($attribute, $value, $parameters, $validator){
-            $morphemes = explode('-', $value);
-            $language = array_get($validator->getData(), $parameters[0]);
-            $valid = true;
-            $query;
+        Validator::extend('isMorpheme', function($attribute, $value, $parameters, $validator) {
+            $str = $value;
+            $hyphenAtEnd = false; // Either end will do
+            $result = false;
 
-            for($i = 0; $i < count($morphemes) && $valid; $i++){
-                if($morphemes[$i] !== ''){
-                    $query = Morpheme::where('name', $morphemes[$i])
-                                     ->where('language_id', $language)
-                                     ->get();
-                    $valid = count($query) > 0;
-                }
+            // If there's a hyphen at the beginning, remove it
+            if($str{0} == '-') {
+                $str = substr($str, 1);
+                $hyphenAtEnd = true;
             }
 
-            return $valid;
+            // If there's a hyphen at the end, remove it
+            if($str{count($str) - 1} == '-') {
+                $str = substr($str, 0, count($str) - 1);
+                $hyphenAtEnd = true;
+            }
+
+            if($hyphenAtEnd) { // Don't bother doing this if there was no hyphen
+                $result = !strpos($str, '-'); // Result is false if there is still a hyphen in the string
+            }
+
+            return $result;
         });
     }
 

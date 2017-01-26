@@ -57,20 +57,6 @@ class Form extends Model
             $model->duplicates()->detach();
         });
 
-        // static::saving(function ($model) {
-        //     $model->removeNulls();
-        //     $rc = $model->validate();
-        //     if ($rc) {
-        //         $missing = $model->morphemesMissing($model->morphemicForm, $model->language_id);
-        //         if (count($missing) > 0) {
-        //             $rc = false;
-        //             $model->errors = ['missing' => $missing];
-        //         }
-        //     }
-
-        //     return $rc;
-        // });
-
         static::saved(function ($model) {
 
             if($model->morphemicForm)
@@ -192,14 +178,21 @@ class Form extends Model
         $curr = 0;
         $slots = explode('-', $this->morphemicForm);
 
+
         foreach($slots as $index => $slot) {
             if($curr < count($savedMorphemes) && $savedMorphemes[$curr]->pivot->position == $index + 1) {
                 $output[] = $savedMorphemes[$curr++];
             }
             else {
-                $output[] = ['name' => explode('.', $slot)[0]];
+                $output[] = ['name' => explode('.', $slot)[0]]; // Pull off the disambiguator
+
                 if(Auth::user()) {
-                    $search = Morpheme::where('name', $slot)
+                    $search = Morpheme::whereIn('name', [
+                                            $slot,
+                                            '-'.$slot,
+                                            '-'.$slot.'-',
+                                            $slot.'-',
+                                        ])
                                       ->where('language_id', $this->language_id)
                                       ->get();
                     if(count($search) > 0) {
@@ -282,8 +275,9 @@ class Form extends Model
     public function connectMorphemes()
     {
         $segments = explode('-', $this->morphemicForm);
-        $lookup;
+        $query;
         $chunk;
+        $lookup;
 
         $this->morphemes()->detach();
 
@@ -291,16 +285,19 @@ class Form extends Model
             $chunk = explode('.', $segment);
 
             if(count($chunk) > 0) {
-                if (count($chunk) == 1) { // Chunk does not have a disambiguator
-                    $lookup = Morpheme::where('name', $chunk[0])
-                                      ->where('language_id', $this->language_id)
-                                      ->get();
-                } elseif (count($chunk) > 1) { // Chunk has a disambiguator
-                    $lookup = Morpheme::where('name', $chunk[0])
-                                      ->where('disambiguator', $chunk[1])
-                                      ->where('language_id', $this->language_id)
-                                      ->get();
+                $query = Morpheme::whereIn('name', [
+                                        $chunk[0],
+                                        '-'.$chunk[0],
+                                        '-'.$chunk[0].'-',
+                                        $chunk[0].'-',
+                                    ])
+                                  ->where('language_id', $this->language_id);
+
+                if (count($chunk) > 1) { // Chunk has a disambiguator
+                    $query->where('disambiguator', $chunk[1]);
                 }
+
+                $lookup = $query->get();
 
                 if (count($lookup) == 1) {
                     $this->morphemes()->attach($lookup[0]->id, ['position' => $index + 1]);

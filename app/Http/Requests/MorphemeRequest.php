@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class MorphemeRequest extends FormRequest
@@ -13,7 +14,7 @@ class MorphemeRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::user();
     }
 
     /**
@@ -24,7 +25,7 @@ class MorphemeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'            => ['required'],
+            'name'            => ['required', 'isMorpheme'],
             'gloss_id'        => ['required','integer','exists:Glosses,id'],
             'slot_id'         => ['required','integer','exists:Slots,id'],
             'language_id'     => ['required','integer','exists:Languages,id'],

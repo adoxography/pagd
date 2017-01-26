@@ -11,7 +11,10 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
-			25-01-17: <a href="morphemes/4">Styled morpheme details to follow OED standard for disambiguator</a>
+			25-01-17: <a href="morphemes/4">Added full text description to gloss and slot on morpheme detail page</a>
+		</li>
+		<li>
+			25-01-17: Styled morpheme detail title to follow OED standard for disambiguator
 		</li>
 		<li>
 			25-01-17: Fixed bug where comment fields would not appear on edit

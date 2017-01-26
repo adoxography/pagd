@@ -22,12 +22,12 @@
 
 						{{-- Gloss field --}}
 						@component('components.model.field', ['width' => 'is-half', 'label' => 'Gloss'])
-							<a href="/glosses/{{ $morpheme->gloss_id }}">{{ $morpheme->gloss->abv }}</a>
+							<a href="/glosses/{{ $morpheme->gloss_id }}">{{ $morpheme->gloss->abv }} ({{ $morpheme->gloss->name }})</a>
 						@endcomponent
 
 						{{-- Slot field --}}
 						@component('components.model.field', ['width' => 'is-half', 'label' => 'Slot'])
-							<a href="/slots/{{ $morpheme->slot_id }}">{{ $morpheme->slot->abv }}</a>
+							<a href="/slots/{{ $morpheme->slot_id }}">{{ $morpheme->slot->abv }} ({{ $morpheme->slot->name }})</a>
 						@endcomponent
 
 						@component('components.model.field', ['label' => "Sources (Hover a source for the full citation)"])

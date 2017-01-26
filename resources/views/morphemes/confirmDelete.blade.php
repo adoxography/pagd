@@ -16,10 +16,10 @@
 				@endforeach
 			</ul>
 			<p>Are you sure you want to delete {{ $morpheme->name }}?</p>
-			{{ Form::open(['method' => 'DELETE', 'url' => "/morphemes/".$morpheme->id])}}
-				{{ Form::hidden('confirmDelete', true) }}
-				{{ Form::submit('Yes') }}
-			{{ Form::close() }}
+			@component('components.form', ['method' => 'DELETE', 'url' => "/morphemes/".$morpheme->id])
+				<input type="hidden" name="confirmDelete", value="true" />
+				<button type="submit" class="button">Yes</button>
+			@endcomponent
 		</div>
 	</div>
 

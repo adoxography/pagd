@@ -35,34 +35,10 @@
 			</div>
 		<section class="section">
 
-		@include('footer')
-		
+		@include('footer')	
 		@yield('footer')
 
 		<script src="{{ mix("/js/app.js") }}"></script>
-		<script>
-			$(document).ready(function(){
-				const target = $(".dropdown");
-				const dropdown = target.children('.dropdown-options');
-
-				var menuMoving = false;
-
-				target.mouseenter(() => {
-					toggleMenu();
-				}).mouseleave(() => {
-					toggleMenu();
-				});
-
-				function toggleMenu() {
-					if(!menuMoving) {
-						menuMoving = true;
-						dropdown.slideToggle('fast', function() {
-							menuMoving = false;
-						});
-					}
-				};
-			});
-		</script>
 	
 	</body>
 </html>

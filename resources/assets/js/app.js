@@ -28,3 +28,26 @@ window.Event = new Vue();
 const app = new Vue({
     el: '#root'
 });
+
+// Navigation menu
+$(document).ready(function(){
+	const target = $(".dropdown");
+	const dropdown = target.children('.dropdown-options');
+
+	var menuMoving = false;
+
+	target.mouseenter(() => {
+		toggleMenu();
+	}).mouseleave(() => {
+		toggleMenu();
+	});
+
+	function toggleMenu() {
+		if(!menuMoving) {
+			menuMoving = true;
+			dropdown.slideToggle('fast', function() {
+				menuMoving = false;
+			});
+		}
+	};
+});

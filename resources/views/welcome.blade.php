@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			26-01-17: Updated colour scheme to red and grey
+		</li>
+		<li>
 			25-01-17: <a href="morphemes/4">Added full text description to gloss and slot on morpheme detail page</a>
 		</li>
 		<li>

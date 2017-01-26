@@ -14,6 +14,22 @@
 // Bulma
 @import "node_modules/bulma/bulma.sass";
 
+html {
+	background-color: $white-bis;
+}
+
+.section {
+	background-color: $white-bis;
+}
+
+// .content {
+// 	color: #262525;
+// }
+
+// .nav-item a, a.nav-item {
+// 	color: #262525;
+// }
+
 .add-icon {
 	margin-left: .5rem;
 }

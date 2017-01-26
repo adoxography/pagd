@@ -21,6 +21,9 @@ Vue.component('model-tab',          require('./components/Model-Tab.vue'));
 Vue.component('alg-message',        require('./components/Message.vue'));
 Vue.component('alg-radio-toggle',   require('./components/Radio-Toggle.vue'));
 Vue.component('alg-form-search',    require('./components/Form-Search.vue'));
+Vue.component('alg-ajaxlist',      require('./components/AJAX-List.vue'));
+
+window.Event = new Vue();
 
 const app = new Vue({
     el: '#root'

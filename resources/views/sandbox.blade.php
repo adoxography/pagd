@@ -5,7 +5,7 @@
 
 @section('content')
 	<div id="root">
-		<alg-datalist list="{{ App\Mode::select('name','id')->get()->toJson() }}"></alg-datalist>
+		<alg-ajaxlist></alg-ajaxlist>
 	</div>
 @stop
 

@@ -12,6 +12,11 @@ use Response;
 
 class AutocompleteController extends Controller
 {
+    public function test()
+    {
+        return [['name' => 'alpha'], ['name' => 'beta'], ['name' => 'gamma']];
+    }
+
     /**
      * Get all of the forms of a language that match a particular token
      *
@@ -84,7 +89,7 @@ class AutocompleteController extends Controller
 
         $results = $this->findParents($language, $term, 'forms', 'surfaceForm');
 
-        return Response::json($results);
+        return json_encode($results);
     }
     
     /**
@@ -100,7 +105,6 @@ class AutocompleteController extends Controller
 
         $language = Language::with('parent')
                             ->find($language_id);
-
         $results  = $this->findParents($language, $term, 'morphemes', 'name');
 
         return Response::json($results);
@@ -119,7 +123,7 @@ class AutocompleteController extends Controller
 
     private function findParents(Language $language, $term, $items, $field)
     {
-        $results = array();
+        $results = [];
 
         if ($language->parent) { // Recursive case: the language has a parent
 
@@ -131,11 +135,11 @@ class AutocompleteController extends Controller
                 }]
             )->find($language->parent->id);
 
-            // Store the members in the $results array as id and value sets
+            // Store the members in the $results array as id and name sets
             foreach ($parent->getAttribute($items) as $item) {
                 $results[] = [
                     'id' => $item->id,
-                    'value' => $item->getAttribute($field) . ' (' . $parent->name . ')'
+                    'name' => $item->getAttribute($field) . ' (' . $parent->name . ')'
                 ];
             }
 

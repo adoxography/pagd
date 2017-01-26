@@ -30,6 +30,11 @@
 			name: String,
 			init: {},
 			disabled: Boolean,
+			emit: {
+				default: function () {
+					return false;
+				}
+			},
 
 			value: {
 				default: function () {
@@ -71,6 +76,12 @@
 			}
 		},
 
+		mounted() {
+			if(this.emit && this.code) {
+				Event.$emit('update', { field: this.name, text: this.text, code: this.code });
+			}
+		},
+
 		computed: {
 			code() {
 				let val = "";
@@ -109,6 +120,10 @@
 
 				// Trigger an input event
 				this.$emit("input", { text: this.text, code: this.code });
+
+				if(this.emit) {
+					Event.$emit('update', { field: this.name, text: this.text, code: this.code });
+				}
 			},
 
 			onKeyUp(keyCode) {

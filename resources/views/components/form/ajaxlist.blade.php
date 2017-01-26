@@ -9,4 +9,4 @@
 @endif
 
 {{-- Display the datalist --}}
-<alg-datalist init="{{ $value }}" list="{{ $list }}" name="{{ $name }}" {{ isset($required) ? "required=\"true\"" : "" }} emit="{{ $emit or false }}"></alg-datalist>
+<alg-ajaxlist initvalue="{{ $value }}" inittext="{{ $text }}" {!! isset($name) ? "name=$name" : "" !!} uri="{{ $uri }}" placeholder="{{ $placeholder or '' }}"></alg-ajaxlist>

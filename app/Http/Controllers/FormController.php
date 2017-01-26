@@ -71,6 +71,7 @@ class FormController extends Controller
 
     public function store(LangFormRequest $request)
     {
+        // dd($request);
         // Insert the form
         $form = Form::create($request->formData);
 

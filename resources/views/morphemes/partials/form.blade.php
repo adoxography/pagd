@@ -16,7 +16,7 @@
 	<div class="column is-half">
 
 		{{-- Language field --}}
-		@component('components.form.datalist', ['name' => 'language_id', 'label' => 'Language', 'list' => $languages, 'required' => true])
+		@component('components.form.datalist', ['name' => 'language_id', 'label' => 'Language', 'list' => $languages, 'required' => true, 'emit' => true])
 			@slot('value')
 				@if(old('language_id'))
 					{{ old('language_id') }}
@@ -24,8 +24,6 @@
 					{{ $presetLanguage->id }}
 				@elseif(isset($morpheme))
 					{{ $morpheme->language_id }}
-				@else
-				 	1 {{-- Proto-Algonquian --}}
 				@endif
 			@endslot
 		@endcomponent
@@ -68,7 +66,7 @@
 {{-- Allomorphy notes field --}}
 @component('components.form.textarea', ['name' => 'allomorphyNotes', 'label' => 'Allomorphy Notes'])
 	@slot('placeholder')
-		Enter notes about this morpheme's allomorphs.
+		Enter notes about this morpheme's allomorphs
 	@endslot
 	@slot('value')
 		@if(old('allomorphyNotes'))
@@ -79,12 +77,31 @@
 	@endslot
 @endcomponent
 
-{{-- <input type="hidden" name="parent_id" value="1" /> --}}
+{{-- Parent field --}}
+@component('components.form.ajaxlist', ['name' => 'parent', 'label' => 'Parent', 'uri' => '/autocomplete/morphemeParents'])	
+	@slot('placeholder')
+		After selecting a language, all of its ancestors' morphemes will be available as options
+	@endslot
+	@slot('text')
+		@if(old('parent'))
+			{{ old('parent') }}
+		@elseif(isset($morpheme))
+			{{ $morpheme->parent->name }} ({{ $morpheme->parent->language->name }})
+		@endif
+	@endslot
+	@slot('value')
+		@if(old('parent_id'))
+			{{ old('parent_id') }}
+		@elseif(isset($morpheme))
+			{{ $morpheme->parent_id }}
+		@endif
+	@endslot
+@endcomponent
 
 {{-- Historical notes field --}}
 @component('components.form.textarea', ['name' => 'historicalNotes', 'label' => 'Historical Notes'])
 	@slot('placeholder')
-		Enter historical information about this morpheme.
+		Enter historical information about this morpheme
 	@endslot
 	@slot('value')
 		@if(old('historicalNotes'))
@@ -97,7 +114,7 @@
 
 @component('components.form.textarea', ['name' => 'comments', 'label' => 'Private Comments'])
 	@slot('placeholder')
-		Comments here will not be available to the public.
+		Comments here will not be available to the public
 	@endslot
 	@slot('value')
 		@if(old('comments'))

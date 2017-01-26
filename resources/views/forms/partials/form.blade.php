@@ -21,7 +21,7 @@
 	<div class="column is-half">
 
 		{{-- Language field --}}
-		@component('components.form.datalist', ['name' => 'language_id', 'label' => 'Language', 'list' => $languages, 'required' => true])
+		@component('components.form.datalist', ['name' => 'language_id', 'label' => 'Language', 'list' => $languages, 'required' => true, 'emit' => true])
 			@slot('value')
 				@if(old('language_id'))
 					{{ old('language_id') }}
@@ -29,8 +29,6 @@
 					{{ $presetLanguage->id }}
 				@elseif(isset($form))
 					{{ $form->language_id }}
-				@else
-				 	1 {{-- Proto-Algonquian --}}
 				@endif
 			@endslot
 		@endcomponent
@@ -144,7 +142,7 @@
 
 @component('components.form.textarea', ['name' => 'usageNotes', 'label' => 'Usage Notes'])
 	@slot('placeholder')
-		Enter notes about the usage of this form.
+		Enter notes about the usage of this form
 	@endslot
 	@slot('value')
 		@if(old('usageNotes'))
@@ -157,7 +155,7 @@
 
 @component('components.form.textarea', ['name' => 'allomorphyNotes', 'label' => 'Allomorphy Notes'])
 	@slot('placeholder')
-		Enter notes about this form's allomorphs.
+		Enter notes about this form's allomorphs
 	@endslot
 	@slot('value')
 		@if(old('allomorphyNotes'))
@@ -168,13 +166,29 @@
 	@endslot
 @endcomponent
 
-{{-- Insert component here for AJAX datalist --}}
-{{-- {{ Form::label('parent','Parent') }}
-{{ Form::autofill('parent',null,null,['placeholder' => 'Search for a parent form']) }} --}}
-<input type="hidden" name="parent_id" value="1" />
+@component('components.form.ajaxlist', ['name' => 'parent', 'label' => 'Parent', 'uri' => '/autocomplete/formParents'])	
+	@slot('placeholder')
+		After selecting a language, all of its ancestors' forms will be available as options
+	@endslot
+	@slot('text')
+		@if(old('parent'))
+			{{ old('parent') }}
+		@elseif(isset($form))
+			{{ $form->parent->surfaceForm }} ({{ $form->parent->language->name }})
+		@endif
+	@endslot
+	@slot('value')
+		@if(old('parent_id'))
+			{{ old('parent_id') }}
+		@elseif(isset($form))
+			{{ $form->parent_id }}
+		@endif
+	@endslot
+@endcomponent
+
 @component('components.form.textarea', ['name' => 'historicalNotes', 'label' => 'Historical Notes'])
 	@slot('placeholder')
-		Enter historical information about this form.
+		Enter historical information about this form
 	@endslot
 	@slot('value')
 		@if(old('historicalNotes'))
@@ -187,7 +201,7 @@
 
 @component('components.form.textarea', ['name' => 'comments', 'label' => 'Private Comments'])
 	@slot('placeholder')
-		Comments here will not be available to the public.
+		Comments here will not be available to the public
 	@endslot
 	@slot('value')
 		@if(old('comments'))
@@ -203,19 +217,3 @@
 <p class="control">
 	<button type="submit" class="button is-primary">Submit</button>
 </p>
-
-{{-- @section('footer')
-
-<script>
-	$(document).ready(function(){
-		formUtil.initAutocomplete('parent','formParents');
-		formUtil.initDatalists();
-		formUtil.initRadios();
-
-		$('.remove-source-button').click(function(){
-			$(this).parent().remove();
-		});
-	});
-</script>
-
-@stop --}}

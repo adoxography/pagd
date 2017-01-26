@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			25-01-17: <a href="morphemes/4">Styled morpheme details to follow OED standard for disambiguator</a>
+		</li>
+		<li>
 			25-01-17: Fixed bug where comment fields would not appear on edit
 		</li>
 		<li>
@@ -23,7 +26,7 @@
 			24-01-17: <a href="/languages/1#children">Moved + icon next to field label for forms that can be added to</a> (only viewable when logged in)
 		</li>
 		<li>
-			24-01-17: <a href="/morphemes/4">Styled morpheme details to echo form details</a>
+			24-01-17: Styled morpheme details to echo form details
 		</li>
 		<li>
 			24-01-17: Added context-specific titles

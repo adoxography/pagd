@@ -10,7 +10,7 @@
 
 		@component('components.model', ['uri' => "/morphemes/{$morpheme->id}"])
 			@slot('header')
-				<em>{{ $morpheme->name }}</em> [{{ $morpheme->disambiguator }}]
+				{{ $morpheme->name }} <em><sup>{{ $morpheme->disambiguator }}</sup></em>
 				<span style="margin-left: .5rem">
 					(<a href="/languages/{{ $morpheme->language_id }}">{{ $morpheme->language->name }}</a>)
 				</span>

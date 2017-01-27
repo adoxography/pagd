@@ -1,5 +1,7 @@
 <template>
-	<alg-ajaxlist uri="/autocomplete/sources" placeholder="Search for an existing source" ref="ajaxlist" @change="onChange($event)"></alg-ajaxlist>
+	<div class="alg-old-source">
+		<alg-ajaxlist uri="/autocomplete/sources" placeholder="Search for an existing source" ref="ajaxlist" @change="onChange($event)"></alg-ajaxlist>
+	</div>
 </template>
 
 <script>

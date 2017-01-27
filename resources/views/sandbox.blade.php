@@ -5,7 +5,8 @@
 
 @section('content')
 	<div id="root">
-		<alg-ajaxlist></alg-ajaxlist>
+		<alg-sources uri="/sources/ajax" title="Add a new source">
+		</alg-sources>
 	</div>
 @stop
 

@@ -16,10 +16,10 @@
 				</div>
 				<div class="control is-grouped">
 					<p class="control is-expanded">
-						<input class="input" type="text" placeholder="Name">
+						<input class="input" type="text" placeholder="Name" name="from">
 					</p>
 					<p class="control is-expanded">
-						<input class="input" type="email" placeholder="Email">
+						<input class="input" type="email" placeholder="Email" name="email">
 					</p>
 				</div>
 			</div>
@@ -28,7 +28,7 @@
 					<label class="label">Subject</label>
 				</div>
 				<div class="control">
-					<input class="input" type="text" placeholder="Subject">
+					<input class="input" type="text" placeholder="Subject" name="subject">
 				</div>
 			</div>
 			<div class="control is-horizontal">
@@ -36,7 +36,7 @@
 					<label class="label">Message</label>
 				</div>
 				<div class="control">
-					<textarea class="textarea"></textarea>
+					<textarea class="textarea" name="body"></textarea>
 				</div>
 			</div>
 			<p class="control is-pulled-right">

@@ -154,7 +154,7 @@
 					@if(count($form->sources) > 0)
 						<ol>
 							@foreach($form->sources as $source)
-								<li title="{{ $source->long }}">{{ $source->short }}</li>
+								<li title="{{ $source->long }}">{{ $source->short }} {{ $source->pivot->extraInfo }}</li>
 							@endforeach
 						</ol>
 					@else

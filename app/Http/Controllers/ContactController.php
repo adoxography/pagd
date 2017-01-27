@@ -19,10 +19,12 @@ class ContactController extends Controller
     }
 
     public function send(Request $request){
+        // dd($request);
     	$subject = "Contact from algling.net: ".$request->subject;
     	$data = [
     		'body' => $request->body,
-    		'from' => $request->from
+    		'from' => $request->from,
+            'email' => $request->email
     	];
 
     	$this->mailer->contact($subject, $data);

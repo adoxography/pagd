@@ -1,19 +1,18 @@
-<div id='source-form'>
+{{-- <div id='source-form'>
 	{{ Form::label('short','Short form:') }}
 	{{ Form::text('short') }}
 	{{ Form::label('long','Full source:') }}
 	{{ Form::textarea('long',null,['rows' => 3]) }}
 
 	{{ Form::submit(null,['tabindex' => -1, 'style' => 'position:absolute; top:-1000px'])}}
-</div>
+</div> --}}
 
 <fieldset id='old_source'>
-	{{ Form::label('existing-source', 'Select an existing source') }}
-	{{ Form::text('existing-source') }}
+	@include('components.form.text', ['name' => 'existing-source', 'label' => 'Select an existing source'])
 </fieldset>
 <fieldset id='new_source'>
 	<p>Enter a new source</p>
-	{{ Form::button('New Source',['id' => 'add-source']) }}
+	<button class="button" id="add-source">New Source</button>
 </fieldset>
 
 <fieldset>
@@ -27,7 +26,7 @@
 	</ol>
 </fieldset>
 
-<script>
+{{-- <script>
 	$(document).ready(function(){
 
 		var sourceDialog, form, sourceField,
@@ -79,7 +78,7 @@
 			var valid = true;
 
 			if(valid){
-				$.get('/sources/ajax',{ {{-- This should be a post request, but NFS has a problem with that. --}}
+				$.get('/sources/ajax',{
 						'_token': $('input[name=_token]').val(), //Include CSRF Token
 						'short': short.val(),
 						'long' : long.val()
@@ -115,4 +114,4 @@
 			sourceDialog.dialog('open');
 		});
 	});
-</script>
+</script> --}}

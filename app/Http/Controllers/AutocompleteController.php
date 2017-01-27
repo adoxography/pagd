@@ -66,7 +66,7 @@ class AutocompleteController extends Controller
     {
         $term = $request->term;
         
-        $sources = Source::select('short as value', 'id')
+        $sources = Source::select('short as name', 'id')
                          ->where('short', 'LIKE', "%$term%")
                          ->get();
 
@@ -81,7 +81,8 @@ class AutocompleteController extends Controller
      */
     public function formParents(Request $request)
     {
-        $term        = $request->get('term');
+        // Unpack parameters
+        $term        = $request->term;
         $language_id = $request->language;
 
         $language = Language::with('parent')
@@ -100,6 +101,7 @@ class AutocompleteController extends Controller
      */
     public function morphemeParents(Request $request)
     {
+        // Unpack parameters
         $term        = $request->term;
         $language_id = $request->language;
 

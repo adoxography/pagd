@@ -10,5 +10,5 @@
 
 {{-- Display the textbox --}}
 <p class="control">
-	<textarea class="textarea" name="{{ $name or '' }}" id="{{ $id or (isset($name) ? $name : '') }}" placeholder="{{ $placeholder or '' }}">{{ $value }}</textarea>
+	<textarea class="textarea" name="{{ $name or '' }}" id="{{ $id or (isset($name) ? $name : '') }}" placeholder="{{ $placeholder or '' }}">{{ $value or "" }}</textarea>
 </p>

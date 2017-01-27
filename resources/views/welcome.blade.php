@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			27-01-17: Added new source component into <a href="/forms/create">form</a> and <a href="/morphemes/create">morpheme</a> creation forms
+		</li>
+		<li>
 			27-01-17: Fixed bug in recognizing hypens at the end of morphemes
 		</li>
 		<li>
@@ -32,7 +35,7 @@
 			25-01-17: Datalists now include whatever was typed as an option (if available as an option)
 		</li>
 		<li>
-			25-01-17: Added parent fields to <a href="/forms/create">form</a> and <a href="/morphemes/create">morpheme</a> creation forms
+			25-01-17: Added parent fields to form and morpheme creation forms
 		</li>
 		<li>
 			24-01-17: <a href="/languages/1#children">Moved + icon next to field label for forms that can be added to</a> (only viewable when logged in)

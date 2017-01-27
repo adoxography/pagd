@@ -166,7 +166,7 @@
 	@endslot
 @endcomponent
 
-@component('components.form.ajaxlist', ['name' => 'parent', 'label' => 'Parent', 'uri' => '/autocomplete/formParents'])	
+@component('components.form.ajaxlist', ['name' => 'parent', 'label' => 'Parent', 'uri' => '/autocomplete/formParents', 'listen' => 'language_id'])	
 	@slot('placeholder')
 		After selecting a language, all of its ancestors' forms will be available as options
 	@endslot
@@ -212,7 +212,7 @@
 	@endslot
 @endcomponent
 
-{{-- @include('sources.partials.select_source') --}}
+<alg-sources value="{{ isset($form) ? $form->sources : "" }}"></alg-sources>
 
 <p class="control">
 	<button type="submit" class="button is-primary">Submit</button>

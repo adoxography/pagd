@@ -78,7 +78,7 @@
 @endcomponent
 
 {{-- Parent field --}}
-@component('components.form.ajaxlist', ['name' => 'parent', 'label' => 'Parent', 'uri' => '/autocomplete/morphemeParents'])	
+@component('components.form.ajaxlist', ['name' => 'parent', 'label' => 'Parent', 'uri' => '/autocomplete/morphemeParents', 'listen' => 'language_id'])	
 	@slot('placeholder')
 		After selecting a language, all of its ancestors' morphemes will be available as options
 	@endslot
@@ -124,5 +124,7 @@
 		@endif
 	@endslot
 @endcomponent
+
+<alg-sources value="{{ isset($form) ? $form->sources : "" }}"></alg-sources>
 
 <button type="submit" class="button is-primary">Submit</button>

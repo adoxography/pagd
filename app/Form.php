@@ -306,14 +306,12 @@ class Form extends Model
         }
     }
 
-    public function connectSources($sourceData)
+    public function connectSources($sources)
     {
         $this->sources()->detach();
 
-        for ($i = 0; $i < count($sourceData); $i++) {
-            if (isset($sourceData['source_id'][$i])) {
-                $this->sources()->attach($sourceData['source_id'][$i], ['extraInfo' => $sourceData['extraInfo'][$i]]);
-            }
+        foreach($sources as $source) {
+            $this->sources()->attach($source['id'], ['extraInfo' => $source['extraInfo']]);
         }
     }
 }

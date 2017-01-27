@@ -21,7 +21,10 @@ Vue.component('model-tab',          require('./components/Model-Tab.vue'));
 Vue.component('alg-message',        require('./components/Message.vue'));
 Vue.component('alg-radio-toggle',   require('./components/Radio-Toggle.vue'));
 Vue.component('alg-form-search',    require('./components/Form-Search.vue'));
-Vue.component('alg-ajaxlist',      require('./components/AJAX-List.vue'));
+Vue.component('alg-ajaxlist',       require('./components/AJAX-List.vue'));
+Vue.component('alg-new-source',     require('./components/New-Source.vue'));
+Vue.component('alg-old-source',     require('./components/Old-Source.vue'));
+Vue.component('alg-sources',        require('./components/Sources.vue'));
 
 window.Event = new Vue();
 

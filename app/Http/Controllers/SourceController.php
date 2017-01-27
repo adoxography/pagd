@@ -17,6 +17,8 @@ class SourceController extends Controller
     }
 
     public function store(Request $request){
+        // return $request;
+
     	$short = $request->short;
     	$long  = $request->long;
 

@@ -56,7 +56,7 @@ class FormController extends Controller
         $form->update($request->formData);
 
         $form->connectMorphemes();
-        $form->connectSources($request->sourceData);
+        $form->connectSources($request->sources);
 
         flash($form->surfaceForm.' updated successfully', 'is-success');
         return redirect('/forms/'.$form->id);
@@ -71,12 +71,11 @@ class FormController extends Controller
 
     public function store(LangFormRequest $request)
     {
-        // dd($request);
         // Insert the form
         $form = Form::create($request->formData);
 
         $form->connectMorphemes();
-        $form->connectSources($request->sourceData);
+        $form->connectSources($request->sources);
 
         // Flash a message to the session
         flash($form->surfaceForm.' created successfully.', 'is-success');

@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="alg-ajax-list">
 		<div class="control">
 			<div class="alg-datalist-container">
 				<input :name="name" type="text" class="input" @input="onInput" v-model="text" @keyup="onKeyUp($event.keyCode)" @keydown.enter="onEnter($event)" autocomplete="off" :placeholder="placeholder" />
@@ -44,6 +44,13 @@
 		},
 
 		methods: {
+			emitEvent() {
+				this.$emit("change", {
+					text: this.text,
+					id: this.value
+				});
+			},
+
 			onEnter(event) {
 				if(this.curr > 0) { // The list is open
 					event.preventDefault();
@@ -61,6 +68,7 @@
 				}
 
 				this.value = val;
+				this.emitEvent();
 			},
 
 			selectItem(item) {
@@ -77,6 +85,7 @@
 
 				// Trigger an input event
 				this.$emit("input", { text: this.text, code: this.code });
+				this.emitEvent();
 			},
 
 			activeItem(n) {
@@ -93,6 +102,7 @@
 
 			onInput() {
 				this.value = "";
+				this.emitEvent();
 
 				if(this.text.length > 0) {
 					this.showList = false;

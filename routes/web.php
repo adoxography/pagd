@@ -35,7 +35,7 @@ Route::get('autocomplete/morphemes',       'AutocompleteController@morphemes');
 Route::get('autocomplete/morphemeParents', 'AutocompleteController@morphemeParents');
 Route::get('autocomplete/sources',         'AutocompleteController@sources');
 
-Route::get('sources/ajax', 'SourceController@store');
+Route::post('sources/ajax', 'SourceController@store');
 
 Route::get('morphemes/confirm-delete', 'MorphemeController@confirmDelete');
 

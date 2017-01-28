@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Language;
+use App\Form;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -11,20 +11,20 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class LanguageSaved
+class FormSaved
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $language;
+    public $form;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Language $language)
+    public function __construct(Form $form)
     {
-        $this->language = $language;
+        $this->form = $form;
     }
 
     /**

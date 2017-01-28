@@ -17,7 +17,7 @@ class FormController extends Controller
     public function __construct()
     {
         $this->middleware('parseForm')->only('store', 'update');
-        $this->middleware('parseSources')->only('store', 'update');
+        // $this->middleware('parseSources')->only('store', 'update');
     }
     
     public function index()
@@ -55,7 +55,6 @@ class FormController extends Controller
     {
         $form->update($request->formData);
 
-        $form->connectMorphemes();
         $form->connectSources($request->sources);
 
         flash($form->surfaceForm.' updated successfully', 'is-success');
@@ -74,7 +73,6 @@ class FormController extends Controller
         // Insert the form
         $form = Form::create($request->formData);
 
-        $form->connectMorphemes();
         $form->connectSources($request->sources);
 
         // Flash a message to the session

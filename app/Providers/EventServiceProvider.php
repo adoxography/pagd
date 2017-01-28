@@ -16,6 +16,15 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\LanguageSaved' => [
             'App\Listeners\AddVStemToLanguage',
         ],
+
+        'App\Events\FormSaved' => [
+            'App\Listeners\ConnectMorphemesToForm',
+            'App\Listeners\ConnectDuplicatesToForm',
+        ],
+
+        'App\Events\MorphemeSaved' => [
+            'App\Listeners\ConnectFormsToMorpheme'
+        ]
     ];
 
     /**

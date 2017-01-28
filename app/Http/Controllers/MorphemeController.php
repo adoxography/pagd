@@ -73,10 +73,6 @@ class MorphemeController extends Controller
 
         $morpheme->save();
 
-        foreach(Form::where('language_id', $morpheme->language_id)->get() as $form) {
-            $form->connectMorphemes();
-        }
-
         $morpheme->connectSources($request->sources);
 
         flash($morpheme->name.' created successfully.', 'success');
@@ -102,9 +98,7 @@ class MorphemeController extends Controller
     public function update(MorphemeRequest $request, Morpheme $morpheme){
         $morpheme->update(array_filter($request->all(), 'validDatabaseInput'));
 
-        foreach(Form::where('language_id', $morpheme->language_id)->get() as $form) {
-            $form->connectMorphemes();
-        }
+        $morpheme->connectSources($request->sources);
 
         flash($morpheme->name.' updated successfully.', 'success');
         return Redirect::to('/morphemes/'.$morpheme->id);

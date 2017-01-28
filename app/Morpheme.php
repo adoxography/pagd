@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Language;
+use App\Events\MorphemeSaved;
 use Illuminate\Database\Eloquent\Model;
 
 class Morpheme extends Model
@@ -17,6 +18,9 @@ class Morpheme extends Model
         'allomorphyNotes',
         'historicalNotes',
         'comments'
+    ];
+    protected $events = [
+        'saved' => MorphemeSaved::class
     ];
 
     public static function boot()

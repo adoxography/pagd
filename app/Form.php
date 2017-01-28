@@ -5,6 +5,7 @@ namespace App;
 use Validator;
 use App\Morpheme;
 use App\MorphemeLink;
+use App\Events\FormSaved;
 use App\Search\ColHeader;
 use App\Search\RowHeader;
 use Illuminate\Support\Facades\Auth;
@@ -27,12 +28,9 @@ class Form extends Model
         'usageNotes',
         'comments'
     ];
-    protected $rules = [
-        'surfaceForm'   => ['required'],
-        'phoneticForm'  => ['nullable'],
-        'morphemicForm' => ['nullable'],
-        'language_id'   => ['required','integer'],
-        'parent_id'     => ['nullable'],
+
+    protected $events = [
+        'saved' => FormSaved::class
     ];
 
     public static function boot()
@@ -56,32 +54,7 @@ class Form extends Model
             }//foreach
             $model->duplicates()->detach();
         });
-
-        static::saved(function ($model) {
-
-            if($model->morphemicForm)
-            {
-                $model->connectDuplicates($model);
-            }
-        });
-    }
-    
-    public function connectDuplicates(Form $newForm)
-    {
-        $this->duplicates()->detach();
-
-        //Get all of the duplicates that aren't the form itself
-        $duplicates = Form::where('morphemicForm', $newForm->morphemicForm)
-                          ->where('language_id', $newForm->language_id)
-                          ->where('id', '<>', $newForm->id)
-                          ->get();
-        //Add a link from each duplicate to the new form, and from the new form to each duplicate
-        foreach ($duplicates as $duplicate) {
-            $duplicate->duplicates()->attach($newForm->id);
-            $newForm->duplicates()->attach($duplicate->id);
-        }
-    }
-    
+    }    
 
     public function formType()
     {
@@ -200,47 +173,6 @@ class Form extends Model
         }
 
         return '<table>' . $formRow . $morphemeRow . $glossRow . '</table>';
-    }
-
-    public function hasNotes()
-    {
-        return $this->historicalNotes || $this->allomorphyNotes || $this->usageNotes || (Auth::user() && $this->comments);
-    }
-
-
-
-    public function connectMorphemes()
-    {
-        $segments = explode('-', $this->morphemicForm);
-        $query;
-        $chunk;
-        $lookup;
-
-        $this->morphemes()->detach();
-
-        foreach ($segments as $index => $segment) {
-            $chunk = explode('.', $segment);
-
-            if(count($chunk) > 0) {
-                $query = Morpheme::whereIn('name', [
-                                        $chunk[0],
-                                        '-'.$chunk[0],
-                                        '-'.$chunk[0].'-',
-                                        $chunk[0].'-',
-                                    ])
-                                  ->where('language_id', $this->language_id);
-
-                if (count($chunk) > 1) { // Chunk has a disambiguator
-                    $query->where('disambiguator', $chunk[1]);
-                }
-
-                $lookup = $query->get();
-
-                if (count($lookup) == 1) {
-                    $this->morphemes()->attach($lookup[0]->id, ['position' => $index + 1]);
-                }
-            }
-        }
     }
 
     public function connectSources($sources)

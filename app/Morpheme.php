@@ -4,6 +4,7 @@ namespace App;
 
 use App\Language;
 use App\Events\MorphemeSaved;
+use App\Events\MorphemeDeleting;
 use Illuminate\Database\Eloquent\Model;
 
 class Morpheme extends Model
@@ -20,7 +21,8 @@ class Morpheme extends Model
         'comments'
     ];
     protected $events = [
-        'saved' => MorphemeSaved::class
+        'saved' => MorphemeSaved::class,
+        'deleting' => MorphemeDeleting::class
     ];
 
     public static function boot()
@@ -71,10 +73,12 @@ class Morpheme extends Model
 
     public function connectSources($sources)
     {
-        $this->sources()->detach();
+        if($sources) {
+            $this->sources()->detach();
 
-        foreach ($sources as $source) {
-            $this->sources()->attach($source['id'], ['extraInfo' => $source['extraInfo']]);
+            foreach ($sources as $source) {
+                $this->sources()->attach($source['id'], ['extraInfo' => $source['extraInfo']]);
+            }
         }
     }
 }

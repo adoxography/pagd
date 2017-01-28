@@ -4,11 +4,10 @@ namespace App\Listeners;
 
 use App\Form;
 use App\Morpheme;
-use App\Events\MorphemeSaved;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ConnectFormsToMorpheme
+class ReconnectForms
 {
     /**
      * Create the event listener.
@@ -23,10 +22,10 @@ class ConnectFormsToMorpheme
     /**
      * Handle the event.
      *
-     * @param  MorphemeSaved  $event
+     * @param  MorphemeDeleted|MorphemeSaved  $event
      * @return void
      */
-    public function handle(MorphemeSaved $event)
+    public function handle($event)
     {
         $morpheme = $event->morpheme;
         $forms = Form::where('language_id', $morpheme->language_id)->get();

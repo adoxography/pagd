@@ -31,9 +31,9 @@ class MorphemeController extends Controller
         // if(count($forms) == 0 || request()->confirmDelete) {
             $morpheme->delete();
 
-            foreach(Form::where('language_id', $morpheme->language_id)->get() as $form) {
-                $form->connectMorphemes();
-            }
+            // foreach(Form::where('language_id', $morpheme->language_id)->get() as $form) {
+            //     $form->connectMorphemes();
+            // }
 
             flash($morpheme->name.' deleted successfully.');
             return Redirect::to('/languages/' . $morpheme->language_id);

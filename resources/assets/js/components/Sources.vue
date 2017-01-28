@@ -12,6 +12,7 @@
 			<ul>
 				<div class="columns" v-for="(source, index) in sources">
 					<input type="hidden" v-model="source.id" :name="'sources['+index+'][id]'" />
+					<input type="hidden" v-model="source.short" :name="'sources['+index+'][short]'" />
 					<div class="column is-one-quarter">
 						<p>{{ index + 1 }}. {{ source.short }}</p>
 					</div>
@@ -58,6 +59,15 @@
 
 			remove(index) {
 				this.sources.splice(index, 1);
+			},
+
+			extractExtraInfo(source) {
+				if(source.pivot) {
+					return source.pivot.extraInfo;
+				}
+				else {
+					return source.extraInfo;
+				}
 			}
 		},
 
@@ -66,7 +76,11 @@
 				let sources = JSON.parse(this.value);
 
 				sources.forEach(source => {
-					this.sources.push({ short: source.short, id: source.id, extraInfo: source.pivot.extraInfo });
+					this.sources.push({
+						short: source.short,
+						id: source.id,
+						extraInfo: this.extractExtraInfo(source)
+					});
 				});
 			}
 		}

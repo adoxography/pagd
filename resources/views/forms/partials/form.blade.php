@@ -215,13 +215,12 @@
 @component('components.form.sources')
 	@slot('value')
 		@if(old('sources'))
-			{{-- {{ old('sources') }} --}}
+			{{ json_encode(old('sources')) }}
 		@elseif(isset($form))
 			{{ $form->sources }}
 		@endif
 	@endslot
 @endcomponent
-{{-- <alg-sources value="{{ isset($form) ? $form->sources : "" }}"></alg-sources> --}}
 
 <p class="control">
 	<button type="submit" class="button is-primary">Submit</button>

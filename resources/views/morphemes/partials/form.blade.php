@@ -112,6 +112,7 @@
 	@endslot
 @endcomponent
 
+{{-- Comments field --}}
 @component('components.form.textarea', ['name' => 'comments', 'label' => 'Private Comments'])
 	@slot('placeholder')
 		Comments here will not be available to the public
@@ -125,6 +126,15 @@
 	@endslot
 @endcomponent
 
-<alg-sources value="{{ isset($morpheme) ? $morpheme->sources : "" }}"></alg-sources>
+{{-- Source input --}}
+@component('components.form.sources')
+	@slot('value')
+		@if(old('sources'))
+			{{ json_encode(old('sources')) }}
+		@elseif(isset($morpheme))
+			{{ $morpheme->sources }}
+		@endif
+	@endslot
+@endcomponent
 
 <button type="submit" class="button is-primary">Submit</button>

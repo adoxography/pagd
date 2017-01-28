@@ -65,69 +65,6 @@ class Form extends Model
             }
         });
     }
-
-    private function hasV()
-    {
-        $found = false;
-        $morphemes = explode('-', $this->morphemicForm);
-
-        for($i = 0; $i < count($morphemes) && !$found; $i++)
-        {
-            $found = strtolower($morphemes[$i]) === 'v';
-        }
-
-        return $found;
-    }
-
-    public function validate()
-    {
-        $rc = false;
-        $validator = Validator::make($this->getAttributes(), $this->rules);
-        if ($validator->fails()) {
-            $this->errors = $validator->messages();
-        }
-        else if($this->morphemicForm && !$this->hasV())
-        {
-            $this->errors = ['No V'];
-        }
-        else
-        {
-            $rc = true;
-        }
-        return $rc;
-    }
-
-    public function removeNulls(){
-        foreach($this->getAttributes() as $field => $value){
-            if(!$value){
-                $this->__unset($field);
-            }//if
-        }//foreach
-    }
-    
-    private function morphemesMissing($morphemicForm, $language_id)
-    {
-        $missing = array();
-
-        if($morphemicForm)
-        {
-            $morphemeNames = explode('-', $morphemicForm);
-
-            foreach ($morphemeNames as $morphemeName) {
-                if ($morphemeName !== '') {
-                    try {
-                        Morpheme::where('name', $morphemeName)
-                                ->where('language_id', $language_id)
-                                ->firstOrFail();
-                    } catch (ModelNotFoundException $e) {
-                        array_push($missing, $morphemeName);
-                    }
-                }
-            }
-        }
-
-        return $missing;
-    }
     
     public function connectDuplicates(Form $newForm)
     {

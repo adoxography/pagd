@@ -77,6 +77,8 @@ class MorphemeController extends Controller
             $form->connectMorphemes();
         }
 
+        $morpheme->connectSources($request->sources);
+
         flash($morpheme->name.' created successfully.', 'success');
         return Redirect::to('/morphemes/' . $morpheme->id);
     }

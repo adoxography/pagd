@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			27-01-17: Morphemes can now have sources
+		</li>
+		<li>
 			27-01-17: Delete buttons now fire confirmation dialogs before deleting
 		</li>
 		<li>

@@ -125,6 +125,6 @@
 	@endslot
 @endcomponent
 
-<alg-sources value="{{ isset($form) ? $form->sources : "" }}"></alg-sources>
+<alg-sources value="{{ isset($morpheme) ? $morpheme->sources : "" }}"></alg-sources>
 
 <button type="submit" class="button is-primary">Submit</button>

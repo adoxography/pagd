@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Morpheme;
+use App\Events\LanguageSaved;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -10,6 +11,9 @@ class Language extends Model
 {
     public $table = 'Languages';
     protected $fillable = ['name','group_id','parent_id','iso','algoCode'];
+    protected $events = [
+        'saved' => LanguageSaved::class
+    ];
 
     public static function boot()
     {
@@ -33,9 +37,9 @@ class Language extends Model
             }//foreach
         });
 
-        static::saved(function ($model) {
-            return Morpheme::createV($model);
-        });
+        // static::saved(function ($model) {
+        //     return Morpheme::createV($model);
+        // });
     }//boot
     
     public function group()

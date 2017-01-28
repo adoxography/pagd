@@ -64,11 +64,11 @@ class FormTest extends TestCase
 
 		// Add the morphemes to the language
 		factory(Morpheme::class)->create([
-			'name' => 'a',
+			'name' => 'a-',
 			'language_id' => $language->id
 		]);		
 		factory(Morpheme::class)->create([
-			'name' => 'b',
+			'name' => 'b-',
 			'language_id' => $language->id
 		]);		
 
@@ -78,9 +78,12 @@ class FormTest extends TestCase
 			'morphemicForm' => 'a-b-V'
 		]);
 
+		// Direct the form to find its morphemes
+		$form->connectMorphemes();
+
 		$this->assertGreaterThan(0, $form->id); // Make sure the form persisted to the database
 		$this->assertCount(3, $form->morphemes); // +1 for the Vstem
-		$this->assertEquals($form->morphemes[0]->name.'-'.$form->morphemes[1]->name.'-'.$form->morphemes[2]->name, $form->morphemicForm); // 'a-b-V'
+		$this->assertEquals($form->morphemes[0]->name.$form->morphemes[1]->name.$form->morphemes[2]->name, $form->morphemicForm); // 'a-b-V'
 	}
 
 

@@ -64,7 +64,7 @@ class LanguageTest extends TestCase
 	}
 
 	/** @test */
-	function a_language_has_a_v_stem()
+	function a_language_generates_a_vStem_when_created()
 	{
 		$language = factory(Language::class)->create();
 		$vStem = $language->morphemes[0];

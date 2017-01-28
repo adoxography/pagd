@@ -52,20 +52,5 @@ class Morpheme extends Model
     public function slot(){
     	return $this->belongsTo(Slot::class);
     }
-
-    public static function createV(Language $language){
-        $vStem = Morpheme::create([
-            'name'        => 'V',
-            'language_id' => $language->id,
-            'gloss_id'    => 1,
-            'slot_id'     => 1,
-        ]);
-
-        if($language->parent) {
-            $vStem->parent_id = $language->parent->morphemes->where('name','V')->first()->id;
-        }
-
-        return $vStem !== null;
-    }
     
 }

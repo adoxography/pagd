@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Morpheme;
 
 use App\Form;
 use App\Morpheme;
@@ -22,7 +22,7 @@ class ReconnectForms
     /**
      * Handle the event.
      *
-     * @param  MorphemeDeleted|MorphemeSaved  $event
+     * @param  Morpheme\Deleted|Morpheme\Saved  $event
      * @return void
      */
     public function handle($event)

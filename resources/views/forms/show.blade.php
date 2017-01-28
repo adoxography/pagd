@@ -112,7 +112,11 @@
 
 					@component('components.model.field', ['width' => 'is-12', 'label' => 'Duplicates'])
 						@if(count($form->duplicates) > 0)
-							<!-- fill in later -->
+							<ul>
+								@foreach($form->duplicates as $duplicate)
+									<li><a href="/forms/{{ $duplicate->id }}">{{ $duplicate->surfaceForm }}</a></li>
+								@endforeach
+							</ul>
 						@else
 							None
 						@endif

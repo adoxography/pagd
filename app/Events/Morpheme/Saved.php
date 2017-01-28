@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Events;
+namespace App\Events\Morpheme;
 
-use App\Language;
+use App\Morpheme;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -11,20 +11,20 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class LanguageSaved
+class Saved
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $language;
+    public $morpheme;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Language $language)
+    public function __construct(Morpheme $morpheme)
     {
-        $this->language = $language;
+        $this->morpheme = $morpheme;
     }
 
     /**

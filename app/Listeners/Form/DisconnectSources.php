@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Form;
 
-use App\Events\MorphemeDeleting;
+use App\Events\Form\Deleting;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class DisconnectSourcesFromMorpheme
+class DisconnectSources
 {
     /**
      * Create the event listener.
@@ -21,13 +21,12 @@ class DisconnectSourcesFromMorpheme
     /**
      * Handle the event.
      *
-     * @param  MorphemeDeleted  $event
+     * @param  Deleting  $event
      * @return void
      */
-    public function handle(MorphemeDeleting $event)
+    public function handle(Deleting $event)
     {
-        $morpheme = $event->morpheme;
-
-        $morpheme->sources()->detach();
+        $form = $event->form;
+        $form->sources()->detach();
     }
 }

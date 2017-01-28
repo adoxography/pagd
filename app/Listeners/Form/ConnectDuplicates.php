@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Form;
 
 use App\Form;
-use App\Events\FormSaved;
+use App\Events\Form\Saved;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ConnectDuplicatesToForm
+class ConnectDuplicates
 {
     /**
      * Create the event listener.
@@ -25,7 +25,7 @@ class ConnectDuplicatesToForm
      * @param  FormSaved  $event
      * @return void
      */
-    public function handle(FormSaved $event)
+    public function handle(Saved $event)
     {
         $form = $event->form;
 
@@ -51,12 +51,18 @@ class ConnectDuplicatesToForm
     protected function sanitize($morphemicForm)
     {
         $output = '';
+        $firstTime = true;
 
         // Split the morphemic form up into individual morphemes
         $morphemes = explode('-', $morphemicForm);
 
         // Split each morpheme into name and disambiguator, then only take the name
-        foreach($morphemes as $morpheme) {
+        foreach ($morphemes as $morpheme) {
+            if ($firstTime) {
+                $firstTime = false;
+            } else {
+            	 	$output .= '-';
+            }
             $chunks = explode('.', $morpheme);
             $output .= $chunks[0];
         }

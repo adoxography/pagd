@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Language;
 
 use App\Morpheme;
-use App\Events\LanguageSaved;
+use App\Events\Language\Saved;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class AddVStemToLanguage
+class AddVStem
 {
     /**
      * Create the event listener.
@@ -25,7 +25,7 @@ class AddVStemToLanguage
      * @param  LanguageSaved  $event
      * @return void
      */
-    public function handle(LanguageSaved $event)
+    public function handle(Saved $event)
     {
         // Extract the language from the event
         $language = $event->language;

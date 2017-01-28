@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Form;
 
 use App\Morpheme;
-use App\Events\FormSaved;
+use App\Events\Form\Saved;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ConnectMorphemesToForm
+class ConnectMorphemes
 {
     /**
      * Create the event listener.
@@ -25,7 +25,7 @@ class ConnectMorphemesToForm
      * @param  FormSaved  $event
      * @return void
      */
-    public function handle(FormSaved $event)
+    public function handle(Saved $event)
     {
         $form = $event->form;
         $morphemes = explode('-', $form->morphemicForm);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace App\Events\Morpheme;
 
 use App\Morpheme;
 use Illuminate\Broadcasting\Channel;
@@ -11,7 +11,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class MorphemeSaved
+class Deleting
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

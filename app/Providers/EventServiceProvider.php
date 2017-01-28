@@ -13,25 +13,40 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\LanguageSaved' => [
-            'App\Listeners\AddVStemToLanguage',
+
+        // Language Events
+        'App\Events\Language\Saved' => [
+            'App\Listeners\Language\AddVStem',
+        ],
+        'App\Events\Language\Deleting' => [
+            'App\Listeners\Language\DisconnectChildren',
+            'App\Listeners\Language\DestroyExamples',
+            'App\Listeners\Language\DestroyForms',
+            'App\Listeners\Language\DestroyMorphemes'
         ],
 
-        'App\Events\FormSaved' => [
-            'App\Listeners\ConnectMorphemesToForm',
-            'App\Listeners\ConnectDuplicatesToForm',
+        // Form Events
+        'App\Events\Form\Saved' => [
+            'App\Listeners\Form\ConnectMorphemes',
+            'App\Listeners\Form\ConnectDuplicates',
+        ],
+        'App\Events\Form\Deleting' => [
+            'App\Listeners\Form\DestroyExamples',
+            'App\Listeners\Form\DisconnectDuplicates',
+            'App\Listeners\Form\DisconnectMorphemes',
+            'App\Listeners\Form\DisconnectSources',
         ],
 
-        'App\Events\MorphemeSaved' => [
-            'App\Listeners\ReconnectForms'
+        // Morpheme Events
+        'App\Events\Morpheme\Saved' => [
+            'App\Listeners\Morpheme\ReconnectForms'
         ],
-
-        'App\Events\MorphemeDeleting' => [
-            'App\Listeners\DisconnectSourcesFromMorpheme'
+        'App\Events\Morpheme\Deleting' => [
+            'App\Listeners\Morpheme\DisconnectSources',
+            'App\Listeners\Morpheme\DisconnectChildren'
         ],
-
-        'App\Events\MorphemeDeleted' => [
-            'App\Listeners\ReconnectForms'
+        'App\Events\Morpheme\Deleted' => [
+            'App\Listeners\Morpheme\ReconnectForms'
         ]
     ];
 

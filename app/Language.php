@@ -3,7 +3,8 @@
 namespace App;
 
 use App\Morpheme;
-use App\Events\LanguageSaved;
+use App\Events\Language\Saved;
+use App\Events\Language\Deleting;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -12,35 +13,9 @@ class Language extends Model
     public $table = 'Languages';
     protected $fillable = ['name','group_id','parent_id','iso','algoCode'];
     protected $events = [
-        'saved' => LanguageSaved::class
+        'saved'    => Saved::class,
+        'deleting' => Deleting::class
     ];
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($model) {
-            //Set the parent of any children this language has to this language's parent
-            foreach ($model->children as $child) {
-                $child->parent_id = $model->parent->id;
-                $child->save();
-            }//foreach
-
-            //Delete all of its forms
-            foreach ($model->forms as $form) {
-                $form->delete();
-            }//foreach
-
-            //Delete all of its examples
-            foreach ($model->morphemes as $morpheme) {
-                $morpheme->delete();
-            }//foreach
-        });
-
-        // static::saved(function ($model) {
-        //     return Morpheme::createV($model);
-        // });
-    }//boot
     
     public function group()
     {

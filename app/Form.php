@@ -5,9 +5,10 @@ namespace App;
 use Validator;
 use App\Morpheme;
 use App\MorphemeLink;
-use App\Events\FormSaved;
 use App\Search\ColHeader;
 use App\Search\RowHeader;
+use App\Events\Form\Saved;
+use App\Events\Form\Deleting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -30,31 +31,9 @@ class Form extends Model
     ];
 
     protected $events = [
-        'saved' => FormSaved::class
-    ];
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($model) {
-            //Other forms might be using the morphemes, but unlink them from this one
-            $model->morphemes()->detach();
-
-            //Unlink all of this form's sources
-            $model->sources()->detach();
-
-            //Delete all of its examples, though
-            foreach ($model->examples as $example) {
-                $example->delete();
-            }//foreach
-
-            foreach($model->duplicates as $duplicate){
-                $duplicate->duplicates()->detach($model->id);
-            }//foreach
-            $model->duplicates()->detach();
-        });
-    }    
+        'saved'    => Saved::class,
+        'deleting' => Deleting::class
+    ];  
 
     public function formType()
     {
@@ -177,10 +156,12 @@ class Form extends Model
 
     public function connectSources($sources)
     {
-        $this->sources()->detach();
+        if($sources) {
+            $this->sources()->detach();
 
-        foreach($sources as $source) {
-            $this->sources()->attach($source['id'], ['extraInfo' => $source['extraInfo']]);
+            foreach($sources as $source) {
+                $this->sources()->attach($source['id'], ['extraInfo' => $source['extraInfo']]);
+            }
         }
     }
 }

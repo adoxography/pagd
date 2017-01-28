@@ -3,8 +3,9 @@
 namespace App;
 
 use App\Language;
-use App\Events\MorphemeSaved;
-use App\Events\MorphemeDeleting;
+use App\Events\Morpheme\Saved;
+use App\Events\Morpheme\Deleted;
+use App\Events\Morpheme\Deleting;
 use Illuminate\Database\Eloquent\Model;
 
 class Morpheme extends Model
@@ -21,20 +22,10 @@ class Morpheme extends Model
         'comments'
     ];
     protected $events = [
-        'saved' => MorphemeSaved::class,
-        'deleting' => MorphemeDeleting::class
+        'saved'    => Saved::class,
+        'deleting' => Deleting::class,
+        'deleted'  => Deleted::class
     ];
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($model) {
-            foreach ($model->forms as $form) {
-                $form->morphemes()->detach($model->id);
-            }//foreach
-        });
-    }
     
     public function language()
     {
@@ -43,7 +34,7 @@ class Morpheme extends Model
 
     public function forms()
     {
-        return $this->belongsToMany(Form::class, 'Forms_Morphemes');
+        return $this->belongsToMany(Form::class, 'Forms_Morphemes')->distinct();
     }
     
     public function gloss()

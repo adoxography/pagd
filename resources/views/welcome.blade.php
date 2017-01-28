@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			27-01-17: Delete buttons now fire confirmation dialogs before deleting
+		</li>
+		<li>
 			27-01-17: Added new source component into <a href="/forms/create">form</a> and <a href="/morphemes/create">morpheme</a> creation forms
 		</li>
 		<li>

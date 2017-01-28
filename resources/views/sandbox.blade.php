@@ -5,8 +5,7 @@
 
 @section('content')
 	<div id="root">
-		<alg-sources uri="/sources/ajax" title="Add a new source">
-		</alg-sources>
+		<autosize-textarea></autosize-textarea>
 	</div>
 @stop
 

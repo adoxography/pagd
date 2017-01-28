@@ -13,7 +13,7 @@
 	@if(Auth::user())
 		@component('components.form', ['class' => 'card-footer', 'method' => 'DELETE', 'url' => $uri])
 			<a class="card-footer-item" href = "{{ $uri }}/edit">Edit</a>
-			<a class="card-footer-item" onclick="event.preventDefault(); this.parentNode.submit()">Delete</a>
+			<a class="card-footer-item" onclick="event.preventDefault(); var confirm = window.confirm('Are you sure?'); if(confirm) { this.parentNode.submit(); }">Delete</a>
 		@endcomponent
 	@endif
 </div>

@@ -25,6 +25,7 @@ Vue.component('alg-ajaxlist',       require('./components/AJAX-List.vue'));
 Vue.component('alg-new-source',     require('./components/New-Source.vue'));
 Vue.component('alg-old-source',     require('./components/Old-Source.vue'));
 Vue.component('alg-sources',        require('./components/Sources.vue'));
+Vue.component('autosize-textarea',  require('./components/Autosize-Textarea.vue'));
 
 window.Event = new Vue();
 

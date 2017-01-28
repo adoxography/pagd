@@ -28,7 +28,7 @@ class MorphemeController extends Controller
     public function destroy(Morpheme $morpheme){
         $forms = $morpheme->forms;
 
-        if(count($forms) == 0 || request()->confirmDelete) {
+        // if(count($forms) == 0 || request()->confirmDelete) {
             $morpheme->delete();
 
             foreach(Form::where('language_id', $morpheme->language_id)->get() as $form) {
@@ -37,11 +37,11 @@ class MorphemeController extends Controller
 
             flash($morpheme->name.' deleted successfully.');
             return Redirect::to('/languages/' . $morpheme->language_id);
-        }
-        else {
-            session(['morphemeToDelete' => $morpheme, 'formsThatWillBeOrphans' => $forms]);
-            return redirect()->to('/morphemes/confirm-delete');
-        }
+        // }
+        // else {
+        //     session(['morphemeToDelete' => $morpheme, 'formsThatWillBeOrphans' => $forms]);
+        //     return redirect()->to('/morphemes/confirm-delete');
+        // }
     }
 
     public function edit(Morpheme $morpheme){

@@ -18,7 +18,7 @@
 					
 					<div class="level-item">
 						@component('components.form', ['method' => 'DELETE', 'url' => "/$model/{$item->id}"])
-							<a class="button" onclick="event.preventDefault(); this.parentNode.submit()">
+							<a class="button" onclick="event.preventDefault(); var confirm = window.confirm('Are you sure?'); if(confirm) { this.parentNode.submit(); }">
 								<span class="icon" title="Delete">
 									<i class="fa fa-times"></i>
 								</span>

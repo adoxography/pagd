@@ -1,11 +1,17 @@
 @extends('layout')
 
 @section('content')
+	<div class="heading">
+		<h1 class="title">Sources</h1>
+	</div>
+	<br />
 
-<ul>
-	@foreach($sources as $source)
-		<li>{{ $source->short }}</li>
-	@endforeach
-</ul>
+	<div class="box">
+		<ul>
+			@foreach($sources as $source)
+				<li><a href="/sources/{{ $source->id }}">{{ $source->short }}</a></li>
+			@endforeach
+		</ul>
+	</div>
 
 @stop

@@ -30,7 +30,7 @@
 		@include('partials.flash')
 
 		<section class="section">
-			<div class="container">
+			<div class="container" id="root">
 				@yield('content')
 			</div>
 		<section class="section">

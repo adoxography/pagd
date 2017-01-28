@@ -1,10 +1,12 @@
 <div class="card">
 
-	<header class="card-header">
-		<p class="card-header-title is-4" style="font-size: 20px;">
-			{{ $header }}
-		</p>
-	</header>
+	@if(isset($header))
+		<header class="card-header">
+			<p class="card-header-title is-4" style="font-size: 20px;">
+				{{ $header }}
+			</p>
+		</header>
+	@endif
 
 	<alg-tabs>
 		{{ $slot }}

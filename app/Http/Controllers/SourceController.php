@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Source;
 use Illuminate\Http\Request;
+use App\Http\Requests\SourceRequest;
 
 class SourceController extends Controller
 {
     public function index(){
-    	$sources = Source::all();
+    	$sources = Source::orderBy('short')->get();
     	return view('sources.index', compact('sources'));
     }
 
@@ -16,13 +17,29 @@ class SourceController extends Controller
         return view('sources.create');
     }
 
-    public function store(Request $request){
-        // return $request;
+    public function edit(Source $source)
+    {
+        return view('sources.edit', compact('source'));
+    }
 
+    public function show(Source $source)
+    {
+        return view('sources.show', compact('source'));
+    }
+
+    public function store(Request $request){
     	$short = $request->short;
     	$long  = $request->long;
 
     	$newSource = Source::create(['short' => $short, 'long' => $long]);
     	return response()->json($newSource);
+    }
+
+    public function update(SourceRequest $request, Source $source)
+    {
+        $source->update($request->all());
+
+        flash($source->name.' updated successfully.', 'is-success');
+        return redirect('/sources/' . $source->id);
     }
 }

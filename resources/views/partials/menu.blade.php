@@ -1,32 +1,9 @@
-<style>
-	.dropdown-options {
-		box-shadow: 0 0 8px #777;
-		display: none;
-		position: absolute;
-		top: 100%;
-		z-index: 1000;
-		padding: .5rem;
-	}
-
-	.dropdown-options.is-open {
-		display: block;
-	}
-
-	.dropdown-options a {
-		display: block;
-	}
-
-	.dropdown-options a:hover {
-		background-color: #f0f0f0;
-	}
-</style>
-
 <nav class="nav has-shadow">
 	<div class="container">
 		<div class="nav-left">
 			<a href="/home" class="nav-item is-tab @if(URL::current() == URL::to("/home")) is-active @endif">Home</a>
 			<a href="/languages" class="nav-item is-tab @if(URL::current() == URL::to("/languages")) is-active @endif">Languages</a>
-			<a href="#" class="nav-item is-tab @if(URL::current() == URL::to("/glossary")) is-active @endif">Glossary</a>
+			<a href="/glossary" class="nav-item is-tab @if(URL::current() == URL::to("/glossary")) is-active @endif">Glossary</a>
 			<a href="/search" class="nav-item is-tab @if(URL::current() == URL::to("/search")) is-active @endif">Search</a>
 		</div>
 		@if(Auth::user())

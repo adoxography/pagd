@@ -17,6 +17,9 @@ Route::post('sandbox', 'SandboxController@store');
 
 Route::get('',     'HomeController@index');
 Route::get('home', 'HomeController@index');
+Route::get('glossary', function() {
+    return view('glossary.index');
+});
 
 Route::post('backup', 'BackupController@store');
 

@@ -18,29 +18,6 @@ class SearchController extends Controller
         return view('search.index');
     }
 
-    public function search(Request $request)
-    {
-        $forms = Form::with([
-            'language.group',
-            'formType.mode',
-            'formType.formClass',
-            'formType.order',
-            'formType.subject',
-            'formType.primaryObject',
-            'formType.secondaryObject',
-            'morphemes' => function ($query) {
-                $query->orderBy('position');
-            },
-            'morphemes.gloss',
-            'morphemes.slot'
-        ])->get();
-
-        dd($forms);
-
-        $result = new SearchTable($forms);
-        return view('search.result', compact('result'));
-    }
-
     public function form(Request $request)
     {
         $languages        = $request->languages;
@@ -181,7 +158,7 @@ class SearchController extends Controller
     protected function filterSubqueryIfIsNotSet($query, $subfield, $value, $field)
     {
         if (!isset($value)) {
-            $query->whereHas($subfield, function ($query) {
+            $query->whereHas($subfield, function ($query) use($field) {
                 $query->where($field, false);
             });
         }

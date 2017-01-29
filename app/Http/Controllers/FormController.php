@@ -17,7 +17,6 @@ class FormController extends Controller
     public function __construct()
     {
         $this->middleware('parseForm')->only('store', 'update');
-        // $this->middleware('parseSources')->only('store', 'update');
     }
     
     public function index()
@@ -98,6 +97,7 @@ class FormController extends Controller
             'formType.formClass',
             'sources'
         ]);
+
         return view('forms.show', compact('form'));
     }
 

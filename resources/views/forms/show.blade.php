@@ -40,10 +40,10 @@
 								<a href="/classes/{{ $form->formType->class_id }}">{{ $form->formType->formClass->name }}</a>
 							</li>
 							<li>
-								<a href="/classes/{{ $form->formType->order_id }}">{{ $form->formType->order->name }}</a>
+								<a href="/orders/{{ $form->formType->order_id }}">{{ $form->formType->order->name }}</a>
 							</li>
 							<li>
-								<a href="/classes/{{ $form->formType->mode_id }}">{{ $form->formType->mode->name }}</a>
+								<a href="/modes/{{ $form->formType->mode_id }}">{{ $form->formType->mode->name }}</a>
 							</li>
 							@if($form->formType->hasModifiers())
 								<li>(
@@ -64,6 +64,7 @@
 							@endif
 						</ul>
 						</br />
+						<a href="/search/paradigm?languages[]={{ $form->language_id }}&classes[]={{ $form->formType->class_id }}&orders[]={{ $form->formType->order_id }}&includeNegative={{ $form->formType->isNegative or 'false' }}&includeDiminutive={{ $form->formType->isDiminutive or 'false' }}&modeSelect=modeSelect&modes[]={{ $form->formType->mode_id }}" style="text-decoration: underline;"><em>View Paradigm</em></a>
 					@endcomponent
 
 					@component('components.model.field', ['width' => 'is-12', 'label' => 'Morphology'])

@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			28-01-17: <a href="/forms/14">Added 'view paradigm' link to form detail</a>
+		</li>
+		<li>
 			28-01-17: Styled <a href='/search/paradigm?languages%5B%5D=3&languages%5B%5D=4&languages%5B%5D=2&languages%5B%5D=1&classes%5B%5D=1&classes%5B%5D=2&classes%5B%5D=3&classes%5B%5D=4&orders%5B%5D=1&orders%5B%5D=2&orders%5B%5D=3&includeNegative=true&includeDiminutive=true&modeSelect=allModes'>paradigm search results</a>
 		</li>
 		<li>

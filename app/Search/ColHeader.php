@@ -20,14 +20,14 @@ class ColHeader
 
     public function toHTML()
     {
-        return "<td>".
-            "<li><a href='/languages/" . $this->language->id . "'>" . $this->language->name . "</a></li>" .
+        return "<td><ul class='paradigm-header-y'>".
+            "<li><a href='/languages/{$this->language->id}'>{$this->language->name}</a></li>" .
             "<li><a href='/orders/" . $this->order->id . "'>" . $this->order->name . "</a></li>" .
             "<li><a href='/mode/" . $this->mode->id . "'>" . $this->mode->name . "</a></li>" .
             ($this->isNegative ? "<li>Negative</li>" : "") .
             ($this->isDiminutive ? "<li>Diminutive</li>" : "") .
             (isset($this->isAbsolute) ? "<li>" . ($this->isAbsolute ? "Absolute" : "Objective") . "</li>" : "") .
-        "</td>";
+        "</ul></td>";
     }
 
     public function compareTo(ColHeader $other)

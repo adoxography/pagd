@@ -136,22 +136,55 @@ class Form extends Model
 
     public function toHTML()
     {
-        $numMorphemes = count($this->morphemes);
-        $morphemeRow = "";
-        $glossRow = "";
-        $formRow     = "<tr><td colspan = '".max(1,$numMorphemes)."'><a href='/forms/" . $this->id . "'>" . $this->surfaceForm . "</a></td></tr>";
+        $firstTime = true;
+        $html = "<div class='box'><a href='/forms/{$this->id}'>{$this->surfaceForm}</a>";
 
-        if($numMorphemes > 0)
-        {
-            foreach ($this->morphemes as $morpheme) {
-                $morphemeRow .= "<td><a href='/morphemes/" . $morpheme->id . "'>" . $morpheme->name . '</a></td>';
-                $glossRow    .= "<td><a href='/glosses/" . $morpheme->gloss->id . "'>" . $morpheme->gloss->abv . '</a></td>';
+        if($this->morphemicForm) {
+            $html .= "<div class='columns'>";
+
+            foreach($this->morphemeList() as $morpheme) {
+                if($firstTime) {
+                  $firstTime = false;
+                }
+                else {
+                    $html .= "<div class='column is-narrow hyphen-column' style='padding-left: 0; padding-right: 0;'>-</div>";
+                }
+
+                $html .= "<div class='column is-narrow'>";
+
+                if($morpheme instanceof Morpheme) {
+                    if($morpheme->name != 'V') {
+                        $html .= "<a href='/morphemes/{$morpheme->id}'>" . str_replace('-', '', $morpheme->name) . "</a>";
+                    }
+                    else {
+                        $html .= $morpheme->name;
+                    }
+
+                    $html .= "<p><a href='/glosses/{$morpheme->gloss->id}'>{$morpheme->gloss->abv}</a></p>";
+                }
+                else {
+                    $html .= $morpheme['name'];
+                }
+
+                $html .= "</div>";
             }
-            $morphemeRow = "<tr>$morphemeRow</tr>";
-            $glossRow    = "<tr>$glossRow</tr>";
+
+            $html .= "</div>";
         }
 
-        return '<table>' . $formRow . $morphemeRow . $glossRow . '</table>';
+        // if($numMorphemes > 0)
+        // {
+        //     foreach ($this->morphemes as $morpheme) {
+        //         $morphemeRow .= "<td><a href='/morphemes/" . $morpheme->id . "'>" . $morpheme->name . '</a></td>';
+        //         $glossRow    .= "<td><a href='/glosses/" . $morpheme->gloss->id . "'>" . $morpheme->gloss->abv . '</a></td>';
+        //     }
+        //     $morphemeRow = "<tr>$morphemeRow</tr>";
+        //     $glossRow    = "<tr>$glossRow</tr>";
+        // }
+
+        return $html . "</div>";
+
+        // return '<table style="border: 0;">' . $formRow . $morphemeRow . $glossRow . '</table>';
     }
 
     public function connectSources($sources)

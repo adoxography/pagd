@@ -26,6 +26,10 @@ html {
 	margin-left: .5rem;
 }
 
+.table tr:hover {
+	background-color: $white;
+}
+
 .arguments {
 	.alg-datalist {
 		margin-right: .5rem;

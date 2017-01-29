@@ -48,7 +48,7 @@ class SearchTable
 
     public function toHTML()
     {
-        $output = "<table border = '1'><thead><tr><td colspan = '2'>Verb Form</td>";
+        $output = "<table class='table is-bordered'><thead><tr><td colspan = '2'>Verb Form</td>";
         foreach ($this->colNames as $colName) {
             $output .= $colName->toHTML();
         }

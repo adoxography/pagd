@@ -37,38 +37,40 @@
 								@endforeach
 							</div>
 
-							<div class="column box is-3" style="margin-bottom: 0;">
-								<h5 class="title is-5">Mode</h5>
-								<p class="control">
-									<label class="radio">
-										<input type="radio" name="modeSelect" id="indicative-only" value="indicativeOnly" checked="checked" />
-										Indicative only
-									</label>
-								</p>					
-								<p class="control">
-									<label class="radio">
-										<input type="radio" name="modeSelect" id="all-modes" value="allModes" />
-										All available modes
-									</label>
-								</p>					
-								<p class="control">
-									<label class="radio">
-										<input type="radio" name="modeSelect" id="mode-select" value="modeSelect" />
-										The following modes...
-									</label>
-								</p>
+							<paradigm-mode-select inline-template>
+								<div class="column box is-3" style="margin-bottom: 0;">
+									<h5 class="title is-5">Mode</h5>
+									<p class="control">
+										<label class="radio">
+											<input type="radio" name="modeSelect" id="indicative-only" value="indicativeOnly" v-model="selected" />
+											Indicative only
+										</label>
+									</p>					
+									<p class="control">
+										<label class="radio">
+											<input type="radio" name="modeSelect" id="all-modes" value="allModes" v-model="selected" />
+											All available modes
+										</label>
+									</p>					
+									<p class="control">
+										<label class="radio">
+											<input type="radio" name="modeSelect" id="mode-select" value="modeSelect" v-model="selected" />
+											The following modes...
+										</label>
+									</p>
 
-								<div class="box" style="max-height: 10em; overflow: scroll; overflow-x: auto; padding-top: 0;">
-									@foreach($modes as $mode)
-										<p class="control">
-											<label class="checkbox">
-												<input type="checkbox" name="modes[]" id="{{ $mode->name }}" value="{{ $mode->id }}">
-												{{ $mode->name }}
-											</label>
-										</p>
-									@endforeach
+									<div class="box" style="max-height: 10em; overflow: scroll; overflow-x: auto; padding-top: 0;" :class="{ disabled: selected != 'modeSelect' }">
+										@foreach($modes as $mode)
+											<p class="control">
+												<label class="checkbox">
+													<input type="checkbox" name="modes[]" id="{{ $mode->name }}" value="{{ $mode->id }}" :disabled="selected != 'modeSelect'">
+													{{ $mode->name }}
+												</label>
+											</p>
+										@endforeach
+									</div>
 								</div>
-							</div>
+							</paradigm-mode-select>
 
 							<div class="column box is-2" style="margin-bottom: 0;">
 								<h5 class="title is-5">Other features</h5>

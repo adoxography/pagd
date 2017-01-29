@@ -93,6 +93,19 @@ html {
 	p.control {
 		margin-bottom: .25em;
 	}
+
+	.disabled {
+		background-color: #fbfbfb;
+		color: #585858;
+
+		input, .checkbox {
+			cursor: default;
+		}
+
+		.checkbox:hover {
+			color: #585858;
+		}
+	}
 }
 
 .description-list {

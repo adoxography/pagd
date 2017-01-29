@@ -102,15 +102,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Sendmail System Path
+    | Markdown Mail Settings
     |--------------------------------------------------------------------------
     |
-    | When using the "sendmail" driver to send e-mails, we will need to know
-    | the path to where Sendmail lives on this server. A default path has
-    | been provided here, which will work well on most of your systems.
+    | If you are using Markdown based email rendering, you may configure your
+    | theme and component paths here, allowing you to customize the design
+    | of the emails. Or, you may simply stick with the Laravel defaults!
     |
     */
-
-    'sendmail' => '/usr/sbin/sendmail -bs',
+    'markdown' => [
+        'theme' => 'algling',
+        'paths' => [
+            resource_path('views/vendor/mail'),
+        ],
+    ],
 
 ];

@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			28-01-17: Updated mail driver to Laravel 5.4 standard
+		</li>
+		<li>
 			28-01-17: <a href="/forms/14">Added 'view paradigm' link to form detail</a>
 		</li>
 		<li>

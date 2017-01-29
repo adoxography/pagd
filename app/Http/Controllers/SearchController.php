@@ -89,8 +89,9 @@ class SearchController extends Controller
         $modes      = $request->modes;
         $orders     = $request->orders;
         $classes    = $request->classes;
-        $negative   = $request->includeNegative;
-        $diminutive = $request->includeDiminutive;
+        $affirmative = $request->affirmative;
+        $negative   = $request->negative;
+        $diminutive = $request->diminutive;
 
         $query = Form::with([
             'language.group',
@@ -125,8 +126,28 @@ class SearchController extends Controller
         $this->filterSubqueryUsingList($query, 'formType', $classes, 'class_id');
         $this->filterSubqueryUsingList($query, 'formType', $orders, 'order_id');
 
-        $this->filterSubqueryIfIsNotSet($query, 'formType', $negative, 'isNegative');
-        $this->filterSubqueryIfIsNotSet($query, 'formType', $diminutive, 'isDiminutive');
+        if($diminutive) {
+            $query->whereHas('formType', function ($query) {
+                $query->where('isDiminutive', 1);
+            });
+        }
+        else {
+            $query->whereHas('formType', function ($query) {
+                $query->where('isDiminutive', 0);
+            });
+        }
+
+        if($negative && !$affirmative) {
+            $query->whereHas('formType', function ($query) {
+                $query->where('isNegative', 1);
+            });
+        }
+
+        if(!$negative && $affirmative) {
+            $query->whereHas('formType', function ($query) {
+                $query->where('isNegative', 0);
+            });
+        }
 
         $result = new SearchTable($query->get());
 
@@ -151,15 +172,6 @@ class SearchController extends Controller
         if ($list) {
             $query->whereHas($subfield, function ($query) use ($list, $field) {
                 $this->filterQueryUsingList($query, $list, $field);
-            });
-        }
-    }
-
-    protected function filterSubqueryIfIsNotSet($query, $subfield, $value, $field)
-    {
-        if (!isset($value) || !$value) {
-            $query->whereHas($subfield, function ($query) use($field) {
-                $query->where($field, false);
             });
         }
     }

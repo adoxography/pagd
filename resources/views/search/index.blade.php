@@ -10,14 +10,11 @@
 		<div class="box">
 			<alg-tabs>
 				<alg-tab name="For a paradigm" selected="true">
-					<form method="GET" action="/search/paradigm">
+					<form method="GET" action="/search/paradigm" class="paradigm-search-form">
 						<div class="columns">
-							<div class="column box" style="margin-bottom: 0;">
-								<h5 class="title is-5">Languages</h5>
-								<alg-multi-datalist name="languages[]" list="{{ $languages->toJson() }}"></alg-multi-datalist>
-							</div>
-							<div class="column box" style="margin-bottom: 0;">
-								<h5 class="title is-5">Classes</h5>
+
+							<div class="column box is-1" style="margin-bottom: 0;">
+								<h5 class="title is-5">Class</h5>
 								@foreach($classes as $class)
 									<p class="control">
 										<label class="checkbox">
@@ -26,36 +23,25 @@
 										</label>
 									</p>
 								@endforeach
-							</div>				
-							<div class="column box" style="margin-bottom: 0;">
-								<h5 class="title is-5">Inflection Types</h5>
+							</div>
+
+							<div class="column box is-2" style="margin-bottom: 0;">
+								<h5 class="title is-5">Order</h5>
 								@foreach($orders as $order)
 									<p class="control">
 										<label class="checkbox">
 											<input type="checkbox" name="orders[]" id="{{ $order->name }}" value="{{ $order->id }}" />
-											{{ $order->name }} Order
+											{{ $order->name }}
 										</label>
 									</p>
 								@endforeach
-								<hr>
-								<p class="control">
-									<label class="checkbox">
-										<input type="checkbox" name="includeNegative" id="includeNegative" value="true" />
-										Include negative forms
-									</label>
-								</p>					
-								<p class="control">
-									<label class="checkbox">
-										<input type="checkbox" name="includeDiminutive" id="includeDiminutive" value="true" />
-										Include diminutive forms
-									</label>
-								</p>
-							</div>			
-							<div class="column box" style="margin-bottom: 0;">
-								<h5 class="title is-5">Modes</h5>
+							</div>
+
+							<div class="column box is-3" style="margin-bottom: 0;">
+								<h5 class="title is-5">Mode</h5>
 								<p class="control">
 									<label class="radio">
-										<input type="radio" name="modeSelect" id="indicative-only" value="indicativeOnly" selected="selected" />
+										<input type="radio" name="modeSelect" id="indicative-only" value="indicativeOnly" checked="checked" />
 										Indicative only
 									</label>
 								</p>					
@@ -71,6 +57,7 @@
 										The following modes...
 									</label>
 								</p>
+
 								<div class="box" style="max-height: 10em; overflow: scroll; overflow-x: auto; padding-top: 0;">
 									@foreach($modes as $mode)
 										<p class="control">
@@ -82,6 +69,34 @@
 									@endforeach
 								</div>
 							</div>
+
+							<div class="column box is-2" style="margin-bottom: 0;">
+								<h5 class="title is-5">Other features</h5>
+								<p class="control">
+									<label class="affirmative">
+										<input type="checkbox" name="affirmative" id="affirmative" value="true" checked="checked" />
+										Affirmative
+									</label>
+								</p>
+								<p class="control">
+									<label class="checkbox">
+										<input type="checkbox" name="negative" id="negative" value="true" />
+										Negative
+									</label>
+								</p>					
+								<p class="control">
+									<label class="checkbox">
+										<input type="checkbox" name="diminutive" id="diminutive" value="true" />
+										Diminutive
+									</label>
+								</p>
+							</div>
+
+							<div class="column box" style="margin-bottom: 0;">
+								<h5 class="title is-5">Language</h5>
+								<alg-multi-datalist name="languages[]" list="{{ $languages->toJson() }}"></alg-multi-datalist>
+							</div>
+
 						</div>
 						<button type="submit" class="button is-success">Search</button>
 					</form>

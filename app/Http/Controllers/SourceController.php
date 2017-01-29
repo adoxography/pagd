@@ -9,7 +9,7 @@ use App\Http\Requests\SourceRequest;
 class SourceController extends Controller
 {
     public function index(){
-    	$sources = Source::orderBy('short')->get();
+    	$sources = Source::select("id","short as name")->orderBy('short')->get();
     	return view('sources.index', compact('sources'));
     }
 

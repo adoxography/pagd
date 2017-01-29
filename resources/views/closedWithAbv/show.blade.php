@@ -1,23 +1,23 @@
-@extends('layout')
+@extends('layout', ['title' => $item->abv])
 
 @section('content')
-
-	<div class = 'show'>
-		<table>
-			<tr>
-				<td class = 'label'>{{ $itemName }}</td>
-				<td class = 'value'>{{ $item->abv }}</td>
-			</tr>
-			<tr>
-				<td class = 'label'>Full name</td>
-				<td class = 'value'>{{ $item->name }}</td>
-			</tr>
-		</table>
-		<form method = 'POST' action = '/{{ $itemLink }}/{{ $item->id }}' class = 'deleteButton'>
-			{{ method_field('DELETE') }}
-			{{ csrf_field() }}
-			<button type='submit'>Delete</button>
-		</form>
+	<div class="heading">
+		<h1 class="title">{{ $modelSG }} Details</h1>
 	</div>
+	<br />
+
+	@component('components.model', ['header' => $item->abv, 'uri' => "/$modelPL/{$item->id}"])
+		<div class="content">
+			@component('components.model.field', ['label' => 'Full name'])
+				{{ $item->name }}
+			@endcomponent
+
+			@if($item->description)
+				@component('components.model.field', ['label' => 'Description'])
+					{{ $item->description }}
+				@endcomponent
+			@endif
+		</div>
+	@endcomponent
 
 @stop

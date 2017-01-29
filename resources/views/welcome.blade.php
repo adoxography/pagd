@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			29-01-17: Added functionality for viewing and editing glosses
+		</li>
+		<li>
 			29-01-17: <a href="/search#for-a-paradigm">Disabled individual mode selection in paradigm search where appropriate</a>
 		</li>
 		<li>

@@ -1,6 +1,6 @@
 <template>
 		<div>
-		<div class="tabs">
+		<div :class="{ 'tabs': tabs.length > 0}">
 			<ul>
 				<li v-for="tab in tabs" :class="{'is-active': tab.isActive }">
 					<a :href="tab.href" @click="selectTab(tab)">{{ tab.name }}</a>

@@ -7,23 +7,38 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
-class GlossController extends ClosedWithAbvController
+class GlossController extends Controller
 {
-    protected $plural = 'Glosses';
-    protected $singular = 'Gloss';
-
-    protected function getMembers()
+    public function index()
     {
-        return Gloss::all();
+        $items = Gloss::orderBy('abv')->get();
+        $model = 'glosses';
+
+        return view('closedWithAbv.index', compact('items', 'model'));
     }
 
-    protected function createNew()
+    public function show(Gloss $gloss)
     {
-        return new Gloss();
+        $item = $gloss;
+        $modelSG = 'gloss';
+        $modelPL = 'glosses';
+        return view('closedWithAbv.show', compact('item', 'modelSG', 'modelPL'));
     }
 
-    protected function getItem($id)
+    public function edit(Gloss $gloss)
     {
-        return Gloss::where('id', $id)->first();
+        $item = $gloss;
+        $modelSG = 'gloss';
+        $modelPL = "glosses";
+
+        return view('closedWithAbv.edit', compact('item', 'modelSG', 'modelPL'));
+    }
+
+    public function update(Request $request, Gloss $gloss)
+    {
+        $gloss->update($request->all());
+
+        flash("{$gloss->abv} updated successfully", "is-success");
+        return redirect("/glosses/{$gloss->id}");
     }
 }

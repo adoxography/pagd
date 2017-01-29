@@ -157,7 +157,7 @@ class SearchController extends Controller
 
     protected function filterSubqueryIfIsNotSet($query, $subfield, $value, $field)
     {
-        if (!isset($value)) {
+        if (!isset($value) || !$value) {
             $query->whereHas($subfield, function ($query) use($field) {
                 $query->where($field, false);
             });

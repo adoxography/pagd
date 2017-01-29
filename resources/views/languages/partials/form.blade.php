@@ -10,16 +10,16 @@
 @endcomponent
 
 {{-- Group field --}}
-@component('components.form.datalist', ['name' => 'group_id', 'label' => 'Group', 'list' => $groups, 'required' => true])
+@component('components.form.datalist', ['name' => 'group', 'label' => 'Group', 'list' => $groups, 'required' => true])
 	@slot('value')
-		@if(old('group_id'))
-			{{ old('group_id') }}
+		@if(old('group'))
+			{{ old('group') }}
 		@elseif(isset($presetParent))
-			{{ $presetParent->group_id }}
+			{{ $presetParent->group->name }}
 		@elseif(isset($language))
-			{{ $language->group_id }}
+			{{ $language->group->name }}
 		@else
-		 	2
+		 	Plains
 		@endif
 	@endslot
 @endcomponent

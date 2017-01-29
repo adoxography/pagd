@@ -1,9 +1,4 @@
-@section('header')
-	<script src = '/js/formUtil.js'></script>
-@stop
-
 <h4 class="subtitle is-4">Basic Details</h4>
-{{-- Form Text Information --}}
 <div class="columns">
 	<div class="column is-half">
 
@@ -22,14 +17,14 @@
 	<div class="column is-half">
 
 		{{-- Language field --}}
-		@component('components.form.datalist', ['name' => 'language_id', 'label' => 'Language', 'list' => $languages, 'required' => true, 'emit' => true])
+		@component('components.form.datalist', ['name' => 'language', 'label' => 'Language', 'list' => $languages, 'required' => true, 'emit' => true])
 			@slot('value')
-				@if(old('language_id'))
-					{{ old('language_id') }}
+				@if(old('language'))
+					{{ old('language') }}
 				@elseif(isset($presetLanguage))
-					{{ $presetLanguage->id }}
+					{{ $presetLanguage->name }}
 				@elseif(isset($form))
-					{{ $form->language_id }}
+					{{ $form->language->name }}
 				@endif
 			@endslot
 		@endcomponent
@@ -41,12 +36,12 @@
 	<div class="column is-one-quarter">
 		<label class="label">Arguments</label>
 		<div class="arguments control is-grouped">
-			@component('components.form.datalist', ['name' => 'subject_id', 'list' => $arguments, 'required' => true])
+			@component('components.form.datalist', ['name' => 'subject', 'list' => $arguments, 'required' => true])
 				@slot('value')
-					@if(old('subject_id'))
-						{{ old('subject_id') }}
+					@if(old('subject'))
+						{{ old('subject') }}
 					@elseif(isset($form))
-						{{ $form->formType->subject_id }}
+						{{ $form->formType->subject->name }}
 					@else
 					 	1
 					@endif
@@ -55,10 +50,10 @@
 
 			@component('components.form.datalist', ['name' => 'primaryObject_id', 'list' => $arguments])
 				@slot('value')
-					@if(old('primaryObject_id'))
-						{{ old('primaryObject_id') }}
-					@elseif(isset($form))
-						{{ $form->formType->primaryObject_id }}
+					@if(old('primaryObject'))
+						{{ old('primaryObject') }}
+					@elseif(isset($form) && isset($form->formType->primaryObject))
+						{{ $form->formType->primaryObject->name }}
 					@endif
 				@endslot
 			@endcomponent
@@ -67,48 +62,48 @@
 				@slot('value')
 					@if(old('secondaryObject_id'))
 						{{ old('secondaryObject_id') }}
-					@elseif(isset($form))
-						{{ $form->formType->secondaryObject_id }}
+					@elseif(isset($form) && isset($form->formType->secondaryObject))
+						{{ $form->formType->secondaryObject->name }}
 					@endif
 				@endslot
 			@endcomponent
 		</div>
 	</div>
 	<div class="column is-one-quarter">
-		@component('components.form.datalist', ['name' => 'class_id', 'label' => 'Class', 'list' => $classes, 'required' => true])
+		@component('components.form.datalist', ['name' => 'class', 'label' => 'Class', 'list' => $classes, 'required' => true])
 			@slot('value')
-				@if(old('class_id'))
-					{{ old('class_id') }}
+				@if(old('class'))
+					{{ old('class') }}
 				@elseif(isset($form))
-					{{ $form->formType->class_id }}
+					{{ $form->formType->formClass->name }}
 				@else
-				 	1 {{-- AI --}}
+				 	AI
 				@endif
 			@endslot
 		@endcomponent
 	</div>
 	<div class="column is-one-quarter">
-		@component('components.form.datalist', ['name' => 'order_id', 'label' => 'Order', 'list' => $orders, 'required' => true])
+		@component('components.form.datalist', ['name' => 'order', 'label' => 'Order', 'list' => $orders, 'required' => true])
 			@slot('value')
-				@if(old('order_id'))
-					{{ old('order_id') }}
+				@if(old('order'))
+					{{ old('order') }}
 				@elseif(isset($form))
-					{{ $form->formType->order_id }}
+					{{ $form->formType->order->name }}
 				@else
-				 	1 {{-- Conjunct --}}
+				 	Conjunct
 				@endif
 			@endslot
 		@endcomponent
 	</div>
 	<div class="column is-one-quarter">
-		@component('components.form.datalist', ['name' => 'mode_id', 'label' => 'Mode', 'list' => $modes, 'required' => true])
+		@component('components.form.datalist', ['name' => 'mode', 'label' => 'Mode', 'list' => $modes, 'required' => true])
 			@slot('value')
-				@if(old('mode_id'))
-					{{ old('mode_id') }}
+				@if(old('mode'))
+					{{ old('mode') }}
 				@elseif(isset($form))
-					{{ $form->formType->mode_id }}
+					{{ $form->formType->mode->name }}
 				@else
-				 	1 {{-- Indicative --}}
+				 	Indicative
 				@endif
 			@endslot
 		@endcomponent

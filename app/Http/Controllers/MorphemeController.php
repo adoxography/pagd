@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Response;
 
 class MorphemeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+
+        $this->middleware('handleGloss')->only('store', 'update');
+    }
+
     public function confirmDelete()
     {
         $morpheme = session('morphemeToDelete');
@@ -26,22 +33,11 @@ class MorphemeController extends Controller
     }
 
     public function destroy(Morpheme $morpheme){
-        $forms = $morpheme->forms;
+        $morpheme->delete();
 
-        // if(count($forms) == 0 || request()->confirmDelete) {
-            $morpheme->delete();
 
-            // foreach(Form::where('language_id', $morpheme->language_id)->get() as $form) {
-            //     $form->connectMorphemes();
-            // }
-
-            flash($morpheme->name.' deleted successfully.');
-            return Redirect::to('/languages/' . $morpheme->language_id);
-        // }
-        // else {
-        //     session(['morphemeToDelete' => $morpheme, 'formsThatWillBeOrphans' => $forms]);
-        //     return redirect()->to('/morphemes/confirm-delete');
-        // }
+        flash($morpheme->name.' deleted successfully.', 'is-info');
+        return Redirect::to('/languages/' . $morpheme->language_id);
     }
 
     public function edit(Morpheme $morpheme){
@@ -75,7 +71,7 @@ class MorphemeController extends Controller
 
         $morpheme->connectSources($request->sources);
 
-        flash($morpheme->name.' created successfully.', 'success');
+        flash($morpheme->name.' created successfully.', 'is-success');
         return Redirect::to('/morphemes/' . $morpheme->id);
     }
 
@@ -100,7 +96,7 @@ class MorphemeController extends Controller
 
         $morpheme->connectSources($request->sources);
 
-        flash($morpheme->name.' updated successfully.', 'success');
+        flash($morpheme->name.' updated successfully.', 'is-success');
         return Redirect::to('/morphemes/'.$morpheme->id);
     }
 }

@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			29-01-17: <a href="/morphemes/create">Added on-the-fly glosses to morpheme creation</a>
+		</li>
+		<li>
 			29-01-17: <a href="/forms/create">Re-added negative, diminutive, absolute to form creation form</a>
 		</li>
 		<hr>
@@ -43,7 +46,7 @@
 			27-01-17: Delete buttons now fire confirmation dialogs before deleting
 		</li>
 		<li>
-			27-01-17: Added new source component into form and <a href="/morphemes/create">morpheme</a> creation forms
+			27-01-17: Added new source component into form and morpheme creation forms
 		</li>
 		<li>
 			27-01-17: Fixed bug in recognizing hypens at the end of morphemes

@@ -2,7 +2,7 @@
 	<div class="alg-datalist">
 		<div class="control has-addons">
 			<div class="alg-datalist-container">
-				<input type="text" :disabled="disabled" class="input is-expanded" v-model="text" @keyup="onKeyUp($event.keyCode)" @keydown="onKeyDown($event)" @input="update" ref="textInput" />
+				<input type="text" :name="name" :disabled="disabled" class="input is-expanded" v-model="text" @keyup="onKeyUp($event.keyCode)" @keydown="onKeyDown($event)" @input="update" ref="textInput" autocomplete="off" :placeholder="placeholder" />
 				<div class="box alg-datalist-dropdown" v-show="showList">
 					<ul>
 						<li v-for="(option, index) in options">
@@ -17,7 +17,7 @@
 				</span>
 			</a>
 		</div>
-		<input type="hidden" :name="name" v-model="code" />
+		<input type="hidden" :name="name + '_id'" v-model="code" />
 	</div>
 </template>
 
@@ -40,7 +40,8 @@
 				default: function () {
 					return null;
 				}
-			}
+			},
+			placeholder: {}
 		},
 
 		directives: {
@@ -62,13 +63,7 @@
 
 			if(this.init) {
 
-				let curr = this.parsedList.find((item) => {
-					return item.id == parseInt(this.init);
-				});
-
-				if(curr) {
-					this.text = curr.name;
-				}
+				this.text = this.init;
 			}
 
 			if(this.value) {

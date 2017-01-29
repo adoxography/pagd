@@ -54,6 +54,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'parseForm' => \App\Http\Middleware\ParseLangFormRequest::class,
-        'parseSources' => \App\Http\Middleware\ParseSourceRequest::class,
+        'handleGloss' => \App\Http\Middleware\HandleGloss::class
     ];
 }

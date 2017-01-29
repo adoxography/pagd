@@ -1,3 +1,5 @@
+
+
 <div class="columns is-multiline">
 	<div class="column is-half">
 
@@ -16,14 +18,14 @@
 	<div class="column is-half">
 
 		{{-- Language field --}}
-		@component('components.form.datalist', ['name' => 'language_id', 'label' => 'Language', 'list' => $languages, 'required' => true, 'emit' => true])
+		@component('components.form.datalist', ['name' => 'language', 'label' => 'Language', 'list' => $languages, 'required' => true, 'emit' => true])
 			@slot('value')
-				@if(old('language_id'))
-					{{ old('language_id') }}
+				@if(old('language'))
+					{{ old('language') }}
 				@elseif(isset($presetLanguage))
-					{{ $presetLanguage->id }}
+					{{ $presetLanguage->name }}
 				@elseif(isset($morpheme))
-					{{ $morpheme->language_id }}
+					{{ $morpheme->language->name }}
 				@endif
 			@endslot
 		@endcomponent
@@ -32,14 +34,15 @@
 	<div class="column is-half">
 
 		{{-- Gloss field --}}
-		@component('components.form.datalist', ['name' => 'gloss_id', 'label' => 'Gloss', 'list' => $glosses, 'required' => true])
+		@component('components.form.datalist', ['name' => 'gloss', 'label' => 'Gloss', 'list' => $glosses, 'required' => true])
+			@slot('placeholder')
+				Select a gloss from the list or type a new one in 'ABV (Full Name)' format
+			@endslot
 			@slot('value')
-				@if(old('gloss_id'))
-					{{ old('gloss_id') }}
+				@if(old('gloss'))
+					{{ old('gloss') }}
 				@elseif(isset($morpheme))
-					{{ $morpheme->gloss_id }}
-				@else
-				 	1 {{-- V --}}
+					{{ $morpheme->gloss->abv }}
 				@endif
 			@endslot
 		@endcomponent
@@ -48,14 +51,14 @@
 	<div class="column is-half">
 
 		{{-- Slot field --}}
-		@component('components.form.datalist', ['name' => 'slot_id', 'label' => 'Slot', 'list' => $slots, 'required' => true])
+		@component('components.form.datalist', ['name' => 'slot', 'label' => 'Slot', 'list' => $slots, 'required' => true])
 			@slot('value')
-				@if(old('slot_id'))
-					{{ old('slot_id') }}
+				@if(old('slot'))
+					{{ old('slot') }}
 				@elseif(isset($morpheme))
-					{{ $morpheme->slot_id }}
+					{{ $morpheme->slot->abv }}
 				@else
-				 	1 {{-- V --}}
+				 	V
 				@endif
 			@endslot
 		@endcomponent

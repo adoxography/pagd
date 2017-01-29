@@ -2,6 +2,7 @@
 	<script src = '/js/formUtil.js'></script>
 @stop
 
+<h4 class="subtitle is-4">Basic Details</h4>
 {{-- Form Text Information --}}
 <div class="columns">
 	<div class="column is-half">
@@ -36,7 +37,7 @@
 	</div>
 </div>
 
-<div class="columns">
+<div class="columns is-multiline">
 	<div class="column is-one-quarter">
 		<label class="label">Arguments</label>
 		<div class="arguments control is-grouped">
@@ -112,8 +113,52 @@
 			@endslot
 		@endcomponent
 	</div>
+
+	<div class="column is-one-quarter">
+		@component('components.form.select', ['name' => 'isAbsolute', 'label' => 'Abs/Erg', 'options' => [
+			['id' => "null", 'name' => 'N/A'],
+			['id' => "1", 'name' => 'Absolute'],
+			['id' => "0", 'name' => 'Objective']
+		]])
+			@slot('value')
+				@if(old('isAbsolute'))
+					{{ old('isAbsolute') }}
+				@elseif(isset($form))
+					{{ $form->formType->isAbsolute }}
+				@endif
+			@endslot
+			
+		@endcomponent
+	</div>
+
+	<div class="column is-narrow">
+		@component('components.form.checkbox', ['name' => 'isNegative', 'label' => 'Negative', 'value' => true])
+			@slot('checked')
+				@if(old('isNegative'))
+					{{ old('isNegative') }}
+				@elseif(isset($form))
+					{{$form->formType->isNegative}}
+				@endif
+			@endslot
+		@endcomponent
+	</div>
+
+	<div class="column is-narrow">
+		@component('components.form.checkbox', ['name' => 'isDiminutive', 'label' => 'Diminutive', 'value' => true])
+			@slot('checked')
+				@if(old('isDiminutive'))
+					{{ old('isDiminutive') }}
+				@elseif(isset($form))
+					{{$form->formType->isDiminutive}}
+				@endif
+			@endslot
+		@endcomponent
+	</div>
 </div>
 
+<hr>
+
+<h4 class="subtitle is-4">Morphology</h3>
 <div class="columns">
 	<div class="column is-half">
 	@component('components.form.text', ['name' => 'phoneticForm', 'label' => 'Phonemic Representation', 'placeholder' => 'The Algonquianist phonemic transcription (Leave blank if unknown or unclear)'])
@@ -140,6 +185,9 @@
 	</div>
 </div>
 
+<hr>
+
+<h4 class="subtitle is-4">Notes</h4>
 @component('components.form.textarea', ['name' => 'usageNotes', 'label' => 'Usage Notes'])
 	@slot('placeholder')
 		Enter notes about the usage of this form
@@ -212,6 +260,8 @@
 	@endslot
 @endcomponent
 
+<hr>
+<h4 class="subtitle is-4">Sources</h4>
 @component('components.form.sources')
 	@slot('value')
 		@if(old('sources'))

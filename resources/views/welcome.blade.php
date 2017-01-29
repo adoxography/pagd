@@ -11,6 +11,10 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			29-01-17: <a href="/forms/create">Re-added negative, diminutive, absolute to form creation form</a>
+		</li>
+		<hr>
+		<li>
 			28-01-17: Updated mail driver to Laravel 5.4 standard
 		</li>
 		<li>
@@ -22,6 +26,7 @@
 		<li>
 			28-01-17: Added ability to <a href="/sources">view</a> and <a href="/sources/1/edit">edit</a> sources in the event of errors
 		</li>
+		<hr>
 		<li>
 			27-01-17: Source selection is now retained even after form validation failure
 		</li>
@@ -38,17 +43,19 @@
 			27-01-17: Delete buttons now fire confirmation dialogs before deleting
 		</li>
 		<li>
-			27-01-17: Added new source component into <a href="/forms/create">form</a> and <a href="/morphemes/create">morpheme</a> creation forms
+			27-01-17: Added new source component into form and <a href="/morphemes/create">morpheme</a> creation forms
 		</li>
 		<li>
 			27-01-17: Fixed bug in recognizing hypens at the end of morphemes
 		</li>
+		<hr>
 		<li>
 			26-01-17: The database now recognizes morphemes with hyphens, and requires a hyphen one or both ends for any new morphemes.
 		</li>
 		<li>
 			26-01-17: Updated colour scheme to red and grey
 		</li>
+		<hr>
 		<li>
 			25-01-17: <a href="morphemes/4">Added full text description to gloss and slot on morpheme detail page</a>
 		</li>
@@ -64,6 +71,7 @@
 		<li>
 			25-01-17: Added parent fields to form and morpheme creation forms
 		</li>
+		<hr>
 		<li>
 			24-01-17: <a href="/languages/1#children">Moved + icon next to field label for forms that can be added to</a> (only viewable when logged in)
 		</li>
@@ -84,7 +92,8 @@
 		</li>		
 		<li>
 			24-01-17: Upgraded to Laravel 5.4!
-		</li>			
+		</li>
+		<hr>		
 		<li>
 			22-01-17: <a href="/forms/1#basic-details">Added glosses to morphemes in form detail</a>
 		</li>		
@@ -96,7 +105,8 @@
 		</li>			
 		<li>
 			22-01-17: Reformatted form details
-		</li>			
+		</li>
+		<hr>		
 		<li>
 			21-01-17: <a href="/search#for-a-form">Pulled language selection out of line in form search and added negative and diminutive options</a>
 		</li>		

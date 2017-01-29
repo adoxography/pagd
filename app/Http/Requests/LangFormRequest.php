@@ -2,8 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 
 class LangFormRequest extends FormRequest
 {
@@ -14,7 +15,7 @@ class LangFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::user();
     }
 
     protected function formatErrors(Validator $validator)

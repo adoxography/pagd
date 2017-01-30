@@ -21,7 +21,7 @@ class HashTable {
 	public function insert(Form $form)
 	{
 		$formType = $form->formType;
-		$hash = $this->hash([$form->language_id, $formType->order_id, $formType->mode_id, $formType->class_id, $formType->subject->person, isset($formType->subject->number) ? $formType->subject->number : '0']);
+		$hash = $this->hash([$form->language_id, $formType->order_id, $formType->mode_id, $formType->class_id, $formType->subject->getPersonCode(), $formType->subject->getNumberCode()]);
 
 		if(!isset($this->hashArray[$hash])) {
 			$this->hashArray[$hash] = new Node($form);
@@ -33,6 +33,7 @@ class HashTable {
 
 	public function search($language, $order, $mode, $class, $subjectPerson, $subjectNumber)
 	{
+		// var_dump($subjectPerson);
 		$data = [$language, $order, $mode, $class, $subjectPerson, $subjectNumber];
 		$curr = null;
 		$output = [];
@@ -52,8 +53,8 @@ class HashTable {
 						&& $formType->order_id === $order
 						&& $formType->mode_id === $mode
 						&& $formType->class_id === $class
-						&& $formType->subject->person == $subjectPerson
-						&& (isset($formType->subject->number) && $formType->subject->number == $subjectNumber) || (!isset($formType->subject->number) && '0' == $subjectNumber)) {
+						&& $formType->subject->getPersonCode() == $subjectPerson
+						&& $formType->subject->getNumberCode() == $subjectNumber) {
 					$output[] = $form;
 				}
 				

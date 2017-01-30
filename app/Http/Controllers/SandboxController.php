@@ -41,9 +41,31 @@ class SandboxController extends Controller
         $languageDictionary = $forms->pluck('language')->unique();
         $orderDictionary  = $formTypes->pluck('order')->unique();
         $modeDictionary   = $formTypes->pluck('mode')->unique();
-        $classes = $formTypes->pluck('formClass')->unique();
-        $subjects = $formTypes->pluck('subject')->unique();
 
+        $classDictionary = $formTypes->pluck('formClass')->unique();
+        $numberDictionary = [
+            '0' => '',
+            '1' => 's',
+            '2' => 'd',
+            '3' => 'p'
+        ];
+        $personDictionary = [
+            '0' => '0',
+            '1' => '1',
+            '2' => '2',
+            '3' => '3',
+            '4' => '21',
+            '5' => 'X'
+        ];
+
+        $obvDictionary = [
+            '0' => '',
+            '1' => '\'',
+            '2' => '\'\''
+        ];
+
+
+        $subjects = $formTypes->pluck('subject')->unique();
 
         $data = [];
         $rows = [];
@@ -55,14 +77,23 @@ class SandboxController extends Controller
 
             $data[$form->language_id][$formType->order_id][$formType->mode_id] = null;
 
-            if(isset($formType->subject->number)) {
-                $rows[$formType->formClass->name][$formType->subject->person][$formType->subject->number] = null;
-            }
+            $rows[$formType->formClass->id][$formType->subject->getPersonCode()][$formType->subject->getNumberCode()] = null;
         }
 
-        // dd($hashTable->getArray());
+        foreach($rows as $class => $persons) {
+            foreach($persons as $person => $numbers) {
+                if(count($numbers) > 1) {
+                    $keys = array_keys($numbers);
 
-    	return view('sandbox', compact('data', 'rows', 'hashTable', 'languageDictionary', 'orderDictionary', 'modeDictionary'));
+                    if($keys[0] == '0') {
+                        unset($rows[$class][$person][0]);
+                    }
+                }
+            }
+        }
+        // dd($rows);
+
+    	return view('sandbox', compact('data', 'rows', 'hashTable', 'languageDictionary', 'orderDictionary', 'modeDictionary', 'classDictionary', 'numberDictionary', 'personDictionary', 'obvDictionary'));
     }
 
     public function store(){
@@ -70,8 +101,6 @@ class SandboxController extends Controller
     		'name' => 'required',
     		'description' => 'required'
     	]);
-
-    	// $mode = Mode::create(request()->all());
 
     	$mode = new Mode();
     	$mode->name = request('name');

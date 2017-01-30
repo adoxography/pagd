@@ -7,7 +7,7 @@
 	<table class="table is-bordered">
 		<thead>
 			<tr>
-				<th></th><th></th><th></th>
+				<th rowspan="2" colspan="2">
 				@foreach($data as $language => $orders)
 					<?php 
 						$span = 0;
@@ -19,7 +19,6 @@
 				@endforeach
 			</tr>
 			<tr>
-				<th></th><th></th><th></th>
 				@foreach($data as $language)
 					@foreach($language as $order => $modes)
 						<th colspan="{{ count($modes) }}">{{ $orderDictionary->where('id', $order)->first()['name'] }}</th>
@@ -27,7 +26,7 @@
 				@endforeach
 			</tr>
 			<tr>
-				<th>Class</th><th>Person</th><th>Number</th>
+				<th>Class</th><th>Subject</th>
 				@foreach($data as $orders)
 					@foreach($orders as $modes)
 						@foreach($modes as $mode => $value)
@@ -39,31 +38,31 @@
 		</thead>
 		<tbody>
 			@foreach($rows as $class => $subjectPersons)
-				<tr>
+				<tr style="border-top: .2em solid #363636;">
 					<?php
 						$span = 0;
 						foreach($subjectPersons as $subjectPerson) {
 							$span += count($subjectPerson);
 						}
 					?>
-					<td rowspan="{{ $span }}">{{ $class }}</td>
+					<th rowspan="{{ $span }}">{{ $classDictionary->where('id', $class)->first()['name'] }}</th>
 
 					@foreach($subjectPersons as $subjectPerson => $subjectNumbers)
-						<td rowspan="{{ count($subjectNumbers) }}">{{ $subjectPerson }}</td>
+						{{-- <td rowspan="{{ count($subjectNumbers) }}">{{ $personDictionary[$subjectPerson / 10] . $obvDictionary[$subjectPerson % 10] }}</td> --}}
 
 						@foreach($subjectNumbers as $subjectNumber => $value)
 							<?php $personLoop = $loop; ?>
 
-							<td>{{ $subjectNumber }}</td>
+							<th>{{ $personDictionary[$subjectPerson / 10] . $obvDictionary[$subjectPerson % 10] }}@if($subjectPerson / 10 != 4){{ $numberDictionary[$subjectNumber] }}@endif</th>
 
 							@foreach($data as $language => $orders)
 								@foreach($orders as $order => $modes)
 									@foreach($modes as $mode => $value)
 
 										@if($personLoop->first)
-											<?php $forms[$language][$order][$mode][$class][$subjectPerson] = $curr = $hashTable->search($language, $order, $mode, 1, $subjectPerson, 0); ?>
+											<?php $forms[$language][$order][$mode][$class][$subjectPerson] = $curr = $hashTable->search($language, $order, $mode, $class, $subjectPerson, 0); ?>
 											@if(count($curr) > 0)
-												<td rowspan="2">
+												<td rowspan="{{ count($rows[$class][$subjectPerson]) }}">
 												@foreach($curr as $form)
 													<p><a href="/forms/{{$form->id}}">{{ $form->surfaceForm }}</a></p>
 												@endforeach
@@ -75,9 +74,9 @@
 
 										@if(!isset($forms[$language][$order][$mode][$class][$subjectPerson]))
 											<td>
-										@foreach($hashTable->search($language, $order, $mode, 1, $subjectPerson, $subjectNumber) as $form)
-											<p><a href="/forms/{{$form->id}}">{{ $form->surfaceForm }}</a></p>
-										@endforeach
+												@foreach($hashTable->search($language, $order, $mode, $class, $subjectPerson, $subjectNumber) as $form)
+													<p><a href="/forms/{{$form->id}}">{{ $form->surfaceForm }}</a></p>
+												@endforeach
 											</td>
 										@endif
 									@endforeach

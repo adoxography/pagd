@@ -25,16 +25,16 @@
 @endcomponent
 
 {{-- Parent field --}}
-@component('components.form.datalist', ['name' => 'parent_id', 'label' => 'Parent', 'list' => $parents, 'required' => true])
+@component('components.form.datalist', ['name' => 'parent', 'label' => 'Parent', 'list' => $parents, 'required' => true])
 	@slot('value')
-		@if(old('parent_id'))
-			{{ old('parent_id') }}
+		@if(old('parent'))
+			{{ old('parent') }}
 		@elseif(isset($presetParent))
-			{{ $presetParent->id }}
+			{{ $presetParent->name }}
 		@elseif(isset($language))
-			{{ $language->parent_id }}
+			{{ $language->parent->name }}
 		@else
-		 	1
+		 	Proto-Algonquian
 		@endif
 	@endslot
 @endcomponent

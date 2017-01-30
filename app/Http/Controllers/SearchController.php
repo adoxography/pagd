@@ -108,7 +108,7 @@ class SearchController extends Controller
             'morphemes.slot'
         ]);
 
-        $this->filterQueryUsingList($query, $languages, 'language_id');
+        $query->whereIn('language_id', $languages);
 
         switch ($modeSelect) {
             case 'indicativeOnly':
@@ -154,24 +154,11 @@ class SearchController extends Controller
         return view('search.result', compact('result'));
     }
 
-    protected function filterQueryUsingList($query, $list, $field)
-    {
-        $firstTime = true;
-        foreach ($list as $item) {
-            if ($firstTime) {
-                $firstTime = false;
-                $query->where($field, $item);
-            } else {
-                $query->orWhere($field, $item);
-            }
-        }
-    }
-
     protected function filterSubqueryUsingList($query, $subfield, $list, $field)
     {
         if ($list) {
             $query->whereHas($subfield, function ($query) use ($list, $field) {
-                $this->filterQueryUsingList($query, $list, $field);
+                $query->whereIn($field, $list);
             });
         }
     }

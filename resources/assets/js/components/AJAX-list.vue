@@ -163,7 +163,7 @@
 			}
 
 			Event.$on('update', (data) => {
-				if(data.field == 'language_id'){
+				if(data.field == 'language'){
 					this.language = data.code;
 				}
 			});

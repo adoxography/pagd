@@ -3,11 +3,11 @@
 	@if(isset($header))
 		<header class="card-header">
 			<p class="card-header-title is-4" style="font-size: 20px;">
-				@if($smallCaps)
+				@if(isset($smallCaps))
 				<span class="gloss">
 				@endif
 				{{ $header }}
-				@if($smallCaps)
+				@if(isset($smallCaps))
 				</span>
 				@endif
 			</p>

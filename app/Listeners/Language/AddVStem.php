@@ -3,7 +3,7 @@
 namespace App\Listeners\Language;
 
 use App\Morpheme;
-use App\Events\Language\Saved;
+use App\Events\Language\Created;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -25,7 +25,7 @@ class AddVStem
      * @param  LanguageSaved  $event
      * @return void
      */
-    public function handle(Saved $event)
+    public function handle(Created $event)
     {
         // Extract the language from the event
         $language = $event->language;

@@ -15,7 +15,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
 
         // Language Events
-        'App\Events\Language\Saved' => [
+        'App\Events\Language\Created' => [
             'App\Listeners\Language\AddVStem',
         ],
         'App\Events\Language\Deleting' => [

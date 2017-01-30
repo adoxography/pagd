@@ -48,7 +48,7 @@
 				@endslot
 			@endcomponent
 
-			@component('components.form.datalist', ['name' => 'primaryObject_id', 'list' => $arguments])
+			@component('components.form.datalist', ['name' => 'primaryObject', 'list' => $arguments])
 				@slot('value')
 					@if(old('primaryObject'))
 						{{ old('primaryObject') }}
@@ -58,10 +58,10 @@
 				@endslot
 			@endcomponent
 
-			@component('components.form.datalist', ['name' => 'secondaryObject_id', 'list' => $arguments])
+			@component('components.form.datalist', ['name' => 'secondaryObject', 'list' => $arguments])
 				@slot('value')
-					@if(old('secondaryObject_id'))
-						{{ old('secondaryObject_id') }}
+					@if(old('secondaryObject'))
+						{{ old('secondaryObject') }}
 					@elseif(isset($form) && isset($form->formType->secondaryObject))
 						{{ $form->formType->secondaryObject->name }}
 					@endif

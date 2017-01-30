@@ -8,30 +8,30 @@
 		<thead>
 			<tr>
 				<th></th><th></th><th></th>
-				@foreach($data as $key => $value)
+				@foreach($data as $language => $orders)
 					<?php 
 						$span = 0;
-						foreach($value as $subvalue) {
-							$span += count($subvalue);
+						foreach($orders as $modes) {
+							$span += count($modes);
 						}
 					?>
-					<th colspan="{{ $span }}">{{ $key }}</th>
+					<th colspan="{{ $span }}">{{ $languageDictionary->where('id', $language)->first()['name'] }}</th>
 				@endforeach
 			</tr>
 			<tr>
 				<th></th><th></th><th></th>
 				@foreach($data as $language)
-					@foreach($language as $key => $value)
-						<th colspan="{{ count($value) }}">{{ $key }}</th>
+					@foreach($language as $order => $modes)
+						<th colspan="{{ count($modes) }}">{{ $orderDictionary->where('id', $order)->first()['name'] }}</th>
 					@endforeach
 				@endforeach
 			</tr>
 			<tr>
 				<th>Class</th><th>Person</th><th>Number</th>
-				@foreach($data as $language)
-					@foreach($language as $order)
-						@foreach($order as $key => $value)
-							<th>{{ $key }}</th>
+				@foreach($data as $orders)
+					@foreach($orders as $modes)
+						@foreach($modes as $mode => $value)
+							<th>{{ $modeDictionary->where('id', $mode)->first()['name'] }}</th>
 						@endforeach
 					@endforeach
 				@endforeach
@@ -52,11 +52,37 @@
 						<td rowspan="{{ count($subjectNumbers) }}">{{ $subjectPerson }}</td>
 
 						@foreach($subjectNumbers as $subjectNumber => $value)
+							<?php $personLoop = $loop; ?>
+
 							<td>{{ $subjectNumber }}</td>
 
-							@for($i = 0; $i < 8; $i++)
-								<td></td>
-							@endfor
+							@foreach($data as $language => $orders)
+								@foreach($orders as $order => $modes)
+									@foreach($modes as $mode => $value)
+
+										@if($personLoop->first)
+											<?php $forms[$language][$order][$mode][$class][$subjectPerson] = $curr = $hashTable->search($language, $order, $mode, 1, $subjectPerson, 0); ?>
+											@if(count($curr) > 0)
+												<td rowspan="2">
+												@foreach($curr as $form)
+													<p><a href="/forms/{{$form->id}}">{{ $form->surfaceForm }}</a></p>
+												@endforeach
+												</td>
+											@else
+												<?php unset($forms[$language][$order][$mode][$class][$subjectPerson]); ?>
+											@endif
+										@endif
+
+										@if(!isset($forms[$language][$order][$mode][$class][$subjectPerson]))
+											<td>
+										@foreach($hashTable->search($language, $order, $mode, 1, $subjectPerson, $subjectNumber) as $form)
+											<p><a href="/forms/{{$form->id}}">{{ $form->surfaceForm }}</a></p>
+										@endforeach
+											</td>
+										@endif
+									@endforeach
+								@endforeach
+							@endforeach
 
 							</tr>
 

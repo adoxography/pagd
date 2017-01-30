@@ -160,7 +160,7 @@ class Form extends Model
                         $html .= $morpheme->name;
                     }
 
-                    $html .= "<p><a href='/glosses/{$morpheme->gloss->id}'>{$morpheme->gloss->abv}</a></p>";
+                    $html .= "<p><a href='/glosses/{$morpheme->gloss->id}' class='gloss'>{$morpheme->gloss->abv}</a></p>";
                 }
                 else {
                     $html .= $morpheme['name'];
@@ -172,19 +172,8 @@ class Form extends Model
             $html .= "</div>";
         }
 
-        // if($numMorphemes > 0)
-        // {
-        //     foreach ($this->morphemes as $morpheme) {
-        //         $morphemeRow .= "<td><a href='/morphemes/" . $morpheme->id . "'>" . $morpheme->name . '</a></td>';
-        //         $glossRow    .= "<td><a href='/glosses/" . $morpheme->gloss->id . "'>" . $morpheme->gloss->abv . '</a></td>';
-        //     }
-        //     $morphemeRow = "<tr>$morphemeRow</tr>";
-        //     $glossRow    = "<tr>$glossRow</tr>";
-        // }
-
         return $html . "</div>";
 
-        // return '<table style="border: 0;">' . $formRow . $morphemeRow . $glossRow . '</table>';
     }
 
     public function connectSources($sources)

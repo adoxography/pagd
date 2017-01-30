@@ -22,7 +22,7 @@
 
 						{{-- Gloss field --}}
 						@component('components.model.field', ['width' => 'is-half', 'label' => 'Gloss'])
-							<a href="/glosses/{{ $morpheme->gloss_id }}">{{ $morpheme->gloss->abv }} ({{ $morpheme->gloss->name }})</a>
+							<a href="/glosses/{{ $morpheme->gloss_id }}"><span class="gloss">{{ $morpheme->gloss->abv }}</span> ({{ $morpheme->gloss->name }})</a>
 						@endcomponent
 
 						{{-- Slot field --}}

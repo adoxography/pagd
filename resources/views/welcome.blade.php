@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			29-01-17: Formatted glosses as small caps
+		</li>
+		<li>
 			29-01-17: Added functionality for viewing and editing glosses
 		</li>
 		<li>

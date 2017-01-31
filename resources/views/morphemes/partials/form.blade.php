@@ -4,7 +4,7 @@
 	<div class="column is-half">
 
 		{{-- Name field --}}
-		@component('components.form.text', ['name' => 'name', 'required' => 'required', 'label' => 'Name'])
+		@component('components.form.text', ['name' => 'name', 'required' => 'required', 'label' => 'Morpheme'])
 			@slot('value')
 				@if(old('name'))
 					{{ old('name') }}

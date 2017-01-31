@@ -48,7 +48,6 @@
 					<th rowspan="{{ $span }}">{{ $classDictionary->where('id', $class)->first()['name'] }}</th>
 
 					@foreach($subjectPersons as $subjectPerson => $subjectNumbers)
-						{{-- <td rowspan="{{ count($subjectNumbers) }}">{{ $personDictionary[$subjectPerson / 10] . $obvDictionary[$subjectPerson % 10] }}</td> --}}
 
 						@foreach($subjectNumbers as $subjectNumber => $value)
 							<?php $personLoop = $loop; ?>
@@ -94,7 +93,6 @@
 			@endforeach
 		</tbody>
 	</table>
-	{{-- {{ dd($data) }} --}}
 @stop
 
 @section('footer')

@@ -33,7 +33,6 @@ class HashTable {
 
 	public function search($language, $order, $mode, $class, $subjectPerson, $subjectNumber)
 	{
-		// var_dump($subjectPerson);
 		$data = [$language, $order, $mode, $class, $subjectPerson, $subjectNumber];
 		$curr = null;
 		$output = [];

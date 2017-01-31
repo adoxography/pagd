@@ -9,7 +9,7 @@
 
 		@component('components.model', ['uri' => "/forms/{$form->id}"])
 			@slot('header')
-				<em>{{ $form->surfaceForm }}</em>
+				{{ $form->surfaceForm }}
 				<span style="margin-left: .5rem">
 					(<a href="/languages/{{ $form->language_id }}">{{ $form->language->name }}</a>)
 				</span>
@@ -83,7 +83,7 @@
 										{{ $morpheme->name }}
 									@endif
 
-									<p><a href="/glosses/{{ $morpheme->gloss_id }}">{{ $morpheme->gloss->abv }}</a></p>
+									<p><a href="/glosses/{{ $morpheme->gloss_id }}"><span class="gloss">{{ $morpheme->gloss->abv }}</span></a></p>
 								@else
 									{{ $morpheme['name'] }}
 									@if(Auth::user())

@@ -10,15 +10,6 @@ class Example extends Model
     public $table = 'Examples';
     protected $fillable = ['name','translation','vStem_id','form_id','comments'];
 
-    public static function boot()
-    {
-        parent::boot();
-
-        static::saving(function($model){
-            //dd($model);
-        });
-    }
-
     public function form()
     {
         return $this->belongsTo(Form::class, 'form_id');

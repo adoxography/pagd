@@ -36,6 +36,15 @@ class SandboxController extends Controller
                   ->where('primaryObject_id', null)
                   ->where('secondaryObject_id', null);
         })->get();
+
+        $newData = new Cell();
+
+        foreach($forms as $form) {
+            $newData->insert($form, ['language', 'formType.order', 'formType.mode']);
+        }
+
+        // dd($data->search(1)->getData());
+
         $formTypes = $forms->pluck('formType');
 
         $languageDictionary = $forms->pluck('language')->unique();
@@ -93,7 +102,7 @@ class SandboxController extends Controller
         }
         // dd($rows);
 
-    	return view('sandbox', compact('data', 'rows', 'hashTable', 'languageDictionary', 'orderDictionary', 'modeDictionary', 'classDictionary', 'numberDictionary', 'personDictionary', 'obvDictionary'));
+    	return view('sandbox', compact('data', 'newData', 'rows', 'hashTable', 'languageDictionary', 'orderDictionary', 'modeDictionary', 'classDictionary', 'numberDictionary', 'personDictionary', 'obvDictionary'));
     }
 
     public function store(){
@@ -111,4 +120,45 @@ class SandboxController extends Controller
     }
     
     
+}
+
+class Cell {
+    protected $array;
+    protected $data;
+
+    public function __construct()
+    {
+        $array = [];
+        $data = null;
+    }
+
+    public function insert(Form $form, $fields, $data = null, $index = 0)
+    {
+        $this->data = $data;
+
+        if($index < count($fields)) {
+            $parsedFields = explode('.', $fields[$index]);
+            $nextField = $form;
+
+            foreach($parsedFields as $field) {
+                $nextField = $nextField[$field];
+            }
+
+            if(!isset($this->array[$nextField->id])) {
+                $this->array[$nextField->id] = new Cell();
+            }
+
+            $this->array[$nextField->id]->insert($form, $fields, $nextField, $index+1);
+        }
+    }
+
+    public function search($index)
+    {
+        return $this->array[$index];
+    }
+
+    public function getData()
+    {
+        return $this->data;
+    }
 }

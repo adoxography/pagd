@@ -16,24 +16,26 @@
 							<div class="column box is-1" style="margin-bottom: 0;">
 								<h5 class="title is-5">Class</h5>
 								@foreach($classes as $class)
-									<p class="control">
-										<label class="checkbox">
-											<input type="checkbox" name="classes[]" id="{{ $class->name }}" value="{{ $class->id }}" />
-											{{ $class->name }}
-										</label>
-									</p>
+									@component('components.form.checkbox', ['name' => "classes[{$loop->index}]", 'label' => $class->name, 'value' => $class->id])
+{{-- 										@if($class->name == "AI")
+											@slot('checked')
+												true
+											@endslot
+										@endif --}}
+									@endcomponent
 								@endforeach
 							</div>
 
 							<div class="column box is-2" style="margin-bottom: 0;">
 								<h5 class="title is-5">Order</h5>
 								@foreach($orders as $order)
-									<p class="control">
-										<label class="checkbox">
-											<input type="checkbox" name="orders[]" id="{{ $order->name }}" value="{{ $order->id }}" />
-											{{ $order->name }}
-										</label>
-									</p>
+									@component('components.form.checkbox', ['name' => "orders[]", 'label' => $order->name, 'value' => $order->id])
+{{-- 										@if($order->name == "Independent")
+											@slot('checked')
+												true
+											@endslot
+										@endif --}}
+									@endcomponent
 								@endforeach
 							</div>
 

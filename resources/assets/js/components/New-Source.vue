@@ -43,6 +43,8 @@
 
 		methods: {
 			close() {
+				this.short = '';
+				this.long = '';
 				this.$emit('close');
 			},
 

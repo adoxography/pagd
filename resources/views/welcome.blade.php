@@ -11,6 +11,18 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			31-01-17: Updated "name" field to "morpheme" in morpheme form
+		</li>
+		<li>
+			31-01-17: Fixed source populating with old data
+		</li>
+		<li>
+			31-01-17: Set glosses in form detail view to small caps
+		</li>
+		<li>
+			31-01-17: De-italicized form titles in detail view
+		</li>
+		<li>
 			31-01-17: <a href="/search#for-a-paradigm">Added language suggestions to paradigm search</a>
 		</li>
 		<li>

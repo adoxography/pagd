@@ -123,8 +123,8 @@
 	@slot('value')
 		@if(old('comments'))
 			{{ old('comments') }}
-		@elseif(isset($form))
-			{{ $form->comments }}
+		@elseif(isset($morpheme))
+			{{ $morpheme->comments }}
 		@endif
 	@endslot
 @endcomponent

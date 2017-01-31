@@ -11,13 +11,20 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			31-01-17: <a href="/search#for-a-paradigm">Added language suggestions to paradigm search</a>
+		</li>
+		<li>
+			31-01-17: Fixed bug in morpheme comments appearing on edit
+		</li>
+		<hr>
+		<li>
 			29-01-17: Formatted glosses as small caps
 		</li>
 		<li>
 			29-01-17: Added functionality for viewing and editing glosses
 		</li>
 		<li>
-			29-01-17: <a href="/search#for-a-paradigm">Disabled individual mode selection in paradigm search where appropriate</a>
+			29-01-17: Disabled individual mode selection in paradigm search where appropriate
 		</li>
 		<li>
 			29-01-17: Updated paradigm search look and functionality

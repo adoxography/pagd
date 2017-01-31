@@ -97,6 +97,12 @@
 							<div class="column box" style="margin-bottom: 0;">
 								<h5 class="title is-5">Language</h5>
 								<alg-multi-datalist name="languages[]" list="{{ $languages->toJson() }}"></alg-multi-datalist>
+								<paradigm-language-suggest inline-template>
+									<div>
+										<em>Suggestions: </em>
+										<a @click="suggest(['Plains Cree', 'Woods Cree', 'Swampy Cree', 'Moose Cree', 'East Cree', 'Atikamekw'])">Cree Dialects</a>
+									</div>
+								</paradigm-language-suggest>
 							</div>
 
 						</div>

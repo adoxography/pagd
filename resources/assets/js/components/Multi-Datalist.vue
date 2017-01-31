@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<alg-datalist :list="list" v-for="n in numFields" :name="name" :disabled="disabled"></alg-datalist>
+		<alg-datalist ref="datalists" :list="list" v-for="n in numFields" :name="name" :disabled="disabled"></alg-datalist>
 		<div class="level">
 			<div class="level-left">
 			</div>
@@ -32,6 +32,20 @@
 			return {
 				numFields: 1
 			};
+		},
+
+		created() {
+			Event.$on('addLanguageGroup', (data) => {
+				let $firstTime = true;
+
+				this.numFields = data.length;
+
+				Vue.nextTick(() => {
+					data.forEach((item, index) => {
+						this.$refs.datalists[index].text = item;
+					});
+				});
+			});
 		},
 
 		methods: {

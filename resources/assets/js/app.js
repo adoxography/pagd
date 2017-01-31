@@ -27,6 +27,14 @@ Vue.component('alg-old-source',     require('./components/Old-Source.vue'));
 Vue.component('alg-sources',        require('./components/Sources.vue'));
 Vue.component('autosize-textarea',  require('./components/Autosize-Textarea.vue'));
 
+Vue.component('paradigm-language-suggest', {
+	methods: {
+		suggest(data) {
+			Event.$emit('addLanguageGroup', data);
+		}
+	}
+});
+
 Vue.component('paradigm-mode-select', {
 	data() {
 		return {

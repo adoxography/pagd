@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Gloss;
+use App\Morpheme;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -22,7 +23,9 @@ class GlossController extends Controller
         $item = $gloss;
         $modelSG = 'gloss';
         $modelPL = 'glosses';
-        return view('closedWithAbv.show', compact('item', 'modelSG', 'modelPL'));
+        $foundIns = Morpheme::where('gloss_id', $gloss->id)->get();
+
+        return view('closedWithAbv.show', compact('item', 'modelSG', 'modelPL', 'foundIns'));
     }
 
     public function edit(Gloss $gloss)
@@ -40,5 +43,14 @@ class GlossController extends Controller
 
         flash("{$gloss->abv} updated successfully", "is-success");
         return redirect("/glosses/{$gloss->id}");
+    }
+
+    public function destroy(Gloss $gloss)
+    {
+        $gloss->delete();
+        
+        flash("{$gloss->abv} deleted successfully.", 'is-info');
+
+        return redirect('/glosses');
     }
 }

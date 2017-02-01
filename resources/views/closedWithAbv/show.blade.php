@@ -7,7 +7,7 @@
 	<br />
 
 	@component('components.model', ['header' => $item->abv, 'uri' => "/$modelPL/{$item->id}"])
-		<div class="content">
+		<model-tab name="Basic Details" selected="true">
 			@component('components.model.field', ['label' => 'Full name'])
 				{{ $item->name }}
 			@endcomponent
@@ -17,7 +17,19 @@
 					{{ $item->description }}
 				@endcomponent
 			@endif
-		</div>
+		</model-tab>
+
+		@if(count($foundIns) > 0) 
+			<model-tab name="Found in">
+				@component('components.model.field', ['label' => 'Morphemes'])
+					<ul>
+						@foreach($foundIns as $foundIn)
+							<li><a href="/morphemes/{{ $foundIn->id }}">{{ $foundIn->name }}</a></li>
+						@endforeach
+					</ul>
+				@endcomponent
+			</model-tab>
+		@endif
 	@endcomponent
 
 @stop

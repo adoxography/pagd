@@ -27,6 +27,17 @@ class Morpheme extends Model
         'deleted'  => Deleted::class
     ];
 
+    public function getNameAttribute($value)
+    {
+        $output = "";
+
+        if($this->language->reconstructed && $value != 'V') {
+            $output = "*";
+        }
+
+        return $output.$value;
+    }
+
     public function uniqueName()
     {
         return "{$this->name} ({$this->gloss->abv})";

@@ -11,6 +11,12 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			31-01-17: Modified form and morpheme models such that they always appear as *_ when they belong to a reconstructed language
+		</li>
+		<li>
+			31-01-17: <a href="/languages/create">Updated language table and form</a>
+		</li>
+		<li>
 			31-01-17: <a href="http://algling.dev/glosses/4#found-in">Glosses now display the morphemes that use them</a>
 		</li>
 		<li>

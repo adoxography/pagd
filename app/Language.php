@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Language extends Model
 {
     public $table = 'Languages';
-    protected $fillable = ['name','group_id','parent_id','iso','algoCode'];
+    protected $fillable = ['alternateNames', 'name','group_id','parent_id','iso','algoCode','notes', 'reconstructed'];
     protected $events = [
         'created'  => Created::class,
         'saved'    => Saved::class,

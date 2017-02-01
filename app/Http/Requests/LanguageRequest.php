@@ -28,7 +28,8 @@ class LanguageRequest extends FormRequest
     {
         $rules = [
             'group_id'  => ['required','integer','exists:Groups,id'],
-            'parent_id' => ['nullable','integer','exists:Languages,id']
+            'parent_id' => ['nullable','integer','exists:Languages,id'],
+            'reconstructed' => ['required','boolean']
         ];
 
         switch($this->method()){

@@ -35,8 +35,20 @@ class Form extends Model
         'deleting' => Deleting::class
     ];
 
+    public function getSurfaceFormAttribute($value)
+    {
+        $output = "";
+
+        if($this->language->reconstructed) {
+            $output = "*";
+        }
+
+        return $output.$value;
+    }
+
     public function uniqueName()
     {
+
         return "{$this->surfaceForm} ({$this->formType->getArguments()})";
     }
 

@@ -57,6 +57,21 @@ class FormType extends Model
         return $rc;
     }
 
+    public function getSubClass()
+    {
+        $subclass = $this->formClass->name;
+
+        if($subclass == 'TA') {
+            if($this->subject->person == '2' && $this->primaryObject->person == '1') {
+                $subclass = "TA Local (2-1)";
+            } elseif($this->subject->person == '1' && $this->primaryObject->person == '2') {
+                $subclass = "TA Local (1-2)";
+            }
+        }
+
+        return $subclass;
+    }
+
     public function formClass()
     {
         return $this->belongsTo(FormClass::class, 'class_id');

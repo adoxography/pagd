@@ -18,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Language\Created' => [
             'App\Listeners\Language\AddVStem',
         ],
+        'App\Events\Language\Saved' => [
+            'App\Listeners\Backup'
+        ],
         'App\Events\Language\Deleting' => [
             'App\Listeners\Language\DisconnectChildren',
             'App\Listeners\Language\DestroyExamples',
@@ -29,6 +32,7 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Form\Saved' => [
             'App\Listeners\Form\ConnectMorphemes',
             'App\Listeners\Form\ConnectDuplicates',
+            'App\Listeners\Backup'
         ],
         'App\Events\Form\Deleting' => [
             'App\Listeners\Form\DestroyExamples',
@@ -39,7 +43,8 @@ class EventServiceProvider extends ServiceProvider
 
         // Morpheme Events
         'App\Events\Morpheme\Saved' => [
-            'App\Listeners\Morpheme\ReconnectForms'
+            'App\Listeners\Morpheme\ReconnectForms',
+            'App\Listeners\Backup'
         ],
         'App\Events\Morpheme\Deleting' => [
             'App\Listeners\Morpheme\DisconnectSources',

@@ -8,11 +8,24 @@ use JavaScript;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class SandboxController extends Controller
 {
     
     public function index(){
+
+        $events;
+        try {
+            $events = Storage::get('SavedEvents.txt');
+        }
+        catch(FileNotFoundException $e) {
+            $events = 0;
+        }
+        Storage::put('SavedEvents.txt', $events + 1);
+        dd(Storage::get('SavedEvents.txt'));
+
 
         $hashTable = new \App\HashTable();
 

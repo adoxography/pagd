@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Morpheme;
+use App\Events\Language\Saved;
 use App\Events\Language\Created;
 use App\Events\Language\Deleting;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +14,8 @@ class Language extends Model
     public $table = 'Languages';
     protected $fillable = ['name','group_id','parent_id','iso','algoCode'];
     protected $events = [
-        'created'    => Created::class,
+        'created'  => Created::class,
+        'saved'    => Saved::class,
         'deleting' => Deleting::class
     ];
     

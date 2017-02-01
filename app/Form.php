@@ -33,7 +33,17 @@ class Form extends Model
     protected $events = [
         'saved'    => Saved::class,
         'deleting' => Deleting::class
-    ];  
+    ];
+
+    public function uniqueName()
+    {
+        return "{$this->surfaceForm} ({$this->formType->getArguments()})";
+    }
+
+    public function uniqueNameWithLanguage()
+    {
+        return "{$this->uniqueName()} ({$this->language->name})";
+    }
 
     public function formType()
     {

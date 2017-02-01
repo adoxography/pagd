@@ -141,7 +141,7 @@ class AutocompleteController extends Controller
             foreach ($parent->getAttribute($items) as $item) {
                 $results[] = [
                     'id' => $item->id,
-                    'name' => $item->getAttribute($field) . ' (' . $parent->name . ')'
+                    'name' => $item->uniqueNameWithLanguage()
                 ];
             }
 

@@ -27,13 +27,13 @@ class Backup
      */
     public function handle($event)
     {
-        $events;
+        $numEvents;
 
         // Check how many save events have taken place
         try {
-            $events = Storage::get('SavedEvents.txt');
+            $numEvents = Storage::get('SavedEvents.txt');
         } catch (FileNotFoundException $e) {
-            $events = 0;
+            $numEvents = 0;
         }
 
         // If transactions is divisible by 5, backup the database.

@@ -26,6 +26,16 @@ class Morpheme extends Model
         'deleting' => Deleting::class,
         'deleted'  => Deleted::class
     ];
+
+    public function uniqueName()
+    {
+        return "{$this->name} ({$this->gloss->abv})";
+    }
+
+    public function uniqueNameWithLanguage()
+    {
+        return "{$this->uniqueName} ({$this->language->name})";
+    }
     
     public function language()
     {

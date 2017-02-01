@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			31-01-17: Use unique name for forms, morphemes in parent fields of <a href="/forms/create">form</a> and <a href="/morphemes/create">morpheme</a> creation; <a href="/languages/1#forms">form listing</a>, <a href="/languages/1#morphemes">morpheme listing</a> of language details; <a href="/forms/1">parent field</a> of form details; <a href="/morphemes/4">parent field</a>, <a href="/morphemes/4#forms">form listing</a> of morpheme details
+		</li>
+		<li>
 			31-01-17: Implemented database backup system: database will backup after every five save events (create and edit both count as save events)
 		</li>
 		<li>

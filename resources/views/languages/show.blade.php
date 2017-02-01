@@ -58,7 +58,7 @@
 				@if(count($language->forms) > 0)
 					<ul>
 						@foreach($language->forms as $form)
-							<li><a href="/forms/{{ $form->id }}">{{ $form->surfaceForm }}</a></li>
+							<li><a href="/forms/{{ $form->id }}">{{ $form->uniqueName() }}</a></li>
 						@endforeach
 					</ul>
 				@else
@@ -91,7 +91,7 @@
 					<ul>
 						@foreach($language->morphemes as $morpheme)
 							@if($morpheme->name != "V")
-								<li><a href="/morphemes/{{ $morpheme->id }}">{{ $morpheme->name }}</a></li>
+								<li><a href="/morphemes/{{ $morpheme->id }}">{{ $morpheme->name }} (<span class="gloss">{{ $morpheme->gloss->abv }}</span>)</a></li>
 							@endif
 						@endforeach
 					</ul>

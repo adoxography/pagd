@@ -56,7 +56,7 @@
 							<p>
 								<em>Parent Morpheme: </em>
 								@if($morpheme->parent)
-									<a href="/morphemes/{{ $morpheme->parent_id }}">{{ $morpheme->parent->name }}</a> (<a href="/languages/{{ $morpheme->parent->language_id }}">{{ $morpheme->parent->language->name }}</a>)
+									<a href="/morphemes/{{ $morpheme->parent_id }}">{{ $morpheme->parent->uniqueName() }}</a> (<a href="/languages/{{ $morpheme->parent->language_id }}">{{ $morpheme->parent->language->name }}</a>)
 								@else
 									Unknown/Unclear
 								@endif
@@ -83,7 +83,7 @@
 					@if($morpheme->forms)
 						<ul>
 							@foreach($morpheme->forms as $form)
-								<li><a href="/forms/{{ $form->id }}">{{ $form->surfaceForm }}</a></li>
+								<li><a href="/forms/{{ $form->id }}">{{ $form->uniqueName() }}</a></li>
 							@endforeach
 						</ul>
 					@else

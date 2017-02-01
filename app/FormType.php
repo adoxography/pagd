@@ -72,6 +72,21 @@ class FormType extends Model
         return $subclass;
     }
 
+    public function getArguments()
+    {
+        $output = $this->subject->name;
+
+        if($this->primaryObject) {
+            $output .= "-".$this->primaryObject->name;
+        }
+
+        if($this->secondaryObject) {
+            $output .= '+'.$this->secondaryObject->name;
+        }
+
+        return $output;
+    }
+
     public function formClass()
     {
         return $this->belongsTo(FormClass::class, 'class_id');

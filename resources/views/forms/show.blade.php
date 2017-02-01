@@ -139,7 +139,7 @@
 						<p>
 							<em>Parent Form: </em>
 							@if($form->parent)
-								<a href="/forms/{{ $form->parent_id }}">{{ $form->parent->surfaceForm }}</a> (<a href="/languages/{{ $form->parent->language_id }}">{{ $form->parent->language->name }}</a>)
+								<a href="/forms/{{ $form->parent_id }}">{{ $form->parent->uniqueName() }}</a> (<a href="/languages/{{ $form->parent->language_id }}">{{ $form->parent->language->name }}</a>)
 							@else
 								Unknown/Unclear
 							@endif

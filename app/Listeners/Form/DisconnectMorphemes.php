@@ -26,7 +26,7 @@ class DisconnectMorphemes
      */
     public function handle(Deleting $event)
     {
-        $form = $event->form;
+        $form = $event->model;
         $form->morphemes()->detach();
     }
 }

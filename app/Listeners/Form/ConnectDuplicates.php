@@ -27,7 +27,7 @@ class ConnectDuplicates
      */
     public function handle(Saved $event)
     {
-        $form = $event->form;
+        $form = $event->model;
 
         // Unlink all of the form's duplicates
         $form->duplicates()->detach();

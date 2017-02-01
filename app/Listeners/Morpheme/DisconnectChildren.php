@@ -26,7 +26,7 @@ class DisconnectChildren
      */
     public function handle(Deleting $event)
     {
-        $morpheme = $event->morpheme;
+        $morpheme = $event->model;
         $children = $morpheme->children;
 
         if(count($children) > 0) {

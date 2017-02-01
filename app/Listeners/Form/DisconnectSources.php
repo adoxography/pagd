@@ -26,7 +26,7 @@ class DisconnectSources
      */
     public function handle(Deleting $event)
     {
-        $form = $event->form;
+        $form = $event->model;
         $form->sources()->detach();
     }
 }

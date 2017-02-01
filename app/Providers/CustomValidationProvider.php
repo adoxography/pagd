@@ -3,8 +3,9 @@
 namespace App\Providers;
 
 use App\Morpheme;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Validator;
 
 class CustomValidationProvider extends ServiceProvider
 {
@@ -54,6 +55,10 @@ class CustomValidationProvider extends ServiceProvider
             }
 
             return $result;
+        });
+
+        Validator::extend('verified', function($attribute, $value, $parameters, $validator) {
+            return $value === Config::get('constants.verification');
         });
     }
 

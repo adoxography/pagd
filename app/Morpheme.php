@@ -4,12 +4,19 @@ namespace App;
 
 use App\Language;
 use App\Events\Morpheme\Saved;
+use App\Events\Morpheme\Saving;
+use App\Events\Morpheme\Created;
 use App\Events\Morpheme\Deleted;
 use App\Events\Morpheme\Deleting;
 use Illuminate\Database\Eloquent\Model;
 
 class Morpheme extends Model
 {
+    use \Venturecraft\Revisionable\RevisionableTrait;
+
+    protected $revisionEnabled = true;
+    protected $revisionCreationsEnabled = true;
+
     public $table = 'Morphemes';
     protected $fillable = [
         'name',
@@ -22,6 +29,8 @@ class Morpheme extends Model
         'comments'
     ];
     protected $events = [
+        'created'  => Created::class,
+        'saving'   => Saving::class,
         'saved'    => Saved::class,
         'deleting' => Deleting::class,
         'deleted'  => Deleted::class
@@ -45,7 +54,7 @@ class Morpheme extends Model
 
     public function uniqueNameWithLanguage()
     {
-        return "{$this->uniqueName} ({$this->language->name})";
+        return "{$this->uniqueName()} ({$this->language->name})";
     }
     
     public function language()

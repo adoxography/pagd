@@ -28,7 +28,7 @@ class AddVStem
     public function handle(Created $event)
     {
         // Extract the language from the event
-        $language = $event->language;
+        $language = $event->model;
 
         // Create the vStem
         $vStem = new Morpheme([

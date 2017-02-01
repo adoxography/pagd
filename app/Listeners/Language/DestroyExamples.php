@@ -26,7 +26,7 @@ class DestroyExamples
      */
     public function handle(Deleting $event)
     {
-        $language = $event->language;
+        $language = $event->model;
         $examples = $language->examples;
 
         if(count($examples) > 0) {

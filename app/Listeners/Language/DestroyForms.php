@@ -26,7 +26,7 @@ class DestroyForms
      */
     public function handle(Deleting $event)
     {
-        $language = $event->language;
+        $language = $event->model;
         $forms    = $language->forms;
 
         if(count($forms) > 0) {

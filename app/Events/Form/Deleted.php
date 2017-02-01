@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Events\Language;
+namespace App\Events\Form;
 
-use App\Language;
+use App\Form;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -11,7 +11,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class Saved
+class Deleted
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -22,9 +22,9 @@ class Saved
      *
      * @return void
      */
-    public function __construct(Language $language)
+    public function __construct(Form $form)
     {
-        $this->model = $language;
+        $this->model = $form;
     }
 
     /**

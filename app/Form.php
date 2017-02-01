@@ -8,6 +8,9 @@ use App\MorphemeLink;
 use App\Search\ColHeader;
 use App\Search\RowHeader;
 use App\Events\Form\Saved;
+use App\Events\Form\Saving;
+use App\Events\Form\Created;
+use App\Events\Form\Deleted;
 use App\Events\Form\Deleting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +18,11 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Form extends Model
 {
+    use \Venturecraft\Revisionable\RevisionableTrait;
+
+    protected $revisionEnabled = true;
+    protected $revisionCreationsEnabled = true;
+
     public $table = 'Forms';
     public $errors;
     protected $fillable = [
@@ -31,8 +39,11 @@ class Form extends Model
     ];
 
     protected $events = [
+        'created'  => Created::class,
+        'saving'   => Saving::class,
         'saved'    => Saved::class,
-        'deleting' => Deleting::class
+        'deleting' => Deleting::class,
+        'deleted'  => Deleted::class
     ];
 
     public function getSurfaceFormAttribute($value)

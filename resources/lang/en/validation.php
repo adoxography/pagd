@@ -97,6 +97,7 @@ return [
     */
 
     'is_morpheme' => 'You have not specified a valid morpheme name. (Make sure there is a hyphen at one or both ends.)',
+    'verified' => 'You have entered an invalid verification code.',
 
     'custom' => [
         'attribute-name' => [

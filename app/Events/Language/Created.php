@@ -15,7 +15,7 @@ class Created
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $language;
+    public $model;
 
     /**
      * Create a new event instance.
@@ -24,7 +24,7 @@ class Created
      */
     public function __construct(Language $language)
     {
-        $this->language = $language;
+        $this->model = $language;
     }
 
     /**

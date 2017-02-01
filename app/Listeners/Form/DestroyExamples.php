@@ -26,7 +26,7 @@ class DestroyExamples
      */
     public function handle(Deleting $event)
     {
-        $form     = $event->form;
+        $form     = $event->model;
         $examples = $form->examples;
 
         if($examples) {

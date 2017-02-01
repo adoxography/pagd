@@ -26,7 +26,7 @@ class DisconnectDuplicates
      */
     public function handle(Deleting $event)
     {
-        $form       = $event->form;
+        $form       = $event->model;
         $duplicates = $form->duplicates;
 
         if($duplicates) {

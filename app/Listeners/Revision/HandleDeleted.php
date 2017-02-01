@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Listeners\Morpheme;
+namespace App\Listeners\Revision;
 
-use App\Events\Morpheme\Deleting;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class DisconnectSources
+class HandleDeleted
 {
     /**
      * Create the event listener.
@@ -21,13 +20,13 @@ class DisconnectSources
     /**
      * Handle the event.
      *
-     * @param  MorphemeDeleted  $event
+     * @param  Deleted  $event
      * @return void
      */
-    public function handle(Deleting $event)
+    public function handle($event)
     {
-        $morpheme = $event->model;
-
-        $morpheme->sources()->detach();
+        $model = $event->model;
+        $model->preSave();
+        $model->postDelete();
     }
 }

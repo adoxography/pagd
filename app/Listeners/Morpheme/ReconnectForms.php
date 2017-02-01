@@ -27,7 +27,7 @@ class ReconnectForms
      */
     public function handle($event)
     {
-        $morpheme = $event->morpheme;
+        $morpheme = $event->model;
         $forms = Form::where('language_id', $morpheme->language_id)->get();
 
         foreach($forms as $form) {

@@ -15,7 +15,7 @@ class Deleting
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $morpheme;
+    public $model;
 
     /**
      * Create a new event instance.
@@ -24,7 +24,7 @@ class Deleting
      */
     public function __construct(Morpheme $morpheme)
     {
-        $this->morpheme = $morpheme;
+        $this->model = $morpheme;
     }
 
     /**

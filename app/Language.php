@@ -4,20 +4,29 @@ namespace App;
 
 use App\Morpheme;
 use App\Events\Language\Saved;
+use App\Events\Language\Saving;
 use App\Events\Language\Created;
+use App\Events\Language\Deleted;
 use App\Events\Language\Deleting;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Language extends Model
 {
-    public $table = 'Languages';
-    protected $fillable = ['alternateNames', 'name','group_id','parent_id','iso','algoCode','notes', 'reconstructed'];
+    use \Venturecraft\Revisionable\RevisionableTrait;
+
+    protected $revisionEnabled = true;
+    protected $revisionCreationsEnabled = true;
     protected $events = [
         'created'  => Created::class,
+        'saving'   => Saving::class,
         'saved'    => Saved::class,
-        'deleting' => Deleting::class
+        'deleting' => Deleting::class,
+        'deleted'  => Deleted::class
     ];
+
+    public $table = 'Languages';
+    protected $fillable = ['alternateNames', 'name','group_id','parent_id','iso','algoCode','notes', 'reconstructed'];
     
     public function group()
     {

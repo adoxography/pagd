@@ -10,5 +10,5 @@
 
 {{-- Display the text field --}}
 <p class="control">
-	<input type="text" class="input" autocomplete="off" {{ isset($required) ? "required=\"true\"" : "" }} name="{{ $name or '' }}" id="{{ $id or (isset($name) ? $name : '') }}" value="{{ $value or "" }}" placeholder="{{ $placeholder or '' }}" />
+	<input type="{{ $type or "text" }}" class="input" autocomplete="off" {{ isset($required) ? "required=\"true\"" : "" }} name="{{ $name or '' }}" id="{{ $id or (isset($name) ? $name : '') }}" value="{{ $value or "" }}" placeholder="{{ $placeholder or '' }}" />
 </p>

@@ -26,7 +26,7 @@ class DestroyMorphemes
      */
     public function handle(Deleting $event)
     {
-        $language  = $event->language;
+        $language  = $event->model;
         $morphemes = $language->morphemes;
 
         if(count($morphemes) > 0) {

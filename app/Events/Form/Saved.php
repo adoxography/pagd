@@ -15,7 +15,7 @@ class Saved
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $form;
+    public $model;
 
     /**
      * Create a new event instance.
@@ -24,7 +24,7 @@ class Saved
      */
     public function __construct(Form $form)
     {
-        $this->form = $form;
+        $this->model = $form;
     }
 
     /**

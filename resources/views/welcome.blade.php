@@ -11,6 +11,13 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			01-02-17: Added <a href="/log">log</a> functionality
+		</li>
+		<li>
+			01-02-17: Added <a href="/register">user registration</a>; temporary verification code is "Verified"
+		</li>
+		<hr>
+		<li>
 			31-01-17: Modified form and morpheme models such that they always appear as *_ when they belong to a reconstructed language
 		</li>
 		<li>

@@ -26,7 +26,7 @@ class DisconnectChildren
      */
     public function handle(Deleting $event)
     {
-        $language = $event->language;
+        $language = $event->model;
         $children = $language->children;
 
         if(count($children) > 0) {

@@ -15,6 +15,8 @@ class Deleting
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $model;
+
     /**
      * Create a new event instance.
      *
@@ -22,7 +24,7 @@ class Deleting
      */
     public function __construct(Form $form)
     {
-        $this->form = $form;
+        $this->model = $form;
     }
 
     /**

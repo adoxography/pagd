@@ -27,7 +27,7 @@ class ConnectMorphemes
      */
     public function handle(Saved $event)
     {
-        $form = $event->form;
+        $form = $event->model;
         $morphemes = explode('-', $form->morphemicForm);
 
         $chunk;  // Will hold an array, where index 0 is the morpheme name, and index 1 is the disambiguator

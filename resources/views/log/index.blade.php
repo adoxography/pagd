@@ -23,7 +23,7 @@
 
 						at {{ $entry['revision']->newValue() }}
 					@else
-						updated the {{ $entry['revision']->key }} field of 
+						updated the {{ $entry['revision']->fieldName() }} field of 
 
 						@if($entry['model'] instanceof App\Language)
 							<a href="/languages/{{ $entry['model']->id }}">{{ $entry['model']->name }}</a>
@@ -31,7 +31,7 @@
 							<a href="/forms/{{ $entry['model']->id }}">{{ $entry['model']->uniqueNameWithLanguage() }}</a>
 						@endif
 
-						from "{{ $entry['revision']->old_value }}" to "{{ $entry['revision']->new_value }}" at {{ $entry['revision']->updated_at }}
+						from "{{ $entry['revision']->oldValue() }}" to "{{ $entry['revision']->newValue() }}" at {{ $entry['revision']->updated_at }}
 					@endif
 				</li>
 			@endforeach

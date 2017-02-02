@@ -25,6 +25,22 @@ class Language extends Model
         'deleted'  => Deleted::class
     ];
 
+    protected $revisionNullString = 'none';
+
+    protected $revisionFormattedFields = [
+        'reconstructed' => 'boolean:Attested|Reconstructed'
+    ];
+
+    protected $revisionFormattedFieldNames = [
+        'algoCode'       => 'Algonquianist Code',
+        'alternateNames' => 'Alternate Names',
+        'iso'            => 'ISO Code',
+        'name'           => 'Name',
+        'notes'          => 'Notes',
+        'parent_id'      => 'Parent ID',
+        'reconstructed'  => 'Reconstructed'
+    ];
+
     public $table = 'Languages';
     protected $fillable = ['alternateNames', 'name','group_id','parent_id','iso','algoCode','notes', 'reconstructed'];
     

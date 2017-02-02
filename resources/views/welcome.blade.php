@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			02-02-17: Updated log field names to be more readable
+		</li>
+		<li>
 			02-02-17: Added quotation marks to log
 		</li>
 		<li>

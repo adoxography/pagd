@@ -46,6 +46,21 @@ class Form extends Model
         'deleted'  => Deleted::class
     ];
 
+    protected $revisionNullString = 'none';
+
+    protected $revisionFormattedFieldNames = [
+        'allomorphyNotes' => 'Allomorphy Notes',
+        'comments'        => 'Comments',
+        'formType_id'     => 'Syntax Details ID',
+        'historicalNotes' => 'Historical Notes',
+        'language_id'     => 'Language ID',
+        'morphemicForm'   => 'Morphemes',
+        'parent_id'       => 'Parent ID',
+        'phoneticForm'    => 'Phonemic Representation',
+        'surfaceForm'     => 'Surface Form',
+        'usageNotes'      => 'Usage Notes'
+    ];
+
     public function getSurfaceFormAttribute($value)
     {
         $output = "";

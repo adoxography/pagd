@@ -36,6 +36,23 @@ class Morpheme extends Model
         'deleted'  => Deleted::class
     ];
 
+    protected $revisionNullString = 'none';
+
+    protected $revisionFormattedFields = [
+        'reconstructed' => 'boolean:Attested|Reconstructed'
+    ];
+
+    protected $revisionFormattedFieldNames = [
+        'allomorphyNotes' => 'Allomorphy Notes',
+        'comments'        => 'Comments',
+        'historicalNotes' => 'Historical Notes',
+        'language_id'     => 'Language ID',
+        'gloss_id'        => 'Gloss ID',
+        'name'            => 'Morpheme',
+        'parent_id'       => 'Parent ID',
+        'slot_id'         => 'Slot ID',
+    ];
+
     public function cognates()
     {
         return $this->firstAncestor()->load('allChildren');
@@ -43,10 +60,9 @@ class Morpheme extends Model
 
     public function firstAncestor()
     {
-        if($this->parent) {
+        if ($this->parent) {
             return $this->parent->firstAncestor();
-        }
-        else {
+        } else {
             return $this;
         }
     }
@@ -60,7 +76,7 @@ class Morpheme extends Model
     {
         $output = "";
 
-        if($this->language->reconstructed && $value != 'V') {
+        if ($this->language->reconstructed && $value != 'V') {
             $output = "*";
         }
 
@@ -114,7 +130,7 @@ class Morpheme extends Model
 
     public function connectSources($sources)
     {
-        if($sources) {
+        if ($sources) {
             $this->sources()->detach();
 
             foreach ($sources as $source) {

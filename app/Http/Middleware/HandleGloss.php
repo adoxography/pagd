@@ -37,7 +37,6 @@ class HandleGloss
                 $request['gloss']    = $gloss->abv;
             }
             catch(QueryException $e) {
-
             }
         }
 

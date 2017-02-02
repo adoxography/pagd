@@ -47,12 +47,18 @@ class LanguageRequest extends FormRequest
                     $rules['name'][]      = Rule::unique('Languages','name')->ignore($language->id);
                     $rules['iso'][]       = Rule::unique('Languages','iso')->ignore($language->id);
                     $rules['algoCode'][]  = Rule::unique('Languages','algoCode')->ignore($language->id);
-                    $rules['parent_id'][] = "different:{$language->id}";
+                    $rules['parent_id'][] = "nomatch:{$language->id}";
                 break;
             default:
                 break;
         }//switch
 
         return $rules;
+    }
+
+    public function messages(){
+        return [
+            'parent_id.nomatch'    => 'A language cannot be its own parent!'
+        ];
     }
 }

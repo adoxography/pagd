@@ -11,6 +11,10 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			02-02-17: Fixed bugs in form validation
+		</li>
+		<hr>
+		<li>
 			01-02-17: Cognates are live for <a href="/forms/14#cognates">forms</a> and <a href="/morphemes/4#cognates">morphemes</a>
 		</li>
 		<li>

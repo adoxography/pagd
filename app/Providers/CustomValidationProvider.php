@@ -60,6 +60,10 @@ class CustomValidationProvider extends ServiceProvider
         Validator::extend('verified', function($attribute, $value, $parameters, $validator) {
             return $value === Config::get('constants.verification');
         });
+
+        Validator::extend('nomatch', function($attribute, $value, $parameters, $validator) {
+            return $value !== $parameters[0];
+        });
     }
 
     /**

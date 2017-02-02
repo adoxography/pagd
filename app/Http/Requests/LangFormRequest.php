@@ -30,8 +30,6 @@ class LangFormRequest extends FormRequest
      */
     public function rules()
     {
-        $form = $this->route('form');
-
         $rules = [
             //Base form info
             'surfaceForm'        => ['required'],
@@ -40,7 +38,7 @@ class LangFormRequest extends FormRequest
 
             //Language Info
             'language_id'        => ['required','integer','exists:Languages,id'],
-            'parent_id'          => ['nullable','exists:Forms,id',"different:{$form->id}"],
+            'parent_id'          => ['nullable','exists:Forms,id'],
             'formData'           => ['required'],
             'subject_id'         => ['required','exists:Arguments,id'],           
             'primaryObject_id'   => ['nullable','integer','exists:Arguments,id'],
@@ -53,6 +51,18 @@ class LangFormRequest extends FormRequest
             'isDiminutive'       => ['boolean']
         ];
 
+        switch($this->method()){
+            case 'POST':
+                break;
+            case 'PATCH':
+                    $form = $this->route('form');
+
+                    $rules['parent_id'][] = "nomatch:{$form->id}";
+                break;
+            default:
+                break;
+        }//switch
+
         return $rules;
     }
 
@@ -60,6 +70,7 @@ class LangFormRequest extends FormRequest
         return [
             'surfaceForm.required' => 'Please enter a surface form.',
             'morphemicForm.has'    => 'The morphemic form must include a placeholder for the Vstem.',
+            'parent_id.nomatch'    => 'A form cannot be its own parent!'
         ];
     }
     

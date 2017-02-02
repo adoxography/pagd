@@ -57,6 +57,26 @@ class Form extends Model
         return $output.$value;
     }
 
+    public function cognates()
+    {
+        return $this->firstAncestor()->load('allChildren');
+    }
+
+    public function firstAncestor()
+    {
+        if($this->parent) {
+            return $this->parent->firstAncestor();
+        }
+        else {
+            return $this;
+        }
+    }
+
+    public function allChildren()
+    {
+        return $this->children()->with('allchildren');
+    }
+
     public function uniqueName()
     {
 

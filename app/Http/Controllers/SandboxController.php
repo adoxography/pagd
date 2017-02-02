@@ -16,15 +16,10 @@ class SandboxController extends Controller
     
     public function index(){
 
-        $events;
-        try {
-            $events = Storage::get('SavedEvents.txt');
-        }
-        catch(FileNotFoundException $e) {
-            $events = 0;
-        }
-        Storage::put('SavedEvents.txt', $events + 1);
-        dd(Storage::get('SavedEvents.txt'));
+        $form = Form::find(219);
+        $ancestor = $form->firstAncestor()->load('allChildren');
+        // dd($form);
+        dd($form->cognates());
 
 
         $hashTable = new \App\HashTable();

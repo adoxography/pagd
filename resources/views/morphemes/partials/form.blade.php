@@ -7,9 +7,9 @@
 		@component('components.form.text', ['name' => 'name', 'required' => 'required', 'label' => 'Morpheme'])
 			@slot('value')
 				@if(old('name'))
-					{{ old('name') }}
+					{{ str_replace('*', '', old('name')) }}
 				@elseif(isset($morpheme))
-					{{ $morpheme->name }}
+					{{ str_replace('*', '', $morpheme->name) }}
 				@endif
 			@endslot
 		@endcomponent

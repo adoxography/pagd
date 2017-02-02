@@ -30,6 +30,8 @@ class LangFormRequest extends FormRequest
      */
     public function rules()
     {
+        $form = $this->route('form');
+
         $rules = [
             //Base form info
             'surfaceForm'        => ['required'],
@@ -38,7 +40,7 @@ class LangFormRequest extends FormRequest
 
             //Language Info
             'language_id'        => ['required','integer','exists:Languages,id'],
-            'parent_id'          => ['nullable','exists:Forms,id'],
+            'parent_id'          => ['nullable','exists:Forms,id',"different:{$form->id}"],
             'formData'           => ['required'],
             'subject_id'         => ['required','exists:Arguments,id'],           
             'primaryObject_id'   => ['nullable','integer','exists:Arguments,id'],

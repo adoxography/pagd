@@ -6,9 +6,9 @@
 		@component('components.form.text', ['name' => 'surfaceForm', 'label' => 'Surface Form', 'placeholder' => 'The form as written in a text', 'required' => 'required'])
 			@slot('value')
 				@if(old('surfaceForm'))
-					{{ old('surfaceForm') }}
+					{{ str_replace('*', '', old('surfaceForm')) }}
 				@elseif(isset($form))
-					{{ $form->surfaceForm }}
+					{{ str_replace('*', '', $form->surfaceForm) }}
 				@endif
 			@endslot
 		@endcomponent

@@ -27,23 +27,27 @@ class LanguageRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'group_id'  => ['required','integer','exists:Groups,id'],
-            'parent_id' => ['nullable','integer','exists:Languages,id'],
-            'reconstructed' => ['required','boolean']
+            'group_id'      => ['required','integer','exists:Groups,id'],
+            'parent_id'     => ['nullable','integer','exists:Languages,id'],
+            'reconstructed' => ['required','boolean'],
+            'name'          => ['required'],
+            'iso'           => ['required', 'size:3'],
+            'algoCode'      => ['required', 'between:1,5']
         ];
 
         switch($this->method()){
             case 'POST':
-                    $rules['name']     = ['required','unique:Languages,name'];
-                    $rules['iso']      = ['required','unique:Languages,iso','size:3'];
-                    $rules['algoCode'] = ['required','unique:Languages,algoCode','between:1,5'];
+                    $rules['name'][]     = 'unique:Languages,name';
+                    $rules['iso'][]      = 'unique:Languages,iso';
+                    $rules['algoCode'][] = 'unique:Languages,algoCode';
                 break;
             case 'PATCH':
                     $language = $this->route('language');
 
-                    $rules['name']     = ['required', Rule::unique('Languages','name')->ignore($language->id)];
-                    $rules['iso']      = ['required', Rule::unique('Languages','iso')->ignore($language->id), 'size:3'];
-                    $rules['algoCode'] = ['required', Rule::unique('Languages','algoCode')->ignore($language->id), 'between:1,5'];
+                    $rules['name'][]      = Rule::unique('Languages','name')->ignore($language->id);
+                    $rules['iso'][]       = Rule::unique('Languages','iso')->ignore($language->id);
+                    $rules['algoCode'][]  = Rule::unique('Languages','algoCode')->ignore($language->id);
+                    $rules['parent_id'][] = "different:{$language->id}";
                 break;
             default:
                 break;

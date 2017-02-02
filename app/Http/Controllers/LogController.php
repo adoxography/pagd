@@ -13,14 +13,15 @@ class LogController extends Controller
     	$log = [];
 
     	foreach($revisions as $revision) {
-    		$log[] = [
-    			'model' => (new $revision->revisionable_type)->find($revision->revisionable_id),
-    			'revision' => $revision,
-    			'type' => $revision->revisionable_type
-    		];
+    		$type  = $revision->revisionable_type;
+    		$model = (new $type)->find($revision->revisionable_id);
 
-    		// $models[]['model'] = (new $revision->revisionable_type)->find($revision->revisionable_id);
-    		// $models[]['revision'] = $revision;
+    		if($model && !($model instanceof \App\Morpheme && $model->name == 'V')) {
+				$log[] = [
+					'model' => $model,
+					'revision' => $revision
+				];
+    		}
     	}
     	
     	return view('log.index', compact('revisions', 'log'));

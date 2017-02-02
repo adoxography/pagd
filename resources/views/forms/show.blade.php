@@ -7,13 +7,7 @@
 		</div>
 		<br />
 
-		@component('components.model', ['uri' => "/forms/{$form->id}"])
-			@slot('header')
-				{{ $form->surfaceForm }}
-				<span style="margin-left: .5rem">
-					(<a href="/languages/{{ $form->language_id }}">{{ $form->language->name }}</a>)
-				</span>
-			@endslot
+		@component('components.model', ['header' => $form->surfaceForm, 'uri' => "/forms/{$form->id}", 'history' => $form->revisionHistory])
 
 			<model-tab name="Basic Details" selected = "true">
 				<div class="column is-half" style="padding: 0;">

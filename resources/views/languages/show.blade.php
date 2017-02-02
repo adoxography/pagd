@@ -6,7 +6,7 @@
 	</div>
 	<br />
 
-	@component('components.model', ['header' => $language->name, 'uri' => "/languages/{$language->id}"])
+	@component('components.model', ['header' => $language->name, 'uri' => "/languages/{$language->id}", 'history' => $language->revisionHistory])
 		<model-tab name="Basic Details" selected="true">
 			{{-- Group field --}}
 			@component('components.model.field', ['width' => 'is-half', 'label' => 'Group'])
@@ -69,8 +69,7 @@
 			@component('components.model.field', ['width' => 'is-half', 'label' => 'Examples'])
 				@slot('label')
 					Examples @component('components.model.add-icon', ['uri' => "/languages/{$language->id}/addExample"]) @endcomponent
-				@endslot
-				@if(count($language->examples) > 0)
+				@endslot @if(count($language->examples) > 0)
 					<ul>
 						@foreach($language->examples as $example)
 							<li><a href="/examples/{{ $example->id }}">{{ $example->name }}</a></li>

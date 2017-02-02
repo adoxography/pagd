@@ -16,6 +16,25 @@
 
 	<alg-tabs>
 		{{ $slot }}
+
+		@if(isset($history) && Auth::user())
+			<model-tab name="Log">
+				@component('components.model.field', ['width' => 'is-12', 'label' => 'Creation'])
+					<?php $created = $history->where('key', 'created_at')->first(); ?>
+					@if($created)
+						Created by {{ $created->userResponsible()->name }} at {{ $created->newValue() }}
+					@else
+						No data
+					@endif
+				@endcomponent
+				<?php $last = $history->last(); ?>
+				@if($last && $last->key != 'created_at')
+					@component('components.model.field', ['width' => 'is-12', 'label' => 'Last Edit'])
+							Last edited by {{ $last->userResponsible()->name }}: changed {{ $last->fieldName() }} from "{{ $last->oldValue() }}" to "{{ $last->newValue() }}" at {{ $last->updated_at }}
+					@endcomponent
+				@endif
+			</model-tab>
+		@endif
 	</alg-tabs>
 
 	@if(Auth::user())

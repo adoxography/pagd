@@ -31,7 +31,7 @@
 							<a href="/forms/{{ $entry['model']->id }}">{{ $entry['model']->uniqueNameWithLanguage() }}</a>
 						@endif
 
-						from {{ $entry['revision']->old_value }} to {{ $entry['revision']->new_value }} at {{ $entry['revision']->updated_at }}
+						from "{{ $entry['revision']->old_value }}" to "{{ $entry['revision']->new_value }}" at {{ $entry['revision']->updated_at }}
 					@endif
 				</li>
 			@endforeach

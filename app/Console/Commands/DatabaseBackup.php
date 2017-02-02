@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
 
 class DatabaseBackup extends Command
@@ -40,7 +41,7 @@ class DatabaseBackup extends Command
     public function handle()
     {
         $date = Carbon::now()->format('Y-m-d-H-i-s');
-        $environment = env('APP_ENV');
+        $environment = App::environment();
 
         Artisan::call('db:backup',['--database' => 'mysql', '--destination' => 'dropbox', '--destinationPath' => "/{$environment}/algling_{$environment}_{$date}", '--compression' => 'gzip']);
         $this->info("Database backed up successfully");

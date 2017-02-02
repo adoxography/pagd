@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Queue\InteractsWithQueue;
@@ -9,6 +10,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class Backup
 {
+    protected $interval;
+
     /**
      * Create the event listener.
      *
@@ -16,7 +19,7 @@ class Backup
      */
     public function __construct()
     {
-        //
+        $this->interval = Config::get('constants.backup_interval');
     }
 
     /**
@@ -37,7 +40,7 @@ class Backup
         }
 
         // If transactions is divisible by 5, backup the database.
-        if ($numEvents % 5 == 0) {
+        if ($numEvents % $this->interval == 0) {
             Artisan::call('algling:backup');
         }
 

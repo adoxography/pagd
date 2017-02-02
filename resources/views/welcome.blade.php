@@ -11,6 +11,15 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			02-02-17: Changed the default group to "Central" in language creation
+		</li>
+		<li>
+			02-02-17: Switched sources from ordered list to unordered list on form, morpheme display
+		</li>
+		<li>
+			02-02-17: Added edit icon to the top of model cards
+		</li>
+		<li>
 			02-02-17: Updated log field names to be more readable
 		</li>
 		<li>

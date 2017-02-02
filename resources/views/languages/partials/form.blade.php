@@ -35,7 +35,7 @@
 				@elseif(isset($language))
 					{{ $language->group->name }}
 				@else
-				 	Plains
+				 	Central
 				@endif
 			@endslot
 		@endcomponent

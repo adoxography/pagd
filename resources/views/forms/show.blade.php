@@ -150,15 +150,7 @@
 				</div>
 
 				@component('components.model.field', ['width' => 'is-12', 'label' => 'Sources (hover over a source for the full citation)'])
-					@if(count($form->sources) > 0)
-						<ol>
-							@foreach($form->sources as $source)
-								<li title="{{ $source->long }}">{{ $source->short }} {{ $source->pivot->extraInfo }}</li>
-							@endforeach
-						</ol>
-					@else
-						None
-					@endif
+					@include('components.model.sourcelist', ['sources' => $form->sources])
 				@endcomponent
 
 			</model-tab>

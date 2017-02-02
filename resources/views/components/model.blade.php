@@ -11,6 +11,13 @@
 				</span>
 				@endif
 			</p>
+			@if(Auth::user())
+			    <a href="{{ $uri }}/edit" class="card-header-icon">
+			      	<span class="icon">
+			        	<i class="fa fa-pencil"></i>
+			      	</span>
+			    </a>
+		    @endif
 		</header>
 	@endif
 

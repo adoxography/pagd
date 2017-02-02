@@ -169,6 +169,14 @@
 
 			</model-tab>
 
+			<model-tab name="Cognates">
+				<div class="column">
+				@component('components.model.field', ['label' => 'Cognates'])
+					@include('components.model.cognates', ['list' => $cognates, 'current' => $form, 'model' => 'forms'])
+				@endcomponent
+				</div>
+			</model-tab>
+
 			<model-tab name="Examples">
 				@component('components.model.field', ['width' => 'is-half', 'label' => 'Examples'])
 					@if(count($form->examples) > 0)

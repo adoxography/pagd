@@ -76,7 +76,15 @@
 						@endif
 					</div>
 				</div>
-			</model-tab>	
+			</model-tab>
+
+			<model-tab name="Cognates">
+				<div class="column">
+				@component('components.model.field', ['label' => 'Cognates'])
+					@include('components.model.cognates', ['list' => $cognates, 'current' => $morpheme, 'model' => 'morphemes'])
+				@endcomponent
+				</div>
+			</model-tab>
 
 			<model-tab name="Forms">
 				@component('components.model.field', ['width' => 'is-half', 'label' => 'Forms that contain this morpheme'])

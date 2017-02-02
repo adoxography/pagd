@@ -11,6 +11,12 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			01-02-17: Cognates are live for <a href="/forms/14#cognates">forms</a> and <a href="/morphemes/4#cognates">morphemes</a>
+		</li>
+		<li>
+			01-02-17: Added ability to remove parents (previously, leaving the field blank on edit would do nothing to the parent)
+		</li>
+		<li>
 			01-02-17: Added <a href="/log">log</a> functionality
 		</li>
 		<li>

@@ -86,26 +86,6 @@
 		@component('components.form.radiogroup', ['name' => 'reconstructed', 'list' => [['label' => 'Attested',	'value' => 0], ['label' => 'Reconstructed',	'value' => 1]],
 			'checked' => (old('reconstructed') ? old('reconstructed') : (isset($language) ? $language->reconstructed : 0))])
 		@endcomponent
-{{-- 		@component('components.form.radio', ['name' => 'reconstructed', 'value' => 'false', 'label' => 'Attested'])
-			@slot('checked')
-				@if(old('reconstructed'))
-					{{ !old('reconstructed') }}
-				@elseif(isset($language))
-					{{ $language->reconstructed === 0 }}
-				@else
-					true
-				@endif
-			@endslot
-		@endcomponent
-		@component('components.form.radio', ['name' => 'reconstructed', 'value' => 'true', 'label' => 'Reconstructed'])
-			@slot('checked')
-				@if(old('reconstructed'))
-					{{ old('reconstructed') }}
-				@elseif(isset($language))
-					{{ $language->reconstructed === 1 }}
-				@endif
-			@endslot
-		@endcomponent --}}
 	</div>
 </div>
 

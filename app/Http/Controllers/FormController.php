@@ -52,7 +52,13 @@ class FormController extends Controller
     
     public function update(LangFormRequest $request, Form $form)
     {
-        $form->update($request->formData);
+        $data = $request->formData;
+
+        if(!isset($data['parent_id'])) {
+            $data['parent_id'] = null;
+        }
+
+        $form->update($data);
 
         $form->connectSources($request->sources);
 
@@ -98,7 +104,9 @@ class FormController extends Controller
             'sources'
         ]);
 
-        return view('forms.show', compact('form'));
+        $cognates = $form->cognates();
+
+        return view('forms.show', compact('form', 'cognates'));
     }
 
     public function addExample(Form $form)

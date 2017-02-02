@@ -47,7 +47,9 @@ class MorphemeController extends Controller
 
     public function show(Morpheme $morpheme){
         $morpheme->load('language', 'gloss', 'forms', 'parent.language');
-        return view('morphemes.show', compact('morpheme'));
+        $cognates = $morpheme->cognates();
+
+        return view('morphemes.show', compact('morpheme', 'cognates'));
     }
 
     public function store(MorphemeRequest $request){

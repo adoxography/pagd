@@ -75,6 +75,10 @@ class LanguageController extends Controller
 
     public function update(LanguageRequest $request, Language $language)
     {
+        if(!$request->parent_id) {
+            $request->parent_id = null;
+        }
+
         $language->update($request->all());
 
         flash($language->name.' updated successfully.', 'is-success');

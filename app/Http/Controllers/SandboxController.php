@@ -16,8 +16,7 @@ class SandboxController extends Controller
     
     public function index(){
 
-        $form = Form::find(219);
-        $ancestor = $form->firstAncestor()->load('allChildren');
+        $form = Form::find(40);
         // dd($form);
         dd($form->cognates());
 

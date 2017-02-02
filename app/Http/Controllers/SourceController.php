@@ -30,8 +30,10 @@ class SourceController extends Controller
     public function store(Request $request){
     	$short = $request->short;
     	$long  = $request->long;
+        $url   = $request->url;
+        $notes = $request->notes;
 
-    	$newSource = Source::create(['short' => $short, 'long' => $long]);
+    	$newSource = Source::create(['short' => $short, 'long' => $long, 'url' => $url, 'notes' => $notes]);
     	return response()->json($newSource);
     }
 

@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			02-02-17: Added URL and Notes fields to sources
+		</li>
+		<li>
 			02-02-17: Changed the default group to "Central" in language creation
 		</li>
 		<li>

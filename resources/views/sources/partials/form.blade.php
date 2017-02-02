@@ -18,4 +18,24 @@
 	@endslot
 @endcomponent
 
+@component('components.form.text', ['type' => 'url', 'label' => 'URL', 'name' => 'url'])
+	@slot('value')
+		@if(old('url'))
+			{{ old('url') }}
+		@elseif(isset($source))
+			{{ $source->url }}
+		@endif
+	@endslot
+@endcomponent
+
+@component('components.form.textarea', ['label' => 'Notes', 'name' => 'notes'])
+	@slot('value')
+		@if(old('notes'))
+			{{ old('notes') }}
+		@elseif(isset($source))
+			{{ $source->notes }}
+		@endif
+	@endslot
+@endcomponent
+
 <button type="submit" class="button is-primary">Submit</button>

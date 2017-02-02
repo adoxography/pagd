@@ -9,9 +9,19 @@
 
 		@component('components.model', ['header' => $source->short, 'uri' => "/sources/{$source->id}"])
 			<model-tab name="Basic Details" selected="true">
-				@component('components.model.field', ['label' => 'Full citation'])
+				@component('components.model.field', ['label' => 'Full citation', 'width' => 'is-12'])
 					{{ $source->long }}
 				@endcomponent
+				@if($source->url)
+					@component('components.model.field', ['label' => 'URL', 'width' => 'is-12'])
+						<a href="{{ $source->url }}">{{ $source->url }}</a>
+					@endcomponent
+				@endif
+				@if($source->notes)
+					@component('components.model.field', ['label' => 'Notes'])
+						{{ $source->notes }}
+					@endcomponent
+				@endif
 			</model-tab>
 			@if(count($source->forms) > 0)
 				<model-tab name="Forms with citation">

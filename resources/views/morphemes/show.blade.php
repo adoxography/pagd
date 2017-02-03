@@ -8,7 +8,10 @@
 		</div>
 		<br />
 
-		@component('components.model', ['header' => $morpheme->name, 'uri' => "/morphemes/{$morpheme->id}", 'history' => $morpheme->revisionHistory])
+		@component('components.model', ['uri' => "/morphemes/{$morpheme->id}", 'history' => $morpheme->revisionHistory])
+			@slot('header')
+				{{ $morpheme->name }}<em><sup>{{ $morpheme->disambiguator }}</sup></em> <span style="padding-left: .25em;">(<a href="/languages/{{ $morpheme->language_id }}">{{ $morpheme->language->name }}</a>)</span>
+			@endslot
 
 			<model-tab name="Basic Details" selected="true">
 				<div class="column is-half" style="padding: 0;">

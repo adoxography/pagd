@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			02-02-17: Fixed bugs re: morpheme disambiguators
+		</li>
+		<li>
 			02-02-17: Allowed longer gloss names (increased from 8 characters to 15)
 		</li>
 		<li>

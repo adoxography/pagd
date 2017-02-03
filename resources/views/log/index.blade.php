@@ -27,11 +27,13 @@
 
 						@if($entry['model'] instanceof App\Language)
 							<a href="/languages/{{ $entry['model']->id }}">{{ $entry['model']->name }}</a>
-						@elseif($entry['model'] instanceof \App\Form || $entry['model'] instanceof App\Morpheme)
+						@elseif($entry['model'] instanceof \App\Form)
 							<a href="/forms/{{ $entry['model']->id }}">{{ $entry['model']->uniqueNameWithLanguage() }}</a>
+						@elseif($entry['model'] instanceof App\Morpheme)
+							<a href="/morphemes/{{ $entry['model']->id }}">{{ $entry['model']->uniqueNameWithLanguage() }}</a>
 						@endif
 
-						from "{{ $entry['revision']->oldValue() }}" to "{{ $entry['revision']->newValue() }}" at {{ $entry['revision']->updated_at }}
+						at {{ $entry['revision']->updated_at }}
 					@endif
 				</li>
 			@endforeach

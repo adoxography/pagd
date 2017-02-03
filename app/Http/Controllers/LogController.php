@@ -24,6 +24,6 @@ class LogController extends Controller
     		}
     	}
     	
-    	return view('log.index', compact('revisions', 'log'));
+    	return view('log.index', compact('log'));
     }
 }

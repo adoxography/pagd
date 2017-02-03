@@ -74,13 +74,13 @@ class Morpheme extends Model
 
     public function getNameAttribute($value)
     {
-        $output = "";
+        $asterisk = "";
 
         if ($this->language->reconstructed && $value != 'V') {
-            $output = "*";
+            $asterisk = "*";
         }
 
-        return $output.$value;
+        return $asterisk.$value;
     }
 
     public function uniqueName()

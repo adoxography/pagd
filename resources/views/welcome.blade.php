@@ -11,6 +11,10 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			03-02-17: Hid parent from language display form when none is entered
+		</li>
+		<hr>
+		<li>
 			02-02-17: Removed "from" and "to" information from log due to too many errors; this information is still available in a model's details
 		</li>
 		<li>

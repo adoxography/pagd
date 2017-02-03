@@ -14,13 +14,17 @@
 			@endcomponent
 
 			{{-- Parent field --}}
-			@component('components.model.field', ['width' => 'is-half', 'label' => 'Parent'])
-				@if($language->parent)
-					<a href="/languages/{{ $language->parent_id }}">{{ $language->parent->name }}</a>
-				@else
-					None
-				@endif
-			@endcomponent
+			@if($language->parent)
+				@component('components.model.field', ['width' => 'is-half', 'label' => 'Parent'])
+					@if($language->parent)
+						<a href="/languages/{{ $language->parent_id }}">{{ $language->parent->name }}</a>
+					@else
+						None
+					@endif
+				@endcomponent
+			@else
+				<div class="column is-half"></div>
+			@endif
 
 			{{-- ISO field --}}
 			@component('components.model.field', ['width' => 'is-half', 'label' => 'ISO Code'])

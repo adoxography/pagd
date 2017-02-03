@@ -110,7 +110,7 @@
 	</div>
 
 	<div class="column is-one-quarter">
-		@component('components.form.select', ['name' => 'isAbsolute', 'label' => 'Abs/Erg', 'options' => [
+		@component('components.form.select', ['name' => 'isAbsolute', 'label' => 'Abs/Obj', 'options' => [
 			['id' => "null", 'name' => 'N/A'],
 			['id' => "1", 'name' => 'Absolute'],
 			['id' => "0", 'name' => 'Objective']

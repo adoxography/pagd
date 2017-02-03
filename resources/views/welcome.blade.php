@@ -11,7 +11,10 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
-			03-02-17: Hid parent from language display form when none is entered
+			03-02-17: Corrected typo on form creation form from "Erg" to "Obj"
+		</li>
+		<li>
+			03-02-17: Hid parent from language display when none is entered
 		</li>
 		<hr>
 		<li>

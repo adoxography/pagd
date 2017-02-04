@@ -1,5 +1,5 @@
 <template>
-	<div class="alg-datalist">
+	<div class="alg-datalist" v-on-clickaway="closeList">
 		<div class="control has-addons">
 			<div class="alg-datalist-container">
 				<input type="text" :name="name" :disabled="disabled" class="input is-expanded" v-model="text" @keyup="onKeyUp($event.keyCode)" @keydown="onKeyDown($event)" @input="update" ref="textInput" autocomplete="off" :placeholder="placeholder" />
@@ -23,6 +23,7 @@
 
 <script>
 	import  { focus } from 'vue-focus';
+	import  { directive as onClickaway } from 'vue-clickaway';
 
 	export default {
 		props: {
@@ -45,7 +46,8 @@
 		},
 
 		directives: {
-			focus: focus
+			focus: focus,
+			onClickaway: onClickaway
 		},
 
 		data() {
@@ -62,7 +64,6 @@
 			this.parsedList = JSON.parse(this.list);
 
 			if(this.init) {
-
 				this.text = this.init;
 			}
 
@@ -101,6 +102,11 @@
 
 				// Toggle its visibility
 				this.showList = !this.showList;
+			},
+
+			closeList() {
+				this.options = this.parsedList;
+				this.showList = false;
 			},
 
 			selectItem(item) {

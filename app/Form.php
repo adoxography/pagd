@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Validator;
 use App\Morpheme;
-use App\MorphemeLink;
 use App\Search\ColHeader;
 use App\Search\RowHeader;
 use App\Events\Form\Saved;
@@ -14,28 +12,33 @@ use App\Events\Form\Deleted;
 use App\Events\Form\Deleting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Form extends Model
 {
     use \Venturecraft\Revisionable\RevisionableTrait;
+    use \App\SourceableTrait;
 
-    protected $revisionEnabled = true;
-    protected $revisionCreationsEnabled = true;
-
+    /*
+    |--------------------------------------------------------------------------
+    | Eloquent variables
+    |--------------------------------------------------------------------------
+    |
+    | These are the basic variables required by Eloquent to manage this model.
+    |
+    */
     public $table = 'Forms';
-    public $errors;
+
     protected $fillable = [
-        'surfaceForm',
-        'phoneticForm',
-        'morphemicForm',
-        'language_id',
-        'parent_id',
+        'allomorphyNotes',
+        'comments',
         'formType_id',
         'historicalNotes',
-        'allomorphyNotes',
-        'usageNotes',
-        'comments'
+        'language_id',
+        'morphemicForm',
+        'parent_id',
+        'phoneticForm',
+        'surfaceForm',
+        'usageNotes'
     ];
 
     protected $events = [
@@ -46,8 +49,17 @@ class Form extends Model
         'deleted'  => Deleted::class
     ];
 
+    /*
+    |--------------------------------------------------------------------------
+    | Revision variables
+    |--------------------------------------------------------------------------
+    |
+    | These are variable overrides used by the Revisionable trait.
+    |
+    */
+    protected $revisionEnabled = true;
+    protected $revisionCreationsEnabled = true;
     protected $revisionNullString = 'none';
-
     protected $revisionFormattedFieldNames = [
         'allomorphyNotes' => 'Allomorphy Notes',
         'comments'        => 'Comments',
@@ -61,6 +73,11 @@ class Form extends Model
         'usageNotes'      => 'Usage Notes'
     ];
 
+    /*
+    |--------------------------------------------------------------------------
+    | Attribute modifiers
+    |--------------------------------------------------------------------------
+    */
     public function getSurfaceFormAttribute($value)
     {
         $output = "";
@@ -72,12 +89,17 @@ class Form extends Model
         return $output.$value;
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Methods
+    |--------------------------------------------------------------------------
+    */
     public function cognates()
     {
         return $this->firstAncestor()->load('allChildren');
     }
 
-    public function firstAncestor()
+    protected function firstAncestor()
     {
         if($this->parent) {
             return $this->parent->firstAncestor();
@@ -87,45 +109,14 @@ class Form extends Model
         }
     }
 
-    public function allChildren()
-    {
-        return $this->children()->with('allchildren');
-    }
-
     public function uniqueName()
     {
-
         return "{$this->surfaceForm} ({$this->formType->getArguments()})";
     }
 
     public function uniqueNameWithLanguage()
     {
         return "{$this->uniqueName()} ({$this->language->name})";
-    }
-
-    public function formType()
-    {
-        return $this->belongsTo(FormType::class, 'formType_id');
-    }
-
-    public function parent()
-    {
-        return $this->belongsTo(Form::class, 'parent_id');
-    }
-
-    public function children()
-    {
-        return $this->hasMany(Form::class, 'parent_id');
-    }
-
-    public function language()
-    {
-        return $this->belongsTo(Language::class);
-    }
-
-    public function morphemes()
-    {
-        return $this->belongsToMany(Morpheme::class, 'Forms_Morphemes')->orderBy('position')->withPivot('position');
     }
 
     public function morphemeList()
@@ -163,6 +154,41 @@ class Form extends Model
         }
 
         return $output;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relations
+    |--------------------------------------------------------------------------
+    */
+    public function formType()
+    {
+        return $this->belongsTo(FormType::class, 'formType_id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Form::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Form::class, 'parent_id');
+    }
+
+    public function allChildren()
+    {
+        return $this->children()->with('allchildren');
+    }
+
+    public function language()
+    {
+        return $this->belongsTo(Language::class);
+    }
+
+    public function morphemes()
+    {
+        return $this->belongsToMany(Morpheme::class, 'Forms_Morphemes')->orderBy('position')->withPivot('position');
     }
 
     public function duplicates()
@@ -242,16 +268,5 @@ class Form extends Model
 
         return $html . "</div>";
 
-    }
-
-    public function connectSources($sources)
-    {
-        if($sources) {
-            $this->sources()->detach();
-
-            foreach($sources as $source) {
-                $this->sources()->attach($source['id'], ['extraInfo' => $source['extraInfo']]);
-            }
-        }
     }
 }

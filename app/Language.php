@@ -15,8 +15,8 @@ class Language extends Model
 {
     use \Venturecraft\Revisionable\RevisionableTrait;
 
-    protected $revisionEnabled = true;
-    protected $revisionCreationsEnabled = true;
+    public $table = 'Languages';
+    protected $fillable = ['alternateNames', 'name','group_id','parent_id','iso','algoCode','notes', 'reconstructed'];
     protected $events = [
         'created'  => Created::class,
         'saving'   => Saving::class,
@@ -25,12 +25,12 @@ class Language extends Model
         'deleted'  => Deleted::class
     ];
 
+    protected $revisionEnabled = true;
+    protected $revisionCreationsEnabled = true;
     protected $revisionNullString = 'none';
-
     protected $revisionFormattedFields = [
         'reconstructed' => 'boolean:Attested|Reconstructed'
     ];
-
     protected $revisionFormattedFieldNames = [
         'algoCode'       => 'Algonquianist Code',
         'alternateNames' => 'Alternate Names',
@@ -40,9 +40,6 @@ class Language extends Model
         'parent_id'      => 'Parent ID',
         'reconstructed'  => 'Reconstructed'
     ];
-
-    public $table = 'Languages';
-    protected $fillable = ['alternateNames', 'name','group_id','parent_id','iso','algoCode','notes', 'reconstructed'];
     
     public function group()
     {
@@ -67,5 +64,19 @@ class Language extends Model
     public function morphemes()
     {
         return $this->hasMany(Morpheme::class);
+    }
+
+    public function sources()
+    {
+        return $this->loadSources('morphemes')->merge($this->loadSources('forms'));
+    }
+
+    protected function loadSources($model)
+    {
+        $this->load(["$model.sources" => function ($query) use ( &$sources ) {
+            $sources = $query->get()->unique();
+        }]);
+
+        return $sources;
     }
 }

@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			03-02-17: Added disambiguator to langauges' morpheme lists (WIP - will eventually only show disambiguator when morpheme needs disambiguation)
+		</li>
+		<li>
 			03-02-17: Set datalists to close when the mouse is clicked outside of them
 		</li>
 		<li>

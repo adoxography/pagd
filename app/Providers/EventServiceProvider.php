@@ -60,6 +60,9 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         // Morpheme Events
+        'App\Events\Morpheme\Creating' => [
+            'App\Listeners\Morpheme\AssignDisambiguator'
+        ],
         'App\Events\Morpheme\Created' => [
             'App\Listeners\Revision\HandleCreated'
         ],

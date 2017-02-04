@@ -22,6 +22,15 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Source::class, function (Faker\Generator $faker) {
+    return [
+        'short' => $faker->sentence,
+        'long' => $faker->paragraph,
+        'url' => $faker->url,
+        'notes' => $faker->paragraph
+    ];
+});
+
 $factory->define(App\Form::class, function (Faker\Generator $faker) {
 	return [
 		'surfaceForm' => $faker->word,

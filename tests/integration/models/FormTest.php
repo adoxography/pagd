@@ -1,6 +1,7 @@
 <?php
 
 use App\Form;
+use App\Source;
 use App\FormType;
 use App\Language;
 use App\Morpheme;
@@ -13,47 +14,38 @@ class FormTest extends TestCase
 	protected $connectionsToTransact = ['mysql_testing'];
 
 	/** @test */
-	function a_form_has_a_surface_form()
+	function a_form_has_attributes()
 	{
-		$form = new Form(['surfaceForm' => 'testform']);
-
-		$this->assertEquals('testform', $form->surfaceForm);
-	}
-
-	/** @test */
-	function a_form_has_a_phonetic_form()
-	{
-		$form = new Form(['phoneticForm' => '[ɑæəɛɪŋɾʃ]']);
-
-		$this->assertEquals('[ɑæəɛɪŋɾʃ]', $form->phoneticForm);
-	}	
-
-	/** @test */
-	function a_form_has_a_morphemic_form()
-	{
-		$form = new Form(['morphemicForm' => 'a-b-c']);
-
-		$this->assertEquals('a-b-c', $form->morphemicForm);
-	}
-
-	/** @test */
-	function a_form_has_a_language()
-	{
+		// Get prerequisites ready
 		$language = factory(Language::class)->create();
-
-		$form = new Form(['language_id' => $language->id]);
-
-		$this->assertEquals($language->id, $form->language_id);
-	}
-
-	/** @test */
-	function a_form_has_a_type()
-	{
 		$type = factory(FormType::class)->create();
+		$parent = factory(Form::class)->create();
 
-		$form = new Form(['formType_id' => $type->id]);
+		// Create the form
+		$form = Form::create([
+			'surfaceForm' => 'testform',
+			'phoneticForm' => '[ɑæəɛɪŋɾʃ]',
+			'morphemicForm' => 'a-b-c',
+			'language_id' => $language->id,
+			'formType_id' => $type->id,
+			'parent_id' => $parent->id,
+			'historicalNotes' => "These are the historical notes",
+			'allomorphyNotes' => "These are the allomorphy notes",
+			'usageNotes' => "These are the usage notes",
+			'comments' => "These are the comments",
+		]);
 
+		// Run the tests
+		$this->assertNotNull($form->id);
+		$this->assertEquals('testform', $form->surfaceForm);
+		$this->assertEquals('[ɑæəɛɪŋɾʃ]', $form->phoneticForm);
+		$this->assertEquals('a-b-c', $form->morphemicForm);
+		$this->assertEquals($language->id, $form->language_id);
 		$this->assertEquals($type->id, $form->formType_id);
+		$this->assertEquals("These are the historical notes", $form->historicalNotes);
+		$this->assertEquals("These are the allomorphy notes", $form->allomorphyNotes);
+		$this->assertEquals("These are the usage notes", $form->usageNotes);
+		$this->assertEquals("These are the comments", $form->comments);
 	}
 
 	/** @test */
@@ -78,13 +70,38 @@ class FormTest extends TestCase
 			'morphemicForm' => 'a-b-V'
 		]);
 
-		// Direct the form to find its morphemes
-		$form->connectMorphemes();
-
-		$this->assertGreaterThan(0, $form->id); // Make sure the form persisted to the database
 		$this->assertCount(3, $form->morphemes); // +1 for the Vstem
 		$this->assertEquals($form->morphemes[0]->name.$form->morphemes[1]->name.$form->morphemes[2]->name, $form->morphemicForm); // 'a-b-V'
 	}
 
+	/** @test */
+	function a_reconstructed_form_has_an_asterisk()
+	{
+		// Create a reconstructed language
+		$language = factory(Language::class)->create([
+			'reconstructed' => 1
+		]);
 
+		// Add a form to it
+		$form = factory(Form::class)->create([
+			'language_id' => $language->id,
+			'surfaceForm' => 'V-test'
+		]);
+
+		$this->assertEquals('*V-test', $form->surfaceForm);
+	}
+
+	/** @test */
+	function a_forme_can_have_sources()
+	{
+		$source = factory(Source::class)->create();
+		$form = factory(Form::class)->create();
+
+		$sourceData = [['id' => $source->id, 'extraInfo' => 'page 7']];
+		$form->connectSources($sourceData);
+
+		$this->assertCount(1, $form->sources);
+		$this->assertEquals($source->id, $form->sources->first()->id);
+		$this->assertEquals('page 7', $form->sources->first()->pivot->extraInfo);
+	}
 }

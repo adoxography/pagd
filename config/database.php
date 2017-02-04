@@ -68,8 +68,8 @@ return [
 
         'mysql_testing' => [
             'driver' => 'mysql',
-            'host' => env('TESTING_DB_HOST', 'homestead'),
-            'port' => env('TESTING_DB_PORT', '192.168.10.10'),
+            'host' => env('TESTING_DB_HOST', '192.168.10.10'),
+            'port' => env('TESTING_DB_PORT', '3306'),
             'database' => env('TESTING_DB_DATABASE', 'testing'),
             'username' => env('TESTING_DB_USERNAME', 'homestead'),
             'password' => env('TESTING_DB_PASSWORD', 'secret'),

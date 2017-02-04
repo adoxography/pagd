@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			03-02-17: Updated cognate display so as to exclude PA forms/morphemes from being cognates
+		</li>
+		<li>
 			03-02-17: Sources focus on the extra info field after being added
 		</li>
 		<li>

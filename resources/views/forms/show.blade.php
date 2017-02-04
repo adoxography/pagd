@@ -153,11 +153,7 @@
 			</model-tab>
 
 			<model-tab name="Cognates">
-				<div class="column">
-				@component('components.model.field', ['label' => 'Cognates'])
-					@include('components.model.cognates', ['list' => $cognates, 'current' => $form, 'model' => 'forms'])
-				@endcomponent
-				</div>
+				@include('components.model.cognates', ['list' => $cognates, 'current' => $form, 'model' => 'forms'])
 			</model-tab>
 
 			<model-tab name="Examples">

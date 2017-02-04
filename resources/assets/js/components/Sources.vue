@@ -18,7 +18,7 @@
 					</div>
 					<div class="column is-8">
 						<p class="control">
-							<input type="text" class="input is-expanded" :name="'sources['+index+'][extraInfo]'" v-model="source.extraInfo" placeholder="chapter, page number, etc..." />
+							<input type="text" class="input is-expanded" :name="'sources['+index+'][extraInfo]'" v-model="source.extraInfo" placeholder="chapter, page number, etc..." ref="extrainfo" />
 						</p>
 					</div>
 					<div class="column is-1">
@@ -33,6 +33,8 @@
 </template>
 
 <script>
+	import  { focus } from 'vue-focus';
+
 	export default {
 		props: ['value'],
 
@@ -42,6 +44,10 @@
 				sources: [],
 				initSources: []
 			};
+		},
+
+		directives: {
+			focus: focus
 		},
 
 		methods: {
@@ -55,6 +61,10 @@
 
 			add(data) {
 				this.sources.push({ short: data.short, id: data.id, extraInfo: "" });
+
+				Vue.nextTick(() => {
+					this.$refs.extrainfo[this.sources.length - 1].focus();
+				});
 			},
 
 			remove(index) {

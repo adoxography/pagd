@@ -11,6 +11,18 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			03-02-17: Shrunk horizontal space between morphemes on form display
+		</li>
+		<li>
+			03-02-17: Switched hyphen to em dash in argument labels
+		</li>
+		<li>
+			03-02-17: Removed asterisk in front of proto-morphemes when displayed on proto-forms
+		</li>
+		<li>
+			03-02-17: Added a colon after source short form
+		</li>
+		<li>
 			03-02-17: Added sources to language display - lists all unique sources used for that language's forms and morphemes
 		</li>
 		<li>

@@ -77,7 +77,7 @@ class FormType extends Model
         $output = $this->subject->name;
 
         if($this->primaryObject) {
-            $output .= "-".$this->primaryObject->name;
+            $output .= "—".$this->primaryObject->name;
         }
 
         if($this->secondaryObject) {

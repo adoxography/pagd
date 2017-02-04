@@ -25,13 +25,7 @@
 						@endslot
 						<ul class="description-list" style="list-style: none;">
 							<li>
-								{{ $form->formType->subject->name }}
-								@if($form->formType->primaryObject)
-									- {{ $form->formType->primaryObject->name }}
-								@endif
-								@if($form->formType->secondaryObject)
-									+ {{ $form->formType->secondaryObject->name }}
-								@endif
+								{{ $form->formType->getArguments() }}
 							</li>
 							<li>
 								<a href="/classes/{{ $form->formType->class_id }}">{{ $form->formType->formClass->name }}</a>
@@ -72,10 +66,10 @@
 						@endif
 						<div class="columns">
 							@foreach($form->morphemeList() as $morpheme)
-								<div class="column is-narrow">
+								<div class="column is-narrow" style="padding-left: .25rem; padding-right: .25rem;">
 								@if($morpheme instanceof App\Morpheme)
 									@if($morpheme->name !== 'V')
-										<a href='/morphemes/{{ $morpheme->id }}'>{{ str_replace('-', '', $morpheme->name) }}</a>
+										<a href='/morphemes/{{ $morpheme->id }}'>{{ str_replace(['-', '*'], '', $morpheme->name) }}</a>
 									@else
 										{{ $morpheme->name }}
 									@endif

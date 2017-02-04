@@ -70,7 +70,9 @@ class LanguageController extends Controller
         $language->load(['group', 'parent', 'children', 'morphemes' => function( $query ){
             $query->where('name','!=','V');
         }]);
-        return view('languages.show', compact('language'));
+        $sources = $language->sources();
+
+        return view('languages.show', compact('language', 'sources'));
     }
 
     public function update(LanguageRequest $request, Language $language)

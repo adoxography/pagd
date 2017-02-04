@@ -6,7 +6,13 @@
 	</div>
 	<br />
 
-	@component('components.model', ['header' => $language->name, 'uri' => "/languages/{$language->id}", 'history' => $language->revisionHistory])
+	@component('components.model', ['uri' => "/languages/{$language->id}", 'history' => $language->revisionHistory])
+		@slot('header')
+			{{ $language->name }}
+			@if($language->alternateNames)
+				<span style="padding-left: .25em;">({{ $language->alternateNames }}</span>)
+			@endif
+		@endslot
 		<model-tab name="Basic Details" selected="true">
 			{{-- Group field --}}
 			@component('components.model.field', ['width' => 'is-half', 'label' => 'Group'])

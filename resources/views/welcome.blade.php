@@ -11,6 +11,10 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			05-02-17: Fixed error in morpheme, form display
+		</li>
+		<hr>
+		<li>
 			03-02-17: Limited the main log to just show the last 30 changes
 		</li>
 		<li>

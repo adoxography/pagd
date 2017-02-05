@@ -82,7 +82,7 @@ class Form extends Model
     {
         $output = "";
 
-        if($this->language->reconstructed) {
+        if($this->language && $this->language->reconstructed) {
             $output = "*";
         }
 

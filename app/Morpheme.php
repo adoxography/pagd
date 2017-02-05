@@ -79,7 +79,7 @@ class Morpheme extends Model
     {
         $asterisk = "";
 
-        if ($this->language->reconstructed && $value != 'V') {
+        if ($this->language && $this->language->reconstructed && $value != 'V') {
             $asterisk = "*";
         }
 

@@ -26,8 +26,6 @@ class ViewComposerServiceProvider extends ServiceProvider
         $this->composeFormForm();
         $this->composeLanguageForm();
         $this->composeMorphemeForm();
-        $this->composeMultiMorphemeForm();
-        $this->composerMorphemeOTGForm();
 
         $this->composeShow();
         $this->composeSearch();
@@ -95,30 +93,6 @@ class ViewComposerServiceProvider extends ServiceProvider
         });
     }
 
-    private function composerMorphemeOTGForm()
-    {
-        view()->composer('morphemes.partials.create-otg', function($view)
-        {
-            $data = [
-                'glosses'   => Gloss::select('id','abv as value')->get(),
-                'slots'     => Slot::select('id','abv as value')->get()
-            ];
-            $view->with($data);
-        });
-    }
-
-    private function composeMultiMorphemeForm()
-    {
-        view()->composer('morphemes.createMulti', function($view)
-        {
-            $data = [
-                'glosses' => Gloss::select('id', 'abv as value')->get(),
-                'slots'   => Slot::select('id', 'abv as value')->get()
-            ];
-            $view->with($data);
-        });
-    }
-
     private function composeShow()
     {
         view()->composer('morphemes.show', function($view)
@@ -143,16 +117,6 @@ class ViewComposerServiceProvider extends ServiceProvider
             ];
             $view->with($data);
         });
-    }
-
-    private function toArray($collection){
-        $output = [];
-
-        foreach($collection as $item){
-            $output[] = [$item->id => $item->value];
-        }
-
-        return $output;
     }
 
     /**

@@ -26,7 +26,8 @@ Vue.component('alg-new-source',     require('./components/New-Source.vue'));
 Vue.component('alg-old-source',     require('./components/Old-Source.vue'));
 Vue.component('alg-sources',        require('./components/Sources.vue'));
 Vue.component('autosize-textarea',  require('./components/Autosize-Textarea.vue'));
-Vue.component('alg-paginated-list', require('./components/Paginated-List.vue'));
+Vue.component('alg-paginated-list',    require('./components/Paginated-List.vue'));
+Vue.component('alg-filter-list',    require('./components/Filter-List.vue'));
 
 Vue.component('paradigm-language-suggest', {
 	methods: {

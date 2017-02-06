@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			05-02-17: <a href="/languages/1#morphemes">Added a component to language displays for viewing morphemes</a>
+		</li>
+		<li>
 			05-02-17: Sources now appear in alphabetical order
 		</li>
 		<li>

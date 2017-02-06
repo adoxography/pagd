@@ -16,12 +16,8 @@ class SandboxController extends Controller
 {
     
     public function index(){
-        $language = Language::first();
-        dd($language->sources());
 
-        $forms = Form::all();
-
-        return view('sandbox', compact('forms'));
+        return view('sandbox');
 
 
      //    $hashTable = new \App\HashTable();

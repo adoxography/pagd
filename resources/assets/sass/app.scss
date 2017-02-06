@@ -66,6 +66,26 @@ html {
 	flex-grow: 1;
 }
 
+.alg-paginated-list {
+	.pagination {
+		ul {
+			list-style: none;
+			margin: 0;
+
+			li {
+				margin-top: 0;
+			}
+		}
+	}
+
+	.content {
+		ul {
+			list-style: none;
+			margin-left: 0;
+		}
+	}
+}
+
 .alg-datalist-dropdown {
 	box-shadow: 0 0 8px #777;
 	display: block;

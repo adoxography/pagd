@@ -1,6 +1,13 @@
 @extends('layout')
 
+<?php 
+	$morphemes = \App\Language::find(1)->morphemes->load('slot');
+	// dd($morphemes->pluck('slot')->unique());
+?>
+
 @section('content')
-	<alg-paginated-list list="{{ $forms }}">
-	</alg-paginated-list>
+	<div class="box">
+		<alg-filter-list list="{{ $morphemes }}" filteroptions="{{ $morphemes->pluck('slot')->unique()->toJson() }}">
+		</alg-filter-list>
+	</div>
 @endsection

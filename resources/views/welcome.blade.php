@@ -11,6 +11,10 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			06-02-17: <a href="/sandbox/paradigm">Added demo of a paradigm view of all intransitive and non-negative, non-diminutive, and non-abs/obj forms</a>
+		</li>
+		<hr>
+		<li>
 			05-02-17: Added functionality to make a <a href="/forms/need-attention">"forms that need attention"</a> page possible
 		</li>
 		<li>

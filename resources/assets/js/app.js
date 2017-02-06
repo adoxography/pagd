@@ -29,6 +29,20 @@ Vue.component('autosize-textarea',  require('./components/Autosize-Textarea.vue'
 Vue.component('alg-paginated-list',    require('./components/Paginated-List.vue'));
 Vue.component('alg-filter-list',    require('./components/Filter-List.vue'));
 
+Vue.component('alg-paradigm-table', {
+	data() {
+		return {
+			show: false
+		};
+	},
+
+	methods: {
+		toggleShow() {
+			this.show = true;
+		}
+	}
+});
+
 Vue.component('paradigm-language-suggest', {
 	methods: {
 		suggest(data) {

@@ -19,97 +19,128 @@ class SandboxController extends Controller
         $forms = Form::where('complete', 0)->orderBy('language_id')->get();
 
         return view('sandbox');
+    }
+
+    public function paradigm() {
+
+        $forms = Form::with([
+            'language.group',
+            'formType.mode',
+            'formType.formClass',
+            'formType.order',
+            'formType.subject',
+            'formType.primaryObject',
+            'formType.secondaryObject',
+            'morphemes' => function ($query) {
+                $query->orderBy('position');
+            },
+            'morphemes.gloss',
+            'morphemes.slot'
+        ])->whereHas('formType', function($query) {
+            $query->where('isNegative', 0)
+                  ->where('isDiminutive', 0)
+                  ->where('isAbsolute', null)
+                  ->where('primaryObject_id', null)
+                  ->where('secondaryObject_id', null);
+        })->get();
+
+        $argumentDictionary = \App\Argument::all();
 
 
-     //    $hashTable = new \App\HashTable();
+        $data = [];
+        $rows = [
+            'AI' => [
+                '1' => [],
+                '1s' => [],
+                '2' => [],
+                '2s' => [],
+                '1p' => [],
+                '21' => [],
+                '2p' => [],
+                '3' => [],
+                '3s' => [],
+                '3d' => [],
+                '3p' => [],
+                '3\'' => [],
+                '3\'s' => [],
+                '3\'d' => [],
+                '3\'p' => [],
+                '3\'\'' => [],
+                '3\'\'s' => [],
+                '3\'\'p' => [],
+                'X' => [],
+            ],
+            'II' => [
+                '0' => [],
+                '0s' => [],
+                '0d' => [],
+                '0p' => [],
+                '0\'' => [],
+                '0\'s' => [],
+                '0\'d' => [],
+                '0\'p' => [],
+                '0\'\'' => [],
+            ]
+        ];
 
-     //    $forms = Form::with([
-     //        'language.group',
-     //        'formType.mode',
-     //        'formType.formClass',
-     //        'formType.order',
-     //        'formType.subject',
-     //        'formType.primaryObject',
-     //        'formType.secondaryObject',
-     //        'morphemes' => function ($query) {
-     //            $query->orderBy('position');
-     //        },
-     //        'morphemes.gloss',
-     //        'morphemes.slot'
-     //    ])->whereHas('formType', function($query) {
-     //        $query->where('isNegative', 0)
-     //              ->where('isDiminutive', 0)
-     //              ->where('isAbsolute', null)
-     //              ->where('primaryObject_id', null)
-     //              ->where('secondaryObject_id', null);
-     //    })->get();
+        foreach($forms as $form) {
 
-     //    $newData = new Cell();
+            $formType = $form->formType;
 
-     //    foreach($forms as $form) {
-     //        $newData->insert($form, ['language', 'formType.order', 'formType.mode']);
-     //    }
+            $data[$form->language->name][$formType->order->name][$formType->mode->name] = null;
+            $rows[$formType->formClass->name][$formType->subject->name][] = $form;
+        }
 
-     //    // dd($data->search(1)->getData());
+        foreach($rows as $class => $persons) {
+            $keys = array_keys($persons);
 
-     //    $formTypes = $forms->pluck('formType');
+            for($i = 0; $i < count($persons); $i++) {
+                $subject = $keys[$i];
 
-     //    $languageDictionary = $forms->pluck('language')->unique();
-     //    $orderDictionary  = $formTypes->pluck('order')->unique();
-     //    $modeDictionary   = $formTypes->pluck('mode')->unique();
+                if(count($rows[$class][$subject]) > 0) {
+                    $model = $argumentDictionary->where('name', $subject)->first();
 
-     //    $classDictionary = $formTypes->pluck('formClass')->unique();
-     //    $numberDictionary = [
-     //        '0' => '',
-     //        '1' => 's',
-     //        '2' => 'd',
-     //        '3' => 'p'
-     //    ];
-     //    $personDictionary = [
-     //        '0' => '0',
-     //        '1' => '1',
-     //        '2' => '2',
-     //        '3' => '3',
-     //        '4' => '21',
-     //        '5' => 'X'
-     //    ];
+                    if(!in_array($subject{strlen($subject) - 1}, ['s', 'd', 'p']) && $i < count($persons) - 1) {
 
-     //    $obvDictionary = [
-     //        '0' => '',
-     //        '1' => '\'',
-     //        '2' => '\'\''
-     //    ];
+                        $found = false;
+                        $consecutive = -1;
 
+                        $j = 1;
 
-     //    $subjects = $formTypes->pluck('subject')->unique();
+                        while($i + $j < count($keys) - 1 && preg_match("/".$subject."[sdp]/", $keys[$i + $j])) {
+                            $consecutive++;
+                            $j++;
+                        }
 
-     //    $data = [];
-     //    $rows = [];
+                        foreach(['s', 'd', 'p'] as $number) {
+                            if(isset($rows[$class][$subject.$number]) && count($rows[$class][$subject.$number]) > 0) {
+                                $found = true;
 
-     //    foreach($forms as $form) {
-     //        $formType = $form->formType;
+                                foreach($rows[$class][$subject] as $moving) {
+                                    $moving->diffClass = $subject;
 
-     //        $hashTable->insert($form);
+                                    if($consecutive > 1) {
+                                        $moving->span = $consecutive;
+                                    } else {
+                                        $moving->distant = true;
+                                    }
 
-     //        $data[$form->language_id][$formType->order_id][$formType->mode_id] = null;
+                                    $rows[$class][$subject.$number][] = $moving;
+                                }
+                            }
+                        }
 
-     //        $rows[$formType->formClass->id][$formType->subject->getPersonCode()][$formType->subject->getNumberCode()] = null;
-     //    }
+                        if($found) {
+                            unset($rows[$class][$subject]);
+                        }
+                    }
+                } elseif(count($persons[$subject]) == 0) {
+                    unset($rows[$class][$subject]);
+                }
+            }
+        }
 
-     //    foreach($rows as $class => $persons) {
-     //        foreach($persons as $person => $numbers) {
-     //            if(count($numbers) > 1) {
-     //                $keys = array_keys($numbers);
-
-     //                if($keys[0] == '0') {
-     //                    unset($rows[$class][$person][0]);
-     //                }
-     //            }
-     //        }
-     //    }
-     //    // dd($rows);
-
-    	// return view('sandbox', compact('data', 'newData', 'rows', 'hashTable', 'languageDictionary', 'orderDictionary', 'modeDictionary', 'classDictionary', 'numberDictionary', 'personDictionary', 'obvDictionary'));
+    	return view('paradigmTableRender', compact('data', 'rows'));
     }
 
     public function store(){

@@ -44,6 +44,29 @@ class FormType extends Model
         });
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Attribute modifiers
+    |--------------------------------------------------------------------------
+    */
+    public function getSubjectPersonAttribute() {
+        if($this->subject) {
+            return $this->subject->person;
+        }
+        else {
+            return "N/A";
+        }
+    }
+
+    public function getSubjectNumberAttribute() {
+        if($this->subject) {
+            return $this->subject->number;
+        }
+        else {
+            return "N/A";
+        }
+    }
+
     public function validate()
     {
         $rc = true;

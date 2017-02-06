@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 */
 Route::get('sandbox',  'SandboxController@index');
 Route::post('sandbox', 'SandboxController@store');
+Route::get('sandbox/paradigm', 'SandboxController@paradigm');
 
 Route::get('',     'HomeController@index');
 Route::get('home', 'HomeController@index');

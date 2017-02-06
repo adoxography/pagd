@@ -35,6 +35,8 @@
 			</div>
 		<section class="section">
 
+		@yield('table')
+
 		@include('footer')	
 		@yield('footer')
 

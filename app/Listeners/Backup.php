@@ -32,6 +32,7 @@ class Backup
     {
         $numEvents;
 
+        // if ($this->app->environment('local', 'production')) {
         // Check how many save events have taken place
         try {
             $numEvents = Storage::get('SavedEvents.txt');

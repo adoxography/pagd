@@ -18,7 +18,7 @@ class CreateSourcesExamplesTbl extends Migration
 
             $table->unsignedInteger('source_id')->index();
             $table->unsignedInteger('example_id')->index();
-            $table->string('extraInfo');
+            $table->string('extraInfo')->nullable();
             $table->timestamps();
 
             $table->foreign('source_id')->references('id')->on('Sources');

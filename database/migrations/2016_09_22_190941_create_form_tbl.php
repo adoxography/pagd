@@ -28,6 +28,8 @@ class CreateFormTbl extends Migration
             $table->text('historicalNotes')->nullable();
             $table->text('comments')->nullable();
             $table->boolean('verified')->default(0);
+            $table->text('allomorphyNotes')->nullable();
+            $table->text('usageNotes')->nullable();
             $table->timestamps();
 
             $table->foreign('language_id')->references('id')->on('Languages');

@@ -19,6 +19,9 @@ class CreateSourceTbl extends Migration
             $table->increments('id');
             $table->string('short',100);
             $table->text('long');
+            $table->string('url')->nullable();
+            $table->text('notes')->nullable();
+            
             $table->timestamps();
         });
     }

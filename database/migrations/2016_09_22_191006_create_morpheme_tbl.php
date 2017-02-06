@@ -25,6 +25,8 @@ class CreateMorphemeTbl extends Migration
             $table->text('historicalNotes')->nullable();
             $table->text('allomorphyNotes')->nullable();
             $table->text('comments')->nullable();
+            $table->string('translation')->nullable();
+            $table->integer('disambiguator')->default(1);
             $table->timestamps();
 
             $table->foreign('language_id')->references('id')->on('Languages');

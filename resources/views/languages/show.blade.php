@@ -110,11 +110,14 @@
 			@endcomponent
 		</model-tab>
 
-		<model-tab name="Sources">
-			@component('components.model.field', ['width' => 'is-12', 'label' => 'Sources (hover over a source for the full citation)'])
-				@include('components.model.sourcelist', ['sources' => $sources])
-			@endcomponent
-		</model-tab>
+		@if($sources)
+			<model-tab name="Sources">
+				@component('components.model.field', ['width' => 'is-12', 'label' => 'Sources (hover over a source for the full citation)'])
+					@include('components.model.sourcelist', ['sources' => $sources])
+				@endcomponent
+			</model-tab>
+		@endif
+
 	@endcomponent
 
 @stop

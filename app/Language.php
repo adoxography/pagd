@@ -68,7 +68,15 @@ class Language extends Model
 
     public function sources()
     {
-        return $this->loadSources('morphemes')->merge($this->loadSources('forms'));
+        $morphemeSources = $this->loadSources('morphemes');
+        $formSources = $this->loadSources('forms');
+
+        $sources = $morphemeSources;
+        if($formSources) {
+            $sources = $morphemeSources->merge($formSources);
+        }
+
+        return $sources;
     }
 
     protected function loadSources($model)

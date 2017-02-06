@@ -18,7 +18,7 @@ class CreateSlotTbl extends Migration
         	
             $table->increments('id');
             $table->string('name',100);
-            $table->string('abv',8);
+            $table->string('abv',8)->unique();
             $table->text('description')->nullable();
             $table->timestamps();
         });

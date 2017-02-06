@@ -133,6 +133,6 @@
 			</alg-tabs>
 		</div>
 		
-		</div>
+	</div>
 
 @stop

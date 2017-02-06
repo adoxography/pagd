@@ -24,6 +24,9 @@ class CreateLanguageTbl extends Migration
             $table->unsignedInteger('group_id');
             $table->boolean('verified')->default(0);
             $table->timestamps();
+            $table->string('alternateNames')->nullable();
+            $table->text('notes')->nullable();
+            $table->boolean('reconstructed')->default(false);
 
             $table->foreign('parent_id')->references('id')->on('Languages');
             $table->foreign('group_id')->references('id')->on('Groups');

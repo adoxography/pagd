@@ -11,6 +11,12 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			05-02-17: Added functionality to make a <a href="/forms/need-attention">"forms that need attention"</a> page possible
+		</li>
+		<li>
+			05-02-17: Removed gloss from morpheme cognates (If it really is a big deal, I can re-add it, but it's kind of a pain)
+		</li>
+		<li>
 			05-02-17: <a href="/languages/1#morphemes">Added a component to language displays for viewing morphemes</a>
 		</li>
 		<li>

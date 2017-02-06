@@ -40,6 +40,17 @@ class AssignDisambiguator
           ->orderBy('disambiguator')
           ->get();
 
+        if(count($duplicates) > 0) {
+            foreach($duplicates as $duplicate) {
+                if(!$duplicate->hasDuplicates) {
+                    $duplicate->hasDuplicates = true;
+                    $duplicate->save();
+                }
+            }
+
+            $morpheme->hasDuplicates = true;
+        }
+
         $morpheme->disambiguator = $this->firstOpenSpace($duplicates);
     }
 

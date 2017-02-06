@@ -116,4 +116,25 @@ class FormController extends Controller
 
         return view('examples.create', compact('presetForm'));
     }
+
+    public function incompleteForms()
+    {
+        $languages = [];
+
+        $forms = Form::where('complete', 0)
+                     ->orderBy('language_id')
+                     ->with('language')
+                     ->with('formType.subject')
+                     ->with('formType.primaryObject')
+                     ->with('formType.secondaryObject')
+                     ->get();
+
+        $languageSet = $forms->pluck('language')->unique();
+
+        foreach($languageSet as $language) {
+            $languages[$language->name] = $forms->where('language_id', $language->id);
+        }
+
+        return view('forms.need-attention', compact('languages'));
+    }
 }

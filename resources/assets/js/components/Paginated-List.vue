@@ -29,7 +29,7 @@
 		</nav>
 		<div class="content">
 			<ul v-for="(page, index) in pages" v-show="selected == index">
-				<li v-for="item in page"><a :href="'/morphemes/'+item.id">{{ item.name }}<sup>{{ item.disambiguator }}</sup> (<span class="gloss">{{ item.gloss.abv }}</span>)</a></li>
+				<li v-for="item in page"><a :href="'/morphemes/'+item.id">{{ item.name }}<sup v-if="item.hasDuplicates">{{ item.disambiguator }}</sup> (<span class="gloss">{{ item.gloss.abv }}</span>)</a></li>
 			</ul>
 		</div>
 	</div>

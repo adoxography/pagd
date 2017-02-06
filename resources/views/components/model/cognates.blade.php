@@ -5,7 +5,7 @@
 			@if($list->id != $current->id)
 				<a style="padding-left: .5rem;" href="/{{ $model }}/{{ $list->id }}">
 			@endif
-			{{ $list->uniqueNameWithLanguage() }}
+			{{ $list->name }} ({{ $list->language->name }})
 			@if($list->id != $current->id)
 				</a>
 			@endif
@@ -18,10 +18,10 @@
 	<p style="margin-left: {{ $depth * 1.5 }}em;">
 		@if($list->id != $current->id)
 		<a href="/{{ $model }}/{{ $list->id }}">
-			{{ $list->uniqueNameWithLanguage() }}
+			{{ $list->name }} ({{ $list->language->name }})
 		</a>
 		@else
-			{{ $list->uniqueNameWithLanguage() }}
+			{{ $list->name }} ({{ $list->language->name }})
 		@endif
 	</p>
 

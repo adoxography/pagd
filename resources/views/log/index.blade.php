@@ -10,7 +10,7 @@
 		<ul>
 			@foreach($log as $entry)
 				<li>
-					{{ $entry['revision']->userResponsible()->name }}
+					{{ $entry['revision']->userResponsible() ? $entry['revision']->userResponsible()->name : 'Anonymous' }}
 
 					@if($entry['revision']->key == 'created_at')
 						@if($entry['model'] instanceof \App\Language)

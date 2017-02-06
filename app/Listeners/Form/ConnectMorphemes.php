@@ -62,5 +62,17 @@ class ConnectMorphemes
                 }
             }
         }
+
+        if(count($morphemes) == count($form->morphemes)) {
+            if(!$form->complete) {
+                $form->complete = true;
+                $form->save();
+            }
+        } else {
+            if($form->complete) {
+                $form->complete = false;
+                $form->save();
+            }
+        }
     }
 }

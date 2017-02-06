@@ -42,7 +42,7 @@ Route::get('log', 'LogController@index');
 
 Route::post('sources/ajax', 'SourceController@store');
 
-Route::get('morphemes/confirm-delete', 'MorphemeController@confirmDelete');
+Route::get('forms/need-attention', 'FormController@incompleteForms');
 
 Route::resource('classes',   'ClassController');
 Route::resource('glosses',   'GlossController');

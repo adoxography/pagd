@@ -80,6 +80,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\Morpheme\Deleted' => [
             'App\Listeners\Morpheme\ReconnectForms',
+            'App\Listeners\Morpheme\ReassessDuplicates',
             'App\Listeners\Revision\HandleDeleted'
         ]
     ];

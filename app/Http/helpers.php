@@ -2,6 +2,53 @@
 
 define("NOT_FOUND", -1);
 
+function assessFormCompleteness() {
+    $forms = \App\Form::all();
+
+    foreach($forms as $form) {
+        $morphemes = explode('-', $form->morphemicForm);
+
+        if(count($morphemes) == count($form->morphemes)) {
+            $form->complete = true;
+            $form->save();
+        }
+    }
+
+    return "Function complete";
+}
+
+function assessDuplicates()
+{
+    $morphemes = \App\Morpheme::all();
+
+    foreach($morphemes as $morpheme) {
+
+        if($morpheme->disambiguator > 1) {
+            $nameNoHyphens = str_replace(['-','*'], '', $morpheme->name);
+
+            $duplicates = \App\Morpheme::whereIn('name', [
+                    $nameNoHyphens,
+                '-'.$nameNoHyphens,
+                '-'.$nameNoHyphens.'-',
+                    $nameNoHyphens.'-',
+            ])->where('language_id', $morpheme->language_id)
+              ->get();
+
+            if(count($duplicates) > 1) {
+                foreach($duplicates as $duplicate) {
+                    if(!$duplicate->hasDuplicates) {
+                        $duplicate->hasDuplicates = true;
+                        $duplicate->save();
+                    }
+                }
+            }
+        }
+    }
+
+    return "Function complete.";
+}
+
+
 function binarySearch($item, $list)
 {
     $hi = count($list)-1;

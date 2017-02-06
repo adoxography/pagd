@@ -89,6 +89,11 @@ class Form extends Model
         return $output.$value;
     }
 
+    public function getNameAttribute()
+    {
+        return $this->surfaceForm;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Methods

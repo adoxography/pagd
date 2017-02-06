@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			05-02-17: Sources now appear in alphabetical order
+		</li>
+		<li>
 			05-02-17: Fixed error in morpheme, form display
 		</li>
 		<hr>

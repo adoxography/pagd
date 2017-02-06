@@ -203,7 +203,7 @@ class Form extends Model
 
     public function sources()
     {
-        return $this->belongstoMany(Source::class, 'Sources_Forms')->withPivot('extraInfo');
+        return $this->belongstoMany(Source::class, 'Sources_Forms')->withPivot('extraInfo')->orderBy('short');
     }
 
     public function getTableRow()

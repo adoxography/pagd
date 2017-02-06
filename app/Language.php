@@ -76,7 +76,7 @@ class Language extends Model
             $sources = $morphemeSources->merge($formSources);
         }
 
-        return $sources;
+        return $sources->sortBy('short');
     }
 
     protected function loadSources($model)

@@ -159,7 +159,7 @@ class Morpheme extends Model
 
     public function sources()
     {
-        return $this->belongstoMany(Source::class, 'Morphemes_Sources')->withPivot('extraInfo');
+        return $this->belongstoMany(Source::class, 'Morphemes_Sources')->withPivot('extraInfo')->orderBy('short');
     }
 
 }

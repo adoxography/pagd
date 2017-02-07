@@ -49,22 +49,86 @@ class FormType extends Model
     | Attribute modifiers
     |--------------------------------------------------------------------------
     */
-    public function getSubjectPersonAttribute() {
-        if($this->subject) {
-            return $this->subject->person;
-        }
-        else {
+    public function getSubjectNameAttribute()
+    {
+        if ($this->subject) {
+            return $this->subject->name;
+        } else {
             return "N/A";
         }
     }
 
-    public function getSubjectNumberAttribute() {
-        if($this->subject) {
-            return $this->subject->number;
-        }
-        else {
+    public function getPrimaryObjectNameAttribute()
+    {
+        if ($this->primaryObject) {
+            return $this->primaryObject->name;
+        } else {
             return "N/A";
         }
+    }
+
+    public function getArgumentsAttribute()
+    {
+        $output = $this->subject->name;
+
+        if ($this->primaryObject) {
+            $output .= "—".$this->primaryObject->name;
+        }
+
+        if ($this->secondaryObject) {
+            $output .= '+'.$this->secondaryObject->name;
+        }
+
+        return $output;
+    }
+
+    public function getSubClassAttribute()
+    {
+        $subclass = $this->formClass->name;
+
+        if ($subclass == 'TA') {
+            if ($this->subject->person == '0') {
+                $subclass = 'TA Inanimate';
+            } elseif ($this->subject->person == 'X') {
+                $subclass = 'TA Impersonal';
+            } elseif (($this->subject->person == '3' && $this->subject->obviativeCode == '2') || ($this->primaryObject->person == '3' && $this->primaryObject->obviativeCode == '2')) {
+                $subclass = 'TA Obviative (non-local 3\'\')';
+            } elseif ($this->subject->person == '3') {
+                if (!$this->subject->obviativeCode) {
+                    if ($this->primaryObject->person == '1' || $this->primaryObject->person == '2' || $this->primaryObject->person == '21') {
+                        $subclass = 'TA Mixed (3—1/2)';
+                    } elseif ($this->primaryObject->person == '3' && $this->primaryObject->obviativeCode == '1') {
+                        $subclass = 'TA Non-local (direct)';
+                    }
+                } elseif ($this->subject->obviativeCode == '1') {
+                    if ($this->primaryObject->person == '3' && !$this->primaryObject->obviativeCode) {
+                        $subclass = 'TA Non-local (inverse)';
+                    } elseif ($this->primaryObject->person == '1' || $this->primaryObject->person == '2') {
+                        $subclass = 'TA Obviative (mixed 3\'–1/2)';
+                    }
+                } else {
+                    $subclass = 'TA Other';
+                }
+            } else { // Subject contains 1 or 2
+                if ($this->primaryObject->person == '3') {
+                    if (!$this->primaryObject->obviativeCode) {
+                        $subclass = "TA Mixed (1/2—3)";
+                    } elseif ($this->primaryObject->obviativeCode == '1') {
+                        $subclass = 'TA Obviative (mixed 1/2–3\')';
+                    } else {
+                        $subclass = 'TA Other';
+                    }
+                } elseif (($this->subject->person == '2' || $this->subject->person == '21') && $this->primaryObject->person == '1') {
+                    $subclass = "TA Local (2—1)";
+                } elseif ($this->subject->person == '1' && ($this->primaryObject->person == '2' || $this->primaryObject->person == '21')) {
+                    $subclass = "TA Local (1—2)";
+                } else {
+                    $subclass = 'TA Other';
+                }
+            }
+        }
+
+        return $subclass;
     }
 
     public function validate()
@@ -80,34 +144,9 @@ class FormType extends Model
         return $rc;
     }
 
-    public function getSubClass()
-    {
-        $subclass = $this->formClass->name;
-
-        if($subclass == 'TA') {
-            if($this->subject->person == '2' && $this->primaryObject->person == '1') {
-                $subclass = "TA Local (2-1)";
-            } elseif($this->subject->person == '1' && $this->primaryObject->person == '2') {
-                $subclass = "TA Local (1-2)";
-            }
-        }
-
-        return $subclass;
-    }
-
     public function getArguments()
     {
-        $output = $this->subject->name;
-
-        if($this->primaryObject) {
-            $output .= "—".$this->primaryObject->name;
-        }
-
-        if($this->secondaryObject) {
-            $output .= '+'.$this->secondaryObject->name;
-        }
-
-        return $output;
+        return $this->arguments;
     }
 
     public function formClass()

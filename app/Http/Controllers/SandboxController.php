@@ -40,7 +40,7 @@ class SandboxController extends Controller
             $query->where('isNegative', 0)
                   ->where('isDiminutive', 0)
                   ->where('isAbsolute', null)
-                  ->where('primaryObject_id', null)
+                  // ->where('primaryObjectyObject_id', null)
                   ->where('secondaryObject_id', null);
         })->get();
 
@@ -80,7 +80,129 @@ class SandboxController extends Controller
                 '0\'d' => [],
                 '0\'p' => [],
                 '0\'\'' => [],
-            ]
+            ],
+            'TI1' => [
+                '1s—0' => [],
+                '1s—0s' => [],
+                '1s—0p' => [],
+
+                '2s—0' => [],
+                '2s—0s' => [],
+                '2s—0p' => [],
+            ],
+            'TA Local (2—1)' => [
+                '2s—1' => [],
+                '2s—1s' => [],
+                '2p—1s' => [],
+
+                '2s—1' => [],
+                '2s—1p' => [],
+                '2p—1p' => [],
+            ],
+            'TA Local (1—2)' => [
+                '1s—2' => [],
+                '1s—2s' => [],
+                '1s—2p' => [],
+
+                '1p—2' => [],
+                '1p—2s' => [],
+                '1p—2p' => [],
+            ],
+            'TA Mixed (1/2—3)' => [
+                '1s—3' => [],
+                '1s—3s' => [],
+                '1s—3d' => [],
+                '1s—3p' => [],
+                
+                '2s—3' => [],
+                '2s—3s' => [],
+                '2s—3d' => [],
+                '2s—3p' => [],
+
+                '1p—3' => [],
+                '1p—3s' => [],
+                '1p—3d' => [],
+                '1p—3p' => [],
+
+                '21—3' => [],
+                '21—3s' => [],
+                '21—3d' => [],
+                '21—3p' => [],
+
+                '2p—3' => [],
+                '2p—3s' => [],
+                '2p—3d' => [],
+                '2p—3p' => [],
+            ],
+            'TA Mixed (3—1/2)' => [
+                '3s—1s' => [],
+                '3d—1s' => [],
+                '3p—1s' => [],
+
+                '3s—2s' => [],
+                '3d—2s' => [],
+                '3p—2s' => [],
+
+                '3s—2s' => [],
+                '3d—2s' => [],
+                '3p—2s' => [],
+
+                '3s—1p' => [],
+                '3d—1p' => [],
+                '3p—1p' => [],
+
+                '3s—21' => [],
+                '3d—21' => [],
+                '3p—21' => [],
+
+                '3s—2p' => [],
+                '3d—2p' => [],
+                '3p—2p' => [],
+            ],
+            'TA Non-local (direct)' => [
+                '3s—3\'' => [],
+                '3s—3\'s' => [],
+                '3s—3\'p' => [],
+
+                '3p—3\'' => [],
+                '3p—3\'s' => [],
+                '3p—3\'p' => [],
+            ],
+            'TA Non-local (inverse)' => [
+                '3\'s—3s' => [],
+                '3\'p—3s' => [],
+
+                '3\'s—3p' => [],
+                '3\'p—3p' => [],
+            ],
+            'TA Inanimate' => [
+                // Error in sheet
+            ],
+            'TA Impersonal' => [
+                'X—1' => [],
+                'X—1s' => [],
+                'X—2' => [],
+                'X—2s' => [],
+                'X—1p' => [],
+                'X—21' => [],
+                'X—2p' => [],
+                'X—3' => [],
+                'X—3s' => [],
+                'X—3d' => [],
+                'X—3p' => [],
+                'X—3\'' => [],
+                'X—3\'s' => [],
+                'X—3\'d' => [],
+                'X—3\'p' => [],
+                'X—3\'\'' => [],
+                'X—3\'\'s' => [],
+                'X—3\'\'p' => [],
+            ],
+            'TA Obviative (mixed 1/2–3\')' => [],
+            'TA Obviative (mixed 3\'–1/2)' => [],
+            'TA Obviative (non-local 3\'\')' => [],
+
+            'TA Other' => []
         ];
 
         foreach($forms as $form) {
@@ -88,36 +210,42 @@ class SandboxController extends Controller
             $formType = $form->formType;
 
             $data[$form->language->name][$formType->order->name][$formType->mode->name] = null;
-            $rows[$formType->formClass->name][$formType->subject->name][] = $form;
+            $rows[$formType->subClass][$formType->arguments][] = $form;
         }
 
-        foreach($rows as $class => $persons) {
-            $keys = array_keys($persons);
+        foreach($rows as $class => $argumentStructures) {
+            $keys = array_keys($argumentStructures);
+            $hasForms = false;
 
-            for($i = 0; $i < count($persons); $i++) {
-                $subject = $keys[$i];
+            for($i = 0; $i < count($argumentStructures); $i++) {
+                $arguments = $keys[$i];
 
-                if(count($rows[$class][$subject]) > 0) {
-                    $model = $argumentDictionary->where('name', $subject)->first();
+                if(count($rows[$class][$arguments]) > 0) {
+                    $hasForms = true;
+                    $model = $argumentDictionary->where('name', $arguments)->first();
 
-                    if(!in_array($subject{strlen($subject) - 1}, ['s', 'd', 'p']) && $i < count($persons) - 1) {
+                    if(!in_array($arguments{strlen($arguments) - 1}, ['s', 'd', 'p']) && $i < count($argumentStructures) - 1) {
 
                         $found = false;
-                        $consecutive = -1;
+                        $consecutive = 0;
 
                         $j = 1;
 
-                        while($i + $j < count($keys) - 1 && preg_match("/".$subject."[sdp]/", $keys[$i + $j])) {
-                            $consecutive++;
+                        while($i + $j < count($keys) && preg_match("/".$arguments."[sdp]/", $keys[$i + $j])) {
+
+                            if(count($rows[$class][$keys[$i + $j]]) > 0) {
+                                $consecutive++;
+                            }
                             $j++;
                         }
 
                         foreach(['s', 'd', 'p'] as $number) {
-                            if(isset($rows[$class][$subject.$number]) && count($rows[$class][$subject.$number]) > 0) {
+                            if(isset($rows[$class][$arguments.$number]) && count($rows[$class][$arguments.$number]) > 0) {
                                 $found = true;
 
-                                foreach($rows[$class][$subject] as $moving) {
-                                    $moving->diffClass = $subject;
+                                foreach($rows[$class][$arguments] as $moving) {
+
+                                    $moving->diffClass = $arguments;
 
                                     if($consecutive > 1) {
                                         $moving->span = $consecutive;
@@ -125,18 +253,22 @@ class SandboxController extends Controller
                                         $moving->distant = true;
                                     }
 
-                                    $rows[$class][$subject.$number][] = $moving;
+                                    $rows[$class][$arguments.$number][] = $moving;
                                 }
                             }
                         }
 
                         if($found) {
-                            unset($rows[$class][$subject]);
+                            unset($rows[$class][$arguments]);
                         }
                     }
-                } elseif(count($persons[$subject]) == 0) {
-                    unset($rows[$class][$subject]);
+                } elseif(count($argumentStructures[$arguments]) == 0) {
+                    unset($rows[$class][$arguments]);
                 }
+            }
+
+            if(!$hasForms) {
+                unset($rows[$class]);
             }
         }
 

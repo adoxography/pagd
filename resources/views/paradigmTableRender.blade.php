@@ -14,22 +14,22 @@
 							$span += count($modes);
 						}
 					?>
-					<th colspan="{{ $span }}">{{ $language }}</th>
+					<th colspan="{{ $span }}" style="border-left: .2em solid #363636;">{{ $language }}</th>
 				@endforeach
 			</tr>
 			<tr>
 				@foreach($data as $language)
 					@foreach($language as $order => $modes)
-						<th colspan="{{ count($modes) }}">{{ $order }}</th>
+						<th colspan="{{ count($modes) }}" style='{{ $loop->first ? "border-left: .2em solid #363636;" : "" }}'>{{ $order }}</th>
 					@endforeach
 				@endforeach
 			</tr>
 			<tr>
-				<th>Class</th><th>Subject</th>
+				<th>Class</th><th>Arguments</th>
 				@foreach($data as $orders)
 					@foreach($orders as $modes)
 						@foreach($modes as $mode => $value)
-							<th>{{ $mode }}</th>
+							<th style='{{ $loop->parent->first && $loop->first ? "border-left: .2em solid #363636;" : "" }}'>{{ $mode }}</th>
 						@endforeach
 					@endforeach
 				@endforeach
@@ -45,7 +45,7 @@
 					<th rowspan="{{ $span }}">{{ $class }}</th>
 
 					@foreach($subjects as $subject => $forms)
-						<td>{{ $subject }}</td>
+						<td><nobr>{{ $subject }}</nobr></td>
 
 						@foreach($data as $language => $orders)
 							@foreach($orders as $order => $modes)
@@ -63,10 +63,10 @@
 
 									@if(isset($lookup[0]) && $lookup[0]->placed && !$form->distant)
 									@else
-										<td rowspan={{ $lookup[0]->span or "1" }}>
+										<td rowspan={{ $lookup[0]->span or "1" }} style='{{ $loop->parent->first && $loop->first ? "border-left: .2em solid #363636;" : "" }}'>
 											@if(count($lookup) > 0)
 												@foreach($lookup as $form)
-													<p><a href='/forms/{{ $form->id }}'><nobr>{{ $form->name }}</nobr>{!! isset($form->diffClass) ? "<span style='margin-left: .25rem; color: red;'>({$form->diffClass})</span>" : "" !!}</a></p>
+													<p><a href='/forms/{{ $form->id }}'><nobr>{{ $form->name }}</nobr>{!! isset($form->diffClass) ? "<span style='margin-left: .25rem; color: red;'><nobr>({$form->diffClass})</nobr></span>" : "" !!}</a></p>
 													<?php
 														$form->placed = true;
 													?>

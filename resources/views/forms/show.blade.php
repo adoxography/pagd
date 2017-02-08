@@ -146,6 +146,9 @@
 								Unknown/Unclear
 							@endif
 						</p>
+						@if($form->changeType)
+							<em>Change Type: </em>{{ $form->changeType->name }}
+						@endif
 						@if($form->historicalNotes)
 							{{ $form->historicalNotes }}
 						@endif

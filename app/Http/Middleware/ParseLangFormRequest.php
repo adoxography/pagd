@@ -27,6 +27,7 @@ class ParseLangFormRequest
     private function parseFormData($request)
     {
         $data = array_filter($request->only([
+            'changeType_id',
             'surfaceForm',
             'phoneticForm',
             'morphemicForm',

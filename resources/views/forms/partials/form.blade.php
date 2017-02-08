@@ -243,6 +243,18 @@
 	@endslot
 @endcomponent
 
+{{-- {{ dd($changeTypes->prepend(['id' => null, 'name' => 'N/A'])) }} --}}
+
+@component('components.form.select', ['name' => 'changeType_id', 'label' => 'Change Type', 'options' => $changeTypes->prepend(['id' => null, 'name' => 'N/A'])])
+	@slot('value')
+		@if(old('changeType_id'))
+			{{ old('changeType') }}
+		@elseif(isset($form))
+			{{ $form->changeType_id }}
+		@endif
+	@endslot
+@endcomponent
+
 @component('components.form.textarea', ['name' => 'historicalNotes', 'label' => 'Historical Notes'])
 	@slot('placeholder')
 		Enter historical information about this form

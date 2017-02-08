@@ -105,7 +105,8 @@ class FormController extends Controller
             'formType.order',
             'formType.mode',
             'formType.formClass',
-            'sources'
+            'sources',
+            'changeType'
         ]);
 
         $cognates = $form->cognates();

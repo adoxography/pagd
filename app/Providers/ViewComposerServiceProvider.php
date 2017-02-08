@@ -2,16 +2,17 @@
 
 namespace App\Providers;
 
-use App\Argument;
-use App\FormClass;
+use App\Mode;
+use App\Slot;
 use App\Gloss;
 use App\Group;
-use App\Language;
-use App\Mode;
 use App\Order;
-use App\Slot;
-use Illuminate\Support\ServiceProvider;
+use App\Argument;
+use App\Language;
+use App\FormClass;
+use App\ChangeType;
 use Netcarver\Textile\Parser;
+use Illuminate\Support\ServiceProvider;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
@@ -70,11 +71,12 @@ class ViewComposerServiceProvider extends ServiceProvider
         view()->composer('forms.partials.form', function($view)
         {
             $data = [
-                'arguments' => Argument::select('id','name')->get(),
-                'classes'   => FormClass::select('id','name')->get(),
-                'languages' => Language::select('id','name')->get(),
-                'modes'     => Mode::select('id','name')->get(),
-                'orders'    => Order::select('id','name')->get()
+                'arguments'   => Argument::select('id','name')->get(),
+                'classes'     => FormClass::select('id','name')->get(),
+                'languages'   => Language::select('id','name')->get(),
+                'modes'       => Mode::select('id','name')->get(),
+                'orders'      => Order::select('id','name')->get(),
+                'changeTypes' => ChangeType::select('id','name')->get()
             ];
             $view->with($data);
         });

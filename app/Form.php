@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Morpheme;
+use App\ChangeType;
 use App\Search\ColHeader;
 use App\Search\RowHeader;
 use App\Events\Form\Saved;
@@ -30,6 +31,7 @@ class Form extends Model
 
     protected $fillable = [
         'allomorphyNotes',
+        'changeType_id',
         'comments',
         'formType_id',
         'historicalNotes',
@@ -190,6 +192,11 @@ class Form extends Model
     public function language()
     {
         return $this->belongsTo(Language::class);
+    }
+
+    public function changeType()
+    {
+        return $this->belongsTo(ChangeType::class, 'changeType_id');
     }
 
     public function morphemes()

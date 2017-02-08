@@ -13,7 +13,7 @@
 	<span class="select">
 		<select name="{{ $name or '' }}">
 			@foreach($options as $option)
-				<option value="{{ $option['id'] }}" {{ $option['id'] == $value ? "selected='selected'" : '' }}>{{ $option['name'] }}</option>
+				<option value="{{ $option['id'] }}" {{ (string)$option['id'] == $value ? "selected='selected'" : '' }}>{{ $option['name'] }}</option>
 			@endforeach
 		</select>
 	</span>

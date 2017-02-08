@@ -11,6 +11,10 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			07-02-17: Added initial change functionality
+		</li>
+		<hr>
+		<li>
 			06-02-17: <a href="/sandbox/paradigm">Updated demo paradigm view to handle all non-negative, non-diminutive, and non-abs/obj forms</a>
 		</li>
 		<li>

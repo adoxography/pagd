@@ -27,6 +27,13 @@
 							<a href="/slots/{{ $morpheme->slot_id }}">{{ $morpheme->slot->abv }} ({{ $morpheme->slot->name }})</a>
 						@endcomponent
 
+						{{-- Alternate name field --}}
+						@if($morpheme->hasAlternateName())
+							@component('components.model.field', ['width' => 'is-12', 'label' => 'Initial change'])
+								{{ $morpheme->alternateName }}
+							@endcomponent
+						@endif
+
 						@component('components.model.field', ['label' => "Sources (Hover a source for the full citation)"])
 							@include('components.model.sourcelist', ['sources' => $morpheme->sources])
 						@endcomponent

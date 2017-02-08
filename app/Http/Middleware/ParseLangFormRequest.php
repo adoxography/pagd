@@ -30,6 +30,7 @@ class ParseLangFormRequest
             'surfaceForm',
             'phoneticForm',
             'morphemicForm',
+            'initialChange',
             'language_id',
             'parent_id',
             'historicalNotes',

@@ -26,6 +26,7 @@ class MorphemeRequest extends FormRequest
     {
         return [
             'name'            => ['required', 'isMorpheme'],
+            'alternateName'   => ['nullable','isMorpheme'],
             'gloss_id'        => ['required','integer','exists:Glosses,id'],
             'slot_id'         => ['required','integer','exists:Slots,id'],
             'language_id'     => ['required','integer','exists:Languages,id'],

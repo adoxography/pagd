@@ -32,10 +32,11 @@ class AddVStem
 
         // Create the vStem
         $vStem = new Morpheme([
-            'name'        => 'V',
-            'language_id' => $language->id,
-            'gloss_id'    => 1, // V
-            'slot_id'     => 1, // V
+            'name'          => 'V',
+            'alternateName' => 'IC.V',
+            'language_id'   => $language->id,
+            'gloss_id'      => 1, // V
+            'slot_id'       => 1, // V
         ]);
 
         // If the language has a parent, set the vStem's parent the to parent language's vStem

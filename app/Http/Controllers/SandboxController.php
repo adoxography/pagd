@@ -175,9 +175,6 @@ class SandboxController extends Controller
                 '3\'s—3p' => [],
                 '3\'p—3p' => [],
             ],
-            'TA Inanimate' => [
-                // Error in sheet
-            ],
             'TA Impersonal' => [
                 'X—1' => [],
                 'X—1s' => [],
@@ -197,6 +194,9 @@ class SandboxController extends Controller
                 'X—3\'\'' => [],
                 'X—3\'\'s' => [],
                 'X—3\'\'p' => [],
+            ],
+            'TA Inanimate' => [
+                // Error in sheet
             ],
             'TA Obviative (mixed 1/2–3\')' => [],
             'TA Obviative (mixed 3\'–1/2)' => [],

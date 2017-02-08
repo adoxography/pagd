@@ -31,7 +31,22 @@
 		@endcomponent
 
 	</div>
+
 	<div class="column is-half">
+		@component('components.form.text', ['name' => 'alternateName', 'label' => 'Initial Changed Morpheme'])
+			@slot('placeholder')
+				The morpheme when affected by initial change (leave blank if N/A)
+			@endslot
+			@slot('value')
+				@if(old('alternateName'))
+					old('alternateName')
+				@elseif(isset($morpheme) && $morpheme->hasAlternateName())
+					{{ $morpheme->alternateName }}
+				@endif
+			@endslot
+		@endcomponent
+	</div>
+	<div class="column is-one-quarter">
 
 		{{-- Gloss field --}}
 		@component('components.form.datalist', ['name' => 'gloss', 'label' => 'Gloss', 'list' => $glosses, 'required' => true])
@@ -48,7 +63,7 @@
 		@endcomponent
 
 	</div>
-	<div class="column is-half">
+	<div class="column is-one-quarter">
 
 		{{-- Slot field --}}
 		@component('components.form.datalist', ['name' => 'slot', 'label' => 'Slot', 'list' => $slots, 'required' => true])

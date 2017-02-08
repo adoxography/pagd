@@ -64,14 +64,22 @@
 						@else
 							<p>{{ $form->surfaceForm }}</p>
 						@endif
-						<div class="columns">
+						<div class="columns" style="margin-left: 0;">
+							<?php $initialChangeFound = false; ?>
 							@foreach($form->morphemeList() as $morpheme)
 								<div class="column is-narrow" style="padding-left: .25rem; padding-right: .25rem;">
 								@if($morpheme instanceof App\Morpheme)
 									@if($morpheme->name !== 'V')
-										<a href='/morphemes/{{ $morpheme->id }}'>{{ str_replace(['-', '*'], '', $morpheme->name) }}</a>
-									@else
-										{{ $morpheme->name }}
+										<a href='/morphemes/{{ $morpheme->id }}'>
+									@endif
+										@if($form->initialChange && ($morpheme->slot->abv == 'V' || $morpheme->slot->abv == 'PV') && !$initialChangeFound)
+											{{ str_replace(['-', '*'], '', $morpheme->alternateName) }}
+											<?php $initialChangeFound = true; ?>
+										@else
+											{{ str_replace(['-', '*'], '', $morpheme->name) }}
+										@endif
+									@if($morpheme->name !== 'V')
+										</a>
 									@endif
 
 									<p><a href="/glosses/{{ $morpheme->gloss_id }}"><span class="gloss">{{ $morpheme->gloss->abv }}</span></a></p>
@@ -100,6 +108,9 @@
 								@endif
 							@endforeach
 						</div>
+						@if($form->initialChange)
+							(Affected by initial change)
+						@endif
 					@endcomponent
 
 					@component('components.model.field', ['width' => 'is-12', 'label' => 'Duplicates'])

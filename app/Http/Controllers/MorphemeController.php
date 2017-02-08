@@ -55,7 +55,15 @@ class MorphemeController extends Controller
     }
 
     public function update(MorphemeRequest $request, Morpheme $morpheme){
-        $morpheme->update(array_filter($request->all(), 'validDatabaseInput'));
+        if(!$request->alternateName) {
+            $request['alternateName'] = null;
+        }
+
+        if(!$request->parent_id) {
+            $request['parent_id'] = null;
+        }
+
+        $morpheme->update($request->all());
 
         $morpheme->connectSources($request->sources);
 

@@ -26,6 +26,7 @@ class Morpheme extends Model
     */
     public $table = 'Morphemes';
     protected $fillable = [
+        'alternateName',
         'name',
         'language_id',
         'parent_id',
@@ -86,11 +87,25 @@ class Morpheme extends Model
         return $asterisk.$value;
     }
 
+    public function getAlternateNameAttribute($value)
+    {
+        if($value) {
+            return $value;
+        } else {
+            return $this->name;
+        }
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Methods
     |--------------------------------------------------------------------------
     */
+
+    public function hasAlternateName()
+    {
+        return $this->name != $this->alternateName;
+    }
 
     public function cognates()
     {

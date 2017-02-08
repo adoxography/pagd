@@ -127,7 +127,7 @@
 	</div>
 
 	<div class="column is-narrow">
-		@component('components.form.checkbox', ['name' => 'isNegative', 'label' => 'Negative', 'value' => true])
+		@component('components.form.checkbox', ['name' => 'isNegative', 'label' => 'Negative'])
 			@slot('checked')
 				@if(old('isNegative'))
 					{{ old('isNegative') }}
@@ -139,7 +139,7 @@
 	</div>
 
 	<div class="column is-narrow">
-		@component('components.form.checkbox', ['name' => 'isDiminutive', 'label' => 'Diminutive', 'value' => true])
+		@component('components.form.checkbox', ['name' => 'isDiminutive', 'label' => 'Diminutive'])
 			@slot('checked')
 				@if(old('isDiminutive'))
 					{{ old('isDiminutive') }}
@@ -154,7 +154,7 @@
 <hr>
 
 <h4 class="subtitle is-4">Morphology</h3>
-<div class="columns">
+<div class="columns is-multiline">
 	<div class="column is-half">
 	@component('components.form.text', ['name' => 'phoneticForm', 'label' => 'Phonemic Representation', 'placeholder' => 'The Algonquianist phonemic transcription (Leave blank if unknown or unclear)'])
 		@slot('value')
@@ -174,6 +174,20 @@
 					{{ old('morphemicForm') }}
 				@elseif(isset($form))
 					{{ $form->morphemicForm }}
+				@endif
+			@endslot
+		@endcomponent
+	</div>
+
+	<div class="column is-half">
+	</div>
+	<div class="column is-half">
+		@component('components.form.checkbox', ['name' => 'initialChange', 'label' => 'Affected by initial change'])
+			@slot('checked')
+				@if(old('initialChange'))
+					{{ old('initialChange') }}
+				@elseif(isset($form))
+					{{ $form->initialChange }}
 				@endif
 			@endslot
 		@endcomponent

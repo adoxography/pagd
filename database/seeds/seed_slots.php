@@ -29,7 +29,8 @@ class seed_slots extends Seeder
         	['id' => 13, 'abv' => 'IMP', 'name' => 'impersonal'],
         	['id' => 14, 'abv' => 'W', 'name' => 'metathesized w'],
         	['id' => 15, 'abv' => 'MOD', 'name' => 'mode sign'],
-        	['id' => 16, 'abv' => 'PER', 'name' => 'peripheral suffix'],
+            ['id' => 16, 'abv' => 'PER', 'name' => 'peripheral suffix'],
+        	['id' => 17, 'abv' => 'PV', 'name' => 'preverb'],
         );
         
         DB::table('Slots')->insert($slots);

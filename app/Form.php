@@ -33,6 +33,7 @@ class Form extends Model
         'comments',
         'formType_id',
         'historicalNotes',
+        'initialChange',
         'language_id',
         'morphemicForm',
         'parent_id',

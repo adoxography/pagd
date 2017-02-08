@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			07-02-17: Removed the asterisk from phonemic representation of forms
+		</li>
+		<li>
 			07-02-17: Added initial change functionality
 		</li>
 		<hr>

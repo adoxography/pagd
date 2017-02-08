@@ -62,7 +62,7 @@
 						@if($form->phoneticForm)
 							<p>{{ $form->phoneticForm }}</p>
 						@else
-							<p>{{ $form->surfaceForm }}</p>
+							<p>{{ str_replace('*', '', $form->surfaceForm) }}</p>
 						@endif
 						<div class="columns" style="margin-left: 0;">
 							<?php $initialChangeFound = false; ?>

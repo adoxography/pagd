@@ -58,6 +58,9 @@ class FormController extends Controller
         if(!isset($data['parent_id'])) {
             $data['parent_id'] = null;
         }
+        if(!isset($data['phoneticForm'])) {
+            $data['phoneticForm'] = null;
+        }
 
         $form->update($data);
 

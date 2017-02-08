@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			07-02-17: Added change type to morphemes
+		</li>
+		<li>
 			07-02-17: Added change type to forms
 		</li>
 		<li>

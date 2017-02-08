@@ -56,10 +56,13 @@
 								@else
 									Unknown/Unclear
 								@endif
-								@if($morpheme->historicalNotes)
-									{!! $parser->setRestricted(true)->parse($morpheme->historicalNotes) !!}
-								@endif
 							</p>
+							@if($morpheme->changeType)
+								<em>Change Type: </em>{{ $morpheme->changeType->name }}
+							@endif
+							@if($morpheme->historicalNotes)
+								{!! $parser->setRestricted(true)->parse($morpheme->historicalNotes) !!}
+							@endif
 						@endcomponent
 
 						{{-- Comments --}}

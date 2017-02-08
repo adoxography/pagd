@@ -89,7 +89,8 @@ class ViewComposerServiceProvider extends ServiceProvider
             $data = [
                 'languages' => Language::select('id','name')->get(),
                 'glosses'   => Gloss::select('id','abv as name')->get(),
-                'slots'     => Slot::select('id','abv as name')->get()
+                'slots'     => Slot::select('id','abv as name')->get(),
+                'changeTypes' => ChangeType::select('id','name')->get()
             ];
             $view->with($data);
         });

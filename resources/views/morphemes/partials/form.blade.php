@@ -116,6 +116,17 @@
 	@endslot
 @endcomponent
 
+{{-- Change Type field --}}
+@component('components.form.select', ['name' => 'changeType_id', 'label' => 'Change Type', 'options' => $changeTypes->prepend(['id' => null, 'name' => 'N/A'])])
+	@slot('value')
+		@if(old('changeType_id'))
+			{{ old('changeType') }}
+		@elseif(isset($morpheme))
+			{{ $morpheme->changeType_id }}
+		@endif
+	@endslot
+@endcomponent
+
 {{-- Historical notes field --}}
 @component('components.form.textarea', ['name' => 'historicalNotes', 'label' => 'Historical Notes'])
 	@slot('placeholder')

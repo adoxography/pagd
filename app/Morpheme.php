@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Language;
+use App\ChangeType;
 use App\Events\Morpheme\Saved;
 use App\Events\Morpheme\Saving;
 use App\Events\Morpheme\Created;
@@ -27,6 +28,7 @@ class Morpheme extends Model
     public $table = 'Morphemes';
     protected $fillable = [
         'alternateName',
+        'changeType_id',
         'name',
         'language_id',
         'parent_id',
@@ -150,6 +152,11 @@ class Morpheme extends Model
     public function gloss()
     {
         return $this->belongsTo(Gloss::class);
+    }
+
+    public function changeType()
+    {
+        return $this->belongsTo(ChangeType::class, 'changeType_id');
     }
 
     public function parent()

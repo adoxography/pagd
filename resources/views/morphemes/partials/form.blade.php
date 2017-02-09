@@ -57,7 +57,7 @@
 				@if(old('gloss'))
 					{{ old('gloss') }}
 				@elseif(isset($morpheme))
-					{{ $morpheme->gloss->abv }}
+					{{ $morpheme->gloss->abv }} {{ $morpheme->translation ? "({$morpheme->translation})" : ""}}
 				@endif
 			@endslot
 		@endcomponent

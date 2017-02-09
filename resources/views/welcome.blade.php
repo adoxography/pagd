@@ -11,6 +11,10 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			08-02-17: Added translation ability to morphemes
+		</li>
+		<hr>
+		<li>
 			07-02-17: Added change type to morphemes
 		</li>
 		<li>

@@ -36,6 +36,7 @@ class Morpheme extends Model
         'slot_id',
         'allomorphyNotes',
         'historicalNotes',
+        'translation',
         'comments'
     ];
     protected $events = [

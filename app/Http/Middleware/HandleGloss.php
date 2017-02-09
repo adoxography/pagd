@@ -30,13 +30,22 @@ class HandleGloss
             $abv  = trim($components[0]);
             $name = substr($components[1], 0, strlen($components[1]) - 1);
 
-            try {
-                $gloss = Gloss::create(['name' => $name, 'abv' => $abv]);
-
-                $request['gloss_id'] = $gloss->id;
-                $request['gloss']    = $gloss->abv;
+            if($abv == 'V') {
+                $gloss = Gloss::select('id')
+                              ->where('abv', 'V')
+                              ->first();
+                $request['gloss_id']    = $gloss->id;
+                $request['translation'] = $name;
             }
-            catch(QueryException $e) {
+            else {
+                try {
+                    $gloss = Gloss::create(['name' => $name, 'abv' => $abv]);
+
+                    $request['gloss_id'] = $gloss->id;
+                    $request['gloss']    = $gloss->abv;
+                }
+                catch(QueryException $e) {
+                }
             }
         }
 

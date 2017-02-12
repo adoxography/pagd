@@ -62,6 +62,7 @@ Route::get('forms/{form}/addExample', 'FormController@addExample');
 Route::get('groups/{group}/addLanguage', 'GroupController@addLanguage');
 
 Route::get('languages/{language}/addChild',    'LanguageController@addChild');
+Route::get('languages/{language}/addExample',  'LanguageController@addExample');
 Route::get('languages/{language}/addForm',     'LanguageController@addForm');
 Route::get('languages/{language}/addMorpheme', 'LanguageController@addMorpheme');
 

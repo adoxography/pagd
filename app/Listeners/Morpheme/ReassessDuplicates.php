@@ -2,6 +2,7 @@
 
 namespace App\Listeners\Morpheme;
 
+use App\Morpheme;
 use App\Events\Morpheme\Deleted;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;

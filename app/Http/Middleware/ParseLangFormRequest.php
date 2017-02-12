@@ -17,9 +17,7 @@ class ParseLangFormRequest
      */
     public function handle($request, Closure $next)
     {
-        if (!isset($request->formData)) {
-            $request['formData'] = $this->parseFormData($request);
-        }
+        $request['formData'] = $this->parseFormData($request);
 
         return $next($request);
     }
@@ -52,7 +50,7 @@ class ParseLangFormRequest
 
         //Try to find the type in the database
         $rules = $this->convertToRules($data);
-        $type = FormType::where($rules)->first();
+        $type = FormType::where($data)->first();
 
         //If it's not there, create a new one
         if (!$type) {
@@ -76,10 +74,11 @@ class ParseLangFormRequest
             'isDiminutive'
         ]);
 
-        $data['isNegative']   = $this->handleCheck($data,'isNegative');
-        $data['isDiminutive'] = $this->handleCheck($data,'isDiminutive');
-        if($data['isAbsolute'] === 'null'){
-            $data['isAbsolute'] = null;
+        $data['isNegative'] = $request->isNegative ? 1 : 0;
+        $data['isDiminutive'] = $request->isDiminutive ? 1 : 0;
+
+        if(isset($data['isAbsolute'])) {
+            $data['isAbsolute'] = $request->isAbsolute ? 1 : 0;
         }
 
         return $data;
@@ -97,10 +96,6 @@ class ParseLangFormRequest
         }
 
         return $rules;
-    }
-
-    private function handleCheck($request, $field){
-        return isset($request[$field]) ? 1 : 0;
     }
     
 }

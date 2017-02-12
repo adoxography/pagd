@@ -17,11 +17,6 @@
 								<h5 class="title is-5">Class</h5>
 								@foreach($classes as $class)
 									@component('components.form.checkbox', ['name' => "classes[{$loop->index}]", 'label' => $class->name, 'value' => $class->id])
-{{-- 										@if($class->name == "AI")
-											@slot('checked')
-												true
-											@endslot
-										@endif --}}
 									@endcomponent
 								@endforeach
 							</div>
@@ -30,11 +25,6 @@
 								<h5 class="title is-5">Order</h5>
 								@foreach($orders as $order)
 									@component('components.form.checkbox', ['name' => "orders[]", 'label' => $order->name, 'value' => $order->id])
-{{-- 										@if($order->name == "Independent")
-											@slot('checked')
-												true
-											@endslot
-										@endif --}}
 									@endcomponent
 								@endforeach
 							</div>
@@ -99,12 +89,12 @@
 							<div class="column box" style="margin-bottom: 0;">
 								<h5 class="title is-5">Language</h5>
 								<alg-multi-datalist name="languages[]" list="{{ $languages->toJson() }}"></alg-multi-datalist>
-								<paradigm-language-suggest inline-template>
+{{-- 								<paradigm-language-suggest inline-template>
 									<div>
 										<em>Suggestions: </em>
 										<a @click="suggest(['Plains Cree', 'Woods Cree', 'Swampy Cree', 'Moose Cree', 'East Cree', 'Atikamekw'])">Cree Dialects</a>
 									</div>
-								</paradigm-language-suggest>
+								</paradigm-language-suggest> --}}
 							</div>
 
 						</div>

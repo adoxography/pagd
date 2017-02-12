@@ -7,10 +7,11 @@
 	</div>
 	<br />
 
-	@component('components.form', ['method' => 'PATCH', 'class' => 'box', 'url' => '/languages/'.$language->id])
-		@include('languages.partials.form')
-	@endcomponent
-
-	@include('errors.list')
+	<alg-language-form method="PATCH"
+					   action="/languages/{{ $language->id }}"
+					   languages="{{ $parents }}"
+					   groups="{{ $groups }}"
+					   language="{{ $language }}">
+	</alg-language-form>
 
 @stop

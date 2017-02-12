@@ -2,8 +2,8 @@
 	<div class="alg-ajax-list">
 		<div class="control">
 			<div class="alg-datalist-container">
-				<input :name="name" type="text" class="input" @input="onInput" v-model="text" @keyup="onKeyUp($event.keyCode)" @keydown.enter="onEnter($event)" autocomplete="off" :placeholder="placeholder" />
-				<div class="box alg-datalist-dropdown" v-show="showList && options.length > 0 && text.length > 0">
+				<input :name="name" type="text" class="input" @input="onInput($event.target.value)" :value="value.text" @keyup="onKeyUp($event.keyCode)" @keydown.enter="onEnter($event)" autocomplete="off" :placeholder="placeholder" :disabled="disabled" />
+				<div class="box alg-datalist-dropdown" v-show="showList && options.length > 0 && value.text.length > 0">
 					<ul>
 						<li v-for="(option, index) in options">
 							<a @click="selectItem(option.name)" @mouseover="onHover(option.name)" :class="{ 'is-highlighted': activeItem(index) }">{{ option.name }}</a>
@@ -16,19 +16,17 @@
 				</span>
 			</div>
 		</div>
-		<input type="hidden" :name="name + '_id'" v-model="value" />
+		<input type="hidden" :name="name + '_id'" :value="value.id" />
 	</div>
 </template>
 
 <script>
 	export default {
 
-		props: ['name', 'inittext', 'initvalue', 'uri', 'placeholder'],
+		props: ['name', 'value', 'with', 'uri', 'placeholder', 'disabled'],
 
 		data() {
 			return {
-				text: '',
-				value: '',
 				showList: false,
 				options: [],
 				loading: false,
@@ -39,53 +37,38 @@
 
 		computed: {
 			showCheck() {
-				return !this.loading && this.value > 0 && !this.showList;
+				return !this.loading && this.value.id > 0 && !this.showList;
 			}
 		},
 
 		methods: {
-			emitEvent() {
-				this.$emit("change", {
-					text: this.text,
-					id: this.value
-				});
-			},
-
 			onEnter(event) {
-				if(this.curr > 0) { // The list is open
+				if(this.showList) { // The list is open
 					event.preventDefault();
 					this.selectItem(this.options[this.curr - 1].name);
 				}
 			},
 
-			determineValue() {
+			determineValue(text) {
 				let val = '';
 
 				for(let i = 0; i < this.options.length && val === ''; i++) {
-					if(this.options[i].name.toLowerCase() === this.text.toLowerCase()) {
+					if(this.options[i].name.toLowerCase() === text.toLowerCase()) {
 						val = this.options[i].id;
 					}
 				}
 
-				this.value = val;
-				this.emitEvent();
+				return val;
 			},
 
-			selectItem(item) {
-				// Set the text
-				this.text = item;
-
-				this.determineValue();
-
+			selectItem(newText) {
 				// Hide the list
 				this.showList = false;
 
 				// Reset the current element
 				this.curr = 0;
 
-				// Trigger an input event
-				this.$emit("input", { text: this.text, code: this.code });
-				this.emitEvent();
+				this.update(newText);
 			},
 
 			activeItem(n) {
@@ -100,26 +83,37 @@
 				}
 			},
 
-			onInput() {
-				this.value = "";
-				this.emitEvent();
+			update(newText) {
+				let id = this.determineValue(newText);
 
-				if(this.text.length > 0) {
+				this.$emit('input', {
+					text: newText,
+					id: id
+				});
+			},
+
+			onInput(newText) {
+				if(newText.length > 0) {
 					this.showList = false;
 					this.loading = true;
 
 					axios.get(this.uri, {
 						params: {
-							term: this.text,
-							language: this.language
+							term: newText,
+							language: this.with
 						}
 					}).then(response => {
 						this.options = response.data;
 
-						this.showList = true;
+						if(this.options.length > 0) {
+							this.showList = true;
+						}
+
 						this.loading = false;
 					});
 				}
+
+				this.update(newText);			
 			},
 
 			onKeyUp(keyCode) {
@@ -140,7 +134,7 @@
 
 					// If the current selection isn't the textbox itself, set the textbox to the current selection
 					if(this.curr > 0){
-						this.text = this.options[this.curr - 1].name;
+						this.update(this.options[this.curr - 1].name);
 					}
 				}
 			},
@@ -149,24 +143,9 @@
 				this.curr += this.options.length;
 				this.curr %= this.options.length + 1;
 				if(this.curr > 0){
-					this.text = this.options[this.curr - 1].name;
+					this.update(this.options[this.curr - 1].name);
 				}
 			}
-		},
-
-		created() {
-			if(this.inittext) {
-				this.text = this.inittext;
-			}
-			if(this.initvalue) {
-				this.value = this.initvalue;
-			}
-
-			Event.$on('update', (data) => {
-				if(data.field == 'language'){
-					this.language = data.code;
-				}
-			});
 		}
 
 	}

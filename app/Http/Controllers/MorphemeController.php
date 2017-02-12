@@ -32,7 +32,7 @@ class MorphemeController extends Controller
     }
 
     public function edit(Morpheme $morpheme){
-        $morpheme->load('language','gloss','forms');
+        $morpheme->load('language','gloss','slot','parent','parent.language', 'sources');
 
         return view('morphemes.edit', compact('morpheme'));
     }
@@ -50,8 +50,9 @@ class MorphemeController extends Controller
         $morpheme->connectSources($request->sources);
 
         flash($morpheme->name.' created successfully.', 'is-success');
+        return $morpheme->id;
 
-        return Redirect::to('/morphemes/' . $morpheme->id);
+        // return Redirect::to('/morphemes/' . $morpheme->id);
     }
 
     public function update(MorphemeRequest $request, Morpheme $morpheme){
@@ -69,6 +70,7 @@ class MorphemeController extends Controller
 
         flash($morpheme->name.' updated successfully.', 'is-success');
         
-        return Redirect::to('/morphemes/'.$morpheme->id);
+        return $morpheme->id;
+        // return Redirect::to('/morphemes/'.$morpheme->id);
     }
 }

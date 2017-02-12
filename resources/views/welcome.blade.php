@@ -11,6 +11,16 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			12-02-17: Rewrote most of the forms as Vue.js components for more cohesive functionality and cleaner code
+			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+				<li>Forms are submitted and validated via AJAX requests</li>
+				<li>Validation errors appear below the field that had the error</li>
+				<li>Will aid in Example form development</li>
+				<li><span style="color: #FF0000;">May have caused unintended bugs; please report all unexpected behaviour</span></li>
+			</ul>
+		</li>
+		<hr>
+		<li>
 			08-02-17: Added translation ability to morphemes
 		</li>
 		<hr>

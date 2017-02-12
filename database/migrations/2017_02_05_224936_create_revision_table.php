@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRevisionTable extends Migration
+class CreateRevisionsTable extends Migration
 {
     /**
      * Run the migrations.

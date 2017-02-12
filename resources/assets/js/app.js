@@ -26,8 +26,13 @@ Vue.component('alg-new-source',     require('./components/New-Source.vue'));
 Vue.component('alg-old-source',     require('./components/Old-Source.vue'));
 Vue.component('alg-sources',        require('./components/Sources.vue'));
 Vue.component('autosize-textarea',  require('./components/Autosize-Textarea.vue'));
-Vue.component('alg-paginated-list',    require('./components/Paginated-List.vue'));
+Vue.component('alg-paginated-list', require('./components/Paginated-List.vue'));
 Vue.component('alg-filter-list',    require('./components/Filter-List.vue'));
+
+Vue.component('alg-language-form',  require('./components/forms/Language.vue'));
+Vue.component('alg-form-form',      require('./components/forms/Form.vue'));
+Vue.component('alg-morpheme-form',  require('./components/forms/Morpheme.vue'));
+Vue.component('alg-paradigm-search',  require('./components/forms/Paradigm-Search.vue'));
 
 Vue.component('alg-paradigm-table', {
 	data() {
@@ -58,6 +63,10 @@ Vue.component('paradigm-mode-select', {
 		};
 	}
 });
+
+
+
+
 
 window.Event = new Vue();
 

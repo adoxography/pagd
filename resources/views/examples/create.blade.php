@@ -1,10 +1,15 @@
-@extends('layout')
+@extends('layout', ['title' => 'Add an example'])
 
 @section('content')
 
-	{{ Form::open(['url' => '/examples', 'method' => 'post', 'class' => 'inputForm']) }}
+	<div class="heading">
+		<h1 class="title">Add an example</h1>
+	</div>
+	<br />
+	
+	@component('components.form', ['method' => 'POST', 'class' => 'box', 'url' => '/examples'])
 		@include('examples.partials.form')
-	{{ Form::close() }}
+	@endcomponent
 
 	@include('errors.list')
 

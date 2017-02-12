@@ -7,17 +7,13 @@ use App\FormType;
 use App\Http\Requests\LangFormRequest;
 use App\Language;
 use App\Morpheme;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use JavaScript;
-use Response;
 
 class FormController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth')->except('index', 'show');
-        $this->middleware('parseForm')->only('store', 'update');
+        // $this->middleware('parseForm')->only('store', 'update');
     }
     
     public function index()
@@ -40,6 +36,10 @@ class FormController extends Controller
     public function edit(Form $form)
     {
         $form->load(
+            'language',
+            'parent',
+            'parent.language',
+            'formType',
             'formType.subject',
             'formType.primaryObject',
             'formType.secondaryObject',
@@ -53,7 +53,7 @@ class FormController extends Controller
     
     public function update(LangFormRequest $request, Form $form)
     {
-        $data = $request->formData;
+        $data = $request->all();
 
         if(!isset($data['parent_id'])) {
             $data['parent_id'] = null;
@@ -67,7 +67,8 @@ class FormController extends Controller
         $form->connectSources($request->sources);
 
         flash($form->surfaceForm.' updated successfully', 'is-success');
-        return redirect('/forms/'.$form->id);
+
+        return $form->id;
     }
     
     public function destroy(Form $form)
@@ -80,14 +81,14 @@ class FormController extends Controller
     public function store(LangFormRequest $request)
     {
         // Insert the form
-        $form = Form::create($request->formData);
+        $form = Form::create($request->all());
 
         $form->connectSources($request->sources);
 
         // Flash a message to the session
         flash($form->surfaceForm.' created successfully.', 'is-success');
 
-        return redirect('/forms/' . $form->id);
+        return $form->id;
     }
 
     public function show(Form $form)
@@ -116,7 +117,7 @@ class FormController extends Controller
 
     public function addExample(Form $form)
     {
-        $presetForm = $form;
+        $presetForm = $form->load('language');
 
         return view('examples.create', compact('presetForm'));
     }

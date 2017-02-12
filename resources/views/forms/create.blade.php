@@ -1,16 +1,21 @@
 @extends('layout', ['title' => 'Add a form'])
 
 @section('content')
+
 	<div class="heading">
 		<h1 class="title">Add a form</h1>
 	</div>
 	<br />
 
-	<div id="root">
-		@component('components.form', ['url' => '/forms', 'class' => 'box'])
-			@include('forms.partials.form')
-		@endcomponent
-	</div>
+	<alg-form-form method="POST"
+				   action="/forms"
+				   languages="{{ $languages }}"
+				   args="{{ $arguments }}"
+				   classes="{{ $classes }}"
+				   orders="{{ $orders }}"
+				   modes="{{ $modes }}"
+				   change-types="{{ $changeTypes }}"
+				   language="{{ $presetLanguage or "" }}">
+	</alg-form-form>
 
-	@include('errors.list')
 @stop

@@ -3,8 +3,6 @@
 	<head>
 		<meta charset="UTF-8" />
 		<title>{{ $title or "Pan-Algonquian Grammar Database" }}</title>
-		
-		{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"> --}}
 
 		<link rel="stylesheet" type="text/css" href="{{ mix("/css/app.css") }}" />
 		
@@ -42,5 +40,11 @@
 
 		<script src="{{ mix("/js/app.js") }}"></script>
 	
+		@if(App::environment('local'))
+			<p>Browser sync enabled</p>
+			<script id="__bs_script__">//<![CDATA[
+				document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.18.7'><\/script>".replace("HOST", location.hostname));
+			//]]></script>
+		@endif
 	</body>
 </html>

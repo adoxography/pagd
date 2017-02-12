@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Language;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -19,6 +20,23 @@ class LanguageRequest extends FormRequest
         return Auth::user();
     }
 
+    public function all()
+    {
+        $attributes = parent::all();
+
+        foreach(parent::all() as $key => $value) {
+            if(is_array($value)) {
+                foreach($value as $subKey => $subValue) {
+                    $attributes["{$key}_{$subKey}"] = $subValue;
+                }
+            }
+        }
+
+        $this->replace($attributes);
+
+        return parent::all();
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -27,8 +45,10 @@ class LanguageRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'group_id'      => ['required','integer','exists:Groups,id'],
-            'parent_id'     => ['nullable','integer','exists:Languages,id'],
+            'group.text'    => ['required'],
+            'group.id'      => ['required','integer','exists:Groups,id'],
+            'parent.text'   => ['nullable','exists:Languages,name'],
+            'parent.id'     => ['nullable','integer','exists:Languages,id'],
             'reconstructed' => ['required','boolean'],
             'name'          => ['required'],
             'iso'           => ['required', 'size:3'],
@@ -56,9 +76,35 @@ class LanguageRequest extends FormRequest
         return $rules;
     }
 
+    public function withValidator($validator) 
+    {
+        Log::debug(['validator result' => $validator->attributes()]);
+
+        $validator->after(function ($validator) {            
+            foreach($validator->errors()->get('group.text') as $error) {
+                $validator->errors()->add('group', $error);
+            }            
+            foreach($validator->errors()->get('group.id') as $error) {
+                $validator->errors()->add('group', $error);
+            }
+
+            foreach($validator->errors()->get('parent.text') as $error) {
+                $validator->errors()->add('parent', $error);
+            }
+            foreach($validator->errors()->get('parent.id') as $error) {
+                $validator->errors()->add('parent', $error);
+            }
+        });
+    }
+
     public function messages(){
         return [
-            'parent_id.nomatch'    => 'A language cannot be its own parent!'
+            'group.text.required' => 'Please enter a group.',
+            'group.id.required'   => 'There is no group by that name in the database.',
+            'parent.text.exists'  => 'There is no language by that name in the databse.',
+            'parent.id.nomatch'   => 'A language cannot be its own parent!',
+            'iso.unique' => 'That ISO is already in use.',
+            'algoCode.unique' => 'That algonquianist code is already in use.',
         ];
     }
 }

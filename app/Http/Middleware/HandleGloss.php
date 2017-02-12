@@ -9,46 +9,54 @@ use Illuminate\Database\QueryException;
 class HandleGloss
 {
     /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
-    public function handle($request, Closure $next)
-    {
-        $text = $request->gloss;
-        $id   = $request->gloss_id;
-        $components;
-        $gloss;
-        $abv;
-        $name;
+         * Handle an incoming request.
+         *
+         * @param  \Illuminate\Http\Request  $request
+         * @param  \Closure  $next
+         * @return mixed
+         */
+        public function handle($request, Closure $next)
+        {
+            $text = $request->gloss_text;
+            $id   = $request->gloss_id;
+            $components;
+            $gloss;
+            $abv;
+            $name;
 
-        if(!$id && $text && preg_match("/.+\(.+\)/", $text)) {
-            $components = explode('(', $text);
+            if (!$id && $text && preg_match("/.+\(.+\)/", $text)) {
+                $components = explode('(', $text);
 
-            $abv  = trim($components[0]);
-            $name = substr($components[1], 0, strlen($components[1]) - 1);
+                $abv  = trim($components[0]);
+                $name = trim(substr($components[1], 0, strlen($components[1]) - 1));
 
-            if($abv == 'V') {
-                $gloss = Gloss::select('id')
-                              ->where('abv', 'V')
-                              ->first();
-                $request['gloss_id']    = $gloss->id;
-                $request['translation'] = $name;
-            }
-            else {
-                try {
-                    $gloss = Gloss::create(['name' => $name, 'abv' => $abv]);
+                if ($abv == 'V') {
+                    $gloss = Gloss::select('id')
+                                  ->where('abv', 'V')
+                                  ->first();
+                    $request['gloss_id']    = $gloss->id;
+                    $request['gloss_text']  = $abv;
+                    $request['translation'] = $name;
+                } else {
+                    $gloss = Gloss::select('id', 'name')
+                    							->where('abv', $abv)
+                                  ->first();
 
-                    $request['gloss_id'] = $gloss->id;
-                    $request['gloss']    = $gloss->abv;
+                    if ($gloss && $gloss->name == $name) {
+                        $request['gloss_id']   = $gloss->id;
+                        $request['gloss_text'] = $abv;
+                    } else {
+                        try {
+                            $gloss = Gloss::create(['name' => $name, 'abv' => $abv]);
+
+                            $request['gloss_id']   = $gloss->id;
+                            $request['gloss_text'] = $abv;
+                        } catch (QueryException $e) {
+                        }
+                    }
                 }
-                catch(QueryException $e) {
-                }
             }
+
+            return $next($request);
         }
-
-        return $next($request);
-    }
 }

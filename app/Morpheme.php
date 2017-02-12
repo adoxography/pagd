@@ -39,6 +39,9 @@ class Morpheme extends Model
         'translation',
         'comments'
     ];
+    protected $appends = [
+        'uniqueNameWithLanguage'
+    ];
     protected $events = [
         'creating' => Creating::class,
         'created'  => Created::class,
@@ -90,6 +93,16 @@ class Morpheme extends Model
         return $asterisk.$value;
     }
 
+    public function getUniqueNameWithLanguageAttribute()
+    {
+        return "{$this->uniqueName} ({$this->language->name})";
+    }
+
+    public function getUniqueNameAttribute()
+    {
+        return "{$this->name} ({$this->gloss->abv})";
+    }
+
     public function getAlternateNameAttribute($value)
     {
         if($value) {
@@ -126,12 +139,12 @@ class Morpheme extends Model
 
     public function uniqueName()
     {
-        return "{$this->name} ({$this->gloss->abv})";
+        return $this->uniqueName;
     }
 
     public function uniqueNameWithLanguage()
     {
-        return "{$this->uniqueName()} ({$this->language->name})";
+        return $this->uniqueNameWithLanguage;
     }
     
 

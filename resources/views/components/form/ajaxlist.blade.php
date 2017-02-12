@@ -9,4 +9,4 @@
 @endif
 
 {{-- Display the datalist --}}
-<alg-ajaxlist initvalue="{{ $value }}" inittext="{{ $text }}" {!! isset($name) ? "name=$name" : "" !!} uri="{{ $uri }}" placeholder="{{ $placeholder or '' }}" listen="{{ $listen or "" }}"></alg-ajaxlist>
+<alg-ajaxlist v-model="{text: '', id: ''}" {!! isset($name) ? "name=$name" : "" !!} uri="{{ $uri }}" placeholder="{{ $placeholder or '' }}" listen="{{ $listen or "" }}" {{ isset($ref) ? "ref=$ref" : "" }}></alg-ajaxlist>

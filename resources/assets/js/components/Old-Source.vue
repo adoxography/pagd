@@ -1,18 +1,18 @@
 <template>
 	<div class="alg-old-source">
-		<alg-ajaxlist uri="/autocomplete/sources" placeholder="Search for an existing source" ref="ajaxlist" @change="onChange($event)"></alg-ajaxlist>
+		<alg-ajaxlist v-model="list" uri="/autocomplete/sources" placeholder="Search for an existing source" ref="datalist" @input="onChange($event)" @keyup.enter="reset"></alg-ajaxlist>
 	</div>
 </template>
 
 <script>
 	export default {
 
-		props: {
-			
-		},
-
 		data() {
 			return {
+				list: {
+					text: '',
+					id: ''
+				},
 				short: '',
 				id: ''
 			};
@@ -27,16 +27,14 @@
 				}
 			},
 
-			onChange(event) {
-				this.short = event.text;
-				this.id    = event.id;
+			reset() {
+				this.list.text = '';
+				this.list.id = '';
+			},
 
-				if(this.id){
-					this.$emit('input', this.$data);
-					this.$refs.ajaxlist.text = '';
-					this.$refs.ajaxlist.value = '';
-					this.short = "";
-					this.id = "";
+			onChange(event) {
+				if(this.$refs.datalist.showCheck){
+					this.reset();
 				}
 			}
 		}

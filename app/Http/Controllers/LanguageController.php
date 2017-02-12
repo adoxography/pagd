@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LanguageRequest;
 use App\Language;
+use Illuminate\Support\Facades\Log;
+use App\Http\Requests\LanguageRequest;
 
 class LanguageController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth')->except('index', 'show');
+        // $this->middleware('flattenRequest')->only('store', 'update');
     }
 
     public function index()
@@ -22,6 +24,11 @@ class LanguageController extends Controller
     {
         $language->load('group');
         return view('languages.create')->with('presetParent',$language);
+    }
+
+    public function addExample(Language $language)
+    {
+        return view('examples.create')->with('presetLanguage',$language);
     }
 
     public function addForm(Language $language)
@@ -54,15 +61,14 @@ class LanguageController extends Controller
 
     public function store(LanguageRequest $request)
     {
+        // $request['group_id'] = $request->input('group.id');
+        // $request['parent_id'] = $request->input('parent.id');
+
         $language = Language::create($request->all());
-        if ($language) { 
-            flash($language->name.' added successfully.', 'is-success');
-            return redirect('/languages/' . $language->id);
-        }//if
-        else {
-            flash($request->name.' could not be added.', 'is-error');
-            return redirect('/languages');
-        }//else
+
+        flash($language->name.' added successfully.', 'is-success');
+
+        return $language->id;
     }
 
     public function show(Language $language)
@@ -90,6 +96,9 @@ class LanguageController extends Controller
 
     public function update(LanguageRequest $request, Language $language)
     {
+        // $request['group_id'] = $request->input('group.id');
+        // $request['parent_id'] = $request->input('parent.id');
+        
         if(!$request->parent_id) {
             $request->parent_id = null;
         }
@@ -97,6 +106,7 @@ class LanguageController extends Controller
         $language->update($request->all());
 
         flash($language->name.' updated successfully.', 'is-success');
-        return redirect('/languages/' . $language->id);
+        
+        return $language->id;
     }
 }

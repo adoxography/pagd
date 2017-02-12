@@ -15,6 +15,7 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        \Illuminate\Foundation\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class
     ];
 
@@ -54,6 +55,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'parseForm' => \App\Http\Middleware\ParseLangFormRequest::class,
-        'handleGloss' => \App\Http\Middleware\HandleGloss::class
+        'handleGloss' => \App\Http\Middleware\HandleGloss::class,
+        'flattenRequest' => \App\Http\Middleware\FlattenRequest::class
     ];
 }

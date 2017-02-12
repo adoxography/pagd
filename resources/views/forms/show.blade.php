@@ -172,6 +172,9 @@
 
 			<model-tab name="Examples">
 				@component('components.model.field', ['width' => 'is-half', 'label' => 'Examples'])
+					@slot('label')
+						Examples @component('components.model.add-icon', ['uri' => "/forms/{$form->id}/addExample"]) @endcomponent
+					@endslot
 					@if(count($form->examples) > 0)
 						<!-- fill in later -->
 					@else

@@ -4,13 +4,13 @@
 			<label class="label">Sources</label>
 			<div class="box">
 				<div class="control is-grouped">
-					<alg-old-source @input="add($event)"></alg-old-source>
-					<a class="button" @click="open">Add a new source</a>
+					<alg-ajaxlist v-model="oldSource" uri="/autocomplete/sources" placeholder="Search for an existing source" @input="handleOldSourceInput" ref="oldSource" :disabled="disabled"></alg-ajaxlist>
+					<a class="button" @click="open" :class="{ 'is-disabled': disabled }">Add a new source</a>
 				</div>
 			</div>
 
 			<ul>
-				<div class="columns" v-for="(source, index) in sources">
+				<div class="columns" v-for="(source, index) in value">
 					<input type="hidden" v-model="source.id" :name="'sources['+index+'][id]'" />
 					<input type="hidden" v-model="source.short" :name="'sources['+index+'][short]'" />
 					<div class="column is-one-quarter">
@@ -18,11 +18,11 @@
 					</div>
 					<div class="column is-8">
 						<p class="control">
-							<input type="text" class="input is-expanded" :name="'sources['+index+'][extraInfo]'" v-model="source.extraInfo" placeholder="chapter, page number, etc..." ref="extrainfo" />
+							<input type="text" class="input is-expanded" :name="'sources['+index+'][extraInfo]'" v-model="source.extraInfo" placeholder="chapter, page number, etc..." ref="extrainfo" :disabled="disabled" />
 						</p>
 					</div>
 					<div class="column is-1">
-						<a class="button" @click="remove(index)">Remove</a>
+						<a class="button" @click="remove(index)" :disabled="disabled">Remove</a>
 					</div>
 				</div>
 			</ul>
@@ -36,13 +36,16 @@
 	import  { focus } from 'vue-focus';
 
 	export default {
-		props: ['value'],
+		props: ['value', 'disabled'],
 
 		data() {
 			return {
 				showModal: false,
-				sources: [],
-				initSources: []
+
+				oldSource: {
+					text: '',
+					id: ''
+				}
 			};
 		},
 
@@ -60,15 +63,25 @@
 			},
 
 			add(data) {
-				this.sources.push({ short: data.short, id: data.id, extraInfo: "" });
+				let newSources = this.value;
+				newSources.push({
+					short: data.short,
+					id: data.id,
+					extraInfo: ''					
+				});
+
+				this.$emit('input', newSources);
 
 				Vue.nextTick(() => {
-					this.$refs.extrainfo[this.sources.length - 1].focus();
+					this.$refs.extrainfo[this.value.length - 1].focus();
 				});
 			},
 
 			remove(index) {
-				this.sources.splice(index, 1);
+				let sources = this.value;
+				sources.splice(index, 1);
+
+				this.$emit('input', sources);
 			},
 
 			extractExtraInfo(source) {
@@ -78,19 +91,19 @@
 				else {
 					return source.extraInfo;
 				}
-			}
-		},
+			},
 
-		created() {
-			if(this.value) {
-				let sources = JSON.parse(this.value);
+			handleOldSourceInput() {
+				Vue.nextTick(() => {
+					if(this.$refs.oldSource.showCheck) {
+						this.add({
+							short: this.oldSource.text,
+							id: this.oldSource.id
+						});
 
-				sources.forEach(source => {
-					this.sources.push({
-						short: source.short,
-						id: source.id,
-						extraInfo: this.extractExtraInfo(source)
-					});
+						this.oldSource.text = '';
+						this.oldSource.id = '';
+					}
 				});
 			}
 		}

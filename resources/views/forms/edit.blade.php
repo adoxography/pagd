@@ -7,11 +7,15 @@
 	</div>
 	<br />
 
-	<div id="root">
-		@component('components.form', ['method' => 'PATCH', 'url' => '/forms/'.$form->id, 'class' => 'box'])
-			@include('forms.partials.form')
-		@endcomponent
-	</div>
+	<alg-form-form method="PATCH"
+				   action="/forms/{{ $form->id }}"
+				   languages="{{ $languages }}"
+				   args="{{ $arguments }}"
+				   classes="{{ $classes }}"
+				   orders="{{ $orders }}"
+				   modes="{{ $modes }}"
+				   change-types="{{ $changeTypes }}"
+				   model="{{ $form }}">
+	</alg-form-form>
 
-	@include('errors.list')
 @stop

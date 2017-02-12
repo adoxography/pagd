@@ -2,7 +2,7 @@
 	<div class="alg-datalist" v-on-clickaway="closeList">
 		<div class="control has-addons">
 			<div class="alg-datalist-container">
-				<input type="text" :name="name" :disabled="disabled" class="input is-expanded" v-model="text" @keyup="onKeyUp($event.keyCode)" @keydown="onKeyDown($event)" @input="update" ref="textInput" autocomplete="off" :placeholder="placeholder" />
+				<input type="text" :name="name" :disabled="disabled" class="input is-expanded" :value="value.text" @keyup="onKeyUp($event.keyCode)" @keydown="onKeyDown($event)" @input="update($event.target.value)" ref="textInput" autocomplete="off" :placeholder="placeholder" :required="required" />
 				<div class="box alg-datalist-dropdown" v-show="showList">
 					<ul>
 						<li v-for="(option, index) in options">
@@ -17,7 +17,7 @@
 				</span>
 			</a>
 		</div>
-		<input type="hidden" :name="name + '_id'" v-model="code" />
+		<input type="hidden" :name="name + '_id'" :value="value.id" />
 	</div>
 </template>
 
@@ -29,17 +29,15 @@
 		props: {
 			list: String,
 			name: String,
-			init: {},
 			disabled: Boolean,
-			emit: {
-				default: function () {
-					return false;
-				}
-			},
+			required: {},
 
 			value: {
 				default: function () {
-					return null;
+					return {
+						text: '',
+						id: ''
+					};
 				}
 			},
 			placeholder: {}
@@ -52,7 +50,6 @@
 
 		data() {
 			return {
-				text: "",
 				parsedList: [],
 				options: [],
 				showList: false,
@@ -62,37 +59,21 @@
 
 		created() {
 			this.parsedList = JSON.parse(this.list);
-
-			if(this.init) {
-				this.text = this.init;
-			}
-
-			if(this.value) {
-				this.text = this.value.text;
-			}
 		},
 
-		mounted() {
-			if(this.emit && this.code) {
-				Event.$emit('update', { field: this.name, text: this.text, code: this.code });
-			}
-		},
-
-		computed: {
-			code() {
+		methods: {
+			getID(text) {
 				let val = "";
 
 				for(let i = 0; i < this.parsedList.length && val === ""; i++) {
-					if(this.parsedList[i].name.toLowerCase() === this.text.toLowerCase()) {
+					if(this.parsedList[i].name.toLowerCase() === text.toLowerCase()) {
 						val = this.parsedList[i].id;
 					}
 				}
 
 				return val;
-			}
-		},
+			},
 
-		methods: {
 			/**
 			 * Activated when the down arrow is pressed
 			 */
@@ -110,9 +91,6 @@
 			},
 
 			selectItem(item) {
-				// Set the text
-				this.text = item;
-
 				// Hide the list
 				this.showList = false;
 
@@ -120,11 +98,7 @@
 				this.curr = 0;
 
 				// Trigger an input event
-				this.$emit("input", { text: this.text, code: this.code });
-
-				if(this.emit) {
-					Event.$emit('update', { field: this.name, text: this.text, code: this.code });
-				}
+				this.update(item);
 			},
 
 			onKeyUp(keyCode) {
@@ -140,7 +114,7 @@
 
 					// Only show the list if there is text in the field and there are options in the list
 					if(keyCode != 9) {
-						this.showList = this.text.length > 0 && this.options.length > 0;
+						this.showList = this.value.text.length > 0 && this.options.length > 0;
 					}
 				}
 			},
@@ -169,7 +143,7 @@
 
 			filterOptions() {
 				this.options = this.parsedList.filter((item) => {
-					return item.name.toLowerCase().includes(this.text.toLowerCase());
+					return item.name.toLowerCase().includes(this.value.text.toLowerCase());
 				});
 			},
 
@@ -182,7 +156,7 @@
 
 					// If the current selection isn't the textbox itself, set the textbox to the current selection
 					if(this.curr > 0){
-						this.text = this.options[this.curr - 1].name;
+						this.update(this.options[this.curr - 1].name);
 					}
 				}
 				else { // The list is closed
@@ -199,7 +173,7 @@
 				this.curr += this.options.length;
 				this.curr %= this.options.length + 1;
 				if(this.curr > 0){
-					this.text = this.options[this.curr - 1].name;
+					this.update(this.options[this.curr - 1].name);
 				}
 			},
 
@@ -214,8 +188,13 @@
 				return n + 1 == this.curr;
 			},
 
-			update() {
-				this.$emit("input", { text: this.text, code: this.code });
+			update(newText) {
+				let id = this.getID(newText);
+
+				this.$emit("input", {
+					text: newText,
+					id: id
+				});
 			}
 		}
 	}

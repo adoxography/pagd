@@ -62,7 +62,7 @@ class CustomValidationProvider extends ServiceProvider
         });
 
         Validator::extend('nomatch', function($attribute, $value, $parameters, $validator) {
-            return $value !== $parameters[0];
+            return $value != $parameters[0];
         });
     }
 

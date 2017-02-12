@@ -1,3 +1,4 @@
+import Form from './utilities/Form';
 
 window._ = require('lodash');
 
@@ -31,6 +32,8 @@ window.axios = require('axios');
 window.axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest'
 };
+
+window.Form = Form;
 
 /**
  * We'll register a HTTP interceptor to attach the "CSRF" header to each of

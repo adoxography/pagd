@@ -48,7 +48,7 @@ class ViewComposerServiceProvider extends ServiceProvider
         view()->composer('examples.partials.form', function($view)
         {
             $data = [
-                'languages' => Language::select('id', 'name as value')->get()
+                'languages' => Language::select('id', 'name')->get()
             ];
             $view->with($data);
         });
@@ -56,7 +56,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
     private function composeLanguageForm()
     {
-        view()->composer('languages.partials.form', function($view)
+        view()->composer(['languages.create', 'languages.edit'], function($view)
         {
             $data = [
                 'parents' => Language::select('id','name')->get(),
@@ -68,7 +68,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
     private function composeFormForm()
     {
-        view()->composer('forms.partials.form', function($view)
+        view()->composer(['forms.create', 'forms.edit'], function($view)
         {
             $data = [
                 'arguments'   => Argument::select('id','name')->get(),
@@ -76,7 +76,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                 'languages'   => Language::select('id','name')->get(),
                 'modes'       => Mode::select('id','name')->get(),
                 'orders'      => Order::select('id','name')->get(),
-                'changeTypes' => ChangeType::select('id','name')->get()
+                'changeTypes' => ChangeType::select('id','name')->get()->prepend(['id' => null, 'name' => 'N/A'])
             ];
             $view->with($data);
         });
@@ -84,13 +84,13 @@ class ViewComposerServiceProvider extends ServiceProvider
 
     private function composeMorphemeForm()
     {
-        view()->composer('morphemes.partials.form', function($view)
+        view()->composer(['morphemes.create', 'morphemes.edit'], function($view)
         {
             $data = [
                 'languages' => Language::select('id','name')->get(),
                 'glosses'   => Gloss::select('id','abv as name')->get(),
                 'slots'     => Slot::select('id','abv as name')->get(),
-                'changeTypes' => ChangeType::select('id','name')->get()
+                'changeTypes' => ChangeType::select('id','name')->get()->prepend(['id' => null, 'name' => 'N/A'])
             ];
             $view->with($data);
         });

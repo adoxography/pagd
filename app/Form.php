@@ -44,6 +44,8 @@ class Form extends Model
         'usageNotes'
     ];
 
+    protected $appends = ['name'];
+
     protected $events = [
         'created'  => Created::class,
         'saving'   => Saving::class,
@@ -97,6 +99,11 @@ class Form extends Model
         return $this->surfaceForm;
     }
 
+    public function getUniqueNameAttribute()
+    {
+        return "{$this->surfaceForm} ({$this->formType->getArguments()})";
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Methods
@@ -119,7 +126,7 @@ class Form extends Model
 
     public function uniqueName()
     {
-        return "{$this->surfaceForm} ({$this->formType->getArguments()})";
+        return $this->uniqueName;
     }
 
     public function uniqueNameWithLanguage()

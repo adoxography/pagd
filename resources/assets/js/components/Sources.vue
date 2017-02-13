@@ -4,31 +4,54 @@
 			<label class="label">Sources</label>
 			<div class="box">
 				<div class="control is-grouped">
-					<alg-ajaxlist v-model="oldSource" uri="/autocomplete/sources" placeholder="Search for an existing source" @input="handleOldSourceInput" ref="oldSource" :disabled="disabled"></alg-ajaxlist>
-					<a class="button" @click="open" :class="{ 'is-disabled': disabled }">Add a new source</a>
+					<alg-ajaxlist v-model="oldSource"
+								  uri="/autocomplete/sources"
+								  placeholder="Search for an existing source"
+								  @input="handleOldSourceInput"
+								  ref="oldSource"
+								  :disabled="disabled">
+					</alg-ajaxlist>
+					<a class="button"
+					   @click="open"
+					   :class="{ 'is-disabled': disabled }">Add a new source</a>
 				</div>
 			</div>
 
 			<ul>
 				<div class="columns" v-for="(source, index) in value">
-					<input type="hidden" v-model="source.id" :name="'sources['+index+'][id]'" />
-					<input type="hidden" v-model="source.short" :name="'sources['+index+'][short]'" />
+					<input type="hidden"
+						   v-model="source.id"
+						   :name="'sources['+index+'][id]'" />
+					<input type="hidden"
+						   v-model="source.short"
+						   :name="'sources['+index+'][short]'" />
 					<div class="column is-one-quarter">
 						<p>{{ index + 1 }}. {{ source.short }}</p>
 					</div>
 					<div class="column is-8">
 						<p class="control">
-							<input type="text" class="input is-expanded" :name="'sources['+index+'][extraInfo]'" v-model="source.extraInfo" placeholder="chapter, page number, etc..." ref="extrainfo" :disabled="disabled" />
+							<input type="text"
+								   class="input is-expanded"
+								   :name="'sources['+index+'][extraInfo]'"
+								   v-model="source.extraInfo"
+								   placeholder="chapter, page number, etc..."
+								   ref="extrainfo"
+								   :disabled="disabled" />
 						</p>
 					</div>
 					<div class="column is-1">
-						<a class="button" @click="remove(index)" :disabled="disabled">Remove</a>
+						<a class="button"
+						   @click="remove(index)"
+						   :disabled="disabled">Remove</a>
 					</div>
 				</div>
 			</ul>
 		</div>
 
-		<alg-new-source v-show="showModal" @close="close" @input="add($event)"></alg-new-source>
+		<alg-new-source v-show="showModal"
+						@close="close"
+						@input="add($event)">
+		</alg-new-source>
 	</div>
 </template>
 

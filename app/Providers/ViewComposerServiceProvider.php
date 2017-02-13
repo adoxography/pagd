@@ -45,7 +45,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
     private function composeExampleForm()
     {
-        view()->composer('examples.partials.form', function($view)
+        view()->composer(['examples.create', 'examples.edit'], function($view)
         {
             $data = [
                 'languages' => Language::select('id', 'name')->get()

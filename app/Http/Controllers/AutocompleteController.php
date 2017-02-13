@@ -29,7 +29,7 @@ class AutocompleteController extends Controller
         $term     = $request->term;
         $language = $request->language;
 
-        $results = Form::select('id', 'surfaceForm', 'morphemicForm')
+        $results = Form::select('id', 'surfaceForm', 'morphemicForm as extra')
                        ->where('surfaceForm', 'LIKE', "%$term%")
                        ->where('language_id', $language)
                        ->get();

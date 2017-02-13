@@ -11,6 +11,10 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			13-02-17: Added example creation form (no back end functionality yet)
+		</li>
+		<hr>
+		<li>
 			12-02-17: Added red border to fields that have errors
 		</li>
 		<li>

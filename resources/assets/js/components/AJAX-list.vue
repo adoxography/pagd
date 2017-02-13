@@ -31,7 +31,7 @@
 				options: [],
 				loading: false,
 				curr: 0,
-				language: 1
+				extra: ''
 			};
 		},
 
@@ -51,10 +51,12 @@
 
 			determineValue(text) {
 				let val = '';
+				this.extra = '';
 
 				for(let i = 0; i < this.options.length && val === ''; i++) {
 					if(this.options[i].name.toLowerCase() === text.toLowerCase()) {
 						val = this.options[i].id;
+						this.extra = this.options[i].extra;
 					}
 				}
 
@@ -88,7 +90,8 @@
 
 				this.$emit('input', {
 					text: newText,
-					id: id
+					id: id,
+					extra: this.extra
 				});
 			},
 

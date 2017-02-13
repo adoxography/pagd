@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			12-02-17: Added red border to fields that have errors
+		</li>
+		<li>
 			12-02-17: Rewrote most of the forms as Vue.js components for more cohesive functionality and cleaner code
 			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
 				<li>Forms are submitted and validated via AJAX requests</li>

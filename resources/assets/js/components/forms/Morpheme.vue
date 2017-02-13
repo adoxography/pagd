@@ -19,7 +19,8 @@
 						   autocomplete="off"
 						   name="name"
 						   required="required"
-						   :disabled="loading" />
+						   :disabled="loading"
+						   :class="{'is-danger': form.errors.has('name')}" />
 				</p>
 				<span class="help is-danger"
 					  v-show="form.errors.has('name')"
@@ -37,7 +38,8 @@
 						   autocomplete="off"
 						   name="alternateName"
 						   :disabled="loading"
-						   placeholder="leave blank if N/A">
+						   placeholder="leave blank if N/A"
+						   :class="{'is-danger': form.errors.has('alternateName')}">
 				</p>
 				<span class="help is-danger"
 					  v-show="form.errors.has('alternateName')"
@@ -53,7 +55,8 @@
 							  name="language"
 							  required="required"
 							  :disabled="loading"
-							  @input="form.errors.clear('language')">
+							  @input="form.errors.clear('language')"
+							  :classes="{'is-danger': form.errors.has('language')}">
 				</alg-datalist>
 				<span class="help is-danger"
 					  v-show="form.errors.has('language')"
@@ -70,7 +73,8 @@
 							  required="required"
 							  :disabled="loading"
 							  @input="form.errors.clear('gloss')"
-							  placeholder="Select a gloss from the list or type a new one in 'ABV (Full Name)' format">
+							  placeholder="Select a gloss from the list or type a new one in 'ABV (Full Name)' format"
+							  :classes="{'is-danger': form.errors.has('gloss')}">
 				</alg-datalist>
 				<span class="help is-danger"
 					  v-show="form.errors.has('gloss')"
@@ -85,7 +89,8 @@
 							  :list="slots" name="slot"
 							  required="required"
 							  :disabled="loading"
-							  @input="form.errors.clear('slot')"></alg-datalist>
+							  @input="form.errors.clear('slot')"
+							  :classes="{'is-danger': form.errors.has('slot')}"></alg-datalist>
 				<span class="help is-danger"
 					  v-show="form.errors.has('slot')"
 					  v-text="form.errors.get('slot')">
@@ -110,7 +115,8 @@
 							  uri="/autocomplete/formParents"
 							  :with="form.language.id"
 							  :disabled="loading || !form.language.id"
-							  placeholder="Make sure to select the language first">
+							  placeholder="Make sure to select the language first"
+							  :classes="{'is-danger': form.errors.has('parent')}">
 				</alg-ajaxlist>
 				<span class="help is-danger"
 					  v-show="form.errors.has('parent')"

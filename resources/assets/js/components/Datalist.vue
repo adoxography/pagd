@@ -2,7 +2,18 @@
 	<div class="alg-datalist" v-on-clickaway="closeList">
 		<div class="control has-addons">
 			<div class="alg-datalist-container">
-				<input type="text" :name="name" :disabled="disabled" class="input is-expanded" :value="value.text" @keyup="onKeyUp($event.keyCode)" @keydown="onKeyDown($event)" @input="update($event.target.value)" ref="textInput" autocomplete="off" :placeholder="placeholder" :required="required" />
+				<input type="text"
+					   :name="name"
+					   :disabled="disabled"
+					   class="input is-expanded"
+					   :class="classes"
+					   :value="value.text"
+					   @keyup="onKeyUp($event.keyCode)"
+					   @keydown="onKeyDown($event)"
+					   @input="update($event.target.value)"
+					   ref="textInput" autocomplete="off"
+					   :placeholder="placeholder"
+					   :required="required" />
 				<div class="box alg-datalist-dropdown" v-show="showList">
 					<ul>
 						<li v-for="(option, index) in options">
@@ -40,7 +51,8 @@
 					};
 				}
 			},
-			placeholder: {}
+			placeholder: {},
+			classes: String
 		},
 
 		directives: {

@@ -16,7 +16,8 @@
 						   name="surfaceForm"
 						   required="required"
 						   :disabled="loading"
-						   placeholder="The form as written in a text" />
+						   placeholder="The form as written in a text"
+						   :class="{'is-danger': form.errors.has('surfaceForm')}" />
 				</p>
 				<span class="help is-danger"
 					  v-show="form.errors.has('surfaceForm')"
@@ -31,7 +32,8 @@
 							  :list="languages"
 							  name="language"
 							  :disabled="loading"
-							  @input="form.errors.clear('language')">
+							  @input="form.errors.clear('language')"
+							  :classes="{'is-danger': form.errors.has('language')}">
 				</alg-datalist>
 				<span class="help is-danger"
 					  v-show="form.errors.has('language')"
@@ -47,33 +49,36 @@
 								  :list="args"
 								  name="subject"
 								  :disabled="loading"
-								  @input="form.errors.clear('subject')">
+								  @input="form.errors.clear('subject')"
+								  :classes="{'is-danger': form.errors.has('subject')}">
 					</alg-datalist>
-					<span class="help is-danger"
-						  v-show="form.errors.has('subject')"
-						  v-text="form.errors.get('subject')">
-					</span>
 					<alg-datalist v-model="form.primaryObject"
 								  :list="args"
 								  name="primaryObject"
 								  :disabled="loading"
-								  @input="form.errors.clear('primaryObject')">
+								  @input="form.errors.clear('primaryObject')"
+								  :classes="{'is-danger': form.errors.has('primaryObject')}">
 					</alg-datalist>
-					<span class="help is-danger"
-						  v-show="form.errors.has('primaryObject')"
-						  v-text="form.errors.get('primaryObject')">
-					</span>
 					<alg-datalist v-model="form.secondaryObject"
 								  :list="args"
 								  name="secondaryObject"
 								  :disabled="loading"
-								  @input="form.errors.clear('secondaryObject')">
+								  @input="form.errors.clear('secondaryObject')"
+								  :classes="{'is-danger': form.errors.has('secondaryObject')}">
 					</alg-datalist>
-					<span class="help is-danger"
-						  v-show="form.errors.has('secondaryObject')"
-						  v-text="form.errors.get('secondaryObject')">
-					</span>
 				</div>
+				<span class="help is-danger"
+					  v-show="form.errors.has('subject')"
+					  v-text="form.errors.get('subject')">
+				</span>
+				<span class="help is-danger"
+					  v-show="form.errors.has('primaryObject')"
+					  v-text="form.errors.get('primaryObject')">
+				</span>
+				<span class="help is-danger"
+					  v-show="form.errors.has('secondaryObject')"
+					  v-text="form.errors.get('secondaryObject')">
+				</span>
 			</div>
 
 			<!-- Class -->
@@ -83,7 +88,8 @@
 							  :list="classes"
 							  name="class"
 							  :disabled="loading"
-							  @input="form.errors.clear('class')">
+							  @input="form.errors.clear('class')"
+							  :classes="{'is-danger': form.errors.has('class')}">
 				</alg-datalist>
 				<span class="help is-danger"
 					  v-show="form.errors.has('class')"
@@ -98,7 +104,8 @@
 							  :list="orders"
 							  name="order"
 							  :disabled="loading"
-							  @input="form.errors.clear('order')">
+							  @input="form.errors.clear('order')"
+							  :classes="{'is-danger': form.errors.has('order')}">
 				</alg-datalist>
 				<span class="help is-danger"
 					  v-show="form.errors.has('order')"
@@ -113,7 +120,8 @@
 							  :list="modes"
 							  name="mode"
 							  :disabled="loading"
-							  @input="form.errors.clear('mode')">
+							  @input="form.errors.clear('mode')"
+							  :classes="{'is-danger': form.errors.has('mode')}">
 				</alg-datalist>
 				<span class="help is-danger"
 					  v-show="form.errors.has('mode')"
@@ -180,7 +188,8 @@
 						   autocomplete="off"
 						   name="phoneticForm"
 						   :disabled="loading"
-						   placeholder="The Algonquianist phonemic representation (Leave blank if unknown or unclear)" />
+						   placeholder="The Algonquianist phonemic representation (Leave blank if unknown or unclear)"
+						   :class="{'is-danger': form.errors.has('phoneticForm')}" />
 				</p>
 				<span class="help is-danger"
 					  v-show="form.errors.has('phoneticForm')"
@@ -198,7 +207,8 @@
 						   autocomplete="off"
 						   name="morphemicForm"
 						   :disabled="loading"
-						   placeholder="The morphemes, separated by hyphens (Leave blank if unknown or unclear)" />
+						   placeholder="The morphemes, separated by hyphens (Leave blank if unknown or unclear)"
+						   :class="{'is-danger': form.errors.has('morphemicForm')}" />
 				</p>
 				<span class="help is-danger"
 					  v-show="form.errors.has('morphemicForm')"
@@ -259,7 +269,8 @@
 							  uri="/autocomplete/morphemeParents"
 							  :with="form.language.id"
 							  :disabled="loading || !form.language.id"
-							  placeholder="Make sure to select the language first">
+							  placeholder="Make sure to select the language first"
+							  :classes="{'is-danger': form.errors.has('parent')}">
 				</alg-ajaxlist>
 				<span class="help is-danger"
 					  v-show="form.errors.has('parent')"

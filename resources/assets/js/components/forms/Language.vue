@@ -16,7 +16,8 @@
 						   autocomplete="off"
 						   name="name"
 						   required="required"
-						   :disabled="loading" />
+						   :disabled="loading"
+						   :class="{'is-danger': form.errors.has('name')}" />
 				</p>
 				<span class="help is-danger"
 					  v-show="form.errors.has('name')"
@@ -33,7 +34,8 @@
 						   v-model="form.alternateNames"
 						   autocomplete="off"
 						   name="alternateNames"
-						   :disabled="loading" />
+						   :disabled="loading"
+						   :class="{'is-danger': form.errors.has('alternateNames')}" />
 				</p>
 				<span class="help is-danger"
 					  v-show="form.errors.has('alternateNames')" 
@@ -49,7 +51,8 @@
 							  name="group"
 							  :disabled="loading"
 							  required="required"
-							  @input="form.errors.clear('group')">
+							  @input="form.errors.clear('group')"
+							  :classes="{'is-danger': form.errors.has('group')}">
 				</alg-datalist>
 				<span class="help is-danger"
 					  v-show="form.errors.has('group')"
@@ -64,7 +67,8 @@
 							  :list="languages"
 							  name="parent"
 							  :disabled="loading"
-							  @input="form.errors.clear('parent')">
+							  @input="form.errors.clear('parent')"
+							  :classes="{'is-danger': form.errors.has('parent')}">
 				</alg-datalist>
 				<span class="help is-danger"
 					  v-show="form.errors.has('parent')"
@@ -82,7 +86,8 @@
 						   autocomplete="off"
 						   required="required"
 						   name="iso"
-						   :disabled="loading" />
+						   :disabled="loading"
+						   :class="{'is-danger': form.errors.has('iso')}" />
 				</p>
 				<span class="help is-danger"
 					  v-show="form.errors.has('iso')" 
@@ -100,7 +105,8 @@
 						   autocomplete="off" 
 						   required="required"
 						   name="algoCode"
-						   :disabled="loading" />
+						   :disabled="loading"
+						   :class="{'is-danger': form.errors.has('name')}" />
 				</p>
 				<span class="help is-danger"
 					  v-show="form.errors.has('algoCode')"

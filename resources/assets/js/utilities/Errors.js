@@ -42,6 +42,15 @@ class Errors {
 	}
 
 	has(field) {
+		if(Array.isArray(field)) {
+			let result = false;
+
+			field.forEach(value => {
+				result = result || this.has(value);
+			});
+
+			return result;
+		}
 		return this.errors.hasOwnProperty(field);
 	}
 

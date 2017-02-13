@@ -44,7 +44,7 @@ class Form extends Model
         'usageNotes'
     ];
 
-    protected $appends = ['name'];
+    // protected $appends = ['name'];
 
     protected $events = [
         'created'  => Created::class,
@@ -94,10 +94,10 @@ class Form extends Model
         return $output.$value;
     }
 
-    public function getNameAttribute()
-    {
-        return $this->surfaceForm;
-    }
+    // public function getNameAttribute()
+    // {
+    //     return $this->surfaceForm;
+    // }
 
     public function getUniqueNameAttribute()
     {

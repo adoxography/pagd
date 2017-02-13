@@ -12,11 +12,6 @@ use Response;
 
 class AutocompleteController extends Controller
 {
-    public function test()
-    {
-        return [['name' => 'alpha'], ['name' => 'beta'], ['name' => 'gamma']];
-    }
-
     /**
      * Get all of the forms of a language that match a particular token
      *
@@ -29,10 +24,19 @@ class AutocompleteController extends Controller
         $term     = $request->term;
         $language = $request->language;
 
-        $results = Form::select('id', 'surfaceForm', 'morphemicForm as extra')
+        $results = Form::select('id', 'surfaceForm', 'language_id', 'morphemicForm as extra', 'formType_id')
+                       ->with('language')
+                       ->with('formType')
+                       ->with('formType.subject')
+                       ->with('formType.primaryObject')
+                       ->with('formType.secondaryObject')
                        ->where('surfaceForm', 'LIKE', "%$term%")
                        ->where('language_id', $language)
                        ->get();
+
+        foreach($results as $result) {
+            $result->name = $result->uniqueName;
+        }
 
         return $results->toJson();
     }

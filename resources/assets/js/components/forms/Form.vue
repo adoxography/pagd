@@ -266,7 +266,7 @@
 			<div class="column is-half">
 				<label for="parent" class="label">Parent</label>
 				<alg-ajaxlist v-model="form.parent"
-							  uri="/autocomplete/morphemeParents"
+							  uri="/autocomplete/formParents"
 							  :with="form.language.id"
 							  :disabled="loading || !form.language.id"
 							  placeholder="Make sure to select the language first"

@@ -59,6 +59,26 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Revision\HandleDeleted'
         ],
 
+        // Example Events
+        'App\Events\Example\Created' => [
+            'App\Listeners\Revision\HandleCreated'
+        ],
+        'App\Events\Example\Saving' => [
+            'App\Listeners\Revision\HandleSaving'
+        ],
+        'App\Events\Example\Saved' => [
+            'App\Listeners\Example\ConnectMorphemes',
+            'App\Listeners\Backup',
+            'App\Listeners\Revision\HandleSaved'
+        ],
+        'App\Events\Example\Deleting' => [
+            'App\Listeners\Example\DisconnectMorphemes',
+            'App\Listeners\Example\DisconnectSources'
+        ],
+        'App\Events\Example\Deleted' => [
+            'App\Listeners\Revision\HandleDeleted'
+        ],
+
         // Morpheme Events
         'App\Events\Morpheme\Creating' => [
             'App\Listeners\Morpheme\AssignDisambiguator'

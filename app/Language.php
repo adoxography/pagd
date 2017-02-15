@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Example;
 use App\Morpheme;
 use App\Events\Language\Saved;
 use App\Events\Language\Saving;
@@ -61,6 +62,12 @@ class Language extends Model
         return $this->hasMany(Form::class, 'language_id');
     }
 
+    public function examples()
+    {
+        // return $this->forms()->examples;
+        return $this->hasManyThrough(Example::class, Form::class);
+    }
+
     public function morphemes()
     {
         return $this->hasMany(Morpheme::class);
@@ -70,10 +77,14 @@ class Language extends Model
     {
         $morphemeSources = $this->loadSources('morphemes');
         $formSources = $this->loadSources('forms');
+        $exampleSources = $this->loadSources('examples');
 
         $sources = $morphemeSources;
         if($formSources) {
-            $sources = $morphemeSources->merge($formSources);
+            $sources = $sources->merge($formSources);
+        }
+        if($exampleSources) {
+            $sources = $sources->merge($exampleSources);
         }
 
         return $sources->sortBy('short');

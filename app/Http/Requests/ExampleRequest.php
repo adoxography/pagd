@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ExampleRequest extends FormRequest
@@ -16,6 +17,23 @@ class ExampleRequest extends FormRequest
         return Auth::user();
     }
 
+    public function all()
+    {
+        $attributes = parent::all();
+
+        foreach(parent::all() as $key => $value) {
+            if(is_array($value)) {
+                foreach($value as $subKey => $subValue) {
+                    $attributes["{$key}_{$subKey}"] = $subValue;
+                }
+            }
+        }
+
+        $this->replace($attributes);
+
+        return parent::all();
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,13 +42,22 @@ class ExampleRequest extends FormRequest
     public function rules()
     {
         return [
-            'language.name' => ['required','exists:Languages,name'],
-            'language_id'   => ['required','exists:Languages,id'],
-            'form'          => ['required'],
-            'form_id'       => ['required','exists:Forms,id'],
+            'language.text' => ['required','exists:Languages,name'],
+            'language.id'   => ['required','exists:Languages,id'],
+            'form.text'     => ['required'],
+            'form.id'       => ['required','exists:Forms,id'],
             'name'          => ['required'],
             'translation'   => ['required'],
-            'comments'      => ['nullable']
+            'comments'      => ['nullable'],
+            'notes'         => ['nullable'],
+            'morphemicForm' => ['nullable', 'notHas:V']
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'morphemicForm.not_has' => 'Please replace the vStem placeholder with a morpheme.'
         ];
     }
 }

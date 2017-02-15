@@ -17,16 +17,11 @@ class CustomValidationProvider extends ServiceProvider
     public function boot()
     {
         Validator::extend('has', function($attribute, $value, $parameters, $validator) {
-            $components = explode('-', $value);
-            $lookup     = $parameters[0];
-            $found = false;
+            return $this->contains($value, $parameters[0]);
+        });
 
-            for($i = 0; $i < count($components) && !$found; $i++)
-            {
-                $found = strtolower($components[$i]) === strtolower($lookup);
-            }
-
-            return $found;
+        Validator::extend('notHas', function($attribute, $value, $parameters, $validator) {
+            return !$this->contains($value, $parameters[0]);
         });
 
         Validator::replacer('has', function($message, $attribute, $rule, $parameters) {
@@ -64,6 +59,19 @@ class CustomValidationProvider extends ServiceProvider
         Validator::extend('nomatch', function($attribute, $value, $parameters, $validator) {
             return $value != $parameters[0];
         });
+    }
+
+    protected function contains($schematic, $lookup) 
+    {
+        $components = explode('-', $schematic);
+        $found = false;
+
+        for($i = 0; $i < count($components) && !$found; $i++)
+        {
+            $found = strtolower($components[$i]) === strtolower($lookup);
+        }
+
+        return $found;       
     }
 
     /**

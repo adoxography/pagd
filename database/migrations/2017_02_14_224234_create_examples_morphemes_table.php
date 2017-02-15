@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateChangeTypeTable extends Migration
+class CreateExamplesMorphemesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class CreateChangeTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('ChangeTypes', function (Blueprint $table) {
+        Schema::create('Examples_Morphemes', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             
-            $table->increments('id');
-            $table->string('name',100);
+            $table->unsignedInteger('example_id');
+            $table->unsignedInteger('morpheme_id');
+            $table->integer('position');
             $table->timestamps();
+            
+            $table->index(['example_id', 'morpheme_id', 'position']);
         });
     }
 
@@ -29,6 +32,6 @@ class CreateChangeTypeTable extends Migration
      */
     public function down()
     {
-        Schema::drop('ChangeTypes');
+        Schema::dropIfExists('Examples_Morphemes');
     }
 }

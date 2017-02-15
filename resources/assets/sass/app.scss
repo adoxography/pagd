@@ -56,6 +56,15 @@ html {
 	overflow-x: hidden;
 }
 
+.alg-model-tab {
+	padding-top: 0;
+
+	.column {
+		padding: 0;
+		padding-bottom: 0.75rem;
+	}
+}
+
 .alg-old-source input {
 	width: 15rem;
 }
@@ -137,7 +146,7 @@ html {
 }
 
 .description-list {
-	list-style: none;
+	list-style: none !important;
 	margin: 0 !important;
 
 	li {
@@ -148,6 +157,26 @@ html {
 	li:not(:first-child) {
 		margin-left: .5rem;
 	}
+}
+
+.morpheme-printout {
+	margin-left: 0;
+	margin-top: 0;
+
+	.column {
+		padding-left: .25rem;
+		padding-right: .25rem;
+
+	}
+
+	.hyphen {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+
+.detail-title-language {
+	padding-left: .25em;
 }
 
 .dropdown-options {

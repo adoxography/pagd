@@ -10,7 +10,7 @@
 		@slot('header')
 			{{ $language->name }}
 			@if($language->alternateNames)
-				<span style="padding-left: .25em;">({{ $language->alternateNames }}</span>)
+				<span class="detail-title-language">({{ $language->alternateNames }}</span>)
 			@endif
 		@endslot
 		<model-tab name="Basic Details" selected="true">

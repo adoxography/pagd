@@ -8,8 +8,10 @@
 	<br />
 
 	<alg-example-form method="POST"
-				   	  action="/forms"
-				   	  languages="{{ $languages }}">
+				   	  action="/examples"
+				   	  languages="{{ $languages }}"
+				   	  language="{{ $presetLanguage or "" }}"
+				   	  preset-form="{{ $presetForm or "" }}">
 	</alg-example-form>
 
 @stop

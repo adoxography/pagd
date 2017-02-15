@@ -147,6 +147,15 @@ class Morpheme extends Model
         return $this->uniqueNameWithLanguage;
     }
     
+    public function isVStem()
+    {
+        return $this->name === 'V';
+    }
+
+    public function isAffectedByInitialChange()
+    {
+        return $this->slot->name === 'V' || $this->slot->name === 'PV';
+    }
 
     /*
     |--------------------------------------------------------------------------

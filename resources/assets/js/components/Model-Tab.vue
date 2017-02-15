@@ -1,5 +1,5 @@
 <template>
-	<div class="card-content" v-show="isActive" style="padding-top: 0;">
+	<div class="card-content alg-model-tab" v-show="isActive">
 		<div class="tabs-details">
 			<div class="content">
 				<div class="columns is-multiline">

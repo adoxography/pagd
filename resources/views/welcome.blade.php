@@ -11,6 +11,20 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			14-02-17: Fixed bug in forms not disappearing from the "needs attention" list after morpheme edit
+		</li>
+		<li>
+			14-02-17: Fully implemented examples
+			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+				<li>Validation</li>
+				<li>Creation</li>
+				<li>Display</li>
+				<li>Modification</li>
+				<li>Deletion</li>
+			</ul>
+		</li>
+		<hr>
+		<li>
 			13-02-17: Added example creation form (no back end functionality yet)
 		</li>
 		<hr>

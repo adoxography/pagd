@@ -52,7 +52,7 @@
 				}
 			},
 			placeholder: {},
-			classes: String
+			classes: {}
 		},
 
 		directives: {

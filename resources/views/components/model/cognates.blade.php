@@ -5,7 +5,7 @@
 			@if($list->id != $current->id)
 				<a style="padding-left: .5rem;" href="/{{ $model }}/{{ $list->id }}">
 			@endif
-			{{ $list->name }} ({{ $list->language->name }})
+			{{ $list->name or $list->surfaceForm }} ({{ $list->language->name }})
 			@if($list->id != $current->id)
 				</a>
 			@endif

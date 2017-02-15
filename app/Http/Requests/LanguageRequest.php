@@ -76,27 +76,6 @@ class LanguageRequest extends FormRequest
         return $rules;
     }
 
-    public function withValidator($validator) 
-    {
-        Log::debug(['validator result' => $validator->attributes()]);
-
-        $validator->after(function ($validator) {            
-            foreach($validator->errors()->get('group.text') as $error) {
-                $validator->errors()->add('group', $error);
-            }            
-            foreach($validator->errors()->get('group.id') as $error) {
-                $validator->errors()->add('group', $error);
-            }
-
-            foreach($validator->errors()->get('parent.text') as $error) {
-                $validator->errors()->add('parent', $error);
-            }
-            foreach($validator->errors()->get('parent.id') as $error) {
-                $validator->errors()->add('parent', $error);
-            }
-        });
-    }
-
     public function messages(){
         return [
             'group.text.required' => 'Please enter a group.',

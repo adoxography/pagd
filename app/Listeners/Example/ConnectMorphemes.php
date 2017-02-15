@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Listeners\Form;
+namespace App\Listeners\Example;
 
-use App\Morpheme;
-use App\Events\Form\Saved;
+use App\Events\Example\Saved;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -22,12 +21,12 @@ class ConnectMorphemes
     /**
      * Handle the event.
      *
-     * @param  FormSaved  $event
+     * @param  Saved  $event
      * @return void
      */
     public function handle(Saved $event)
     {
-        $form = $event->model;
-        $form->connectMorphemes();
+        $example = $event->model;
+        $example->connectMorphemes();
     }
 }

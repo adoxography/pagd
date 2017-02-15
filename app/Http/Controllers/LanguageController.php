@@ -61,9 +61,6 @@ class LanguageController extends Controller
 
     public function store(LanguageRequest $request)
     {
-        // $request['group_id'] = $request->input('group.id');
-        // $request['parent_id'] = $request->input('parent.id');
-
         $language = Language::create($request->all());
 
         flash($language->name.' added successfully.', 'is-success');

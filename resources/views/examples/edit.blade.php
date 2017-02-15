@@ -6,10 +6,12 @@
 		<h1 class="title">Edit an example</h1>
 	</div>
 	<br />
-	
-	@component('components.form', ['method' => 'PATCH', 'class' => 'box', 'url' => "/examples/{$example->id}"])
-		@include('examples.partials.form')
-	@endcomponent
+
+	<alg-example-form method="PATCH"
+				   	  action="/examples/{{ $example->id }}"
+				   	  languages="{{ $languages }}"
+				   	  example="{{ $example }}">
+	</alg-example-form>
 
 	@include('errors.list')
 

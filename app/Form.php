@@ -18,6 +18,7 @@ class Form extends Model
 {
     use \Venturecraft\Revisionable\RevisionableTrait;
     use \App\SourceableTrait;
+    use \App\HasMorphemesTrait;
 
     /*
     |--------------------------------------------------------------------------
@@ -44,7 +45,7 @@ class Form extends Model
         'usageNotes'
     ];
 
-    // protected $appends = ['name'];
+    protected $appends = ['uniqueName'];
 
     protected $events = [
         'created'  => Created::class,
@@ -132,43 +133,6 @@ class Form extends Model
     public function uniqueNameWithLanguage()
     {
         return "{$this->uniqueName()} ({$this->language->name})";
-    }
-
-    public function morphemeList()
-    {
-        $output = [];
-        $savedMorphemes = $this->morphemes;
-        $curr = 0;
-        $slots = explode('-', $this->morphemicForm);
-
-
-        foreach($slots as $index => $slot) {
-            if($curr < count($savedMorphemes) && $savedMorphemes[$curr]->pivot->position == $index + 1) {
-                $output[] = $savedMorphemes[$curr++];
-            }
-            else {
-                $output[] = ['name' => explode('.', $slot)[0]]; // Pull off the disambiguator
-
-                if(Auth::user()) {
-                    $search = Morpheme::whereIn('name', [
-                                            $slot,
-                                            '-'.$slot,
-                                            '-'.$slot.'-',
-                                            $slot.'-',
-                                        ])
-                                      ->where('language_id', $this->language_id)
-                                      ->get();
-                    if(count($search) > 0) {
-                        $output[count($output) - 1] += ['exists' => true];
-                    }
-                    else {
-                        $output[count($output) - 1] += ['exists' => false];
-                    }
-                }
-            }
-        }
-
-        return $output;
     }
 
     /*

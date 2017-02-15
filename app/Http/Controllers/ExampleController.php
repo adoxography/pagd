@@ -10,32 +10,55 @@ use Illuminate\Support\Facades\Redirect;
 
 class ExampleController extends Controller
 {
-    public function __construct(){
-        $this->middleware('parseSources')->only('store', 'update');
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
     }
 
-	public function index(){
-		return view('examples.index');
-	}
+    public function show(Example $example)
+    {
+        $example->load(['form', 'form.language', 'form.sources', 'morphemes', 'morphemes.gloss', 'morphemes.slot']);
+
+        return view('examples.show', compact('example'));
+    }
 
     public function create(){
     	return view('examples.create');
     }
 
+    public function destroy(Example $example)
+    {
+        $example->delete();
+
+        flash($example->name.' deleted successfully.', 'is-info');
+        
+        return redirect("/forms/{$example->form_id}");
+    }
+
     public function edit(Example $example){
+        $example->load(['form', 'form.language', 'sources']);
+
     	return view('examples.edit', compact('example'));
     }
 
     public function store(ExampleRequest $request){
-        $sourceData = $request->sourceData;
     	$example = Example::create($request->all());
 
-        if($example){
-            $example->addSources($sourceData);
-        }
+        $example->connectSources($request->sources);
 
-    	return Redirect::to('/forms/' . $example->form_id);
+        flash($example->name.' created successfully', 'is-success');
+
+    	return $example->id;
     }
     
-    
+    public function update(ExampleRequest $request, Example $example)
+    {
+        $example->update($request->all());
+
+        $example->connectSources($request->sources);
+
+        flash($example->name.' updated successfully', 'is-success');
+
+        return $example->id;
+    }
 }

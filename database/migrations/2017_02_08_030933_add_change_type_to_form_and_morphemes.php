@@ -31,6 +31,12 @@ class AddChangeTypeToFormAndMorphemes extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('Forms', function (Blueprint $table) {
+            $table->dropForeign(['changeType_id']);
+        });
+
+        Schema::table('Morphemes', function (Blueprint $table) {
+            $table->dropForeign(['changeType_id']);
+        });
     }
 }

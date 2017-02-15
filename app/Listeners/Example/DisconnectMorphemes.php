@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Listeners\Form;
+namespace App\Listeners\Example;
 
-use App\Morpheme;
-use App\Events\Form\Saved;
+use App\Events\Example\Deleting;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ConnectMorphemes
+class DisconnectMorphemes
 {
     /**
      * Create the event listener.
@@ -22,12 +21,12 @@ class ConnectMorphemes
     /**
      * Handle the event.
      *
-     * @param  FormSaved  $event
+     * @param  Deleting  $event
      * @return void
      */
-    public function handle(Saved $event)
+    public function handle(Deleting $event)
     {
         $form = $event->model;
-        $form->connectMorphemes();
+        $form->morphemes()->detach();
     }
 }

@@ -1,5 +1,7 @@
 <template>
-	<form class="box">
+	<form class="box"
+		  @submit.prevent="onSubmit"
+		  @keydown="form.errors.clear($event.target.name)">
 		<div class="columns is-multiline">
 
 			<!-- Example Name -->
@@ -28,7 +30,7 @@
 							  :list="languages"
 							  name="language"
 							  :disabled="loading"
-							  @input="form.errors.clear('language')"
+							  @input="onNewLanguage"
 							  :classes="{'is-danger': form.errors.has('language')}">
 				</alg-datalist>
 				<span class="help is-danger"
@@ -65,7 +67,7 @@
 						   autocomplete="off"
 						   name="morphemicForm"
 						   required="required"
-						   :disabled="loading || !form.language.id || !form.form.id"
+						   :disabled="loading || !form.language.id || !form.form.extra"
 						   :class="{'is-danger': form.errors.has('morphemicForm')}"
 						   ref="morphemicForm" />
 				</p>
@@ -84,8 +86,14 @@
 						   v-model="form.translation"
 						   autocomplete="off"
 						   name="translation"
-						   :disabled="loading" />
+						   required="required"
+						   :disabled="loading"
+						   :class="{'is-danger': form.errors.has('translation') }" />
 				</p>
+				<span class="help is-danger"
+					  v-show="form.errors.has('translation')"
+					  v-text="form.errors.get('translation')">
+				</span>
 			</div>
 
 			<!-- Notes -->
@@ -125,7 +133,7 @@
 
 <script>
 export default {
-	props: ['method', 'action', 'languages'],
+	props: ['method', 'action', 'languages', 'example', 'language', 'presetForm'],
 
 	data() {
 		return {
@@ -142,7 +150,10 @@ export default {
 					extra: ''
 				},
 				morphemicForm: '',
-				translation: ''
+				translation: '',
+				comments: '',
+				notes: '',
+				sources: []
 			})
 		};
 	},
@@ -151,10 +162,93 @@ export default {
 		onNewForm(event) {
 			Vue.nextTick(() => {
 				if(this.$refs.formInput.showCheck) {
-					this.form.morphemicForm = this.form.form.extra;
-					this.$refs.morphemicForm.focus();
+					if(this.form.form.extra) {
+						this.form.morphemicForm = this.form.form.extra;
+						this.$refs.morphemicForm.focus();
+					}
+					else {
+						this.form.morphemicForm = "None supplied in form";
+					}
 				}
 			});
+		},
+
+		onNewLanguage() {
+			// Clear out the language errors
+			this.form.errors.clear('language');
+
+			// Reset the form and morphemes
+			this.form.morphemicForm = '';
+			this.form.form = {
+				text: '',
+				id: ''
+			};
+		},
+
+		onSubmit() {
+			this.loading = true;
+
+			this.form.submit(this.method.toLowerCase(), this.action)
+				.then(response => {
+					window.location.replace("/examples/"+response);
+				})
+				.catch(error => {
+					this.loading = false;
+				});
+		}
+	},
+
+	created() {
+		if(this.example) {
+			let exampleArray = JSON.parse(this.example);
+
+			this.form.name = exampleArray.name;
+			this.form.morphemicForm = exampleArray.morphemicForm;
+			this.form.translation = exampleArray.translation;
+			this.form.comments = exampleArray.comments;
+			this.form.notes = exampleArray.notes;
+
+			this.form.language = {
+				text: exampleArray.form.language.name,
+				id: exampleArray.form.language.id
+			};
+			this.form.form = {
+				text: exampleArray.form.uniqueName,
+				id: exampleArray.form_id,
+				extra: exampleArray.form.morphemicForm
+			};
+
+			if(exampleArray.sources) {
+				exampleArray.sources.forEach(source => {
+					this.form.sources.push({
+						short: source.short,
+						id: source.id,
+						extraInfo: source.pivot.extraInfo
+					});
+				});
+			}
+		}
+		else if(this.language) {
+			let languageArray = JSON.parse(this.language);
+
+			this.form.language = {
+				text: languageArray.name,
+				id: languageArray.id
+			}
+		}
+		else if(this.presetForm) {
+			let formArray = JSON.parse(this.presetForm);
+
+			this.form.language = {
+				text: formArray.language.name,
+				id: formArray.language_id
+			};
+			this.form.form = {
+				text: formArray.uniqueName,
+				id: formArray.id,
+				extra: formArray.morphemicForm
+			};
+			this.form.morphemicForm = formArray.morphemicForm;
 		}
 	}
 

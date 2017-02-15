@@ -238,6 +238,10 @@ export default {
 			};
 
 			// Assign nullable foreign defaults
+			if(morphemeArray.translation) {
+				this.form.gloss.text += " ("+morphemeArray.translation+")";
+			}
+
 			if(morphemeArray.parent) {
 				this.form.parent = {
 					text: morphemeArray.parent.uniqueNameWithLanguage.replace("*", ""),

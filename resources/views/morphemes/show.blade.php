@@ -19,7 +19,11 @@
 
 						{{-- Gloss field --}}
 						@component('components.model.field', ['width' => 'is-half', 'label' => 'Gloss'])
-							<a href="/glosses/{{ $morpheme->gloss_id }}"><span class="gloss">{{ $morpheme->gloss->abv }}</span> ({{ $morpheme->translation or $morpheme->gloss->name }})</a>
+							@if($morpheme->translation)
+								{{ str_replace(" ", ".", $morpheme->translation) }}
+							@else
+								<a href="/glosses/{{ $morpheme->gloss_id }}"><span class="gloss">{{ $morpheme->gloss->abv }}</span> ({{ $morpheme->translation or $morpheme->gloss->name }})</a>
+							@endif
 						@endcomponent
 
 						{{-- Slot field --}}

@@ -103,10 +103,12 @@ trait HasMorphemesTrait {
     	$html = '';
     	$morphemeHTML;
     	$iconHTML;
+    	$glossHTML;
 
     	foreach($this->morphemeList() as $morpheme) {
     		$morphemeHTML = '';
     		$iconHTML = '';
+    		$glossHTML = '';
 
     		if($firstTime) {
     			$firstTime = false;
@@ -131,7 +133,13 @@ trait HasMorphemesTrait {
     			}
 
     			// Add the gloss below the morpheme
-    			$morphemeHTML .= "<p><a href='/glosses/{$morpheme->gloss_id}'><span class='gloss'>{$morpheme->gloss->abv}</span></a></p>";
+    			if($morpheme->translation) {
+    				$glossHTML .= str_replace(" ", ".", $morpheme->translation);
+    			} else {
+    				$glossHTML .= "<a href='/glosses/{$morpheme->gloss_id}'><span class='gloss'>{$morpheme->gloss->abv}</span></a>";
+    			}
+
+    			$morphemeHTML .= "<p>$glossHTML</p>";
 
     		} else {
     			// Morpheme either doesn't exist in the database or it's ambiguous

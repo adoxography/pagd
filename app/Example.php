@@ -55,6 +55,11 @@ class Example extends Model
         'morphemicForm' => 'Morphemes'
     ];
 
+    public function getInitialChangeAttribute()
+    {
+        return $this->form->initialChange;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Relations

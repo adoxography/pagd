@@ -154,7 +154,7 @@ class Morpheme extends Model
 
     public function isAffectedByInitialChange()
     {
-        return $this->slot->name === 'V' || $this->slot->name === 'PV';
+        return $this->slot->abv === 'V' || $this->slot->abv === 'PV';
     }
 
     /*

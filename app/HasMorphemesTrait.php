@@ -122,7 +122,7 @@ trait HasMorphemesTrait {
     			// Add either the name or the alternate name of the morpheme
     			if($this->initialChange && $morpheme->isAffectedByInitialChange() && !$initialChangeFound) {
     				$morphemeHTML .= str_replace(['-', '*'], '', $morpheme->alternateName);
-    				$initialChangeFound = true;
+    				// wait to mark initial change as found until the gloss
     			} else {
     				$morphemeHTML .= str_replace(['-', '*'], '', $morpheme->name);
     			}
@@ -133,6 +133,10 @@ trait HasMorphemesTrait {
     			}
 
     			// Add the gloss below the morpheme
+    			if($this->initialchange && $morpheme->isAffectedByInitialChange() && !$initialChangeFound) {
+    				$glossHTML .= "IC.";
+    				$initialChangeFound = true;
+    			}
     			if($morpheme->translation) {
     				$glossHTML .= str_replace(" ", ".", $morpheme->translation);
     			} else {

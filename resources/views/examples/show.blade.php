@@ -20,9 +20,6 @@
 
 			@component('components.model.field', ['width' => 'is-12', 'label' => 'Morphology'])
 				{!! $example->printMorphemes() !!}
-				@if($example->form->initialChange)
-					(Affected by initial change)
-				@endif
 			@endcomponent
 
 			@component('components.model.field', ['width' => 'is-12', 'label' => 'Translation'])

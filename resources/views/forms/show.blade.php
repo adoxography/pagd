@@ -59,15 +59,9 @@
 			@endcomponent
 
 			@component('components.model.field', ['width' => 'is-12', 'label' => 'Morphology'])
-				@if($form->phoneticForm)
-					<p>{{ $form->phoneticForm }}</p>
-				@else
-					<p>{{ $form->surfaceForm }}</p>
-				@endif
-					{!! $form->printMorphemes() !!}
-				@if($form->initialChange)
-					(Affected by initial change)
-				@endif
+				<p>{{ $form->phoneticForm or $form->surfaceForm }}</p>
+
+				{!! $form->printMorphemes() !!}
 			@endcomponent
 
 			@component('components.model.field', ['width' => 'is-12', 'label' => 'Duplicates'])

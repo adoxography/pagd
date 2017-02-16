@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			16-02-17: Added IC to gloss of initial changed morphemes
+		</li>
+		<li>
 			16-02-17: Added asterisk to phonemic representations of reconstructed languages
 		</li>
 		<li>

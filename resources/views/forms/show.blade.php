@@ -62,7 +62,7 @@
 				@if($form->phoneticForm)
 					<p>{{ $form->phoneticForm }}</p>
 				@else
-					<p>{{ str_replace('*', '', $form->surfaceForm) }}</p>
+					<p>{{ $form->surfaceForm }}</p>
 				@endif
 					{!! $form->printMorphemes() !!}
 				@if($form->initialChange)

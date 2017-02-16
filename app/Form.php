@@ -95,6 +95,17 @@ class Form extends Model
         return $output.$value;
     }
 
+    public function getPhoneticFormAttribute($value)
+    {
+        $output = "";
+
+        if($this->language && $this->language->reconstructed) {
+            $output = "*";
+        }
+
+        return $output.$value;        
+    }
+
     // public function getNameAttribute()
     // {
     //     return $this->surfaceForm;

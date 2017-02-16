@@ -9,7 +9,7 @@
 
 @component('components.model', ['uri' => "/examples/{$example->id}", 'history' => $example->revisionHistory])
 	@slot('header')
-		{{ $example->name }} <span class="detail-title-language">(<a href="/examples/{{ $example->language->id }}">{{ $example->language->name }}</a>)
+		{{ $example->name }} <span class="detail-title-language">(<a href="/languages/{{ $example->language->id }}">{{ $example->language->name }}</a>)
 	@endslot
 
 	<model-tab name="Basic Details" selected="true">

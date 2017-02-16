@@ -11,6 +11,10 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			16-02-17: Fixed typo in language link on example display
+		</li>
+		<hr>
+		<li>
 			14-02-17: Fixed bug in forms not disappearing from the "needs attention" list after morpheme edit
 		</li>
 		<li>

@@ -112,7 +112,7 @@
 			<div class="column is-half">
 				<label for="parent" class="label">Parent</label>
 				<alg-ajaxlist v-model="form.parent"
-							  uri="/autocomplete/formParents"
+							  uri="/autocomplete/morphemeParents"
 							  :with="form.language.id"
 							  :disabled="loading || !form.language.id"
 							  placeholder="Make sure to select the language first"
@@ -154,7 +154,7 @@
 
 			<!-- Historical Notes -->
 			<div class="column is-12">
-				<label for="comments" class="label">Historical Notes</label>
+				<label for="comments" class="label">Private Comments</label>
 				<textarea v-model="form.comments"
 						  class="textarea"
 						  name="comments"

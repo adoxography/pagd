@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			16-02-17: Fixed the bug in morpheme creation where the parent field called forms instead of morphemes
+		</li>
+		<li>
 			16-02-17: Enabled the X button on flash notifications
 		</li>
 		<li>

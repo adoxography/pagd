@@ -11,6 +11,12 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			17-02-17: Added a patch for the network errors, but unable to test due to the randomness of the error
+			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+				<li>The patch *should* have prevented the "perma-loading" error, and instead a dialog should notify the user of a network error</li>
+			</ul>
+		</li>
+		<li>
 			17-02-17: Added a tooltip-like component to example and form morphemes
 			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
 				<li><a href="/forms/70">When disambiguation is required, clicking on the morpheme will automatically apply it to the form</a></li>

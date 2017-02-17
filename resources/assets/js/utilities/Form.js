@@ -50,9 +50,14 @@ class Form {
 					resolve(response.data);
 				})
 				.catch(error => {
-					this.onFail(error.response.data);
-
-					reject(error.response.data);
+					if(error.response) {
+						this.onFail(error.response.data);
+						reject(error.response.data);
+					} else {
+						alert("Network error. Please try again.");
+						console.log(error.message);
+						reject({});
+					}
 				});
 		});
 	}

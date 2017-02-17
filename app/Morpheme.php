@@ -40,7 +40,8 @@ class Morpheme extends Model
         'comments'
     ];
     protected $appends = [
-        'uniqueNameWithLanguage'
+        'uniqueNameWithLanguage',
+        'uniqueName'
     ];
     protected $events = [
         'creating' => Creating::class,

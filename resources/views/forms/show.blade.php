@@ -61,7 +61,9 @@
 			@component('components.model.field', ['width' => 'is-12', 'label' => 'Morphology'])
 				<p>{{ $form->phoneticForm or $form->surfaceForm }}</p>
 
-				{!! $form->printMorphemes() !!}
+				@if($form->morphemicForm)
+					{!! $form->printMorphemes() !!}
+				@endif
 			@endcomponent
 
 			@component('components.model.field', ['width' => 'is-12', 'label' => 'Duplicates'])

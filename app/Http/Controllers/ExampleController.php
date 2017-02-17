@@ -61,4 +61,11 @@ class ExampleController extends Controller
 
         return $example->id;
     }
+
+    public function disambiguate(Example $example)
+    {
+        $example->disambiguate(request()->index, request()->disambiguator);
+        
+        return redirect("/examples/{$example->id}");
+    }
 }

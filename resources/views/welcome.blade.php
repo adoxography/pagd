@@ -11,6 +11,17 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			17-02-17: Added a tooltip-like component to example and form morphemes
+			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+				<li><a href="/forms/70">When disambiguation is required, clicking on the morpheme will automatically apply it to the form</a></li>
+				<li><a href="/forms/218">When the morpheme is missing, the link will take you to the morpheme creation page with as many details as possible already filled in</a></li>
+				<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+					<li>You will need to add in your own hyphen to the morpheme, as there's no way for the site to know which side(s) to put it on</li>
+				</ul>
+			</ul>
+		</li>
+		<hr>
+		<li>
 			16-02-17: Fixed the bug in morpheme creation where the parent field called forms instead of morphemes
 		</li>
 		<li>

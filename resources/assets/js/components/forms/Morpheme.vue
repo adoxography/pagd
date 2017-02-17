@@ -175,7 +175,7 @@
 
 <script>
 export default {
-	props: ['method', 'action', 'languages', 'glosses', 'slots', 'changeTypes', 'morpheme', 'language'],
+	props: ['method', 'action', 'languages', 'glosses', 'slots', 'changeTypes', 'morpheme', 'language', 'prefill'],
 
 	data() {
 		return {
@@ -266,6 +266,13 @@ export default {
 				text: languageArray.name,
 				id: languageArray.id
 			}
+		}
+		else if(this.prefill) {
+			let prefillArray = JSON.parse(this.prefill);
+
+			_.forEach(prefillArray, (value, key) => {
+				this.form[key] = value;
+			});
 		}
 	},
 

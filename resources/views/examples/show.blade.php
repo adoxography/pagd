@@ -19,7 +19,9 @@
 			@endcomponent
 
 			@component('components.model.field', ['width' => 'is-12', 'label' => 'Morphology'])
-				{!! $example->printMorphemes() !!}
+				@if($example->morphemicForm)
+					{!! $example->printMorphemes() !!}
+				@endif
 			@endcomponent
 
 			@component('components.model.field', ['width' => 'is-12', 'label' => 'Translation'])

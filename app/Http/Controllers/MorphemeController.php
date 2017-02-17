@@ -19,8 +19,16 @@ class MorphemeController extends Controller
         $this->middleware('handleGloss')->only('store', 'update');
     }
 
-    public function create(){
-        return view('morphemes.create');
+    public function create(){        
+        $prefill = collect([
+            'name' => request()->name,
+            'language' => [
+                'text' => request()->language,
+                'id'   => request()->languageID
+            ]
+        ]);
+
+        return view('morphemes.create', compact('prefill'));
     }
 
     public function destroy(Morpheme $morpheme){

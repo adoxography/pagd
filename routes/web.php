@@ -57,6 +57,9 @@ Route::resource('orders',    'OrderController');
 Route::resource('slots',     'SlotController');
 Route::resource('sources',   'SourceController');
 
+Route::patch('forms/{form}/disambiguate', 'FormController@disambiguate');
+Route::patch('examples/{example}/disambiguate', 'ExampleController@disambiguate');
+
 Route::get('forms/{form}/addExample', 'FormController@addExample');
 
 Route::get('groups/{group}/addLanguage', 'GroupController@addLanguage');

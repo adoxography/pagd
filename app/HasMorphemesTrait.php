@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Form;
+use App\Example;
 use App\Morpheme;
 use Illuminate\Support\Facades\Auth;
 
@@ -83,12 +85,8 @@ trait HasMorphemesTrait {
                                         ])
                                       ->where('language_id', $this->language->id)
                                       ->get();
-                    if(count($search) > 0) {
-                        $output[count($output) - 1] += ['exists' => true];
-                    }
-                    else {
-                        $output[count($output) - 1] += ['exists' => false];
-                    }
+
+                    $output[count($output) - 1] += ['possibilities' => $search];
                 }
             }
         }
@@ -102,13 +100,14 @@ trait HasMorphemesTrait {
     	$firstTime = true;
     	$html = '';
     	$morphemeHTML;
-    	$iconHTML;
     	$glossHTML;
+    	$index = 0;
 
     	foreach($this->morphemeList() as $morpheme) {
     		$morphemeHTML = '';
     		$iconHTML = '';
     		$glossHTML = '';
+    		$iconText = '';
 
     		if($firstTime) {
     			$firstTime = false;
@@ -152,22 +151,75 @@ trait HasMorphemesTrait {
     			if(Auth::user()) {
     				// This is fairly database-intensive, so only bother with this when the user is logged in
 
-    				// Set the icon
-    				if($morpheme['exists']) {
-    					$iconHTML .= "<span class='icon is-small' title='Disambiguation required'><i class='fa fa-exclamation-triangle'></i></span>";
-    				} else {
-    					$iconHTML .= "<span class='icon is-small' title='No such morpheme in the database'><i class='fa fa-exclamation-triangle'></i></span>";
-    				}
-
-    				// Wrap the icon in an anchor tag and add it to the morpheme
-    				$morphemeHTML .= "<a class='icon is-danger'>$iconHTML</a>";
+    				$morphemeHTML .= $this->createMorphemeAlert($morpheme, $index);
     			}
     		}
 
     		// Wrap the morpheme up in a column
     		$html .= "<div class='column is-narrow'>$morphemeHTML</div>";
+
+    		$index++;
     	}
 
     	return "<div class='columns morpheme-printout'>$html</div>";
+    }
+
+    protected function createMorphemeAlert($morpheme, $index)
+    {
+    	$title = "";
+    	$options = "";
+    	$gloss = "";
+
+		if(count($morpheme['possibilities']) > 0) {
+			$title = "Disambiguation required";
+			$gloss = "";
+			$model = "";
+
+			if($this instanceof Form) {
+				$model = "forms";
+			} else if($this instanceof Example) {
+				$model = "examples";
+			}
+
+			foreach($morpheme['possibilities'] as $possibility) {
+				if($possibility->translation) {
+					$gloss = '<p>'.str_replace(' ', '.', $possibility->translation).'</p>';
+				} else {
+					$gloss = "<p class='gloss'>{$possibility->gloss->abv}</p>";
+				}
+
+				$options .= "<li>".
+					"<form method='POST' action='/$model/{$this->id}/disambiguate'>".
+						"<input type='hidden' name='index' value='{$index}' />".
+						csrf_field().
+						method_field("PATCH").
+						"<input type='hidden' name='disambiguator' value='{$possibility->disambiguator}' />".
+						"<button type='submit' class='button is-link'>".
+							"{$possibility->name}<sup>{$possibility->disambiguator}</sup>$gloss".
+						"</button>".
+					"</form>".
+				"</li>";
+			}
+
+			$options = "<ul>$options</ul>";
+		} else {
+			$title = "Morpheme missing";
+			$options = "<a href='/morphemes/create?name={$morpheme['name']}&language={$this->language->name}&languageID={$this->language->id}'>Add (-){$morpheme['name']}(-)</a>";
+		}
+
+		return "<alg-morpheme-alert title='$title'>$options</alg-morpheme-alert>";
+    }
+
+    public function disambiguate($index, $disambiguator)
+    {
+        $morphemicForm = $this->morphemicForm;
+        $morphemes = explode('-', $morphemicForm);
+
+        if(count($morphemes) > $index && count(explode('.', $morphemes[$index]) == 1)) {
+            $morphemes[$index] = $morphemes[$index].'.'.$disambiguator;
+        }
+
+        $this->morphemicForm = implode('-', $morphemes);
+        $this->save();
     }
 }

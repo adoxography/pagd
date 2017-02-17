@@ -141,4 +141,11 @@ class FormController extends Controller
 
         return view('forms.need-attention', compact('languages'));
     }
+
+    public function disambiguate(Form $form)
+    {
+        $form->disambiguate(request()->index, request()->disambiguator);
+        
+        return redirect("/forms/{$form->id}");
+    }
 }

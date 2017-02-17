@@ -159,6 +159,24 @@ html {
 	}
 }
 
+.alg-morpheme-alert {
+	position: absolute;
+	z-index: 1;
+
+	ul {
+		list-style-type: none;
+		margin: 0;
+	}
+
+	.message-body {
+		padding: .5em;
+	}
+
+	p {
+		margin-left: .5rem;
+	}
+}
+
 .morpheme-printout {
 	margin-left: 0;
 	margin-top: 0;
@@ -166,7 +184,6 @@ html {
 	.column {
 		padding-left: .25rem;
 		padding-right: .25rem;
-
 	}
 
 	.hyphen {

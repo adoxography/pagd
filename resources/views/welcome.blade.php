@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			16-02-17: Enabled the X button on flash notifications
+		</li>
+		<li>
 			16-02-17: Added IC to gloss of initial changed morphemes
 		</li>
 		<li>

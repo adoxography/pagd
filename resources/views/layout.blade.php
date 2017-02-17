@@ -25,13 +25,15 @@
 			@include('partials.menu')
 		</div>
 
-		@include('partials.flash')
+		<div id="root">
+			@include('partials.flash')
 
-		<section class="section">
-			<div class="container" id="root">
-				@yield('content')
-			</div>
-		<section class="section">
+			<section class="section">
+				<div class="container">
+					@yield('content')
+				</div>
+			</section>
+		</div>
 
 		@yield('table')
 

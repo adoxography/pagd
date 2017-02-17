@@ -1,6 +1,5 @@
 @if(session()->has('flashMessage'))
-	<div class="notification {{ session()->get('flashLevel') }}">
-		<button class="delete"></button>
+	<alg-notification level="{{ session()->get('flashLevel') }}">
 		{{ session()->get('flashMessage') }}
-	</div>
+	</alg-notification>
 @endif

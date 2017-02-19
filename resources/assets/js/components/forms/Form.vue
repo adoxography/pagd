@@ -309,12 +309,43 @@
 			<!-- Comments -->
 			<div class="column is-12">
 				<label for="comments" class="label">Comments</label>
-				<textarea v-model="form.comments"
-						  name="comments"
-						  class="textarea"
-						  :disabled="loading"
-						  placeholder="Comments here will not be available to the public">
-				</textarea>
+				<p class="control">
+					<textarea v-model="form.comments"
+							  name="comments"
+							  class="textarea"
+							  :disabled="loading"
+							  placeholder="Comments here will not be available to the public">
+					</textarea>
+				</p>
+			</div>
+			<div class="column is-12">
+				<label class="label">Flag</label>
+				<p class="control">
+					<label class="radio">
+						<input type="radio"
+							   v-model="form.flagLevel"
+							   value="0" />
+						None
+					</label>
+					<label class="radio">
+						<input type="radio"
+							   v-model="form.flagLevel"
+							   value="1" />
+						Just for me
+					</label>
+					<label class="radio">
+						<input type="radio"
+							   v-model="form.flagLevel"
+							   value="2" />
+						For me and administrators
+					</label>
+					<label class="radio">
+						<input type="radio"
+							   v-model="form.flagLevel"
+							   value="3" />
+						For everyone
+					</label>
+				</p>
 			</div>
 		</div>
 
@@ -381,6 +412,7 @@ export default {
 				changeType_id: null,
 				historicalNotes: '',
 				comments: '',
+				flagLevel: '0',
 				sources: []
 			})
 		};
@@ -455,7 +487,7 @@ export default {
 			}
 			if(formArray.parent) {
 				this.form.parent = {
-					text: formArray.parent.name,
+					text: formArray.parent.uniqueNameWithLanguage.replace("*", ""),
 					id: formArray.parent.id
 				}
 			}

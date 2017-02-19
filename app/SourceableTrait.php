@@ -10,7 +10,7 @@ trait SourceableTrait {
             $this->sources()->detach();
 
             foreach($sources as $source) {
-                $this->sources()->attach($source['id'], ['extraInfo' => $source['extraInfo']]);
+                $this->sources()->attach($source['id'], ($source['extraInfo'] ? ['extraInfo' => $source['extraInfo']] : []));
             }
         }
     }

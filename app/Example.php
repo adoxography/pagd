@@ -52,7 +52,7 @@ class Example extends Model
         'form_id'       => 'Form ID',
         'comments'      => 'Private Comments',
         'notes'         => 'Public Cotes',
-        'morphemicForm' => 'Morphemes'
+        'morphemicForm' => 'Morphemes',
     ];
 
     public function getInitialChangeAttribute()

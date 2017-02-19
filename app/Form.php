@@ -45,7 +45,7 @@ class Form extends Model
         'usageNotes'
     ];
 
-    protected $appends = ['uniqueName'];
+    protected $appends = ['uniqueName', 'uniqueNameWithLanguage'];
 
     protected $events = [
         'created'  => Created::class,
@@ -97,23 +97,29 @@ class Form extends Model
 
     public function getPhoneticFormAttribute($value)
     {
-        $output = "";
+        $output = $value;
 
-        if($this->language && $this->language->reconstructed) {
-            $output = "*";
+        if($value) {
+            if($this->language) {
+                if($this->language->reconstructed) {
+                    $output = "*$value";
+                }
+            }
+        } else {
+            $output = $this->surfaceForm;
         }
 
-        return $output.$value;        
+        return $output;        
     }
-
-    // public function getNameAttribute()
-    // {
-    //     return $this->surfaceForm;
-    // }
 
     public function getUniqueNameAttribute()
     {
         return "{$this->surfaceForm} ({$this->formType->getArguments()})";
+    }
+
+    public function getUniqueNameWithLanguageAttribute()
+    {
+        return "{$this->uniqueName} ({$this->language->name})";
     }
 
     /*
@@ -143,7 +149,7 @@ class Form extends Model
 
     public function uniqueNameWithLanguage()
     {
-        return "{$this->uniqueName()} ({$this->language->name})";
+        return $this->uniqueNameWithLanguage;
     }
 
     /*

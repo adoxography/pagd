@@ -13,6 +13,7 @@ class FormController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except('index', 'show');
+        $this->middleware('addSources:App\Form')->only('store', 'update');
     }
     
     public function index()
@@ -54,16 +55,11 @@ class FormController extends Controller
     {
         $data = $request->all();
 
-        if(!isset($data['parent_id'])) {
-            $data['parent_id'] = null;
-        }
-        if(!isset($data['phoneticForm'])) {
-            $data['phoneticForm'] = null;
-        }
+        // if(!isset($data['phoneticForm'])) {
+        //     $data['phoneticForm'] = null;
+        // }
 
         $form->update($data);
-
-        $form->connectSources($request->sources);
 
         flash($form->surfaceForm.' updated successfully', 'is-success');
 
@@ -81,8 +77,6 @@ class FormController extends Controller
     {
         // Insert the form
         $form = Form::create($request->all());
-
-        $form->connectSources($request->sources);
 
         // Flash a message to the session
         flash($form->surfaceForm.' created successfully.', 'is-success');

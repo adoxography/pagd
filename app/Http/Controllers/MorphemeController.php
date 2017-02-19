@@ -16,7 +16,7 @@ class MorphemeController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except('index', 'show');
-        $this->middleware('handleGloss')->only('store', 'update');
+        $this->middleWare('addSources:App\Morpheme')->only('store', 'update');
     }
 
     public function create(){        
@@ -55,30 +55,16 @@ class MorphemeController extends Controller
     public function store(MorphemeRequest $request){
         $morpheme = Morpheme::create(array_filter($request->all(), 'validDatabaseInput'));
 
-        $morpheme->connectSources($request->sources);
-
         flash($morpheme->name.' created successfully.', 'is-success');
-        return $morpheme->id;
 
-        // return Redirect::to('/morphemes/' . $morpheme->id);
+        return $morpheme->id;
     }
 
     public function update(MorphemeRequest $request, Morpheme $morpheme){
-        if(!$request->alternateName) {
-            $request['alternateName'] = null;
-        }
-
-        if(!$request->parent_id) {
-            $request['parent_id'] = null;
-        }
-
         $morpheme->update($request->all());
-
-        $morpheme->connectSources($request->sources);
 
         flash($morpheme->name.' updated successfully.', 'is-success');
         
         return $morpheme->id;
-        // return Redirect::to('/morphemes/'.$morpheme->id);
     }
 }

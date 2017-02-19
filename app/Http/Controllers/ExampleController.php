@@ -13,6 +13,7 @@ class ExampleController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except('index', 'show');
+        $this->middleware('addSources:App\Example')->only('store', 'update');
     }
 
     public function show(Example $example)
@@ -44,8 +45,6 @@ class ExampleController extends Controller
     public function store(ExampleRequest $request){
     	$example = Example::create($request->all());
 
-        $example->connectSources($request->sources);
-
         flash($example->name.' created successfully', 'is-success');
 
     	return $example->id;
@@ -54,8 +53,6 @@ class ExampleController extends Controller
     public function update(ExampleRequest $request, Example $example)
     {
         $example->update($request->all());
-
-        $example->connectSources($request->sources);
 
         flash($example->name.' updated successfully', 'is-success');
 

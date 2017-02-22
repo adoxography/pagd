@@ -51,13 +51,23 @@ class Example extends Model
         'translation'   => 'Translation',
         'form_id'       => 'Form ID',
         'comments'      => 'Private Comments',
-        'notes'         => 'Public Cotes',
+        'notes'         => 'Public Notes',
         'morphemicForm' => 'Morphemes',
     ];
 
     public function getInitialChangeAttribute()
     {
         return $this->form->initialChange;
+    }
+
+    public function uniqueName()
+    {
+        return $this->name;
+    }
+
+    public function uniqueNameWithLanguage()
+    {
+        return "{$this->name} ({$this->language->name})";
     }
 
     /*

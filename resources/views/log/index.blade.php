@@ -18,7 +18,9 @@
 						@elseif($entry['model'] instanceof \App\Form)
 							added <a href="/forms/{{ $entry['model']->id }}">{{ $entry['model']->uniqueName() }}</a> to {{ $entry['model']->language->name }}
 						@elseif($entry['model'] instanceof \App\Morpheme)
-							added <a href="/morphemes/{{ $entry['model']->id }}">{{ $entry['model']->uniqueName() }}</a> to {{ $entry['model']->language->name }}
+							added <a href="/morphemes/{{ $entry['model']->id }}">{{ $entry['model']->uniqueName() }}</a> to {{ $entry['model']->language->name }}			
+						@elseif($entry['model'] instanceof \App\Example)
+							added <a href="/examples/{{ $entry['model']->id }}">{{ $entry['model']->uniqueName() }}</a> to {{ $entry['model']->language->name }}
 						@endif
 
 						at {{ $entry['revision']->newValue() }}
@@ -31,6 +33,8 @@
 							<a href="/forms/{{ $entry['model']->id }}">{{ $entry['model']->uniqueNameWithLanguage() }}</a>
 						@elseif($entry['model'] instanceof App\Morpheme)
 							<a href="/morphemes/{{ $entry['model']->id }}">{{ $entry['model']->uniqueNameWithLanguage() }}</a>
+						@elseif($entry['model'] instanceof App\Example)
+							<a href="/examples/{{ $entry['model']->id }}">{{ $entry['model']->uniqueNameWithLanguage() }}</a>
 						@endif
 
 						at {{ $entry['revision']->updated_at }}

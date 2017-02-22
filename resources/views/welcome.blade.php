@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			21-02-17: Fixed examples not displaying properly in the log
+		</li>
+		<li>
 			21-02-17: Enabled <a href="http://miaolz123.github.io/vue-markdown/#fn3">Markdown syntax</a> in all text fields (<a href="/languages/15">Demo</a>)
 		</li>
 		<li>

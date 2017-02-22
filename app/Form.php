@@ -78,6 +78,9 @@ class Form extends Model
         'surfaceForm'     => 'Surface Form',
         'usageNotes'      => 'Usage Notes'
     ];
+    protected $dontKeepRevisionOf = [
+        'complete'
+    ];
 
     /*
     |--------------------------------------------------------------------------

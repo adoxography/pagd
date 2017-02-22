@@ -54,6 +54,9 @@ class Example extends Model
         'notes'         => 'Public Notes',
         'morphemicForm' => 'Morphemes',
     ];
+    protected $dontKeepRevisionOf = [
+        'complete'
+    ];
 
     public function getInitialChangeAttribute()
     {

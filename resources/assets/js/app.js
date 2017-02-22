@@ -13,6 +13,8 @@ require('./bootstrap');
  * the application, or feel free to tweak this setup for your needs.
  */
 
+import VueMarkdown from 'vue-markdown'
+
 Vue.component('alg-datalist',       require('./components/DataList.vue'));
 Vue.component('alg-multi-datalist', require('./components/Multi-DataList.vue'));
 Vue.component('alg-tabs',           require('./components/Tabs.vue'));
@@ -74,6 +76,9 @@ Vue.component('paradigm-mode-select', {
 window.Event = new Vue();
 
 const app = new Vue({
+    components: {
+    	VueMarkdown
+    },
     el: '#root'
 });
 

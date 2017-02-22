@@ -14,36 +14,35 @@
 
 	<model-tab name="Basic Details" selected="true">
 		<div class="column is-half">
+
+			{{-- form field --}}
 			@component('components.model.field', ['width' => 'is-12', 'label' => 'Form'])
 				<a href="/forms/{{ $example->form_id }}">{{ $example->form->uniqueName }}</a>
 			@endcomponent
 
+			{{-- morphology field --}}
 			@component('components.model.field', ['width' => 'is-12', 'label' => 'Morphology'])
 				@if($example->morphemicForm)
 					{!! $example->printMorphemes() !!}
 				@endif
 			@endcomponent
 
+			{{-- translation field --}}
 			@component('components.model.field', ['width' => 'is-12', 'label' => 'Translation'])
 				{{ $example->translation }}
 			@endcomponent
 
+			{{-- sources --}}
 			@component('components.model.field', ['width' => 'is-12', 'label' => 'Sources (hover over a source for the full citation)'])
 				@include('components.model.sourcelist', ['sources' => $example->sources])
 			@endcomponent
 		</div>
 
 		<div class="column is-half">
-			@if($example->notes)
-				@component('components.model.field', ['width' => 'is-12', 'label' => 'Notes'])
-					{{ $example->notes }}
-				@endcomponent
-			@endif
+			@include('components.model.text', ['width' => 'is-12', 'label' => 'Notes', 'text' => $example->notes])
 
-			@if($example->comments && Auth::user())
-				@component('components.model.field', ['width' => 'is-12', 'label' => 'Comments'])
-					{{ $example->comments }}
-				@endcomponent
+			@if(Auth::user())
+				@include('components.model.text', ['width' => 'is-12', 'label' => 'Private Comments', 'text' => $example->comments])
 			@endif
 		</div>
 	</model-tab>

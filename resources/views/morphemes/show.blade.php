@@ -38,6 +38,7 @@
 							@endcomponent
 						@endif
 
+						{{-- Sources --}}
 						@component('components.model.field', ['label' => "Sources (Hover a source for the full citation)"])
 							@include('components.model.sourcelist', ['sources' => $morpheme->sources])
 						@endcomponent
@@ -45,11 +46,7 @@
 				</div>
 				<div class="column is-half" style="padding: 0;">
 					<div class="columns is-multiline">
-						@if($morpheme->allomorphyNotes)
-							@component('components.model.field', ['width' => 'is-12', 'label' => 'Allomorphy Notes'])
-								{!! $parser->setRestricted(true)->parse($morpheme->allomorphyNotes) !!}
-							@endcomponent
-						@endif
+						@include('components.model.text', ['width' => 'is-12', 'label' => 'Allomorphy Notes', 'text' => $morpheme->allomorphyNotes])
 
 						{{-- Historical Notes --}}
 						@component('components.model.field', ['width' => 'is-12', 'label' => 'Historical Notes'])
@@ -64,18 +61,12 @@
 							@if($morpheme->changeType)
 								<em>Change Type: </em>{{ $morpheme->changeType->name }}
 							@endif
-							@if($morpheme->historicalNotes)
-								{!! $parser->setRestricted(true)->parse($morpheme->historicalNotes) !!}
-							@endif
 						@endcomponent
+						@include('components.model.text', ['width' => 'is-12', 'text' => $morpheme->historicalNotes])
 
 						{{-- Comments --}}
-						@if(Auth::user() && $morpheme->comments)
-							@component('components.model.field', ['width' => 'is-12', 'label' => 'Private Comments'])
-								@if($morpheme->comments)
-									{!! $parser->setRestricted(true)->parse($morpheme->comments) !!}
-								@endif
-							@endcomponent
+						@if(Auth::user())
+							@include('components.model.text', ['width' => 'is-12', 'label' => 'Private Comments', 'text' => $morpheme->comments])
 						@endif
 					</div>
 				</div>

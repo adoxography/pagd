@@ -40,7 +40,9 @@
 			{{-- Algonquianist code field --}}
 			@component('components.model.field', ['width' => 'is-half', 'label' => 'Algonquianist Code'])
 				{{ $language->algoCode }}
-			@endcomponent					
+			@endcomponent
+
+			@include('components.model.text', ['width' => 'is-12', 'label' => 'Notes', 'text' => $language->notes])
 		</model-tab>
 
 		<model-tab name="Children">

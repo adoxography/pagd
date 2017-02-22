@@ -18,6 +18,12 @@ html {
 	background-color: $white-bis;
 }
 
+.markdown {
+	.table {
+		display: block;
+	}
+}
+
 .gloss {
 	font-variant: small-caps;
 }

@@ -110,15 +110,15 @@ class SearchController extends Controller
 
                         $j = 1;
 
-                        while($i + $j < count($keys) && preg_match("/".$arguments."[sdp]/", $keys[$i + $j])) {
+                        $possibleMatches = $this->generatePossibleMatches($arguments);
+
+                        while($i + $j < count($keys) && in_array($keys[$i + $j], $possibleMatches)) {
 
                             if(count($rows[$class][$keys[$i + $j]]) > 0) {
                                 $consecutive++;
                             }
                             $j++;
                         }
-
-                        $possibleMatches = $this->generatePossibleMatches($arguments);
 
                         foreach($possibleMatches as $possibleMatch) {
                             if(isset($rows[$class][$possibleMatch]) && count($rows[$class][$possibleMatch]) > 0) {

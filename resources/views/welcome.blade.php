@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			21-02-17: Fixed bug blocking the enter key from working on the form, morpheme, and example forms
+		</li>
+		<li>
 			21-02-17: Added → and > to cognates tab
 		</li>
 		<li>

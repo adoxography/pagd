@@ -4,7 +4,7 @@
  	 	<div class="modal-card">
     		<header class="modal-card-head">
       			<p class="modal-card-title">Add a new source</p>
-      			<button class="delete" @click.prevent="close"></button>
+      			<a class="delete" @click="close"></a>
     		</header>
     		<section class="modal-card-body">
     			<label class="label">Short Form</label>
@@ -26,7 +26,7 @@
     		</section>
     		<footer class="modal-card-foot">
       			<a class="button is-primary" :class="{'is-loading': loading, 'is-disabled': disabled}" @click="submit">Submit</a>
-      			<a class="button" @click.prevent="close">Cancel</a>
+      			<a class="button" @click="close">Cancel</a>
     		</footer>
   		</div>
 	</div>

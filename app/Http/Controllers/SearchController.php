@@ -86,6 +86,7 @@ class SearchController extends Controller
     public function paradigm(Request $request)
     {
         $forms = $this->search($request);
+        $showMorphology = $request->showMorphology;
 
         $argumentDictionary = \App\Argument::all();
         $data = $this->loadHeaders($forms);
@@ -153,7 +154,7 @@ class SearchController extends Controller
             }
         }
 
-        return view('paradigmTableRender', compact('data', 'rows'));
+        return view('paradigmTableRender', compact('data', 'rows', 'showMorphology'));
     }
 
     protected function filterSubqueryUsingList($query, $subfield, $list, $field)

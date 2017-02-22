@@ -92,6 +92,12 @@
 							</div>
 
 						</div>
+						<div class="control">
+							<label class="checkbox">
+								<input type="checkbox" name="showMorphology" />
+								Show Morphology
+							</label>
+						</div>
 						<button type="submit" class="button is-success">Search</button>
 					</form>
 				</alg-tab>				
@@ -105,13 +111,7 @@
 								<alg-form-search arguments="{{ $arguments }}" classes="{{ $classes }}" modes="{{ $modes }}" orders="{{ $orders }}"></alg-form-search>
 							</div>
 						</div>
-						<div class="level">
-							<div class="level-left">
-								<div class="level-item">
-									<button type="submit" class="button is-success">Search</button>
-								</div>
-							</div>
-						</div>
+						<button type="submit" class="button is-success">Search</button>
 					@endcomponent
 				</alg-tab>
 			</alg-tabs>

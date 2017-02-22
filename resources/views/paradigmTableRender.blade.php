@@ -119,6 +119,9 @@
 																<?php
 																	$form->placed = true;
 																?>
+																@if($showMorphology)
+																	{!! $form->printMorphemes() !!}
+																@endif
 															@endforeach
 														@endif
 													</td>

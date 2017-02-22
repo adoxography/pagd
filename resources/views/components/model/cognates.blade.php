@@ -18,10 +18,10 @@
 	<p style="margin-left: {{ $depth * 1.5 }}em;">
 		@if($list->id != $current->id)
 		<a href="/{{ $model }}/{{ $list->id }}">
-			{{ $list->name }} ({{ $list->language->name }})
+			{{ $list->name or $list->surfaceForm }} ({{ $list->language->name }})
 		</a>
 		@else
-			{{ $list->name }} ({{ $list->language->name }})
+			{{ $list->name or $list->surfaceForm }} ({{ $list->language->name }})
 		@endif
 	</p>
 

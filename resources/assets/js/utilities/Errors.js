@@ -30,7 +30,11 @@ class Errors {
 
 		if(errors) {
 			_.forEach(errors, (value, key) => {
-				let realKey = key.split(".")[0];
+				let realKey = key;
+
+				if(typeof key === 'string' || key instanceof String) {
+					realKey = key.split(".")[0];
+				}
 
 				if(!this.errors[realKey]) {
 					this.errors[realKey] = [];

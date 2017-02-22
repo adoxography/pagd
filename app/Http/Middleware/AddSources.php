@@ -17,10 +17,11 @@ class AddSources
     {
         $response = $next($request);
 
-        $model = ($model)::find($response->getContent());
+        $instantiatedModel = call_user_func($model . '::find', $response->getContent());
+        // $model = ($model)::find($response->getContent());
         $sources = $request->sources;
 
-        $model->connectSources($sources);
+        $instantiatedModel->connectSources($sources);
 
         return $response;
     }

@@ -82,6 +82,48 @@ class FormType extends Model
         return $output;
     }
 
+    public function getAbsoluteStatusAttribute()
+    {
+        $code = $this->isAbsolute;
+        $status;
+
+        if($code === null) {
+            $status = '';
+        } elseif($code === 0) {
+            $status = 'Objective';
+        } elseif($code === 1) {
+            $status = 'Absolute';
+        }
+
+        return $status;
+    }
+
+    public function getNegativeStatusAttribute()
+    {
+        $status;
+
+        if($this->isNegative) {
+            $status = "Negative";
+        } else {
+            $status = "";
+        }
+
+        return $status;
+    }
+
+    public function getDiminutiveStatusAttribute()
+    {
+        $status;
+
+        if($this->isDiminutive) {
+            $status = "Diminutive";
+        } else {
+            $status = "";
+        }
+
+        return $status;
+    }
+
     public function getSubClassAttribute()
     {
         $subclass = $this->formClass->name;
@@ -103,7 +145,7 @@ class FormType extends Model
                 } elseif ($this->subject->obviativeCode == '1') {
                     if ($this->primaryObject->person == '3' && !$this->primaryObject->obviativeCode) {
                         $subclass = 'TA Non-local (inverse)';
-                    } elseif ($this->primaryObject->person == '1' || $this->primaryObject->person == '2') {
+                    } elseif ($this->primaryObject->person == '1' || $this->primaryObject->person == '2' || $this->primaryObject->person == '21') {
                         $subclass = 'TA Obviative (mixed 3\'–1/2)';
                     }
                 } else {

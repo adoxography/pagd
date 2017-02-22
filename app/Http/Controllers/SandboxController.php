@@ -8,6 +8,7 @@ use JavaScript;
 use App\Language;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
@@ -16,6 +17,12 @@ class SandboxController extends Controller
 {
     
     public function index(){
+        $formType = factory(\App\FormType::class)->create([
+            'isAbsolute' => 0
+        ]);
+
+        dd("Code is {$formType->isAbsolute}, status is {$formType->absoluteStatus}");
+
         return view('sandbox');
     }
 
@@ -34,180 +41,19 @@ class SandboxController extends Controller
             },
             'morphemes.gloss',
             'morphemes.slot'
-        ])->whereHas('formType', function($query) {
-            $query->where('isNegative', 0)
-                  ->where('isDiminutive', 0)
-                  ->where('isAbsolute', null)
-                  // ->where('primaryObjectyObject_id', null)
-                  ->where('secondaryObject_id', null);
-        })->get();
+        ])->get();
 
         $argumentDictionary = \App\Argument::all();
 
 
         $data = [];
-        $rows = [
-            'AI' => [
-                '1' => [],
-                '1s' => [],
-                '2' => [],
-                '2s' => [],
-                '1p' => [],
-                '21' => [],
-                '2p' => [],
-                '3' => [],
-                '3s' => [],
-                '3d' => [],
-                '3p' => [],
-                '3\'' => [],
-                '3\'s' => [],
-                '3\'d' => [],
-                '3\'p' => [],
-                '3\'\'' => [],
-                '3\'\'s' => [],
-                '3\'\'p' => [],
-                'X' => [],
-            ],
-            'II' => [
-                '0' => [],
-                '0s' => [],
-                '0d' => [],
-                '0p' => [],
-                '0\'' => [],
-                '0\'s' => [],
-                '0\'d' => [],
-                '0\'p' => [],
-                '0\'\'' => [],
-            ],
-            'TI1' => [
-                '1s—0' => [],
-                '1s—0s' => [],
-                '1s—0p' => [],
-
-                '2s—0' => [],
-                '2s—0s' => [],
-                '2s—0p' => [],
-            ],
-            'TA Local (2—1)' => [
-                '2s—1' => [],
-                '2s—1s' => [],
-                '2p—1s' => [],
-
-                '2s—1' => [],
-                '2s—1p' => [],
-                '2p—1p' => [],
-            ],
-            'TA Local (1—2)' => [
-                '1s—2' => [],
-                '1s—2s' => [],
-                '1s—2p' => [],
-
-                '1p—2' => [],
-                '1p—2s' => [],
-                '1p—2p' => [],
-            ],
-            'TA Mixed (1/2—3)' => [
-                '1s—3' => [],
-                '1s—3s' => [],
-                '1s—3d' => [],
-                '1s—3p' => [],
-                
-                '2s—3' => [],
-                '2s—3s' => [],
-                '2s—3d' => [],
-                '2s—3p' => [],
-
-                '1p—3' => [],
-                '1p—3s' => [],
-                '1p—3d' => [],
-                '1p—3p' => [],
-
-                '21—3' => [],
-                '21—3s' => [],
-                '21—3d' => [],
-                '21—3p' => [],
-
-                '2p—3' => [],
-                '2p—3s' => [],
-                '2p—3d' => [],
-                '2p—3p' => [],
-            ],
-            'TA Mixed (3—1/2)' => [
-                '3s—1s' => [],
-                '3d—1s' => [],
-                '3p—1s' => [],
-
-                '3s—2s' => [],
-                '3d—2s' => [],
-                '3p—2s' => [],
-
-                '3s—2s' => [],
-                '3d—2s' => [],
-                '3p—2s' => [],
-
-                '3s—1p' => [],
-                '3d—1p' => [],
-                '3p—1p' => [],
-
-                '3s—21' => [],
-                '3d—21' => [],
-                '3p—21' => [],
-
-                '3s—2p' => [],
-                '3d—2p' => [],
-                '3p—2p' => [],
-            ],
-            'TA Non-local (direct)' => [
-                '3s—3\'' => [],
-                '3s—3\'s' => [],
-                '3s—3\'p' => [],
-
-                '3p—3\'' => [],
-                '3p—3\'s' => [],
-                '3p—3\'p' => [],
-            ],
-            'TA Non-local (inverse)' => [
-                '3\'s—3s' => [],
-                '3\'p—3s' => [],
-
-                '3\'s—3p' => [],
-                '3\'p—3p' => [],
-            ],
-            'TA Impersonal' => [
-                'X—1' => [],
-                'X—1s' => [],
-                'X—2' => [],
-                'X—2s' => [],
-                'X—1p' => [],
-                'X—21' => [],
-                'X—2p' => [],
-                'X—3' => [],
-                'X—3s' => [],
-                'X—3d' => [],
-                'X—3p' => [],
-                'X—3\'' => [],
-                'X—3\'s' => [],
-                'X—3\'d' => [],
-                'X—3\'p' => [],
-                'X—3\'\'' => [],
-                'X—3\'\'s' => [],
-                'X—3\'\'p' => [],
-            ],
-            'TA Inanimate' => [
-                // Error in sheet
-            ],
-            'TA Obviative (mixed 1/2–3\')' => [],
-            'TA Obviative (mixed 3\'–1/2)' => [],
-            'TA Obviative (non-local 3\'\')' => [],
-
-            'TA Other' => []
-        ];
+        $rows = Config::get('constants.paradigm_order');
 
         foreach($forms as $form) {
 
             $formType = $form->formType;
 
-            $data[$form->language->name][$formType->order->name][$formType->mode->name] = null;
+            $data[$form->language->name][$formType->order->name][$formType->mode->name][$formType->absoluteStatus][$formType->negativeStatus][$formType->diminutiveStatus] = null;
             $rows[$formType->subClass][$formType->arguments][] = $form;
         }
 

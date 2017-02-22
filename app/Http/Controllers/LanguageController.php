@@ -49,7 +49,9 @@ class LanguageController extends Controller
     public function destroy(Language $language)
     {
         $language->delete();
+
         flash($language->name.' deleted successfully.', 'is-info');
+        
         return redirect('/languages');
     }
 
@@ -92,10 +94,7 @@ class LanguageController extends Controller
     }
 
     public function update(LanguageRequest $request, Language $language)
-    {
-        // $request['group_id'] = $request->input('group.id');
-        // $request['parent_id'] = $request->input('parent.id');
-        
+    {        
         if(!$request->parent_id) {
             $request->parent_id = null;
         }

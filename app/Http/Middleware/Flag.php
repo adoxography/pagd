@@ -16,10 +16,9 @@ class Flag
     public function handle($request, Closure $next)
     {
         $response = $next($request);
-        $response->original = $request->flagLevel;
+        $flagLevel = $request->flagLevel;
 
-        dd($response);
-        return $request->flagLevel;
+        
 
         return $response;
     }

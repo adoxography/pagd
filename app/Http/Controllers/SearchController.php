@@ -10,6 +10,7 @@ use App\FormClass;
 use App\Http\Requests;
 use App\Search\SearchTable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 
 class SearchController extends Controller
 {
@@ -149,9 +150,82 @@ class SearchController extends Controller
             });
         }
 
-        $result = new SearchTable($query->get());
+        $forms = $query->get();
 
-        return view('search.result', compact('result'));
+                $argumentDictionary = \App\Argument::all();
+
+
+        $data = [];
+        $rows = Config::get('constants.paradigm_order');
+
+        foreach($forms as $form) {
+
+            $formType = $form->formType;
+
+            $data[$form->language->name][$formType->order->name][$formType->mode->name][$formType->absoluteStatus][$formType->negativeStatus][$formType->diminutiveStatus] = null;
+            $rows[$formType->subClass][$formType->arguments][] = $form;
+        }
+
+        foreach($rows as $class => $argumentStructures) {
+            $keys = array_keys($argumentStructures);
+            $hasForms = false;
+
+            for($i = 0; $i < count($argumentStructures); $i++) {
+                $arguments = $keys[$i];
+
+                if(count($rows[$class][$arguments]) > 0) {
+                    $hasForms = true;
+                    $model = $argumentDictionary->where('name', $arguments)->first();
+
+                    if(!in_array($arguments{strlen($arguments) - 1}, ['s', 'd', 'p']) && $i < count($argumentStructures) - 1) {
+
+                        $found = false;
+                        $consecutive = 0;
+
+                        $j = 1;
+
+                        while($i + $j < count($keys) && preg_match("/".$arguments."[sdp]/", $keys[$i + $j])) {
+
+                            if(count($rows[$class][$keys[$i + $j]]) > 0) {
+                                $consecutive++;
+                            }
+                            $j++;
+                        }
+
+                        foreach(['s', 'd', 'p'] as $number) {
+                            if(isset($rows[$class][$arguments.$number]) && count($rows[$class][$arguments.$number]) > 0) {
+                                $found = true;
+
+                                foreach($rows[$class][$arguments] as $moving) {
+
+                                    $moving->diffClass = $arguments;
+
+                                    if($consecutive > 1) {
+                                        $moving->span = $consecutive;
+                                    } else {
+                                        $moving->distant = true;
+                                    }
+
+                                    $rows[$class][$arguments.$number][] = $moving;
+                                }
+                            }
+                        }
+
+                        if($found) {
+                            unset($rows[$class][$arguments]);
+                        }
+                    }
+                } elseif(count($argumentStructures[$arguments]) == 0) {
+                    unset($rows[$class][$arguments]);
+                }
+            }
+
+            if(!$hasForms) {
+                unset($rows[$class]);
+            }
+        }
+
+        return view('paradigmTableRender', compact('data', 'rows'));
     }
 
     protected function filterSubqueryUsingList($query, $subfield, $list, $field)

@@ -11,6 +11,16 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			21-02-17: Set paradigm search to open a new window/tab on submit
+		</li>
+		<li>
+			21-02-17: Integrated new paradigm search results into paradigm search
+		</li>
+		<li>
+			21-02-17: Added negative, diminutive, and abs/obv into new paradigm search results
+		</li>
+		<hr>
+		<li>
 			17-02-17: Added a patch for the network errors, but unable to test due to the randomness of the error
 			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
 				<li>The patch *should* have prevented the "perma-loading" error, and instead a dialog should notify the user of a network error</li>

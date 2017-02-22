@@ -2,14 +2,12 @@
 
 define("NOT_FOUND", -1);
 
-function addAlternateNamesToVStems() {
-    $morphemes = \App\Morpheme::where('name', 'V')->get();
-
-    foreach($morphemes as $morpheme) {
-        $morpheme->alternateName = "IC.V";
-        $morpheme->save();
+function assessAllForms()
+{
+    $forms = \App\Form::all();
+    foreach($forms as $form) {
+        $form->connectMorphemes();
     }
-
     return "Operation complete";
 }
 

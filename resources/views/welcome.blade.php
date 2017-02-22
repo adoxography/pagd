@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			21-02-17: Added → and > to cognates tab
+		</li>
+		<li>
 			21-02-17: Added a "show morphology" option to paradigm search
 		</li>
 		<li>

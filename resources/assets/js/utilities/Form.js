@@ -50,14 +50,13 @@ class Form {
 					resolve(response.data);
 				})
 				.catch(error => {
-					if(error.response) {
+					if(error.response.status == 422) {
 						this.onFail(error.response.data);
-						reject(error.response.data);
 					} else {
+						console.log(error.response.status);
 						alert("Network error. Please try again.");
-						console.log(error.message);
-						reject({});
 					}
+					reject(error.response.data);
 				});
 		});
 	}

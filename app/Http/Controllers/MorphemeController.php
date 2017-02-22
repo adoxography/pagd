@@ -16,7 +16,6 @@ class MorphemeController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except('index', 'show');
-        $this->middleWare('addSources:App\Morpheme')->only('store', 'update');
     }
 
     public function create(){        
@@ -54,6 +53,7 @@ class MorphemeController extends Controller
 
     public function store(MorphemeRequest $request){
         $morpheme = Morpheme::create(array_filter($request->all(), 'validDatabaseInput'));
+        $morpheme->connectSources($request->sources);
 
         flash($morpheme->name.' created successfully.', 'is-success');
 
@@ -62,6 +62,7 @@ class MorphemeController extends Controller
 
     public function update(MorphemeRequest $request, Morpheme $morpheme){
         $morpheme->update($request->all());
+        $morpheme->connectSources($request->sources);
 
         flash($morpheme->name.' updated successfully.', 'is-success');
         

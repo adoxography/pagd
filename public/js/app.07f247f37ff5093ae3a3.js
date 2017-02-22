@@ -27804,14 +27804,13 @@ var Form = function () {
 
 					resolve(response.data);
 				}).catch(function (error) {
-					if (error.response) {
+					if (error.response.status == 422) {
 						_this.onFail(error.response.data);
-						reject(error.response.data);
 					} else {
+						console.log(error.response.status);
 						alert("Network error. Please try again.");
-						console.log(error.message);
-						reject({});
 					}
+					reject(error.response.data);
 				});
 			});
 		}

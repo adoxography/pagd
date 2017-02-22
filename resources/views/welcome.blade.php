@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			21-02-17: <a href="/search/paradigm?classes%5B2%5D=3&orders%5B%5D=1&orders%5B%5D=3&modeSelect=indicativeOnly&affirmative=true&languages%5B%5D=Proto-Algonquian&languages%5B%5D_id=1">Enabled display of syncretism for non-final arguments</a>
+		</li>
+		<li>
 			21-02-17: Set paradigm search to open a new window/tab on submit
 		</li>
 		<li>

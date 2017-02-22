@@ -85,14 +85,144 @@ class SearchController extends Controller
 
     public function paradigm(Request $request)
     {
-        $languages  = $request->languages;
-        $modeSelect = $request->modeSelect;
-        $modes      = $request->modes;
-        $orders     = $request->orders;
-        $classes    = $request->classes;
+        $forms = $this->search($request);
+
+        $argumentDictionary = \App\Argument::all();
+        $data = $this->loadHeaders($forms);
+        $rows = $this->loadRows($forms);
+
+        foreach($rows as $class => $argumentStructures) {
+            $keys = array_keys($argumentStructures);
+            $hasForms = false;
+
+            for($i = 0; $i < count($argumentStructures); $i++) {
+                $arguments = $keys[$i];
+
+                if(count($rows[$class][$arguments]) > 0) {
+                    $hasForms = true;
+                    $model = $argumentDictionary->where('name', $arguments)->first();
+
+                    // If the there is an argument without a number
+                    if($this->hasNumberlessArgument($arguments) && $i < count($argumentStructures) - 1) {
+
+                        $found = false;
+                        $consecutive = 0;
+
+                        $j = 1;
+
+                        while($i + $j < count($keys) && preg_match("/".$arguments."[sdp]/", $keys[$i + $j])) {
+
+                            if(count($rows[$class][$keys[$i + $j]]) > 0) {
+                                $consecutive++;
+                            }
+                            $j++;
+                        }
+
+                        $possibleMatches = $this->generatePossibleMatches($arguments);
+
+                        foreach($possibleMatches as $possibleMatch) {
+                            if(isset($rows[$class][$possibleMatch]) && count($rows[$class][$possibleMatch]) > 0) {
+                                $found = true;
+
+                                foreach($rows[$class][$arguments] as $moving) {
+
+                                    $moving->diffClass = $arguments;
+
+                                    if($consecutive > 1) {
+                                        $moving->span = $consecutive;
+                                    } else {
+                                        $moving->distant = true;
+                                    }
+
+                                    $rows[$class][$possibleMatch][] = $moving;
+                                }
+                            }
+                        }
+
+                        if($found) {
+                            unset($rows[$class][$arguments]);
+                        }
+                    }
+                } elseif(count($argumentStructures[$arguments]) == 0) {
+                    unset($rows[$class][$arguments]);
+                }
+            }
+
+            if(!$hasForms) {
+                unset($rows[$class]);
+            }
+        }
+
+        return view('paradigmTableRender', compact('data', 'rows'));
+    }
+
+    protected function filterSubqueryUsingList($query, $subfield, $list, $field)
+    {
+        if ($list) {
+            $query->whereHas($subfield, function ($query) use ($list, $field) {
+                $query->whereIn($field, $list);
+            });
+        }
+    }
+
+    public function hasNumberlessArgument($args)
+    {
+        $arguments = preg_split("/[—+]/u", $args);
+        $found = false;
+
+        for($i = 0; $i < count($arguments) && !$found; $i++) {
+            $found = $this->isNumberless($arguments[$i]);
+        }
+
+        return $found;
+    }
+
+    protected function isNumberless($arg)
+    {
+        return !in_array($arg{strlen($arg) - 1}, ['s', 'd', 'p']);
+    }
+
+    protected function generatePossibleMatches($args)
+    {
+        $options = [];
+        $arguments = preg_split("/[—+]/u", $args);
+
+        for($i = 0; $i < count($arguments); $i++) {
+            if($this->isNumberless($arguments[$i])) {
+                foreach(['s', 'd', 'p'] as $number) {
+                    $clone = $arguments;
+                    $clone[$i] .= $number;
+
+                    $options[] = $this->repair($clone);
+                }
+            }
+        }
+
+        return $options;
+    }
+
+    protected function repair($tokens)
+    {
+        $output = $tokens[0];
+        if(isset($tokens[1])) {
+            $output .= "—".$tokens[1];
+        }
+        if(isset($tokens[2])) { // DOESN'T ACCOUNT FOR AI + 0
+            $output .= "+".$tokens[2];
+        }
+        return $output;
+    }
+
+    protected function search($request)
+    {
+        $languages   = $request->languages;
+        $modeSelect  = $request->modeSelect;
+        $modes       = $request->modes;
+        $orders      = $request->orders;
+        $classes     = $request->classes;
         $affirmative = $request->affirmative;
-        $negative   = $request->negative;
-        $diminutive = $request->diminutive;
+        $negative    = $request->negative;
+        $diminutive  = $request->diminutive;
 
         $query = Form::with([
             'language.group',
@@ -150,90 +280,28 @@ class SearchController extends Controller
             });
         }
 
-        $forms = $query->get();
-
-                $argumentDictionary = \App\Argument::all();
-
-
-        $data = [];
-        $rows = Config::get('constants.paradigm_order');
-
-        foreach($forms as $form) {
-
-            $formType = $form->formType;
-
-            $data[$form->language->name][$formType->order->name][$formType->mode->name][$formType->absoluteStatus][$formType->negativeStatus][$formType->diminutiveStatus] = null;
-            $rows[$formType->subClass][$formType->arguments][] = $form;
-        }
-
-        foreach($rows as $class => $argumentStructures) {
-            $keys = array_keys($argumentStructures);
-            $hasForms = false;
-
-            for($i = 0; $i < count($argumentStructures); $i++) {
-                $arguments = $keys[$i];
-
-                if(count($rows[$class][$arguments]) > 0) {
-                    $hasForms = true;
-                    $model = $argumentDictionary->where('name', $arguments)->first();
-
-                    if(!in_array($arguments{strlen($arguments) - 1}, ['s', 'd', 'p']) && $i < count($argumentStructures) - 1) {
-
-                        $found = false;
-                        $consecutive = 0;
-
-                        $j = 1;
-
-                        while($i + $j < count($keys) && preg_match("/".$arguments."[sdp]/", $keys[$i + $j])) {
-
-                            if(count($rows[$class][$keys[$i + $j]]) > 0) {
-                                $consecutive++;
-                            }
-                            $j++;
-                        }
-
-                        foreach(['s', 'd', 'p'] as $number) {
-                            if(isset($rows[$class][$arguments.$number]) && count($rows[$class][$arguments.$number]) > 0) {
-                                $found = true;
-
-                                foreach($rows[$class][$arguments] as $moving) {
-
-                                    $moving->diffClass = $arguments;
-
-                                    if($consecutive > 1) {
-                                        $moving->span = $consecutive;
-                                    } else {
-                                        $moving->distant = true;
-                                    }
-
-                                    $rows[$class][$arguments.$number][] = $moving;
-                                }
-                            }
-                        }
-
-                        if($found) {
-                            unset($rows[$class][$arguments]);
-                        }
-                    }
-                } elseif(count($argumentStructures[$arguments]) == 0) {
-                    unset($rows[$class][$arguments]);
-                }
-            }
-
-            if(!$hasForms) {
-                unset($rows[$class]);
-            }
-        }
-
-        return view('paradigmTableRender', compact('data', 'rows'));
+        return $query->get();
     }
 
-    protected function filterSubqueryUsingList($query, $subfield, $list, $field)
-    {
-        if ($list) {
-            $query->whereHas($subfield, function ($query) use ($list, $field) {
-                $query->whereIn($field, $list);
-            });
+    protected function loadHeaders($forms) {
+        $output = [];
+
+        foreach($forms as $form) {
+            $formType = $form->formType;
+
+            $output[$form->language->name][$formType->order->name][$formType->mode->name][$formType->absoluteStatus][$formType->negativeStatus][$formType->diminutiveStatus] = null;
         }
+
+        return $output;
+    }
+
+    protected function loadRows($forms)
+    {
+        $output = Config::get('constants.paradigm_order');
+        foreach($forms as $form) {
+            $formType = $form->formType;
+            $output[$formType->subClass][$formType->arguments][] = $form;
+        }
+        return $output;
     }
 }

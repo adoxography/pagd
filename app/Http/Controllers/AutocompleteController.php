@@ -34,7 +34,7 @@ class AutocompleteController extends Controller
                        ->where('language_id', $language)
                        ->get();
 
-        foreach($results as $result) {
+        foreach ($results as $result) {
             $result->name = $result->uniqueName;
         }
 

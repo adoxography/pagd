@@ -23494,7 +23494,7 @@ Vue.component('alg-paradigm-table', {
 
 	methods: {
 		toggleShow: function toggleShow() {
-			this.show = true;
+			this.show = !this.show;
 		}
 	}
 });

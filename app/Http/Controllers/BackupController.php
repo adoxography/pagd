@@ -6,12 +6,25 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 
+/**
+ * HTTP Controller for backup downloads
+ */
 class BackupController extends Controller
 {
-    public function store(){
-    	$date = Carbon::now()->format('Y-m-d-H-i-s');
+    /**
+     * Backup the database
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function store()
+    {
+        // Generate a unique code using the current time
+        $date = Carbon::now()->format('Y-m-d-H-i-s');
 
-    	Artisan::call('db:backup',['--database' => 'mysql', '--destination' => 'local', '--destinationPath' => "/backups/algling_{$date}", '--compression' => 'gzip']);
-    	return response()->download(storage_path("app/backups/algling_$date.gz"), "algling_$date.gz");
+        // Backup the database
+        Artisan::call('db:backup', ['--database' => 'mysql', '--destination' => 'local', '--destinationPath' => "/backups/algling_{$date}", '--compression' => 'gzip']);
+
+        // Push a download on the user
+        return response()->download(storage_path("app/backups/algling_$date.gz"), "algling_$date.gz");
     }
 }

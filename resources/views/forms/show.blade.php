@@ -95,7 +95,7 @@
 					<em>Change Type: </em>{{ $form->changeType->name }}
 				@endif
 			@endcomponent
-			@include('components.model.text', ['width' => 'is-12', 'text' => $form->historicalNotes])											
+			@include('components.model.text', ['width' => 'is-12', 'text' => $form->historicalNotes])						
 			@if(Auth::user())
 				@include('components.model.text', ['width' => 'is-12', 'label' => 'Private Comments', 'text' => $form->comments])
 			@endif

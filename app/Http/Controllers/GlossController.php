@@ -3,54 +3,67 @@
 namespace App\Http\Controllers;
 
 use App\Gloss;
-use App\Morpheme;
-use App\Http\Requests;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 
-class GlossController extends Controller
+/**
+ * HTTP Controller for glosses
+ */
+class GlossController extends ClosedController
 {
+    /**
+     * Show the list of glosses
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $items = Gloss::orderBy('abv')->get();
-        $model = 'glosses';
-
-        return view('closedWithAbv.index', compact('items', 'model'));
+        $this->setItems(Gloss::orderBy('abv')->get());
+        $this->setModel('glosses');
+        return parent::index();
     }
 
+    /**
+     * Show the gloss details.
+     *
+     * @param \App\Gloss The gloss
+     * @return \Illuminate\Http\Response
+     */
     public function show(Gloss $gloss)
     {
-        $item = $gloss;
-        $modelSG = 'gloss';
-        $modelPL = 'glosses';
-        $foundIns = Morpheme::where('gloss_id', $gloss->id)->get();
-
-        return view('closedWithAbv.show', compact('item', 'modelSG', 'modelPL', 'foundIns'));
+        return parent::showItem($gloss);
     }
 
+    /**
+     * Show the gloss edit form
+     *
+     * @param \App\Gloss The gloss
+     * @return \Illuminate\Http\Response
+     */
     public function edit(Gloss $gloss)
     {
-        $item = $gloss;
-        $modelSG = 'gloss';
-        $modelPL = "glosses";
-
-        return view('closedWithAbv.edit', compact('item', 'modelSG', 'modelPL'));
+        return parent::editItem($gloss);
     }
 
+    /**
+     * Update a gloss
+     *
+     * @param \Illuminate\Http\Request
+     * @param \App\Gloss The gloss
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, Gloss $gloss)
     {
-        $gloss->update($request->all());
-
-        flash("{$gloss->abv} updated successfully", "is-success");
-        return redirect("/glosses/{$gloss->id}");
+        return parent::updateItem($request, $gloss);
     }
 
+    /**
+     * Destroy a gloss
+     *
+     * @param \App\Gloss The gloss
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(Gloss $gloss)
     {
-        $gloss->delete();
-        
-        flash("{$gloss->abv} deleted successfully.", 'is-info');
-
-        return redirect('/glosses');
+        return parent::destroyItem($gloss);
     }
 }

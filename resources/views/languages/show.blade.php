@@ -99,8 +99,8 @@
 				@slot('label')
 					Morphemes @component('components.model.add-icon', ['uri' => "/languages/{$language->id}/addMorpheme"]) @endcomponent
 				@endslot
-				@if(count($morphemes) > 0)
-					<alg-filter-list list="{{ $morphemes }}" filteroptions="{{ $morphemes->pluck('slot')->unique()->sortBy('abv')->values() }}">
+				@if(count($language->morphemes) > 0)
+					<alg-filter-list list="{{ $language->morphemes }}" filteroptions="{{ $language->morphemes->pluck('slot')->unique()->sortBy('abv')->values() }}">
 				@else
 					None
 				@endif

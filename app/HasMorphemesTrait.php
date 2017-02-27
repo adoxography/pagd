@@ -7,8 +7,30 @@ use App\Example;
 use App\Morpheme;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Assignable trait to classes that need to deal with morphemes.
+ * 
+ * Requires that the model has a morphemicForm property and a pivot table to connect the model to the Morphemes table
+ */
 trait HasMorphemesTrait {
 
+    protected function getMorphemeTable()
+    {
+        return $this->morphemeTable;
+    }
+
+    public function morphemes()
+    {
+        return $this->belongsToMany(Morpheme::class, $this->getMorphemeTable())->orderBy('position')->withPivot('position');
+    }
+
+    /**
+     * Connects morphemes by looking at the morphemicForm
+     * 
+     * Connects all unambiguous matches of each token in the morphemicForm to the name of a morpheme in the database
+     * 
+     * @return void
+     */
 	public function connectMorphemes()
 	{
     	$morphemes = explode('-', $this->morphemicForm);
@@ -46,7 +68,18 @@ trait HasMorphemesTrait {
             }
         }
 
-        if(count($morphemes) == count($this->morphemes)) {
+        // Update the complete status, if necessary
+        $this->assessIsComplete(count($morphemes), count($this->morphemes));
+	}
+
+    /**
+     * Determines whether or not a form has all of its morphemes, and updates the form if necessary
+     * 
+     * @return void
+     */
+    protected function assessIsComplete($numExpected, $numActual)
+    {
+        if($numExpected === $numActual) {
             if(!$this->complete) {
                 $this->complete = true;
                 $this->save();
@@ -57,43 +90,69 @@ trait HasMorphemesTrait {
                 $this->save();
             }
         }
+    }
 
-        return count($morphemes);
-	}
-
+    /**
+     * Generate a list of morphemes using the morphemicForm to temporarily fill in any missing morphemes
+     * 
+     * @return array
+     */
     public function morphemeList()
     {
         $output = [];
-        $savedMorphemes = $this->morphemes;
-        $curr = 0;
+        $savedMorphemes = $this->morphemes; // The morphemes that are already connected
+        $curr = 0; // The number of pre-connected morphemes that have been addressed already
         $slots = explode('-', $this->morphemicForm);
 
 
         foreach($slots as $index => $slot) {
             if($curr < count($savedMorphemes) && $savedMorphemes[$curr]->pivot->position == $index + 1) {
+            // If the position of the pre-connected morpheme matches the position we're currently looking for, add it to the output
                 $output[] = $savedMorphemes[$curr++];
             }
             else {
-                $output[] = ['name' => explode('.', $slot)[0]]; // Pull off the disambiguator
+            // Otherwise, we don't have the morpheme in the system; deal with the token directly
 
-                if(Auth::user()) {
-                    $search = Morpheme::whereIn('name', [
-                                            $slot,
-                                            '-'.$slot,
-                                            '-'.$slot.'-',
-                                            $slot.'-',
-                                        ])
-                                      ->where('language_id', $this->language->id)
-                                      ->get();
+                // Pull off the disambiguator
+                $output[] = ['name' => explode('.', $slot)[0]];
 
-                    $output[count($output) - 1] += ['possibilities' => $search];
-                }
+                // Load in the possibilities
+                $output[count($output) - 1]['possibilities'] = $this->getPossibleMorphemes($slot);
             }
         }
 
         return $output;
     }
 
+    /**
+     * Search the database for any possible matching morphemes to the one that was searched for
+     * 
+     * @return Illuminate\Support\Collection
+     */
+    protected function getPossibleMorphemes($name)
+    {
+        $output = [];
+
+        // Look for all of the morphemes that have a name that matches what we're looking for (hyphens not included)
+        if(Auth::user()) {
+            $search = Morpheme::whereIn('name', [
+                $name,
+                '-'.$name, // There's gotta be a better way of doing this...
+                '-'.$name.'-',
+                $name.'-',
+            ])->where('language_id', $this->language->id);
+
+            $output = $search->get();
+        }
+
+        return $output;
+    }
+
+    /**
+     * Convert the morpheme list into HTML
+     * 
+     * @return string An HTML representation of the morpheme list
+     */
     public function printMorphemes()
     {
     	$initialChangeFound = false;
@@ -164,6 +223,11 @@ trait HasMorphemesTrait {
     	return "<div class='columns morpheme-printout'>$html</div>";
     }
 
+    /**
+     * Create the tooltip for adding missing morphemes or modifying ambiguous morphemes
+     * 
+     * @return string An HTML directive for creating the tooltip
+     */
     protected function createMorphemeAlert($morpheme, $index)
     {
     	$title = "";
@@ -171,10 +235,13 @@ trait HasMorphemesTrait {
     	$gloss = "";
 
 		if(count($morpheme['possibilities']) > 0) {
+        // The morphemes needs disambiguation
+
 			$title = "Disambiguation required";
 			$gloss = "";
 			$model = "";
 
+            // Set the model name so the URI can be set correctly
 			if($this instanceof Form) {
 				$model = "forms";
 			} else if($this instanceof Example) {
@@ -182,12 +249,15 @@ trait HasMorphemesTrait {
 			}
 
 			foreach($morpheme['possibilities'] as $possibility) {
+
+                // Determine what the gloss should be
 				if($possibility->translation) {
 					$gloss = '<p>'.str_replace(' ', '.', $possibility->translation).'</p>';
 				} else {
 					$gloss = "<p class='gloss'>{$possibility->gloss->abv}</p>";
 				}
 
+                // Create a button (disguised as a link) that will instruct the website to disambiguate the morpheme
 				$options .= "<li>".
 					"<form method='POST' action='/$model/{$this->id}/disambiguate'>".
 						"<input type='hidden' name='index' value='{$index}' />".
@@ -201,8 +271,11 @@ trait HasMorphemesTrait {
 				"</li>";
 			}
 
+            // Wrap everything in an unordered list
 			$options = "<ul>$options</ul>";
 		} else {
+        // There is no matching morpheme in the database
+
 			$title = "Morpheme missing";
 			$options = "<a href='/morphemes/create?name={$morpheme['name']}&language={$this->language->name}&languageID={$this->language->id}'>Add (-){$morpheme['name']}(-)</a>";
 		}
@@ -210,15 +283,22 @@ trait HasMorphemesTrait {
 		return "<alg-morpheme-alert title='$title'>$options</alg-morpheme-alert>";
     }
 
+    /**
+     * Disambiguate a morphememe by adding a disambiguator to the appropriate segment of the morphemicForm
+     * 
+     * @return void
+     */
     public function disambiguate($index, $disambiguator)
     {
-        $morphemicForm = $this->morphemicForm;
-        $morphemes = explode('-', $morphemicForm);
+        $morphemes = explode('-', $this->$morphemicForm);
 
         if(count($morphemes) > $index && count(explode('.', $morphemes[$index]) == 1)) {
+
+            // Add the disambiguator at the end of the morpheme at the given index
             $morphemes[$index] = $morphemes[$index].'.'.$disambiguator;
         }
 
+        // Put the morphemicForm back together and save it
         $this->morphemicForm = implode('-', $morphemes);
         $this->save();
     }

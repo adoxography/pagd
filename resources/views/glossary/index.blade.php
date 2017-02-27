@@ -9,6 +9,7 @@
 	<div class="box">
 		<ul>
 			<li><a href="/glosses">Glosses</a></li>
+			<li><a href="/slots">Slots</a></li>
 			<li><a href="/sources">Sources</a></li>
 			{{-- <li><a href = '/glossary/groups'>Groups</a></li> --}}
 			{{-- <li><a href = '/glossary/classes'>Classes</a></li> --}}

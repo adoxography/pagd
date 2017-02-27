@@ -40,6 +40,8 @@ Vue.component('alg-example-form',   require('./components/forms/Example.vue'));
 Vue.component('alg-paradigm-search',  require('./components/forms/Paradigm-Search.vue'));
 
 Vue.component('alg-paradigm-table', {
+	props: ['morphemesOn'],
+
 	data() {
 		return {
 			show: false
@@ -48,7 +50,13 @@ Vue.component('alg-paradigm-table', {
 
 	methods: {
 		toggleShow() {
-			this.show = true;
+			this.show = !this.show;
+		}
+	},
+
+	created() {
+		if(this.morphemesOn) {
+			this.show = this.morphemesOn;
 		}
 	}
 });

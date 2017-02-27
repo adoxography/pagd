@@ -2,30 +2,68 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use App\Slot;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 
-class SlotController extends ClosedWithAbvController
+/**
+ * HTTP Controller for slots
+ */
+class SlotController extends ClosedController
 {
-    
-    protected $plural   = 'Slots';
-    protected $singular = 'Slot';
-
-    protected function getMembers()
+    /**
+     * Show the list of slots
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        return Slot::all();
+        $this->setItems(Slot::orderBy('abv')->get());
+        $this->setModel('slots');
+        return parent::index();
     }
 
-    protected function createNew()
+    /**
+     * Show the slot details.
+     *
+     * @param \App\Slot The slot
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Slot $slot)
     {
-        return new Slot();
+        return parent::showItem($slot);
     }
 
-    protected function getItem($id)
+    /**
+     * Show the slot edit form
+     *
+     * @param \App\Slot The slot
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Slot $slot)
     {
-        return Slot::where('id', $id)->first();
+        return parent::editItem($slot);
     }
-    
+
+    /**
+     * Update a slot
+     *
+     * @param \Illuminate\Http\Request
+     * @param \App\Slot The slot
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Slot $slot)
+    {
+        return parent::updateItem($request, $slot);
+    }
+
+    /**
+     * Destroy a slot
+     *
+     * @param \App\Slot The slot
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Slot $slot)
+    {
+        return parent::destroyItem($slot);
+    }
 }

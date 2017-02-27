@@ -7,15 +7,29 @@ use App\Mail\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * Controller for the contact email feature
+ */
 class ContactController extends Controller
 {
-    public function index(){
-    	return view('contact.index');
+    /**
+     * Show contact page
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('contact.index');
     }
 
-    public function send(Request $request){
-
-    	$subject = "Contact from algling.net: ".$request->subject;
+    /**
+     * Send the message
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function send(Request $request)
+    {
+        $subject = "Contact from algling.net: ".$request->subject;
 
         $from  = $request->from;
         $email = $request->email;
@@ -23,7 +37,7 @@ class ContactController extends Controller
 
         Mail::to(User::find(1))->send(new Contact($from, $email, $body));
 
-    	flash("Message sent successfully!", 'is-success');
-    	return redirect('/home');
+        flash("Message sent successfully!", 'is-success');
+        return redirect('/home');
     }
 }

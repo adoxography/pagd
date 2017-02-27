@@ -154,7 +154,7 @@ class SearchController extends Controller
             }
         }
 
-        return view('paradigmTableRender', compact('data', 'rows', 'showMorphology'));
+        return view('search.results.paradigm', compact('data', 'rows', 'showMorphology'));
     }
 
     protected function filterSubqueryUsingList($query, $subfield, $list, $field)

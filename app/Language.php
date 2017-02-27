@@ -12,12 +12,32 @@ use App\Events\Language\Deleting;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * A natural language
+ */
 class Language extends Model
 {
     use \Venturecraft\Revisionable\RevisionableTrait;
 
+    /*
+    |--------------------------------------------------------------------------
+    | Eloquent variables
+    |--------------------------------------------------------------------------
+    |
+    | These are the basic variables required by Eloquent to manage this model.
+    |
+    */
     public $table = 'Languages';
-    protected $fillable = ['alternateNames', 'name','group_id','parent_id','iso','algoCode','notes', 'reconstructed'];
+    protected $fillable = [
+        'alternateNames',
+        'name',
+        'group_id',
+        'parent_id',
+        'iso',
+        'algoCode',
+        'notes',
+        'reconstructed'
+    ];
     protected $events = [
         'created'  => Created::class,
         'saving'   => Saving::class,
@@ -26,6 +46,14 @@ class Language extends Model
         'deleted'  => Deleted::class
     ];
 
+    /*
+    |--------------------------------------------------------------------------
+    | Revision variables
+    |--------------------------------------------------------------------------
+    |
+    | These are variable overrides used by the Revisionable trait.
+    |
+    */
     protected $revisionEnabled = true;
     protected $revisionCreationsEnabled = true;
     protected $revisionNullString = 'none';
@@ -42,6 +70,11 @@ class Language extends Model
         'reconstructed'  => 'Reconstructed'
     ];
     
+    /*
+    |--------------------------------------------------------------------------
+    | Relations
+    |--------------------------------------------------------------------------
+    */
     public function group()
     {
         return $this->belongsTo(Group::class);
@@ -64,7 +97,6 @@ class Language extends Model
 
     public function examples()
     {
-        // return $this->forms()->examples;
         return $this->hasManyThrough(Example::class, Form::class);
     }
 
@@ -73,11 +105,16 @@ class Language extends Model
         return $this->hasMany(Morpheme::class);
     }
 
+    /**
+     * Loads all of the unique sources found in all of this languages's forms, morphemes, and examples
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function sources()
     {
         $morphemeSources = $this->loadSources('morphemes');
-        $formSources = $this->loadSources('forms');
-        $exampleSources = $this->loadSources('examples');
+        $formSources     = $this->loadSources('forms');
+        $exampleSources  = $this->loadSources('examples');
 
         $sources = $morphemeSources;
         if($formSources) {
@@ -90,9 +127,14 @@ class Language extends Model
         return $sources->sortBy('short');
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Methods
+    |--------------------------------------------------------------------------
+    */
     protected function loadSources($model)
     {
-        $this->load(["$model.sources" => function ($query) use ( &$sources ) {
+        $this->load(["$model.generalSources" => function ($query) use ( &$sources ) {
             $sources = $query->get()->unique();
         }]);
 

@@ -54,9 +54,5 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'parseForm' => \App\Http\Middleware\ParseLangFormRequest::class,
-        'handleGloss' => \App\Http\Middleware\HandleGloss::class,
-        'flattenRequest' => \App\Http\Middleware\FlattenRequest::class,
-        'addSources' => \App\Http\Middleware\AddSources::class
     ];
 }

@@ -1,18 +1,12 @@
 @extends('layout')
 
 @section('content')
-	<h1>{{ $singular }} Input</h1>
-	{{ Form::open(['url' => '/'.strtolower($plural), 'class' => 'inputForm']) }}
-		<fieldset>
-			{{ Form::label('name') }}
-			{{ Form::text('name') }}
-			{{ Form::label('description') }}
-			{{ Form::textarea('description') }}
-		</fieldset>
-		<fieldset class = 'formButtons'>
-			{{ Form::submit('Submit') }}
-		</fieldset>
-	{{ Form::close() }}
-	
+
+	<h1>{{ $modelSg }} Input</h1>
+
+	@component('components.form', ['method' => 'POST', 'class' => 'box', 'url' => '/'.strtolower($item->plural)])
+		@include('closed.partials.form')
+	@endcomponent
+
 	@include('errors.list')
 @stop

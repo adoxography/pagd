@@ -10,37 +10,13 @@ use Illuminate\Support\Facades\Redirect;
 
 class GroupController extends ClosedController
 {
-
-    protected $plural   = 'Groups';
-    protected $singular = 'Group';
-
-    protected function getMembers()
+    public function show(Group $group)
     {
-        return Group::all();
+        return parent::showItem($group);
     }
 
-    protected function createNew()
+    public function edit(Group $group)
     {
-        return new Group();
-    }
-
-    protected function getItem($id)
-    {
-        return Group::where('id', $id)->first();
-    }
-	
-	// public function show($id){
-	// 	$group = Group::where('id', $id)->with('languages')->first();
-
-	// 	return view('groups.show', compact('group'));
-	// }
-
-	// public function addLanguage(Group $group){
-	// 	$preset = ['group_id' => $group->id];
-	// 	$groups = Group::all();
-	// 	$parents = Language::all();
-
-	// 	return view('languages.create', compact('groups', 'parents', 'preset'));
-	// }
-	
+        return parent::editItem($group);
+    }	
 }

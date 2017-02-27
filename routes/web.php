@@ -7,20 +7,14 @@ use Illuminate\Http\Request;
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| This file is where you may define all of the routes that are handled
-| by your application. Just tell Laravel the URIs it should respond
-| to using a Closure or controller method. Build something great!
+| This file is which defines all of the routes that are handled by the
+| application.
 |
 */
-Route::get('sandbox',  'SandboxController@index');
-Route::post('sandbox', 'SandboxController@store');
-Route::get('sandbox/paradigm', 'SandboxController@paradigm');
 
 Route::get('',     'HomeController@index');
 Route::get('home', 'HomeController@index');
-Route::get('glossary', function() {
-    return view('glossary.index');
-});
+Route::get('glossary', function() { return view('glossary.index'); });
 
 Route::post('backup', 'BackupController@store');
 
@@ -28,7 +22,6 @@ Route::get('contact',  'ContactController@index');
 Route::post('contact', 'ContactController@send');
 
 Route::get('search',          'SearchController@index');
-Route::post('search',         'SearchController@search');
 Route::get('search/paradigm', 'SearchController@paradigm');
 Route::get('search/form',     'SearchController@form');
 
@@ -40,60 +33,32 @@ Route::get('autocomplete/morphemeParents', 'AutocompleteController@morphemeParen
 Route::get('autocomplete/sources',         'AutocompleteController@sources');
 
 Route::get('log', 'LogController@index');
-
 Route::post('sources/ajax', 'SourceController@store');
 
-Route::get('forms/need-attention', 'FormController@incompleteForms');
-
 Route::resource('classes',   'ClassController');
-Route::resource('glosses',   'GlossController');
-Route::resource('examples',  'ExampleController');
-Route::resource('forms',     'FormController');
-Route::resource('groups',    'GroupController');
-Route::resource('languages', 'LanguageController');
-Route::resource('modes',     'ModeController');
-Route::resource('morphemes', 'MorphemeController');
-Route::resource('orders',    'OrderController');
-Route::resource('slots',     'SlotController');
-Route::resource('sources',   'SourceController');
 
-Route::patch('forms/{form}/disambiguate', 'FormController@disambiguate');
+Route::resource('glosses',   'GlossController');
+
+Route::resource('examples',  'ExampleController');
 Route::patch('examples/{example}/disambiguate', 'ExampleController@disambiguate');
 
+Route::get('forms/need-attention', 'FormController@incompleteForms');
+Route::resource('forms',     'FormController');
 Route::get('forms/{form}/addExample', 'FormController@addExample');
+Route::patch('forms/{form}/disambiguate', 'FormController@disambiguate');
 
-Route::get('groups/{group}/addLanguage', 'GroupController@addLanguage');
+Route::resource('groups',    'GroupController');
 
+Route::resource('languages', 'LanguageController');
 Route::get('languages/{language}/addChild',    'LanguageController@addChild');
 Route::get('languages/{language}/addExample',  'LanguageController@addExample');
 Route::get('languages/{language}/addForm',     'LanguageController@addForm');
 Route::get('languages/{language}/addMorpheme', 'LanguageController@addMorpheme');
 
+Route::resource('morphemes', 'MorphemeController');
+
+Route::resource('slots',     'SlotController');
+
+Route::resource('sources',   'SourceController');
+
 Auth::routes();
-
-Route::get('/{file}', function ($file) {
-    if (File::exists("/home/protected/laravel/resources/views/etc/$file.php")) {
-        $page = "etc.$file";
-        return view('etc', compact(['page']));
-    } else {
-        App::abort(404);
-    }
-});
-
-Route::get('/{folder}/{file}', function ($folder, $file) {
-    if (File::exists("/home/protected/laravel/resources/views/etc/$folder/$file.php")) {
-        $page = "etc.$folder.$file";
-        return view('etc', compact(['page']));
-    } else {
-        App::abort(404);
-    }
-});
-
-Route::get('/{folder1}/{folder2}/{file}', function ($folder1, $folder2, $file) {
-    if (File::exists("/home/protected/laravel/resources/views/etc/$folder1/$folder2/$file.php")) {
-        $page = "etc.$folder1.$folder2.$file";
-        return view('etc', compact(['page']));
-    } else {
-        App::abort(404);
-    }
-});

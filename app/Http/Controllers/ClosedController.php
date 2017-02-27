@@ -5,55 +5,125 @@ namespace App\Http\Controllers;
 use App\Closed;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Supercontroller for all 'closed' classes: Glosses, Slots, and Groups
+ *
+ * Method names differ from standard REST because of the difference in argument structure.
+ */
 abstract class ClosedController extends Controller
 {
-    protected $plural;
-    protected $singular;
-    abstract protected function getMembers();
-    abstract protected function createNew();
-    abstract protected function getItem($id);
-    
+    protected $model;
+    protected $items;
+
+    /**
+     * Show the list of items.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $model   = $this->plural;
-        $members = $this->getMembers();
+        // These will have been set by the subclass
+        $items = $this->items;
+        $model = $this->model;
 
-        return view('closed.index', compact('model', 'members'));
-    }
-    
-    public function create()
-    {
-        $singular = $this->singular;
-        $plural   = $this->plural;
-
-        return view('closed.create', compact('singular', 'plural'));
+        return view('closed.index', compact('items', 'model'));
     }
 
-    public function destroy($id)
+    /**
+     * Show the item detail page
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showItem(Model $item)
     {
-        $this->getItem($id)->delete();
+        $item->load($item->getRelationList());
 
-        return redirect('/'.strtolower($this->plural));
+        return view('closed.show', compact('item'));
     }
 
-    public function show($id)
+    /**
+     * Show the item edit page
+     *
+     * @param Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Http\Response
+     */
+    public function editItem(Model $item)
     {
-        $item   = $this->getItem($id);
-        $plural = $this->plural;
-
-        return view('closed.show', compact('item', 'plural'));
+        return view('closed.edit', compact('item'));
     }
 
-    public function store(Request $request)
+    /**
+     * Update the item and redirect back to the detail page
+     *
+     * @param Illuminate\Http\Request
+     * @param Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Http\Response
+     */
+    public function updateItem(Request $request, Model $item)
     {
-        $newModel = $this->createNew();
+        $item->update($request->all());
 
-        $newModel->name        = $request->name;
-        $newModel->description = $request->description;
+        $display = $this->getDisplay($item);
 
-        $newModel->save();
+        flash("$display updated successfully", "is-success");
+        return redirect('/'.strtolower($item->plural)."/{$item->id}");
+    }
+
+    /**
+     * Destroy the item and redirect back to the index
+     *
+     * @param Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyItem(Model $item)
+    {
+        $item->delete();
+
+        $display = $this->getDisplay($item);
         
-        return redirect('/'.strtolower($this->plural).'/'.$newModel->id);
+        flash("$display deleted successfully.", 'is-info');
+
+        return redirect('/'.strtolower($item->plural));
+    }
+
+    /**
+     * Determine how the model should be displayed
+     *
+     * Will use the abv if it exists; otherwise, will default back to the name
+     *
+     * @param Illuminate\Database\Eloquent\Model
+     * @return string
+     */
+    protected function getDisplay(Model $item)
+    {
+        if ($item->abv) {
+            return $item->abv;
+        } else {
+            return $item->name;
+        }
+    }
+
+    /**
+     * Set the name of the model
+     *
+     * @param string The name of the model
+     * @return void
+     */
+    public function setModel($name)
+    {
+        $this->model = $name;
+    }
+
+    /**
+     * Set the list of items
+     *
+     * @param Illuminate\Database\Eloquent\Collection
+     * @return void
+     */
+    public function setItems($items)
+    {
+        $this->items = $items;
     }
 }

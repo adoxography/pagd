@@ -11,6 +11,15 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			26-02-17: Reduced paradigm table column width to fit table
+		</li>
+		<li>
+			26-02-17: Added ability to toggle morphology on paradigm search
+		</li>
+		<li>
+			26-02-17: Added functionality for viewing and manipulating slots
+		<hr>
+		<li>
 			21-02-17: Fixed examples not displaying properly in the log
 		</li>
 		<li>

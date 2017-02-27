@@ -4,6 +4,11 @@ namespace App;
 
 trait SourceableTrait {
 
+	protected function getSourceableTable()
+	{
+		return $this->sourceableTable;
+	}
+
     public function connectSources($sources)
     {
         if($sources) {
@@ -15,4 +20,19 @@ trait SourceableTrait {
         }
     }
 
+    public function sources($includeExtraInfo = true)
+    {
+    	$output = $this->belongsToMany(Source::class, $this->getSourceableTable())->orderBy('short');
+
+    	if($includeExtraInfo) {
+    		$output->withPivot('extraInfo');
+    	}
+
+    	return $output;
+    }
+
+    public function generalSources()
+    {
+    	return $this->sources(false);
+    }
 }

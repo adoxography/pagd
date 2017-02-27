@@ -14,11 +14,24 @@ use App\Events\Form\Deleting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * A verb form
+ * 
+ * @uses \App\SourceableTrait
+ * @uses \App\HasMorphemesTrait
+ * @uses \App\ReconstructableTrait
+ * @uses \App\CognatableTrait
+ */
 class Form extends Model
 {
     use \Venturecraft\Revisionable\RevisionableTrait;
     use \App\SourceableTrait;
     use \App\HasMorphemesTrait;
+    use \App\ReconstructableTrait;
+    use \App\CognatableTrait;
+
+    protected $sourceableTable = 'Sources_Forms';
+    protected $morphemeTable = 'Forms_Morphemes';
 
     /*
     |--------------------------------------------------------------------------
@@ -87,39 +100,50 @@ class Form extends Model
     | Attribute modifiers
     |--------------------------------------------------------------------------
     */
+
+    /**
+     * Modifies the surfaceForm attribute to include an asterisk if the form belongs to a reconstructed language
+     *
+     * @param string The original surfaceForm attribute
+     * @return string The modified surfaceForm attribute
+     */
     public function getSurfaceFormAttribute($value)
     {
-        $output = "";
-
-        if($this->language && $this->language->reconstructed) {
-            $output = "*";
-        }
-
-        return $output.$value;
+        return $this->modifyIfReconstructed($value);
     }
 
+    /**
+     * Modifies the phoneticForm attribute to include an asterisk if the form belongs to a reconstructed language
+     *
+     * @param string The original phoneticForm attribute
+     * @return string|null The modified phoneticForm attribute, or null if it doesn't exist
+     */
     public function getPhoneticFormAttribute($value)
     {
-        $output = $value;
-
         if($value) {
-            if($this->language) {
-                if($this->language->reconstructed) {
-                    $output = "*$value";
-                }
-            }
+            return $this->modifyIfReconstructed($value);
         } else {
-            $output = $this->surfaceForm;
+            return null;
         }
-
-        return $output;        
     }
 
+    /**
+     * Fetches the name of this example that is unique within its language
+     *
+     * Adds the arguments to the surfaceForm - while this doesn't guarantee that the name will be unique, it does make it very likely.
+     *
+     * @return string The surfaceForm followed by the form's arguments
+     */
     public function getUniqueNameAttribute()
     {
         return "{$this->surfaceForm} ({$this->formType->getArguments()})";
     }
 
+    /**
+     * Fetches the unique name, followed by the language name
+     *
+     * @return string The unique name, followed by the language name
+     */
     public function getUniqueNameWithLanguageAttribute()
     {
         return "{$this->uniqueName} ({$this->language->name})";
@@ -130,26 +154,26 @@ class Form extends Model
     | Methods
     |--------------------------------------------------------------------------
     */
-    public function cognates()
-    {
-        return $this->firstAncestor()->load('allChildren');
-    }
 
-    protected function firstAncestor()
-    {
-        if($this->parent) {
-            return $this->parent->firstAncestor();
-        }
-        else {
-            return $this;
-        }
-    }
-
+    /**
+     * Fetches the name of this example that is unique within its language
+     *
+     * @return string The surfaceForm followed by the form's arguments
+     * @deprecated
+     * @see Form::getUniqueNameAttribute()
+     */
     public function uniqueName()
     {
         return $this->uniqueName;
     }
 
+    /**
+     * Fetches the unique name, followed by the language name
+     *
+     * @return string The unique name, followed by the language name
+     * @deprecated
+     * @see Form::getUniqueNameWithLanguageAttribute
+     */
     public function uniqueNameWithLanguage()
     {
         return $this->uniqueNameWithLanguage;
@@ -175,11 +199,6 @@ class Form extends Model
         return $this->hasMany(Form::class, 'parent_id');
     }
 
-    public function allChildren()
-    {
-        return $this->children()->with('allchildren');
-    }
-
     public function language()
     {
         return $this->belongsTo(Language::class);
@@ -190,11 +209,6 @@ class Form extends Model
         return $this->belongsTo(ChangeType::class, 'changeType_id');
     }
 
-    public function morphemes()
-    {
-        return $this->belongsToMany(Morpheme::class, 'Forms_Morphemes')->orderBy('position')->withPivot('position');
-    }
-
     public function duplicates()
     {
         return $this->belongsToMany(Form::class, 'Forms_Duplicates', 'form_id', 'duplicate_id');
@@ -203,74 +217,5 @@ class Form extends Model
     public function examples()
     {
         return $this->hasMany(Example::class, 'form_id');
-    }
-
-    public function sources()
-    {
-        return $this->belongstoMany(Source::class, 'Sources_Forms')->withPivot('extraInfo')->orderBy('short');
-    }
-
-    public function getTableRow()
-    {
-        return new RowHeader(
-            $this->formType->subject,
-            $this->formType->primaryObject,
-            $this->formType->secondaryObject,
-            $this->formType->formClass
-        );
-    }
-
-    public function getTableCol()
-    {
-        return new ColHeader(
-            $this->language,
-            $this->formType->order,
-            $this->formType->mode,
-            $this->formType->isNegative,
-            $this->formType->isDiminutive,
-            $this->formType->isAbsolute
-        );
-    }
-
-    public function toHTML()
-    {
-        $firstTime = true;
-        $html = "<div class='box'><a href='/forms/{$this->id}'>{$this->surfaceForm}</a>";
-
-        if($this->morphemicForm) {
-            $html .= "<div class='columns'>";
-
-            foreach($this->morphemeList() as $morpheme) {
-                if($firstTime) {
-                  $firstTime = false;
-                }
-                else {
-                    $html .= "<div class='column is-narrow hyphen-column' style='padding-left: 0; padding-right: 0;'>-</div>";
-                }
-
-                $html .= "<div class='column is-narrow'>";
-
-                if($morpheme instanceof Morpheme) {
-                    if($morpheme->name != 'V') {
-                        $html .= "<a href='/morphemes/{$morpheme->id}'>" . str_replace('-', '', $morpheme->name) . "</a>";
-                    }
-                    else {
-                        $html .= $morpheme->name;
-                    }
-
-                    $html .= "<p><a href='/glosses/{$morpheme->gloss->id}' class='gloss'>{$morpheme->gloss->abv}</a></p>";
-                }
-                else {
-                    $html .= $morpheme['name'];
-                }
-
-                $html .= "</div>";
-            }
-
-            $html .= "</div>";
-        }
-
-        return $html . "</div>";
-
     }
 }

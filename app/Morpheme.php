@@ -16,6 +16,10 @@ class Morpheme extends Model
 {
     use \Venturecraft\Revisionable\RevisionableTrait;
     use \App\SourceableTrait;
+    use \App\ReconstructableTrait;
+    use \App\CognatableTrait;
+
+    protected $sourceableTable = 'Morphemes_Sources';
 
     /*
     |--------------------------------------------------------------------------
@@ -85,13 +89,7 @@ class Morpheme extends Model
 
     public function getNameAttribute($value)
     {
-        $asterisk = "";
-
-        if ($this->language && $this->language->reconstructed && $value != 'V') {
-            $asterisk = "*";
-        }
-
-        return $asterisk.$value;
+        return $this->modifyIfReconstructed($value);
     }
 
     public function getUniqueNameWithLanguageAttribute()
@@ -124,20 +122,6 @@ class Morpheme extends Model
         return $this->name != $this->alternateName;
     }
 
-    public function cognates()
-    {
-        return $this->firstAncestor()->load('allChildren');
-    }
-
-    protected function firstAncestor()
-    {
-        if ($this->parent) {
-            return $this->parent->firstAncestor();
-        } else {
-            return $this;
-        }
-    }
-
     public function uniqueName()
     {
         return $this->uniqueName;
@@ -150,7 +134,7 @@ class Morpheme extends Model
     
     public function isVStem()
     {
-        return $this->name === 'V';
+        return preg_match('/\*?V/', $this->name);
     }
 
     public function isAffectedByInitialChange()
@@ -172,6 +156,11 @@ class Morpheme extends Model
     {
         return $this->belongsToMany(Form::class, 'Forms_Morphemes')->distinct();
     }
+
+    public function examples()
+    {
+        return $this->belongsToMany(Example::class, 'Examples_Morphemes')->distinct();
+    }
     
     public function gloss()
     {
@@ -192,20 +181,10 @@ class Morpheme extends Model
     {
         return $this->hasMany(Morpheme::class, 'parent_id');
     }
-
-    public function allChildren()
-    {
-        return $this->children()->with('allchildren');
-    }
     
     public function slot()
     {
         return $this->belongsTo(Slot::class);
-    }
-
-    public function sources()
-    {
-        return $this->belongstoMany(Source::class, 'Morphemes_Sources')->withPivot('extraInfo')->orderBy('short');
     }
 
 }

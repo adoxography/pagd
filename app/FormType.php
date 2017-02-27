@@ -6,6 +6,9 @@ use App\Form;
 use Validator;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * The syntax information about a form
+ */
 class FormType extends Model
 {
     public $table = 'FormTypes';
@@ -22,33 +25,19 @@ class FormType extends Model
         'isDiminutive'
     ];
 
-    protected $rules = [
-        'subject_id'         => ['required','integer','exists:Arguments,id'],
-        'primaryObject_id'   => ['nullable','integer','exists:Arguments,id'],
-        'secondaryObject_id' => ['nullable','integer','exists:Arguments,id'],
-        'class_id'           => ['required','integer','exists:Classes,id'],
-        'order_id'           => ['required','integer','exists:Orders,id'],
-        'mode_id'            => ['required','integer','exists:Modes,id'],
-        'isAbsolute'         => ['nullable','boolean'],
-        'isNegative'         => ['required','boolean'],
-        'isDiminutive'       => ['required','boolean']
-    ];
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::saving(function ($model) {
-            // The request's validator should catch any errors, but just to be safe
-            return $model->validate();
-        });
-    }
-
     /*
     |--------------------------------------------------------------------------
     | Attribute modifiers
     |--------------------------------------------------------------------------
     */
+
+    /**
+     * Shortcut to get the name of the subject
+     *
+     * Reaches through the subject argument
+     *
+     * @return string The name of the subject; N/A if the subject is null
+     */
     public function getSubjectNameAttribute()
     {
         if ($this->subject) {
@@ -58,6 +47,13 @@ class FormType extends Model
         }
     }
 
+    /**
+     * Shortcut to get the name of the primary object
+     *
+     * Reaches through the primary object argument
+     *
+     * @return string The name of the primary object; N/A if the primary object is null
+     */
     public function getPrimaryObjectNameAttribute()
     {
         if ($this->primaryObject) {
@@ -67,21 +63,31 @@ class FormType extends Model
         }
     }
 
+    /**
+     * Get a formatted print out of the type's arguments
+     *
+     * @return string
+     */
     public function getArgumentsAttribute()
     {
         $output = $this->subject->name;
 
         if ($this->primaryObject) {
-            $output .= "—".$this->primaryObject->name;
+            $output .= "—{$this->primaryObjectName}";
         }
 
         if ($this->secondaryObject) {
-            $output .= '+'.$this->secondaryObject->name;
+            $output .= "+{$this->secondaryObjectName}";
         }
 
         return $output;
     }
 
+    /**
+     * Get the name of the absolute status
+     *
+     * @return string
+     */
     public function getAbsoluteStatusAttribute()
     {
         $code = $this->isAbsolute;
@@ -98,58 +104,74 @@ class FormType extends Model
         return $status;
     }
 
+    /**
+     * Get the name of the negative status
+     *
+     * @return string
+     */
     public function getNegativeStatusAttribute()
     {
-        $status;
-
-        if($this->isNegative) {
-            $status = "Negative";
+        if ($this->isNegative) {
+            return 'Negative';
         } else {
-            $status = "";
+            return '';
         }
-
-        return $status;
     }
 
+    /**
+     * Get the name of the diminutive status
+     *
+     * @return string
+     */
     public function getDiminutiveStatusAttribute()
     {
-        $status;
-
-        if($this->isDiminutive) {
-            $status = "Diminutive";
+        if ($this->isDiminutive) {
+            return 'Diminutive';
         } else {
-            $status = "";
+            return '';
         }
-
-        return $status;
     }
 
+    /**
+     * Get the name of the class of the type
+     *
+     * TA forms have a fair bit of parsing based on their arguments to determine what their subclass is
+     *
+     * @return string The name of the class or subclass
+     */
     public function getSubClassAttribute()
     {
         $subclass = $this->formClass->name;
 
         if ($subclass == 'TA') {
+            // Only TA verbs have subclasses
+
             if ($this->subject->person == '0') {
+                // All TA forms with an inanimate subject are TA Inanimate
                 $subclass = 'TA Inanimate';
             } elseif ($this->subject->person == 'X') {
+                // All TA forms with an impersonal subject are TA Impersonal
                 $subclass = 'TA Impersonal';
             } elseif (($this->subject->person == '3' && $this->subject->obviativeCode == '2') || ($this->primaryObject->person == '3' && $this->primaryObject->obviativeCode == '2')) {
+                // All TA forms with 3'' as their subject OR primary object are TA Obviative (non-local 3'')
                 $subclass = 'TA Obviative (non-local 3\'\')';
             } elseif ($this->subject->person == '3') {
                 if (!$this->subject->obviativeCode) {
                     if ($this->primaryObject->person == '1' || $this->primaryObject->person == '2' || $this->primaryObject->person == '21') {
+                        // All TA forms with a non-obviative animate third person subject and a 1st or 2nd person primary object are TA Mixed (3-1/2)
                         $subclass = 'TA Mixed (3—1/2)';
                     } elseif ($this->primaryObject->person == '3' && $this->primaryObject->obviativeCode == '1') {
+                        // All TA forms with a non-obviative animate third person subject and an obviative animate third person primary object are TA Non-local (direct)
                         $subclass = 'TA Non-local (direct)';
                     }
                 } elseif ($this->subject->obviativeCode == '1') {
-                    if ($this->primaryObject->person == '3' && !$this->primaryObject->obviativeCode) {
-                        $subclass = 'TA Non-local (inverse)';
-                    } elseif ($this->primaryObject->person == '1' || $this->primaryObject->person == '2' || $this->primaryObject->person == '21') {
+                    if ($this->primaryObject->person == '1' || $this->primaryObject->person == '2' || $this->primaryObject->person == '21') {
+                        // All TA forms with an obviative animate third person subject and a 1st or 2nd person primary object are TA Obviative (mixed 3'-12)
                         $subclass = 'TA Obviative (mixed 3\'–1/2)';
+                    } elseif ($this->primaryObject->person == '3' && !$this->primaryObject->obviativeCode) {
+                        // All TA forms with an obviative animate third person subject and a non-obviative third person primary object are TA Non-local (inverse)
+                        $subclass = 'TA Non-local (inverse)';
                     }
-                } else {
-                    $subclass = 'TA Other';
                 }
             } else { // Subject contains 1 or 2
                 if ($this->primaryObject->person == '3') {
@@ -157,34 +179,46 @@ class FormType extends Model
                         $subclass = "TA Mixed (1/2—3)";
                     } elseif ($this->primaryObject->obviativeCode == '1') {
                         $subclass = 'TA Obviative (mixed 1/2–3\')';
-                    } else {
-                        $subclass = 'TA Other';
                     }
                 } elseif (($this->subject->person == '2' || $this->subject->person == '21') && $this->primaryObject->person == '1') {
                     $subclass = "TA Local (2—1)";
                 } elseif ($this->subject->person == '1' && ($this->primaryObject->person == '2' || $this->primaryObject->person == '21')) {
                     $subclass = "TA Local (1—2)";
-                } else {
-                    $subclass = 'TA Other';
                 }
+            }
+
+            // Catch any exceptions to the rules
+            if ($subclass === 'TA') {
+                $subclass = 'TA Other';
             }
         }
 
         return $subclass;
     }
 
-    public function validate()
+    /*
+    |--------------------------------------------------------------------------
+    | Methods
+    |--------------------------------------------------------------------------
+    */
+    
+    /**
+     * Determines if the type has any extra modifiers associated with it
+     *
+     * Specifically, looks to see if it's negative, diminutive, or has an absolute status (absolute or objective)
+     *
+     * @return boolean
+     */
+    public function hasModifiers()
     {
-        $rc = true;
-        $v = Validator::make($this->getAttributes(), $this->rules);
-
-        if ($v->fails()) {
-            $this->errors = $v->messages();
-            $rc = false;
-        }
-
-        return $rc;
+        return $this->isNegative || $this->isDiminutive || isset($this->isAbsolute);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relations
+    |--------------------------------------------------------------------------
+    */
 
     public function getArguments()
     {
@@ -224,10 +258,5 @@ class FormType extends Model
     public function forms()
     {
         return $this->hasMany(Form::class, 'formType_id');
-    }
-
-    public function hasModifiers()
-    {
-        return $this->isNegative || $this->isDiminutive || isset($this->isAbsolute);
     }
 }

@@ -80,10 +80,21 @@
 
 			<model-tab name="Forms">
 				@component('components.model.field', ['width' => 'is-half', 'label' => 'Forms that contain this morpheme'])
-					@if($morpheme->forms)
+					@if(count($morpheme->forms) > 0)
 						<ul>
 							@foreach($morpheme->forms as $form)
-								<li><a href="/forms/{{ $form->id }}">{{ $form->uniqueName() }}</a></li>
+								<li><a href="/forms/{{ $form->id }}">{{ $form->uniqueName }}</a></li>
+							@endforeach
+						</ul>
+					@else
+						None
+					@endif
+				@endcomponent
+				@component('components.model.field', ['width' => 'is-half', 'label' => 'Examples that contain this morpheme'])
+					@if(count($morpheme->examples) > 0)
+						<ul>
+							@foreach($morpheme->examples as $example)
+								<li><a href="/examples/{{ $example->id }}">{{ $example->uniqueName }}</a></li>
 							@endforeach
 						</ul>
 					@else

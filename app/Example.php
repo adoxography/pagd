@@ -10,11 +10,17 @@ use App\Events\Example\Deleted;
 use App\Events\Example\Deleting;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * An example of a form
+ */
 class Example extends Model
 {
     use \Venturecraft\Revisionable\RevisionableTrait;
     use \App\SourceableTrait;
     use \App\HasMorphemesTrait;
+
+    protected $sourceableTable = 'Sources_Examples';
+    protected $morphemeTable = 'Examples_Morphemes';
 
     /*
     |--------------------------------------------------------------------------
@@ -58,19 +64,27 @@ class Example extends Model
         'complete'
     ];
 
+    /*
+    |--------------------------------------------------------------------------
+    | Attribute Getters
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Shortcut for getting the initial change status of the example
+     * 
+     * The initial change status is actually stored in the example's form
+     * 
+     * @return integer|null The initial change status
+     */
     public function getInitialChangeAttribute()
     {
         return $this->form->initialChange;
     }
 
-    public function uniqueName()
+    public function getUniqueNameAttribute()
     {
         return $this->name;
-    }
-
-    public function uniqueNameWithLanguage()
-    {
-        return "{$this->name} ({$this->language->name})";
     }
 
     /*
@@ -78,23 +92,55 @@ class Example extends Model
     | Relations
     |--------------------------------------------------------------------------
     */
+    /**
+     * An example belongs to exactly one form
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function form()
     {
         return $this->belongsTo(Form::class, 'form_id');
     }
 
-    public function sources()
-    {
-        return $this->belongstoMany(Source::class, 'Sources_Examples')->withPivot('extraInfo')->orderBy('short');
-    }
-
-    public function morphemes()
-    {
-        return $this->belongsToMany(Morpheme::class, 'Examples_Morphemes')->orderBy('position')->withPivot('position');
-    }
-
+    /**
+     * An example belongs to exactly one language
+     * 
+     * Reaches through the example's form to fetch the language
+     * 
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function language()
     {
         return $this->form->language();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Instance Methods
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Fetches the name of this example that is unique within its language
+     * 
+     * Only returns the name right now, but will probably be altered in the future.
+     * 
+     * @return string
+     * @deprecated
+     */
+    public function uniqueName()
+    {
+        return $this->uniqueName;
+    }
+
+    /**
+     * Fetches the unique name along with the language
+     * 
+     * @return string
+     * @see Example::uniqueName()
+     */
+    public function uniqueNameWithLanguage()
+    {
+        return "{$this->name} ({$this->language->name})";
     }
 }

@@ -28,7 +28,6 @@ class ViewComposerServiceProvider extends ServiceProvider
         $this->composeLanguageForm();
         $this->composeMorphemeForm();
 
-        $this->composeShow();
         $this->composeSearch();
         $this->composeLayout();
     }
@@ -91,17 +90,6 @@ class ViewComposerServiceProvider extends ServiceProvider
                 'glosses'   => Gloss::select('id','abv as name')->get(),
                 'slots'     => Slot::select('id','abv as name')->get(),
                 'changeTypes' => ChangeType::select('id','name')->get()->prepend(['id' => null, 'name' => 'N/A'])
-            ];
-            $view->with($data);
-        });
-    }
-
-    private function composeShow()
-    {
-        view()->composer('morphemes.show', function($view)
-        {
-            $data = [
-                'parser' => new Parser()
             ];
             $view->with($data);
         });

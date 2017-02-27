@@ -10,7 +10,6 @@ use App\FormClass;
 use App\Http\Requests;
 use App\Search\SearchTable;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 
 class SearchController extends Controller
 {
@@ -88,71 +87,9 @@ class SearchController extends Controller
         $forms = $this->search($request);
         $showMorphology = $request->showMorphology;
 
-        $argumentDictionary = \App\Argument::all();
-        $data = $this->loadHeaders($forms);
-        $rows = $this->loadRows($forms);
-
-        foreach($rows as $class => $argumentStructures) {
-            $keys = array_keys($argumentStructures);
-            $hasForms = false;
-
-            for($i = 0; $i < count($argumentStructures); $i++) {
-                $arguments = $keys[$i];
-
-                if(count($rows[$class][$arguments]) > 0) {
-                    $hasForms = true;
-                    $model = $argumentDictionary->where('name', $arguments)->first();
-
-                    // If the there is an argument without a number
-                    if($this->hasNumberlessArgument($arguments) && $i < count($argumentStructures) - 1) {
-
-                        $found = false;
-                        $consecutive = 0;
-
-                        $j = 1;
-
-                        $possibleMatches = $this->generatePossibleMatches($arguments);
-
-                        while($i + $j < count($keys) && in_array($keys[$i + $j], $possibleMatches)) {
-
-                            if(count($rows[$class][$keys[$i + $j]]) > 0) {
-                                $consecutive++;
-                            }
-                            $j++;
-                        }
-
-                        foreach($possibleMatches as $possibleMatch) {
-                            if(isset($rows[$class][$possibleMatch]) && count($rows[$class][$possibleMatch]) > 0) {
-                                $found = true;
-
-                                foreach($rows[$class][$arguments] as $moving) {
-
-                                    $moving->diffClass = $arguments;
-
-                                    if($consecutive > 1) {
-                                        $moving->span = $consecutive;
-                                    } else {
-                                        $moving->distant = true;
-                                    }
-
-                                    $rows[$class][$possibleMatch][] = $moving;
-                                }
-                            }
-                        }
-
-                        if($found) {
-                            unset($rows[$class][$arguments]);
-                        }
-                    }
-                } elseif(count($argumentStructures[$arguments]) == 0) {
-                    unset($rows[$class][$arguments]);
-                }
-            }
-
-            if(!$hasForms) {
-                unset($rows[$class]);
-            }
-        }
+        $search = new \App\ParadigmSearch($forms);
+        $data = $search->getHeaders();
+        $rows = $search->getRows();
 
         return view('search.results.paradigm', compact('data', 'rows', 'showMorphology'));
     }
@@ -164,54 +101,6 @@ class SearchController extends Controller
                 $query->whereIn($field, $list);
             });
         }
-    }
-
-    public function hasNumberlessArgument($args)
-    {
-        $arguments = preg_split("/[—+]/u", $args);
-        $found = false;
-
-        for($i = 0; $i < count($arguments) && !$found; $i++) {
-            $found = $this->isNumberless($arguments[$i]);
-        }
-
-        return $found;
-    }
-
-    protected function isNumberless($arg)
-    {
-        return !in_array($arg{strlen($arg) - 1}, ['s', 'd', 'p']);
-    }
-
-    protected function generatePossibleMatches($args)
-    {
-        $options = [];
-        $arguments = preg_split("/[—+]/u", $args);
-
-        for($i = 0; $i < count($arguments); $i++) {
-            if($this->isNumberless($arguments[$i])) {
-                foreach(['s', 'd', 'p'] as $number) {
-                    $clone = $arguments;
-                    $clone[$i] .= $number;
-
-                    $options[] = $this->repair($clone);
-                }
-            }
-        }
-
-        return $options;
-    }
-
-    protected function repair($tokens)
-    {
-        $output = $tokens[0];
-        if(isset($tokens[1])) {
-            $output .= "—".$tokens[1];
-        }
-        if(isset($tokens[2])) { // DOESN'T ACCOUNT FOR AI + 0
-            $output .= "+".$tokens[2];
-        }
-        return $output;
     }
 
     protected function search($request)
@@ -282,27 +171,5 @@ class SearchController extends Controller
         }
 
         return $query->get();
-    }
-
-    protected function loadHeaders($forms) {
-        $output = [];
-
-        foreach($forms as $form) {
-            $formType = $form->formType;
-
-            $output[$form->language->name][$formType->order->name][$formType->mode->name][$formType->absoluteStatus][$formType->negativeStatus][$formType->diminutiveStatus] = null;
-        }
-
-        return $output;
-    }
-
-    protected function loadRows($forms)
-    {
-        $output = Config::get('constants.paradigm_order');
-        foreach($forms as $form) {
-            $formType = $form->formType;
-            $output[$formType->subClass][$formType->arguments][] = $form;
-        }
-        return $output;
     }
 }

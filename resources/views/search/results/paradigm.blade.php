@@ -16,53 +16,28 @@
 					<table class="table is-bordered" style="display: block;">
 						<thead>
 							<tr>
+								{{-- The space in the top left corner --}}
 								<th rowspan="3" colspan="2"></th>
+
+								{{-- Language headers --}}
 								@foreach($data as $language => $orders)
-									<?php 
-										$span = 0;
-										foreach($orders as $modes) {
-											foreach($modes as $absobvs) {
-												foreach($absobvs as $negatives) {
-													foreach($negatives as $diminutives) {
-														$span += count($diminutives);
-													}
-												}
-											}
-										}
-									?>
-									<th colspan="{{ $span }}" style="border-left: .2em solid #363636;">{{ $language }}</th>
+									<th colspan="{{ count(array_flatten($orders)) }}" style="border-left: .2em solid #363636;">{{ $language }}</th>
 								@endforeach
 							</tr>
 							<tr>
+								{{-- Order headers --}}
 								@foreach($data as $language)
 									@foreach($language as $order => $modes)
-										<?php
-											$span = 0;
-											foreach($modes as $absobvs) {
-												foreach($absobvs as $negatives) {
-													foreach($negatives as $diminutives) {
-														$span += count($diminutives);
-													}
-												}
-											}
-										?>
-										<th colspan="{{ $span }}" style='{{ $loop->first ? "border-left: .2em solid #363636;" : "" }}'>{{ $order }}</th>
+										<th colspan="{{ count(array_flatten($modes)) }}" style='{{ $loop->first ? "border-left: .2em solid #363636;" : "" }}'>{{ $order }}</th>
 									@endforeach
 								@endforeach
 							</tr>
 							<tr>
+								{{-- Mode headers --}}
 								@foreach($data as $orders)
 									@foreach($orders as $modes)
 										@foreach($modes as $mode => $absobvs)
-											<?php
-												$span = 0;
-												foreach($absobvs as $negatives) {
-													foreach($negatives as $diminutives) {
-														$span += count($diminutives);
-													}
-												}
-											?>
-											<th colspan="{{ $span }}" style='{{ $loop->parent->first && $loop->first ? "border-left: .2em solid #363636;" : "" }}'>{{ $mode }}</th>
+											<th colspan="{{ count(array_flatten($absobvs)) }}" style='{{ $loop->parent->first && $loop->first ? "border-left: .2em solid #363636;" : "" }}'>{{ $mode }}</th>
 										@endforeach
 									@endforeach
 								@endforeach
@@ -87,11 +62,7 @@
 						<tbody>
 							@foreach($rows as $class => $subjects)
 								<tr style="border-top: .2em solid #363636;">
-									<?php
-										$span = count($subjects);
-									?>
-
-									<th rowspan="{{ $span }}">{{ $class }}</th>
+									<th rowspan="{{ count($subjects) }}">{{ $class }}</th>
 
 									@foreach($subjects as $subject => $forms)
 										<td><nobr>{{ $subject }}</nobr></td>
@@ -118,15 +89,18 @@
 																	<td rowspan={{ $lookup[0]->span or "1" }} style='{{ $loop->parent->parent->parent->parent->first && $loop->parent->parent->parent->first && $loop->parent->first && $loop->parent->parent->first && $loop->first ? "border-left: .2em solid #363636;" : "" }}'>
 																		@if(count($lookup) > 0)
 																			@foreach($lookup as $form)
+
+																				{{-- The form --}}
 																				<p><a href='/forms/{{ $form->id }}'><nobr>{{ $form->surfaceForm }}</nobr>{!! isset($form->diffClass) ? "<span style='margin-left: .25rem; color: red;'><nobr>({$form->diffClass})</nobr></span>" : "" !!}</a></p>
 																				<?php
 																					$form->placed = true;
 																				?>
-																				{{-- @if($showMorphology) --}}
+
+																				{{-- The morphology --}}
 																				<div v-show="show">
 																					{!! $form->printMorphemes() !!}
 																				</div>
-																				{{-- @endif --}}
+
 																			@endforeach
 																		@endif
 																	</td>

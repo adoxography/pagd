@@ -15,9 +15,9 @@
 					<h1 class="title">
 						The Pan-Algonquian Grammar Database
 					</h1>
-					<h2 class="subtitle">
+{{-- 					<h2 class="subtitle">
 						Some subtitle here
-					</h2>
+					</h2> --}}
 				</div>
 			</div>
 		</section>

@@ -5,7 +5,7 @@ namespace App;
 use App\Morpheme;
 use Illuminate\Database\Eloquent\Model;
 
-class Slot extends Model
+class Slot extends Closed
 {
     public $table = 'Slots';
 

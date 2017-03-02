@@ -14,51 +14,7 @@
 				<div>
 					<a class="button" @click="toggleShow" style="position: fixed;">Show/Hide Morphology</a>
 					<table class="table is-bordered" style="display: block;">
-						<thead>
-							<tr>
-								{{-- The space in the top left corner --}}
-								<th rowspan="3" colspan="2"></th>
-
-								{{-- Language headers --}}
-								@foreach($data as $language => $orders)
-									<th colspan="{{ count(array_flatten($orders)) }}" style="border-left: .2em solid #363636;">{{ $language }}</th>
-								@endforeach
-							</tr>
-							<tr>
-								{{-- Order headers --}}
-								@foreach($data as $language)
-									@foreach($language as $order => $modes)
-										<th colspan="{{ count(array_flatten($modes)) }}" style='{{ $loop->first ? "border-left: .2em solid #363636;" : "" }}'>{{ $order }}</th>
-									@endforeach
-								@endforeach
-							</tr>
-							<tr>
-								{{-- Mode headers --}}
-								@foreach($data as $orders)
-									@foreach($orders as $modes)
-										@foreach($modes as $mode => $absobvs)
-											<th colspan="{{ count(array_flatten($absobvs)) }}" style='{{ $loop->parent->first && $loop->first ? "border-left: .2em solid #363636;" : "" }}'>{{ $mode }}</th>
-										@endforeach
-									@endforeach
-								@endforeach
-							</tr>
-							<tr>
-								<th>Class</th><th>Arguments</th>
-								@foreach($data as $orders)
-									@foreach($orders as $modes)
-										@foreach($modes as $absobvs)
-											@foreach($absobvs as $absobv => $negatives)
-												@foreach($negatives as $negative => $diminutives)
-													@foreach($diminutives as $diminutive => $value)
-														<th style='{{ $loop->parent->parent->parent->parent->first && $loop->parent->parent->parent->first && $loop->parent->parent->first && $loop->parent->first && $loop->first ? "border-left: .2em solid #363636;" : "" }}'>{{ trim("$absobv $negative $diminutive") }}</th>
-													@endforeach
-												@endforeach
-											@endforeach
-										@endforeach
-									@endforeach
-								@endforeach
-							</tr>
-						</thead>
+						{!! $search->renderHeaders(3) !!}
 						<tbody>
 							@foreach($rows as $class => $subjects)
 								<tr style="border-top: .2em solid #363636;">
@@ -91,10 +47,12 @@
 																			@foreach($lookup as $form)
 
 																				{{-- The form --}}
-																				<p><a href='/forms/{{ $form->id }}'><nobr>{{ $form->surfaceForm }}</nobr>{!! isset($form->diffClass) ? "<span style='margin-left: .25rem; color: red;'><nobr>({$form->diffClass})</nobr></span>" : "" !!}</a></p>
-																				<?php
-																					$form->placed = true;
-																				?>
+																				<p>
+																					<a href='/forms/{{ $form->id }}'>
+																						<nobr>{{ $form->surfaceForm }}</nobr>
+																						{!! isset($form->diffClass) ? "<span style='margin-left: .25rem; color: red;'><nobr>({$form->diffClass})</nobr></span>" : "" !!} </a>
+																				</p>
+																				<?php $form->placed = true; ?>
 
 																				{{-- The morphology --}}
 																				<div v-show="show">

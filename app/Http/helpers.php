@@ -5,10 +5,59 @@ define("NOT_FOUND", -1);
 function assessAllForms()
 {
     $forms = \App\Form::all();
-    foreach($forms as $form) {
+    foreach ($forms as $form) {
         $form->connectMorphemes();
     }
     return "Operation complete";
+}
+
+/**
+ * Replaces all of the tags in a block of text
+ * 
+ * Tags are strings preceeded by the $ symbol
+ * 
+ * @param string The text to sort through
+ * @return string The text with tags replaced
+ */
+function replaceTags($text)
+{
+    $output = $text;
+    $start;
+    $end;
+
+    // Check to see if there are any tags in the text
+    $start = strpos($text, '$');
+
+    if ($start) {
+
+        // Find the end of the tag; that's the first whitespace that occurs after the tag
+        // If no whitespace was found, it means that the tag ends the text
+        $end = strpos($text, ' ', $start);
+        if (preg_match("/\s/", $text, $matches, PREG_OFFSET_CAPTURE, $start)) {
+            $end = $matches[0][1];
+        } else {
+            $end = strlen($text);
+        }
+
+        // Get the parts of the text before and after the tag
+        $firstPart = substr($text, 0, $start);
+        $lastPart = substr($text, $end);
+
+        // Get the tag, and look it up
+        $tag = substr($text, $start + 1, $end - $start - 1);
+        $shortcut = \App\Shortcut::where('short', $tag)->first();
+
+        // If it was found, replace the tag with it
+        if ($shortcut) {
+            $replacement = $shortcut->long;
+        } else {
+            $replacement = $tag;
+        }
+
+        $output = replaceTags($firstPart.$replacement.$lastPart);
+    }
+
+    return $output;
 }
 
 function binarySearch($item, $list)
@@ -37,29 +86,32 @@ function binarySearch($item, $list)
     return $spot;
 }//binarySearch
 
-function getOptions($collection, $field = 'name'){
+function getOptions($collection, $field = 'name')
+{
     $options = array();
 
-    foreach($collection as $item){
+    foreach ($collection as $item) {
         $options[] = ['value' => $item->$field];
     }
 
     return $options;
 }
 
-function organizeForDropdown($collection){
+function organizeForDropdown($collection)
+{
     $output = [];
 
-    foreach($collection as $item){
+    foreach ($collection as $item) {
         $output += [$item->id => $item->name];
     }
 
     return $output;
 }
 
-function flash($message, $level = 'info'){
-    session()->flash('flashMessage',$message);
-    session()->flash('flashLevel',$level);
+function flash($message, $level = 'info')
+{
+    session()->flash('flashMessage', $message);
+    session()->flash('flashLevel', $level);
 }
 
 function intcmp($n1, $n2)
@@ -90,7 +142,7 @@ function linearSearch($item, $list)
         // if (isset($list[$i]) && $list[$i]->compareTo($item) == 0) {
         //     $pos = $i;
         // }
-        if(isset($list[$i]) && $list[$i] === $item){
+        if (isset($list[$i]) && $list[$i] === $item) {
             $pos = $i;
         }
     }//for
@@ -128,6 +180,7 @@ function printOptions($items, $preset = null, $presetField = null, $display = 'n
     }
 }
 
-function validDatabaseInput($val){
+function validDatabaseInput($val)
+{
     return !is_null($val) && $val !== '';
 }

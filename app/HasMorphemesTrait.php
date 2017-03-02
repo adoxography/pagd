@@ -290,7 +290,7 @@ trait HasMorphemesTrait {
      */
     public function disambiguate($index, $disambiguator)
     {
-        $morphemes = explode('-', $this->$morphemicForm);
+        $morphemes = explode('-', $this->morphemicForm);
 
         if(count($morphemes) > $index && count(explode('.', $morphemes[$index]) == 1)) {
 

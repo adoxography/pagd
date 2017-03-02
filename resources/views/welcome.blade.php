@@ -11,6 +11,10 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			02-03-17: Fixed bug in disambiguation
+		</li>
+		<hr>
+		<li>
 			26-02-17: Reduced paradigm table column width to fit table
 		</li>
 		<li>

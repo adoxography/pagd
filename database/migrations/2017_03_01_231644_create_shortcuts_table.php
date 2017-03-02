@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFlagsTable extends Migration
+class CreateShortcutsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateFlagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('Flags', function ($table) {
+        Schema::create('Shortcuts', function ($table) {
             $table->increments('id');
-            $table->string('flagged_type');
-            $table->integer('flagged_id');
-            $table->integer('level');
-            $table->integer('user_id')->nullable();
+            $table->string('short')->unique();
+            $table->string('long');
             $table->timestamps();
-
-            $table->index(['flagged_id', 'flagged_type']);
         });
     }
 
@@ -30,8 +26,8 @@ class CreateFlagsTable extends Migration
      *
      * @return void
      */
-    public function down()  
+    public function down()
     {
-        Schema::dropIfExists('Flags');
+        Schema::dropIfExists('Shortcuts');
     }
 }

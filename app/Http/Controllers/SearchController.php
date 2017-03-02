@@ -87,11 +87,11 @@ class SearchController extends Controller
         $forms = $this->search($request);
         $showMorphology = $request->showMorphology;
 
-        $search = new \App\ParadigmSearch($forms);
+        $search = new \App\Paradigm($forms);
         $data = $search->getHeaders();
         $rows = $search->getRows();
 
-        return view('search.results.paradigm', compact('data', 'rows', 'showMorphology'));
+        return view('search.results.paradigm', compact('data', 'rows', 'showMorphology', 'search'));
     }
 
     protected function filterSubqueryUsingList($query, $subfield, $list, $field)
@@ -114,7 +114,7 @@ class SearchController extends Controller
         $negative    = $request->negative;
         $diminutive  = $request->diminutive;
 
-        $query = Form::with([
+        $query= Form::with([
             'language.group',
             'formType.mode',
             'formType.formClass',
@@ -127,7 +127,11 @@ class SearchController extends Controller
             },
             'morphemes.gloss',
             'morphemes.slot'
-        ]);
+        ])
+
+        ->join('FormTypes', 'FormTypes.id', '=', 'formType_id')
+        ->join('Languages', 'Languages.id', '=', 'language_id')
+        ->orderBy('Languages.group_id', 'Languages.name', 'FormTypes.order_id', 'FormTypes.mode_id');
 
         $query->whereIn('language_id', $languages);
 
@@ -170,6 +174,6 @@ class SearchController extends Controller
             });
         }
 
-        return $query->get();
+        return $query->get(['Forms.*']);
     }
 }

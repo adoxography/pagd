@@ -22,7 +22,7 @@ trait SourceableTrait {
 
     public function sources($includeExtraInfo = true)
     {
-    	$output = $this->belongsToMany(Source::class, $this->getSourceableTable())->orderBy('short');
+    	$output = $this->morphToMany('App\Source', 'Sourceable')->orderBy('short');
 
     	if($includeExtraInfo) {
     		$output->withPivot('extraInfo');

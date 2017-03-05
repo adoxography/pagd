@@ -14,16 +14,16 @@ class Source extends Model
 
     public function forms()
     {
-    	return $this->belongsToMany(Form::class, 'Sources_Forms')->withPivot('extraInfo');
+    	return $this->morphedByMany('App\Form', 'Sourceable')->withPivot('extraInfo');
     }
 
     public function morphemes()
     {
-    	return $this->belongsToMany(Morpheme::class, 'Morphemes_Sources')->withPivot('extraInfo');
+    	return $this->morphedByMany('App\Morpheme', 'Sourceable')->withPivot('extraInfo');
     }
 
     public function examples()
     {
-    	return $this->belongsToMany(Example::class, 'Sources_Examples')->withPivot('extraInfo');
+    	return $this->morphedByMany('App\Example', 'Sourceable')->withPivot('extraInfo');
     }
 }

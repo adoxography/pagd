@@ -26,6 +26,14 @@ class RouteServiceProvider extends ServiceProvider
         //
 
         parent::boot();
+
+        Route::bind('language', function($value) {
+            if(is_numeric($value)) {
+                return \App\Language::find($value);
+            } else {
+                return \App\Language::where('iso', $value)->first();
+            }
+        });
     }
 
     /**

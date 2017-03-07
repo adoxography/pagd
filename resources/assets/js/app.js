@@ -37,6 +37,7 @@ Vue.component('alg-language-form',  require('./components/forms/Language.vue'));
 Vue.component('alg-form-form',      require('./components/forms/Form.vue'));
 Vue.component('alg-morpheme-form',  require('./components/forms/Morpheme.vue'));
 Vue.component('alg-example-form',   require('./components/forms/Example.vue'));
+Vue.component('alg-rule-form',      require('./components/forms/Rule.vue'));
 Vue.component('alg-paradigm-search',  require('./components/forms/Paradigm-Search.vue'));
 
 Vue.component('alg-paradigm-table', {

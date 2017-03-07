@@ -19,7 +19,6 @@ class Example extends Model
     use \App\SourceableTrait;
     use \App\HasMorphemesTrait;
 
-    protected $sourceableTable = 'Sources_Examples';
     protected $morphemeTable = 'Examples_Morphemes';
 
     /*

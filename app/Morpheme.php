@@ -19,8 +19,6 @@ class Morpheme extends Model
     use \App\ReconstructableTrait;
     use \App\CognatableTrait;
 
-    protected $sourceableTable = 'Morphemes_Sources';
-
     /*
     |--------------------------------------------------------------------------
     | Eloquent variables

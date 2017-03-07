@@ -27,6 +27,7 @@ class ViewComposerServiceProvider extends ServiceProvider
         $this->composeFormForm();
         $this->composeLanguageForm();
         $this->composeMorphemeForm();
+        $this->composeRuleForm();
 
         $this->composeSearch();
         $this->composeLayout();
@@ -90,6 +91,17 @@ class ViewComposerServiceProvider extends ServiceProvider
                 'glosses'   => Gloss::select('id','abv as name')->get(),
                 'slots'     => Slot::select('id','abv as name')->get(),
                 'changeTypes' => ChangeType::select('id','name')->get()->prepend(['id' => null, 'name' => 'N/A'])
+            ];
+            $view->with($data);
+        });
+    }
+
+    private function composeRuleForm()
+    {
+        view()->composer(['rules.create', 'rules.edit'], function($view)
+        {
+            $data = [
+                'languages' => Language::select('id','name')->get()
             ];
             $view->with($data);
         });

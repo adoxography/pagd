@@ -53,7 +53,7 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Form\DestroyExamples',
             'App\Listeners\Form\DisconnectDuplicates',
             'App\Listeners\Form\DisconnectMorphemes',
-            'App\Listeners\Form\DisconnectSources',
+            'App\Listeners\DisconnectSources',
         ],
         'App\Events\Form\Deleted' => [
             'App\Listeners\Revision\HandleDeleted'
@@ -73,7 +73,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\Example\Deleting' => [
             'App\Listeners\Example\DisconnectMorphemes',
-            'App\Listeners\Example\DisconnectSources'
+            'App\Listeners\DisconnectSources'
         ],
         'App\Events\Example\Deleted' => [
             'App\Listeners\Revision\HandleDeleted'
@@ -95,13 +95,18 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Revision\HandleSaved'
         ],
         'App\Events\Morpheme\Deleting' => [
-            'App\Listeners\Morpheme\DisconnectSources',
+            'App\Listeners\DisconnectSources',
             'App\Listeners\Morpheme\DisconnectChildren'
         ],
         'App\Events\Morpheme\Deleted' => [
             'App\Listeners\Morpheme\ReconnectForms',
             'App\Listeners\Morpheme\ReassessDuplicates',
             'App\Listeners\Revision\HandleDeleted'
+        ],
+
+        // Rule Events
+        'App\Events\Rule\Deleting' => [
+            'App\Listeners\DisconnectSources'
         ]
     ];
 

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Rule;
 use App\Example;
 use App\Morpheme;
 use App\Events\Language\Saved;
@@ -103,6 +104,11 @@ class Language extends Model
     public function morphemes()
     {
         return $this->hasMany(Morpheme::class);
+    }
+
+    public function rules()
+    {
+        return $this->hasMany(Rule::class);
     }
 
     /**

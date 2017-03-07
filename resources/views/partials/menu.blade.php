@@ -21,6 +21,7 @@
 						<li><a href="/forms/create">Form</a></li>
 						<li><a href="/examples/create">Example</a></li>
 						<li><a href="/morphemes/create">Morpheme</a></li>
+						<li><a href="/rules/create">Rule</a></li>
 					</ul>
 				</div>
 			</div>

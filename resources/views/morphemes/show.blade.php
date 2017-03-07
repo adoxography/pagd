@@ -46,7 +46,7 @@
 				</div>
 				<div class="column is-half" style="padding: 0;">
 					<div class="columns is-multiline">
-						@include('components.model.text', ['width' => 'is-12', 'label' => 'Allomorphy Notes', 'text' => $morpheme->allomorphyNotes])
+						@include('components.model.text', ['width' => 'is-12', 'label' => 'Allomorphy Notes', 'text' => $morpheme->allomorphyNotes, 'language_id' => $morpheme->language_id])
 
 						{{-- Historical Notes --}}
 						@component('components.model.field', ['width' => 'is-12', 'label' => 'Historical Notes'])
@@ -62,11 +62,11 @@
 								<em>Change Type: </em>{{ $morpheme->changeType->name }}
 							@endif
 						@endcomponent
-						@include('components.model.text', ['width' => 'is-12', 'text' => $morpheme->historicalNotes])
+						@include('components.model.text', ['width' => 'is-12', 'text' => $morpheme->historicalNotes, 'language_id' => $morpheme->language_id])
 
 						{{-- Comments --}}
 						@if(Auth::user())
-							@include('components.model.text', ['width' => 'is-12', 'label' => 'Private Comments', 'text' => $morpheme->comments])
+							@include('components.model.text', ['width' => 'is-12', 'label' => 'Private Comments', 'text' => $morpheme->comments, 'language_id' => $morpheme->language_id])
 						@endif
 					</div>
 				</div>

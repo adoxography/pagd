@@ -10,7 +10,7 @@
 		@slot('header')
 			{{ $language->name }}
 			@if($language->alternateNames)
-				<span class="detail-title-language">({{ $language->alternateNames }}</span>)
+				<span class="detail-title-language">({{ $language->alternateNames }})</span>
 			@endif
 		@endslot
 		<model-tab name="Basic Details" selected="true">
@@ -42,7 +42,7 @@
 				{{ $language->algoCode }}
 			@endcomponent
 
-			@include('components.model.text', ['width' => 'is-12', 'label' => 'Notes', 'text' => $language->notes])
+			@include('components.model.text', ['width' => 'is-12', 'label' => 'Notes', 'text' => $language->notes, 'language_id' => $language->id])
 		</model-tab>
 
 		<model-tab name="Children">
@@ -106,6 +106,21 @@
 				@endif
 			@endcomponent
 		</model-tab>
+
+		@if(count($language->rules) > 0)
+			<model-tab name="Rules">
+				@component('components.model.field', ['width' => 'is-half'])
+					@slot('label')
+						Rules @component('components.model.add-icon', ['uri' => "/languages/{$language->id}/addRule"]) @endcomponent
+					@endslot
+					<ul>
+						@foreach($language->rules as $rule)
+							<li><a href="/rules/{{ $rule->id }}">{{ $rule->abv }}</a></li>
+						@endforeach
+					</ul>
+				@endcomponent
+			</model-tab>
+		@endif
 
 		@if($sources)
 			<model-tab name="Sources">

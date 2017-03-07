@@ -4,11 +4,6 @@ namespace App;
 
 trait SourceableTrait {
 
-	protected function getSourceableTable()
-	{
-		return $this->sourceableTable;
-	}
-
     public function connectSources($sources)
     {
         if($sources) {

@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
@@ -32,20 +33,21 @@ class Backup
     {
         $numEvents;
 
-        // if ($this->app->environment('local', 'production')) {
-        // Check how many save events have taken place
-        try {
-            $numEvents = Storage::get('SavedEvents.txt');
-        } catch (FileNotFoundException $e) {
-            $numEvents = 0;
-        }
+        if(App::environment() == 'website') {
+            // Check how many save events have taken place
+            try {
+                $numEvents = Storage::get('SavedEvents.txt');
+            } catch (FileNotFoundException $e) {
+                $numEvents = 0;
+            }
 
-        // If transactions is divisible by 5, backup the database.
-        if ($numEvents % $this->interval == 0) {
-            Artisan::call('algling:backup');
-        }
+            // If transactions is divisible by 5, backup the database.
+            if ($numEvents % $this->interval == 0) {
+                Artisan::call('algling:backup');
+            }
 
-        // Record transaction
-        Storage::put('SavedEvents.txt', $numEvents + 1);
+            // Record transaction
+            Storage::put('SavedEvents.txt', $numEvents + 1);
+        }
     }
 }

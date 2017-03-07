@@ -12,14 +12,15 @@ function assessAllForms()
 }
 
 /**
- * Replaces all of the tags in a block of text
+ * Replaces all of the rules tags in a block of text
  * 
  * Tags are strings preceeded by the $ symbol
  * 
  * @param string The text to sort through
+ * @param integer The ID of the language whose rules to look for
  * @return string The text with tags replaced
  */
-function replaceTags($text)
+function replaceTags($text, $id)
 {
     $output = $text;
     $start;
@@ -45,16 +46,16 @@ function replaceTags($text)
 
         // Get the tag, and look it up
         $tag = substr($text, $start + 1, $end - $start - 1);
-        $shortcut = \App\Shortcut::where('short', $tag)->first();
+        $rule = \App\Rule::where('abv', $tag)->where('language_id', $id)->first();
 
         // If it was found, replace the tag with it
-        if ($shortcut) {
-            $replacement = $shortcut->long;
+        if ($rule) {
+            $replacement = "<a href='/rules/{$rule->id}'>{$rule->rule}</a>";
         } else {
             $replacement = $tag;
         }
 
-        $output = replaceTags($firstPart.$replacement.$lastPart);
+        $output = replaceTags($firstPart.$replacement.$lastPart, $id);
     }
 
     return $output;

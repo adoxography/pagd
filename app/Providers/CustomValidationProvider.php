@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Morpheme;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;

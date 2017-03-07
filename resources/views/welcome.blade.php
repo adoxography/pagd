@@ -11,6 +11,31 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			02-06-17: Added <a href="/rules/1">rules</a>
+			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+				<li>
+					Can be added using the <a href="/rules/create">creation form</a> (located in the add menu)
+				</li>
+				<li>
+					Namespaced within languages; multiple languages can each have their own rule with the same name and abbreviation
+				</li>
+				<li>
+					Can be added to any textarea field by typing $ followed by the rule abbreviation
+				</li>
+				<li>
+					Rules do not have to exist before being used. (It will work just as well to include the abbreviation in a textarea field and then define it later)
+				</li>
+			</ul>
+		</li>
+		<li>
+			02-06-17: Allowed ISO to be used in URLs
+			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+				<li><a href="/languages/1">http://www.algling.net/languages/1</a> still works, but now so does <a href="/languages/alg">http://www.algling.net/languages/alg</a></li>
+				<li>Will implement similar functionality for forms, morphemes, and examples in the future</li>
+			</ul>
+		</li>
+		<hr>
+		<li>
 			02-03-17: Fixed bug in disambiguation
 		</li>
 		<hr>

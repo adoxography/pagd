@@ -30,7 +30,6 @@ class Form extends Model
     use \App\ReconstructableTrait;
     use \App\CognatableTrait;
 
-    protected $sourceableTable = 'Sources_Forms';
     protected $morphemeTable = 'Forms_Morphemes';
 
     /*

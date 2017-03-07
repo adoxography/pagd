@@ -80,8 +80,8 @@
 		</div>
 
 		<div class="column is-half">
-			@include('components.model.text', ['width' => 'is-12', 'label' => 'Usage Notes', 'text' => $form->usageNotes])
-			@include('components.model.text', ['width' => 'is-12', 'label' => 'Allomorphy Notes', 'text' => $form->allomorphyNotes])
+			@include('components.model.text', ['width' => 'is-12', 'label' => 'Usage Notes', 'text' => $form->usageNotes, 'language_id' => $form->language_id])
+			@include('components.model.text', ['width' => 'is-12', 'label' => 'Allomorphy Notes', 'text' => $form->allomorphyNotes, 'language_id' => $form->language_id])
 			@component('components.model.field', ['width' => 'is-12', 'label' => 'Historical Notes'])
 				<p>
 					<em>Parent Form: </em>
@@ -95,9 +95,9 @@
 					<em>Change Type: </em>{{ $form->changeType->name }}
 				@endif
 			@endcomponent
-			@include('components.model.text', ['width' => 'is-12', 'text' => $form->historicalNotes])						
+			@include('components.model.text', ['width' => 'is-12', 'text' => $form->historicalNotes, 'language_id' => $form->language_id])						
 			@if(Auth::user())
-				@include('components.model.text', ['width' => 'is-12', 'label' => 'Private Comments', 'text' => $form->comments])
+				@include('components.model.text', ['width' => 'is-12', 'label' => 'Private Comments', 'text' => $form->comments, 'language_id' => $form->language_id])
 			@endif
 		</div>
 

@@ -163,5 +163,16 @@ class LanguageController extends Controller
     public function addMorpheme(Language $language)
     {
         return view('morphemes.create')->with('presetLanguage', $language);
+    }   
+
+    /**
+     * Show the rule creation form with this language's details preloaded
+     *
+     * @param \App\Language The language
+     * @return \Illuminate\Http\Response
+     */
+    public function addRule(Language $language)
+    {
+        return view('rules.create')->with('presetLanguage', $language);
     }
 }

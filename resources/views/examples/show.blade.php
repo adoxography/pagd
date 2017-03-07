@@ -39,10 +39,10 @@
 		</div>
 
 		<div class="column is-half">
-			@include('components.model.text', ['width' => 'is-12', 'label' => 'Notes', 'text' => $example->notes])
+			@include('components.model.text', ['width' => 'is-12', 'label' => 'Notes', 'text' => $example->notes, 'language_id' => $example->language->id])
 
 			@if(Auth::user())
-				@include('components.model.text', ['width' => 'is-12', 'label' => 'Private Comments', 'text' => $example->comments])
+				@include('components.model.text', ['width' => 'is-12', 'label' => 'Private Comments', 'text' => $example->comments, 'language_id' => $example->language->id])
 			@endif
 		</div>
 	</model-tab>

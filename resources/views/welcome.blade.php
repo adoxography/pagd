@@ -11,6 +11,27 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			02-07-17: Fixed ordering of all other header elements in paradigms
+		</li>
+		<li>
+			02-07-17: Now displaying languages by group in the <a href="/languages">index page</a>
+		</li>
+		<li>
+			02-07-17: Added <a href="/languages/order">ordering for languages and groups</a>
+			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+				<li>
+					Governs ordering of languages in paradigms and lists
+				</li>
+				<li>
+					By default, new languages will appear first in their group
+				</li>
+				<li>
+					A reminder to order the language has been added to the success message
+				</li>
+			</ul>
+		</li>
+		<hr>
+		<li>
 			02-06-17: Added <a href="/rules/1">rules</a>
 			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
 				<li>

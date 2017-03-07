@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Group;
 use App\Language;
 use App\Http\Requests\LanguageRequest;
 
@@ -25,8 +26,12 @@ class LanguageController extends Controller
      */
     public function index()
     {
+        $groups = Group::orderBy('position')
+                       ->with(['languages' => function($query) {
+                            $query->orderBy('position');
+                       }])->get();
         $languages = Language::orderBy('name')->get();
-        return view('languages.index', compact('languages'));
+        return view('languages.index', compact('groups', 'languages'));
     }
 
     /**
@@ -40,7 +45,12 @@ class LanguageController extends Controller
         $language->load([
             'group',
             'parent',
-            'children',
+            'children' => function($query) {
+                $query->select('Languages.*')
+                      ->join('Groups', 'Groups.id', '=', 'group_id')
+                      ->orderBy('Groups.position', 'asc')
+                      ->orderBy('Languages.position', 'asc');
+            },
             'morphemes' => function ($query) {
                 // Don't bother with the V placeholder morpheme
                 $query->where('name', '!=', 'V')
@@ -87,7 +97,7 @@ class LanguageController extends Controller
     {
         $language = Language::create($request->all());
 
-        flash("{$language->name} added successfully.", 'is-success');
+        flash("{$language->name} added successfully. <a href='/languages/order'>Set its order</a>", 'is-success');
         return $language->id;
     }
 
@@ -174,5 +184,39 @@ class LanguageController extends Controller
     public function addRule(Language $language)
     {
         return view('rules.create')->with('presetLanguage', $language);
+    }
+
+    public function order()
+    {
+        $groups = \App\Group::with(['languages' => function($query) {
+            $query->orderBy('position');
+        }])->orderBy('position')->get();
+        // $languages = Language::all();
+
+        return view('languages.order', compact('groups'));
+    }
+
+    public function storeOrder()
+    {
+        $groups = request()->all();
+        $model;
+
+        foreach($groups as $group) {
+            if(isset($group['newPosition']) && $group['newPosition'] != $group['position']) {
+                $model = \App\Group::find($group['id']);
+                $model->position = $group['newPosition'];
+                $model->save();
+            }
+
+            foreach($group['languages'] as $language) {
+                if(isset($language['newPosition']) && $language['newPosition'] != $language['position']) {
+                    $model = Language::find($language['id']);
+                    $model->position = $language['newPosition'];
+                    $model->save();
+                }
+            }
+        }
+
+        return 'success';
     }
 }

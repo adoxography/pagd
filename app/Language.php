@@ -70,6 +70,9 @@ class Language extends Model
         'parent_id'      => 'Parent ID',
         'reconstructed'  => 'Reconstructed'
     ];
+    protected $dontKeepRevisionOf = [
+        'position'
+    ];
     
     /*
     |--------------------------------------------------------------------------

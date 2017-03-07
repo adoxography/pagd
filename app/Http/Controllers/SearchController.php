@@ -131,7 +131,13 @@ class SearchController extends Controller
 
         ->join('FormTypes', 'FormTypes.id', '=', 'formType_id')
         ->join('Languages', 'Languages.id', '=', 'language_id')
-        ->orderBy('Languages.group_id', 'Languages.name', 'FormTypes.order_id', 'FormTypes.mode_id');
+        ->join('Groups', 'Groups.id', '=', 'Languages.group_id')
+        ->orderBy('Groups.position', 'asc')
+        ->orderBy('Languages.position', 'asc')
+        ->orderBy('FormTypes.order_id', 'asc')
+        ->orderBy('FormTypes.isAbsolute', 'desc')
+        ->orderBy('FormTypes.isNegative', 'asc')
+        ->orderBy('FormTypes.isDiminutive', 'asc');
 
         $query->whereIn('language_id', $languages);
 

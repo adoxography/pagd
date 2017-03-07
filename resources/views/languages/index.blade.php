@@ -9,5 +9,14 @@
 	</div>
 	<br />
 
-	@include('components.index', ['items' => $languages, 'model' => 'languages'])
+	@foreach($groups as $group)
+	@if(count($group->languages) > 0)
+	<h3 class="title is-3">{{ $group->name }}</h2>
+	@include('components.index', ['items' => $group->languages, 'model' => 'languages'])
+	@endif
+	@endforeach
+	@if(Auth::user())
+	<br />
+	<a href="/languages/order" class="button is-info is-medium">Modify the order</a>
+	@endif
 @stop

@@ -31,6 +31,12 @@ trait CognatableTrait {
 
     public function allChildren()
     {
-        return $this->children()->with('allchildren');
+        return $this->children()->with(['allchildren' => function($query) {
+            $query->select("{$this->table}.*")
+                  ->join('Languages', 'Languages.id', 'language_id')
+                  ->join('Groups', 'Groups.id', 'group_id')
+                  ->orderBy('Groups.position', 'asc')
+                  ->orderBy('Languages.position', 'asc');
+        }]);
     }
 }

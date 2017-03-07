@@ -56,6 +56,8 @@ Route::patch('forms/{form}/disambiguate', 'FormController@disambiguate');
 Route::resource('groups',    'GroupController');
 
 // Language Routes
+Route::get('languages/order',                  'LanguageController@order');
+Route::post('languages/order',                 'LanguageController@storeOrder');
 Route::resource('languages',                   'LanguageController');
 Route::get('languages/{language}/addChild',    'LanguageController@addChild');
 Route::get('languages/{language}/addExample',  'LanguageController@addExample');

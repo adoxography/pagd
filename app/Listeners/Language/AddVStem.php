@@ -41,7 +41,10 @@ class AddVStem
 
         // If the language has a parent, set the vStem's parent the to parent language's vStem
         if($language->parent) {
-            $vStem->parent_id = $language->parent->morphemes->where('name','V')->first()->id;
+            $parentStem = Morpheme::where('language_id', $language->parent_id)
+                                  ->where('name', 'V')
+                                  ->first();
+            $vStem->parent_id = $parentStem->id;
         }
 
         $vStem->save();

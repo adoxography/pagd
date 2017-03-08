@@ -107,6 +107,11 @@ class EventServiceProvider extends ServiceProvider
         // Rule Events
         'App\Events\Rule\Deleting' => [
             'App\Listeners\DisconnectSources'
+        ],
+
+        // Initial Change Events
+        'App\Events\InitialChange\Creating' => [
+            'App\Listeners\InitialChange\AssignDisambiguator'
         ]
     ];
 

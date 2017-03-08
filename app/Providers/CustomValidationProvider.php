@@ -69,10 +69,16 @@ class CustomValidationProvider extends ServiceProvider
 
         for($i = 0; $i < count($components) && !$found; $i++)
         {
-            $found = strtolower($components[$i]) === strtolower($lookup);
+            $found = strtolower($this->extract($components[$i])) === strtolower($lookup);
         }
 
         return $found;       
+    }
+
+    protected function extract($segment)
+    {
+        $pieces = explode('|', $segment);
+        return $pieces[count($pieces) - 1];   
     }
 
     /**

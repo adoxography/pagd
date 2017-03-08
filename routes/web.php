@@ -38,6 +38,11 @@ Route::get('autocomplete/sources',         'AutocompleteController@sources');
 Route::get('log', 'LogController@index');
 Route::post('sources/ajax', 'SourceController@store');
 
+// Initial Change routes
+Route::get('changes', 'InitialChangeController@index');
+Route::post('changes', 'InitialChangeController@store');
+Route::delete('changes/{change}', 'InitialChangeController@destroy');
+
 //Route::resource('classes',   'ClassController');
 
 Route::resource('glosses',   'GlossController');

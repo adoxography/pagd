@@ -53,6 +53,7 @@ class Morpheme extends Model
         'deleting' => Deleting::class,
         'deleted'  => Deleted::class
     ];
+    protected $altName;
 
     /*
     |--------------------------------------------------------------------------
@@ -87,7 +88,8 @@ class Morpheme extends Model
 
     public function getNameAttribute($value)
     {
-        return $this->modifyIfReconstructed($value);
+        $name = isset($this->altName) ? $this->altName : $value;
+        return $this->modifyIfReconstructed($name);
     }
 
     public function getUniqueNameWithLanguageAttribute()
@@ -140,6 +142,36 @@ class Morpheme extends Model
         return $this->slot->abv === 'V' || $this->slot->abv === 'PV';
     }
 
+    public function initialChange($code)
+    {
+        $this->altName = $this->determineAltName($code);
+    }
+
+    protected function determineAltName($code)
+    {
+        $output;
+        $query = InitialChange::where('morpheme_id', $this->id);
+
+        $pieces = explode('.', $code);
+        if(count($pieces) > 1) {
+            $query->where('disambiguator', $pieces[1]);
+        }
+        $results = $query->get();
+
+        if(count($results) == 1) {
+            $output = $results[0]->change;
+        } else {
+            $output = "IC.{$this->name}";
+        }
+
+        return $output;
+    }
+
+    public function initialChanged()
+    {
+        return isset($this->altName);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Relations
@@ -183,6 +215,11 @@ class Morpheme extends Model
     public function slot()
     {
         return $this->belongsTo(Slot::class);
+    }
+
+    public function initialChanges()
+    {
+        return $this->hasMany(InitialChange::class);
     }
 
 }

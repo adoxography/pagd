@@ -52,11 +52,15 @@ class AutocompleteController extends Controller
         $term = $request->term;
         $language = $request->language;
 
-        $results = Morpheme::select('name as value', 'id')
+        $results = Morpheme::select('name', 'id', 'gloss_id', 'language_id')
                            ->where('name', 'LIKE', "%$term%")
                            ->where('name', '<>', 'V')
                            ->where('language_id', $language)
                            ->get();
+
+        foreach($results as $result) {
+            $result->name = str_replace('*', '', $result->uniqueName);
+        }
 
         return $results->toJson();
     }

@@ -31,7 +31,8 @@ Vue.component('autosize-textarea',  require('./components/Autosize-Textarea.vue'
 Vue.component('alg-paginated-list', require('./components/Paginated-List.vue'));
 Vue.component('alg-filter-list',    require('./components/Filter-List.vue'));
 Vue.component('alg-notification',   require('./components/Notification.vue'));
-Vue.component('alg-morpheme-alert',   require('./components/Morpheme-Alert.vue'));
+Vue.component('alg-morpheme-alert', require('./components/Morpheme-Alert.vue'));
+Vue.component('alg-initial-changes', require('./components/Initial-Changes.vue'));
 
 Vue.component('alg-language-form',  require('./components/forms/Language.vue'));
 Vue.component('alg-form-form',      require('./components/forms/Form.vue'));

@@ -44,7 +44,7 @@ trait HasMorphemesTrait {
 
         // Check each morpheme against the database
         foreach ($morphemes as $index => $morpheme) {
-            $chunk = explode('.', $morpheme);
+            $chunk = explode('.', $this->extractRealMorpheme($morpheme));
 
             if (count($chunk) > 0) {
                 $query = Morpheme::whereIn('name', [
@@ -71,6 +71,18 @@ trait HasMorphemesTrait {
         // Update the complete status, if necessary
         $this->assessIsComplete(count($morphemes), count($this->morphemes));
 	}
+
+    /**
+     * Removes any initial change directives
+     * 
+     * @param string The string containing the morpheme to be extracted
+     * @return string The morpheme
+     */
+    protected function extractRealMorpheme($morpheme)
+    {
+        $pieces = explode('|', $morpheme);
+        return $pieces[count($pieces) - 1];        
+    }
 
     /**
      * Determines whether or not a form has all of its morphemes, and updates the form if necessary
@@ -103,21 +115,36 @@ trait HasMorphemesTrait {
         $savedMorphemes = $this->morphemes; // The morphemes that are already connected
         $curr = 0; // The number of pre-connected morphemes that have been addressed already
         $slots = explode('-', $this->morphemicForm);
-
+        $initialChangePieces;
 
         foreach($slots as $index => $slot) {
+            $initialChangePieces = explode('|', $slot);
+
             if($curr < count($savedMorphemes) && $savedMorphemes[$curr]->pivot->position == $index + 1) {
             // If the position of the pre-connected morpheme matches the position we're currently looking for, add it to the output
                 $output[] = $savedMorphemes[$curr++];
+
+                if(count($initialChangePieces) > 1) {
+                // Initial change is at play here
+                    array_last($output)->initialChange($initialChangePieces[0]);
+                }
             }
             else {
             // Otherwise, we don't have the morpheme in the system; deal with the token directly
+                $realSlot = array_last($initialChangePieces);
 
                 // Pull off the disambiguator
-                $output[] = ['name' => explode('.', $slot)[0]];
+                $temp = ['name' => explode('.', $realSlot)[0]];
+
+                // The initial change table won't have a record for a morpheme that isn't in the database, so record the initial change directly
+                if(count($initialChangePieces) > 1) {
+                    $temp = "IC.$temp";
+                }
+
+                $output[] = $temp;
 
                 // Load in the possibilities
-                $output[count($output) - 1]['possibilities'] = $this->getPossibleMorphemes($slot);
+                $output[count($output) - 1]['possibilities'] = $this->getPossibleMorphemes($realSlot);
             }
         }
 
@@ -155,7 +182,6 @@ trait HasMorphemesTrait {
      */
     public function printMorphemes()
     {
-    	$initialChangeFound = false;
     	$firstTime = true;
     	$html = '';
     	$morphemeHTML;
@@ -177,13 +203,7 @@ trait HasMorphemesTrait {
     		if($morpheme instanceof Morpheme) {
     			// Morpheme unambiguously exists in the database
 
-    			// Add either the name or the alternate name of the morpheme
-    			if($this->initialChange && $morpheme->isAffectedByInitialChange() && !$initialChangeFound) {
-    				$morphemeHTML .= str_replace(['-', '*'], '', $morpheme->alternateName);
-    				// wait to mark initial change as found until the gloss
-    			} else {
-    				$morphemeHTML .= str_replace(['-', '*'], '', $morpheme->name);
-    			}
+				$morphemeHTML .= str_replace(['-', '*'], '', $morpheme->name);
 
     			// Everything except vStems need to be wrapped in hyperlinks
     			if(!$morpheme->isVStem()) {
@@ -191,9 +211,8 @@ trait HasMorphemesTrait {
     			}
 
     			// Add the gloss below the morpheme
-    			if($this->initialchange && $morpheme->isAffectedByInitialChange() && !$initialChangeFound) {
+    			if($morpheme->initialChanged()) {
     				$glossHTML .= "IC.";
-    				$initialChangeFound = true;
     			}
     			if($morpheme->translation) {
     				$glossHTML .= str_replace(" ", ".", $morpheme->translation);

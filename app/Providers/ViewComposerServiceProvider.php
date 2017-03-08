@@ -60,7 +60,7 @@ class ViewComposerServiceProvider extends ServiceProvider
         {
             $data = [
                 'parents' => Language::select('id','name')->get(),
-                'groups'  => Group::select('id','name')->get()
+                'groups'  => Group::select('id','name')->orderBy('position')->get()
             ];
             $view->with($data);
         });

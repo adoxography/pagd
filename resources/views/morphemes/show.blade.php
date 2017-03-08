@@ -31,10 +31,14 @@
 							<a href="/slots/{{ $morpheme->slot_id }}">{{ $morpheme->slot->abv }} ({{ $morpheme->slot->name }})</a>
 						@endcomponent
 
-						{{-- Alternate name field --}}
-						@if($morpheme->hasAlternateName())
-							@component('components.model.field', ['width' => 'is-12', 'label' => 'Initial change'])
-								{{ $morpheme->alternateName }}
+						{{-- Initial Changes field --}}
+						@if(count($morpheme->initialChanges) > 0)
+							@component('components.model.field', ['width' => 'is-12', 'label' => 'May appear as one of the following when affected by initial change:'])
+								<ul style="margin-top: 0;">
+									@foreach($morpheme->initialChanges as $initialChange)
+										<li>{{ $initialChange->change }}</li>
+									@endforeach
+								</ul>
 							@endcomponent
 						@endif
 

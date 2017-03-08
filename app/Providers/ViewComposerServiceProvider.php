@@ -68,7 +68,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
     private function composeFormForm()
     {
-        view()->composer(['forms.create', 'forms.edit'], function($view)
+        view()->composer(['forms.create', 'forms.edit', 'emptyForms.edit'], function($view)
         {
             $data = [
                 'arguments'   => Argument::select('id','name')->get(),

@@ -57,7 +57,16 @@ class LanguageController extends Controller
                       ->with('gloss')
                       ->with('slot')
                       ->orderBy('name');
-            }
+            },
+            'forms',
+            'emptyForms',
+            'emptyForms.formType',
+            'emptyForms.formType.subject',
+            'emptyForms.formType.primaryObject',
+            'emptyForms.formType.secondaryObject',
+            'emptyForms.formType.mode',
+            'emptyForms.formType.order',
+            'emptyForms.formType.formClass'
         ]);
 
         $sources = $language->sources();

@@ -19,7 +19,7 @@
 				<a href="/groups/{{ $language->group_id }}">{{ $language->group->name }}</a>
 			@endcomponent
 
-			{{-- Parent field --}}
+		{{-- Parent field --}}
 			@if($language->parent)
 				@component('components.model.field', ['width' => 'is-half', 'label' => 'Parent'])
 					@if($language->parent)
@@ -63,7 +63,7 @@
 		</model-tab>
 
 		<model-tab name="Forms">
-			@component('components.model.field', ['width' => 'is-half'])
+			@component('components.model.field', ['width' => 'is-one-third'])
 				@slot('label')
 					Forms @component('components.model.add-icon', ['uri' => "/languages/{$language->id}/addForm"]) @endcomponent
 				@endslot
@@ -78,7 +78,20 @@
 				@endif
 			@endcomponent
 
-			@component('components.model.field', ['width' => 'is-half', 'label' => 'Examples'])
+			@if(count($language->emptyForms) > 0)
+			@component('components.model.field', ['width' => 'is-one-third'])
+				@slot('label')
+					Empty Forms
+				@endslot
+				<ul>
+					@foreach($language->emptyForms as $form)
+						<li><a href="/forms/{{ $form->id }}">{{ $form->formType->summary }}</a></li>
+					@endforeach
+				</ul>
+			@endcomponent
+			@endif
+
+			@component('components.model.field', ['width' => 'is-one-third', 'label' => 'Examples'])
 				@slot('label')
 					Examples @component('components.model.add-icon', ['uri' => "/languages/{$language->id}/addExample"]) @endcomponent
 				@endslot

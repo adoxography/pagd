@@ -48,16 +48,23 @@
 
 																				{{-- The form --}}
 																				<p>
+																					@if($form instanceof \App\Form)
 																					<a href='/forms/{{ $form->id }}'>
-																						<nobr>{{ $form->surfaceForm }}</nobr>
-																						{!! isset($form->diffClass) ? "<span style='margin-left: .25rem; color: red;'><nobr>({$form->diffClass})</nobr></span>" : "" !!} </a>
+																					@else
+																					<a href="/empty-forms/{{ $form->id }}">
+																					@endif
+																						<nobr>{{ $form->surfaceForm or "Empty" }}</nobr>
+																						{!! isset($form->diffClass) ? "<span style='margin-left: .25rem; color: red;'><nobr>({$form->diffClass})</nobr></span>" : "" !!}
+																					</a>
 																				</p>
 																				<?php $form->placed = true; ?>
 
 																				{{-- The morphology --}}
+																				@if($form instanceof \App\Form)
 																				<div v-show="show">
 																					{!! $form->printMorphemes() !!}
 																				</div>
+																				@endif
 
 																			@endforeach
 																		@endif

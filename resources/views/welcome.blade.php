@@ -11,13 +11,24 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			02-08-17: Added empty forms
+			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+				<li>
+					Indicate that a given form does not exist within a language
+				</li>
+				<li>
+					Added the same way as forms - just indicate that the form does not exist
+				</li>
+			</ul>
+		<hr>
+		<li>
 			02-07-17: Added <a href="/changes">revised initial change</a> schema
 			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
 				<li>
 					Demos: <a href="/forms/403">form with changed vStem</a>, <a href="/forms/404">form with changed preverb</a>
 				</li>
 				<li>
-					Initial change can be added using the syntax "IC[initial change disambiguator]|[morpheme][.[morpheme disambiguator]]"
+					Initial change can be added using the syntax "IC(.[initial change disambiguator])|[morpheme](.[morpheme disambiguator])"
 				</li>
 				<li>
 					Like morpheme disambiguators, the initial change disambiguator is not required unless the morpheme has more than one kind of initial change

@@ -6,6 +6,7 @@ use App\Form;
 use App\Mode;
 use App\Order;
 use App\FormType;
+use App\EmptyForm;
 use App\FormClass;
 use App\Http\Requests;
 use App\Search\SearchTable;
@@ -13,6 +14,15 @@ use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
+    private $languages;
+    private $modeSelect;
+    private $modes;
+    private $orders;
+    private $classes;
+    private $affirmativ;
+    private $negative;
+    private $diminutive;
+
     public function index()
     {
         return view('search.index');
@@ -105,17 +115,19 @@ class SearchController extends Controller
 
     protected function search($request)
     {
-        $languages   = $request->languages;
-        $modeSelect  = $request->modeSelect;
-        $modes       = $request->modes;
-        $orders      = $request->orders;
-        $classes     = $request->classes;
-        $affirmative = $request->affirmative;
-        $negative    = $request->negative;
-        $diminutive  = $request->diminutive;
+        $this->languages   = $request->languages;
+        $this->modeSelect  = $request->modeSelect;
+        $this->modes       = $request->modes;
+        $this->orders      = $request->orders;
+        $this->classes     = $request->classes;
+        $this->affirmative = $request->affirmative;
+        $this->negative    = $request->negative;
+        $this->diminutive  = $request->diminutive;
 
-        $query= Form::with([
+        $formQuery = Form::with([
+            'language',
             'language.group',
+            'formType',
             'formType.mode',
             'formType.formClass',
             'formType.order',
@@ -127,9 +139,32 @@ class SearchController extends Controller
             },
             'morphemes.gloss',
             'morphemes.slot'
-        ])
+        ]);
 
-        ->join('FormTypes', 'FormTypes.id', '=', 'formType_id')
+        $emptyFormQuery = EmptyForm::with([
+            'language',
+            'language.group',
+            'formType',
+            'formType.mode',
+            'formType.formClass',
+            'formType.order',
+            'formType.subject',
+            'formType.primaryObject',
+            'formType.secondaryObject'
+        ]);
+
+        $this->order($formQuery);
+        $this->order($emptyFormQuery);
+
+        $this->filter($formQuery);
+        $this->filter($emptyFormQuery);
+
+        return $formQuery->get(['Forms.*'])->merge($emptyFormQuery->get(['EmptyForms.*']));
+    }
+
+    protected function order(&$query)
+    {
+        $query->join('FormTypes', 'FormTypes.id', '=', 'formType_id')
         ->join('Languages', 'Languages.id', '=', 'language_id')
         ->join('Groups', 'Groups.id', '=', 'Languages.group_id')
         ->orderBy('Groups.position', 'asc')
@@ -137,27 +172,30 @@ class SearchController extends Controller
         ->orderBy('FormTypes.order_id', 'asc')
         ->orderBy('FormTypes.isAbsolute', 'desc')
         ->orderBy('FormTypes.isNegative', 'asc')
-        ->orderBy('FormTypes.isDiminutive', 'asc');
+        ->orderBy('FormTypes.isDiminutive', 'asc');     
+    }
 
-        $query->whereIn('language_id', $languages);
+    protected function filter(&$query)
+    {
+        $query->whereIn('language_id', $this->languages);
 
-        switch ($modeSelect) {
+        switch ($this->modeSelect) {
             case 'indicativeOnly':
                 $query->whereHas('formType', function ($query) {
                     $query->where('mode_id', 1);
                 });
                 break;
             case 'selectModes':
-                $this->filterSubqueryUsingList($query, 'formType', $modes, 'mode_id');
+                $this->filterSubqueryUsingList($query, 'formType', $this->modes, 'mode_id');
                 break;
             default:
                 break;
         }
 
-        $this->filterSubqueryUsingList($query, 'formType', $classes, 'class_id');
-        $this->filterSubqueryUsingList($query, 'formType', $orders, 'order_id');
+        $this->filterSubqueryUsingList($query, 'formType', $this->classes, 'class_id');
+        $this->filterSubqueryUsingList($query, 'formType', $this->orders, 'order_id');
 
-        if($diminutive) {
+        if($this->diminutive) {
             $query->whereHas('formType', function ($query) {
                 $query->where('isDiminutive', 1);
             });
@@ -168,18 +206,16 @@ class SearchController extends Controller
             });
         }
 
-        if($negative && !$affirmative) {
+        if($this->negative && !$this->affirmative) {
             $query->whereHas('formType', function ($query) {
                 $query->where('isNegative', 1);
             });
         }
 
-        if(!$negative && $affirmative) {
+        if(!$this->negative && $this->affirmative) {
             $query->whereHas('formType', function ($query) {
                 $query->where('isNegative', 0);
             });
         }
-
-        return $query->get(['Forms.*']);
     }
 }

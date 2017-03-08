@@ -96,7 +96,7 @@ class LangFormRequest extends FormRequest
     {
         $rules = [
             //Base form info
-            'surfaceForm'          => ['required'],
+            'surfaceForm'          => ['required_without:empty'],
             'phoneticForm'         => ['nullable'],
             'morphemicForm'        => ['nullable','has:V'],
 

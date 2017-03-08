@@ -99,6 +99,11 @@ class Language extends Model
         return $this->hasMany(Form::class, 'language_id');
     }
 
+    public function emptyForms()
+    {
+        return $this->hasMany(EmptyForm::class, 'language_id');
+    }
+
     public function examples()
     {
         return $this->hasManyThrough(Example::class, Form::class);

@@ -5,6 +5,23 @@
 		<h4 class="subtitle is-4">Basic Details</h4>
 		<div class="columns is-multiline">
 
+			<div class="column is-12">
+				<p class="control">
+					<label class="radio">
+						<input type="radio"
+							   v-model="form.empty"
+							   :value="false" />
+						Form exists
+					</label>
+					<label class="radio">
+						<input type="radio"
+							   v-model="form.empty"
+							   :value="true" />
+						Form does not exist
+					</label>
+				</p>
+			</div>
+
 			<!-- Surface Form -->
 			<div class="column is-half">
 				<label for="surfaceForm" class="label">Surface Form</label>
@@ -14,8 +31,7 @@
 						   v-model="form.surfaceForm"
 						   autocomplete="off"
 						   name="surfaceForm"
-						   required="required"
-						   :disabled="loading"
+						   :disabled="loading || form.empty"
 						   placeholder="The form as written in a text"
 						   :class="{'is-danger': form.errors.has('surfaceForm')}" />
 				</p>
@@ -187,7 +203,7 @@
 						   v-model="form.phoneticForm"
 						   autocomplete="off"
 						   name="phoneticForm"
-						   :disabled="loading"
+						   :disabled="loading || form.empty"
 						   placeholder="The Algonquianist phonemic representation (Leave blank if unknown or unclear)"
 						   :class="{'is-danger': form.errors.has('phoneticForm')}" />
 				</p>
@@ -206,7 +222,7 @@
 						   v-model="form.morphemicForm"
 						   autocomplete="off"
 						   name="morphemicForm"
-						   :disabled="loading"
+						   :disabled="loading || form.empty"
 						   placeholder="The morphemes, separated by hyphens (Leave blank if unknown or unclear)"
 						   :class="{'is-danger': form.errors.has('morphemicForm')}" />
 				</p>
@@ -227,7 +243,7 @@
 				<textarea v-model="form.usageNotes"
 						  name="usageNotes"
 						  class="textarea"
-						  :disabled="loading"
+						  :disabled="loading || form.empty"
 						  placeholder="Enter notes about the usage of this form">
 				</textarea>
 			</div>
@@ -238,7 +254,7 @@
 				<textarea v-model="form.allomorphyNotes"
 						  name="allomorphyNotes"
 						  class="textarea"
-						  :disabled="loading"
+						  :disabled="loading || form.empty"
 						  placeholder="Enter notes about this form's allomorphs">
 				</textarea>
 			</div>
@@ -249,7 +265,7 @@
 				<alg-ajaxlist v-model="form.parent"
 							  uri="/autocomplete/formParents"
 							  :with="form.language.id"
-							  :disabled="loading || !form.language.id"
+							  :disabled="loading || !form.language.id || form.empty"
 							  placeholder="Make sure to select the language first"
 							  :classes="{'is-danger': form.errors.has('parent')}">
 				</alg-ajaxlist>
@@ -266,7 +282,7 @@
 					<span class="select">
 						<select v-model="form.changeType_id"
 								name="changeType_id"
-								:disabled="loading || !form.parent.id || !form.language.id">
+								:disabled="loading || !form.parent.id || !form.language.id || form.empty">
 							<option v-for="changeType in changeTypeArray"
 									:value="changeType.id"
 									v-text="changeType.name">
@@ -349,6 +365,7 @@ export default {
 			loading: false,
 			changeTypeArray: [],
 			form: new Form({
+				empty: false,
 				surfaceForm: '',
 				language: {
 					text: '',
@@ -404,7 +421,11 @@ export default {
 
 			this.form.submit(this.method.toLowerCase(), this.action)
 				.then(response => {
-					window.location.replace("/forms/"+response);
+					if(this.form.empty) {
+						window.location.replace("/empty-forms/"+response);
+					} else {
+						window.location.replace("/forms/"+response);
+					}
 				})
 				.catch(error => {
 					this.loading = false;
@@ -419,17 +440,22 @@ export default {
 			let formArray = JSON.parse(this.model);
 			let formType = formArray.form_type;
 
-			this.form.surfaceForm     = formArray.surfaceForm.replace("*", "");
 			this.form.isAbsolute      = formType.isAbsolute;
 			this.form.isNegative      = formType.isNegative;
 			this.form.isDiminutive    = formType.isDiminutive;
-			this.form.phoneticForm    = formArray.phoneticForm;
-			this.form.morphemicForm   = formArray.morphemicForm;
-			this.form.usageNotes      = formArray.usageNotes;
-			this.form.allomorphyNotes = formArray.allomorphyNotes;
-			this.form.changeType_id   = formArray.changeType_id;
 			this.form.historicalNotes = formArray.historicalNotes;
 			this.form.comments        = formArray.comments;
+
+			if(formArray.surfaceForm) {
+				this.form.surfaceForm     = formArray.surfaceForm.replace("*", "");
+				this.form.phoneticForm    = formArray.phoneticForm;
+				this.form.morphemicForm   = formArray.morphemicForm;
+				this.form.usageNotes      = formArray.usageNotes;
+				this.form.allomorphyNotes = formArray.allomorphyNotes;
+				this.form.changeType_id   = formArray.changeType_id;
+			} else {
+				this.form.empty = true;
+			}
 
 			this.form.language = {
 				text: formArray.language.name,

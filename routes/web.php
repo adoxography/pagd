@@ -52,6 +52,10 @@ Route::resource('examples',                     'ExampleController');
 Route::patch('examples/{example}/disambiguate', 'ExampleController@disambiguate');
 
 // Form Routes
+Route::get('empty-forms/{form}',        'EmptyFormController@show');
+Route::delete('empty-forms/{form}',     'EmptyFormController@destroy');
+Route::patch('empty-forms/{form}',      'EmptyFormController@update');
+Route::get('empty-forms/{form}/edit',   'EmptyFormController@edit');
 Route::get('forms/need-attention',        'FormController@incompleteForms');
 Route::resource('forms',                  'FormController');
 Route::get('forms/{form}/addExample',     'FormController@addExample');

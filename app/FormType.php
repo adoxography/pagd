@@ -31,6 +31,13 @@ class FormType extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function getSummaryAttribute()
+    {
+        $output = "{$this->arguments} {$this->formClass->name} {$this->order->name} {$this->mode->name}";
+
+        return $output;
+    }
+
     /**
      * Shortcut to get the name of the subject
      *

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Form;
+use App\EmptyForm;
 use App\Http\Requests\LangFormRequest;
 
 /**
@@ -90,10 +91,17 @@ class FormController extends Controller
      */
     public function store(LangFormRequest $request)
     {
-        $form = Form::create($request->all());
+        $form;
+
+        if($request->empty) {
+            $form = EmptyForm::create($request->all());
+            flash("{$form->formType->summary} created successfully.", 'is-success');
+        } else {
+            $form = Form::create($request->all());
+            flash("{$form->surfaceForm} created successfully.", 'is-success');
+        }
         $form->connectSources($request->sources);
 
-        flash("{$form->surfaceForm} created successfully.", 'is-success');
         return $form->id;
     }
     

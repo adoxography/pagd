@@ -14,7 +14,7 @@
 			02-07-17: Added <a href="/changes">revised initial change</a> schema
 			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
 				<li>
-					Old schema concurrently in place because of existing data (<a href="/forms/250">1</a>, <a href="/forms/251">2</a>)
+					Demos: <a href="/forms/403">form with changed vStem</a>, <a href="/forms/404">form with changed preverb</a>
 				</li>
 				<li>
 					Initial change can be added using the syntax "IC[initial change disambiguator]|[morpheme][.[morpheme disambiguator]]"

@@ -215,25 +215,6 @@
 					  v-text="form.errors.get('morphemicForm')">
 				</span>
 			</div>
-
-			<!-- Placeholder -->
-			<div class="column is-half">
-			</div>
-
-			<!-- initialChange -->
-			<div class="column is-half">
-				<p class="control">
-					<label class="checkbox">
-						<input type="checkbox"
-							   v-model="form.initialChange"
-							   name="initialChange"
-							   value="true"
-							   :disabled="loading" />
-						Affected by initial change
-					</label>
-				</p>
-			</div>
-
 		</div>
 
 		<hr>
@@ -402,7 +383,6 @@ export default {
 				isDiminutive: false,
 				phoneticForm: '',
 				morphemicForm: '',
-				initialChange: false,
 				usageNotes: '',
 				allomorphyNotes: '',
 				parent: {
@@ -445,7 +425,6 @@ export default {
 			this.form.isDiminutive    = formType.isDiminutive;
 			this.form.phoneticForm    = formArray.phoneticForm;
 			this.form.morphemicForm   = formArray.morphemicForm;
-			this.form.initialChange   = formArray.initialChange;
 			this.form.usageNotes      = formArray.usageNotes;
 			this.form.allomorphyNotes = formArray.allomorphyNotes;
 			this.form.changeType_id   = formArray.changeType_id;

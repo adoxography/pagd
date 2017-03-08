@@ -10,7 +10,7 @@
 		<div class="columns is-multiline">
 
 			<!-- Morpheme Name -->
-			<div class="column is-one-quarter">
+			<div class="column is-half">
 				<label for="name" class="label">Morpheme</label>
 				<p class="control">
 					<input type="text"
@@ -26,25 +26,6 @@
 					  v-show="form.errors.has('name')"
 					  v-text="form.errors.get('name')">
 				</span>
-			</div>
-
-			<!-- Initial Changed Morpheme -->
-			<div class="column is-one-quarter">
-				<label for="alternateName" class="label">Initial Changed Morpheme</label>
-				<p class="control">
-					<input type="text"
-						   class="input"
-						   v-model="form.alternateName"
-						   autocomplete="off"
-						   name="alternateName"
-						   :disabled="loading"
-						   placeholder="leave blank if N/A"
-						   :class="{'is-danger': form.errors.has('alternateName')}">
-				</p>
-				<span class="help is-danger"
-					  v-show="form.errors.has('alternateName')"
-					  v-text="form.errors.get('alternateName')">
-				</span>				
 			</div>
 
 			<!-- Language -->
@@ -187,7 +168,6 @@ export default {
 					text: "",
 					id: ''
 				},
-				alternateName: '',
 				gloss: {
 					text: "",
 					id: ""
@@ -218,7 +198,6 @@ export default {
 
 			// Assign root defaults
 			this.form.name            = morphemeArray.name.replace("*", "");
-			this.form.alternateName   = morphemeArray.alternateName;
 			this.form.allomorphyNotes = morphemeArray.allomorphyNotes;
 			this.form.changeType_id   = morphemeArray.changeType_id;
 			this.form.historicalNotes = morphemeArray.historicalNotes;

@@ -38,7 +38,7 @@
 								  name="language"
 								  required="required"
 								  :disabled="loading"
-								  @input="form.errors.clear('language')"
+								  @input="onLanguageInput"
 								  :classes="{'is-danger': form.errors.has('language')}">
 					</alg-datalist>
 					<span class="help is-danger"
@@ -128,6 +128,13 @@ export default {
 		deleteRow(row, index) {
 			this.rows.splice(index, 1);
 			axios.delete("/changes/"+row.id);
+		},
+
+		onLanguageInput() {
+			this.form.morpheme = {
+				text: '',
+				id: ''
+			}
 		}
 	},
 

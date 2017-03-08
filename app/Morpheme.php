@@ -29,7 +29,6 @@ class Morpheme extends Model
     */
     public $table = 'Morphemes';
     protected $fillable = [
-        'alternateName',
         'changeType_id',
         'name',
         'language_id',
@@ -102,25 +101,11 @@ class Morpheme extends Model
         return "{$this->name} ({$this->gloss->abv})";
     }
 
-    public function getAlternateNameAttribute($value)
-    {
-        if($value) {
-            return $value;
-        } else {
-            return $this->name;
-        }
-    }
-
     /*
     |--------------------------------------------------------------------------
     | Methods
     |--------------------------------------------------------------------------
     */
-
-    public function hasAlternateName()
-    {
-        return $this->name != $this->alternateName;
-    }
 
     public function uniqueName()
     {
@@ -135,11 +120,6 @@ class Morpheme extends Model
     public function isVStem()
     {
         return preg_match('/\*?V/', $this->name);
-    }
-
-    public function isAffectedByInitialChange()
-    {
-        return $this->slot->abv === 'V' || $this->slot->abv === 'PV';
     }
 
     public function initialChange($code)

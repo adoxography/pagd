@@ -13,6 +13,7 @@ class Morpheme extends Model
     use \App\SourceableTrait;
     use \App\ReconstructableTrait;
     use \App\HasChildrenTrait;
+    use \App\BacksUpTrait;
 
     /*
     |--------------------------------------------------------------------------

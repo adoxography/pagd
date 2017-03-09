@@ -22,6 +22,7 @@ class Form extends Model
     use \App\HasMorphemesTrait;
     use \App\ReconstructableTrait;
     use \App\HasChildrenTrait;
+    use \App\BacksUpTrait;
 
     protected $morphemeTable = 'Forms_Morphemes';
 

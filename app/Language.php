@@ -15,6 +15,7 @@ class Language extends Model
 {
     use \Venturecraft\Revisionable\RevisionableTrait;
     use \App\HasChildrenTrait;
+    use \App\BacksUpTrait;
 
     /*
     |--------------------------------------------------------------------------
@@ -68,10 +69,6 @@ class Language extends Model
 
         static::created(function($model) {
             event(new Created($model));
-        });
-
-        static::saved(function($model) {
-            event(new Saved($model));
         });
 
         static::deleting(function($model) {

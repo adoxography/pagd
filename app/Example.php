@@ -2,12 +2,6 @@
 
 namespace App;
 
-use App\Morpheme;
-use App\Events\Example\Saved;
-use App\Events\Example\Saving;
-use App\Events\Example\Created;
-use App\Events\Example\Deleted;
-use App\Events\Example\Deleting;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -18,6 +12,7 @@ class Example extends Model
     use \Venturecraft\Revisionable\RevisionableTrait;
     use \App\SourceableTrait;
     use \App\HasMorphemesTrait;
+    use \App\BacksUpTrait;
 
     protected $morphemeTable = 'Examples_Morphemes';
 
@@ -57,10 +52,6 @@ class Example extends Model
 
     public static function boot() {
         parent::boot();
-
-        static::saved(function($model) {
-            event(new Saved($model));
-        });
     }
 
     /*

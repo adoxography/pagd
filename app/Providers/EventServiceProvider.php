@@ -14,15 +14,16 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
 
+        // Backup Event
+        'App\Events\Backup' => [
+            'App\Listeners\Backup'
+        ],
+
         // Language Events
         'App\Events\Language\Created' => [
             'App\Listeners\Language\AddVStem'
         ],
-        'App\Events\Language\Saved' => [
-            'App\Listeners\Backup'
-        ],
         'App\Events\Language\Deleting' => [
-            'App\Listeners\Language\DisconnectChildren',
             'App\Listeners\Language\DestroyExamples',
             'App\Listeners\Language\DestroyForms',
             'App\Listeners\Language\DestroyMorphemes',
@@ -31,16 +32,10 @@ class EventServiceProvider extends ServiceProvider
         // Form Events
         'App\Events\Form\Saved' => [
             'App\Listeners\Form\ConnectDuplicates',
-            'App\Listeners\Backup'
         ],
         'App\Events\Form\Deleting' => [
             'App\Listeners\Form\DestroyExamples',
             'App\Listeners\Form\DisconnectDuplicates',
-        ],
-
-        // Example Events
-        'App\Events\Example\Saved' => [
-            'App\Listeners\Backup',
         ],
 
         // Morpheme Events
@@ -49,10 +44,6 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\Morpheme\Saved' => [
             'App\Listeners\Morpheme\ReconnectForms',
-            'App\Listeners\Backup',
-        ],
-        'App\Events\Morpheme\Deleting' => [
-            'App\Listeners\Morpheme\DisconnectChildren'
         ],
         'App\Events\Morpheme\Deleted' => [
             'App\Listeners\Morpheme\ReconnectForms',

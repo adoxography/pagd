@@ -2,14 +2,7 @@
 
 namespace App;
 
-use App\Morpheme;
-use App\ChangeType;
-use App\Search\ColHeader;
-use App\Search\RowHeader;
 use App\Events\Form\Saved;
-use App\Events\Form\Saving;
-use App\Events\Form\Created;
-use App\Events\Form\Deleted;
 use App\Events\Form\Deleting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -28,7 +21,7 @@ class Form extends Model
     use \App\SourceableTrait;
     use \App\HasMorphemesTrait;
     use \App\ReconstructableTrait;
-    use \App\CognatableTrait;
+    use \App\HasChildrenTrait;
 
     protected $morphemeTable = 'Forms_Morphemes';
 
@@ -189,16 +182,6 @@ class Form extends Model
     public function formType()
     {
         return $this->belongsTo(FormType::class, 'formType_id');
-    }
-
-    public function parent()
-    {
-        return $this->belongsTo(Form::class, 'parent_id');
-    }
-
-    public function children()
-    {
-        return $this->hasMany(Form::class, 'parent_id');
     }
 
     public function language()

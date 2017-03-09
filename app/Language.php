@@ -2,13 +2,8 @@
 
 namespace App;
 
-use App\Rule;
-use App\Example;
-use App\Morpheme;
 use App\Events\Language\Saved;
-use App\Events\Language\Saving;
 use App\Events\Language\Created;
-use App\Events\Language\Deleted;
 use App\Events\Language\Deleting;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -19,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Language extends Model
 {
     use \Venturecraft\Revisionable\RevisionableTrait;
+    use \App\HasChildrenTrait;
 
     /*
     |--------------------------------------------------------------------------
@@ -92,16 +88,6 @@ class Language extends Model
     {
         return $this->belongsTo(Group::class);
     }
-    
-    public function parent()
-    {
-        return $this->belongsTo(Language::class, 'parent_id');
-    }
-    
-    public function children()
-    {
-        return $this->hasMany(Language::class, 'parent_id');
-    }
 
     public function forms()
     {
@@ -138,6 +124,7 @@ class Language extends Model
         $morphemeSources = $this->loadSources('morphemes');
         $formSources     = $this->loadSources('forms');
         $exampleSources  = $this->loadSources('examples');
+        $output = null;
 
         $sources = $morphemeSources;
         if($formSources) {
@@ -146,8 +133,11 @@ class Language extends Model
         if($exampleSources) {
             $sources = $sources->merge($exampleSources);
         }
+        if($sources) {
+            $output = $sources->sortBy('short');
+        }
 
-        return $sources->sortBy('short');
+        return $output;
     }
 
     /*

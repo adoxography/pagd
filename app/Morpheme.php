@@ -79,6 +79,26 @@ class Morpheme extends Model
         'slot_id'         => 'Slot ID',
     ];
 
+    public static function boot() {
+        parent::boot();
+
+        static::creating(function($model) {
+            event(new Creating($model));
+        });
+
+        static::saved(function($model) {
+            event(new Saved($model));
+        });
+
+        static::deleting(function($model) {
+            event(new Deleting($model));
+        });
+
+        static::deleted(function($model) {
+            event(new Deleted($model));
+        });
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Attribute Modifiers

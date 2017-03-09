@@ -88,7 +88,6 @@ class MorphemeController extends Controller
     public function store(MorphemeRequest $request)
     {
         $morpheme = Morpheme::create($request->all());
-        $morpheme->connectSources($request->sources);
 
         flash("{$morpheme->name} created successfully.", 'is-success');
         return $morpheme->id;
@@ -104,7 +103,6 @@ class MorphemeController extends Controller
     public function update(MorphemeRequest $request, Morpheme $morpheme)
     {
         $morpheme->update($request->all());
-        $morpheme->connectSources($request->sources);
 
         flash("{$morpheme->name} updated successfully.", 'is-success');
         return $morpheme->id;

@@ -4,6 +4,18 @@ namespace App;
 
 trait SourceableTrait {
 
+    public static function bootSourceableTrait()
+    {
+        static::saved(function($model) {
+            $sources = request()->sources;
+            $model->connectSources($sources);
+        });
+
+        static::deleting(function($model) {
+            $model->sources()->detach();
+        });
+    }
+
     public function connectSources($sources)
     {
         if($sources) {

@@ -22,4 +22,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function revisions()
+    {
+        return $this->hasMany('Venturecraft\Revisionable\Revision')->latest()->take(30);
+    }
 }

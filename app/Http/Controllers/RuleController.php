@@ -37,7 +37,6 @@ class RuleController extends Controller
     public function store(RuleRequest $request)
     {
     	$rule = Rule::create($request->all());
-        $rule->connectSources($request->sources);
 
         return $rule->id;
     }
@@ -45,7 +44,6 @@ class RuleController extends Controller
     public function update(RuleRequest $request, Rule $rule)
     {
     	$rule->update($request->all());
-        $rule->connectSources($request->sources);
 
         return $rule->id;
     }

@@ -39,13 +39,6 @@ class Language extends Model
         'notes',
         'reconstructed'
     ];
-    protected $events = [
-        'created'  => Created::class,
-        'saving'   => Saving::class,
-        'saved'    => Saved::class,
-        'deleting' => Deleting::class,
-        'deleted'  => Deleted::class
-    ];
 
     /*
     |--------------------------------------------------------------------------
@@ -73,6 +66,22 @@ class Language extends Model
     protected $dontKeepRevisionOf = [
         'position'
     ];
+
+    public static function boot() {
+        parent::boot();
+
+        static::created(function($model) {
+            event(new Created($model));
+        });
+
+        static::saved(function($model) {
+            event(new Saved($model));
+        });
+
+        static::deleting(function($model) {
+            event(new Deleting($model));
+        });
+    }
     
     /*
     |--------------------------------------------------------------------------

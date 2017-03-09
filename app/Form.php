@@ -58,14 +58,6 @@ class Form extends Model
 
     protected $appends = ['uniqueName', 'uniqueNameWithLanguage'];
 
-    protected $events = [
-        'created'  => Created::class,
-        'saving'   => Saving::class,
-        'saved'    => Saved::class,
-        'deleting' => Deleting::class,
-        'deleted'  => Deleted::class
-    ];
-
     /*
     |--------------------------------------------------------------------------
     | Revision variables
@@ -92,6 +84,18 @@ class Form extends Model
     protected $dontKeepRevisionOf = [
         'complete'
     ];
+
+    public static function boot() {
+        parent::boot();
+
+        static::saved(function($model) {
+            event(new Saved($model));
+        });
+
+        static::deleting(function($model) {
+            event(new Deleting($model));
+        });
+    }
 
     /*
     |--------------------------------------------------------------------------

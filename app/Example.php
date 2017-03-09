@@ -32,14 +32,6 @@ class Example extends Model
     public $table = 'Examples';
     protected $fillable = ['name','translation','form_id','comments','notes','morphemicForm'];
 
-    protected $events = [
-        'created'  => Created::class,
-        'saving'   => Saving::class,
-        'saved'    => Saved::class,
-        'deleting' => Deleting::class,
-        'deleted'  => Deleted::class
-    ];
-
     /*
     |--------------------------------------------------------------------------
     | Revision variables
@@ -62,6 +54,14 @@ class Example extends Model
     protected $dontKeepRevisionOf = [
         'complete'
     ];
+
+    public static function boot() {
+        parent::boot();
+
+        static::saved(function($model) {
+            event(new Saved($model));
+        });
+    }
 
     /*
     |--------------------------------------------------------------------------

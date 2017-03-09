@@ -316,33 +316,7 @@
 				</p>
 			</div>
 			<div class="column is-12">
-				<label class="label">Flag</label>
-				<p class="control">
-					<label class="radio">
-						<input type="radio"
-							   v-model="form.flagLevel"
-							   value="0" />
-						None
-					</label>
-					<label class="radio">
-						<input type="radio"
-							   v-model="form.flagLevel"
-							   value="1" />
-						Just for me
-					</label>
-					<label class="radio">
-						<input type="radio"
-							   v-model="form.flagLevel"
-							   value="2" />
-						For me and administrators
-					</label>
-					<label class="radio">
-						<input type="radio"
-							   v-model="form.flagLevel"
-							   value="3" />
-						For everyone
-					</label>
-				</p>
+				<alg-flag v-model="form.flag"></alg-flag>
 			</div>
 		</div>
 
@@ -409,7 +383,7 @@ export default {
 				changeType_id: null,
 				historicalNotes: '',
 				comments: '',
-				flagLevel: '0',
+				flag: '0',
 				sources: []
 			})
 		};

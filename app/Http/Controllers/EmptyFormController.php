@@ -49,7 +49,6 @@ class EmptyFormController extends Controller
     public function update(LangFormRequest $request, EmptyForm $form)
     {
         $form->update($request->all());
-        $form->connectSources($request->sources);
 
         flash("{$form->formType->summary} updated successfully", 'is-success');
         return $form->id;

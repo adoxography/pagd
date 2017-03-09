@@ -100,7 +100,7 @@ class FormController extends Controller
             $form = Form::create($request->all());
             flash("{$form->surfaceForm} created successfully.", 'is-success');
         }
-        $form->connectSources($request->sources);
+        // $form->connectSources($request->sources);
 
         return $form->id;
     }
@@ -115,7 +115,7 @@ class FormController extends Controller
     public function update(LangFormRequest $request, Form $form)
     {
         $form->update($request->all());
-        $form->connectSources($request->sources);
+        // $form->connectSources($request->sources);
 
         flash("{$form->surfaceForm} updated successfully", 'is-success');
         return $form->id;

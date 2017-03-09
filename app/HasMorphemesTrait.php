@@ -14,6 +14,16 @@ use Illuminate\Support\Facades\Auth;
  */
 trait HasMorphemesTrait {
 
+    public static function bootHasMorphemesTrait() {
+        static::saved(function($model) {
+            $model->connectMorphemes();
+        });
+
+        static::deleting(function($model) {
+            $model->morphemes()->detach();
+        });
+    }
+
     protected function getMorphemeTable()
     {
         return $this->morphemeTable;

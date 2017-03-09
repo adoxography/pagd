@@ -84,4 +84,5 @@ Route::resource('slots',     'SlotController');
 
 Route::resource('sources',   'SourceController');
 
+Route::get('profile', 'UserController@show');
 Auth::routes();

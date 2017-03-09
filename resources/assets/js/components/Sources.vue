@@ -36,7 +36,8 @@
 								   v-model="source.extraInfo"
 								   placeholder="chapter, page number, etc..."
 								   ref="extrainfo"
-								   :disabled="disabled" />
+								   :disabled="disabled"
+								   autocomplete="off" />
 						</p>
 					</div>
 					<div class="column is-1">

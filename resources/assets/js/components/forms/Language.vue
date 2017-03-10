@@ -15,6 +15,7 @@
 						   v-model="form.name"
 						   autocomplete="off"
 						   name="name"
+						   id="name"
 						   required="required"
 						   :disabled="loading"
 						   :class="{'is-danger': form.errors.has('name')}" />
@@ -34,6 +35,7 @@
 						   v-model="form.alternateNames"
 						   autocomplete="off"
 						   name="alternateNames"
+						   id="alternateNames"
 						   :disabled="loading"
 						   :class="{'is-danger': form.errors.has('alternateNames')}" />
 				</p>
@@ -49,6 +51,7 @@
 				<alg-datalist v-model="form.group"
 							  :list="groups"
 							  name="group"
+							  id="group"
 							  :disabled="loading"
 							  required="required"
 							  @input="form.errors.clear('group')"
@@ -66,6 +69,7 @@
 				<alg-datalist v-model="form.parent"
 							  :list="languages"
 							  name="parent"
+							  id="parent"
 							  :disabled="loading"
 							  @input="form.errors.clear('parent')"
 							  :classes="{'is-danger': form.errors.has('parent')}">
@@ -86,6 +90,7 @@
 						   autocomplete="off"
 						   required="required"
 						   name="iso"
+						   iso="iso"
 						   :disabled="loading"
 						   :class="{'is-danger': form.errors.has('iso')}" />
 				</p>
@@ -105,6 +110,7 @@
 						   autocomplete="off" 
 						   required="required"
 						   name="algoCode"
+						   id="algoCode"
 						   :disabled="loading"
 						   :class="{'is-danger': form.errors.has('name')}" />
 				</p>
@@ -143,13 +149,10 @@
 			<!-- Notes -->
 			<div class="column is-12">
 				<label for="notes" class="label">Notes</label>
-				<div class="control">
-					<textarea class="textarea"
-							  name="notes"
-							  v-model="form.notes"
-							  :disabled="loading">
-					</textarea>
-				</div>
+				<alg-textarea v-model="form.notes"
+							  :disabled="loading"
+							  name="notes">
+				</alg-textarea>
 			</div>
 		</div>
 

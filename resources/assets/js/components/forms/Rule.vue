@@ -2,6 +2,7 @@
 	<form class="box"
 		  @submit.prevent="onSubmit"
 		  @keydown="form.errors.clear($event.target.name)">
+		<h4 class="subtitle is-4">Basic Details</h4>
 		<div class="columns is-multiline">
 
 			<!-- Name -->
@@ -13,6 +14,7 @@
 						   v-model="form.name"
 						   autocomplete="off"
 						   name="name"
+						   id="name"
 						   required="required"
 						   :disabled="loading"
 						   :class="{'is-danger': form.errors.has('name')}"
@@ -30,6 +32,7 @@
 				<alg-datalist v-model="form.language"
 							  :list="languages"
 							  name="language"
+							  id="language"
 							  :disabled="loading"
 							  :classes="{'is-danger': form.errors.has('language')}"
 							  placeholder="The language in which the rule occurs"
@@ -51,6 +54,7 @@
 						   v-model="form.abv"
 						   autocomplete="off"
 						   name="abv"
+						   id="abv"
 						   required="required"
 						   :disabled="loading"
 						   :class="{'is-danger': form.errors.has('abv')}"
@@ -71,35 +75,37 @@
 						   v-model="form.rule"
 						   autocomplete="off"
 						   name="rule"
+						   id="rule"
 						   required="required"
 						   :disabled="loading"
 						   :class="{'is-danger': form.errors.has('rule')}"
 						   placeholder="The rule itself" />
 				</p>
 			</div>
+		</div>
+
+		<hr>
+		<h4 class="subtitle is-4">Notes</h4>
+		<div class="columns">
 
 			<!-- Public Comments -->
-			<div class="column is-12">
-				<label for="comments" class="label">Public Comments</label>
-				<div class="control">
-					<textarea class="textarea"
+			<div class="column is-half">
+				<label for="publicComments" class="label">Public Notes</label>
+				<alg-textarea v-model="form.publicComments"
+							  :disabled="loading"
 							  name="publicComments"
-							  v-model="form.publicComments"
-							  :disabled="loading">
-					</textarea>
-				</div>
+							  placeholder="Comments here will be seen publicly">
+				</alg-textarea>
 			</div>
 
 			<!-- Private Comments -->
-			<div class="column is-12">
-				<label for="comments" class="label">Private Comments</label>
-				<div class="control">
-					<textarea class="textarea"
+			<div class="column is-half">
+				<label for="privateComments" class="label">Private Comments</label>
+				<alg-textarea v-model="form.privateComments"
+							  :disabled="loading"
 							  name="privateComments"
-							  v-model="form.privateComments"
-							  :disabled="loading">
-					</textarea>
-				</div>
+							  placeholder="Comments here will not be available to the public">
+				</alg-textarea>
 			</div>
 		</div>
 

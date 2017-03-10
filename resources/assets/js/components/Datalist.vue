@@ -4,6 +4,7 @@
 			<div class="alg-datalist-container">
 				<input type="text"
 					   :name="name"
+					   :id="id"
 					   :disabled="disabled"
 					   class="input is-expanded"
 					   :class="classes"
@@ -40,6 +41,7 @@
 		props: {
 			list: String,
 			name: String,
+			id: {},
 			disabled: Boolean,
 			required: {},
 

@@ -2,11 +2,25 @@
 	<div class="alg-ajax-list">
 		<div class="control">
 			<div class="alg-datalist-container">
-				<input :name="name" type="text" class="input" @input="onInput($event.target.value)" :value="value.text" @keyup="onKeyUp($event.keyCode)" @keydown.enter="onEnter($event)" autocomplete="off" :placeholder="placeholder" :disabled="disabled" />
+				<input :name="name"
+					   :id="id"
+					   type="text"
+					   class="input"
+					   @input="onInput($event.target.value)"
+					   :value="value.text"
+					   @keyup="onKeyUp($event.keyCode)"
+					   @keydown.enter="onEnter($event)"
+					   autocomplete="off" 
+					   :placeholder="placeholder"
+					   :disabled="disabled" />
 				<div class="box alg-datalist-dropdown" v-show="showList && options.length > 0 && value.text.length > 0">
 					<ul>
 						<li v-for="(option, index) in options">
-							<a @click="selectItem(option.name)" @mouseover="onHover(option.name)" :class="{ 'is-highlighted': activeItem(index) }">{{ option.name }}</a>
+							<a @click="selectItem(option.name)"
+							   @mouseover="onHover(option.name)"
+							   :class="{ 'is-highlighted': activeItem(index) }">
+							   	{{ option.name }}
+							</a>
 						</li>
 					</ul>
 				</div>
@@ -16,14 +30,16 @@
 				</span>
 			</div>
 		</div>
-		<input type="hidden" :name="name + '_id'" :value="value.id" />
+		<input type="hidden"
+			   :name="name + '_id'"
+			   :value="value.id" />
 	</div>
 </template>
 
 <script>
 	export default {
 
-		props: ['name', 'value', 'with', 'uri', 'placeholder', 'disabled'],
+		props: ['name', 'id', 'value', 'with', 'uri', 'placeholder', 'disabled'],
 
 		data() {
 			return {

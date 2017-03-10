@@ -20,9 +20,7 @@
 					<input type="url" class="input" autocomplete="off" v-model="url" />
 				</p>
 				<label class="label">Notes</label>
-				<p class="control">
-					<textarea class="textarea" v-model="notes"></textarea>
-				</p>
+				<alg-textarea v-model="notes"></alg-textarea>
     		</section>
     		<footer class="modal-card-foot">
       			<a class="button is-primary" :class="{'is-loading': loading, 'is-disabled': disabled}" @click="submit">Submit</a>

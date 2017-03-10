@@ -2,6 +2,8 @@
 	<form class="box"
 		  @submit.prevent="onSubmit"
 		  @keydown="form.errors.clear($event.target.name)">
+
+		<h4 class="subtitle is-4">Basic Details</h4>
 		<div class="columns is-multiline">
 
 			<!-- Example Name -->
@@ -13,6 +15,7 @@
 						   v-model="form.name"
 						   autocomplete="off"
 						   name="name"
+						   id="name"
 						   required="required"
 						   :disabled="loading"
 						   :class="{'is-danger': form.errors.has('name')}" />
@@ -29,6 +32,7 @@
 				<alg-datalist v-model="form.language"
 							  :list="languages"
 							  name="language"
+							  id="language"
 							  :disabled="loading"
 							  @input="onNewLanguage"
 							  :classes="{'is-danger': form.errors.has('language')}">
@@ -46,6 +50,8 @@
 							  uri="/autocomplete/forms"
 							  :with="form.language.id"
 							  :disabled="loading || !form.language.id"
+							  name="form"
+							  id="form"
 							  placeholder="Make sure to select the language first"
 							  :classes="{'is-danger': form.errors.has('form')}"
 							  @input="onNewForm"
@@ -66,6 +72,7 @@
 						   v-model="form.morphemicForm"
 						   autocomplete="off"
 						   name="morphemicForm"
+						   id="morphemicForm"
 						   required="required"
 						   :disabled="loading || !form.language.id || !form.form.extra"
 						   :class="{'is-danger': form.errors.has('morphemicForm')}"
@@ -86,6 +93,7 @@
 						   v-model="form.translation"
 						   autocomplete="off"
 						   name="translation"
+						   id="translation"
 						   required="required"
 						   :disabled="loading"
 						   :class="{'is-danger': form.errors.has('translation') }" />
@@ -95,29 +103,29 @@
 					  v-text="form.errors.get('translation')">
 				</span>
 			</div>
+		</div>
 
+		<hr>
+		<h4 class="subtitle is-4">Notes</h4>
+		<div class="columns">
 			<!-- Notes -->
-			<div class="column is-12">
+			<div class="column is-half">
 				<label for="notes" class="label">Public Notes</label>
-				<div class="control">
-					<textarea class="textarea"
+				<alg-textarea v-model="form.notes"
+							  :disabled="loading"
 							  name="notes"
-							  v-model="form.notes"
-							  :disabled="loading">
-					</textarea>
-				</div>
+							  placeholder="Comments here will be seen publicly">
+				</alg-textarea>
 			</div>
 
 			<!-- Comments -->
-			<div class="column is-12">
+			<div class="column is-half">
 				<label for="comments" class="label">Private Comments</label>
-				<div class="control">
-					<textarea class="textarea"
+				<alg-textarea v-model="form.comments"
+							  :disabled="loading"
 							  name="comments"
-							  v-model="form.comments"
-							  :disabled="loading">
-					</textarea>
-				</div>
+							  placeholder="Comments here will not be available to the public">
+				</alg-textarea>
 			</div>
 		</div>
 

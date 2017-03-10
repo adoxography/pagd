@@ -31,6 +31,7 @@
 						   v-model="form.surfaceForm"
 						   autocomplete="off"
 						   name="surfaceForm"
+						   id="surfaceForm"
 						   :disabled="loading || form.empty"
 						   placeholder="The form as written in a text"
 						   :class="{'is-danger': form.errors.has('surfaceForm')}" />
@@ -47,6 +48,7 @@
 				<alg-datalist v-model="form.language"
 							  :list="languages"
 							  name="language"
+							  id="language"
 							  :disabled="loading"
 							  @input="form.errors.clear('language')"
 							  :classes="{'is-danger': form.errors.has('language')}">
@@ -59,11 +61,12 @@
 
 			<!-- Arguments -->
 			<div class="column is-one-quarter">
-				<label class="label">Arguments</label>
+				<label for="subject" class="label">Arguments</label>
 				<div class="arguments control is-grouped">
 					<alg-datalist v-model="form.subject"
 								  :list="args"
 								  name="subject"
+								  id="subject"
 								  :disabled="loading"
 								  @input="form.errors.clear('subject')"
 								  :classes="{'is-danger': form.errors.has('subject')}">
@@ -103,6 +106,7 @@
 				<alg-datalist v-model="form.class"
 							  :list="classes"
 							  name="class"
+							  id="class"
 							  :disabled="loading"
 							  @input="form.errors.clear('class')"
 							  :classes="{'is-danger': form.errors.has('class')}">
@@ -119,6 +123,7 @@
 				<alg-datalist v-model="form.order"
 							  :list="orders"
 							  name="order"
+							  id="order"
 							  :disabled="loading"
 							  @input="form.errors.clear('order')"
 							  :classes="{'is-danger': form.errors.has('order')}">
@@ -135,6 +140,7 @@
 				<alg-datalist v-model="form.mode"
 							  :list="modes"
 							  name="mode"
+							  id="mode"
 							  :disabled="loading"
 							  @input="form.errors.clear('mode')"
 							  :classes="{'is-danger': form.errors.has('mode')}">
@@ -152,6 +158,7 @@
 					<span class="select">
 						<select v-model="form.isAbsolute"
 								name="isAbsolute"
+								id="isAbsolute"
 								:disabled="loading">
 							<option value="null">N/A</option>
 							<option value="1">Absolute</option>
@@ -192,7 +199,7 @@
 
 		<hr>
 		<h4 class="subtitle is-4">Morphology</h4>
-		<div class="columns is-multiline">
+		<div class="columns">
 
 			<!-- phoneticForm -->
 			<div class="column is-half">
@@ -203,6 +210,7 @@
 						   v-model="form.phoneticForm"
 						   autocomplete="off"
 						   name="phoneticForm"
+						   id="phoneticForm"
 						   :disabled="loading || form.empty"
 						   placeholder="The Algonquianist phonemic representation (Leave blank if unknown or unclear)"
 						   :class="{'is-danger': form.errors.has('phoneticForm')}" />
@@ -222,6 +230,7 @@
 						   v-model="form.morphemicForm"
 						   autocomplete="off"
 						   name="morphemicForm"
+						   id="morphemicForm"
 						   :disabled="loading || form.empty"
 						   placeholder="The morphemes, separated by hyphens (Leave blank if unknown or unclear)"
 						   :class="{'is-danger': form.errors.has('morphemicForm')}" />
@@ -234,30 +243,8 @@
 		</div>
 
 		<hr>
-		<h4 class="subtitle is-4">Notes</h4>
-		<div class="columns is-multiline">
-
-			<!-- Usage Notes -->
-			<div class="column is-12">
-				<label for="usageNotes" class="label">Usage Notes</label>
-				<textarea v-model="form.usageNotes"
-						  name="usageNotes"
-						  class="textarea"
-						  :disabled="loading || form.empty"
-						  placeholder="Enter notes about the usage of this form">
-				</textarea>
-			</div>
-
-			<!-- Allomorphy Notes -->
-			<div class="column is-12">
-				<label for="allomorphyNotes" class="label">Allomorphy Notes</label>
-				<textarea v-model="form.allomorphyNotes"
-						  name="allomorphyNotes"
-						  class="textarea"
-						  :disabled="loading || form.empty"
-						  placeholder="Enter notes about this form's allomorphs">
-				</textarea>
-			</div>
+		<h4 class="subtitle is-4">Lineage</h4>
+		<div class="columns">
 
 			<!-- Parent -->
 			<div class="column is-half">
@@ -265,6 +252,8 @@
 				<alg-ajaxlist v-model="form.parent"
 							  uri="/autocomplete/formParents"
 							  :with="form.language.id"
+							  name="parent"
+							  id="parent"
 							  :disabled="loading || !form.language.id || form.empty"
 							  placeholder="Make sure to select the language first"
 							  :classes="{'is-danger': form.errors.has('parent')}">
@@ -282,6 +271,7 @@
 					<span class="select">
 						<select v-model="form.changeType_id"
 								name="changeType_id"
+								id="changeType_id"
 								:disabled="loading || !form.parent.id || !form.language.id || form.empty">
 							<option v-for="changeType in changeTypeArray"
 									:value="changeType.id"
@@ -291,29 +281,50 @@
 					</span>
 				</div>
 			</div>
+		</div>
+
+		<hr>
+		<h4 class="subtitle is-4">Notes</h4>
+		<div class="columns is-multiline">
+
+			<!-- Usage Notes -->
+			<div class="column is-half">
+				<label for="usageNotes" class="label">Usage Notes</label>
+				<alg-textarea v-model="form.usageNotes"
+							  :disabled="loading || form.empty"
+							  name="usageNotes"
+							  placeholder="Enter notes about the usage of this form">
+				</alg-textarea>
+			</div>
+
+			<!-- Allomorphy Notes -->
+			<div class="column is-half">
+				<label for="allomorphyNotes" class="label">Allomorphy Notes</label>
+				<alg-textarea v-model="form.allomorphyNotes"
+							  :disabled="loading || form.empty"
+							  name="allomorphyNotes"
+							  placeholder="Enter notes about this form's allomorphs">
+				</alg-textarea>
+			</div>
 
 			<!-- Historical Notes -->
-			<div class="column is-12">
+			<div class="column is-half">
 				<label for="historicalNotes" class="label">Historical Notes</label>
-				<textarea v-model="form.historicalNotes"
-						  name="historicalNotes"
-						  class="textarea"
-						  :disabled="loading"
-						  placeholder="Enter historical information about this form">
-				</textarea>
+				<alg-textarea v-model="form.historicalNotes"
+							  :disabled="loading"
+							  name="historicalNotes"
+							  placeholder="Enter historical information about this form">
+				</alg-textarea>
 			</div>
 
 			<!-- Comments -->
-			<div class="column is-12">
+			<div class="column is-half">
 				<label for="comments" class="label">Comments</label>
-				<p class="control">
-					<textarea v-model="form.comments"
-							  name="comments"
-							  class="textarea"
+				<alg-textarea v-model="form.comments"
 							  :disabled="loading"
+							  name="comments"
 							  placeholder="Comments here will not be available to the public">
-					</textarea>
-				</p>
+				</alg-textarea>
 			</div>
 			<div class="column is-12">
 				<alg-flag v-model="form.flag"></alg-flag>

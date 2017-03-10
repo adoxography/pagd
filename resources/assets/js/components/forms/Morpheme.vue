@@ -4,9 +4,7 @@
 		  class="box"
 		  @submit.prevent="onSubmit"
 		  @keydown="form.errors.clear($event.target.name)">
-		<input type="hidden"
-			   name="_method"
-			   :value="method">
+		<h4 class="subtitle is-4">Basic Details</h4>
 		<div class="columns is-multiline">
 
 			<!-- Morpheme Name -->
@@ -18,6 +16,7 @@
 						   v-model="form.name"
 						   autocomplete="off"
 						   name="name"
+						   id="name"
 						   required="required"
 						   :disabled="loading"
 						   :class="{'is-danger': form.errors.has('name')}" />
@@ -34,6 +33,7 @@
 				<alg-datalist v-model="form.language"
 							  :list="languages"
 							  name="language"
+							  id="language"
 							  required="required"
 							  :disabled="loading"
 							  @input="form.errors.clear('language')"
@@ -51,6 +51,7 @@
 				<alg-datalist v-model="form.gloss"
 							  :list="glosses"
 							  name="gloss"
+							  id="gloss"
 							  required="required"
 							  :disabled="loading"
 							  @input="form.errors.clear('gloss')"
@@ -67,7 +68,9 @@
 			<div class="column is-half">
 				<label for="slot" class="label">Slot</label>
 				<alg-datalist v-model="form.slot"
-							  :list="slots" name="slot"
+							  :list="slots"
+							  name="slot"
+							  id="slot"
 							  required="required"
 							  :disabled="loading"
 							  @input="form.errors.clear('slot')"
@@ -77,17 +80,11 @@
 					  v-text="form.errors.get('slot')">
 				</span>
 			</div>
+		</div>
 
-			<!-- Allomorphy Notes -->
-			<div class="column is-12">
-				<label for="allomorphyNotes" class="label">Allomorphy Notes</label>
-				<textarea v-model="form.allomorphyNotes"
-						  class="textarea"
-						  name="allomorphyNotes"
-						  :disabled="loading"
-						  placeholder="Enter notes about this morpheme's allomorphs" >
-				</textarea>
-			</div>
+		<hr>
+		<h4 class="subtitle is-4">Lineage</h4>
+		<div class="columns">
 
 			<!-- Parent -->
 			<div class="column is-half">
@@ -96,6 +93,8 @@
 							  uri="/autocomplete/morphemeParents"
 							  :with="form.language.id"
 							  :disabled="loading || !form.language.id"
+							  name="parent"
+							  id="parent"
 							  placeholder="Make sure to select the language first"
 							  :classes="{'is-danger': form.errors.has('parent')}">
 				</alg-ajaxlist>
@@ -112,6 +111,7 @@
 					<span class="select">
 						<select v-model="form.changeType_id"
 								name="changeType_id"
+								id="changeType_id"
 								:disabled="loading">
 							<option v-for="changeType in changeTypeArray"
 									:value="changeType.id"
@@ -121,27 +121,39 @@
 					</span>
 				</div>
 			</div>
+		</div>
 
-			<!-- Historical Notes -->
-			<div class="column is-12">
-				<label for="historicalNotes" class="label">Historical Notes</label>
-				<textarea v-model="form.historicalNotes"
-						  class="textarea"
-						  name="historicalNotes"
-						  :disabled="loading"
-						  placeholder="Enter historical information about this morpheme">
-				</textarea>
+		<hr>
+		<h4 class="subtitle is-4">Notes</h4>
+		<div class="columns is-multiline">
+			<!-- Allomorphy Notes -->
+			<div class="column is-half">
+				<label for="allomorphyNotes" class="label">Allomorphy Notes</label>
+				<alg-textarea v-model="form.allomorphyNotes"
+							  :disabled="loading"
+							  name="allomorphyNotes"
+							  placeholder="Enter notes about this morpheme's allomorphs">
+				</alg-textarea>
 			</div>
 
 			<!-- Historical Notes -->
-			<div class="column is-12">
+			<div class="column is-half">
+				<label for="historicalNotes" class="label">Historical Notes</label>
+				<alg-textarea v-model="form.historicalNotes"
+							  :disabled="loading"
+							  name="historicalNotes"
+							  placeholder="Enter historical information about this morpheme">
+				</alg-textarea>
+			</div>
+
+			<!-- Private Comments -->
+			<div class="column is-half">
 				<label for="comments" class="label">Private Comments</label>
-				<textarea v-model="form.comments"
-						  class="textarea"
-						  name="comments"
-						  :disabled="loading"
-						  placeholder="Comments here will not be available to the public">
-				</textarea>
+				<alg-textarea v-model="form.comments"
+							  :disabled="loading"
+							  name="comments"
+							  placeholder="Comments here will not be available to the public">
+				</alg-textarea>
 			</div>
 		</div>
 

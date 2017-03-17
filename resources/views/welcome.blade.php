@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			02-17-17: Added colours to slots
+		</li>
+		<li>
 			02-17-17: Began transition to WYSIWYG editor
 		</li>
 		<hr>

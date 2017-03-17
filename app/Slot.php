@@ -9,7 +9,7 @@ class Slot extends Closed
 {
     public $table = 'Slots';
 
-    protected $fillable = ['name', 'abv', 'description'];
+    protected $fillable = ['name', 'colour', 'abv', 'description'];
 
     public function __construct()
     {

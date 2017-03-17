@@ -18,6 +18,20 @@
 	@endslot
 @endcomponent
 
+@if($item instanceof \App\Slot)
+	@component('components.form.text', ['label' => 'Colour', 'name' => 'colour'])
+		@slot('value')
+			@if(old('colour'))
+				{{ old('colour') }}
+			@elseif($item)
+				{{ $item->colour }}
+			@else
+				black
+			@endif
+		@endslot
+	@endcomponent
+@endif
+
 @component('components.form.textarea', ['label' => 'Description', 'name' => 'description'])
 	@slot('value')
 		@if(old('description'))

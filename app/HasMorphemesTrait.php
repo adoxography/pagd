@@ -214,10 +214,11 @@ trait HasMorphemesTrait {
     			// Morpheme unambiguously exists in the database
 
 				$morphemeHTML .= str_replace(['-', '*'], '', $morpheme->name);
+                $colour = $morpheme->slot->colour;
 
     			// Everything except vStems need to be wrapped in hyperlinks
     			if(!$morpheme->isVStem()) {
-    				$morphemeHTML = "<a href='/morphemes/{$morpheme->id}'>$morphemeHTML</a>";
+    				$morphemeHTML = "<a href='/morphemes/{$morpheme->id}' style='color: $colour;'>$morphemeHTML</a>";
     			}
 
     			// Add the gloss below the morpheme
@@ -227,10 +228,10 @@ trait HasMorphemesTrait {
     			if($morpheme->translation) {
     				$glossHTML .= str_replace(" ", ".", $morpheme->translation);
     			} else {
-    				$glossHTML .= "<a href='/glosses/{$morpheme->gloss_id}'><span class='gloss'>{$morpheme->gloss->abv}</span></a>";
+    				$glossHTML .= "<a href='/glosses/{$morpheme->gloss_id}' style='color: inherit;'><span class='gloss'>{$morpheme->gloss->abv}</span></a>";
     			}
 
-    			$morphemeHTML .= "<p>$glossHTML</p>";
+    			$morphemeHTML .= "<p style='color: $colour;'>$glossHTML</p>";
 
     		} else {
     			// Morpheme either doesn't exist in the database or it's ambiguous

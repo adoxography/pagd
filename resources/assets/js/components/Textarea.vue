@@ -1,8 +1,11 @@
 <template>
-	<div class="control">
-		<textarea ref="textbox"
+	<div class="control" :class="{ 'mce-disabled': disabled }">
+		<textarea :value="value"
 				  class="textarea"
-				  name="notes"
+				  :disabled="disabled">
+		</textarea>
+<!-- 		<textarea ref="textbox"
+				  class="textarea"
 				  :value="value"
 				  :disabled="disabled"
 				  :style="{height: height}"
@@ -10,7 +13,8 @@
 				  :id="name"
 				  @input="onInput($event.target.value)"
 				  :placeholder="placeholder">
-		</textarea>
+		</textarea> -->
+		<!-- <tinymce :id="name" :value="value" @change="onInput($event.target.value)"></tinymce> -->
 	</div>	
 </template>
 
@@ -20,18 +24,53 @@ export default {
 
 	data() {
 		return {
-			height: 0
+			height: 0,
+			editor: null
 		};
 	},
 
-	methods: {
-		onInput(value) {
-			this.$emit('input', value);
-			this.height = 'auto';
+	watch: {
+		disabled: function(value) {
+			this.editor.getBody().setAttribute('contenteditable', !value);
+		}
+	},
 
-			Vue.nextTick(() => {
-				this.height = this.$refs.textbox.scrollHeight+"px";
-			});
+	mounted() {
+		tinymce.init({
+			target: this.$el.children[0],
+			skin_url: '/css/skins/lightgray',
+			plugins: 'table charmap link lists',
+			link_title: false,
+			charmap: [
+				['643', 'esh'],
+				['353', 's - hacek']
+			],
+			toolbar: 'undo redo | bold italic underline | link | charmap | bullist numlist outdent indent | table',
+			menubar: false,
+			statusbar: false,
+			setup: (editor) => {
+				editor.on('change', (e) => {
+					this.updateValue(editor.getContent());
+				});
+
+				editor.on('input', (e) => {
+					this.updateValue(editor.getContent());
+				});
+
+				editor.on('click', e => {
+					tinymce.remove(this.$el.children[0]);
+				});
+			}
+		})
+		.then(response => {
+			// Save a reference to the editor for later
+			this.editor = response[0];
+		});
+	},
+
+	methods: {
+		updateValue(value) {
+			this.$emit('input', value.trim());
 		}
 	}
 }

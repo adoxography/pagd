@@ -35,6 +35,22 @@ window.axios.defaults.headers.common = {
 
 window.Form = Form;
 
+// Core
+import tinymce from 'tinymce/tinymce'
+import 'tinymce/themes/modern/theme'
+
+// Plugins
+import 'tinymce/plugins/table/plugin'
+import 'tinymce/plugins/charmap/plugin'
+import 'tinymce/plugins/link/plugin'
+import 'tinymce/plugins/lists/plugin'
+
+// tinymce.init({
+// 	selector: '#tinymce',
+// 	skin_url: '/css/skins/lightgray',
+// 	skin: "lightgrey"
+// });
+
 /**
  * We'll register a HTTP interceptor to attach the "CSRF" header to each of
  * the outgoing requests issued by this application. The CSRF middleware

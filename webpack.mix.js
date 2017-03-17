@@ -13,9 +13,9 @@ let mix = require('laravel-mix').mix;
 
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
-   .copy('resources/assets/libs/font-awesome/fonts', 'public/build/fonts')
    .browserSync()
-   .version();
+   .version()
+   .copy('resources/assets/libs/font-awesome/fonts', 'public/build/fonts');
 
 // mix.browserSync('algling.dev');
 // Full API

@@ -1,6 +1,6 @@
 <template>
 	<div class="alg-datalist" v-on-clickaway="closeList">
-		<div class="control has-addons">
+		<div class="field has-addons">
 			<div class="alg-datalist-container">
 				<input type="text"
 					   :name="name"

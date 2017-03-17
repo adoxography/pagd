@@ -12,6 +12,11 @@
 				@endif
 			</p>
 			@if(Auth::user())
+				<a href="/bookmark/languages/1" class="card-header-icon">
+					<span class="bookmark">
+						<i class="fa fa-bookmark"></i>
+					</span>
+				</a>
 			    <a href="{{ $uri }}/edit" class="card-header-icon">
 			      	<span class="icon">
 			        	<i class="fa fa-pencil"></i>

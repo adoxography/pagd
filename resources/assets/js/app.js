@@ -82,10 +82,6 @@ Vue.component('paradigm-mode-select', {
 	}
 });
 
-
-
-
-
 window.Event = new Vue();
 
 const app = new Vue({

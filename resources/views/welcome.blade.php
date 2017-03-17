@@ -11,6 +11,10 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			02-17-17: Began transition to WYSIWYG editor
+		</li>
+		<hr>
+		<li>
 			02-09-17: Made all texboxes auto-expand
 		</li>
 		<hr>

@@ -62,7 +62,7 @@
 			<!-- Arguments -->
 			<div class="column is-one-quarter">
 				<label for="subject" class="label">Arguments</label>
-				<div class="arguments control is-grouped">
+				<div class="arguments field is-grouped">
 					<alg-datalist v-model="form.subject"
 								  :list="args"
 								  name="subject"
@@ -326,9 +326,6 @@
 							  placeholder="Comments here will not be available to the public">
 				</alg-textarea>
 			</div>
-			<div class="column is-12">
-				<alg-flag v-model="form.flag"></alg-flag>
-			</div>
 		</div>
 
 		<hr>
@@ -394,7 +391,6 @@ export default {
 				changeType_id: null,
 				historicalNotes: '',
 				comments: '',
-				flag: '0',
 				sources: []
 			})
 		};

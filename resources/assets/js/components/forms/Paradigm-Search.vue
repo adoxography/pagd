@@ -253,7 +253,7 @@ export default {
 
 		onSelectSubclass(checked) {
 			if(checked) {
-				this.options.classes.AT.checked = true;
+				this.options.classes.TA.checked = true;
 			}
 			else {
 				let found = false;
@@ -264,7 +264,7 @@ export default {
 					}
 				}
 
-				this.options.classes.AT.checked = found;
+				this.options.classes.TA.checked = found;
 			}
 		},
 

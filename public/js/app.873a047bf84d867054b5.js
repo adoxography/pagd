@@ -28771,7 +28771,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 		onSelectSubclass: function onSelectSubclass(checked) {
 			if (checked) {
-				this.options.classes.AT.checked = true;
+				this.options.classes.TA.checked = true;
 			} else {
 				var found = false;
 
@@ -28781,7 +28781,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					}
 				}
 
-				this.options.classes.AT.checked = found;
+				this.options.classes.TA.checked = found;
 			}
 		},
 		onSelectAI: function onSelectAI(checked) {

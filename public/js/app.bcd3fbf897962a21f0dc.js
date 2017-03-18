@@ -28808,8 +28808,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 				array[field].forEach(function (value) {
 					var found = false;
 					for (var i = 0; i < _this2.form[field].length && !found; i++) {
-						_this2.form[field][i].checked = true;
-						found = true;
+						if (_this2.form[field][i].id == value) {
+							_this2.form[field][i].checked = true;
+							found = true;
+						}
 					}
 				});
 			}

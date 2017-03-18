@@ -278,7 +278,7 @@ export default {
 				});
 			}
 			else if(array[field]) {
-					this.form[field] = true;
+				this.form[field] = true;
 			}
 		},
 
@@ -292,8 +292,10 @@ export default {
 				array[field].forEach(value => {
 					let found = false;
 					for(let i = 0; i < this.form[field].length && !found; i++) {
-						this.form[field][i].checked = true;
-						found = true;
+						if(this.form[field][i].id == value) {
+							this.form[field][i].checked = true;
+							found = true;
+						}
 					}
 				})
 			}

@@ -13,7 +13,7 @@
 			<alg-paradigm-table morphemes-on="{{ $showMorphology }}" inline-template>
 				<div>
 					<a class="button" @click="toggleShow" style="position: fixed;">Show/Hide Morphology</a>
-					<table class="table is-bordered" style="display: block;">
+					<table class="table is-bordered" style="display: block; padding-top: 2.5rem;">
 						{!! $search->renderHeaders(3) !!}
 						<tbody>
 							@foreach($rows as $class => $subjects)

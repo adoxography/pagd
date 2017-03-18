@@ -11,6 +11,13 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			02-18-17: Enabled searching by TA subclass
+		</li>
+		<li>
+			02-18-17: Reformatted the <a href="/search#for-a-paradigm">paradigm search</a>
+		</li>
+		<hr>
+		<li>
 			02-17-17: Added <a href="/search">Algolia search</a>
 		</li>
 		<li>

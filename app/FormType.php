@@ -25,6 +25,14 @@ class FormType extends Model
         'isDiminutive'
     ];
 
+    public static function boot() {
+        parent::boot();
+
+        static::saving(function($model) {
+            $model->assignSubclass();
+        });
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Attribute modifiers
@@ -139,18 +147,11 @@ class FormType extends Model
         }
     }
 
-    /**
-     * Get the name of the class of the type
-     *
-     * TA forms have a fair bit of parsing based on their arguments to determine what their subclass is
-     *
-     * @return string The name of the class or subclass
-     */
-    public function getSubClassAttribute()
+    public function assignSubclass()
     {
-        $subclass = $this->formClass->name;
+        $subclass;
 
-        if ($subclass == 'TA') {
+        if ($this->formClass->name == 'TA') {
             // Only TA verbs have subclasses
 
             if ($this->subject->person == '0') {
@@ -198,9 +199,25 @@ class FormType extends Model
             if ($subclass === 'TA') {
                 $subclass = 'TA Other';
             }
-        }
 
-        return $subclass;
+            $this->subclass = $subclass;
+        }     
+    }
+
+    /**
+     * Get the name of the class of the type
+     *
+     * TA forms have a fair bit of parsing based on their arguments to determine what their subclass is
+     *
+     * @return string The name of the class or subclass
+     */
+    public function getSubclassAttribute($value)
+    {
+        if($value) {
+            return $value;
+        } else {
+            return $this->formClass->name;
+        }
     }
 
     /*

@@ -11,6 +11,7 @@ use App\FormClass;
 use App\Http\Requests;
 use App\Search\SearchTable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
@@ -19,6 +20,7 @@ class SearchController extends Controller
     private $modes;
     private $orders;
     private $classes;
+    private $subclasses;
     private $affirmativ;
     private $negative;
     private $diminutive;
@@ -32,6 +34,7 @@ class SearchController extends Controller
     {
         $languages        = $request->languages;
         $classes          = $request->classes;
+        $subclasses       = $request->subclasses;
         $primaryObjects   = $request->primaryObjects;
         $secondaryObjects = $request->secondaryObjects;
         $orders           = $request->orders;
@@ -57,7 +60,7 @@ class SearchController extends Controller
         // Limit the forms by specifying which form types should be displayed
         for ($i = 0; $i < count($classes); $i++) {
             if($i == 0) {
-                $query->whereHas('formType', function ($query) use ($i, $classes, $subjects, $orders, $modes, $primaryObjects, $secondaryObjects) {
+                $query->whereHas('formType', function ($query) use ($i, $classes, $subclasses, $subjects, $orders, $modes, $primaryObjects, $secondaryObjects) {
                     $query->where('class_id', $classes[$i])
                           ->where('subject_id', $subjects[$i])
                           ->where('order_id', $orders[$i])
@@ -72,7 +75,7 @@ class SearchController extends Controller
                     }
                 });
             } else {
-                $query->orWhereHas('formType', function ($query) use ($i, $classes, $subjects, $orders, $modes, $primaryObjects, $secondaryObjects) {
+                $query->orWhereHas('formType', function ($query) use ($i, $classes, $subclasses, $subjects, $orders, $modes, $primaryObjects, $secondaryObjects) {
                     $query->where('class_id', $classes[$i])
                           ->where('subject_id', $subjects[$i])
                           ->where('order_id', $orders[$i])
@@ -122,7 +125,20 @@ class SearchController extends Controller
     {
         if ($list) {
             $query->whereHas($subfield, function ($query) use ($list, $field) {
-                $query->whereIn($field, $list);
+                $query->WhereIn($field, $list);
+            });
+        }
+    }
+
+    protected function filterSubqueryUsingFuzzyList($query, $subfield, $list, $field)
+    {
+        if($list) {
+            $query->whereHas($subfield, function($query) use ($list, $field) {
+                $query->whereNull($field);
+
+                foreach($list as $item) {
+                    $query->orWhere(DB::raw('BINARY `'.$field.'`'), 'LIKE', "%$item%");
+                }
             });
         }
     }
@@ -134,9 +150,12 @@ class SearchController extends Controller
         $this->modes       = $request->modes;
         $this->orders      = $request->orders;
         $this->classes     = $request->classes;
+        $this->subclasses  = $request->subclasses;
         $this->affirmative = $request->affirmative;
         $this->negative    = $request->negative;
         $this->diminutive  = $request->diminutive;
+
+        // dd($this->subclasses);
 
         $formQuery = Form::with([
             'language',
@@ -207,6 +226,7 @@ class SearchController extends Controller
         }
 
         $this->filterSubqueryUsingList($query, 'formType', $this->classes, 'class_id');
+        $this->filterSubqueryUsingFuzzyList($query, 'formType', $this->subclasses, 'subclass');
         $this->filterSubqueryUsingList($query, 'formType', $this->orders, 'order_id');
 
         if($this->diminutive) {

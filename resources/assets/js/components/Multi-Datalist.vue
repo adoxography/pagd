@@ -1,19 +1,19 @@
 <template>
 	<div>
-		<alg-datalist ref="datalists" :list="list" v-for="(line, n) in lists" :name="name" v-model="lists[n]" :disabled="disabled"></alg-datalist>
+		<alg-datalist ref="datalists" :list="list" v-for="(line, n) in value" :name="name" v-model="value[n]" :disabled="disabled"></alg-datalist>
 		<div class="level">
 			<div class="level-left">
 			</div>
 			<div class="level-right">
 				<div class="level-item">	
-					<a class="button is-info is-small" :class="{ 'is-disabled': lists.length >= 5 || disabled }" @click="addField()">
+					<a class="button is-info is-small" :class="{ 'is-disabled': value.length >= 5 || disabled }" @click="addField()">
 						<span class="icon">
 							<i class="fa fa-plus"></i>
 						</span>
 					</a>
 				</div>
 				<div class="level-item">
-					<a class="button is-info is-small" :class="{ 'is-disabled': lists.length <= 1 || disabled }" @click="removeField()">
+					<a class="button is-info is-small" :class="{ 'is-disabled': value.length <= 1 || disabled }" @click="removeField()">
 						<span class="icon">
 							<i class="fa fa-minus"></i>
 						</span>
@@ -29,15 +29,11 @@
 
 <script>
 	export default {
-		props: ['list', 'name', 'disabled'],
+		props: ['value', 'list', 'name', 'disabled'],
 
 		data() {
 			return {
 				numFields: 1,
-				lists: [{
-					text: '',
-					id: ''
-				}],
 				suggestions: {
 					cree: [
 						{
@@ -55,17 +51,22 @@
 
 		methods: {
 			addField() {
-				if(this.lists.length < 5) {
-					this.lists.push({
+				if(this.value.length < 5) {
+					let temp = this.value;
+					temp.push({
 						text: '',
 						id: ''
 					});
+
+					this.$emit('input', temp);
 				}
 			},
 
 			removeField() {
-				if(this.lists.length > 1) {
-					this.lists.pop();
+				if(this.value.length > 1) {
+					let temp = this.value;
+					temp.pop();
+					this.$emit('input', temp);
 				}
 			},
 
@@ -79,8 +80,8 @@
 					});
 				});
 
-				this.lists = newLists;
-			}
+				this.$emit('input', newLists);
+			},
 		}
 	}
 </script>

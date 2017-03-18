@@ -71,7 +71,7 @@ class Paradigm
             // Extract the formType for more efficient reference
             $formType = $form->formType;
 
-            $this->rows[$formType->subClass][$formType->arguments][] = $form;
+            $this->rows[$formType->subclass][$formType->arguments][] = $form;
         }
     }
 

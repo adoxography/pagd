@@ -12,7 +12,7 @@
 				The following languages...
 			</label>
 			<div class="box">
-				<alg-multi-datalist :list="languages" name="languages[]" :disabled="disabled"></alg-multi-datalist>
+				<alg-multi-datalist :list="languages" name="languages[]" v-model="selections" :disabled="disabled"></alg-multi-datalist>
 			</div>
 		</p>
 	</div>
@@ -24,7 +24,11 @@
 
 		data() {
 			return {
-				disabled: true
+				disabled: true,
+				selections: [{
+					text: '',
+					id: ''
+				}]
 			}
 		}
 	}

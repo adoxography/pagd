@@ -25,6 +25,16 @@ function indexAllModels() {
     \App\Source::reindex();
 }
 
+function setSubclasses() {
+    $formTypes = \App\FormType::all();
+
+    foreach($formTypes as $formType) {
+        $formType->subclass = null;
+        $formType->assignSubclass();
+        $formType->save();
+    }
+}
+
 /**
  * Replaces all of the rules tags in a block of text
  * 

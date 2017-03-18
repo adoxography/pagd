@@ -28,7 +28,9 @@
 					@component('components.model.field')
 						<ul>
 							@foreach($source->forms as $form)
-								<li><a href="/forms/{{ $form->id }}">{{ $form->surfaceForm }}</a> ({{ $form->pivot->extraInfo }})</li>
+								<li>
+									<a href="/forms/{{ $form->id }}">{{ $form->surfaceForm }}</a> @if($form->pivot->extraInfo)({{ $form->pivot->extraInfo }})@endif
+								</li>
 							@endforeach
 						</ul>
 					@endcomponent

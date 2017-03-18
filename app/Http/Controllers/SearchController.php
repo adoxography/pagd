@@ -28,8 +28,13 @@ class SearchController extends Controller
     public function index()
     {
         $searchType = request()->searchType;
-        $preset = request()->preset;
-        $preset = json_encode(unserialize($preset));
+        $preset = null;
+
+        if(request()->preset) {
+            $preset = str_replace(' ', '\u0020', json_encode(unserialize(request()->preset)));
+        }
+
+        // dd($preset);
         return view('search.index', compact('searchType', 'preset'));
     }
 
@@ -120,6 +125,7 @@ class SearchController extends Controller
         $search = new \App\Paradigm($forms);
         $data = $search->getHeaders();
         $rows = $search->getRows();
+
         $params = serialize($request->all());
 
         return view('search.results.paradigm', compact('data', 'rows', 'showMorphology', 'search', 'params'));

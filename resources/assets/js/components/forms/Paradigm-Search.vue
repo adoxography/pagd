@@ -204,8 +204,8 @@ export default {
 				classes: {
 					AI: { id: 1, checked: false },
 					II: { id: 2, checked: false },
-					TI: { id: 3, checked: false },
-					TA: { id: 4, checked: true },
+					TI: { id: 4, checked: false },
+					TA: { id: 3, checked: true },
 					AIO: { id: 5, checked: false },
 					TAO: { id: 6, checked: false }
 				},
@@ -277,8 +277,8 @@ export default {
 					this.loadCheck(array, value);
 				});
 			}
-			else if(array[field]) {
-				this.form[field] = true;
+			else {
+				this.form[field] = (typeof array[field] !== 'undefined') && array[field] && array[field] != '0';
 			}
 		},
 
@@ -288,16 +288,22 @@ export default {
 					this.loadSeries(array, value);
 				});
 			}
-			else if(array[field]) {
-				array[field].forEach(value => {
-					let found = false;
-					for(let i = 0; i < this.form[field].length && !found; i++) {
-						if(this.form[field][i].id == value) {
-							this.form[field][i].checked = true;
-							found = true;
+			else {
+				this.form[field].forEach(value => {
+					value.checked = false;
+				});
+
+				if(array[field]) {
+					array[field].forEach(value => {
+						let found = false;
+						for(let i = 0; i < this.form[field].length && !found; i++) {
+							if(this.form[field][i].id == value) {
+								this.form[field][i].checked = true;
+								found = true;
+							}
 						}
-					}
-				})
+					})
+				}
 			}
 		}
 	},
@@ -307,7 +313,9 @@ export default {
 		this.form.modes = JSON.parse(this.modes);
 
 		if(this.preset) {
+			console.log(this.preset);
 			let presetArray = JSON.parse(this.preset);
+			console.log(presetArray);
 			
 			this.loadCheck(presetArray, ['affirmative', 'negative', 'diminutive', 'showMorphology']);
 			this.loadSeries(presetArray, ['orders', 'modes', 'subclasses']);
@@ -315,6 +323,10 @@ export default {
 			this.form.modeSelect = presetArray.modeSelect;
 
 			if(presetArray.classes) {
+				_.forEach(this.form.classes, value => {
+					value.checked = false;
+				});
+
 				presetArray.classes.forEach(formClass => {
 					_.forEach(this.form.classes, value => {
 						if(value.id == formClass) {

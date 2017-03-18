@@ -33,7 +33,11 @@
 					</form>
 				</alg-tab>
 				<alg-tab name="For a paradigm" {{ (isset($searchType) && $searchType == 'paradigm') ? "selected='true'" : '' }}>
-					<alg-paradigm-search orders="{{ $orders }}" modes="{{ $modes }}" languages="{{ $languages }}" preset="{{ $preset or '' }}"></alg-paradigm-search>
+					<alg-paradigm-search orders="{{ $orders }}"
+										 modes="{{ $modes }}"
+										 languages="{{ $languages }}"
+										 {{ isset($preset) ? "preset=$preset" : '' }}>
+					</alg-paradigm-search>
 				</alg-tab>				
 				<alg-tab name="For a form">
 					@component('components.form', ['method' => 'GET', 'url' => '/search/form', 'class' => 'form-search-form'])
@@ -42,7 +46,11 @@
 								<alg-radio-toggle languages="{{ $languages }}"></alg-radio-toggle>
 							</div>
 							<div class="column">
-								<alg-form-search arguments="{{ $arguments }}" classes="{{ $classes }}" modes="{{ $modes }}" orders="{{ $orders }}"></alg-form-search>
+								<alg-form-search arguments="{{ $arguments }}"
+												 classes="{{ $classes }}"
+												 modes="{{ $modes }}"
+												 orders="{{ $orders }}">
+								</alg-form-search>
 							</div>
 						</div>
 						<button type="submit" class="button is-success">Search</button>

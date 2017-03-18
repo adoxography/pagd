@@ -28524,6 +28524,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -28708,42 +28710,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = {
-	props: ['method', 'action', 'orders', 'modes', 'languages'],
+	props: ['method', 'action', 'orders', 'modes', 'languages', 'preset'],
 
 	data: function data() {
-		return {
+		return _defineProperty({
 			loading: false,
 			orderArray: [],
 
-			options: {
-				classes: {
-					AI: { id: 1, checked: false },
-					II: { id: 2, checked: false },
-					TI: { id: 3, checked: false },
-					TA: { id: 4, checked: true },
-					AIO: { id: 5, checked: false },
-					TAO: { id: 6, checked: false }
-				},
-				subclasses: [{ id: 'Local', checked: true }, { id: 'Mixed', checked: true }, { id: 'Non-local', checked: true }, { id: 'Inanimate', checked: false }, { id: 'Impersonal', checked: false }, { id: 'Obviative', checked: false }],
-				orders: [],
-				modes: []
-			},
+			form: {}
 
-			form: new Form({
-				modeSelect: 'indicativeOnly',
-				languages: [{
-					text: 'Proto-Algonquian',
-					id: '1'
-				}],
-				affirmative: true,
-				negative: false,
-				diminutive: false,
-				classes: [],
-				subclasses: [],
-				orders: [],
-				modes: []
-			})
-		};
+		}, 'form', new Form({
+			modeSelect: 'indicativeOnly',
+			languages: [{
+				text: 'Proto-Algonquian',
+				id: '1'
+			}],
+			affirmative: true,
+			negative: false,
+			diminutive: false,
+			classes: {
+				AI: { id: 1, checked: false },
+				II: { id: 2, checked: false },
+				TI: { id: 3, checked: false },
+				TA: { id: 4, checked: true },
+				AIO: { id: 5, checked: false },
+				TAO: { id: 6, checked: false }
+			},
+			subclasses: [{ id: 'Local', checked: true }, { id: 'Mixed', checked: true }, { id: 'Non-local', checked: true }, { id: 'Inanimate', checked: false }, { id: 'Impersonal', checked: false }, { id: 'Obviative', checked: false }],
+			orders: [],
+			modes: [],
+			showMorphology: false
+		}));
 	},
 
 
@@ -28759,7 +28756,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 		injectIntoForm: function injectIntoForm(name) {
 			var temp = [];
-			var array = this.options[name];
+			var array = this.form[name];
 
 			array.forEach(function (value) {
 				if (value.checked) {
@@ -28771,29 +28768,92 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 		onSelectSubclass: function onSelectSubclass(checked) {
 			if (checked) {
-				this.options.classes.TA.checked = true;
+				this.form.classes.TA.checked = true;
 			} else {
 				var found = false;
 
-				for (var i = 0; i < this.options.subclasses.length && !found; i++) {
-					if (this.options.subclasses[i].checked) {
+				for (var i = 0; i < this.form.subclasses.length && !found; i++) {
+					if (this.form.subclasses[i].checked) {
 						found = true;
 					}
 				}
 
-				this.options.classes.TA.checked = found;
+				this.form.classes.TA.checked = found;
 			}
 		},
 		onSelectAI: function onSelectAI(checked) {
-			this.options.subclasses.forEach(function (subclass) {
+			this.form.subclasses.forEach(function (subclass) {
 				subclass.checked = checked;
 			});
+		},
+		loadCheck: function loadCheck(array, field) {
+			var _this = this;
+
+			if (field.constructor === Array) {
+				field.forEach(function (value) {
+					_this.loadCheck(array, value);
+				});
+			} else if (array[field]) {
+				this.form[field] = true;
+			}
+		},
+		loadSeries: function loadSeries(array, field) {
+			var _this2 = this;
+
+			if (field.constructor === Array) {
+				field.forEach(function (value) {
+					_this2.loadSeries(array, value);
+				});
+			} else if (array[field]) {
+				array[field].forEach(function (value) {
+					var found = false;
+					for (var i = 0; i < _this2.form[field].length && !found; i++) {
+						_this2.form[field][i].checked = true;
+						found = true;
+					}
+				});
+			}
 		}
 	},
 
 	created: function created() {
-		this.options.orders = JSON.parse(this.orders);
-		this.options.modes = JSON.parse(this.modes);
+		var _this3 = this;
+
+		this.form.orders = JSON.parse(this.orders);
+		this.form.modes = JSON.parse(this.modes);
+
+		if (this.preset) {
+			var presetArray = JSON.parse(this.preset);
+
+			this.loadCheck(presetArray, ['affirmative', 'negative', 'diminutive', 'showMorphology']);
+			this.loadSeries(presetArray, ['orders', 'modes', 'subclasses']);
+
+			this.form.modeSelect = presetArray.modeSelect;
+
+			if (presetArray.classes) {
+				presetArray.classes.forEach(function (formClass) {
+					_.forEach(_this3.form.classes, function (value) {
+						if (value.id == formClass) {
+							value.checked = true;
+							return false;
+						}
+					});
+				});
+			}
+
+			if (presetArray.languages) {
+				var temp = [];
+
+				for (var i = 0; i < presetArray.languages.length; i += 2) {
+					temp.push({
+						text: presetArray.languages[i],
+						id: presetArray.languages[i + 1]
+					});
+				}
+
+				this.form.languages = temp;
+			}
+		}
 	}
 };
 
@@ -133162,8 +133222,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.options.classes.AI.checked),
-      expression: "options.classes.AI.checked"
+      value: (_vm.form.classes.AI.checked),
+      expression: "form.classes.AI.checked"
     }],
     attrs: {
       "type": "checkbox",
@@ -133171,23 +133231,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "classes[]"
     },
     domProps: {
-      "checked": Array.isArray(_vm.options.classes.AI.checked) ? _vm._i(_vm.options.classes.AI.checked, "1") > -1 : (_vm.options.classes.AI.checked)
+      "checked": Array.isArray(_vm.form.classes.AI.checked) ? _vm._i(_vm.form.classes.AI.checked, "1") > -1 : (_vm.form.classes.AI.checked)
     },
     on: {
       "__c": function($event) {
-        var $$a = _vm.options.classes.AI.checked,
+        var $$a = _vm.form.classes.AI.checked,
           $$el = $event.target,
           $$c = $$el.checked ? (true) : (false);
         if (Array.isArray($$a)) {
           var $$v = "1",
             $$i = _vm._i($$a, $$v);
           if ($$c) {
-            $$i < 0 && (_vm.options.classes.AI.checked = $$a.concat($$v))
+            $$i < 0 && (_vm.form.classes.AI.checked = $$a.concat($$v))
           } else {
-            $$i > -1 && (_vm.options.classes.AI.checked = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+            $$i > -1 && (_vm.form.classes.AI.checked = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
           }
         } else {
-          _vm.options.classes.AI.checked = $$c
+          _vm.form.classes.AI.checked = $$c
         }
       }
     }
@@ -133199,8 +133259,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.options.classes.II.checked),
-      expression: "options.classes.II.checked"
+      value: (_vm.form.classes.II.checked),
+      expression: "form.classes.II.checked"
     }],
     attrs: {
       "type": "checkbox",
@@ -133208,23 +133268,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "classes[]"
     },
     domProps: {
-      "checked": Array.isArray(_vm.options.classes.II.checked) ? _vm._i(_vm.options.classes.II.checked, "2") > -1 : (_vm.options.classes.II.checked)
+      "checked": Array.isArray(_vm.form.classes.II.checked) ? _vm._i(_vm.form.classes.II.checked, "2") > -1 : (_vm.form.classes.II.checked)
     },
     on: {
       "__c": function($event) {
-        var $$a = _vm.options.classes.II.checked,
+        var $$a = _vm.form.classes.II.checked,
           $$el = $event.target,
           $$c = $$el.checked ? (true) : (false);
         if (Array.isArray($$a)) {
           var $$v = "2",
             $$i = _vm._i($$a, $$v);
           if ($$c) {
-            $$i < 0 && (_vm.options.classes.II.checked = $$a.concat($$v))
+            $$i < 0 && (_vm.form.classes.II.checked = $$a.concat($$v))
           } else {
-            $$i > -1 && (_vm.options.classes.II.checked = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+            $$i > -1 && (_vm.form.classes.II.checked = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
           }
         } else {
-          _vm.options.classes.II.checked = $$c
+          _vm.form.classes.II.checked = $$c
         }
       }
     }
@@ -133236,8 +133296,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.options.classes.TI.checked),
-      expression: "options.classes.TI.checked"
+      value: (_vm.form.classes.TI.checked),
+      expression: "form.classes.TI.checked"
     }],
     attrs: {
       "type": "checkbox",
@@ -133245,23 +133305,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "classes[]"
     },
     domProps: {
-      "checked": Array.isArray(_vm.options.classes.TI.checked) ? _vm._i(_vm.options.classes.TI.checked, "4") > -1 : (_vm.options.classes.TI.checked)
+      "checked": Array.isArray(_vm.form.classes.TI.checked) ? _vm._i(_vm.form.classes.TI.checked, "4") > -1 : (_vm.form.classes.TI.checked)
     },
     on: {
       "__c": function($event) {
-        var $$a = _vm.options.classes.TI.checked,
+        var $$a = _vm.form.classes.TI.checked,
           $$el = $event.target,
           $$c = $$el.checked ? (true) : (false);
         if (Array.isArray($$a)) {
           var $$v = "4",
             $$i = _vm._i($$a, $$v);
           if ($$c) {
-            $$i < 0 && (_vm.options.classes.TI.checked = $$a.concat($$v))
+            $$i < 0 && (_vm.form.classes.TI.checked = $$a.concat($$v))
           } else {
-            $$i > -1 && (_vm.options.classes.TI.checked = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+            $$i > -1 && (_vm.form.classes.TI.checked = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
           }
         } else {
-          _vm.options.classes.TI.checked = $$c
+          _vm.form.classes.TI.checked = $$c
         }
       }
     }
@@ -133273,8 +133333,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.options.classes.TA.checked),
-      expression: "options.classes.TA.checked"
+      value: (_vm.form.classes.TA.checked),
+      expression: "form.classes.TA.checked"
     }],
     attrs: {
       "type": "checkbox",
@@ -133282,32 +133342,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "classes[]"
     },
     domProps: {
-      "checked": Array.isArray(_vm.options.classes.TA.checked) ? _vm._i(_vm.options.classes.TA.checked, "3") > -1 : (_vm.options.classes.TA.checked)
+      "checked": Array.isArray(_vm.form.classes.TA.checked) ? _vm._i(_vm.form.classes.TA.checked, "3") > -1 : (_vm.form.classes.TA.checked)
     },
     on: {
       "change": function($event) {
         _vm.onSelectAI($event.target.checked)
       },
       "__c": function($event) {
-        var $$a = _vm.options.classes.TA.checked,
+        var $$a = _vm.form.classes.TA.checked,
           $$el = $event.target,
           $$c = $$el.checked ? (true) : (false);
         if (Array.isArray($$a)) {
           var $$v = "3",
             $$i = _vm._i($$a, $$v);
           if ($$c) {
-            $$i < 0 && (_vm.options.classes.TA.checked = $$a.concat($$v))
+            $$i < 0 && (_vm.form.classes.TA.checked = $$a.concat($$v))
           } else {
-            $$i > -1 && (_vm.options.classes.TA.checked = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+            $$i > -1 && (_vm.form.classes.TA.checked = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
           }
         } else {
-          _vm.options.classes.TA.checked = $$c
+          _vm.form.classes.TA.checked = $$c
         }
       }
     }
   }), _vm._v("\n\t\t\t\t\tTA\n\t\t\t\t")])]), _vm._v(" "), _c('div', {
     staticClass: "box"
-  }, _vm._l((_vm.options.subclasses), function(subclass) {
+  }, _vm._l((_vm.form.subclasses), function(subclass) {
     return _c('p', {
       staticClass: "control"
     }, [_c('label', {
@@ -133359,31 +133419,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.options.classes.AIO.checked),
-      expression: "options.classes.AIO.checked"
+      value: (_vm.form.classes.AIO.checked),
+      expression: "form.classes.AIO.checked"
     }],
     attrs: {
       "type": "checkbox",
       "name": "classes[]"
     },
     domProps: {
-      "checked": Array.isArray(_vm.options.classes.AIO.checked) ? _vm._i(_vm.options.classes.AIO.checked, null) > -1 : (_vm.options.classes.AIO.checked)
+      "checked": Array.isArray(_vm.form.classes.AIO.checked) ? _vm._i(_vm.form.classes.AIO.checked, null) > -1 : (_vm.form.classes.AIO.checked)
     },
     on: {
       "__c": function($event) {
-        var $$a = _vm.options.classes.AIO.checked,
+        var $$a = _vm.form.classes.AIO.checked,
           $$el = $event.target,
           $$c = $$el.checked ? (true) : (false);
         if (Array.isArray($$a)) {
           var $$v = null,
             $$i = _vm._i($$a, $$v);
           if ($$c) {
-            $$i < 0 && (_vm.options.classes.AIO.checked = $$a.concat($$v))
+            $$i < 0 && (_vm.form.classes.AIO.checked = $$a.concat($$v))
           } else {
-            $$i > -1 && (_vm.options.classes.AIO.checked = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+            $$i > -1 && (_vm.form.classes.AIO.checked = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
           }
         } else {
-          _vm.options.classes.AIO.checked = $$c
+          _vm.form.classes.AIO.checked = $$c
         }
       }
     }
@@ -133395,31 +133455,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.options.classes.TAO.checked),
-      expression: "options.classes.TAO.checked"
+      value: (_vm.form.classes.TAO.checked),
+      expression: "form.classes.TAO.checked"
     }],
     attrs: {
       "type": "checkbox",
       "name": "classes[]"
     },
     domProps: {
-      "checked": Array.isArray(_vm.options.classes.TAO.checked) ? _vm._i(_vm.options.classes.TAO.checked, null) > -1 : (_vm.options.classes.TAO.checked)
+      "checked": Array.isArray(_vm.form.classes.TAO.checked) ? _vm._i(_vm.form.classes.TAO.checked, null) > -1 : (_vm.form.classes.TAO.checked)
     },
     on: {
       "__c": function($event) {
-        var $$a = _vm.options.classes.TAO.checked,
+        var $$a = _vm.form.classes.TAO.checked,
           $$el = $event.target,
           $$c = $$el.checked ? (true) : (false);
         if (Array.isArray($$a)) {
           var $$v = null,
             $$i = _vm._i($$a, $$v);
           if ($$c) {
-            $$i < 0 && (_vm.options.classes.TAO.checked = $$a.concat($$v))
+            $$i < 0 && (_vm.form.classes.TAO.checked = $$a.concat($$v))
           } else {
-            $$i > -1 && (_vm.options.classes.TAO.checked = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+            $$i > -1 && (_vm.form.classes.TAO.checked = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
           }
         } else {
-          _vm.options.classes.TAO.checked = $$c
+          _vm.form.classes.TAO.checked = $$c
         }
       }
     }
@@ -133427,7 +133487,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "column box is-2"
   }, [_c('h5', {
     staticClass: "title is-5"
-  }, [_vm._v("Order")]), _vm._v(" "), _vm._l((_vm.options.orders), function(order) {
+  }, [_vm._v("Order")]), _vm._v(" "), _vm._l((_vm.form.orders), function(order) {
     return _c('p', {
       staticClass: "control"
     }, [_c('label', {
@@ -133553,7 +133613,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "overflow-x": "auto",
       "padding-top": "0"
     }
-  }, _vm._l((_vm.options.modes), function(mode) {
+  }, _vm._l((_vm.form.modes), function(mode) {
     return _c('p', {
       staticClass: "control"
     }, [_c('label', {
@@ -133724,24 +133784,49 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "form.languages"
     }
-  })], 1)]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('button', {
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "control"
+  }, [_c('label', {
+    staticClass: "checkbox"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.showMorphology),
+      expression: "form.showMorphology"
+    }],
+    attrs: {
+      "type": "checkbox",
+      "name": "showMorphology"
+    },
+    domProps: {
+      "checked": Array.isArray(_vm.form.showMorphology) ? _vm._i(_vm.form.showMorphology, null) > -1 : (_vm.form.showMorphology)
+    },
+    on: {
+      "__c": function($event) {
+        var $$a = _vm.form.showMorphology,
+          $$el = $event.target,
+          $$c = $$el.checked ? (true) : (false);
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$c) {
+            $$i < 0 && (_vm.form.showMorphology = $$a.concat($$v))
+          } else {
+            $$i > -1 && (_vm.form.showMorphology = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+          }
+        } else {
+          _vm.form.showMorphology = $$c
+        }
+      }
+    }
+  }), _vm._v("\n\t\t\tShow Morphology\n\t\t")])]), _vm._v(" "), _c('button', {
     staticClass: "button is-success",
     attrs: {
       "type": "submit"
     }
   }, [_vm._v("Search")])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "control"
-  }, [_c('label', {
-    staticClass: "checkbox"
-  }, [_c('input', {
-    attrs: {
-      "type": "checkbox",
-      "name": "showMorphology"
-    }
-  }), _vm._v("\n\t\t\tShow Morphology\n\t\t")])])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

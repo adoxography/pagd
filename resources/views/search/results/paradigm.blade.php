@@ -12,7 +12,20 @@
 		<div id="root">
 			<alg-paradigm-table morphemes-on="{{ $showMorphology }}" inline-template>
 				<div>
-					<a class="button" @click="toggleShow" style="position: fixed;">Show/Hide Morphology</a>
+					<nav class="level" style="position: fixed;">
+						<div class="level-left">
+							<div class="level-item">
+								<a class="button" @click="toggleShow">Show/Hide Morphology</a>
+							</div>
+							<div class="level-item">
+								<form style="margin: 0;" method="GET" action="/search">
+									<input type="hidden" name="searchType" value="paradigm">
+									<input type="hidden" name="preset" value="{{ $params or '' }}">
+									<button class="button" type="submit">Refine</button>
+								</form>
+							</div>
+						</div>
+					</nav>
 					<table class="table is-bordered" style="display: block; padding-top: 2.5rem;">
 						{!! $search->renderHeaders(3) !!}
 						<tbody>

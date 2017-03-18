@@ -12,7 +12,7 @@
 							<input type="checkbox"
 								   value="1"
 								   name="classes[]"
-								   v-model="options.classes.AI.checked">
+								   v-model="form.classes.AI.checked">
 							AI
 						</label>
 					</p>
@@ -21,7 +21,7 @@
 							<input type="checkbox"
 								   value="2"
 								   name="classes[]"
-								   v-model="options.classes.II.checked">
+								   v-model="form.classes.II.checked">
 							II
 						</label>
 					</p>
@@ -30,7 +30,7 @@
 							<input type="checkbox"
 								   value="4"
 								   name="classes[]"
-								   v-model="options.classes.TI.checked">
+								   v-model="form.classes.TI.checked">
 							TI
 						</label>
 					</p>
@@ -39,7 +39,7 @@
 				<p class="control">
 					<label class="checkbox">
 						<input type="checkbox"
-							   v-model="options.classes.TA.checked"
+							   v-model="form.classes.TA.checked"
 							   value="3"
 							   name="classes[]"
 							   @change="onSelectAI($event.target.checked)">
@@ -47,7 +47,7 @@
 					</label>
 				</p>
 				<div class="box">
-					<p v-for="subclass in options.subclasses" class="control">
+					<p v-for="subclass in form.subclasses" class="control">
 						<label class="checkbox">
 							<input type="checkbox"
 								   v-model="subclass.checked"
@@ -63,7 +63,7 @@
 					<p class="control">
 						<label class="checkbox">
 							<input type="checkbox"
-								   v-model="options.classes.AIO.checked"
+								   v-model="form.classes.AIO.checked"
 								   name="classes[]">
 							AI+O
 						</label>
@@ -71,7 +71,7 @@
 					<p class="control">
 						<label class="checkbox">
 							<input type="checkbox"
-								   v-model="options.classes.TAO.checked"
+								   v-model="form.classes.TAO.checked"
 								   name="classes[]">
 							TA+O
 						</label>
@@ -81,7 +81,7 @@
 
 			<div class="column box is-2">
 				<h5 class="title is-5">Order</h5>
-				<p v-for="order in options.orders" class="control">
+				<p v-for="order in form.orders" class="control">
 					<label class="checkbox">
 						<input type="checkbox"
 							   v-model="order.checked"
@@ -123,7 +123,7 @@
 				</p>
 
 				<div class="box" style="max-height: 10em; overflow: scroll; overflow-x: auto; padding-top: 0;" :class="{ disabled: form.modeSelect != 'selectModes' }">
-					<p v-for="mode in options.modes" class="control">
+					<p v-for="mode in form.modes" class="control">
 						<label class="checkbox">
 							<input type="checkbox"
 								   :disabled="form.modeSelect != 'selectModes'"
@@ -172,7 +172,7 @@
 
 		<div class="control">
 			<label class="checkbox">
-				<input type="checkbox" name="showMorphology" />
+				<input type="checkbox" name="showMorphology" v-model="form.showMorphology" />
 				Show Morphology
 			</label>
 		</div>
@@ -182,14 +182,25 @@
 
 <script>
 export default {
-	props: ['method', 'action', 'orders', 'modes', 'languages'],
+	props: ['method', 'action', 'orders', 'modes', 'languages', 'preset'],
 
 	data() {
 		return {
 			loading: false,
 			orderArray: [],
 
-			options: {
+			form: {
+			},
+
+			form: new Form({
+				modeSelect: 'indicativeOnly',
+				languages: [{
+					text: 'Proto-Algonquian',
+					id: '1'
+				}],
+				affirmative: true,
+				negative: false,
+				diminutive: false,
 				classes: {
 					AI: { id: 1, checked: false },
 					II: { id: 2, checked: false },
@@ -208,21 +219,7 @@ export default {
 				],
 				orders: [],
 				modes: [],
-			},
-
-			form: new Form({
-				modeSelect: 'indicativeOnly',
-				languages: [{
-					text: 'Proto-Algonquian',
-					id: '1'
-				}],
-				affirmative: true,
-				negative: false,
-				diminutive: false,
-				classes: [],
-				subclasses: [],
-				orders: [],
-				modes: []
+				showMorphology: false
 			})
 		};
 	},
@@ -240,7 +237,7 @@ export default {
 
 		injectIntoForm(name) {
 			let temp = [];
-			let array = this.options[name];
+			let array = this.form[name];
 
 			array.forEach(value => {
 				if(value.checked) {
@@ -253,31 +250,92 @@ export default {
 
 		onSelectSubclass(checked) {
 			if(checked) {
-				this.options.classes.TA.checked = true;
+				this.form.classes.TA.checked = true;
 			}
 			else {
 				let found = false;
 
-				for(let i = 0; i < this.options.subclasses.length && !found; i++) {
-					if(this.options.subclasses[i].checked) {
+				for(let i = 0; i < this.form.subclasses.length && !found; i++) {
+					if(this.form.subclasses[i].checked) {
 						found = true;
 					}
 				}
 
-				this.options.classes.TA.checked = found;
+				this.form.classes.TA.checked = found;
 			}
 		},
 
 		onSelectAI(checked) {
-			this.options.subclasses.forEach(subclass => {
+			this.form.subclasses.forEach(subclass => {
 				subclass.checked = checked;
 			});
+		},
+
+		loadCheck(array, field) {
+			if(field.constructor === Array) {
+				field.forEach(value => {
+					this.loadCheck(array, value);
+				});
+			}
+			else if(array[field]) {
+					this.form[field] = true;
+			}
+		},
+
+		loadSeries(array, field) {
+			if(field.constructor === Array) {
+				field.forEach(value => {
+					this.loadSeries(array, value);
+				});
+			}
+			else if(array[field]) {
+				array[field].forEach(value => {
+					let found = false;
+					for(let i = 0; i < this.form[field].length && !found; i++) {
+						this.form[field][i].checked = true;
+						found = true;
+					}
+				})
+			}
 		}
 	},
 
 	created() {
-		this.options.orders = JSON.parse(this.orders);
-		this.options.modes = JSON.parse(this.modes);
+		this.form.orders = JSON.parse(this.orders);
+		this.form.modes = JSON.parse(this.modes);
+
+		if(this.preset) {
+			let presetArray = JSON.parse(this.preset);
+			
+			this.loadCheck(presetArray, ['affirmative', 'negative', 'diminutive', 'showMorphology']);
+			this.loadSeries(presetArray, ['orders', 'modes', 'subclasses']);
+
+			this.form.modeSelect = presetArray.modeSelect;
+
+			if(presetArray.classes) {
+				presetArray.classes.forEach(formClass => {
+					_.forEach(this.form.classes, value => {
+						if(value.id == formClass) {
+							value.checked = true;
+							return false;
+						}
+					});
+				});
+			}
+
+			if(presetArray.languages) {
+				let temp = [];
+
+				for(let i = 0; i < presetArray.languages.length; i+=2) {
+					temp.push({
+						text: presetArray.languages[i],
+						id: presetArray.languages[i + 1]
+					});
+				}
+
+				this.form.languages = temp;
+			}
+		}
 	}
 }
 </script>

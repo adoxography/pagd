@@ -9,7 +9,7 @@
 
 		<div class="box">
 			<alg-tabs>
-				<alg-tab name="General" selected="true">
+				<alg-tab name="General" {{ (isset($searchType) && $searchType != 'general') ? '' : "selected='true'" }}>
 					<form method="GET" action="/search/general">
 						<div class="field is-grouped">
 							<p class="control">
@@ -32,8 +32,8 @@
 						</div>
 					</form>
 				</alg-tab>
-				<alg-tab name="For a paradigm">
-					<alg-paradigm-search orders="{{ $orders }}" modes="{{ $modes }}" languages="{{ $languages }}"></alg-paradigm-search>
+				<alg-tab name="For a paradigm" {{ (isset($searchType) && $searchType == 'paradigm') ? "selected='true'" : '' }}>
+					<alg-paradigm-search orders="{{ $orders }}" modes="{{ $modes }}" languages="{{ $languages }}" preset="{{ $preset or '' }}"></alg-paradigm-search>
 				</alg-tab>				
 				<alg-tab name="For a form">
 					@component('components.form', ['method' => 'GET', 'url' => '/search/form', 'class' => 'form-search-form'])

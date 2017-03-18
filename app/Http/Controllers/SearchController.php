@@ -27,7 +27,10 @@ class SearchController extends Controller
 
     public function index()
     {
-        return view('search.index');
+        $searchType = request()->searchType;
+        $preset = request()->preset;
+        $preset = json_encode(unserialize($preset));
+        return view('search.index', compact('searchType', 'preset'));
     }
 
     public function form(Request $request)
@@ -117,8 +120,9 @@ class SearchController extends Controller
         $search = new \App\Paradigm($forms);
         $data = $search->getHeaders();
         $rows = $search->getRows();
+        $params = serialize($request->all());
 
-        return view('search.results.paradigm', compact('data', 'rows', 'showMorphology', 'search'));
+        return view('search.results.paradigm', compact('data', 'rows', 'showMorphology', 'search', 'params'));
     }
 
     protected function filterSubqueryUsingList($query, $subfield, $list, $field)

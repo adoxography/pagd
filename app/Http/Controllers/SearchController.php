@@ -92,6 +92,20 @@ class SearchController extends Controller
         dd($query->get());
     }
 
+    public function general()
+    {
+        $search;
+        $type = request()->type;
+        $lookup = request()->lookup;
+
+        $modelName = "\\App\\$type";
+        $model = new $modelName();
+        $results = $model->search($lookup)['hits'];
+        $table = strtolower($model->table);
+
+        return view('search/general-results', compact('table', 'results'));
+    }
+
     public function paradigm(Request $request)
     {
         $forms = $this->search($request);

@@ -27,4 +27,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('Venturecraft\Revisionable\Revision')->latest()->take(30);
     }
+
+    public function bookmarks()
+    {
+        return $this->morphedByMany(['App\Language', 'App\Form', 'App\Morpheme', 'App\Example'], 'bookmarkable')->withPivot('comment');
+    }
 }

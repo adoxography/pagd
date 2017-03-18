@@ -11,6 +11,20 @@ function assessAllForms()
     return "Operation complete";
 }
 
+function indexAllModels() {
+    \App\Language::clearIndices();
+    \App\Morpheme::clearIndices();
+    \App\Form::clearIndices();
+    \App\Example::clearIndices();
+    \App\Source::clearIndices();
+
+    \App\Language::reindex();
+    \App\Morpheme::reindex();
+    \App\Form::reindex();
+    \App\Example::reindex();
+    \App\Source::reindex();
+}
+
 /**
  * Replaces all of the rules tags in a block of text
  * 

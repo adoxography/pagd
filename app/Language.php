@@ -14,8 +14,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Language extends Model
 {
     use \Venturecraft\Revisionable\RevisionableTrait;
+    use \AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
     use \App\HasChildrenTrait;
     use \App\BacksUpTrait;
+    use \App\BookmarkableTrait;
 
     /*
     |--------------------------------------------------------------------------
@@ -74,6 +76,18 @@ class Language extends Model
         static::deleting(function($model) {
             event(new Deleting($model));
         });
+    }
+
+    public function getDisplayAttribute()
+    {
+        return $this->name;
+    }
+
+    public function getAlgoliaRecord()
+    {
+        return array_merge($this->toArray(), [
+            'display' => $this->name
+        ]);
     }
     
     /*

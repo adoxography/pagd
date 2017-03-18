@@ -10,9 +10,11 @@ use Illuminate\Database\Eloquent\Model;
 class Example extends Model
 {
     use \Venturecraft\Revisionable\RevisionableTrait;
+    use \AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
     use \App\SourceableTrait;
     use \App\HasMorphemesTrait;
     use \App\BacksUpTrait;
+    use \App\ReconstructableTrait;
 
     protected $morphemeTable = 'Examples_Morphemes';
 
@@ -54,6 +56,13 @@ class Example extends Model
         parent::boot();
     }
 
+    public function getAlgoliaRecord()
+    {
+        return array_merge($this->toArray(), [
+            'display' => $this->uniqueNameWithLanguage
+        ]);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Attribute Getters
@@ -72,9 +81,19 @@ class Example extends Model
         return $this->form->initialChange;
     }
 
+    public function getNameAttribute($value)
+    {
+        return $this->modifyIfReconstructed($value);
+    }
+
     public function getUniqueNameAttribute()
     {
         return $this->name;
+    }
+
+    public function getUniqueNameWithLanguageAttribute()
+    {
+        return "{$this->uniqueName} ({$this->language->name})";
     }
 
     /*

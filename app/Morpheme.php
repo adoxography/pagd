@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Morpheme extends Model
 {
     use \Venturecraft\Revisionable\RevisionableTrait;
+    use \AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
     use \App\SourceableTrait;
     use \App\ReconstructableTrait;
     use \App\HasChildrenTrait;
@@ -41,6 +42,13 @@ class Morpheme extends Model
         'uniqueName'
     ];
     protected $altName;
+
+    public function getAlgoliaRecord()
+    {
+        return array_merge($this->toArray(), [
+            'display' => $this->uniqueNameWithLanguage
+        ]);
+    }
 
     /*
     |--------------------------------------------------------------------------

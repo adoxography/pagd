@@ -9,8 +9,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Source extends Model
 {
+    use \AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
+
     public $table = 'Sources';
     protected $fillable = ['short', 'long', 'url', 'notes'];
+    protected $appends = ['display'];
+
+    public function getDisplayAttribute()
+    {
+        return $this->short;
+    }
+
+    public function getAlgoliaRecord()
+    {
+        return array_merge($this->toArray(), [
+            'display' => $this->short
+        ]);
+    }
 
     public function forms()
     {

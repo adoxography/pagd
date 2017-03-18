@@ -9,7 +9,30 @@
 
 		<div class="box">
 			<alg-tabs>
-				<alg-tab name="For a paradigm" selected="true">
+				<alg-tab name="General" selected="true">
+					<form method="GET" action="/search/general">
+						<div class="field is-grouped">
+							<p class="control">
+								<span class="select">
+									<select name="type">
+										<option>Source</option>
+										<option>Language</option>
+										<option>Form</option>
+										<option>Example</option>
+										<option>Morpheme</option>
+									</select>
+								</span>
+							</p>
+							<p class="control is-expanded">
+								<input class="input" type="text" name="lookup" />
+							</p>
+							<p class="control">
+								<button class="button" type="submit">Search</button>
+							</p>
+						</div>
+					</form>
+				</alg-tab>
+				<alg-tab name="For a paradigm">
 					<form target="_blank" method="GET" action="/search/paradigm" class="paradigm-search-form">
 						<div class="columns">
 

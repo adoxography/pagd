@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 class Form extends Model
 {
     use \Venturecraft\Revisionable\RevisionableTrait;
+    use \AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
     use \App\SourceableTrait;
     use \App\HasMorphemesTrait;
     use \App\ReconstructableTrait;
@@ -89,6 +90,13 @@ class Form extends Model
         static::deleting(function($model) {
             event(new Deleting($model));
         });
+    }
+
+    public function getAlgoliaRecord()
+    {
+        return array_merge($this->toArray(), [
+            'display' => $this->uniqueNameWithLanguage
+        ]);
     }
 
     /*

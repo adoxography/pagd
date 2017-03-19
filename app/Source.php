@@ -20,6 +20,14 @@ class Source extends Model
         return $this->short;
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Algolia
+    |--------------------------------------------------------------------------
+    */
+
+    public static $perEnvironment = true;
+
     public function getAlgoliaRecord()
     {
         return array_merge($this->toArray(), [

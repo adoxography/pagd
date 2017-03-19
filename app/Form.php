@@ -92,6 +92,14 @@ class Form extends Model
         });
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Algolia
+    |--------------------------------------------------------------------------
+    */
+
+    public static $perEnvironment = true;
+
     public function getAlgoliaRecord()
     {
         return array_merge($this->toArray(), [

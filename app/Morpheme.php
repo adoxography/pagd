@@ -43,6 +43,14 @@ class Morpheme extends Model
     ];
     protected $altName;
 
+    /*
+    |--------------------------------------------------------------------------
+    | Algolia
+    |--------------------------------------------------------------------------
+    */
+
+    public static $perEnvironment = true;
+    
     public function getAlgoliaRecord()
     {
         return array_merge($this->toArray(), [

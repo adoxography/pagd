@@ -83,8 +83,18 @@ class Language extends Model
         return $this->name;
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Algolia
+    |--------------------------------------------------------------------------
+    */
+
+    public static $perEnvironment = true;
+
     public function getAlgoliaRecord()
     {
+        $this->group;
+
         return array_merge($this->toArray(), [
             'display' => $this->name
         ]);

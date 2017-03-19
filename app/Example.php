@@ -56,6 +56,14 @@ class Example extends Model
         parent::boot();
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Algolia
+    |--------------------------------------------------------------------------
+    */
+
+    public static $perEnvironment = true;
+
     public function getAlgoliaRecord()
     {
         return array_merge($this->toArray(), [

@@ -1,4 +1,5 @@
-<html>
+<!doctype html>
+<html style="background-color: white;">
 	<head>
 		<link rel="stylesheet" type="text/css" href="{{ mix("/css/app.css") }}" />
 

@@ -17,7 +17,33 @@ Route::get('',     'HomeController@index');
 Route::get('home', 'HomeController@index');
 Route::get('glossary', function() { return view('glossary.index'); });
 
-Route::get('search/general', 'SearchController@general');
+Route::get('entire-paradigm', function() {
+    $classes = '';
+    $orders = '';
+    $languages = '';
+    $firstTime = true;
+
+    foreach(\App\FormClass::all() as $class) {
+        if($firstTime) {
+            $firstTime = false;
+        } else {
+            $classes .= '&';
+        }
+
+        $classes .= "classes[]={$class->id}";
+    }
+
+    foreach(\App\Order::all() as $order) {
+        $orders .= "&orders[]={$order->id}";
+    }
+
+    foreach(\App\Language::all() as $language) {
+        if($language->name != 'Demo')
+            $languages .= "&languages[]={$language->name}&languages[]_id={$language->id}";
+    }
+
+    return redirect()->to("/search/paradigm?{$classes}{$orders}&modeSelect=allModes&affirmative=on&negative=on{$languages}");
+});
 
 Route::post('backup', 'BackupController@store');
 
@@ -29,6 +55,7 @@ Route::post('contact', 'ContactController@send');
 
 // Search Routes
 Route::get('search',          'SearchController@index');
+Route::get('search/general',  'SearchController@general');
 Route::get('search/paradigm', 'SearchController@paradigm');
 Route::get('search/form',     'SearchController@form');
 

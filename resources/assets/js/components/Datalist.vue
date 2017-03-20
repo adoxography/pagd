@@ -1,5 +1,5 @@
 <template>
-	<div class="alg-datalist" v-on-clickaway="closeList">
+	<div class="control is-expanded alg-datalist" v-on-clickaway="closeList">
 		<div class="field has-addons">
 			<div class="alg-datalist-container">
 				<input type="text"

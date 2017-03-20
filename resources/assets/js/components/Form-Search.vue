@@ -17,7 +17,7 @@
 				<div class="column">
 					<h5 class="title is-5" style="margin-bottom: 1rem;">Arguments</h5>
 					<div class="control is-horizontal">
-						<div class="control is-grouped">
+						<div class="field is-grouped">
 							<p class="control">
 								<label class="label argument-label">Subject</label>
 								<span class="select">

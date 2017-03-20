@@ -2,7 +2,7 @@
 	<div>
 		<div :class="{ 'tabs': tabs.length > 0}">
 			<ul>
-				<li v-for="tab in tabs" :class="{'is-active': tab.isActive }">
+				<li v-for="tab in tabs" :class="{'is-active': tab.isActive }" style="margin-top: 0;">
 					<a :href="tab.href" @click="selectTab(tab)">{{ tab.name }}</a>
 				</li>
 			</ul>
@@ -16,6 +16,8 @@
 
 <script>
 	export default {
+		props: ['active'],
+
 		data() {
 			return {
 				tabs: []
@@ -27,19 +29,30 @@
 		},
 
 		mounted() {
-			let hash = location.hash;
+			if(!this.active) {
+				let hash = location.hash;
 
-			if(hash != '') {
-				this.tabs.forEach(tab => {
-					tab.isActive = (tab.href == location.hash);
-				});
+				if(hash != '') {
+					this.tabs.forEach(tab => {
+						tab.isActive = (tab.href == location.hash);
+					});
+				}
+			}
+			else {
+				this.selectTabByName(this.active);
 			}
 		},
 
 		methods: {
 			selectTab(targetTab) {
+				this.selectTabByName(targetTab.name);
+
+				this.$emit('tabChanged', targetTab.name);
+			},
+
+			selectTabByName(name) {
 				this.tabs.forEach(tab => {
-					tab.isActive = (tab.name == targetTab.name);
+					tab.isActive = (tab.name === name);
 				});
 			}
 		}

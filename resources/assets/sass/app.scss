@@ -222,3 +222,12 @@ html {
 p.is-danger {
 	color: $danger;
 }
+
+.tabs-details .tabs > ul {
+	margin: 0;
+	margin-top: -.75rem;
+}
+
+.alg-tabs-list-item {
+	margin-top: 0;
+}

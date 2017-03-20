@@ -11,6 +11,13 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			02-19-17: Added <a href="/search/for-a-paradigm">basic paradigm search</a>
+		</li>
+		<li>
+			02-19-17: Added a route that will bring up the <a href="/entire-paradigm">entire database</a>
+		</li>
+		<hr>
+		<li>
 			02-18-17: Added search refinement from paradigm views
 		</li>
 		<li>

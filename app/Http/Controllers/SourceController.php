@@ -8,6 +8,14 @@ use App\Http\Requests\SourceRequest;
 
 class SourceController extends Controller
 {
+    /**
+     * Initialize middleware
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+    }
+    
     public function index(){
     	$sources = Source::select("id","short as name")->orderBy('short')->get();
     	return view('sources.index', compact('sources'));

@@ -50,13 +50,23 @@ class Form {
 					resolve(response.data);
 				})
 				.catch(error => {
-					if(error.response && error.response.status == 422) {
-						this.onFail(error.response.data);
-					} else {
-						console.log(error.response.status);
-						alert("Network error. Please try again.");
+					if(error.response) {
+						if(error.response.status == 422) {
+							this.onFail(error.response.data);
+						}
+						else if(error.response.status = 500) {
+							alert('System error. Please submit a bug report including what you were doing and when.');
+						}
+						else {
+							alert("Network error "+error.response.status+". Please try again.");
+						}
+
+						reject(error.response.data);
 					}
-					reject(error.response.data);
+					else {
+						alert("Network error. Please try again.");
+						reject({});
+					}
 				});
 		});
 	}

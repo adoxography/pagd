@@ -65,10 +65,7 @@ class LangFormRequest extends FormRequest
         $data['order_id']           = $attributes['order_id'];
         $data['isNegative']         = $attributes['isNegative'] ? 1 : 0;
         $data['isDiminutive']       = $attributes['isDiminutive'] ? 1 : 0;
-
-        if(isset($data['isAbsolute'])) {
-            $data['isAbsolute'] = $attributes['isAbsolute'] ? 1 : 0;
-        }
+        $data['isAbsolute'] = $attributes['isAbsolute'];
 
         return $data;
     }
@@ -118,7 +115,8 @@ class LangFormRequest extends FormRequest
             'mode.id'              => ['required','exists:Modes,id'],
 
             'isNegative'           => ['boolean'],
-            'isDiminutive'         => ['boolean']
+            'isDiminutive'         => ['boolean'],
+            'isAbsolute'           => ['nullable', 'boolean']
         ];
 
         switch($this->method()){

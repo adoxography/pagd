@@ -11,6 +11,10 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			02-21-17: Fixed absolute/objective input issue
+		</li>
+		<hr>
+		<li>
 			02-20-17: Added <a href="/sources/create">source creation</a> outside of other creations
 		</li>
 		<hr>

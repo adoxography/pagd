@@ -160,9 +160,9 @@
 								name="isAbsolute"
 								id="isAbsolute"
 								:disabled="loading">
-							<option value="null">N/A</option>
-							<option value="1">Absolute</option>
-							<option value="2">Objective</option>
+							<option :value="null">N/A</option>
+							<option :value="1">Absolute</option>
+							<option :value="0">Objective</option>
 						</select>
 					</span>
 				</div>

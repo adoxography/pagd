@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layout', ['title' => "Edit $source->short"])
 
 @section('content')
 	<div class="heading">
@@ -6,9 +6,6 @@
 	</div>
 	<br />
 
-	@component('components.form', ['method' => 'PATCH', 'class' => 'box', 'url' => '/sources/'.$source->id])
-		@include('sources.partials.form')
-	@endcomponent
+	<alg-source-form method="PATCH" action="/sources/{{ $source->id }}" source="{{ $source }}"></alg-source-form>
 
-	@include('errors.list')
 @endsection

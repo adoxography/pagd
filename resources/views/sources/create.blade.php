@@ -1,15 +1,12 @@
-@extends('layout')
+@extends('layout', ['title' => 'Add a source'])
 
 @section('content')
 
-{{ Form::open(['method' => 'POST', 'url' => '/sources']) }}
+<div class="heading">
+	<h1 class="title">Add a Source</h1>
+</div>
+<br />
 
-	{{ Form::label('short', 'Short Form:') }}
-	{{ Form::text('short') }}
-	{{ Form::label('long', 'Long Form:') }}
-	{{ Form::textarea('long', null, ['rows' => 3]) }}
-	{{ Form::submit('Submit') }}
-
-{{ Form::close() }}
+<alg-source-form method="POST" action="/sources"></alg-source-form>
 
 @stop

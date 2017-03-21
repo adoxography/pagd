@@ -10,7 +10,7 @@
 		@component('components.model', ['header' => $source->short, 'uri' => "/sources/{$source->id}"])
 			<model-tab name="Basic Details" selected="true">
 				@component('components.model.field', ['label' => 'Full citation', 'width' => 'is-12'])
-					{{ $source->long }}
+					{!! $source->long !!}
 				@endcomponent
 				@if($source->url)
 					@component('components.model.field', ['label' => 'URL', 'width' => 'is-12'])
@@ -19,7 +19,7 @@
 				@endif
 				@if($source->notes)
 					@component('components.model.field', ['label' => 'Notes'])
-						{{ $source->notes }}
+						{!! $source->notes !!}
 					@endcomponent
 				@endif
 			</model-tab>

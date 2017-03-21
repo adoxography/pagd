@@ -28,12 +28,7 @@ class SourceController extends Controller
     }
 
     public function store(Request $request){
-    	$short = $request->short;
-    	$long  = $request->long;
-        $url   = $request->url;
-        $notes = $request->notes;
-
-    	$newSource = Source::create(['short' => $short, 'long' => $long, 'url' => $url, 'notes' => $notes]);
+    	$newSource = Source::create($request->all());
     	return response()->json($newSource);
     }
 
@@ -42,6 +37,6 @@ class SourceController extends Controller
         $source->update($request->all());
 
         flash($source->name.' updated successfully.', 'is-success');
-        return redirect('/sources/' . $source->id);
+        return response()->json($source);
     }
 }

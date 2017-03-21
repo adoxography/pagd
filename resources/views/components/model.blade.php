@@ -42,7 +42,7 @@
 				<?php $last = $history->last(); ?>
 				@if($last && $last->key != 'created_at')
 					@component('components.model.field', ['width' => 'is-12', 'label' => 'Last Edit'])
-							{{ $last->userResponsible() ? $last->userResponsible()->name : 'Anonymous' }} changed the {{ $last->fieldName() }} field from "{{ $last->oldValue() }}" to "{{ $last->newValue() }}" at {{ $last->updated_at }}
+							{{ $last->userResponsible() ? $last->userResponsible()->name : 'Anonymous' }} changed the {{ $last->fieldName() }} field from "{{ $last->old_value }}" at {{ $last->updated_at }}
 					@endcomponent
 				@endif
 			</model-tab>

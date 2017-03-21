@@ -47,7 +47,4 @@
 		</div>
 	</model-tab>
 @endcomponent
-
-
-
 @endsection

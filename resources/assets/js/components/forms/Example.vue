@@ -210,7 +210,7 @@ export default {
 		if(this.example) {
 			let exampleArray = JSON.parse(this.example);
 
-			this.form.name = exampleArray.name;
+			this.form.name = exampleArray.name.replace("*", "");
 			this.form.morphemicForm = exampleArray.morphemicForm;
 			this.form.translation = exampleArray.translation;
 			this.form.comments = exampleArray.comments;

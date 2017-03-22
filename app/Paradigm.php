@@ -96,12 +96,13 @@ class Paradigm
             // Loop through each set of arguments
             for ($i = 0; $i < count($argumentStructures); $i++) {
                 $arguments = $keys[$i];
-
+                
                 // If the search returned no results for this set of arguments, remove it
                 if (count($argumentStructures[$arguments]) == 0) {
                     unset($this->rows[$class][$arguments]);
                 } elseif (count($this->rows[$class][$arguments]) > 0) {
                     $classHasForms = true;
+                    
 
                     // If the there is an argument without a number in the set...
                     if ($this->hasNumberlessArgument($arguments) && $i < count($argumentStructures) - 1) {

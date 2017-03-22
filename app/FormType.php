@@ -79,6 +79,22 @@ class FormType extends Model
     }
 
     /**
+     * Shortcut to get the name of the secondary object
+     *
+     * Reaches through the secondary object argument
+     *
+     * @return string The name of the secondary object; N/A if the secondary object is null
+     */
+    public function getSecondaryObjectNameAttribute()
+    {
+        if ($this->secondaryObject) {
+            return $this->secondaryObject->name;
+        } else {
+            return "N/A";
+        }
+    }
+
+    /**
      * Get a formatted print out of the type's arguments
      *
      * @return string
@@ -88,11 +104,11 @@ class FormType extends Model
         $output = $this->subject->name;
 
         if ($this->primaryObject) {
-            $output .= "—{$this->primaryObjectName}";
+            $output .= "—{$this->primaryObject->name}";
         }
 
         if ($this->secondaryObject) {
-            $output .= "+{$this->secondaryObjectName}";
+            $output .= "+{$this->secondaryObject->name}";
         }
 
         return $output;

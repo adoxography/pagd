@@ -30,7 +30,7 @@
 		</li>
 		<hr>
 		<li>
-			02-19-17: Added <a href="/search/for-a-paradigm">basic paradigm search</a>
+			02-19-17: Added <a href="/search#for-a-paradigm">basic paradigm search</a>
 		</li>
 		<li>
 			02-19-17: Added a route that will bring up the <a href="/entire-paradigm">entire database</a>

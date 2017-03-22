@@ -11,7 +11,10 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
-			02-21-17: Added bookmarking system
+			21-03-17: Hyperlinked sources in displays
+		</li>
+		<li>
+			21-03-17: Added bookmarking system
 			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
 				<li>
 					When logged in, click on the bookmark icon in the top right of any model display to bookmark it. You will be prompted for an optional comment.
@@ -22,46 +25,46 @@
 			</ul>
 		</li>
 		<li>
-			02-21-17: Fixed absolute/objective input issue
+			21-03-17: Fixed absolute/objective input issue
 		</li>
 		<hr>
 		<li>
-			02-20-17: Added <a href="/sources/create">source creation</a> outside of other creations
+			20-03-17: Added <a href="/sources/create">source creation</a> outside of other creations
 		</li>
 		<hr>
 		<li>
-			02-19-17: Added <a href="/search#for-a-paradigm">basic paradigm search</a>
+			19-03-17: Added <a href="/search#for-a-paradigm">basic paradigm search</a>
 		</li>
 		<li>
-			02-19-17: Added a route that will bring up the <a href="/entire-paradigm">entire database</a>
-		</li>
-		<hr>
-		<li>
-			02-18-17: Added search refinement from paradigm views
-		</li>
-		<li>
-			02-18-17: Enabled searching by TA subclass
-		</li>
-		<li>
-			02-18-17: Reformatted the <a href="/search#for-a-paradigm">paradigm search</a>
+			19-03-17: Added a route that will bring up the <a href="/entire-paradigm">entire database</a>
 		</li>
 		<hr>
 		<li>
-			02-17-17: Added <a href="/search">Algolia search</a>
+			18-03-17: Added search refinement from paradigm views
 		</li>
 		<li>
-			02-17-17: Added colours to slots
+			18-03-17: Enabled searching by TA subclass
 		</li>
 		<li>
-			02-17-17: Began transition to WYSIWYG editor
-		</li>
-		<hr>
-		<li>
-			02-09-17: Made all texboxes auto-expand
+			18-03-17: Reformatted the <a href="/search#for-a-paradigm">paradigm search</a>
 		</li>
 		<hr>
 		<li>
-			02-08-17: Added empty forms
+			17-03-17: Added <a href="/search">Algolia search</a>
+		</li>
+		<li>
+			17-03-17: Added colours to slots
+		</li>
+		<li>
+			17-03-17: Began transition to WYSIWYG editor
+		</li>
+		<hr>
+		<li>
+			09-03-17: Made all texboxes auto-expand
+		</li>
+		<hr>
+		<li>
+			08-03-17: Added empty forms
 			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
 				<li>
 					Indicate that a given form does not exist within a language
@@ -72,7 +75,7 @@
 			</ul>
 		<hr>
 		<li>
-			02-07-17: Added <a href="/changes">revised initial change</a> schema
+			07-03-17: Added <a href="/changes">revised initial change</a> schema
 			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
 				<li>
 					Demos: <a href="/forms/403">form with changed vStem</a>, <a href="/forms/404">form with changed preverb</a>
@@ -89,13 +92,13 @@
 			</ul>
 		</li>
 		<li>
-			02-07-17: Fixed ordering of all other header elements in paradigms
+			07-03-17: Fixed ordering of all other header elements in paradigms
 		</li>
 		<li>
-			02-07-17: Now displaying languages by group in the <a href="/languages">index page</a>
+			07-03-17: Now displaying languages by group in the <a href="/languages">index page</a>
 		</li>
 		<li>
-			02-07-17: Added <a href="/languages/order">ordering for languages and groups</a>
+			07-03-17: Added <a href="/languages/order">ordering for languages and groups</a>
 			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
 				<li>
 					Governs ordering of languages in paradigms and lists
@@ -110,7 +113,7 @@
 		</li>
 		<hr>
 		<li>
-			02-06-17: Added <a href="/rules/1">rules</a>
+			06-03-17: Added <a href="/rules/1">rules</a>
 			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
 				<li>
 					Can be added using the <a href="/rules/create">creation form</a> (located in the add menu)
@@ -127,7 +130,7 @@
 			</ul>
 		</li>
 		<li>
-			02-06-17: Allowed ISO to be used in URLs
+			06-03-17: Allowed ISO to be used in URLs
 			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
 				<li><a href="/languages/1">http://www.algling.net/languages/1</a> still works, but now so does <a href="/languages/alg">http://www.algling.net/languages/alg</a></li>
 				<li>Will implement similar functionality for forms, morphemes, and examples in the future</li>

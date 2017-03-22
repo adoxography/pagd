@@ -213,7 +213,8 @@ class SearchController extends Controller
         ->orderBy('Groups.position', 'asc')
         ->orderBy('Languages.position', 'asc')
         ->orderBy('FormTypes.order_id', 'asc')
-        ->orderBy('FormTypes.isAbsolute', 'desc')
+        ->orderByRaw('-FormTypes.isAbsolute ASC')
+        // ->orderBy('FormTypes.isAbsolute', 'desc')
         ->orderBy('FormTypes.isNegative', 'asc')
         ->orderBy('FormTypes.isDiminutive', 'asc');     
     }

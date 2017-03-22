@@ -96,13 +96,12 @@ class Paradigm
             // Loop through each set of arguments
             for ($i = 0; $i < count($argumentStructures); $i++) {
                 $arguments = $keys[$i];
-                
+
                 // If the search returned no results for this set of arguments, remove it
                 if (count($argumentStructures[$arguments]) == 0) {
                     unset($this->rows[$class][$arguments]);
                 } elseif (count($this->rows[$class][$arguments]) > 0) {
                     $classHasForms = true;
-                    
 
                     // If the there is an argument without a number in the set...
                     if ($this->hasNumberlessArgument($arguments) && $i < count($argumentStructures) - 1) {
@@ -160,8 +159,8 @@ class Paradigm
      *
      * @param string The name of the class of the row in question
      * @param array Possible matches of the argument set in question
-     * @param arguments An array of arguments present in the database
-     * @param start The index of the row in question
+     * @param array An array of arguments present in the database
+     * @param integer The index of the row in question
      * @return integer The number of consecutive matches after the row in question
      */
     private function findConsecutiveRows($class, $matches, $arguments, $start)
@@ -169,6 +168,9 @@ class Paradigm
         $consecutive = 0;
         $i = $start + 1;
         $continue = true;
+
+        // dd(\App\Form::where('id', 33)->with(['formType', 'formType.subject', 'formType.primaryObject', 'formType.secondaryObject'])->first());
+        // dd($this->generatePossibleMatches(\App\Form::find(33)->formType->arguments));
 
         while ($i < count($arguments) && $continue) {
             if (count($this->rows[$class][$arguments[$i]]) > 0) {
@@ -196,19 +198,30 @@ class Paradigm
     private function moveRows($class, $arguments, $possibleMatches, $consecutive)
     {
         $numMoved = 0;
+        $shrunk = [];
 
         foreach ($possibleMatches as $possibleMatch) {
             if (isset($this->rows[$class][$possibleMatch]) && count($this->rows[$class][$possibleMatch]) > 0) {
                 foreach ($this->rows[$class][$arguments] as $moving) {
-                    $moving->diffClass = $arguments;
 
-                    if ($consecutive > $numMoved) {
-                        $moving->span = $consecutive;
+                    if(!in_array($moving->id, array_pluck($this->rows[$class][$possibleMatch], 'id'))) {
+                        if ($consecutive >= $numMoved) {
+                            $moving->span = $consecutive;
+                        } else {
+                            $moving->distant = true;
+                        }
+
+                        if(!isset($moving->diffClass)) {
+                            $moving->diffClass = $arguments;
+                        }
+
+                        $this->rows[$class][$possibleMatch][] = $moving;
                     } else {
-                        $moving->distant = true;
+                        if(!in_array($moving->id, $shrunk)) {
+                            $moving->span -=1;
+                            $shrunk[] = $moving->id;
+                        }
                     }
-
-                    $this->rows[$class][$possibleMatch][] = $moving;
                 }
 
                 $numMoved++;
@@ -255,23 +268,40 @@ class Paradigm
      * @param string The arguments
      * @return array A list of possible matches
      */
-    protected function generatePossibleMatches($args)
+    protected function generatePossibleMatches(string $args)
     {
         $options = [];
         $arguments = preg_split("/[—+]/u", $args);
 
-        for ($i = 0; $i < count($arguments); $i++) {
+        return $this->recursivelyBuildPossibleMatches($arguments, $args);
+    }
 
-            // Run through the arguments and generate alternatives if the argument is numberless
-            if ($this->isNumberless($arguments[$i])) {
+    protected function recursivelyBuildPossibleMatches(array $args, string $original, $currIndex = 0)
+    {
+        $options = [];
+        $currSet = [];
 
-                // Alternates could be singular, dual, or plural
-                foreach (['s', 'd', 'p'] as $number) {
-                    $clone = $arguments;
-                    $clone[$i] .= $number;
+        if($currIndex < count($args)) {
 
-                    $options[] = $this->repair($clone);
+            if($this->isNumberless($args[$currIndex])) {
+                foreach(['', 's', 'd', 'p'] as $number) {
+                    $currSet[] = $args[$currIndex].$number;
                 }
+            } else {
+                $currSet[] = $args[$currIndex];
+            }
+
+            $nextSet = $this->recursivelyBuildPossibleMatches($args, $original, $currIndex+1);
+
+            if(count($nextSet) > 0) {
+                foreach($currSet as $currOption) {
+                    foreach($nextSet as $nextOption) {
+                        if($currOption.'—'.$nextOption != $original)
+                            $options[] = $currOption.'—'.$nextOption;
+                    }
+                }
+            } else {
+                $options = $currSet;
             }
         }
 

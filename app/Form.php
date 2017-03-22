@@ -24,6 +24,7 @@ class Form extends Model
     use \App\ReconstructableTrait;
     use \App\HasChildrenTrait;
     use \App\BacksUpTrait;
+    use \App\BookmarkableTrait;
 
     protected $morphemeTable = 'Forms_Morphemes';
 

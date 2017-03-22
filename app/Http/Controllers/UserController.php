@@ -21,4 +21,10 @@ class UserController extends Controller
 
     	return view('users.show', compact('user'));
     }
+
+    public function bookmarks()
+    {
+        $user = Auth::user();
+        return view('users.bookmarks', compact('user'));
+    }
 }

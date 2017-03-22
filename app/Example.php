@@ -15,6 +15,7 @@ class Example extends Model
     use \App\HasMorphemesTrait;
     use \App\BacksUpTrait;
     use \App\ReconstructableTrait;
+    use \App\BookmarkableTrait;
 
     protected $morphemeTable = 'Examples_Morphemes';
 

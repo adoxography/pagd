@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Source extends Model
 {
     use \AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
+    use \App\BookmarkableTrait;
 
     public $table = 'Sources';
     protected $fillable = ['short', 'long', 'url', 'notes'];

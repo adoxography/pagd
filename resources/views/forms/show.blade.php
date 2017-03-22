@@ -7,7 +7,7 @@
 </div>
 <br />
 
-@component('components.model', ['uri' => "/forms/{$form->id}", 'history' => $form->revisionHistory])
+@component('components.model', ['uri' => "/forms/{$form->id}", 'model' => $form, 'history' => $form->revisionHistory])
 	@slot('header')
 		{{ $form->surfaceForm }} <span class="detail-title-language">(<a href="/languages/{{ $form->language_id }}">{{ $form->language->name }}</a>)</span>
 	@endslot

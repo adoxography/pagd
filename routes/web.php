@@ -47,7 +47,9 @@ Route::get('entire-paradigm', function() {
 
 Route::post('backup', 'BackupController@store');
 
-Route::get('bookmark/{model}/{id}', 'BookmarkController@bookmark');
+Route::post('bookmark/{model}/{id}', 'BookmarkController@bookmark');
+Route::delete('bookmark/{model}/{id}', 'BookmarkController@unbookmark');
+Route::get('profile/bookmarks', 'UserController@bookmarks');
 
 // Contact Routes
 Route::get('contact',  'ContactController@index');

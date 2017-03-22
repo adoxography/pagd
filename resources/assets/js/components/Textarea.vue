@@ -2,19 +2,11 @@
 	<div class="control" :class="{ 'mce-disabled': disabled }">
 		<textarea :value="value"
 				  class="textarea"
-				  :disabled="disabled">
-		</textarea>
-<!-- 		<textarea ref="textbox"
-				  class="textarea"
-				  :value="value"
-				  :disabled="disabled"
-				  :style="{height: height}"
 				  :name="name"
 				  :id="name"
-				  @input="onInput($event.target.value)"
-				  :placeholder="placeholder">
-		</textarea> -->
-		<!-- <tinymce :id="name" :value="value" @change="onInput($event.target.value)"></tinymce> -->
+				  :placeholder="placeholder"
+				  :disabled="disabled">
+		</textarea>
 	</div>	
 </template>
 

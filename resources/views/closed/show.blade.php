@@ -6,7 +6,7 @@
 	</div>
 	<br />
 
-	@component('components.model', ['uri' => '/'.strtolower($item->plural)."/{$item->id}"])
+	@component('components.model', ['uri' => '/'.strtolower($item->plural)."/{$item->id}", 'model' => $item])
 		@slot('header')
 			{{ $item->abv or $item->name }}
 		@endslot

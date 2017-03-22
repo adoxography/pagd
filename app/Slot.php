@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Slot extends Closed
 {
+    use \App\BookmarkableTrait;
+
     public $table = 'Slots';
 
     protected $fillable = ['name', 'colour', 'abv', 'description'];

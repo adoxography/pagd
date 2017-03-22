@@ -7,7 +7,7 @@
 </div>
 <br />
 
-@component('components.model', ['uri' => "/examples/{$example->id}", 'history' => $example->revisionHistory])
+@component('components.model', ['uri' => "/examples/{$example->id}", 'model' => $example, 'history' => $example->revisionHistory])
 	@slot('header')
 		{{ $example->name }} <span class="detail-title-language">(<a href="/languages/{{ $example->language->id }}">{{ $example->language->name }}</a>)
 	@endslot

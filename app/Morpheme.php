@@ -15,6 +15,7 @@ class Morpheme extends Model
     use \App\ReconstructableTrait;
     use \App\HasChildrenTrait;
     use \App\BacksUpTrait;
+    use \App\BookmarkableTrait;
 
     /*
     |--------------------------------------------------------------------------
@@ -50,7 +51,7 @@ class Morpheme extends Model
     */
 
     public static $perEnvironment = true;
-    
+
     public function getAlgoliaRecord()
     {
         return array_merge($this->toArray(), [

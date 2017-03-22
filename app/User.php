@@ -28,8 +28,20 @@ class User extends Authenticatable
         return $this->hasMany('Venturecraft\Revisionable\Revision')->latest()->take(30);
     }
 
-    public function bookmarks()
+    public function bookmarks($table = null, $returnRelation = false)
     {
-        return $this->morphedByMany(['App\Language', 'App\Form', 'App\Morpheme', 'App\Example'], 'bookmarkable')->withPivot('comment');
+        if($table) {
+            $class = '\\App\\'.ucfirst($table);
+
+            $relation = $this->morphedByMany($class, 'Bookmarkable')->withPivot('comment');
+
+            if($returnRelation) {
+                return $relation;
+            } else {
+                return $relation->get();
+            }
+        } else {
+
+        }
     }
 }

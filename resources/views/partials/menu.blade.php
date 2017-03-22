@@ -29,7 +29,7 @@
 			</div>
 		@endif
 		<div class="nav-right">
-			<a href="/contact" class="nav-item is-tab @if(URL::current() == URL::to("/contact")) is-active @endif">Contact</a>
+			<a href="/profile/bookmarks" class="nav-item is-tab @if(URL::current() == URL::to("/users/{{ Auth::user()->id }}/bookmarks")) is-active @endif">Bookmarks</a>
 			@if(Auth::user())
 				<form action="/logout" method="post" style="display:-webkit-inline-box;">
 					{{ csrf_field() }}

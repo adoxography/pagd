@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Gloss extends Closed
 {
+    use \App\BookmarkableTrait;
+
     public $table = 'Glosses';
 
     protected $fillable = ['name', 'abv', 'description'];

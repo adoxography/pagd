@@ -6,7 +6,7 @@
 	</div>
 	<br />
 
-	@component('components.model', ['uri' => "/languages/{$language->id}", 'history' => $language->revisionHistory])
+	@component('components.model', ['model' => $language, 'uri' => "/languages/{$language->id}", 'history' => $language->revisionHistory])
 		@slot('header')
 			{{ $language->name }}
 			@if($language->alternateNames)
@@ -128,7 +128,7 @@
 					@endslot
 					<ul>
 						@foreach($language->rules as $rule)
-							<li><a href="/rules/{{ $rule->id }}">{{ $rule->abv }}</a></li>
+							<li><a href="/rules/{{ $rule->id }}">{{ $rule->name }}</a></li>
 						@endforeach
 					</ul>
 				@endcomponent

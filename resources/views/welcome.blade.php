@@ -11,6 +11,17 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			02-21-17: Added bookmarking system
+			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+				<li>
+					When logged in, click on the bookmark icon in the top right of any model display to bookmark it. You will be prompted for an optional comment.
+				</li>
+				<li>
+					When you have already bookmarked a model, the icon will be filled in. Click it to remove it from your bookmarks.
+				</li>
+			</ul>
+		</li>
+		<li>
 			02-21-17: Fixed absolute/objective input issue
 		</li>
 		<hr>

@@ -67,7 +67,7 @@
 																					@else
 																						<a href="/empty-forms/{{ $form->id }}">
 																					@endif
-																					<nobr>{{ $form->surfaceForm or "Empty" }}</nobr>
+																					<nobr>{{ $form->surfaceForm or "No form" }}</nobr>
 																					{!! isset($form->diffClass) ? "<span style='margin-left: .25rem; color: red;'><nobr>({$form->diffClass})</nobr></span>" : "" !!}
 																					</a>
 																				</p>

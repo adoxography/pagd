@@ -41,7 +41,7 @@ class Form {
 		return this.submit('patch', url);
 	}
 
-	submit(requestType, url) {
+	submit(requestType, url, attempt = 0) {
 		return new Promise((resolve, reject) => {
 			axios[requestType](url, this.data())
 				.then(response => {
@@ -64,8 +64,12 @@ class Form {
 						reject(error.response.data);
 					}
 					else {
-						alert("Network error. Please try again.");
-						reject({});
+						if(attempt < 5) {
+							submit(requestType, url, attempt + 1);
+						} else {
+							alert("Network error. Please try again.");
+							reject({});
+						}
 					}
 				});
 		});

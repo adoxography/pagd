@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Rule extends Model
 {
 	use \App\SourceableTrait;
+    use \App\BookmarkableTrait;
 
     public $table = 'Rules';
     protected $fillable = ['name', 'abv', 'rule', 'language_id', 'publicComments', 'privateComments'];

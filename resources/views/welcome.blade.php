@@ -11,6 +11,10 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			22-03-17: Removed markdown; rules are now triggered by #[abv]
+		</li>
+		<hr>
+		<li>
 			21-03-17: Hyperlinked sources in displays
 		</li>
 		<li>

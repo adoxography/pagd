@@ -6,7 +6,7 @@
 </div>
 <br />
 
-@component('components.model', ['uri' => "/rules/{$rule->id}"])
+@component('components.model', ['model' => $rule, 'uri' => "/rules/{$rule->id}"])
 	@slot('header')
 		{{ $rule->name }}
 		<span class="detail-title-language">(<a href="/languages/{{ $rule->language->iso }}">{{ $rule->language->name }}</a>)</span>

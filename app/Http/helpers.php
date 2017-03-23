@@ -51,14 +51,14 @@ function replaceTags($text, $id)
     $end;
 
     // Check to see if there are any tags in the text
-    $start = strpos($text, '$');
+    $start = strpos($text, '#');
 
     if ($start) {
 
         // Find the end of the tag; that's the first whitespace that occurs after the tag
         // If no whitespace was found, it means that the tag ends the text
         $end = strpos($text, ' ', $start);
-        if (preg_match("/\s/", $text, $matches, PREG_OFFSET_CAPTURE, $start)) {
+        if (preg_match("/[\s<]/", $text, $matches, PREG_OFFSET_CAPTURE, $start)) {
             $end = $matches[0][1];
         } else {
             $end = strlen($text);

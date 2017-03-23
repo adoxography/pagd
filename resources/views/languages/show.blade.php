@@ -85,7 +85,7 @@
 				@endslot
 				<ul>
 					@foreach($language->emptyForms as $form)
-						<li><a href="/forms/{{ $form->id }}">{{ $form->formType->summary }}</a></li>
+						<li><a href="/empty-forms/{{ $form->id }}">{{ $form->formType->summary }}</a></li>
 					@endforeach
 				</ul>
 			@endcomponent

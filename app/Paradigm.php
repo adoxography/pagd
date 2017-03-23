@@ -169,9 +169,6 @@ class Paradigm
         $i = $start + 1;
         $continue = true;
 
-        // dd(\App\Form::where('id', 33)->with(['formType', 'formType.subject', 'formType.primaryObject', 'formType.secondaryObject'])->first());
-        // dd($this->generatePossibleMatches(\App\Form::find(33)->formType->arguments));
-
         while ($i < count($arguments) && $continue) {
             if (count($this->rows[$class][$arguments[$i]]) > 0) {
                 if (in_array($arguments[$i], $matches)) {
@@ -203,21 +200,20 @@ class Paradigm
         foreach ($possibleMatches as $possibleMatch) {
             if (isset($this->rows[$class][$possibleMatch]) && count($this->rows[$class][$possibleMatch]) > 0) {
                 foreach ($this->rows[$class][$arguments] as $moving) {
-
-                    if(!in_array($moving->id, array_pluck($this->rows[$class][$possibleMatch], 'id'))) {
+                    if (!in_array($moving->id, array_pluck($this->rows[$class][$possibleMatch], 'id'))) {
                         if ($consecutive >= $numMoved) {
                             $moving->span = $consecutive;
                         } else {
                             $moving->distant = true;
                         }
 
-                        if(!isset($moving->diffClass)) {
+                        if (!isset($moving->diffClass)) {
                             $moving->diffClass = $arguments;
                         }
 
                         $this->rows[$class][$possibleMatch][] = $moving;
                     } else {
-                        if(!in_array($moving->id, $shrunk)) {
+                        if (!in_array($moving->id, $shrunk)) {
                             $moving->span -=1;
                             $shrunk[] = $moving->id;
                         }
@@ -276,15 +272,16 @@ class Paradigm
         return $this->recursivelyBuildPossibleMatches($arguments, $args);
     }
 
-    protected function recursivelyBuildPossibleMatches(array $args, string $original, $currIndex = 0)
+    protected function recursivelyBuildPossibleMatches(array $args, string $original, $currIndex = 0, $isAIplusO = false)
     {
         $options = [];
         $currSet = [];
+        $delimiter = '';
+        $option;
 
-        if($currIndex < count($args)) {
-
-            if($this->isNumberless($args[$currIndex])) {
-                foreach(['', 's', 'd', 'p'] as $number) {
+        if ($currIndex < count($args)) {
+            if ($this->isNumberless($args[$currIndex])) {
+                foreach (['', 's', 'd', 'p'] as $number) {
                     $currSet[] = $args[$currIndex].$number;
                 }
             } else {
@@ -293,11 +290,22 @@ class Paradigm
 
             $nextSet = $this->recursivelyBuildPossibleMatches($args, $original, $currIndex+1);
 
-            if(count($nextSet) > 0) {
-                foreach($currSet as $currOption) {
-                    foreach($nextSet as $nextOption) {
-                        if($currOption.'—'.$nextOption != $original)
-                            $options[] = $currOption.'—'.$nextOption;
+            if (count($nextSet) > 0) {
+
+                // Set the delimiter
+                if ($currIndex == 0 && !$isAIplusO) {
+                    $delimiter = '—';
+                } else {
+                    $delimiter = '+';
+                }
+
+                foreach ($currSet as $currOption) {
+                    foreach ($nextSet as $nextOption) {
+                        $option = $currOption.$delimiter.$nextOption;
+
+                        if ($option != $original) {
+                            $options[] = $option;
+                        }
                     }
                 }
             } else {
@@ -311,7 +319,8 @@ class Paradigm
     /**
      * Takes an array of arguments and restores them to an argument set
      *
-     * Modifications will have to be made to this method once AI + O forms are in the database, since the secondary object appears in the second position
+     * Modifications will have to be made to this method once AI + O forms are in the database, since the
+     * secondary object appears in the second position
      *
      * @param array The array of arguments
      * @return string A string version of a set of arguments
@@ -334,7 +343,7 @@ class Paradigm
 
     /**
      * Renders out the header section of the paradigm
-     * 
+     *
      * @param integer The number of normal headers - this excludes the final combined header
      * @return string The HTML for the header section
      */
@@ -344,14 +353,14 @@ class Paradigm
         $row = '';
         $firstTime = true;
 
-        for($i = 0; $i <= $numHeaders; $i++) {
+        for ($i = 0; $i <= $numHeaders; $i++) {
 
             // For all but the last row, render normally
-            if($i < $numHeaders) {
+            if ($i < $numHeaders) {
                 $row = $this->renderHeaderLevel($i);
 
                 // The first row needs to include the code for the empty space in the top left corner
-                if($firstTime) {
+                if ($firstTime) {
                     $row  = "<th rowspan='$numHeaders' colspan='2'></th>$row";
                     $firstTime = false;
                 }
@@ -368,9 +377,9 @@ class Paradigm
 
     /**
      * Renders out a single header row
-     * 
+     *
      * Calls itself recursively to find the correct row
-     * 
+     *
      * @param integer The level to render
      * @param boolean Renders a final header if true
      * @param integer The row we're on
@@ -385,17 +394,17 @@ class Paradigm
         // Assign the object's headers instance variable if no array was provided
         $array = isset($currArray) ? $currArray : $this->headers;
 
-        if($level == $index) {
+        if ($level == $index) {
             // Base case: We've found the right row
 
-            if(!$final) {
+            if (!$final) {
                 $html .= $this->renderNonFinalHeader($array, $firstRow);
             } else {
                 $html .= $this->renderFinalHeader($array, $firstRow);
             }
         } else {
             // Recursive case: keep looking for the row
-            foreach($array as $key => $value) {
+            foreach ($array as $key => $value) {
                 $html .= $this->renderHeaderLevel($level, $final, $index + 1, $value, $firstRow || $index == 0);
 
                 $firstRow = false;
@@ -407,20 +416,21 @@ class Paradigm
 
     /**
      * Renders a non-final header row
-     * 
+     *
      * @param array The array to pull the headers from
      * @param boolean True if this falls in the first column of a language
      * @return string The HTML for a non-final header row
      */
-    private function renderNonFinalHeader($array, $firstRow) {
+    private function renderNonFinalHeader($array, $firstRow)
+    {
         $html = '';
         $firstTime = true;
         $style = '';
 
-        foreach($array as $key => $value) {
+        foreach ($array as $key => $value) {
 
             // If this is the first column of a language, it needs to have a solid left border
-            if($firstTime && $firstRow) {
+            if ($firstTime && $firstRow) {
                 $style = "style='border-left: .2em solid #363636;'";
                 $firstTime = false;
             } else {
@@ -438,28 +448,29 @@ class Paradigm
 
     /**
      * Renders a final header row
-     * 
+     *
      * @param array The array to pull the headers from
      * @param boolean True if this falls in the first column of a language
      * @return string The HTML for a final header row
      */
-    private function renderFinalHeader($array, $firstRow) {
+    private function renderFinalHeader($array, $firstRow)
+    {
         $html = '';
         $firstTime = true;
         $style = '';
 
         // The final header is actually three headers glued together
-        foreach($array as $key1 => $value1) {
-            foreach($value1 as $key2 => $value2) {
-                foreach($value2 as $key3 => $value3) {
+        foreach ($array as $key1 => $value1) {
+            foreach ($value1 as $key2 => $value2) {
+                foreach ($value2 as $key3 => $value3) {
 
                     // If this is the first column of a language, it needs to have a solid left border
-                    if($firstTime && $firstRow) {
+                    if ($firstTime && $firstRow) {
                         $style = "style='border-left: .2em solid #363636;'";
                         $firstTime = false;
                     } else {
                         $style = '';
-                    }  
+                    }
 
                     // Create the label
                     $label = trim("$key1 $key2 $key3");

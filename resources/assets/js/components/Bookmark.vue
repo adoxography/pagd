@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="display: flex;">
 		<a @click="openModal" class="card-header-icon" v-show="bookmarkable">
 			<span class="icon">
 				<i class="fa fa-bookmark-o" title="Bookmark"></i>

@@ -309,7 +309,11 @@ class Paradigm
                     }
                 }
             } else {
-                $options = $currSet;
+                foreach($currSet as $currOption) {
+                    if($currOption != $original) {
+                        $options[] = $currOption;
+                    }
+                }
             }
         }
 

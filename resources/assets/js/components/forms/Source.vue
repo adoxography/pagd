@@ -45,6 +45,12 @@
 			  v-text="form.errors.get('url')">
 		</span>
 
+		<label for="summary" class="label">Summary</label>
+		<alg-textarea v-model="form.summary"
+					  :disabled="loading"
+					  name="summary">
+		</alg-textarea>
+
 		<label for="notes" class="label">Notes</label>
 		<alg-textarea v-model="form.notes"
 					  :disabled="loading"
@@ -65,6 +71,7 @@ export default {
 				short: '',
 				long: '',
 				url: '',
+				summary: '',
 				notes: ''
 			}),
 

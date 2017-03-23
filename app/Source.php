@@ -13,7 +13,7 @@ class Source extends Model
     use \App\BookmarkableTrait;
 
     public $table = 'Sources';
-    protected $fillable = ['short', 'long', 'url', 'notes'];
+    protected $fillable = ['short', 'long', 'url', 'summary', 'notes'];
     protected $appends = ['display'];
 
     public function getDisplayAttribute()

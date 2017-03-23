@@ -17,8 +17,13 @@
 						<a href="{{ $source->url }}">{{ $source->url }}</a>
 					@endcomponent
 				@endif
+				@if($source->summary)
+					@component('components.model.field', ['label' => 'Summary', 'width' => 'is-12'])
+						{!! $source->summary !!}
+					@endcomponent
+				@endif
 				@if($source->notes)
-					@component('components.model.field', ['label' => 'Notes'])
+					@component('components.model.field', ['label' => 'Notes', 'width' => 'is-12'])
 						{!! $source->notes !!}
 					@endcomponent
 				@endif

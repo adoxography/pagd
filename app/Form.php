@@ -149,7 +149,7 @@ class Form extends Model
      */
     public function getUniqueNameAttribute()
     {
-        return "{$this->surfaceForm} ({$this->formType->getArguments()})";
+        return "{$this->surfaceForm} ({$this->formType->renderArguments()})";
     }
 
     /**

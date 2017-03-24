@@ -68,7 +68,7 @@
 																						<a href="/empty-forms/{{ $form->id }}">
 																					@endif
 																					<nobr>{{ $form->surfaceForm or "No form" }}</nobr>
-																					{!! isset($form->diffClass) ? "<span style='margin-left: .25rem; color: red;'><nobr>({$form->diffClass})</nobr></span>" : "" !!}
+																					{!! isset($form->diffClass) || isset($form->formType->head) ? "<span style='margin-left: .25rem; color: red;'><nobr>(".$form->formType->renderArguments().")</nobr></span>" : "" !!}
 																					</a>
 																				</p>
 																				<?php $form->placed = true; ?>

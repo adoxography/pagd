@@ -28,7 +28,8 @@ class seed_modes extends Seeder
         	['id' => 12, 'name' => 'Prospective'],
         	['id' => 13, 'name' => 'Subjective'],
         	['id' => 14, 'name' => 'Subjunctive'],
-        	['id' => 15, 'name' => 'Unreal'],
+            ['id' => 15, 'name' => 'Unreal'],
+        	['id' => 16, 'name' => 'Participle'],
         );
         
         DB::table('Modes')->insert($modes);

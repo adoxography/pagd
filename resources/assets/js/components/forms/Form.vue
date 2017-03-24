@@ -151,6 +151,24 @@
 				</span>
 			</div>
 
+			<!-- Head -->
+			<div class="column is-one-quarter">
+				<label for="head" class="label">Head</label>
+				<div class="control">
+					<span class="select">
+						<select v-model="form.head"
+								name="head"
+								id="head"
+								:disabled="loading || form.empty">
+							<option :value="null">N/A</option>
+							<option value="subject">Subject</option>
+							<option value="primaryObject" v-show="form.primaryObject.id != ''">Primary Object</option>
+							<option value="secondaryObject" v-show="form.secondaryObject.id != ''">Secondar Object</option>
+						</select>
+					</span>
+				</div>
+			</div>
+
 			<!-- isAbsolute -->
 			<div class="column is-one-quarter">
 				<label for="isAbsolute" class="label">Abs/Obj</label>
@@ -378,6 +396,7 @@ export default {
 					id: '1'
 				},
 				isAbsolute: null,
+				head: null,
 				isNegative: false,
 				isDiminutive: false,
 				phoneticForm: '',
@@ -429,7 +448,6 @@ export default {
 
 			if(formArray.surfaceForm) {
 				this.form.surfaceForm     = formArray.surfaceForm.replace("*", "");
-				this.form.phoneticForm    = formArray.phoneticForm;
 				this.form.morphemicForm   = formArray.morphemicForm;
 				this.form.usageNotes      = formArray.usageNotes;
 				this.form.allomorphyNotes = formArray.allomorphyNotes;
@@ -459,6 +477,9 @@ export default {
 				id: formType.mode.id
 			}
 
+			if(formArray.phoneticForm) {
+				this.form.phoneticForm = formArray.phoneticForm.replace("*", "");
+			}
 			if(formType.primary_object) {
 				this.form.primaryObject = {
 					text: formType.primary_object.name,
@@ -470,6 +491,9 @@ export default {
 					text: formType.secondary_object.name,
 					id: formType.secondary_object.id
 				}
+			}
+			if(formType.head) {
+				this.form.head = formType.head;
 			}
 			if(formArray.parent) {
 				this.form.parent = {

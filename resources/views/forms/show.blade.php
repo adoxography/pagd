@@ -25,7 +25,7 @@
 				@endslot
 				<ul class="description-list">
 					<li>
-						{{ $form->formType->getArguments() }}
+						{!! $form->formType->renderArguments() !!}
 					</li>
 					<li>
 						<a href="/classes/{{ $form->formType->class_id }}">{{ $form->formType->formClass->name }}</a>
@@ -112,7 +112,7 @@
 	</model-tab>
 
 	<model-tab name="Examples">
-		@component('components.model.field', ['width' => 'is-half', 'label' => 'Examples'])
+		@component('components.model.field', ['width' => 'is-half'])
 			@slot('label')
 				Examples @component('components.model.add-icon', ['uri' => "/forms/{$form->id}/addExample"]) @endcomponent
 			@endslot

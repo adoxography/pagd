@@ -87,7 +87,7 @@
 					@if(count($morpheme->forms) > 0)
 						<ul>
 							@foreach($morpheme->forms as $form)
-								<li><a href="/forms/{{ $form->id }}">{{ $form->uniqueName }}</a></li>
+								<li><a href="/forms/{{ $form->id }}">{!! $form->uniqueName !!}</a></li>
 							@endforeach
 						</ul>
 					@else

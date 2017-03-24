@@ -65,7 +65,8 @@ class LangFormRequest extends FormRequest
         $data['order_id']           = $attributes['order_id'];
         $data['isNegative']         = $attributes['isNegative'] ? 1 : 0;
         $data['isDiminutive']       = $attributes['isDiminutive'] ? 1 : 0;
-        $data['isAbsolute'] = $attributes['isAbsolute'];
+        $data['isAbsolute']         = $attributes['isAbsolute'];
+        $data['head']               = $attributes['head'];
 
         return $data;
     }

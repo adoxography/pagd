@@ -1,12 +1,13 @@
 <template>
-	<div class="control is-expanded alg-datalist" v-on-clickaway="closeList">
+	<div class="alg-datalist alg-datalist-container" v-on-clickaway="closeList">
+
 		<div class="field has-addons">
-			<div class="alg-datalist-container">
+			<p class="control is-expanded">
 				<input type="text"
 					   :name="name"
 					   :id="id"
 					   :disabled="disabled"
-					   class="input is-expanded"
+					   class="input"
 					   :class="classes"
 					   :value="value.text"
 					   @keyup="onKeyUp($event.keyCode)"
@@ -15,21 +16,32 @@
 					   ref="textInput" autocomplete="off"
 					   :placeholder="placeholder"
 					   :required="required" />
-				<div class="box alg-datalist-dropdown" v-show="showList">
-					<ul>
-						<li v-for="(option, index) in options">
-							<a @click="selectItem(option.name)" @mouseover="handleHover(option.name)" :class="{ 'is-highlighted': activeItem(index) }">{{ option.name }}</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<a class="button" :class="{ 'is-disabled': disabled }" @click="handleButtonClicked">
-				<span class="icon is-small">
-					<i class="fa fa-chevron-down"></i>
-				</span>
-			</a>
+			</p>
+			<p class="control">
+	   			<a class="button"
+	   			   :class="{ 'is-disabled': disabled }"
+	   			   @click="handleButtonClicked">
+					<span class="icon is-small">
+						<i class="fa fa-chevron-down"></i>
+					</span>
+				</a>
+			</p>
 		</div>
-		<input type="hidden" :name="name + '_id'" :value="value.id" />
+
+		<div class="box alg-datalist-dropdown" v-show="showList">
+			<ul>
+				<li v-for="(option, index) in options">
+					<a @click="selectItem(option.name)"
+					   @mouseover="handleHover(option.name)"
+					   :class="{ 'is-highlighted': activeItem(index) }">
+						{{ option.name }}
+					</a>
+				</li>
+			</ul>
+		</div>
+		<input type="hidden"
+			   :name="name + '_id'"
+			   :value="value.id" />
 	</div>
 </template>
 

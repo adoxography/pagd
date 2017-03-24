@@ -15,6 +15,7 @@ class FormType extends Model
     public $errors;
     protected $fillable = [
         'class_id',
+        'head',
         'mode_id',
         'order_id',
         'subject_id',
@@ -252,6 +253,47 @@ class FormType extends Model
     public function hasModifiers()
     {
         return $this->isNegative || $this->isDiminutive || isset($this->isAbsolute);
+    }
+
+    public function renderArguments()
+    {
+        $currentArgument = '';
+        $output = '';
+
+        if(!isset($this->head)) {
+            $output = $this->arguments;
+        } else {
+            $currentArgument = $this->subject->name;
+
+            if($this->head == 'subject') {
+                $currentArgument = "<span class='head-argument'>$currentArgument</span>";
+            }
+
+            $output .= $currentArgument;
+
+            if ($this->primaryObject) {
+                $currentArgument = "—{$this->primaryObject->name}";
+
+                if($this->head == 'primaryObject') {
+                    $currentArgument = "<span class='head-argument'>$currentArgument</span>";
+                }
+
+                $output .= $currentArgument;
+            }
+
+            if ($this->secondaryObject) {
+                $currentArgument = "+{$this->secondaryObject->name}";
+
+                if($this->head == 'secondaryObject') {
+                    $currentArgument = "<span class='head-argument'>$currentArgument</span>";
+                }
+
+                $output .= $currentArgument;
+            }
+
+        }
+
+        return $output;
     }
 
     /*

@@ -197,6 +197,7 @@ trait HasMorphemesTrait {
     	$morphemeHTML;
     	$glossHTML;
     	$index = 0;
+        $colour = '';
 
     	foreach($this->morphemeList() as $morpheme) {
     		$morphemeHTML = '';

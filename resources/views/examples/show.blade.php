@@ -17,7 +17,7 @@
 
 			{{-- form field --}}
 			@component('components.model.field', ['width' => 'is-12', 'label' => 'Form'])
-				<a href="/forms/{{ $example->form_id }}">{{ $example->form->uniqueName }}</a>
+				<a href="/forms/{{ $example->form_id }}">{!! $example->form->uniqueName !!}</a>
 			@endcomponent
 
 			{{-- morphology field --}}

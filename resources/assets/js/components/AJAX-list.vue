@@ -1,30 +1,33 @@
 <template>
 	<div class="alg-ajax-list">
-		<div class="control">
+		<div class="control has-icon has-icon-right">
 			<div class="alg-datalist-container">
-				<input :name="name"
+				<div :name="name"
 					   :id="id"
 					   type="text"
-					   class="input"
-					   @input="onInput($event.target.value)"
-					   :value="value.text"
+					   class="input single-line"
+					   @input="onInput($event.target.textContent)"
+					   v-html="value.text"
 					   @keyup="onKeyUp($event.keyCode)"
 					   @keydown.enter="onEnter($event)"
 					   autocomplete="off" 
+					   rows="1"
+					   ref="list"
 					   :placeholder="placeholder"
-					   :disabled="disabled" />
+					   :disabled="disabled">
+				</div>
 				<div class="box alg-datalist-dropdown" v-show="showList && options.length > 0 && value.text.length > 0">
 					<ul>
 						<li v-for="(option, index) in options">
 							<a @click="selectItem(option.name)"
 							   @mouseover="onHover(option.name)"
-							   :class="{ 'is-highlighted': activeItem(index) }">
-							   	{{ option.name }}
+							   :class="{ 'is-highlighted': activeItem(index) }"
+							   v-html="option.name">
 							</a>
 						</li>
 					</ul>
 				</div>
-				<span class="icon">
+				<span class="icon is-small">
 					<i class="fa fa-spinner fa-pulse fa-3x fa-fw" v-show="loading"></i>
 					<i class="fa fa-check" v-show="showCheck" style="color: green;"></i>
 				</span>
@@ -55,6 +58,10 @@
 			showCheck() {
 				return !this.loading && this.value.id > 0 && !this.showList;
 			}
+		},
+
+		mounted() {
+			this.$refs.list.contentEditable = true;
 		},
 
 		methods: {

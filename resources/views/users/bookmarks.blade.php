@@ -28,7 +28,7 @@
 		<ul>
 			@foreach($user->bookmarks('form') as $form)
 				<li>
-					<a href="/forms/{{ $form->id }}">{{ $form->uniqueNameWithLanguage }}</a>
+					<a href="/forms/{{ $form->id }}">{!! $form->uniqueNameWithLanguage !!}</a>
 					@if($form->pivot->comment)
 						<div style="margin-left: 2rem">{!! $form->pivot->comment !!}</div>
 					@endif

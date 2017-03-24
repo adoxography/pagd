@@ -16,7 +16,7 @@
 						@if($entry['model'] instanceof \App\Language)
 							created <a href="/languages/{{ $entry['model']->id }}">{{ $entry['model']->name }}</a>
 						@elseif($entry['model'] instanceof \App\Form)
-							added <a href="/forms/{{ $entry['model']->id }}">{{ $entry['model']->uniqueName() }}</a> to {{ $entry['model']->language->name }}
+							added <a href="/forms/{{ $entry['model']->id }}">{!! $entry['model']->uniqueName() !!}</a> to {{ $entry['model']->language->name }}
 						@elseif($entry['model'] instanceof \App\Morpheme)
 							added <a href="/morphemes/{{ $entry['model']->id }}">{{ $entry['model']->uniqueName() }}</a> to {{ $entry['model']->language->name }}			
 						@elseif($entry['model'] instanceof \App\Example)
@@ -30,7 +30,7 @@
 						@if($entry['model'] instanceof App\Language)
 							<a href="/languages/{{ $entry['model']->id }}">{{ $entry['model']->name }}</a>
 						@elseif($entry['model'] instanceof \App\Form)
-							<a href="/forms/{{ $entry['model']->id }}">{{ $entry['model']->uniqueNameWithLanguage() }}</a>
+							<a href="/forms/{{ $entry['model']->id }}">{!! $entry['model']->uniqueNameWithLanguage() !!}</a>
 						@elseif($entry['model'] instanceof App\Morpheme)
 							<a href="/morphemes/{{ $entry['model']->id }}">{{ $entry['model']->uniqueNameWithLanguage() }}</a>
 						@elseif($entry['model'] instanceof App\Example)

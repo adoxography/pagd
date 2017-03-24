@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Events\Form\Saved;
+use App\Events\Form\Saving;
 use App\Events\Form\Deleting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -83,6 +84,10 @@ class Form extends Model
 
     public static function boot() {
         parent::boot();
+
+        static::saving(function($model) {
+            event(new Saving($model));
+        });
 
         static::saved(function($model) {
             event(new Saved($model));

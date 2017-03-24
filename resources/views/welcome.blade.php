@@ -11,6 +11,10 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			23-03-17: Fixed form validation
+		</li>
+		<hr>
+		<li>
 			22-03-17: Added capability of entering and displaying participles
 		</li>
 		<li>

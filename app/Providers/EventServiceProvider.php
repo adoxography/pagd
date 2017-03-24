@@ -30,6 +30,9 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         // Form Events
+        'App\Events\Form\Saving' => [
+            'App\Listeners\Form\AssignFormType'
+        ],
         'App\Events\Form\Saved' => [
             'App\Listeners\Form\ConnectDuplicates',
         ],

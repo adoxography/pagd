@@ -116,7 +116,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                 'classes'   => FormClass::select('id','name')->get(),
                 'languages' => Language::select('id','name')->get(),
                 'modes'     => Mode::select('id','name')->get(),
-                'orders'    => Order::select('id','name')->get()
+                'orders'    => Order::select('id','name')->orderBy('position')->get()
             ];
             $view->with($data);
         });

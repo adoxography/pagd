@@ -210,11 +210,11 @@ class SearchController extends Controller
         $query->join('FormTypes', 'FormTypes.id', '=', 'formType_id')
         ->join('Languages', 'Languages.id', '=', 'language_id')
         ->join('Groups', 'Groups.id', '=', 'Languages.group_id')
+        ->join('Orders', 'Orders.id', '=', 'FormTypes.order_id')
         ->orderBy('Groups.position', 'asc')
         ->orderBy('Languages.position', 'asc')
-        ->orderBy('FormTypes.order_id', 'asc')
+        ->orderBy('Orders.position', 'asc')
         ->orderByRaw('-FormTypes.isAbsolute ASC')
-        // ->orderBy('FormTypes.isAbsolute', 'desc')
         ->orderBy('FormTypes.isNegative', 'asc')
         ->orderBy('FormTypes.isDiminutive', 'asc');     
     }

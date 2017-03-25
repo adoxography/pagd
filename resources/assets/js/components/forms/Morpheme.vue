@@ -213,6 +213,7 @@ export default {
 			this.form.allomorphyNotes = morphemeArray.allomorphyNotes;
 			this.form.changeType_id   = morphemeArray.changeType_id;
 			this.form.historicalNotes = morphemeArray.historicalNotes;
+			this.form.comments        = morphemeArray.comments;
 
 			// Assign required foreign defaults
 			this.form.language = {

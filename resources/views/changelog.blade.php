@@ -10,6 +10,10 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			24-03-17: Fixed comments disappearing in morpheme form
+		</li>
+		<hr>
+		<li>
 			23-03-17: Stopped tracking id and updated_at time in the log
 		</li>
 		<li>

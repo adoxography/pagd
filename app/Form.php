@@ -79,7 +79,9 @@ class Form extends Model
         'usageNotes'      => 'Usage Notes'
     ];
     protected $dontKeepRevisionOf = [
-        'complete'
+        'id',
+        'complete',
+        'updated_at'
     ];
 
     public static function boot() {

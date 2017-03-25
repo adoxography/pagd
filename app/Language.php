@@ -63,7 +63,8 @@ class Language extends Model
         'reconstructed'  => 'Reconstructed'
     ];
     protected $dontKeepRevisionOf = [
-        'position'
+        'position',
+        'updated_at'
     ];
 
     public static function boot() {

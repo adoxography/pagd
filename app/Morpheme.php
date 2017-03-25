@@ -83,6 +83,10 @@ class Morpheme extends Model
         'parent_id'       => 'Parent ID',
         'slot_id'         => 'Slot ID',
     ];
+    protected $dontKeepRevisionOf = [
+        'id',
+        'updated_at'
+    ]
 
     public static function boot() {
         parent::boot();

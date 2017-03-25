@@ -50,7 +50,9 @@ class Example extends Model
         'morphemicForm' => 'Morphemes',
     ];
     protected $dontKeepRevisionOf = [
-        'complete'
+        'id',
+        'complete',
+        'updated_at'
     ];
 
     public static function boot() {

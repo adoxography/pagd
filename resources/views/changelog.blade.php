@@ -10,6 +10,9 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			23-03-17: Stopped tracking id and updated_at time in the log
+		</li>
+		<li>
 			23-03-17: Modified formatting of participles so — and + are not underlined
 		</li>
 		<li>

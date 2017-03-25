@@ -17,6 +17,7 @@ Route::get('',     'HomeController@index');
 Route::get('home', 'HomeController@index');
 Route::get('glossary', function() { return view('glossary.index'); });
 Route::get('entire-paradigm', 'HomeController@entireParadigm');
+Route::get('changelog', 'HomeController@changelog');
 
 Route::post('backup', 'BackupController@store');
 
@@ -49,8 +50,6 @@ Route::post('sources/ajax', 'SourceController@store');
 Route::get('changes', 'InitialChangeController@index');
 Route::post('changes', 'InitialChangeController@store');
 Route::delete('changes/{change}', 'InitialChangeController@destroy');
-
-//Route::resource('classes',   'ClassController');
 
 Route::resource('glosses',   'GlossController');
 

@@ -5,10 +5,6 @@
 			<a href="/languages" class="nav-item is-tab @if(URL::current() == URL::to("/languages")) is-active @endif">Languages</a>
 			<a href="/glossary" class="nav-item is-tab @if(URL::current() == URL::to("/glossary")) is-active @endif">Glossary</a>
 			<a href="/search" class="nav-item is-tab @if(URL::current() == URL::to("/search")) is-active @endif">Search</a>
-			@if(Auth::user())
-			<a href="/log" class="nav-item is-tab @if(URL::current() == URL::to("/log")) is-active @endif">Log</a>
-			<a href="/forms/need-attention" class="nav-item is-tab @if(URL::current() == URL::to("/forms/need-attention")) is-active @endif">!!!</a>
-			@endif
 		</div>
 		@if(Auth::user())
 			<div class="nav-center">

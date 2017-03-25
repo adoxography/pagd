@@ -1,7 +1,32 @@
+<style>
+.horizontal-list.has-bullets li {
+	display: inline-block;
+}
+
+.horizontal-list.has-bullets li:not(:first-child)::before {
+	content: "•";
+}
+</style>
+
 <footer class="footer">
 	<div class="container">
 		<div class="content has-text-centered">
-			<p><a href="/contact">Contact</a></p>
+			<ul class="horizontal-list has-bullets">
+				<li>
+					<a href="/contact">Contact</a>
+				</li>
+				<li>
+					<a href="/changelog">Changelog</a>
+				</li>
+				@if(Auth::user())
+				<li>
+					<a href="/log">Activity log</a>
+				</li>
+				<li>
+					<a href="/forms/needs-attention">Missing data</a>
+				</li>
+				@endif
+			</ul>
 			@if(Auth::user())
 				@component('components.form', ['url' => '/backup'])
 					<button type="submit" class="button is-info is-small">Download a Backup</button>

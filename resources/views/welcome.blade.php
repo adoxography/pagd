@@ -9,17 +9,7 @@
 
 <div class="box">
 
-	<p>Welcome to the Pan-Algonquian Grammar Database.</p>
-	<br/>
-	<p>Some useful links:</p>
-	<ul>
-		<li>
-			<a href="/languages">Browse the database</a>
-		</li>
-		<li>
-			<a href="/search/#for-a-paradigm">Generate a paradigm</a>
-		</li>
-	</ul>
+	<p>The Database of Algonquian Language Structures is a project to provide basic information about the sounds and grammar of the Algonquian languages in an easily searchable format. The project leader is <a href="http://home.cc.umanitoba.ca/~oxfordwr/">Will Oxford</a> (<a href="http://umanitoba.ca/linguistics/">Department of Linguistics</a>, <a href="http:// http://umanitoba.ca/">University of Manitoba</a>) and the web developer is Graham Still.</p>
 
 </div>
 

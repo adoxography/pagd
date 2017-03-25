@@ -10,6 +10,9 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			24-03-17: Updated the welcome page
+		</li>
+		<li>
 			24-03-17: Moved examples onto basic details tab of forms
 		</li>
 		<li>

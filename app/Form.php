@@ -81,6 +81,7 @@ class Form extends Model
     protected $dontKeepRevisionOf = [
         'id',
         'complete',
+        'created_at',
         'updated_at'
     ];
 

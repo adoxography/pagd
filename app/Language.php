@@ -63,7 +63,9 @@ class Language extends Model
         'reconstructed'  => 'Reconstructed'
     ];
     protected $dontKeepRevisionOf = [
+        'id',
         'position',
+        'created_at',
         'updated_at'
     ];
 

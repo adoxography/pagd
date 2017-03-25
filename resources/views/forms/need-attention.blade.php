@@ -14,7 +14,7 @@
 	<h4 class="title is-4">{{ $language }}</h4>
 	<ul>
 		@foreach($forms as $form)
-			<li><a href="/forms/{{ $form->id }}">{{ $form->uniqueName() }}</a></li>
+			<li><a href="/forms/{{ $form->id }}">{!! $form->uniqueName() !!}</a></li>
 		@endforeach
 	</ul>
 	<br />

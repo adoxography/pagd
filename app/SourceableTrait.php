@@ -4,11 +4,15 @@ namespace App;
 
 trait SourceableTrait {
 
+    protected $shouldConnectSources;
+
     public static function bootSourceableTrait()
     {
         static::saved(function($model) {
-            $sources = request()->sources;
-            $model->connectSources($sources);
+            if(!isset($model->shouldConnectSources) || $model->shouldConnectSources) {
+                $sources = request()->sources;
+                $model->connectSources($sources);
+            }
         });
 
         static::deleting(function($model) {
@@ -41,6 +45,11 @@ trait SourceableTrait {
     	}
 
     	return $output;
+    }
+
+    public function dontConnectSources()
+    {
+        $this->shouldConnectSources = false;
     }
 
     public function generalSources()

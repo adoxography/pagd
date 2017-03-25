@@ -36,9 +36,11 @@ class ReconnectForms
         })->get();
 
         foreach($forms as $form) {
+            $form->dontConnectSources();
             $form->connectMorphemes();
         }
         foreach($examples as $example) {
+            $example->dontConnectSources();
             $example->connectMorphemes();
         }
     }

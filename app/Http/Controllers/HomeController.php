@@ -21,6 +21,11 @@ class HomeController extends Controller
         return view('changelog');
     }
 
+    public function about()
+    {
+        return view('about');
+    }
+
     public function entireParadigm() {
         $classes = '';
         $orders = '';

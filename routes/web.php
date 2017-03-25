@@ -18,6 +18,7 @@ Route::get('home', 'HomeController@index');
 Route::get('glossary', function() { return view('glossary.index'); });
 Route::get('entire-paradigm', 'HomeController@entireParadigm');
 Route::get('changelog', 'HomeController@changelog');
+Route::get('about', 'HomeController@about');
 
 Route::post('backup', 'BackupController@store');
 

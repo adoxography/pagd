@@ -66,17 +66,15 @@
 				@endif
 			@endcomponent
 
-			@component('components.model.field', ['width' => 'is-12', 'label' => 'Duplicates'])
-				@if(count($form->duplicates) > 0)
-					<ul>
-						@foreach($form->duplicates as $duplicate)
-							<li><a href="/forms/{{ $duplicate->id }}">{{ $duplicate->surfaceForm }}</a></li>
-						@endforeach
-					</ul>
-				@else
-					None
-				@endif
-			@endcomponent
+			@if(count($form->duplicates) > 0)
+				@component('components.model.field', ['width' => 'is-12', 'label' => 'Duplicates'])
+						<ul>
+							@foreach($form->duplicates as $duplicate)
+								<li><a href="/forms/{{ $duplicate->id }}">{{ $duplicate->surfaceForm }}</a></li>
+							@endforeach
+						</ul>
+				@endcomponent
+			@endif
 		</div>
 
 		<div class="column is-half">
@@ -123,7 +121,7 @@
 	<model-tab name="Cognates">
 		@include('components.model.cognates', ['list' => $cognates, 'current' => $form, 'model' => 'forms'])
 	</model-tab>
-	
+
 @endcomponent
 
 @stop

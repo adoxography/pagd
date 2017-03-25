@@ -254,3 +254,11 @@ p.is-danger {
 		white-space: no-wrap;
 	}
 }
+
+.horizontal-list.has-bullets li {
+	display: inline-block;
+
+	&:not(:first-child)::before {
+		content: "•";
+	}
+}

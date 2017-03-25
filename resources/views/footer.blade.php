@@ -1,13 +1,3 @@
-<style>
-.horizontal-list.has-bullets li {
-	display: inline-block;
-}
-
-.horizontal-list.has-bullets li:not(:first-child)::before {
-	content: "•";
-}
-</style>
-
 <footer class="footer">
 	<div class="container">
 		<div class="content has-text-centered">

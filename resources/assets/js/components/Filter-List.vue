@@ -7,8 +7,8 @@
 			<div class="control">
 				<span class="select is-fullwidth">
 					<select v-model="selected" @change="filter">
-						<option>All</option>
-						<option v-for="option in parsedFilterOptions">{{ option.abv }}</option>
+						<option value="">All</option>
+						<option v-for="option in parsedFilterOptions" :value="option.id">{{ option.abv }}</option>
 					</select>
 				</span>
 			</div>
@@ -26,7 +26,7 @@
 				parsedList: [],
 				parsedFilterOptions: [],
 				filteredList: [],
-				selected: 'All'
+				selected: ''
 			};
 		},
 
@@ -42,14 +42,14 @@
 				// console.log(this.$refs.pages);
 				this.$refs.pages.selected = 0;
 
-				if(this.selected == 'All') {
+				if(this.selected == '') {
 					this.filteredList = this.parsedList;
 				}
 				else {
 					this.filteredList = [];
 
 					this.parsedList.forEach(item => {
-						if(item.slot.abv == this.selected) {
+						if(item.slot_id == this.selected) {
 							this.filteredList.push(item);
 						}
 					});

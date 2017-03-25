@@ -10,6 +10,9 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			24-03-17: Fixed language morpheme component
+		</li>
+		<li>
 			24-03-17: Updated styling
 		</li>
 		<li>

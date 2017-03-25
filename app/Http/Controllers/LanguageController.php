@@ -53,11 +53,12 @@ class LanguageController extends Controller
             },
             'morphemes' => function ($query) {
                 // Don't bother with the V placeholder morpheme
-                $query->where('name', '!=', 'V')
-                      ->with('gloss')
-                      ->with('slot')
+                $query->where('name', '<>', 'V')
+                      ->where('name', '<>', '*V')
                       ->orderBy('name');
             },
+            'morphemes.gloss',
+            'morphemes.slot',
             'forms',
             'emptyForms',
             'emptyForms.formType',

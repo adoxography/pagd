@@ -50,4 +50,14 @@ class Source extends Model
     {
     	return $this->morphedByMany('App\Example', 'Sourceable')->withPivot('extraInfo');
     }
+
+    public function rules()
+    {
+        return $this->morphedByMany('App\Rule', 'Sourceable')->withPivot('extraInfo');
+    }
+
+    public function emptyForms()
+    {
+        return $this->morphedByMany('App\EmptyForm', 'Sourceable')->withPivot('extraInfo');
+    }
 }

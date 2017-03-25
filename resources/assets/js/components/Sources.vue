@@ -18,32 +18,40 @@
 			</div>
 
 			<ul>
-				<div class="columns" v-for="(source, index) in value">
-					<input type="hidden"
-						   v-model="source.id"
-						   :name="'sources['+index+'][id]'" />
-					<input type="hidden"
-						   v-model="source.short"
-						   :name="'sources['+index+'][short]'" />
-					<div class="column is-one-quarter">
-						<p>{{ index + 1 }}. {{ source.short }}</p>
-					</div>
-					<div class="column is-8">
-						<p class="control">
-							<input type="text"
-								   class="input is-expanded"
-								   :name="'sources['+index+'][extraInfo]'"
-								   v-model="source.extraInfo"
-								   placeholder="chapter, page number, etc..."
-								   ref="extrainfo"
-								   :disabled="disabled"
-								   autocomplete="off" />
-						</p>
-					</div>
-					<div class="column is-1">
-						<a class="button"
-						   @click="remove(index)"
-						   :disabled="disabled">Remove</a>
+				<div v-for="(source, index) in value">
+					<div class="columns">
+						<input type="hidden"
+							   v-model="source.id"
+							   :name="'sources['+index+'][id]'" />
+						<input type="hidden"
+							   v-model="source.short"
+							   :name="'sources['+index+'][short]'" />
+						<div class="column is-one-quarter">
+							<div>
+								<p>{{ index + 1 }}. {{ source.short }}</p>
+								<span class="help is-danger"
+									v-show="duplicateSource(source.id)" 
+									v-text="'This source is already listed'">
+								</span>
+							</div>
+						</div>
+						<div class="column is-8">
+							<p class="control">
+								<input type="text"
+									   class="input is-expanded"
+									   :name="'sources['+index+'][extraInfo]'"
+									   v-model="source.extraInfo"
+									   placeholder="chapter, page number, etc..."
+									   ref="extrainfo"
+									   :disabled="disabled"
+									   autocomplete="off" />
+							</p>
+						</div>
+						<div class="column is-1">
+							<a class="button"
+							   @click="remove(index)"
+							   :disabled="disabled">Remove</a>
+						</div>
 					</div>
 				</div>
 			</ul>
@@ -71,6 +79,19 @@
 					id: ''
 				}
 			};
+		},
+
+		computed: {
+			hasDuplicates() {
+				let sources = this.value;
+				let found = false;
+
+				for(let i = 0; i < sources.length && !found; i++) {
+					found = this.duplicateSource(sources[i].id);
+				}
+
+				return found;
+			}
 		},
 
 		directives: {
@@ -106,6 +127,27 @@
 				sources.splice(index, 1);
 
 				this.$emit('input', sources);
+			},
+
+			duplicateSource(index) {
+				let sources = this.value;
+				let found = false;
+				let duplicate = false;
+
+				if(sources) {
+					sources.forEach(source => {
+						if(source.id == index) {
+							if(!found) {
+								found = true;
+							}
+							else {
+								duplicate = true;
+							}
+						}
+					});
+				}
+
+				return duplicate;
 			},
 
 			extractExtraInfo(source) {

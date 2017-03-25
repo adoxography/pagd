@@ -27115,6 +27115,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -27132,6 +27140,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 
+
+	computed: {
+		hasDuplicates: function hasDuplicates() {
+			var sources = this.value;
+			var found = false;
+
+			for (var i = 0; i < sources.length && !found; i++) {
+				found = this.duplicateSource(sources[i].id);
+			}
+
+			return found;
+		}
+	},
 
 	directives: {
 		focus: __WEBPACK_IMPORTED_MODULE_0_vue_focus__["focus"]
@@ -27165,6 +27186,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			sources.splice(index, 1);
 
 			this.$emit('input', sources);
+		},
+		duplicateSource: function duplicateSource(index) {
+			var sources = this.value;
+			var found = false;
+			var duplicate = false;
+
+			if (sources) {
+				sources.forEach(function (source) {
+					if (source.id == index) {
+						if (!found) {
+							found = true;
+						} else {
+							duplicate = true;
+						}
+					}
+				});
+			}
+
+			return duplicate;
 		},
 		extractExtraInfo: function extractExtraInfo(source) {
 			if (source.pivot) {
@@ -131278,7 +131318,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "click": _vm.open
     }
   }, [_vm._v("Add a new source")])], 1)]), _vm._v(" "), _c('ul', _vm._l((_vm.value), function(source, index) {
-    return _c('div', {
+    return _c('div', [_c('div', {
       staticClass: "columns"
     }, [_c('input', {
       directives: [{
@@ -131322,7 +131362,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }), _vm._v(" "), _c('div', {
       staticClass: "column is-one-quarter"
-    }, [_c('p', [_vm._v(_vm._s(index + 1) + ". " + _vm._s(source.short))])]), _vm._v(" "), _c('div', {
+    }, [_c('div', [_c('p', [_vm._v(_vm._s(index + 1) + ". " + _vm._s(source.short))]), _vm._v(" "), _c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (_vm.duplicateSource(source.id)),
+        expression: "duplicateSource(source.id)"
+      }],
+      staticClass: "help is-danger",
+      domProps: {
+        "textContent": _vm._s('This source is already listed')
+      }
+    })])]), _vm._v(" "), _c('div', {
       staticClass: "column is-8"
     }, [_c('p', {
       staticClass: "control"
@@ -131364,7 +131415,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.remove(index)
         }
       }
-    }, [_vm._v("Remove")])])])
+    }, [_vm._v("Remove")])])])])
   }))]), _vm._v(" "), _c('alg-new-source', {
     directives: [{
       name: "show",

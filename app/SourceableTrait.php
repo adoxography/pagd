@@ -18,11 +18,16 @@ trait SourceableTrait {
 
     public function connectSources($sources)
     {
+        $added = [];
+
         if($sources) {
             $this->sources()->detach();
 
             foreach($sources as $source) {
-                $this->sources()->attach($source['id'], ($source['extraInfo'] ? ['extraInfo' => $source['extraInfo']] : []));
+                if(!in_array($source['id'], $added)) {
+                    $this->sources()->attach($source['id'], ($source['extraInfo'] ? ['extraInfo' => $source['extraInfo']] : []));
+                    $added[] = $source['id'];
+                }
             }
         }
     }

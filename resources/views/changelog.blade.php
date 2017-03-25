@@ -10,6 +10,9 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			24-03-17: Prevented duplicate sources from being stored for a single item
+		</li>
+		<li>
 			24-03-17: Fixed comments disappearing in morpheme form
 		</li>
 		<hr>

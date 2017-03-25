@@ -16,34 +16,7 @@ use App\Contracts\Search;
 Route::get('',     'HomeController@index');
 Route::get('home', 'HomeController@index');
 Route::get('glossary', function() { return view('glossary.index'); });
-
-Route::get('entire-paradigm', function() {
-    $classes = '';
-    $orders = '';
-    $languages = '';
-    $firstTime = true;
-
-    foreach(\App\FormClass::all() as $class) {
-        if($firstTime) {
-            $firstTime = false;
-        } else {
-            $classes .= '&';
-        }
-
-        $classes .= "classes[]={$class->id}";
-    }
-
-    foreach(\App\Order::all() as $order) {
-        $orders .= "&orders[]={$order->id}";
-    }
-
-    foreach(\App\Language::all() as $language) {
-        if($language->name != 'Demo')
-            $languages .= "&languages[]={$language->name}&languages[]_id={$language->id}";
-    }
-
-    return redirect()->to("/search/paradigm?{$classes}{$orders}&modeSelect=allModes&affirmative=on&negative=on{$languages}");
-});
+Route::get('entire-paradigm', 'HomeController@entireParadigm');
 
 Route::post('backup', 'BackupController@store');
 

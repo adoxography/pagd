@@ -263,37 +263,29 @@ class FormType extends Model
         if(!isset($this->head)) {
             $output = $this->arguments;
         } else {
-            $currentArgument = $this->subject->name;
-
-            if($this->head == 'subject') {
-                $currentArgument = "<span class='head-argument'>$currentArgument</span>";
-            }
-
-            $output .= $currentArgument;
-
-            if ($this->primaryObject) {
-                $currentArgument = "—{$this->primaryObject->name}";
-
-                if($this->head == 'primaryObject') {
-                    $currentArgument = "<span class='head-argument'>$currentArgument</span>";
-                }
-
-                $output .= $currentArgument;
-            }
-
-            if ($this->secondaryObject) {
-                $currentArgument = "+{$this->secondaryObject->name}";
-
-                if($this->head == 'secondaryObject') {
-                    $currentArgument = "<span class='head-argument'>$currentArgument</span>";
-                }
-
-                $output .= $currentArgument;
-            }
-
+            $output = $this->renderArgument('subject')
+                    . $this->renderArgument('primaryObject', '—')
+                    . $this->renderArgument('secondaryObject', '+');
         }
 
         return $output;
+    }
+
+    protected function renderArgument($field, $delimiter = '')
+    {
+        $arg = '';
+
+        if($this->$field) {
+            $arg = $this->$field->name;
+
+            if($this->head == $field) {
+                $arg = "<span class='head-argument'>$arg</span>";
+            }
+
+            $arg = "{$delimiter}{$arg}";
+        }
+
+        return $arg;
     }
 
     /*

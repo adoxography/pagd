@@ -10,6 +10,12 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			23-03-17: Modified formatting of participles so — and + are not underlined
+		</li>
+		<li>
+			23-03-17: Moved changelog off of the welcome page
+		</li>
+		<li>
 			23-03-17: Fixed morpheme disambiguation
 		</li>
 		<li>

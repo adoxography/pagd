@@ -27,8 +27,16 @@ class AssignFormType
      */
     public function handle(Saving $event)
     {
-        $model = $event->model;
-        $model->formType_id = $this->getType();
+        /**
+         * Only attempt to assign the form type if the data from a create or edit form
+         * is present. (The LangFormRequest will have guaranteed that it is.) Skip
+         * this otherwise - i.e. when the form is being disambiguated. That means that
+         * the form already has a type, and it won't be altered anyway.
+         */
+        if(request()->subject_id) {
+            $model = $event->model;
+            $model->formType_id = $this->getType();
+        }
     }
 
     private function getType()

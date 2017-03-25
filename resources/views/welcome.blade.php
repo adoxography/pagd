@@ -11,6 +11,9 @@
 	<h4 class="title is-4">Changelog</h4>
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			23-03-17: Fixed morpheme disambiguation
+		</li>
+		<li>
 			23-03-17: Fixed form validation
 		</li>
 		<hr>

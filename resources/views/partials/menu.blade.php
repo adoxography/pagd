@@ -19,7 +19,7 @@
 						<li><a href="/morphemes/create">Morpheme</a></li>
 						<li><a href="/sources/create">Source</a></li>
 						<li><a href="/rules/create">Rule</a></li>
-						<li><a href="/changes">Initial Changes</a></li>
+						<li><a href="/changes">Initial Change</a></li>
 					</ul>
 				</div>
 			</div>

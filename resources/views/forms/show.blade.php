@@ -80,6 +80,19 @@
 		</div>
 
 		<div class="column is-half">
+			@if(count($form->examples) > 0)
+			@component('components.model.field', ['width' => 'is-12'])
+				@slot('label')
+					Examples @component('components.model.add-icon', ['uri' => "/forms/{$form->id}/addExample"]) @endcomponent
+				@endslot
+				<ul style="margin-top: 0;">
+					@foreach($form->examples as $example)
+						<li><span><a href="/examples/{{ $example->id }}">{{ $example->name }}</a> {{ " '{$example->translation}'" }}</span></li>
+					@endforeach
+				</ul>
+			@endcomponent
+			@endif
+
 			@include('components.model.text', ['width' => 'is-12', 'label' => 'Usage Notes', 'text' => $form->usageNotes, 'language_id' => $form->language_id])
 			@include('components.model.text', ['width' => 'is-12', 'label' => 'Allomorphy Notes', 'text' => $form->allomorphyNotes, 'language_id' => $form->language_id])
 			@component('components.model.field', ['width' => 'is-12', 'label' => 'Historical Notes'])
@@ -110,23 +123,7 @@
 	<model-tab name="Cognates">
 		@include('components.model.cognates', ['list' => $cognates, 'current' => $form, 'model' => 'forms'])
 	</model-tab>
-
-	<model-tab name="Examples">
-		@component('components.model.field', ['width' => 'is-half'])
-			@slot('label')
-				Examples @component('components.model.add-icon', ['uri' => "/forms/{$form->id}/addExample"]) @endcomponent
-			@endslot
-			@if(count($form->examples) > 0)
-				<ul>
-				@foreach($form->examples as $example)
-					<li><a href="/examples/{{ $example->id }}">{{ $example->name }}</a></li>
-				@endforeach
-				</ul>
-			@else
-				None
-			@endif
-		@endcomponent
-	</model-tab>
+	
 @endcomponent
 
 @stop

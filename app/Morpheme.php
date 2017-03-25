@@ -86,7 +86,7 @@ class Morpheme extends Model
     protected $dontKeepRevisionOf = [
         'id',
         'updated_at'
-    ]
+    ];
 
     public static function boot() {
         parent::boot();

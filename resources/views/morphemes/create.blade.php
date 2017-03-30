@@ -15,7 +15,7 @@
 					   change-types="{{ $changeTypes->toJson() }}"
 					   language="{{ $presetLanguage or "" }}"
 					   parent="{{ $presetParent or "" }}"
-					   prefill="{{ $prefill->toJson() }}">
+					   prefill="{{ isset($prefill) ? $prefill->toJson() : "" }}">
 	</alg-morpheme-form>
 
 @stop

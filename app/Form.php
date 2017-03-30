@@ -7,6 +7,7 @@ use App\Events\Form\Saving;
 use App\Events\Form\Deleting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * A verb form
@@ -26,6 +27,8 @@ class Form extends Model
     use \App\HasChildrenTrait;
     use \App\BacksUpTrait;
     use \App\BookmarkableTrait;
+    use SoftDeletes;
+    use \App\HideableTrait;
 
     protected $morphemeTable = 'Forms_Morphemes';
 

@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Group extends Closed
 {
+	use SoftDeletes;
+
 	public $table = 'Groups';
 
 	protected $fillable = ['name', 'description'];

@@ -10,6 +10,7 @@ class Rule extends Model
 {
 	use \App\SourceableTrait;
     use \App\BookmarkableTrait;
+    use \App\HideableTrait;
 
     public $table = 'Rules';
     protected $fillable = ['name', 'abv', 'rule', 'language_id', 'publicComments', 'privateComments'];

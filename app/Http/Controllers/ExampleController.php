@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Example;
 use App\Http\Requests\ExampleRequest;
+use App\Http\Controllers\AlgModelController;
 
 /**
  * HTTP Controller for examples
  */
-class ExampleController extends Controller
+class ExampleController extends AlgModelController
 {
     /**
      * Initialize middleware
@@ -26,9 +27,13 @@ class ExampleController extends Controller
      */
     public function show(Example $example)
     {
-        $example->load(['form', 'form.language', 'form.sources', 'morphemes', 'morphemes.gloss', 'morphemes.slot']);
+        if($this->shouldShow($example)){
+            $example->load(['form', 'form.language', 'form.sources', 'morphemes', 'morphemes.gloss', 'morphemes.slot']);
 
-        return view('examples.show', compact('example'));
+            return view('examples.show', compact('example'));
+        } else {
+            return view('errors.404');
+        }
     }
 
     /**

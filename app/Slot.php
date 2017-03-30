@@ -4,10 +4,12 @@ namespace App;
 
 use App\Morpheme;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Slot extends Closed
 {
     use \App\BookmarkableTrait;
+    use SoftDeletes;
 
     public $table = 'Slots';
 

@@ -302,6 +302,9 @@
 		</div>
 
 		<hr>
+		<alg-sources v-model="form.sources" :disabled="loading"></alg-sources>
+
+		<hr>
 		<h4 class="subtitle is-4">Notes</h4>
 		<div class="columns is-multiline">
 
@@ -345,9 +348,6 @@
 				</alg-textarea>
 			</div>
 		</div>
-
-		<hr>
-		<alg-sources v-model="form.sources" :disabled="loading"></alg-sources>
 
 		<button class="button" type="submit" :disabled="form.errors.any() || loading">Submit</button>
 		<span class="icon">

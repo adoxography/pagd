@@ -20,8 +20,7 @@ class seed_languages extends Seeder
                 'iso'       => 'alg', 
                 'algoCode'  => 'alg', 
                 'parent_id' => NULL, 
-                'group_id'  => 5, // N/A
-                'verified'  => TRUE
+                'group_id'  => 5 // N/A
             ]
         ];
         

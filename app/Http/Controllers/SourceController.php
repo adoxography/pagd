@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Source;
 use Illuminate\Http\Request;
 use App\Http\Requests\SourceRequest;
+use App\Http\Controllers\AlgModelController;
 
 class SourceController extends Controller
 {

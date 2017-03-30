@@ -68,24 +68,29 @@ Route::get('changes', 'InitialChangeController@index');
 Route::post('changes', 'InitialChangeController@store');
 Route::delete('changes/{change}', 'InitialChangeController@destroy');
 
-Route::resource('glosses',   'GlossController');
+Route::resource('glosses',           'GlossController');
+Route::patch('glosses/{gloss}/hide', 'GlossController@hide');
 
 // Example Routes
 Route::resource('examples',                     'ExampleController');
 Route::patch('examples/{example}/disambiguate', 'ExampleController@disambiguate');
+Route::patch('examples/{example}/hide',         'ExampleController@hide');
 
 // Form Routes
-Route::get('empty-forms/{form}',        'EmptyFormController@show');
-Route::delete('empty-forms/{form}',     'EmptyFormController@destroy');
-Route::patch('empty-forms/{form}',      'EmptyFormController@update');
-Route::get('empty-forms/{form}/edit',   'EmptyFormController@edit');
+Route::get('empty-forms/{emptyform}',        'EmptyFormController@show');
+Route::delete('empty-forms/{emptyform}',     'EmptyFormController@destroy');
+Route::patch('empty-forms/{emptyform}',      'EmptyFormController@update');
+Route::get('empty-forms/{emptyform}/edit',   'EmptyFormController@edit');
+Route::patch('empty-forms/{emptyform}/hide', 'EmptyFormController@hide');
 Route::get('forms/need-attention',        'FormController@incompleteForms');
 Route::resource('forms',                  'FormController');
 Route::get('forms/{form}/addExample',     'FormController@addExample');
 Route::patch('forms/{form}/disambiguate', 'FormController@disambiguate');
+Route::patch('forms/{form}/hide',         'FormController@hide');
 
 // Group Routes
-Route::resource('groups',    'GroupController');
+Route::resource('groups',           'GroupController');
+Route::patch('groups/{group}/hide', 'GroupController@hide');
 
 // Language Routes
 Route::get('languages/order',                  'LanguageController@order');
@@ -96,16 +101,21 @@ Route::get('languages/{language}/addExample',  'LanguageController@addExample');
 Route::get('languages/{language}/addForm',     'LanguageController@addForm');
 Route::get('languages/{language}/addMorpheme', 'LanguageController@addMorpheme');
 Route::get('languages/{language}/addRule',     'LanguageController@addRule');
+Route::patch('languages/{language}/hide',      'LanguageController@hide');
 
 // Morpheme Routes
-Route::resource('morphemes', 'MorphemeController');
+Route::resource('morphemes',              'MorphemeController');
+Route::patch('morphemes/{morpheme}/hide', 'MorphemeController@hide');
 
 // Rule routes
-Route::resource('rules', 'RuleController');
+Route::resource('rules',          'RuleController');
+Route::patch('rules/{rule}/hide', 'RuleController@hide');
 
-Route::resource('slots',     'SlotController');
+Route::resource('slots',          'SlotController');
+Route::patch('slots/{slot}/hide', 'SlotController@hide');
 
-Route::resource('sources',   'SourceController');
+Route::resource('sources',            'SourceController');
+Route::patch('sources/{source}/hide', 'SourceController@hide');
 
 Route::get('profile', 'UserController@show');
 Auth::routes();

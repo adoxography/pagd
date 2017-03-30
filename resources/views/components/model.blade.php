@@ -12,6 +12,9 @@
 				@endif
 			</p>
 			@if(Auth::user())
+				@if($model->isHideable)
+					<alg-hidden-icon uri="{{ $uri }}" hidden="{{ $model->isHidden() }}"></alg-hidden-icon>
+				@endif
 				<alg-bookmark uri="{{ $uri }}" bookmarked="{{ $model->isBookmarkedBy() }}"></alg-bookmark>
 			    <a href="{{ $uri }}/edit" class="card-header-icon">
 			      	<span class="icon">
@@ -48,7 +51,15 @@
 	@if(Auth::user())
 		@component('components.form', ['class' => 'card-footer', 'method' => 'DELETE', 'url' => $uri])
 			<a class="card-footer-item" href = "{{ $uri }}/edit">Edit</a>
-			<a class="card-footer-item" onclick="event.preventDefault(); var confirm = window.confirm('Are you sure?'); if(confirm) { this.parentNode.submit(); }">Delete</a>
+			<a class="card-footer-item"
+			   onclick="
+			   		event.preventDefault();
+			   		var confirm = window.confirm('Are you sure?');
+			   		if(confirm) {
+			   			this.parentNode.submit();
+			   		}">
+			   	Delete
+			</a>
 		@endcomponent
 	@endif
 </div>

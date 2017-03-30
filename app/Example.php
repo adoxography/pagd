@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * An example of a form
@@ -16,6 +17,8 @@ class Example extends Model
     use \App\BacksUpTrait;
     use \App\ReconstructableTrait;
     use \App\BookmarkableTrait;
+    use SoftDeletes;
+    use \App\HideableTrait;
 
     protected $morphemeTable = 'Examples_Morphemes';
 
@@ -108,6 +111,13 @@ class Example extends Model
         return "{$this->uniqueName} ({$this->language->name})";
     }
 
+    public function getLanguageAttribute()
+    {
+        if(isset($this->form)) {
+            return $this->form->language;
+        }
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Relations
@@ -121,18 +131,6 @@ class Example extends Model
     public function form()
     {
         return $this->belongsTo(Form::class, 'form_id');
-    }
-
-    /**
-     * An example belongs to exactly one language
-     * 
-     * Reaches through the example's form to fetch the language
-     * 
-     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function language()
-    {
-        return $this->form->language();
     }
 
     /*

@@ -7,7 +7,7 @@
 </div>
 <br />
 
-@component('components.model', ['uri' => "/empty-forms/{$form->id}"])
+@component('components.model', ['uri' => "/empty-forms/{$form->id}", 'model' => $form])
 	@slot('header')
 		{{ $form->formType->summary }} <span class="detail-title-language">(<a href="/languages/{{ $form->language_id }}">{{ $form->language->name }}</a>)</span>
 	@endslot

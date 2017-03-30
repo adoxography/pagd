@@ -23,8 +23,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
 
         Route::bind('language', function($value) {
@@ -34,6 +32,21 @@ class RouteServiceProvider extends ServiceProvider
                 return \App\Language::where('iso', $value)->first();
             }
         });
+
+        $connections = [
+            \App\Example::class   => 'example',
+            \App\Form::class      => 'form',
+            \App\EmptyForm::class => 'emptyform',
+            \App\Morpheme::class  => 'morpheme',
+            \App\Source::class    => 'source',
+            \App\Rule::class      => 'rule'
+        ];
+
+        foreach($connections as $model => $binding) {
+            Route::bind($binding, function($value) use ($model) {
+                return $model::find($value);
+            });
+        }
     }
 
     /**

@@ -13,11 +13,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Language extends Model
 {
+    use SoftDeletes;
     use \Venturecraft\Revisionable\RevisionableTrait;
     use \AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
     use \App\HasChildrenTrait;
     use \App\BacksUpTrait;
     use \App\BookmarkableTrait;
+    use \App\HideableTrait;
 
     /*
     |--------------------------------------------------------------------------

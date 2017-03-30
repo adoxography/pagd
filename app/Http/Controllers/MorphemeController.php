@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MorphemeRequest;
 use App\Morpheme;
+use App\Http\Requests\MorphemeRequest;
+use App\Http\Controllers\AlgModelController;
 
 /**
  * HTTP Controller for morphemes
  */
-class MorphemeController extends Controller
+class MorphemeController extends AlgModelController
 {
     /**
      * Initialize middleware
@@ -26,17 +27,21 @@ class MorphemeController extends Controller
      */
     public function show(Morpheme $morpheme)
     {
-        $morpheme->load([
-            'language',
-            'gloss',
-            'forms',
-            'parent',
-            'parent.language',
-            'examples'
-        ]);
-        $cognates = $morpheme->cognates();
+        if($this->shouldShow($morpheme)) {
+            $morpheme->load([
+                'language',
+                'gloss',
+                'forms',
+                'parent',
+                'parent.language',
+                'examples'
+            ]);
+            $cognates = $morpheme->cognates();
 
-        return view('morphemes.show', compact('morpheme', 'cognates'));
+            return view('morphemes.show', compact('morpheme', 'cognates'));
+        } else {
+            return view('errors.404');
+        }
     }
 
     /**

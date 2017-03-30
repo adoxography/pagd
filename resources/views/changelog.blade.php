@@ -10,6 +10,37 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			29-03-17: Added visibility toggle
+			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+				<li>Available for languages and all components of languages (e.g. morphemes, forms, etc.)</li>
+				<li>Toggling the visibility (the eye icon on the display page) will hide that piece of data from the public</li>
+				<li>Hiding a language will hide all of that language's data</li>
+			</ul>
+		</li>
+		<li>
+			29-03-17: Added "soft deletes" to tables
+			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+				<li>Rather than being erased from the database, deleting an item will mark it as having been deleted</li>
+				<li>This allows deletion of data to be registered in the log</li>
+				<li>It's also easier to restore accidentally deleted data</li>
+			</ul>
+		</li>
+		<li>
+			29-03-17: Added user roles
+			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+				<li>
+					Administrators, contributors: can add, edit, and delete
+				</li>
+				<li>
+					Users: read-only access
+				</li>
+				<li>
+					Eventually, may add ability for administrators to "hard delete," as opposed to "soft deletes" (see above)
+				</li>
+			</ul>
+		</li>
+		<hr>
+		<li>
 			24-03-17: Fixed language morpheme component
 		</li>
 		<li>

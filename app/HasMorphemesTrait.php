@@ -214,25 +214,33 @@ trait HasMorphemesTrait {
     		if($morpheme instanceof Morpheme) {
     			// Morpheme unambiguously exists in the database
 
-				$morphemeHTML .= str_replace(['-', '*'], '', $morpheme->name);
-                $colour = $morpheme->slot->colour;
+                if(!$morpheme->isHidden() || Auth::user()) {
+    				$morphemeHTML .= str_replace(['-', '*'], '', $morpheme->name);
+                    $colour = $morpheme->slot->colour;
 
-    			// Everything except vStems need to be wrapped in hyperlinks
-    			if(!$morpheme->isVStem()) {
-    				$morphemeHTML = "<a href='/morphemes/{$morpheme->id}' style='color: $colour;'>$morphemeHTML</a>";
-    			}
+        			// Everything except vStems need to be wrapped in hyperlinks
+        			if(!$morpheme->isVStem()) {
+        				$morphemeHTML = "<a href='/morphemes/{$morpheme->id}' style='color: $colour;'>$morphemeHTML</a>";
+        			}
 
-    			// Add the gloss below the morpheme
-    			if($morpheme->initialChanged()) {
-    				$glossHTML .= "IC.";
-    			}
-    			if($morpheme->translation) {
-    				$glossHTML .= str_replace(" ", ".", $morpheme->translation);
-    			} else {
-    				$glossHTML .= "<a href='/glosses/{$morpheme->gloss_id}' style='color: inherit;'><span class='gloss'>{$morpheme->gloss->abv}</span></a>";
-    			}
+                    if($morpheme->isHidden()) {
+                        $morphemeHTML = "<span class='data-hidden'>$morphemeHTML</span>";
+                    }
 
-    			$morphemeHTML .= "<p style='color: $colour;'>$glossHTML</p>";
+        			// Add the gloss below the morpheme
+        			if($morpheme->initialChanged()) {
+        				$glossHTML .= "IC.";
+        			}
+        			if($morpheme->translation) {
+        				$glossHTML .= str_replace(" ", ".", $morpheme->translation);
+        			} else {
+        				$glossHTML .= "<a href='/glosses/{$morpheme->gloss_id}' style='color: inherit;'><span class='gloss'>{$morpheme->gloss->abv}</span></a>";
+        			}
+
+        			$morphemeHTML .= "<p style='color: $colour;'>$glossHTML</p>";
+                } else {
+                    $morphemeHTML .= str_replace('-', '', $morpheme->name);
+                }
 
     		} else {
     			// Morpheme either doesn't exist in the database or it's ambiguous

@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Rule;
 use App\Http\Requests\RuleRequest;
+use App\Http\Controllers\AlgModelController;
 
-class RuleController extends Controller
+class RuleController extends AlgModelController
 {
     /**
      * Initialize middleware
@@ -17,9 +18,13 @@ class RuleController extends Controller
 
     public function show(Rule $rule)
     {
-        $rule->load('language');
+        if($this->shouldShow($rule)) {
+            $rule->load('language');
 
-    	return view('rules.show', compact('rule'));
+            return view('rules.show', compact('rule'));
+        } else {
+            return view('errors.404');
+        }
     }
 
     public function create()

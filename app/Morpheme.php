@@ -6,6 +6,7 @@ use App\Events\Morpheme\Saved;
 use App\Events\Morpheme\Deleted;
 use App\Events\Morpheme\Creating;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Morpheme extends Model
 {
@@ -16,6 +17,8 @@ class Morpheme extends Model
     use \App\HasChildrenTrait;
     use \App\BacksUpTrait;
     use \App\BookmarkableTrait;
+    use SoftDeletes;
+    use \App\HideableTrait;
 
     /*
     |--------------------------------------------------------------------------

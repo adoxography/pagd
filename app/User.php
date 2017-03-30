@@ -2,6 +2,7 @@
 namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\UserRole;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -43,5 +44,10 @@ class User extends Authenticatable
         } else {
 
         }
+    }
+
+    public function permissions()
+    {
+        return $this->belongsTo(UserRole::class, 'userRoles_id', 'id');
     }
 }

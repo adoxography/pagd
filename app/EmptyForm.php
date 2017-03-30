@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EmptyForm extends Model
 {
@@ -10,6 +11,9 @@ class EmptyForm extends Model
     protected $fillable = ['formType_id', 'language_id', 'comments', 'historicalNotes'];
 
     use \App\SourceableTrait;
+    use SoftDeletes;
+    use \App\HideableTrait;
+    use \App\BookmarkableTrait;
 
     public function formType()
     {

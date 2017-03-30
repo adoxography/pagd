@@ -50,6 +50,9 @@ Vue.component('alg-paradigm-search',  require('./components/forms/Paradigm-Searc
 Vue.component('alg-basic-paradigm-search', require('./components/forms/Basic-Paradigm-Search.vue'));
 Vue.component('alg-advanced-paradigm-search', require('./components/forms/Advanced-Paradigm-Search.vue'));
 
+Vue.component('alg-delete-button', require('./components/Delete-Button.vue'));
+Vue.component('alg-hidden-icon', require('./components/Hidden-Icon.vue'));
+
 Vue.component('alg-paradigm-table', {
 	props: ['morphemesOn'],
 

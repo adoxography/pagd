@@ -6,11 +6,13 @@ use App\Form;
 use App\Example;
 use App\Morpheme;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Source extends Model
 {
     use \AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
     use \App\BookmarkableTrait;
+    use SoftDeletes;
 
     public $table = 'Sources';
     protected $fillable = ['short', 'long', 'url', 'summary', 'notes'];

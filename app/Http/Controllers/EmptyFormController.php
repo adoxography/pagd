@@ -5,22 +5,27 @@ namespace App\Http\Controllers;
 use App\EmptyForm;
 use Illuminate\Http\Request;
 use App\Http\Requests\LangFormRequest;
+use App\Http\Controllers\AlgModelController;
 
-class EmptyFormController extends Controller
+class EmptyFormController extends AlgModelController
 {
     public function show(EmptyForm $form)
     {
-    	$form->load([
-    		'language',
-    		'formType',
-    		'formType.mode',
-    		'formType.formClass',
-    		'formType.order',
-    		'formType.subject',
-    		'formType.primaryObject',
-    		'formType.secondaryObject'
-    	]);
-    	return view('emptyForms.show', compact('form'));
+        if($this->shouldShow($form)) {
+            $form->load([
+                'language',
+                'formType',
+                'formType.mode',
+                'formType.formClass',
+                'formType.order',
+                'formType.subject',
+                'formType.primaryObject',
+                'formType.secondaryObject'
+            ]);
+            return view('emptyForms.show', compact('form'));
+        } else {
+            return view('errors.404');
+        }
     }
 
     public function edit(EmptyForm $form)

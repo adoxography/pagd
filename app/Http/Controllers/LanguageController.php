@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Group;
 use App\Language;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LanguageRequest;
+use App\Http\Controllers\AlgModelController;
 
 /**
  * HTTP Controller for languages
  */
-class LanguageController extends Controller
+class LanguageController extends AlgModelController
 {
     /**
      * Initialize middleware
@@ -42,37 +44,43 @@ class LanguageController extends Controller
      */
     public function show(Language $language)
     {
-        $language->load([
-            'group',
-            'parent',
-            'children' => function($query) {
-                $query->select('Languages.*')
-                      ->join('Groups', 'Groups.id', '=', 'group_id')
-                      ->orderBy('Groups.position', 'asc')
-                      ->orderBy('Languages.position', 'asc');
-            },
-            'morphemes' => function ($query) {
-                // Don't bother with the V placeholder morpheme
-                $query->where('name', '<>', 'V')
-                      ->where('name', '<>', '*V')
-                      ->orderBy('name');
-            },
-            'morphemes.gloss',
-            'morphemes.slot',
-            'forms',
-            'emptyForms',
-            'emptyForms.formType',
-            'emptyForms.formType.subject',
-            'emptyForms.formType.primaryObject',
-            'emptyForms.formType.secondaryObject',
-            'emptyForms.formType.mode',
-            'emptyForms.formType.order',
-            'emptyForms.formType.formClass'
-        ]);
+        if(Auth::user() || !$language->isHidden()) {
+            $language->load([
+                'group',
+                'parent',
+                'children' => function($query) {
+                    $query->select('Languages.*')
+                          ->join('Groups', 'Groups.id', '=', 'group_id')
+                          ->orderBy('Groups.position', 'asc')
+                          ->orderBy('Languages.position', 'asc');
+                },
+                'morphemes' => function ($query) {
+                    // Don't bother with the V placeholder morpheme
+                    $query->where('name', '<>', 'V')
+                          ->where('name', '<>', '*V')
+                          ->orderBy('name');
+                },
+                'morphemes.gloss',
+                'morphemes.slot',
+                'forms',
+                'emptyForms',
+                'emptyForms.formType',
+                'emptyForms.formType.subject',
+                'emptyForms.formType.primaryObject',
+                'emptyForms.formType.secondaryObject',
+                'emptyForms.formType.mode',
+                'emptyForms.formType.order',
+                'emptyForms.formType.formClass',
+                'examples',
+                'examples.form'
+            ]);
 
-        $sources = $language->sources();
+            $sources = $language->sources();
 
-        return view('languages.show', compact('language', 'sources'));
+            return view('languages.show', compact('language', 'sources'));
+        } else {
+            return view('errors.404');
+        }
     }
 
     /**

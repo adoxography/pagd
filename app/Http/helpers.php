@@ -25,6 +25,20 @@ function indexAllModels() {
     \App\Source::reindex();
 }
 
+function clearDuplicateSources() {
+    $fields = ['forms', 'morphemes', 'examples', 'emptyForms', 'rules'];
+    $sources = App\Source::all();
+    $models;
+
+    foreach($sources as $source) {
+        foreach($fields as $field) {
+            $models = $source->$field;
+
+            
+        }
+    }
+}
+
 function setSubclasses() {
     $formTypes = \App\FormType::all();
 
@@ -73,7 +87,7 @@ function replaceTags($text, $id)
         $rule = \App\Rule::where('abv', $tag)->where('language_id', $id)->first();
 
         // If it was found, replace the tag with it
-        if ($rule) {
+        if ($rule && !$rule->isHidden()) {
             $replacement = "<a href='/rules/{$rule->id}'>{$rule->rule}</a>";
         } else {
             $replacement = $tag;

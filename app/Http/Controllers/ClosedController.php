@@ -6,13 +6,14 @@ use App\Closed;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\AlgModelController;
 
 /**
  * Supercontroller for all 'closed' classes: Glosses, Slots, and Groups
  *
  * Method names differ from standard REST because of the difference in argument structure.
  */
-abstract class ClosedController extends Controller
+abstract class ClosedController extends AlgModelController
 {
     protected $model;
     protected $items;

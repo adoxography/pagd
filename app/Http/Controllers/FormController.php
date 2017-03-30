@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Form;
 use App\EmptyForm;
 use App\Http\Requests\LangFormRequest;
+use App\Http\Controllers\AlgModelController;
 
 /**
  * HTTP Controller for forms
  */
-class FormController extends Controller
+class FormController extends AlgModelController
 {
     /**
      * Initialize middleware
@@ -27,26 +28,30 @@ class FormController extends Controller
      */
     public function show(Form $form)
     {
-        $form->load([
-            'language',
-            'morphemes' => function ($query) {
-                $query->orderBy('position');
-            },
-            'duplicates',
-            'parent.language',
-            'formType.subject',
-            'formType.primaryObject',
-            'formType.secondaryObject',
-            'formType.order',
-            'formType.mode',
-            'formType.formClass',
-            'sources',
-            'changeType'
-        ]);
+        if($this->shouldShow($form)) {
+            $form->load([
+                'language',
+                'morphemes' => function ($query) {
+                    $query->orderBy('position');
+                },
+                'duplicates',
+                'parent.language',
+                'formType.subject',
+                'formType.primaryObject',
+                'formType.secondaryObject',
+                'formType.order',
+                'formType.mode',
+                'formType.formClass',
+                'sources',
+                'changeType'
+            ]);
 
-        $cognates = $form->cognates();
+            $cognates = $form->cognates();
 
-        return view('forms.show', compact('form', 'cognates'));
+            return view('forms.show', compact('form', 'cognates'));
+        } else {
+            return view('errors.404');
+        }
     }
 
     /**
@@ -141,6 +146,7 @@ class FormController extends Controller
      */
     public function disambiguate(Form $form)
     {
+        // $form->disamiguating = true;
         $form->disambiguate(request()->index, request()->disambiguator);
         
         return redirect("/forms/{$form->id}");

@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Example extends Model
 {
     use \Venturecraft\Revisionable\RevisionableTrait;
-    use \AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
     use \App\SourceableTrait;
     use \App\HasMorphemesTrait;
     use \App\BacksUpTrait;
@@ -61,21 +60,6 @@ class Example extends Model
 
     public static function boot() {
         parent::boot();
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | Algolia
-    |--------------------------------------------------------------------------
-    */
-
-    public static $perEnvironment = true;
-
-    public function getAlgoliaRecord()
-    {
-        return array_merge($this->toArray(), [
-            'display' => $this->uniqueNameWithLanguage
-        ]);
     }
 
     /*

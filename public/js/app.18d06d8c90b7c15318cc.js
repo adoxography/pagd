@@ -29720,18 +29720,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utilities_Form__ = __webpack_require__(118);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_tinymce_tinymce__ = __webpack_require__(244);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_tinymce_tinymce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_tinymce_tinymce__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_tinymce_themes_modern_theme__ = __webpack_require__(243);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_tinymce_themes_modern_theme___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_tinymce_themes_modern_theme__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_tinymce_plugins_table_plugin__ = __webpack_require__(242);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_tinymce_plugins_table_plugin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_tinymce_plugins_table_plugin__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_tinymce_plugins_charmap_plugin__ = __webpack_require__(239);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_tinymce_plugins_charmap_plugin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_tinymce_plugins_charmap_plugin__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_tinymce_plugins_link_plugin__ = __webpack_require__(240);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_tinymce_plugins_link_plugin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_tinymce_plugins_link_plugin__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_tinymce_plugins_lists_plugin__ = __webpack_require__(241);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_tinymce_plugins_lists_plugin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_tinymce_plugins_lists_plugin__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios_retry__ = __webpack_require__(335);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios_retry___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios_retry__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_tinymce_tinymce__ = __webpack_require__(244);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_tinymce_tinymce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_tinymce_tinymce__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_tinymce_themes_modern_theme__ = __webpack_require__(243);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_tinymce_themes_modern_theme___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_tinymce_themes_modern_theme__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_tinymce_plugins_table_plugin__ = __webpack_require__(242);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_tinymce_plugins_table_plugin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_tinymce_plugins_table_plugin__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_tinymce_plugins_charmap_plugin__ = __webpack_require__(239);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_tinymce_plugins_charmap_plugin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_tinymce_plugins_charmap_plugin__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_tinymce_plugins_link_plugin__ = __webpack_require__(240);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_tinymce_plugins_link_plugin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_tinymce_plugins_link_plugin__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_tinymce_plugins_lists_plugin__ = __webpack_require__(241);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_tinymce_plugins_lists_plugin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_tinymce_plugins_lists_plugin__);
+
 
 
 window._ = __webpack_require__(172);
@@ -29767,6 +29770,8 @@ window.axios.defaults.headers.common = {
   'X-Requested-With': 'XMLHttpRequest'
 };
 window.axios.defaults.timeout = 5000;
+
+__WEBPACK_IMPORTED_MODULE_1_axios_retry___default()(window.axios, { retries: 5 });
 
 window.Form = __WEBPACK_IMPORTED_MODULE_0__utilities_Form__["a" /* default */];
 
@@ -29980,25 +29985,25 @@ var Form = function () {
 							alert('System error. Please submit a bug report including what you were doing and when.');
 						} else if (error.response.status == 400) {
 							console.log("Error 400");
-							if (attempt < 5) {
-								_this.submit(requestType, url, attempt + 1);
-							}
+							// if(attempt < 5) {
+							// 	this.submit(requestType, url, attempt + 1);
+							// }
 						} else {
 							alert("Network error " + error.response.status + ". Please try again.");
 						}
 
 						reject(error.response.data);
 					} else {
-						if (attempt < 5) {
-							console.log("Failed. Error message:");
-							console.log(error);
-							console.log("Retrying...");
-							_this.submit(requestType, url, attempt + 1);
-						} else {
-							alert("Network error. Please try again.");
-							console.log(error);
-							reject({});
-						}
+						// if(attempt < 5) {
+						// 	console.log("Failed. Error message:");
+						// 	console.log(error);
+						// 	console.log("Retrying...");
+						// 	this.submit(requestType, url, attempt + 1);
+						// } else {
+						alert("Network error. Please try again.");
+						console.log(error);
+						reject({});
+						// }
 					}
 				});
 			});
@@ -136538,6 +136543,177 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 __webpack_require__(61);
 module.exports = __webpack_require__(62);
+
+
+/***/ }),
+/* 327 */,
+/* 328 */,
+/* 329 */,
+/* 330 */,
+/* 331 */,
+/* 332 */,
+/* 333 */,
+/* 334 */,
+/* 335 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(336).default;
+
+/***/ }),
+/* 336 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = axiosRetry;
+
+var _isRetryAllowed = __webpack_require__(337);
+
+var _isRetryAllowed2 = _interopRequireDefault(_isRetryAllowed);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Adds response interceptors to an axios instance to retry requests failed due to network issues
+ *
+ * @example
+ *
+ * import axios from 'axios';
+ *
+ * axiosRetry(axios, { retries: 3 });
+ *
+ * axios.get('http://example.com/test') // The first request fails and the second returns 'ok'
+ *   .then(result => {
+ *     result.data; // 'ok'
+ *   });
+ *
+ * // Also works with custom axios instances
+ * const client = axios.create({ baseURL: 'http://example.com' });
+ * axiosRetry(client, { retries: 3 });
+ *
+ * client.get('/test') // The first request fails and the second returns 'ok'
+ *   .then(result => {
+ *     result.data; // 'ok'
+ *   });
+ *
+ * @param {Axios} axios An axios instance (the axios object or one created from axios.create)
+ * @param {Object} [options]
+ * @param {number} [options.retries=3] Number of retries
+ */
+function axiosRetry(axios) {
+  var _ref = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+  var _ref$retries = _ref.retries;
+  var retries = _ref$retries === undefined ? 3 : _ref$retries;
+  var _ref$retryCondition = _ref.retryCondition;
+  var retryCondition = _ref$retryCondition === undefined ? function (error) {
+    return !error.response;
+  } : _ref$retryCondition;
+
+  axios.interceptors.response.use(null, function (error) {
+    var config = error.config;
+
+    // If we have no information to retry the request
+    if (!config) {
+      return Promise.reject(error);
+    }
+
+    config.retryCount = config.retryCount || 0;
+
+    var shouldRetry = retryCondition(error) && error.code !== 'ECONNABORTED' && config.retryCount < retries && (0, _isRetryAllowed2.default)(error);
+
+    if (shouldRetry) {
+      config.retryCount++;
+
+      // Axios fails merging this configuration to the default configuration because it has an issue
+      // with circular structures
+      if (axios.defaults.agent === config.agent) {
+        delete config.agent;
+      }
+      if (axios.defaults.httpAgent === config.httpAgent) {
+        delete config.httpAgent;
+      }
+      if (axios.defaults.httpsAgent === config.httpsAgent) {
+        delete config.httpsAgent;
+      }
+
+      return axios(config);
+    }
+
+    return Promise.reject(error);
+  });
+}
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 337 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var WHITELIST = [
+	'ETIMEDOUT',
+	'ECONNRESET',
+	'EADDRINUSE',
+	'ESOCKETTIMEDOUT',
+	'ECONNREFUSED',
+	'EPIPE'
+];
+
+var BLACKLIST = [
+	'ENOTFOUND',
+	'ENETUNREACH',
+
+	// SSL errors from https://github.com/nodejs/node/blob/ed3d8b13ee9a705d89f9e0397d9e96519e7e47ac/src/node_crypto.cc#L1950
+	'UNABLE_TO_GET_ISSUER_CERT',
+	'UNABLE_TO_GET_CRL',
+	'UNABLE_TO_DECRYPT_CERT_SIGNATURE',
+	'UNABLE_TO_DECRYPT_CRL_SIGNATURE',
+	'UNABLE_TO_DECODE_ISSUER_PUBLIC_KEY',
+	'CERT_SIGNATURE_FAILURE',
+	'CRL_SIGNATURE_FAILURE',
+	'CERT_NOT_YET_VALID',
+	'CERT_HAS_EXPIRED',
+	'CRL_NOT_YET_VALID',
+	'CRL_HAS_EXPIRED',
+	'ERROR_IN_CERT_NOT_BEFORE_FIELD',
+	'ERROR_IN_CERT_NOT_AFTER_FIELD',
+	'ERROR_IN_CRL_LAST_UPDATE_FIELD',
+	'ERROR_IN_CRL_NEXT_UPDATE_FIELD',
+	'OUT_OF_MEM',
+	'DEPTH_ZERO_SELF_SIGNED_CERT',
+	'SELF_SIGNED_CERT_IN_CHAIN',
+	'UNABLE_TO_GET_ISSUER_CERT_LOCALLY',
+	'UNABLE_TO_VERIFY_LEAF_SIGNATURE',
+	'CERT_CHAIN_TOO_LONG',
+	'CERT_REVOKED',
+	'INVALID_CA',
+	'PATH_LENGTH_EXCEEDED',
+	'INVALID_PURPOSE',
+	'CERT_UNTRUSTED',
+	'CERT_REJECTED'
+];
+
+module.exports = function (err) {
+	if (!err || !err.code) {
+		return true;
+	}
+
+	if (WHITELIST.indexOf(err.code) !== -1) {
+		return true;
+	}
+
+	if (BLACKLIST.indexOf(err.code) !== -1) {
+		return false;
+	}
+
+	return true;
+};
 
 
 /***/ })

@@ -1,4 +1,5 @@
 import Form from './utilities/Form';
+import axiosRetry from 'axios-retry';
 
 window._ = require('lodash');
 
@@ -33,6 +34,8 @@ window.axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest'
 };
 window.axios.defaults.timeout = 5000;
+
+axiosRetry(window.axios, {retries: 5 });
 
 window.Form = Form;
 

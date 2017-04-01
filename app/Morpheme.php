@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Morpheme extends Model
 {
     use \Venturecraft\Revisionable\RevisionableTrait;
-    use \AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
     use \App\SourceableTrait;
     use \App\ReconstructableTrait;
     use \App\HasChildrenTrait;
@@ -46,21 +45,6 @@ class Morpheme extends Model
         'uniqueName'
     ];
     protected $altName;
-
-    /*
-    |--------------------------------------------------------------------------
-    | Algolia
-    |--------------------------------------------------------------------------
-    */
-
-    public static $perEnvironment = true;
-
-    public function getAlgoliaRecord()
-    {
-        return array_merge($this->toArray(), [
-            'display' => $this->uniqueNameWithLanguage
-        ]);
-    }
 
     /*
     |--------------------------------------------------------------------------

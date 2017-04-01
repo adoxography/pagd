@@ -169,7 +169,6 @@ return [
         'Laracasts\Utilities\JavaScript\JavaScriptServiceProvider',
         BackupManager\Laravel\Laravel5ServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
-        AlgoliaSearch\Laravel\AlgoliaServiceProvider::class,
 
         //
 

@@ -54,8 +54,14 @@ class Form {
 						if(error.response.status == 422) {
 							this.onFail(error.response.data);
 						}
-						else if(error.response.status = 500) {
+						else if(error.response.status == 500) {
 							alert('System error. Please submit a bug report including what you were doing and when.');
+						}
+						else if(error.response.status == 400) {
+							console.log("Error 400");
+							if(attempt < 5) {
+								this.submit(requestType, url, attempt + 1);
+							}
 						}
 						else {
 							alert("Network error "+error.response.status+". Please try again.");
@@ -65,9 +71,13 @@ class Form {
 					}
 					else {
 						if(attempt < 5) {
-							submit(requestType, url, attempt + 1);
+							console.log("Failed. Error message:");
+							console.log(error);
+							console.log("Retrying...");
+							this.submit(requestType, url, attempt + 1);
 						} else {
 							alert("Network error. Please try again.");
+							console.log(error);
 							reject({});
 						}
 					}

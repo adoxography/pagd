@@ -15,7 +15,6 @@ class Language extends Model
 {
     use SoftDeletes;
     use \Venturecraft\Revisionable\RevisionableTrait;
-    use \AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
     use \App\HasChildrenTrait;
     use \App\BacksUpTrait;
     use \App\BookmarkableTrait;
@@ -86,23 +85,6 @@ class Language extends Model
     public function getDisplayAttribute()
     {
         return $this->name;
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | Algolia
-    |--------------------------------------------------------------------------
-    */
-
-    public static $perEnvironment = true;
-
-    public function getAlgoliaRecord()
-    {
-        $this->group;
-
-        return array_merge($this->toArray(), [
-            'display' => $this->name
-        ]);
     }
     
     /*

@@ -29766,7 +29766,7 @@ window.axios = __webpack_require__(64);
 window.axios.defaults.headers.common = {
   'X-Requested-With': 'XMLHttpRequest'
 };
-window.axios.defaults.timeout = 3000;
+window.axios.defaults.timeout = 5000;
 
 window.Form = __WEBPACK_IMPORTED_MODULE_0__utilities_Form__["a" /* default */];
 
@@ -29962,17 +29962,7 @@ var Form = function () {
 		}
 	}, {
 		key: 'submit',
-		value: function (_submit) {
-			function submit(_x, _x2) {
-				return _submit.apply(this, arguments);
-			}
-
-			submit.toString = function () {
-				return _submit.toString();
-			};
-
-			return submit;
-		}(function (requestType, url) {
+		value: function submit(requestType, url) {
 			var _this = this;
 
 			var attempt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
@@ -29986,8 +29976,13 @@ var Form = function () {
 					if (error.response) {
 						if (error.response.status == 422) {
 							_this.onFail(error.response.data);
-						} else if (error.response.status = 500) {
+						} else if (error.response.status == 500) {
 							alert('System error. Please submit a bug report including what you were doing and when.');
+						} else if (error.response.status == 400) {
+							console.log("Error 400");
+							if (attempt < 5) {
+								_this.submit(requestType, url, attempt + 1);
+							}
 						} else {
 							alert("Network error " + error.response.status + ". Please try again.");
 						}
@@ -29995,15 +29990,19 @@ var Form = function () {
 						reject(error.response.data);
 					} else {
 						if (attempt < 5) {
-							submit(requestType, url, attempt + 1);
+							console.log("Failed. Error message:");
+							console.log(error);
+							console.log("Retrying...");
+							_this.submit(requestType, url, attempt + 1);
 						} else {
 							alert("Network error. Please try again.");
+							console.log(error);
 							reject({});
 						}
 					}
 				});
 			});
-		})
+		}
 	}, {
 		key: 'onSuccess',
 		value: function onSuccess(data) {

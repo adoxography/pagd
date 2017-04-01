@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Source extends Model
 {
-    use \AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
     use \App\BookmarkableTrait;
     use SoftDeletes;
 
@@ -21,21 +20,6 @@ class Source extends Model
     public function getDisplayAttribute()
     {
         return $this->short;
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | Algolia
-    |--------------------------------------------------------------------------
-    */
-
-    public static $perEnvironment = true;
-
-    public function getAlgoliaRecord()
-    {
-        return array_merge($this->toArray(), [
-            'display' => $this->short
-        ]);
     }
 
     public function forms()

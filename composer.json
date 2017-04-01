@@ -15,7 +15,6 @@
         "venturecraft/revisionable": "1.*",
         "laravel/tinker": "^1.0",
         "laravel/dusk": "^1.0",
-        "algolia/algoliasearch-laravel": "^1.7",
         "h4cc/wkhtmltopdf-i386": "0.12.x"
     },
     "require-dev": {

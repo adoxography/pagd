@@ -20,7 +20,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Form extends Model
 {
     use \Venturecraft\Revisionable\RevisionableTrait;
-    use \AlgoliaSearch\Laravel\AlgoliaEloquentTrait;
     use \App\SourceableTrait;
     use \App\HasMorphemesTrait;
     use \App\ReconstructableTrait;
@@ -102,21 +101,6 @@ class Form extends Model
         static::deleting(function($model) {
             event(new Deleting($model));
         });
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | Algolia
-    |--------------------------------------------------------------------------
-    */
-
-    public static $perEnvironment = true;
-
-    public function getAlgoliaRecord()
-    {
-        return array_merge($this->toArray(), [
-            'display' => $this->uniqueNameWithLanguage
-        ]);
     }
 
     /*

@@ -68,6 +68,7 @@ class Form {
 							submit(requestType, url, attempt + 1);
 						} else {
 							alert("Network error. Please try again.");
+							console.log(error);
 							reject({});
 						}
 					}

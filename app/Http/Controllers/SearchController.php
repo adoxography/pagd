@@ -21,7 +21,7 @@ class SearchController extends Controller
     private $orders;
     private $classes;
     private $subclasses;
-    private $affirmativ;
+    private $affirmative;
     private $negative;
     private $diminutive;
 
@@ -38,17 +38,59 @@ class SearchController extends Controller
         return view('search.index', compact('searchType', 'preset'));
     }
 
+    protected function getModel($array, $class)
+    {
+        $output = [];
+
+        foreach($array as $id) {
+            if($id > 0) {
+                $output[] = $class::find($id);
+            } else {
+                $output[] = null;
+            }
+        }
+
+        return $output;
+    }
+
+    protected function generateStructures($subjects, $primaryObjects, $secondaryObjects, $classes, $orders, $modes)
+    {
+        $output = [];
+
+        for($i = 0; $i < count($subjects); $i++) {
+            $output[] = [
+                'subject' => $subjects[$i],
+                'primaryObject' => $primaryObjects[$i],
+                'secondaryObject' => $secondaryObjects[$i],
+                'class' => $classes[$i],
+                'order' => $orders[$i],
+                'mode' => $modes[$i],
+            ];
+        }
+
+        return $output;
+    }
+
     public function form(Request $request)
     {
-        $languages        = $request->languages;
-        $classes          = $request->classes;
+        $languages        = $this->getModel($request->languages, \App\Language::class);
+        $classes          = $this->getModel($request->classes, \App\FormClass::class);
         $subclasses       = $request->subclasses;
-        $primaryObjects   = $request->primaryObjects;
-        $secondaryObjects = $request->secondaryObjects;
-        $orders           = $request->orders;
-        $modes            = $request->modes;
+        $primaryObjects   = $this->getModel($request->primaryObjects, \App\Argument::class);
+        $secondaryObjects = $this->getModel($request->secondaryObjects, \App\Argument::class);
+        $orders           = $this->getModel($request->orders, \App\Order::class);
+        $modes            = $this->getModel($request->modes, \App\Mode::class);
         $searchAll        = $request->searchAll;
-        $subjects         = $request->subjects;
+        $subjects         = $this->getModel($request->subjects, \App\Argument::class);
+
+        if($searchAll) {
+            $languages = \App\Language::select(['name', 'id'])->get();
+        } else {
+
+        }
+
+        $structures = $this->generateStructures($subjects, $primaryObjects, $secondaryObjects, $classes, $orders, $modes);
+
 
         $query = Form::with([
             'language.group',
@@ -69,38 +111,40 @@ class SearchController extends Controller
         for ($i = 0; $i < count($classes); $i++) {
             if($i == 0) {
                 $query->whereHas('formType', function ($query) use ($i, $classes, $subclasses, $subjects, $orders, $modes, $primaryObjects, $secondaryObjects) {
-                    $query->where('class_id', $classes[$i])
-                          ->where('subject_id', $subjects[$i])
-                          ->where('order_id', $orders[$i])
-                          ->where('mode_id', $modes[$i]);
+                    $query->where('class_id', $classes[$i]->id)
+                          ->where('subject_id', $subjects[$i]->id)
+                          ->where('order_id', $orders[$i]->id)
+                          ->where('mode_id', $modes[$i]->id);
 
-                    if ($primaryObjects[$i] > 0) {
-                        $query->where('primaryObject_id', $primaryObjects[$i]);
+                    if ($primaryObjects[$i]) {
+                        $query->where('primaryObject_id', $primaryObjects[$i]->id);
                     }
 
-                    if ($secondaryObjects[$i] > 0) {
-                        $query->where('secondaryObject_id', $secondaryObjects[$i]);
+                    if ($secondaryObjects[$i]) {
+                        $query->where('secondaryObject_id', $secondaryObjects[$i]->id);
                     }
                 });
             } else {
                 $query->orWhereHas('formType', function ($query) use ($i, $classes, $subclasses, $subjects, $orders, $modes, $primaryObjects, $secondaryObjects) {
-                    $query->where('class_id', $classes[$i])
-                          ->where('subject_id', $subjects[$i])
-                          ->where('order_id', $orders[$i])
-                          ->where('mode_id', $modes[$i]);
+                    $query->where('class_id', $classes[$i]->id)
+                          ->where('subject_id', $subjects[$i]->id)
+                          ->where('order_id', $orders[$i]->id)
+                          ->where('mode_id', $modes[$i]->id);
 
-                    if ($primaryObjects[$i] > 0) {
-                        $query->where('primaryObject_id', $primaryObjects[$i]);
+                    if ($primaryObjects[$i]) {
+                        $query->where('primaryObject_id', $primaryObjects[$i]->id);
                     }
 
-                    if ($secondaryObjects[$i] > 0) {
-                        $query->where('secondaryObject_id', $secondaryObjects[$i]);
+                    if ($secondaryObjects[$i]) {
+                        $query->where('secondaryObject_id', $secondaryObjects[$i]->id);
                     }
                 });
             }
         }
 
-        dd($query->get());
+        $results = $query->get();
+
+        return view('search.results.form', compact('results', 'languages', 'structures'));
     }
 
     public function general()
@@ -119,7 +163,7 @@ class SearchController extends Controller
 
     public function paradigm(Request $request)
     {
-        $forms = $this->search($request);
+        $forms = $this->paradigmSearch($request);
         $showMorphology = $request->showMorphology;
 
         $search = new \App\Paradigm($forms);
@@ -153,7 +197,7 @@ class SearchController extends Controller
         }
     }
 
-    protected function search($request)
+    protected function paradigmSearch($request)
     {
         $this->languages   = $request->languages;
         $this->modeSelect  = $request->modeSelect;

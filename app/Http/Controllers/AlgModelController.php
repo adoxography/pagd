@@ -28,6 +28,6 @@ class AlgModelController extends Controller
 
     protected function shouldShow($model)
     {
-    	return Auth::user() || (!$model->isHidden() && !$model->language->isHidden());
+    	return Auth::user() || (!$model->isHidden() && isset($model->language) && !$model->language->isHidden());
     }
 }

@@ -29962,17 +29962,7 @@ var Form = function () {
 		}
 	}, {
 		key: 'submit',
-		value: function (_submit) {
-			function submit(_x, _x2) {
-				return _submit.apply(this, arguments);
-			}
-
-			submit.toString = function () {
-				return _submit.toString();
-			};
-
-			return submit;
-		}(function (requestType, url) {
+		value: function submit(requestType, url) {
 			var _this = this;
 
 			var attempt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
@@ -29995,7 +29985,7 @@ var Form = function () {
 						reject(error.response.data);
 					} else {
 						if (attempt < 5) {
-							submit(requestType, url, attempt + 1);
+							_this.submit(requestType, url, attempt + 1);
 						} else {
 							alert("Network error. Please try again.");
 							console.log(error);
@@ -30004,7 +29994,7 @@ var Form = function () {
 					}
 				});
 			});
-		})
+		}
 	}, {
 		key: 'onSuccess',
 		value: function onSuccess(data) {

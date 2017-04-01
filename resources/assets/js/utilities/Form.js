@@ -65,7 +65,7 @@ class Form {
 					}
 					else {
 						if(attempt < 5) {
-							submit(requestType, url, attempt + 1);
+							this.submit(requestType, url, attempt + 1);
 						} else {
 							alert("Network error. Please try again.");
 							console.log(error);

@@ -148,7 +148,7 @@ trait HasMorphemesTrait {
 
                 // The initial change table won't have a record for a morpheme that isn't in the database, so record the initial change directly
                 if(count($initialChangePieces) > 1) {
-                    $temp = "IC.$temp";
+                    $temp['name'] = 'IC.'.$temp['name'];
                 }
 
                 $output[] = $temp;

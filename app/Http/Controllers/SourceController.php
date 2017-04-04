@@ -18,7 +18,7 @@ class SourceController extends Controller
     }
     
     public function index(){
-    	$sources = Source::orderBy('short')->get();
+    	$sources = Source::orderBy('author')->get();
         foreach($sources as $source) {
             $source->name = $source->display;
         }

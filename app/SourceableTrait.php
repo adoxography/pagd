@@ -40,7 +40,7 @@ trait SourceableTrait {
 
     public function sources($includeExtraInfo = true)
     {
-    	$output = $this->morphToMany('App\Source', 'Sourceable')->orderBy('short');
+    	$output = $this->morphToMany('App\Source', 'Sourceable')->orderBy('author');
 
     	if($includeExtraInfo) {
     		$output->withPivot('extraInfo');

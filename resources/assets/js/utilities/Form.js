@@ -59,9 +59,14 @@ class Form {
 						}
 						else if(error.response.status == 400) {
 							console.log("Error 400");
-							// if(attempt < 5) {
-							// 	this.submit(requestType, url, attempt + 1);
-							// }
+
+							if(attempt < 5) {
+								return this.submit(requestType, url, attempt + 1)
+								console.log("Retrying...");
+							}
+							else {
+								console.log("Exceeded maximum retries.");
+							}
 						}
 						else {
 							alert("Network error "+error.response.status+". Please try again.");
@@ -70,16 +75,9 @@ class Form {
 						reject(error.response.data);
 					}
 					else {
-						// if(attempt < 5) {
-						// 	console.log("Failed. Error message:");
-						// 	console.log(error);
-						// 	console.log("Retrying...");
-						// 	this.submit(requestType, url, attempt + 1);
-						// } else {
-							alert("Network error. Please try again.");
-							console.log(error);
-							reject({});
-						// }
+						alert("Network error. Please try again.");
+						console.log(error);
+						reject({});
 					}
 				});
 		});

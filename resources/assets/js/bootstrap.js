@@ -33,7 +33,7 @@ window.axios = require('axios');
 window.axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest'
 };
-window.axios.defaults.timeout = 5000;
+window.axios.defaults.timeout = 10000;
 
 axiosRetry(window.axios, {retries: 5 });
 

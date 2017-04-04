@@ -48,7 +48,7 @@ trait DisambiguatableTrait {
 		$duplicates = $this->loadAmbiguousDuplicates();
 
 		if($this->getShouldAlwaysAssignDisambiguator() || count($duplicates) > 0) {
-			if(count($duplicates) == 1) {
+			if(count($duplicates) == 1 && !isset($duplicates[0]->disambiguator)) {
 				$duplicate = $duplicates[0];
 				$duplicate->disambiguator = 1;
 

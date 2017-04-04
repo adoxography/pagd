@@ -30081,13 +30081,6 @@ var Form = function () {
 							alert('System error. Please submit a bug report including what you were doing and when.');
 						} else if (error.response.status == 400) {
 							console.log("Error 400");
-
-							if (attempt < 5) {
-								return _this.submit(requestType, url, attempt + 1);
-								console.log("Retrying...");
-							} else {
-								console.log("Exceeded maximum retries.");
-							}
 						} else {
 							alert("Network error " + error.response.status + ". Please try again.");
 						}

@@ -10,6 +10,9 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			04-04-17: Login actions now redirect to the previous page instead of the home page
+		</li>
+		<li>
 			29-03-17: Added visibility toggle
 			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
 				<li>Available for languages and all components of languages (e.g. morphemes, forms, etc.)</li>

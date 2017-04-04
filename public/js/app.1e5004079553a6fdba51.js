@@ -30094,7 +30094,7 @@ var Form = function () {
 
 						reject(error.response.data);
 					} else {
-						alert("Network error. Please try again.");
+						alert('Network error. Please submit a bug report including what you were doing and when.');
 						console.log(error);
 						reject({});
 					}

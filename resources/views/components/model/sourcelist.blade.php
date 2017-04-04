@@ -3,7 +3,7 @@
 		@foreach($sources as $source)
 			<li title="{{ $source->long }}">
 				<a href="/sources/{{ $source->id }}">
-					{{ $source->short }}
+					{{ $source->display }}
 				</a>
 				{{ $source->pivot->extraInfo ? ": {$source->pivot->extraInfo}" : "" }}
 			</li>

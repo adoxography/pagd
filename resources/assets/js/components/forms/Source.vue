@@ -4,23 +4,48 @@
 		  class="box"
 		  @submit.prevent="onSubmit"
 		  @keydown="form.errors.clear($event.target.name)">
-		<label for="short" class="label">Short</label>
-		<p class="control">
-			<input type="text"
-				   class="input"
-				   name="short"
-				   id="short"
-				   v-model="form.short"
-				   :disabled="loading"
-				   autocomplete="off"
-				   required="required"
-				   :class="{'is-danger':
-				   form.errors.has('short')}">
-		</p>
-		<span class="help is-danger"
-			  v-show="form.errors.has('short')"
-			  v-text="form.errors.get('short')">
-		</span>
+
+		<div class="columns">
+			<div class="column is-half">
+				<label for="author" class="label">Author</label>
+				<p class="control">
+					<input type="text"
+						   class="input"
+						   name="author"
+						   id="author"
+						   v-model="form.author"
+						   :disabled="loading"
+						   autocomplete="off"
+						   required="required"
+						   :class="{'is-danger':
+						   form.errors.has('author')}">
+				</p>
+				<span class="help is-danger"
+					  v-show="form.errors.has('author')"
+					  v-text="form.errors.get('author')">
+				</span>
+			</div>
+
+			<div class="column is-half">
+				<label for="year" class="label">Year</label>
+				<p class="control">
+					<input type="text"
+						   class="input"
+						   name="year"
+						   id="year"
+						   v-model="form.year"
+						   :disabled="loading"
+						   autocomplete="off"
+						   required="required"
+						   :class="{'is-danger':
+						   form.errors.has('year')}">
+				</p>
+				<span class="help is-danger"
+					  v-show="form.errors.has('year')"
+					  v-text="form.errors.get('year')">
+				</span>
+			</div>
+		</div>
 
 		<label for="long" class="label">Long</label>
 		<alg-textarea v-model="form.long"
@@ -57,7 +82,7 @@
 					  name="notes">
 		</alg-textarea>
 
-		<button type="submit" class="button is-primary">Submit</button>
+		<button type="submit" class="button is-primary" :class="{'is-loading': loading}">Submit</button>
 	</form>
 </template>
 
@@ -68,7 +93,8 @@ export default {
 	data() {
 		return {
 			form: new Form({
-				short: '',
+				author: '',
+				year: '',
 				long: '',
 				url: '',
 				summary: '',
@@ -97,7 +123,8 @@ export default {
 		if(this.source) {
 			let sourceArray = JSON.parse(this.source);
 
-			this.form.short = sourceArray.short;
+			this.form.author = sourceArray.author;
+			this.form.year  = sourceArray.year;
 			this.form.long  = sourceArray.long;
 			this.form.url   = sourceArray.url;
 			this.form.notes = sourceArray.notes;

@@ -13,15 +13,28 @@ class Source extends Model
 {
     use Searchable;
     use \App\BookmarkableTrait;
+    use \App\DisambiguatableTrait;
     use SoftDeletes;
 
     public $table = 'Sources';
-    protected $fillable = ['short', 'long', 'url', 'summary', 'notes'];
+    protected $fillable = ['author', 'year', 'disambiguator', 'long', 'url', 'summary', 'notes'];
     protected $appends = ['display'];
+    protected $disambiguatableFields = ['author', 'year'];
+    protected $shouldAlwaysAssignDisambiguator = false;
 
     public function getDisplayAttribute()
     {
-        return $this->short;
+        return "{$this->author} {$this->year}{$this->letter}";
+    }
+
+    public function getLetterAttribute()
+    {
+        if($this->disambiguator) {
+            $alphabet = range('a', 'z');
+            return $alphabet[$this->disambiguator - 1];
+        } else {
+            return '';
+        }
     }
 
     public function forms()

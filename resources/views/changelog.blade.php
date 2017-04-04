@@ -10,6 +10,15 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			04-04-17: Sources are now looked up using their long form
+		</li>
+		<li>
+			04-04-17: Split "short" field of sources into author, year, and disambiguator
+			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+				<li>
+					Disambiguator is a letter and is added automatically and only if necessary
+				</li>
+			</ul>
 			04-04-17: Replaced Algolia with TNTSearch - less powerful, but open source
 			04-04-17: Login actions now redirect to the previous page instead of the home page
 		</li>

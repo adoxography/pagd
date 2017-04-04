@@ -75,9 +75,12 @@ class AutocompleteController extends Controller
     {
         $term = $request->term;
         
-        $sources = Source::select('short as name', 'id')
-                         ->where('short', 'LIKE', "%$term%")
-                         ->get();
+        $sources = Source::where('long', 'LIKE', "%$term%")->get();
+
+        foreach($sources as $source) {
+            $source->name = $source->long;
+            $source->extra = $source->display;
+        }
 
         return $sources->toJson();
     }

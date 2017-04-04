@@ -7,7 +7,7 @@
 		</div>
 		<br />
 
-		@component('components.model', ['header' => $source->short, 'model' => $source, 'uri' => "/sources/{$source->id}"])
+		@component('components.model', ['header' => $source->display, 'model' => $source, 'uri' => "/sources/{$source->id}"])
 			<model-tab name="Basic Details" selected="true">
 				@component('components.model.field', ['label' => 'Full citation', 'width' => 'is-12'])
 					{!! $source->long !!}

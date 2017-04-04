@@ -18,7 +18,10 @@ class SourceController extends Controller
     }
     
     public function index(){
-    	$sources = Source::select("id","short as name")->orderBy('short')->get();
+    	$sources = Source::orderBy('short')->get();
+        foreach($sources as $source) {
+            $source->name = $source->display;
+        }
     	return view('sources.index', compact('sources'));
     }
 

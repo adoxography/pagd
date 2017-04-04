@@ -25,8 +25,9 @@ class SourceRequest extends FormRequest
     public function rules()
     {
         return [
-            'short' => 'required',
-            'long'  => 'required'
+            'author' => 'required',
+            'year'   => 'required',
+            'long'   => 'required'
         ];
     }
 }

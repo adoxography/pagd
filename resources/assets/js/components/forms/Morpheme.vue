@@ -243,8 +243,9 @@ export default {
 			if(morphemeArray.sources) {
 				morphemeArray.sources.forEach(source => {
 					this.form.sources.push({
-						short:     source.short,
+						short:     source.display,
 						id:        source.id,
+						long:      source.long,
 						extraInfo: source.pivot.extraInfo
 					});
 				});

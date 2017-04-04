@@ -10,7 +10,7 @@
 	<alg-example-form method="PATCH"
 				   	  action="/examples/{{ $example->id }}"
 				   	  languages="{{ $languages }}"
-				   	  example="{{ $example }}">
+				   	  example="{{ $example->toJson() }}">
 	</alg-example-form>
 
 	@include('errors.list')

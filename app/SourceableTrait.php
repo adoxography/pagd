@@ -4,6 +4,8 @@ namespace App;
 
 trait SourceableTrait {
 
+    public $isSourceable = true;
+
     protected $shouldConnectSources;
 
     public static function bootSourceableTrait()

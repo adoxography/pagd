@@ -179,8 +179,9 @@ export default {
 			if(ruleArray.sources) {
 				ruleArray.sources.forEach(source => {
 					this.form.sources.push({
-						short: source.short,
-						id: source.id,
+						short:     source.display,
+						id:        source.id,
+						long:      source.long,
 						extraInfo: source.pivot.extraInfo
 					});
 				});

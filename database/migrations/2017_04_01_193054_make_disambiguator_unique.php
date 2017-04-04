@@ -25,6 +25,8 @@ class MakeDisambiguatorUnique extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('Morphemes', function(Blueprint $table) {
+            $table->dropUnique(['name', 'language_id', 'disambiguator']);
+        });
     }
 }

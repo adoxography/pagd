@@ -1,5 +1,5 @@
 <template>
-	<div class="modal is-active">
+	<div class="modal is-active" @keydown.enter="onEnter($event)">
  		<div class="modal-background"></div>
  	 	<div class="modal-card">
     		<header class="modal-card-head">
@@ -7,11 +7,15 @@
       			<a class="delete" @click="close"></a>
     		</header>
     		<section class="modal-card-body">
-    			<label class="label">Short Form</label>
+    			<label class="label">Author</label>
     			<p class="control">
-					<input type="text" class="input" autocomplete="off" v-model="short" />
+					<input type="text" class="input" autocomplete="off" v-model="author" />
 				</p>
-				<label class="label">Long Form</label>
+				<label class="label">Year</label>
+				<p class="control">
+					<input type="text" class="input" autocomplete="off" v-model="year">
+				</p>
+				<label class="label">Full Citation</label>
 				<p class="control">
 					<textarea class="textarea" v-model="long"></textarea>
 				</p>
@@ -33,9 +37,12 @@
 <script>
 	export default {
 
+		props: ['open'],
+
 		data() {
 			return {
-				short: '',
+				author: '',
+				year: '',
 				long: '',
 				url: '',
 				notes: '',
@@ -45,13 +52,14 @@
 
 		computed: {
 			disabled() {
-				return this.short.length == 0 || this.long.length == 0;
+				return this.author.length == 0 || this.year.length == 0 || this.long.length == 0;
 			}
 		},
 
 		methods: {
 			close() {
-				this.short = '';
+				this.author = '';
+				this.year = '';
 				this.long = '';
 				this.url = '';
 				this.notes = '';
@@ -59,11 +67,22 @@
 				this.$emit('close');
 			},
 
+			onEnter(event) {
+				if(this.open) {
+					event.preventDefault();
+
+					if(!this.disabled) {
+						this.submit();
+					}
+				}
+			},
+
 			submit() {
 				this.loading = true;
 
 				axios.post('/sources/ajax', {
-					short: this.short,
+					author: this.author,
+					year: this.year,
 					long:  this.long,
 					url:   this.url,
 					notes: this.notes

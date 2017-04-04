@@ -26886,11 +26886,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
+
+	props: ['open'],
+
 	data: function data() {
 		return {
-			short: '',
+			author: '',
+			year: '',
 			long: '',
 			url: '',
 			notes: '',
@@ -26901,18 +26909,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	computed: {
 		disabled: function disabled() {
-			return this.short.length == 0 || this.long.length == 0;
+			return this.author.length == 0 || this.year.length == 0 || this.long.length == 0;
 		}
 	},
 
 	methods: {
 		close: function close() {
-			this.short = '';
+			this.author = '';
+			this.year = '';
 			this.long = '';
 			this.url = '';
 			this.notes = '';
 
 			this.$emit('close');
+		},
+		onEnter: function onEnter(event) {
+			if (this.open) {
+				event.preventDefault();
+
+				if (!this.disabled) {
+					this.submit();
+				}
+			}
 		},
 		submit: function submit() {
 			var _this = this;
@@ -26920,7 +26938,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			this.loading = true;
 
 			axios.post('/sources/ajax', {
-				short: this.short,
+				author: this.author,
+				year: this.year,
 				long: this.long,
 				url: this.url,
 				notes: this.notes
@@ -27307,8 +27326,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -27356,8 +27373,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			var newSources = this.value;
 			newSources.push({
-				short: data.short,
+				short: data.display,
 				id: data.id,
+				long: data.long,
 				extraInfo: ''
 			});
 
@@ -27405,12 +27423,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			Vue.nextTick(function () {
 				if (_this2.$refs.oldSource.showCheck) {
 					_this2.add({
-						short: _this2.oldSource.text,
-						id: _this2.oldSource.id
+						display: _this2.oldSource.extra,
+						id: _this2.oldSource.id,
+						long: _this2.oldSource.text
 					});
 
 					_this2.oldSource.text = '';
 					_this2.oldSource.id = '';
+					_this2.oldSource.extra = '';
 				}
 			});
 		}
@@ -28316,8 +28336,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			if (exampleArray.sources) {
 				exampleArray.sources.forEach(function (source) {
 					_this3.form.sources.push({
-						short: source.short,
+						short: source.display,
 						id: source.id,
+						long: source.long,
 						extraInfo: source.pivot.extraInfo
 					});
 				});
@@ -28861,8 +28882,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			if (formArray.sources) {
 				formArray.sources.forEach(function (source) {
 					_this2.form.sources.push({
-						short: source.short,
+						short: source.display,
 						id: source.id,
+						long: source.long,
 						extraInfo: source.pivot.extraInfo
 					});
 				});
@@ -29385,8 +29407,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			if (morphemeArray.sources) {
 				morphemeArray.sources.forEach(function (source) {
 					_this.form.sources.push({
-						short: source.short,
+						short: source.display,
 						id: source.id,
+						long: source.long,
 						extraInfo: source.pivot.extraInfo
 					});
 				});
@@ -29678,8 +29701,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			if (ruleArray.sources) {
 				ruleArray.sources.forEach(function (source) {
 					_this2.form.sources.push({
-						short: source.short,
+						short: source.display,
 						id: source.id,
+						long: source.long,
 						extraInfo: source.pivot.extraInfo
 					});
 				});
@@ -29764,6 +29788,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
 	props: ['action', 'method', 'source'],
@@ -29771,7 +29820,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	data: function data() {
 		return {
 			form: new Form({
-				short: '',
+				author: '',
+				year: '',
 				long: '',
 				url: '',
 				summary: '',
@@ -29801,7 +29851,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		if (this.source) {
 			var sourceArray = JSON.parse(this.source);
 
-			this.form.short = sourceArray.short;
+			this.form.author = sourceArray.author;
+			this.form.year = sourceArray.year;
 			this.form.long = sourceArray.long;
 			this.form.url = sourceArray.url;
 			this.form.notes = sourceArray.notes;
@@ -131711,29 +131762,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           source.id = $event.target.value
         }
       }
-    }), _vm._v(" "), _c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: (source.short),
-        expression: "source.short"
-      }],
-      attrs: {
-        "type": "hidden",
-        "name": 'sources[' + index + '][short]'
-      },
-      domProps: {
-        "value": (source.short)
-      },
-      on: {
-        "input": function($event) {
-          if ($event.target.composing) { return; }
-          source.short = $event.target.value
-        }
-      }
     }), _vm._v(" "), _c('div', {
       staticClass: "column is-one-quarter"
-    }, [_c('div', [_c('p', [_vm._v(_vm._s(index + 1) + ". " + _vm._s(source.short))]), _vm._v(" "), _c('span', {
+    }, [_c('div', [_c('p', {
+      attrs: {
+        "title": source.long
+      }
+    }, [_vm._v(_vm._s(index + 1) + ". " + _vm._s(source.short))]), _vm._v(" "), _c('span', {
       directives: [{
         name: "show",
         rawName: "v-show",
@@ -131794,6 +131829,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.showModal),
       expression: "showModal"
     }],
+    attrs: {
+      "open": _vm.showModal
+    },
     on: {
       "close": _vm.close,
       "input": function($event) {
@@ -131816,7 +131854,13 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "modal is-active"
+    staticClass: "modal is-active",
+    on: {
+      "keydown": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.onEnter($event)
+      }
+    }
   }, [_c('div', {
     staticClass: "modal-background"
   }), _vm._v(" "), _c('div', {
@@ -131834,14 +131878,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "modal-card-body"
   }, [_c('label', {
     staticClass: "label"
-  }, [_vm._v("Short Form")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("Author")]), _vm._v(" "), _c('p', {
     staticClass: "control"
   }, [_c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.short),
-      expression: "short"
+      value: (_vm.author),
+      expression: "author"
     }],
     staticClass: "input",
     attrs: {
@@ -131849,17 +131893,42 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "autocomplete": "off"
     },
     domProps: {
-      "value": (_vm.short)
+      "value": (_vm.author)
     },
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.short = $event.target.value
+        _vm.author = $event.target.value
       }
     }
   })]), _vm._v(" "), _c('label', {
     staticClass: "label"
-  }, [_vm._v("Long Form")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("Year")]), _vm._v(" "), _c('p', {
+    staticClass: "control"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.year),
+      expression: "year"
+    }],
+    staticClass: "input",
+    attrs: {
+      "type": "text",
+      "autocomplete": "off"
+    },
+    domProps: {
+      "value": (_vm.year)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.year = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('label', {
+    staticClass: "label"
+  }, [_vm._v("Full Citation")]), _vm._v(" "), _c('p', {
     staticClass: "control"
   }, [_c('textarea', {
     directives: [{
@@ -135775,54 +135844,107 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.form.errors.clear($event.target.name)
       }
     }
+  }, [_c('div', {
+    staticClass: "columns"
+  }, [_c('div', {
+    staticClass: "column is-half"
   }, [_c('label', {
     staticClass: "label",
     attrs: {
-      "for": "short"
+      "for": "author"
     }
-  }, [_vm._v("Short")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("Author")]), _vm._v(" "), _c('p', {
     staticClass: "control"
   }, [_c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.form.short),
-      expression: "form.short"
+      value: (_vm.form.author),
+      expression: "form.author"
     }],
     staticClass: "input",
     class: {
       'is-danger':
-      _vm.form.errors.has('short')
+      _vm.form.errors.has('author')
     },
     attrs: {
       "type": "text",
-      "name": "short",
-      "id": "short",
+      "name": "author",
+      "id": "author",
       "disabled": _vm.loading,
       "autocomplete": "off",
       "required": "required"
     },
     domProps: {
-      "value": (_vm.form.short)
+      "value": (_vm.form.author)
     },
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.form.short = $event.target.value
+        _vm.form.author = $event.target.value
       }
     }
   })]), _vm._v(" "), _c('span', {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: (_vm.form.errors.has('short')),
-      expression: "form.errors.has('short')"
+      value: (_vm.form.errors.has('author')),
+      expression: "form.errors.has('author')"
     }],
     staticClass: "help is-danger",
     domProps: {
-      "textContent": _vm._s(_vm.form.errors.get('short'))
+      "textContent": _vm._s(_vm.form.errors.get('author'))
     }
-  }), _vm._v(" "), _c('label', {
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "column is-half"
+  }, [_c('label', {
+    staticClass: "label",
+    attrs: {
+      "for": "year"
+    }
+  }, [_vm._v("Year")]), _vm._v(" "), _c('p', {
+    staticClass: "control"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.year),
+      expression: "form.year"
+    }],
+    staticClass: "input",
+    class: {
+      'is-danger':
+      _vm.form.errors.has('year')
+    },
+    attrs: {
+      "type": "text",
+      "name": "year",
+      "id": "year",
+      "disabled": _vm.loading,
+      "autocomplete": "off",
+      "required": "required"
+    },
+    domProps: {
+      "value": (_vm.form.year)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.form.year = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.form.errors.has('year')),
+      expression: "form.errors.has('year')"
+    }],
+    staticClass: "help is-danger",
+    domProps: {
+      "textContent": _vm._s(_vm.form.errors.get('year'))
+    }
+  })])]), _vm._v(" "), _c('label', {
     staticClass: "label",
     attrs: {
       "for": "long"
@@ -135921,6 +136043,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('button', {
     staticClass: "button is-primary",
+    class: {
+      'is-loading': _vm.loading
+    },
     attrs: {
       "type": "submit"
     }

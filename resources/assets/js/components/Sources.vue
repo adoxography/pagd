@@ -23,12 +23,9 @@
 						<input type="hidden"
 							   v-model="source.id"
 							   :name="'sources['+index+'][id]'" />
-						<input type="hidden"
-							   v-model="source.short"
-							   :name="'sources['+index+'][short]'" />
 						<div class="column is-one-quarter">
 							<div>
-								<p>{{ index + 1 }}. {{ source.short }}</p>
+								<p :title="source.long">{{ index + 1 }}. {{ source.short }}</p>
 								<span class="help is-danger"
 									v-show="duplicateSource(source.id)" 
 									v-text="'This source is already listed'">
@@ -59,6 +56,7 @@
 
 		<alg-new-source v-show="showModal"
 						@close="close"
+						:open="showModal"
 						@input="add($event)">
 		</alg-new-source>
 	</div>
@@ -110,8 +108,9 @@
 			add(data) {
 				let newSources = this.value;
 				newSources.push({
-					short: data.short,
-					id: data.id,
+					short: data.display,
+					id:    data.id,
+					long:  data.long,
 					extraInfo: ''					
 				});
 
@@ -163,12 +162,14 @@
 				Vue.nextTick(() => {
 					if(this.$refs.oldSource.showCheck) {
 						this.add({
-							short: this.oldSource.text,
-							id: this.oldSource.id
+							display: this.oldSource.extra,
+							id:      this.oldSource.id,
+							long:    this.oldSource.text
 						});
 
 						this.oldSource.text = '';
 						this.oldSource.id = '';
+						this.oldSource.extra = '';
 					}
 				});
 			}

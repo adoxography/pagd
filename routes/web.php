@@ -19,21 +19,9 @@ Route::get('glossary', function() { return view('glossary.index'); });
 Route::get('entire-paradigm', 'HomeController@entireParadigm');
 Route::get('changelog', 'HomeController@changelog');
 Route::get('about', 'HomeController@about');
-
-Route::get('new-morphemes', function() {
-
-    $added = [];
-    $morphemes = [];
-    $revisions = \Venturecraft\Revisionable\Revision::where('id', '>', 1209)->where('revisionable_type', 'App\\Morpheme')->get();
-
-    foreach($revisions as $revision) {
-        if(!in_array($revision->revisionable_id, $added)) {
-            $added[] = $revision->revisionable_id;
-            $morphemes[] = \App\Morpheme::find($revision->revisionable_id);
-        }
-    }
-
-    return view('new-morphemes', compact('morphemes'));
+Route::get('sandbox', function() {
+    \Illuminate\Support\Facades\Artisan::call('algling:index');
+    return 'hello';
 });
 
 Route::post('backup', 'BackupController@store');

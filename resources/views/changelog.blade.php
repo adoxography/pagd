@@ -10,6 +10,7 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			04-04-17: Replaced Algolia with TNTSearch - less powerful, but open source
 			04-04-17: Login actions now redirect to the previous page instead of the home page
 		</li>
 		<li>

@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \App\Console\Commands\DatabaseBackup::class
+        \App\Console\Commands\DatabaseBackup::class,
+        \App\Console\Commands\IndexSearchableModels::class
     ];
 
     /**
@@ -24,8 +25,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('algling:backup')
-                 ->hourly();
     }
 
     /**

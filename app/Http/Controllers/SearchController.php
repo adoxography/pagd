@@ -155,7 +155,8 @@ class SearchController extends Controller
 
         $modelName = "\\App\\$type";
         $model = new $modelName();
-        $results = $model->search($lookup)['hits'];
+        $results = $model->search($lookup)->get();
+
         $table = strtolower($model->table);
 
         return view('search/general-results', compact('table', 'results'));

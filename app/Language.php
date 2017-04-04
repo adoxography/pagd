@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Laravel\Scout\Searchable;
 use App\Events\Language\Saved;
 use App\Events\Language\Created;
 use App\Events\Language\Deleting;
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Language extends Model
 {
     use SoftDeletes;
+    use Searchable;
     use \Venturecraft\Revisionable\RevisionableTrait;
     use \App\HasChildrenTrait;
     use \App\BacksUpTrait;
@@ -39,6 +41,18 @@ class Language extends Model
         'notes',
         'reconstructed'
     ];
+    protected $assets = [
+        'forms',
+        'examples',
+        'morphemes'
+    ];
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        return array_only($array, ['id', 'alternateNames', 'name', 'iso', 'algoCode', 'notes']);
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -160,5 +174,21 @@ class Language extends Model
         }]);
 
         return $sources;
+    }
+
+    protected function respondToHiding()
+    {
+        foreach($this->assets as $asset) {
+            if($this->isHidden()) {
+                $relation = $this->$asset();
+                $relation->unsearchable();
+            } else {
+                foreach($this->$asset as $item) {
+                    if(!$item->isHidden()) {
+                        $item->searchable();
+                    }
+                }
+            }
+        }
     }
 }

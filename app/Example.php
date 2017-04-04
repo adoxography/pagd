@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Example extends Model
 {
     use \Venturecraft\Revisionable\RevisionableTrait;
+    use Searchable;
     use \App\SourceableTrait;
     use \App\HasMorphemesTrait;
     use \App\BacksUpTrait;
@@ -30,7 +32,14 @@ class Example extends Model
     |
     */
     public $table = 'Examples';
-    protected $fillable = ['name','translation','form_id','comments','notes','morphemicForm'];
+    protected $fillable = ['id', 'name','translation','form_id','comments','notes','morphemicForm'];
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        return array_only($array, ['id', 'name', 'translation', 'comments', 'notes']);
+    }
 
     /*
     |--------------------------------------------------------------------------

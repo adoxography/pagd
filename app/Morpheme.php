@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Laravel\Scout\Searchable;
 use App\Events\Morpheme\Saved;
 use App\Events\Morpheme\Deleted;
 use App\Events\Morpheme\Creating;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Morpheme extends Model
 {
+    use Searchable;
     use \Venturecraft\Revisionable\RevisionableTrait;
     use \App\SourceableTrait;
     use \App\ReconstructableTrait;
@@ -45,6 +47,13 @@ class Morpheme extends Model
         'uniqueName'
     ];
     protected $altName;
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        return array_only($array, ['id', 'name', 'allomorphyNotes', 'historicalNotes', 'translation', 'comments']);
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -112,6 +121,11 @@ class Morpheme extends Model
     public function getUniqueNameAttribute()
     {
         return "{$this->name} ({$this->gloss->abv})";
+    }
+
+    public function getDisplayAttribute()
+    {
+        return $this->uniqueNameWithLanguage;
     }
 
     /*

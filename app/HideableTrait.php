@@ -43,6 +43,13 @@ trait HideableTrait {
     {
     	if(!$this->isHidden()) {
 	    	$this->hidden_at = $this->freshTimestampString();
+
+            if(method_exists($this, 'respondToHiding')) {
+                $this->respondToHiding();
+            }
+
+            $this->unsearchable();
+
 	    	$this->save();
     	}
     }
@@ -51,6 +58,9 @@ trait HideableTrait {
     {
     	if($this->isHidden()) {
     		$this->hidden_at = NULL;
+
+            $this->searchable();
+
     		$this->save();
     	}
     }

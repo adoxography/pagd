@@ -5,11 +5,13 @@ namespace App;
 use App\Form;
 use App\Example;
 use App\Morpheme;
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Source extends Model
 {
+    use Searchable;
     use \App\BookmarkableTrait;
     use SoftDeletes;
 

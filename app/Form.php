@@ -5,6 +5,7 @@ namespace App;
 use App\Events\Form\Saved;
 use App\Events\Form\Saving;
 use App\Events\Form\Deleting;
+use Laravel\Scout\Searchable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Form extends Model
 {
+    use Searchable;
     use \Venturecraft\Revisionable\RevisionableTrait;
     use \App\SourceableTrait;
     use \App\HasMorphemesTrait;
@@ -56,6 +58,13 @@ class Form extends Model
     ];
 
     protected $appends = ['uniqueName', 'uniqueNameWithLanguage'];
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        return array_only($array, ['id', 'allomorphyNotes', 'comments', 'historicalNotes', 'morphemicForm', 'phoneticForm', 'surfaceForm', 'usageNotes']);
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -155,6 +164,11 @@ class Form extends Model
     public function getUniqueNameWithLanguageAttribute()
     {
         return "{$this->uniqueName} ({$this->language->name})";
+    }
+
+    public function getDisplayAttribute()
+    {
+        return $this->uniqueNameWithLanguage;
     }
 
     /*

@@ -48,7 +48,7 @@ class SourceController extends Controller
     {
         $source->update($request->all());
 
-        flash($source->name.' updated successfully.', 'is-success');
+        flash($source->display.' updated successfully.', 'is-success');
         return response()->json($source);
     }
 }

@@ -46,7 +46,9 @@
 					@component('components.model.field')
 						<ul>
 							@foreach($source->examples as $example)
-								<li><a href="/examples/{{ $example->id }}">{{ $example->name }}</a> ({{ $example->pivot->extraInfo }})</li>
+								<li>
+									<a href="/examples/{{ $example->id }}">{{ $example->name }}</a> @if($example->pivot->extraInfo)({{ $example->pivot->extraInfo }})@endif
+								</li>
 							@endforeach
 						</ul>
 					@endcomponent
@@ -57,7 +59,9 @@
 					@component('components.model.field')
 						<ul>
 							@foreach($source->morphemes as $morpheme)
-								<li><a href="/morphemes/{{ $morpheme->id }}">{{ $morpheme->name }}</a> ({{ $morpheme->pivot->extraInfo }})</li>
+								<li>
+									<a href="/morphemes/{{ $morpheme->id }}">{{ $morpheme->name }}</a> @if($morpheme->pivot->extraInfo)({{ $morpheme->pivot->extraInfo }})@endif
+								</li>
 							@endforeach
 						</ul>
 					@endcomponent

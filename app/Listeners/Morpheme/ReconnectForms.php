@@ -29,10 +29,14 @@ class ReconnectForms
     public function handle($event)
     {
         $morpheme = $event->model;
+        $morphemeName = str_replace(['*', '-'], '', $morpheme->name);
 
-        $forms = Form::where('language_id', $morpheme->language_id)->get();
-        $examples = Example::whereHas('form', function ($query) use ($morpheme) {
-            $query->where('language_id', $morpheme->language_id);
+        $forms = Form::where('language_id', $morpheme->language_id)
+                     ->where('morphemicForm', 'LIKE', "%$morphemeName%")
+                     ->get();
+        $examples = Example::whereHas('form', function ($query) use ($morpheme, $morphemeName) {
+            $query->where('language_id', $morpheme->language_id)
+                  ->where('morphemicForm', 'LIKE', "%$morphemeName%");
         })->get();
 
         foreach($forms as $form) {

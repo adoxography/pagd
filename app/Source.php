@@ -7,6 +7,7 @@ use App\Example;
 use App\Morpheme;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Source extends Model
@@ -21,6 +22,14 @@ class Source extends Model
     protected $appends = ['display'];
     protected $disambiguatableFields = ['author', 'year'];
     protected $shouldAlwaysAssignDisambiguator = false;
+
+    public static function boot() {
+        parent::boot();
+
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('author')->orderBy('year', 'desc')->orderBy('disambiguator');
+        });
+    }
 
     public function getDisplayAttribute()
     {

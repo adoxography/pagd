@@ -41,9 +41,13 @@
 					Disambiguator is a letter and is added automatically and only if necessary
 				</li>
 			</ul>
+		<li>
 			04-04-17: Replaced Algolia with TNTSearch - less powerful, but open source
+		</li>
+		<li>
 			04-04-17: Login actions now redirect to the previous page instead of the home page
 		</li>
+		<hr>
 		<li>
 			29-03-17: Added visibility toggle
 			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">

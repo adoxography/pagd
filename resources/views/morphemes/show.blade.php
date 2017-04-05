@@ -50,7 +50,7 @@
 				</div>
 				<div class="column is-half" style="padding: 0;">
 					<div class="columns is-multiline">
-						@include('components.model.text', ['width' => 'is-12', 'label' => 'Allomorphy Notes', 'text' => $morpheme->allomorphyNotes, 'language_id' => $morpheme->language_id])
+						@include('components.model.text', ['width' => 'is-12', 'label' => 'Allomorphy', 'text' => $morpheme->allomorphyNotes, 'language_id' => $morpheme->language_id])
 
 						{{-- Historical Notes --}}
 						@component('components.model.field', ['width' => 'is-12', 'label' => 'Historical Notes'])

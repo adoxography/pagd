@@ -92,7 +92,7 @@
 			@endif
 
 			@include('components.model.text', ['width' => 'is-12', 'label' => 'Usage Notes', 'text' => $form->usageNotes, 'language_id' => $form->language_id])
-			@include('components.model.text', ['width' => 'is-12', 'label' => 'Allomorphy Notes', 'text' => $form->allomorphyNotes, 'language_id' => $form->language_id])
+			@include('components.model.text', ['width' => 'is-12', 'label' => 'Allomorphy', 'text' => $form->allomorphyNotes, 'language_id' => $form->language_id])
 			@component('components.model.field', ['width' => 'is-12', 'label' => 'Historical Notes'])
 				<p>
 					<em>Parent Form: </em>

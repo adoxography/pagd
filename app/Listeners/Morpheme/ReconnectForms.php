@@ -35,9 +35,9 @@ class ReconnectForms
                      ->where('morphemicForm', 'LIKE', "%$morphemeName%")
                      ->get();
         $examples = Example::whereHas('form', function ($query) use ($morpheme, $morphemeName) {
-            $query->where('language_id', $morpheme->language_id)
-                  ->where('morphemicForm', 'LIKE', "%$morphemeName%");
-        })->get();
+                                $query->where('language_id', $morpheme->language_id);
+                            })->where('morphemicForm', 'LIKE', "%$morphemeName%")
+                            ->get();
 
         foreach($forms as $form) {
             $form->dontConnectSources();

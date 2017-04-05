@@ -10,6 +10,10 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			05-04-17: Truncated long source forms in dropdowns
+		</li>
+		<hr>
+		<li>
 			04-04-17: Added form summary on example display
 		</li>
 		<li>

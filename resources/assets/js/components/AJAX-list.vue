@@ -131,6 +131,10 @@
 					}).then(response => {
 						this.options = response.data;
 
+						for(let i = 0; i < this.options.length; i++) {
+							this.options[i].name = this.formatString(this.options[i].name);
+						}
+
 						if(this.options.length > 0) {
 							this.showList = true;
 						}
@@ -140,6 +144,17 @@
 				}
 
 				this.update(newText);			
+			},
+
+			formatString(str) {
+				let tempString = str.replace(/<(?:.|\n)*?>/gm, '');
+
+				if(tempString.length > 60) {
+					tempString = tempString.substring(0, 60);
+					tempString += "...";
+				}
+
+				return tempString;
 			},
 
 			onKeyUp(keyCode) {

@@ -25650,6 +25650,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				}).then(function (response) {
 					_this.options = response.data;
 
+					for (var i = 0; i < _this.options.length; i++) {
+						_this.options[i].name = _this.formatString(_this.options[i].name);
+					}
+
 					if (_this.options.length > 0) {
 						_this.showList = true;
 					}
@@ -25659,6 +25663,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}
 
 			this.update(newText);
+		},
+		formatString: function formatString(str) {
+			var tempString = str.replace(/<(?:.|\n)*?>/gm, '');
+
+			if (tempString.length > 60) {
+				tempString = tempString.substring(0, 60);
+				tempString += "...";
+			}
+
+			return tempString;
 		},
 		onKeyUp: function onKeyUp(keyCode) {
 			if (keyCode == 40) {

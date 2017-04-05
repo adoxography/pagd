@@ -17,7 +17,7 @@
 					   :disabled="disabled">
 				</div>
 				<div class="box alg-datalist-dropdown" v-show="showList && options.length > 0 && value.text.length > 0">
-					<ul>
+					<ul style="white-space: nowrap;">
 						<li v-for="(option, index) in options">
 							<a @click="selectItem(option.name)"
 							   @mouseover="onHover(option.name)"

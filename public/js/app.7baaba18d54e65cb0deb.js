@@ -27326,6 +27326,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -28241,9 +28248,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = {
 	props: ['method', 'action', 'languages', 'example', 'language', 'presetForm'],
@@ -28373,9 +28377,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
 //
 //
 //
@@ -29327,8 +29328,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = {
 	props: ['method', 'action', 'languages', 'glosses', 'slots', 'changeTypes', 'morpheme', 'language', 'prefill'],
@@ -29518,8 +29517,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
 //
 //
 //
@@ -29905,6 +29902,9 @@ __webpack_require__(159);
 window.Vue = __webpack_require__(33);
 // require('vue-resource');
 
+var vueScrollTo = __webpack_require__(338);
+Vue.use(vueScrollTo);
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -29918,7 +29918,12 @@ window.axios.defaults.headers.common = {
 };
 window.axios.defaults.timeout = 10000;
 
-__WEBPACK_IMPORTED_MODULE_1_axios_retry___default()(window.axios, { retries: 5 });
+__WEBPACK_IMPORTED_MODULE_1_axios_retry___default()(window.axios, {
+  retries: 5,
+  retryCondition: function retryCondition(error) {
+    return !error.response || error.response.status == 400;
+  }
+});
 
 window.Form = __WEBPACK_IMPORTED_MODULE_0__utilities_Form__["a" /* default */];
 
@@ -29931,12 +29936,6 @@ window.Form = __WEBPACK_IMPORTED_MODULE_0__utilities_Form__["a" /* default */];
 
 
 
-
-// tinymce.init({
-// 	selector: '#tinymce',
-// 	skin_url: '/css/skins/lightgray',
-// 	skin: "lightgrey"
-// });
 
 /**
  * We'll register a HTTP interceptor to attach the "CSRF" header to each of
@@ -131706,19 +131705,24 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    staticClass: "box"
-  }, [_c('label', {
-    staticClass: "label"
+  return _c('div', [_c('h4', {
+    staticClass: "subtitle is-4"
   }, [_vm._v("Sources")]), _vm._v(" "), _c('div', {
-    staticClass: "box"
+    staticClass: "columns"
   }, [_c('div', {
-    staticClass: "control is-grouped"
-  }, [_c('alg-ajaxlist', {
+    staticClass: "column is-8"
+  }, [_c('label', {
+    staticClass: "label",
+    attrs: {
+      "for": "old-source"
+    }
+  }, [_vm._v("Look up an existing source:")]), _vm._v(" "), _c('alg-ajaxlist', {
     ref: "oldSource",
     attrs: {
       "uri": "/autocomplete/sources",
       "placeholder": "Search for an existing source",
+      "name": "old-source",
+      "id": "old-source",
       "disabled": _vm.disabled
     },
     on: {
@@ -131731,15 +131735,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "oldSource"
     }
-  }), _vm._v(" "), _c('a', {
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "column",
+    staticStyle: {
+      "display": "flex",
+      "justify-content": "center"
+    }
+  }, [_c('a', {
     staticClass: "button",
     class: {
       'is-disabled': _vm.disabled
     },
+    staticStyle: {
+      "margin-top": "2rem"
+    },
     on: {
       "click": _vm.open
     }
-  }, [_vm._v("Add a new source")])], 1)]), _vm._v(" "), _c('ul', _vm._l((_vm.value), function(source, index) {
+  }, [_vm._v("\n\t\t\t   \tAdd a new source\n\t\t    ")])])]), _vm._v(" "), _c('ul', _vm._l((_vm.value), function(source, index) {
     return _c('div', [_c('div', {
       staticClass: "columns"
     }, [_c('input', {
@@ -131822,7 +131835,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v("Remove")])])])])
-  }))]), _vm._v(" "), _c('alg-new-source', {
+  })), _vm._v(" "), _c('alg-new-source', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -133257,22 +133270,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "form.comments"
     }
   })], 1)]), _vm._v(" "), _c('button', {
-    staticClass: "button",
+    staticClass: "button is-primary",
+    class: {
+      'is-loading': _vm.loading, 'disabled': _vm.form.errors.any() || _vm.loading
+    },
     attrs: {
-      "type": "submit",
-      "disabled": _vm.form.errors.any() || _vm.loading
+      "type": "submit"
     }
-  }, [_vm._v("Submit")]), _vm._v(" "), _c('span', {
-    staticClass: "icon"
-  }, [_c('i', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.loading),
-      expression: "loading"
-    }],
-    staticClass: "fa fa-spinner fa-pulse fa-3x fa-fw"
-  })])], 1)
+  }, [_vm._v("Submit")])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -133577,7 +133582,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.form.rule = $event.target.value
       }
     }
-  })])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('h4', {
+  })])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('alg-sources', {
+    attrs: {
+      "disabled": _vm.loading
+    },
+    model: {
+      value: (_vm.form.sources),
+      callback: function($$v) {
+        _vm.form.sources = $$v
+      },
+      expression: "form.sources"
+    }
+  }), _vm._v(" "), _c('hr'), _vm._v(" "), _c('h4', {
     staticClass: "subtitle is-4"
   }, [_vm._v("Notes")]), _vm._v(" "), _c('div', {
     staticClass: "columns"
@@ -133621,34 +133637,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "form.privateComments"
     }
-  })], 1)]), _vm._v(" "), _c('alg-sources', {
-    attrs: {
-      "disabled": _vm.loading
+  })], 1)]), _vm._v(" "), _c('button', {
+    staticClass: "button is-primary",
+    class: {
+      'is-loading': _vm.loading, 'disabled': _vm.form.errors.any() || _vm.loading
     },
-    model: {
-      value: (_vm.form.sources),
-      callback: function($$v) {
-        _vm.form.sources = $$v
-      },
-      expression: "form.sources"
-    }
-  }), _vm._v(" "), _c('button', {
-    staticClass: "button",
     attrs: {
-      "type": "submit",
-      "disabled": _vm.form.errors.any() || _vm.loading
+      "type": "submit"
     }
-  }, [_vm._v("Submit")]), _vm._v(" "), _c('span', {
-    staticClass: "icon"
-  }, [_c('i', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.loading),
-      expression: "loading"
-    }],
-    staticClass: "fa fa-spinner fa-pulse fa-3x fa-fw"
-  })])], 1)
+  }, [_vm._v("Submit")])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -134221,7 +134218,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "textContent": _vm._s(changeType.name)
       }
     })
-  }))])])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('h4', {
+  }))])])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('alg-sources', {
+    attrs: {
+      "disabled": _vm.loading
+    },
+    model: {
+      value: (_vm.form.sources),
+      callback: function($$v) {
+        _vm.form.sources = $$v
+      },
+      expression: "form.sources"
+    }
+  }), _vm._v(" "), _c('hr'), _vm._v(" "), _c('h4', {
     staticClass: "subtitle is-4"
   }, [_vm._v("Notes")]), _vm._v(" "), _c('div', {
     staticClass: "columns is-multiline"
@@ -134285,34 +134293,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "form.comments"
     }
-  })], 1)]), _vm._v(" "), _c('alg-sources', {
-    attrs: {
-      "disabled": _vm.loading
+  })], 1)]), _vm._v(" "), _c('button', {
+    staticClass: "button is-primary",
+    class: {
+      'is-loading': _vm.loading, 'disabled': _vm.form.errors.any() || _vm.loading
     },
-    model: {
-      value: (_vm.form.sources),
-      callback: function($$v) {
-        _vm.form.sources = $$v
-      },
-      expression: "form.sources"
-    }
-  }), _vm._v(" "), _c('button', {
-    staticClass: "button",
     attrs: {
-      "type": "submit",
-      "disabled": _vm.form.errors.any() || _vm.loading
+      "type": "submit"
     }
-  }, [_vm._v("Submit")]), _vm._v(" "), _c('span', {
-    staticClass: "icon"
-  }, [_c('i', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.loading),
-      expression: "loading"
-    }],
-    staticClass: "fa fa-spinner fa-pulse fa-3x fa-fw"
-  })])], 1)
+  }, [_vm._v("Submit")])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -134407,7 +134396,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "showList && options.length > 0 && value.text.length > 0"
     }],
     staticClass: "box alg-datalist-dropdown"
-  }, [_c('ul', _vm._l((_vm.options), function(option, index) {
+  }, [_c('ul', {
+    staticStyle: {
+      "white-space": "nowrap"
+    }
+  }, _vm._l((_vm.options), function(option, index) {
     return _c('li', [_c('a', {
       class: {
         'is-highlighted': _vm.activeItem(index)
@@ -135799,22 +135792,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "form.comments"
     }
   })], 1)]), _vm._v(" "), _c('button', {
-    staticClass: "button",
+    staticClass: "button is-primary",
+    class: {
+      'is-loading': _vm.loading, 'disabled': _vm.form.errors.any() || _vm.loading
+    },
     attrs: {
-      "type": "submit",
-      "disabled": _vm.form.errors.any() || _vm.loading
+      "type": "submit"
     }
-  }, [_vm._v("Submit")]), _vm._v(" "), _c('span', {
-    staticClass: "icon"
-  }, [_c('i', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.loading),
-      expression: "loading"
-    }],
-    staticClass: "fa fa-spinner fa-pulse fa-3x fa-fw"
-  })])], 1)
+  }, [_vm._v("Submit")])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -136044,7 +136029,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('button', {
     staticClass: "button is-primary",
     class: {
-      'is-loading': _vm.loading
+      'is-loading': _vm.loading, 'disabled': _vm.form.errors.any() || _vm.loading
     },
     attrs: {
       "type": "submit"
@@ -136821,6 +136806,179 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 __webpack_require__(61);
 module.exports = __webpack_require__(62);
+
+
+/***/ }),
+/* 330 */,
+/* 331 */,
+/* 332 */,
+/* 333 */,
+/* 334 */,
+/* 335 */,
+/* 336 */,
+/* 337 */,
+/* 338 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+window.$ = document.querySelectorAll.bind(document);
+
+exports.install = function(Vue) {
+    var _ = exports.utils = {
+        $: function(selector) {
+            return document.querySelector(selector);
+        },
+        on: function(element, events, handler) {
+            if (!(events instanceof Array)) {
+                events = [events];
+            }
+            for (var i = 0; i < events.length; i++) {
+                element.addEventListener(events[i], handler);
+            }
+        },
+        off: function(element, events, handler) {
+            if (!(events instanceof Array)) {
+                events = [events];
+            }
+            for (var i = 0; i < events.length; i++) {
+                element.removeEventListener(events[i], handler);
+            }
+        },
+        cumulativeOffset: function(element) {
+            var top = 0;
+
+            do {
+                top += element.offsetTop || 0;
+                element = element.offsetParent;
+            } while (element);
+
+            return {
+                top: top
+            };
+        }
+    };
+
+    function handleClick(e) {
+
+        var getScrollTopElement =  function (e) {
+            var top = 0;
+
+            while (e.offsetParent != undefined && e.offsetParent != null) {
+                top += e.offsetTop + (e.clientTop != null ? e.clientTop : 0);
+                e = e.offsetParent;
+            }
+
+            return top;
+        };
+
+        var getScrollTopDocument = function() {
+            return document.documentElement.scrollTop + document.body.scrollTop;
+        };
+
+        var smoothScrollTo = function(element, target, duration) {
+            target = Math.round(target);
+            duration = Math.round(duration);
+
+            if (duration < 0) {
+                return Promise.reject("bad duration");
+            }
+
+            if (duration === 0) {
+                element.scrollTop = target;
+                return Promise.resolve();
+            }
+
+            var start_time = Date.now();
+            var end_time = start_time + duration;
+            var start_top = element.scrollTop;
+            var distance = target - start_top;
+
+            // based on http://en.wikipedia.org/wiki/Smoothstep
+            var smooth_step = function(start, end, point) {
+                if(point <= start) { return 0; }
+                if(point >= end) { return 1; }
+
+                var x = (point - start) / (end - start); // interpolation
+
+                return x*x*(3 - 2*x);
+            }
+
+            return new Promise(function(resolve, reject) {
+                // This is to keep track of where the element's scrollTop is
+                // supposed to be, based on what we're doing
+                var previous_top = element.scrollTop;
+
+                // This is like a think function from a game loop
+                var scroll_frame = function() {
+
+                    if(element.scrollTop != previous_top) {
+                        reject("interrupted");
+                        return;
+                    }
+
+                    // set the scrollTop for this frame
+                    var now = Date.now();
+                    var point = smooth_step(start_time, end_time, now);
+                    var frameTop = Math.round(start_top + (distance * point));
+                    element.scrollTop = frameTop;
+
+                    // check if we're done!
+                    if(now >= end_time) {
+                        resolve();
+                        return;
+                    }
+
+                    if(element.scrollTop === previous_top && element.scrollTop !== frameTop) {
+                        resolve();
+                        return;
+                    }
+
+                    previous_top = element.scrollTop;
+
+                    setTimeout(scroll_frame, 0);
+                }
+
+                setTimeout(scroll_frame, 0);
+            });
+        }
+
+        var splitclass = this.expression.split(', ');
+        var padding = splitclass[1].replace(/\D/g,'');
+        var speed = 500;
+        var moving_frequency = 15;
+        var element;
+        splitclass[0] = splitclass[0].replace('\'', '');
+        splitclass[1] = splitclass[1].replace('\'', '');
+
+        if(element = document.querySelector(splitclass[0])) {
+
+            var hop_count = speed/moving_frequency
+            var getScrollTopDocumentAtBegin = getScrollTopDocument();
+            var gap = (getScrollTopElement(element) - getScrollTopDocumentAtBegin - padding) / hop_count;
+
+            for(var i = 1; i <= hop_count; i++) {
+
+                (function() {
+                    var hop_top_position = gap*i;
+                    setTimeout(function(){  window.scrollTo(0, hop_top_position + getScrollTopDocumentAtBegin); }, moving_frequency*i);
+                })();
+            }
+        }
+    }
+
+    Vue.directive('scroll-to', {
+
+        bind: function(el, binding) {
+            _.on(el, 'click', handleClick.bind(binding));
+        },
+
+        unbind: function(el) {
+            _.off(el, 'click', handleClick);
+        }
+    })
+};
 
 
 /***/ })

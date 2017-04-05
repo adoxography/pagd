@@ -124,6 +124,9 @@
 		</div>
 
 		<hr>
+		<alg-sources v-model="form.sources" :disabled="loading"></alg-sources>
+
+		<hr>
 		<h4 class="subtitle is-4">Notes</h4>
 		<div class="columns is-multiline">
 			<!-- Allomorphy Notes -->
@@ -157,12 +160,7 @@
 			</div>
 		</div>
 
-		<alg-sources v-model="form.sources" :disabled="loading"></alg-sources>
-
-		<button class="button" type="submit" :disabled="form.errors.any() || loading">Submit</button>
-		<span class="icon">
-			<i class="fa fa-spinner fa-pulse fa-3x fa-fw" v-show="loading"></i>
-		</span>
+		<button type="submit" class="button is-primary" :class="{'is-loading': loading, 'disabled': form.errors.any() || loading }">Submit</button>
 	</form>
 </template>
 

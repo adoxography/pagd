@@ -22,6 +22,9 @@ require('jquery-ui');
 window.Vue = require('vue');
 // require('vue-resource');
 
+let vueScrollTo = require('vue-scroll-to');
+Vue.use(vueScrollTo);
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -35,7 +38,10 @@ window.axios.defaults.headers.common = {
 };
 window.axios.defaults.timeout = 10000;
 
-axiosRetry(window.axios, {retries: 5 });
+axiosRetry(window.axios, {
+	retries: 5,
+	retryCondition: error => !error.response || error.response.status == 400
+});
 
 window.Form = Form;
 
@@ -48,12 +54,6 @@ import 'tinymce/plugins/table/plugin'
 import 'tinymce/plugins/charmap/plugin'
 import 'tinymce/plugins/link/plugin'
 import 'tinymce/plugins/lists/plugin'
-
-// tinymce.init({
-// 	selector: '#tinymce',
-// 	skin_url: '/css/skins/lightgray',
-// 	skin: "lightgrey"
-// });
 
 /**
  * We'll register a HTTP interceptor to attach the "CSRF" header to each of

@@ -1,58 +1,65 @@
 <template>
 	<div>
-		<div class="box">
-			<label class="label">Sources</label>
-			<div class="box">
-				<div class="control is-grouped">
-					<alg-ajaxlist v-model="oldSource"
-								  uri="/autocomplete/sources"
-								  placeholder="Search for an existing source"
-								  @input="handleOldSourceInput"
-								  ref="oldSource"
-								  :disabled="disabled">
-					</alg-ajaxlist>
-					<a class="button"
-					   @click="open"
-					   :class="{ 'is-disabled': disabled }">Add a new source</a>
-				</div>
+		<h4 class="subtitle is-4">Sources</h4>
+		<div class="columns">
+			<div class="column is-8">
+				<label for="old-source" class="label">Look up an existing source:</label>
+				<alg-ajaxlist v-model="oldSource"
+							  uri="/autocomplete/sources"
+							  placeholder="Search for an existing source"
+							  name="old-source"
+							  id="old-source"
+							  @input="handleOldSourceInput"
+							  ref="oldSource"
+							  :disabled="disabled">
+				</alg-ajaxlist>
 			</div>
 
-			<ul>
-				<div v-for="(source, index) in value">
-					<div class="columns">
-						<input type="hidden"
-							   v-model="source.id"
-							   :name="'sources['+index+'][id]'" />
-						<div class="column is-one-quarter">
-							<div>
-								<p :title="source.long">{{ index + 1 }}. {{ source.short }}</p>
-								<span class="help is-danger"
-									v-show="duplicateSource(source.id)" 
-									v-text="'This source is already listed'">
-								</span>
-							</div>
-						</div>
-						<div class="column is-8">
-							<p class="control">
-								<input type="text"
-									   class="input is-expanded"
-									   :name="'sources['+index+'][extraInfo]'"
-									   v-model="source.extraInfo"
-									   placeholder="chapter, page number, etc..."
-									   ref="extrainfo"
-									   :disabled="disabled"
-									   autocomplete="off" />
-							</p>
-						</div>
-						<div class="column is-1">
-							<a class="button"
-							   @click="remove(index)"
-							   :disabled="disabled">Remove</a>
+			<div class="column" style="display: flex; justify-content: center;">
+				<a class="button"
+				   @click="open"
+				   :class="{ 'is-disabled': disabled }"
+				   style="margin-top: 2rem;">
+				   	Add a new source
+			    </a>
+			</div>
+		</div>
+
+		<ul>
+			<div v-for="(source, index) in value">
+				<div class="columns">
+					<input type="hidden"
+						   v-model="source.id"
+						   :name="'sources['+index+'][id]'" />
+					<div class="column is-one-quarter">
+						<div>
+							<p :title="source.long">{{ index + 1 }}. {{ source.short }}</p>
+							<span class="help is-danger"
+								v-show="duplicateSource(source.id)" 
+								v-text="'This source is already listed'">
+							</span>
 						</div>
 					</div>
+					<div class="column is-8">
+						<p class="control">
+							<input type="text"
+								   class="input is-expanded"
+								   :name="'sources['+index+'][extraInfo]'"
+								   v-model="source.extraInfo"
+								   placeholder="chapter, page number, etc..."
+								   ref="extrainfo"
+								   :disabled="disabled"
+								   autocomplete="off" />
+						</p>
+					</div>
+					<div class="column is-1">
+						<a class="button"
+						   @click="remove(index)"
+						   :disabled="disabled">Remove</a>
+					</div>
 				</div>
-			</ul>
-		</div>
+			</div>
+		</ul>
 
 		<alg-new-source v-show="showModal"
 						@close="close"

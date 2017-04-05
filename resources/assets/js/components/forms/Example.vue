@@ -132,10 +132,7 @@
 			</div>
 		</div>
 
-		<button class="button" type="submit" :disabled="form.errors.any() || loading">Submit</button>
-		<span class="icon">
-			<i class="fa fa-spinner fa-pulse fa-3x fa-fw" v-show="loading"></i>
-		</span>
+		<button type="submit" class="button is-primary" :class="{'is-loading': loading, 'disabled': form.errors.any() || loading }">Submit</button>
 	</form>
 </template>
 

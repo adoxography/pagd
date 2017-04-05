@@ -10,6 +10,9 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			04-04-17: Updated the layout of the source input within other forms
+		</li>
+		<li>
 			04-04-17: Sources are now looked up using their long form
 		</li>
 		<li>

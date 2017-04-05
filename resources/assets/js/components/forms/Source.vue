@@ -82,7 +82,7 @@
 					  name="notes">
 		</alg-textarea>
 
-		<button type="submit" class="button is-primary" :class="{'is-loading': loading}">Submit</button>
+		<button type="submit" class="button is-primary" :class="{'is-loading': loading, 'disabled': form.errors.any() || loading }">Submit</button>
 	</form>
 </template>
 

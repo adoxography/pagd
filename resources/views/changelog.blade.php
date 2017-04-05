@@ -10,6 +10,12 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			05-04-17: Shrunk title size
+		</li>
+		<li>
+			05-04-17: Repeated example above the morphemes
+		</li>
+		<li>
 			05-04-17: Truncated long source forms in dropdowns
 		</li>
 		<hr>

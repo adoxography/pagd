@@ -22,6 +22,7 @@
 
 			{{-- morphology field --}}
 			@component('components.model.field', ['width' => 'is-12', 'label' => 'Morphology'])
+				{{ $example->name }}
 				@if($example->morphemicForm)
 					{!! $example->printMorphemes() !!}
 				@endif

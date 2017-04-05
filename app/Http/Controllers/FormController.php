@@ -164,33 +164,4 @@ class FormController extends AlgModelController
 
         return view('examples.create', compact('presetForm'));
     }
-
-    /**
-     * Show all incomplete forms
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function incompleteForms()
-    {
-        $languages = [];
-
-        // Get all of the forms
-        $forms = Form::where('complete', 0)
-                     ->orderBy('language_id')
-                     ->with('language')
-                     ->with('formType.subject')
-                     ->with('formType.primaryObject')
-                     ->with('formType.secondaryObject')
-                     ->get();
-
-        // Pull out all of the unique languages
-        $languageSet = $forms->pluck('language')->unique();
-
-        // Sort the forms into the language array
-        foreach ($languageSet as $language) {
-            $languages[$language->name] = $forms->where('language_id', $language->id);
-        }
-
-        return view('forms.need-attention', compact('languages'));
-    }
 }

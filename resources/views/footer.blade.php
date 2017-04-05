@@ -13,7 +13,7 @@
 					<a href="/log">Activity log</a>
 				</li>
 				<li>
-					<a href="/forms/need-attention">Missing data</a>
+					<a href="/need-attention">Missing data</a>
 				</li>
 				@endif
 			</ul>

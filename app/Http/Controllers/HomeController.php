@@ -57,4 +57,46 @@ class HomeController extends Controller
         // Call the search
         return redirect()->to("/search/paradigm?{$classes}{$orders}&modeSelect=allModes&affirmative=on&negative=on{$languages}");
     }
+
+    /**
+     * Show all incomplete forms
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function incompleteForms()
+    {
+        $formLanguages = [];
+        $exampleLanguages = [];
+
+        // Get all of the forms
+        $forms = \App\Form::where('complete', 0)
+                     ->orderBy('language_id')
+                     ->with('language')
+                     ->with('formType.subject')
+                     ->with('formType.primaryObject')
+                     ->with('formType.secondaryObject')
+                     ->get();
+
+        $examples = \App\Example::select('Examples.*')
+                           ->join('Forms', 'Forms.id', '=', 'form_id')
+                           ->where('Examples.complete', 0)
+                           ->with('form')
+                           ->with('form.language')
+                           ->orderBy('Forms.language_id')
+                           ->get();
+
+        // Pull out all of the unique languages
+        $formLanguageSet = $forms->pluck('language')->unique();
+        $exampleLanguageSet = $examples->pluck('form.language')->unique();
+
+        // Sort the forms into the language array
+        foreach ($formLanguageSet as $language) {
+            $formLanguages[$language->name] = $forms->where('language_id', $language->id);
+        }
+        foreach ($exampleLanguageSet as $language) {
+            $exampleLanguages[$language->name] = $examples->where('form.language_id', $language->id);
+        }
+
+        return view('forms.need-attention', compact('formLanguages', 'exampleLanguages'));
+    }
 }

@@ -10,6 +10,9 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			04-04-17: Added examples tab to the needs attention page
+		</li>
+		<li>
 			04-04-17: Changed the name of the website from PAGD to DALS
 		</li>
 		<li>

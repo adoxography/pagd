@@ -23,6 +23,7 @@ Route::get('sandbox', function() {
     \Illuminate\Support\Facades\Artisan::call('algling:index');
     return 'hello';
 });
+Route::get('need-attention',        'HomeController@incompleteForms');
 
 Route::post('backup', 'BackupController@store');
 
@@ -70,7 +71,6 @@ Route::delete('empty-forms/{emptyform}',     'EmptyFormController@destroy');
 Route::patch('empty-forms/{emptyform}',      'EmptyFormController@update');
 Route::get('empty-forms/{emptyform}/edit',   'EmptyFormController@edit');
 Route::patch('empty-forms/{emptyform}/hide', 'EmptyFormController@hide');
-Route::get('forms/need-attention',        'FormController@incompleteForms');
 Route::resource('forms',                  'FormController');
 Route::get('forms/{form}/addExample',     'FormController@addExample');
 Route::patch('forms/{form}/disambiguate', 'FormController@disambiguate');

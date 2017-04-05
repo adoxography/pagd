@@ -96,7 +96,7 @@ class Example extends Model
 
     public function getUniqueNameAttribute()
     {
-        return $this->name;
+        return "{$this->name} ({$this->form->formType->summary})";
     }
 
     public function getUniqueNameWithLanguageAttribute()

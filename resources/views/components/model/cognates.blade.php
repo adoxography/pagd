@@ -2,7 +2,7 @@
 	@if(!isset($depth))
 		@component('components.model.field')
 			@slot('label')
-				Cognates of
+				Reflexes of
 				@if($list->id != $current->id)
 					<a style="padding-left: .5rem;" href="/{{ $model }}/{{ $list->id }}">
 				@endif

@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'The Pan-Algonquian Grammar Database',
+    'name' => 'The Database of Algonquian Language Structures',
 
     /*
     |--------------------------------------------------------------------------

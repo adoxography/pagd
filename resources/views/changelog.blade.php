@@ -10,6 +10,9 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			04-04-17: Changed the name of the website from PAGD to DALS
+		</li>
+		<li>
 			04-04-17: Updated the layout of the source input within other forms
 		</li>
 		<li>

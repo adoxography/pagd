@@ -13,11 +13,8 @@
 			<div class="hero-body">
 				<div class="container">
 					<h1 class="title">
-						The Pan-Algonquian Grammar Database
+						The Database of Algonquian Language Structures
 					</h1>
-{{-- 					<h2 class="subtitle">
-						Some subtitle here
-					</h2> --}}
 				</div>
 			</div>
 		</section>

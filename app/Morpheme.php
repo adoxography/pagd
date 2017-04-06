@@ -87,18 +87,6 @@ class Morpheme extends Model
         'updated_at'
     ];
 
-    public static function boot() {
-        parent::boot();
-
-        static::saved(function($model) {
-            event(new Saved($model));
-        });
-
-        static::deleted(function($model) {
-            event(new Deleted($model));
-        });
-    }
-
     /*
     |--------------------------------------------------------------------------
     | Attribute Modifiers

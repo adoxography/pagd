@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Form;
 use App\Language;
+use App\Morpheme;
 use App\Observers\FormObserver;
 use App\Observers\LanguageObserver;
+use App\Observers\MorphemeObserver;
 use Laravel\Dusk\DuskServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Language::observe(LanguageObserver::class);
         Form::observe(FormObserver::class);
+        Morpheme::observe(MorphemeObserver::class);
     }
 
     /**

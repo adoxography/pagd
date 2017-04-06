@@ -20,13 +20,6 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         // Morpheme Events
-        'App\Events\Morpheme\Saved' => [
-            'App\Listeners\Morpheme\ReconnectForms',
-        ],
-        'App\Events\Morpheme\Deleted' => [
-            'App\Listeners\Morpheme\ReconnectForms',
-            'App\Listeners\Morpheme\ReassessDuplicates',
-        ],
     ];
 
     /**

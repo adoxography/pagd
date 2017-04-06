@@ -96,22 +96,6 @@ class Form extends Model
         'updated_at'
     ];
 
-    public static function boot() {
-        parent::boot();
-
-        static::saving(function($model) {
-            event(new Saving($model));
-        });
-
-        static::saved(function($model) {
-            event(new Saved($model));
-        });
-
-        static::deleting(function($model) {
-            event(new Deleting($model));
-        });
-    }
-
     /*
     |--------------------------------------------------------------------------
     | Attribute modifiers

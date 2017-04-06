@@ -19,18 +19,6 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Backup'
         ],
 
-        // Form Events
-        'App\Events\Form\Saving' => [
-            'App\Listeners\Form\AssignFormType'
-        ],
-        'App\Events\Form\Saved' => [
-            'App\Listeners\Form\ConnectDuplicates',
-        ],
-        'App\Events\Form\Deleting' => [
-            'App\Listeners\Form\DestroyExamples',
-            'App\Listeners\Form\DisconnectDuplicates',
-        ],
-
         // Morpheme Events
         'App\Events\Morpheme\Saved' => [
             'App\Listeners\Morpheme\ReconnectForms',

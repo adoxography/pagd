@@ -42,9 +42,6 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         // Morpheme Events
-        'App\Events\Morpheme\Creating' => [
-            'App\Listeners\Morpheme\AssignDisambiguator'
-        ],
         'App\Events\Morpheme\Saved' => [
             'App\Listeners\Morpheme\ReconnectForms',
         ],
@@ -52,11 +49,6 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Morpheme\ReconnectForms',
             'App\Listeners\Morpheme\ReassessDuplicates',
         ],
-
-        // Initial Change Events
-        'App\Events\InitialChange\Creating' => [
-            'App\Listeners\InitialChange\AssignDisambiguator'
-        ]
     ];
 
     /**

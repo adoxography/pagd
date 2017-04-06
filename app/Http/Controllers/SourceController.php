@@ -39,7 +39,7 @@ class SourceController extends Controller
         return view('sources.show', compact('source'));
     }
 
-    public function store(Request $request){
+    public function store(SourceRequest $request){
     	$newSource = Source::create($request->all());
     	return response()->json($newSource);
     }

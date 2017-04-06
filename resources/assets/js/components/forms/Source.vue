@@ -47,11 +47,15 @@
 			</div>
 		</div>
 
-		<label for="long" class="label">Long</label>
+		<label for="long" class="label">Full Citation</label>
 		<alg-textarea v-model="form.long"
 					  :disabled="loading"
 					  name="long">
 		</alg-textarea>
+		<span class="help is-danger"
+			  v-show="form.errors.has('long')"
+			  v-text="form.errors.get('long')">
+		</span>
 
 		<label for="url" class="label">URL</label>
 		<p class="control">

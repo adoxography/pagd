@@ -5,7 +5,6 @@ namespace App;
 use Laravel\Scout\Searchable;
 use App\Events\Morpheme\Saved;
 use App\Events\Morpheme\Deleted;
-use App\Events\Morpheme\Creating;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -20,6 +19,7 @@ class Morpheme extends Model
     use \App\BookmarkableTrait;
     use SoftDeletes;
     use \App\HideableTrait;
+    use \App\DisambiguatableTrait;
 
     /*
     |--------------------------------------------------------------------------
@@ -55,6 +55,8 @@ class Morpheme extends Model
         return array_only($array, ['id', 'name', 'allomorphyNotes', 'historicalNotes', 'translation', 'comments']);
     }
 
+    protected $disambiguatableFields = ['name', 'language_id'];
+
     /*
     |--------------------------------------------------------------------------
     | Revision variables
@@ -87,10 +89,6 @@ class Morpheme extends Model
 
     public static function boot() {
         parent::boot();
-
-        static::creating(function($model) {
-            event(new Creating($model));
-        });
 
         static::saved(function($model) {
             event(new Saved($model));

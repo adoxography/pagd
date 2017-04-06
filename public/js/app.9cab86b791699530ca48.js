@@ -29824,6 +29824,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
 	props: ['action', 'method', 'source'],
@@ -135948,7 +135952,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "long"
     }
-  }, [_vm._v("Long")]), _vm._v(" "), _c('alg-textarea', {
+  }, [_vm._v("Full Citation")]), _vm._v(" "), _c('alg-textarea', {
     attrs: {
       "disabled": _vm.loading,
       "name": "long"
@@ -135959,6 +135963,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.form.long = $$v
       },
       expression: "form.long"
+    }
+  }), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.form.errors.has('long')),
+      expression: "form.errors.has('long')"
+    }],
+    staticClass: "help is-danger",
+    domProps: {
+      "textContent": _vm._s(_vm.form.errors.get('long'))
     }
   }), _vm._v(" "), _c('label', {
     staticClass: "label",

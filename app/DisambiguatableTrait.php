@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\Schema;
+
 trait DisambiguatableTrait {
 
 	public static function bootDisambiguatableTrait()
@@ -15,6 +17,42 @@ trait DisambiguatableTrait {
 				$model->assignDisambiguator();
 			}
 		});
+
+		static::deleting(function($model) {
+			$model->disambiguatableOnDeleting();
+		});
+	}
+
+	protected function disambiguatableOnDeleting()
+	{
+		if($this->getShouldAlwaysAssignDisambiguator()) {
+			$this->hasDuplicates = false;
+		} else {
+			$this->disambiguator = null;
+		}
+
+		$this->save();
+
+		$duplicates = $this->loadAmbiguousDuplicates();
+
+		if(count($duplicates) == 1) {
+			$duplicates[0]->markAsNotDuplicated();
+		}
+	}
+
+	protected function markAsNotDuplicated()
+	{
+		if(!$this->getShouldAlwaysAssignDisambiguator()) {
+			$duplicate->disambiguator = null;
+		}
+
+		$this->markAsDuplicated(false);
+
+		if(isset($this->isSourceable)) {
+			$this->dontConnectSources();
+		}
+
+		$this->save();
 	}
 
 	public function getDisambiguatableFields()
@@ -43,25 +81,59 @@ trait DisambiguatableTrait {
 		return $shouldUpdate;
 	}
 
+	protected function saveDisambiguator($disambiguator = null)
+	{
+		if(isset($disambiguator)) {
+			$this->disambiguator = $disambiguator;
+		}
+
+		$this->markAsDuplicated();
+
+		if($this->isDirty('disambiguator') || (Schema::hasColumn($this->getTable(), 'hasDuplicates') && $this->isDirty('hasDuplicates'))) {
+			if(isset($this->isSourceable)) {
+				$this->dontConnectSources();
+			}
+
+			$this->save();
+		}
+	}
+
+	protected function markAsDuplicated($val = true)
+	{
+		if(Schema::hasColumn($this->getTable(), 'hasDuplicates')) {
+			$this->hasDuplicates = $val;
+		}
+	}
+
 	public function assignDisambiguator()
 	{
 		$duplicates = $this->loadAmbiguousDuplicates();
 
-		if($this->getShouldAlwaysAssignDisambiguator() || count($duplicates) > 0) {
-			if(count($duplicates) == 1 && !isset($duplicates[0]->disambiguator)) {
-				$duplicate = $duplicates[0];
-				$duplicate->disambiguator = 1;
+		if(count($duplicates) == 0) {
+			$this->markAsDuplicated(false);
 
-				if(isset($this->isSourceable)) {
-					$duplicate->dontConnectSources();
-				}
+			if($this->getShouldAlwaysAssignDisambiguator()) {
+				$this->disambiguator = 1;
+			} else {
+				$this->disambiguator = null;
+			}
+		} else if(count($duplicates) == 1) {
+			$this->markAsDuplicated();
 
-				$duplicate->save();
+			if($this->getShouldAlwaysAssignDisambiguator()) {
+				$duplicates[0]->saveDisambiguator();
+			} else {
+				$duplicates[0]->saveDisambiguator(isset($duplicates[0]->disambiguator) ? $duplicates[0]->disambiguator : 1);
 			}
 
 			$this->disambiguator = $this->firstOpenSpace($duplicates);
 		} else {
-			$this->disambiguator = null;
+			foreach($duplicates as $duplicate) {
+				$duplicate->saveDisambiguator($duplicate->disambiguator);
+			}
+
+			$this->markAsDuplicated();
+			$this->disambiguator = $this->firstOpenSpace($duplicates);
 		}
 	}
 
@@ -88,7 +160,11 @@ trait DisambiguatableTrait {
 
         // Constrain all the relevant fields
         foreach($this->getDisambiguatableFields() as $field) {
-        	$query->where($field, $this->$field);
+        	if(strpos($this->$field, '-') === false) {
+        		$query->where($field, $this->$field);
+        	} else {
+        		$query->whereIn($field, $this->generatePossibleMatches($field));
+        	}
         }
 
         if(isset($this->id)) {
@@ -97,5 +173,17 @@ trait DisambiguatableTrait {
         
         // Return the result
         return $query->get();
+    }
+
+    protected function generatePossibleMatches($field)
+    {
+    	$noHyphens = str_replace('-', '', $this->$field);
+
+    	return [
+    		$noHyphens,
+    		"-$noHyphens",
+    		"$noHyphens-",
+    		"-$noHyphens-"
+    	];
     }
 }

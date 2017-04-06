@@ -10,6 +10,9 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			05-04-17: Made examples field on form detail always appear when logged in, even if there are no examples
+		</li>
+		<li>
 			05-04-17: Shrunk title size
 		</li>
 		<li>

@@ -78,17 +78,21 @@
 		</div>
 
 		<div class="column is-half">
-			@if(count($form->examples) > 0)
-			@component('components.model.field', ['width' => 'is-12'])
-				@slot('label')
-					Examples @component('components.model.add-icon', ['uri' => "/forms/{$form->id}/addExample"]) @endcomponent
-				@endslot
-				<ul style="margin-top: 0;">
-					@foreach($form->examples as $example)
-						<li><span><a href="/examples/{{ $example->id }}">{{ $example->name }}</a> {{ " '{$example->translation}'" }}</span></li>
-					@endforeach
-				</ul>
-			@endcomponent
+			@if(count($form->examples) > 0 || (Auth::user() && Auth::user()->permissions->canEdit))
+				@component('components.model.field', ['width' => 'is-12'])
+					@slot('label')
+						Examples @component('components.model.add-icon', ['uri' => "/forms/{$form->id}/addExample"]) @endcomponent
+					@endslot
+					@if(count($form->examples) > 0)
+						<ul style="margin-top: 0;">
+							@foreach($form->examples as $example)
+								<li><span><a href="/examples/{{ $example->id }}">{{ $example->name }}</a> {{ " '{$example->translation}'" }}</span></li>
+							@endforeach
+						</ul>
+					@else
+						None
+					@endif
+				@endcomponent
 			@endif
 
 			@include('components.model.text', ['width' => 'is-12', 'label' => 'Usage Notes', 'text' => $form->usageNotes, 'language_id' => $form->language_id])

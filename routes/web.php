@@ -24,6 +24,7 @@ Route::get('sandbox', function() {
     return 'hello';
 });
 Route::get('need-attention',        'HomeController@incompleteForms');
+Route::get('guide', 'HomeController@guide');
 
 Route::post('backup', 'BackupController@store');
 

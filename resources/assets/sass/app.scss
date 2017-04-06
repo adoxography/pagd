@@ -14,12 +14,16 @@
 // Bulma
 @import "node_modules/bulma/bulma.sass";
 
-html, .footer {
-	background-color: $white-bis;
+html, .footer, .section {
+	background-color: $background-color;
 }
 
 a {
 	font-weight: 500;
+}
+
+.content blockquote {
+	background-color: whitesmoke;
 }
 
 .title {
@@ -46,10 +50,6 @@ a.nav-item, .footer a {
 
 .gloss {
 	font-variant: small-caps;
-}
-
-.section {
-	background-color: $white-bis;
 }
 
 .add-icon {

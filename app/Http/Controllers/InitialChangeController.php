@@ -19,10 +19,10 @@ class InitialChangeController extends Controller
     							->orderBy('Groups.position')
     							->orderBy('Languages.position')
     							->orderBy('InitialChanges.disambiguator')
+                                ->whereNull('Languages.hidden_at')
     							->with(['morpheme' => function($query) {
-    								$query->with('language');
+    								$query->whereNull('hidden_at')->with('language');
     							}])->get();
-
     	return view('initial-changes.index', compact('languages', 'changes'));
     }
 

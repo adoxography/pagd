@@ -8,12 +8,15 @@
 				<li>
 					<a href="/changelog">Changelog</a>
 				</li>
-				@if(Auth::user())
+				@if(Auth::user() && Auth::user()->permissions->canEdit)
 				<li>
 					<a href="/log">Activity log</a>
 				</li>
 				<li>
 					<a href="/need-attention">Missing data</a>
+				</li>
+				<li>
+					<a href="/guide">Guide for contributors</a>
 				</li>
 				@endif
 			</ul>

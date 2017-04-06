@@ -19,7 +19,7 @@
 				<a href="/groups/{{ $language->group_id }}">{{ $language->group->name }}</a>
 			@endcomponent
 
-		{{-- Parent field --}}
+			{{-- Parent field --}}
 			@if($language->parent)
 				@component('components.model.field', ['width' => 'is-half', 'label' => 'Parent'])
 					@if($language->parent)

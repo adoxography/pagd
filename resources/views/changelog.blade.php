@@ -10,6 +10,9 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			06-04-17: Added a <a href="/guide">guide for contributors</a> on some of the non-obvious features of the database
+		</li>
+		<li>
 			06-04-17: Updated styling
 		</li>
 		<hr>

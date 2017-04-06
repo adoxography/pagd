@@ -10,6 +10,10 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			06-04-17: Updated styling
+		</li>
+		<hr>
+		<li>
 			05-04-17: Made examples field on form detail always appear when logged in, even if there are no examples
 		</li>
 		<li>

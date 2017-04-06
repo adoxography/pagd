@@ -1,16 +1,21 @@
 // Paths
 @fa-font-path:   "../fonts";
 
+// Fonts
+$family-sans-serif: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI",
+"Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+"Helvetica Neue", "Helvetica", "Arial", sans-serif;
+
 // Colour variables
 
 $red: #690202;
 $bright-red: #FF0000;
-$white-bis: #dedbd0;
+$white-bis: #d8d8d8;
 $white-ter: #b7b4ab;
 $grey: #504e4e;
 $grey-dark: #262525;
 
 // Colour mappings
 
-$primary: $red;
+$primary: #3273dc;
 $danger: $bright-red;

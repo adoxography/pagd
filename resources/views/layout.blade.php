@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8" />
-		<title>{{ $title or "Pan-Algonquian Grammar Database" }}</title>
+		<title>{{ $title or "Database of Algonquian Language Structures" }}</title>
 
 		<link rel="stylesheet" type="text/css" href="{{ mix("/css/app.css") }}" />
 		
@@ -13,7 +13,7 @@
 			<div class="hero-body">
 				<div class="container">
 					<h1 class="title">
-						The Database of Algonquian Language Structures
+						Database of Algonquian Language Structures
 					</h1>
 				</div>
 			</div>

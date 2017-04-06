@@ -11,7 +11,7 @@
 
 	@foreach($groups as $group)
 	@if(count($group->languages) > 0)
-	<h3 class="title is-3">{{ $group->name }}</h2>
+	<h4 class="title is-4">{{ $group->name }}</h4>
 	@include('components.index', ['items' => $group->languages, 'model' => 'languages'])
 	@endif
 	@endforeach

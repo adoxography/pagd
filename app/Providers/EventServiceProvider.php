@@ -19,16 +19,6 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Backup'
         ],
 
-        // Language Events
-        'App\Events\Language\Created' => [
-            'App\Listeners\Language\AddVStem'
-        ],
-        'App\Events\Language\Deleting' => [
-            'App\Listeners\Language\DestroyExamples',
-            'App\Listeners\Language\DestroyForms',
-            'App\Listeners\Language\DestroyMorphemes',
-        ],
-
         // Form Events
         'App\Events\Form\Saving' => [
             'App\Listeners\Form\AssignFormType'

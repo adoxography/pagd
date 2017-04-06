@@ -1,35 +1,33 @@
 <?php
 
-namespace App\Listeners\Language;
+namespace App\Observers;
 
+use App\Language;
 use App\Morpheme;
-use App\Events\Language\Created;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
-class AddVStem
-{
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+class LanguageObserver {
 
-    /**
-     * Handle the event.
-     *
-     * @param  LanguageSaved  $event
-     * @return void
-     */
-    public function handle(Created $event)
-    {
-        // Extract the language from the event
-        $language = $event->model;
+	protected $childData;
 
+	public function __construct()
+	{
+		$this->childData = ['rules', 'examples', 'forms', 'morphemes'];
+	}
+
+	public function created(Language $language)
+	{
+		$this->addVStem($language);
+	}
+
+	public function deleting(Language $language)
+	{
+		foreach($this->childData as $dataType) {
+			$this->destroyData($language, $dataType);
+		}
+	}
+
+	protected function addVStem(Language $language)
+	{
         // Create the vStem
         $vStem = new Morpheme([
             'name'          => 'V',
@@ -48,5 +46,16 @@ class AddVStem
         }
 
         $vStem->save();
-    }
+	}
+
+	protected function destroyData(Language $language, $dataType)
+	{
+		$data = $language->$dataType;
+
+		if(count($data) > 0) {
+			foreach($data as $item) {
+				$item->delete();
+			}
+		}
+	}
 }

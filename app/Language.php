@@ -84,18 +84,6 @@ class Language extends Model
         'updated_at'
     ];
 
-    public static function boot() {
-        parent::boot();
-
-        static::created(function($model) {
-            event(new Created($model));
-        });
-
-        static::deleting(function($model) {
-            event(new Deleting($model));
-        });
-    }
-
     public function getDisplayAttribute()
     {
         return $this->name;

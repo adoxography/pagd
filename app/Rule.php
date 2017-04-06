@@ -14,9 +14,6 @@ class Rule extends Model
 
     public $table = 'Rules';
     protected $fillable = ['name', 'abv', 'rule', 'language_id', 'publicComments', 'privateComments'];
-    protected $events = [
-    	'deleting' => Deleting::class
-    ];
 
     public function language()
     {

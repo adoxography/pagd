@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Language;
+use App\Observers\LanguageObserver;
 use Laravel\Dusk\DuskServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
@@ -14,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Language::observe(LanguageObserver::class);
     }
 
     /**

@@ -155,4 +155,14 @@ class Example extends Model
     {
         return "{$this->name} ({$this->language->name})";
     }
+
+    public function renderHTML()
+    {
+        return "<a href='/examples/{$this->id}'>{$this->name}</a>";
+    }
+
+    public function renderInNotes()
+    {
+        return "<a href='/examples/{$this->id}'>{$this->name}</a>".$this->printMorphemes();
+    }
 }

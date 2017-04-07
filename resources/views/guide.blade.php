@@ -51,9 +51,9 @@
 			<blockquote>IC<strong>.1</strong>|e-t-i</blockquote>
 		</alg-tab>
 
-		<alg-tab name="Rules">
-			<h4 class="title is-4">What is a rule?</h4>
-			<p>A "rule" is a phonological rule which has been prepared in such a way as to make it easier to reference from within another piece of data.</p>
+		<alg-tab name="Shortcuts">
+			<h4 class="title is-4">What is a shortcut?</h4>
+			<p>A shortcut is a shorthand to another piece of data in a text field. It allows you to type less, and will update automatically when the referenced data changes. It is primarily used for working with rules; however, a similar approach can be used to represent many other kinds of data.</p>
 			<br />
 			<h4 class="title is-4">Adding a rule</h4>
 			<p>Rules are added in the same way as any other piece of data, via their own <a href="/rules/create">creation form</a>. Pay special attention to the "abbreviation" field, as that is what you will use to call the rule later on.</p>
@@ -64,6 +64,40 @@
 			<h4 class="title is-4">Referencing a rule before it has been added</h4>
 			<p>This is possible, but be careful. If the database cannot find a matching rule when it comes time to render the text, it will simply print out the abbreviation you have given, which is generally unhelpful. Always make sure to add rules within the same time frame as when you reference them.
 			</p>
+			<br />
+			<h4 class="title is-4">Shortcuts to pieces of data other than rules</h4>
+			<p>There may be times when you want to print the full morphology of a form or morpheme. The database has some built-in shortcuts to help you with this. All you need is the ID number of the desired data; this can be found as the number at the end of the URL of that data's display page. This number is unique across that kind of data, so there will never be an overlap, even across languages.</p>
+			<table style="width: inherit;">
+				<thead>
+					<tr>
+						<th>Type of data</th>
+						<th>Shortcut syntax</th>
+						<th>What will be rendered</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Language</td>
+						<td>#l.id</td>
+						<td>The name of the language, hyperlinked to its display page</td>
+					</tr>
+					<tr>
+						<td>Form</td>
+						<td>#f.id</td>
+						<td>The phonological representation, (or the surface form, if there is no phonological representation) above the full morphology</td>
+					</tr>
+					<tr>
+						<td>Example</td>
+						<td>#e.id</td>
+						<td>The example above the full morphology</td>
+					</tr>
+					<tr>
+						<td>Morpheme</td>
+						<td>#m.id</td>
+						<td>The morpheme, immediately followed by its translation (if set) or gloss</td>
+					</tr>
+				</tbody>
+			</table>
 		</alg-tab>
 	</alg-tabs>
 </div>

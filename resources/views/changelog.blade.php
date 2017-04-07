@@ -10,6 +10,10 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			07-04-17: Added <a href="/guide#shortcuts">model shortcuts</a> (<a href="/languages/15">Demo</a>)
+		</li>
+		<hr>
+		<li>
 			06-04-17: Implemented <a href="/search#for-a-form">search by form</a>
 			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
 				<li>

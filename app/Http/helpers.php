@@ -89,6 +89,8 @@ function replaceTags($text, $id)
     $output = $text;
     $start;
     $end;
+    $replacement;
+    $model;
 
     // Check to see if there are any tags in the text
     $start = strpos($text, '#');
@@ -110,13 +112,45 @@ function replaceTags($text, $id)
 
         // Get the tag, and look it up
         $tag = substr($text, $start + 1, $end - $start - 1);
-        $rule = \App\Rule::where('abv', $tag)->where('language_id', $id)->first();
 
-        // If it was found, replace the tag with it
-        if ($rule && !$rule->isHidden()) {
-            $replacement = "<a href='/rules/{$rule->id}'>{$rule->rule}</a>";
+        if(count(explode('.', $tag)) > 1) {
+
+            $parts = explode('.', $tag);
+
+            switch($parts[0]) {
+                case 'l':
+                    $model = \App\Language::find($parts[1]);
+                    break;
+                case 'f':
+                    $model = \App\Form::find($parts[1]);
+                    break;
+                case 'e':
+                    $model = \App\Example::find($parts[1]);
+                    break;
+                case 'm':
+                    $model = \App\Morpheme::find($parts[1]);
+                default:
+                    break;
+            }
+
+            if(isset($model)) {
+                if(method_exists($model, 'renderInNotes')) {
+                    $replacement = $model->renderInNotes();
+                } else {
+                    $replacement = $model->renderHTML();
+                }
+            } else {
+                $replacement = $tag;
+            }
         } else {
-            $replacement = $tag;
+            $rule = \App\Rule::where('abv', $tag)->where('language_id', $id)->first();
+
+            // If it was found, replace the tag with it
+            if ($rule && !$rule->isHidden()) {
+                $replacement = "<a href='/rules/{$rule->id}'>{$rule->rule}</a>";
+            } else {
+                $replacement = $tag;
+            }
         }
 
         $output = replaceTags($firstPart.$replacement.$lastPart, $id);

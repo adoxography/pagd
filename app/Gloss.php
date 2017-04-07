@@ -26,4 +26,9 @@ class Gloss extends Closed
     {
     	return $this->hasMany(Morpheme::class);
     }
+
+    public function renderHTMl()
+    {
+        return "<span class='gloss'>{$this->abv}</span>";
+    }
 }

@@ -190,6 +190,12 @@ class Form extends Model
         return "<a href='/forms/{$this->id}'>{$this->surfaceForm}</a> (".$this->formType->renderArguments().")";
     }
 
+    public function renderInNotes()
+    {
+        $name = isset($this->phoneticForm) ? $this->phoneticForm : $this->surfaceForm;
+        return "<a href='/forms/{$this->id}'>{$name}</a>".$this->printMorphemes();
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Relations

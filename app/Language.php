@@ -179,4 +179,9 @@ class Language extends Model
             }
         }
     }
+
+    public function renderHTML()
+    {
+        return "<a href='/languages/{$this->id}'>{$this->name}</a>";
+    }
 }

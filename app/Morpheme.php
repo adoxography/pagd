@@ -205,4 +205,14 @@ class Morpheme extends Model
         return $this->hasMany(InitialChange::class);
     }
 
+    public function renderHTMl()
+    {
+        return "<a href='{$this->id}'>{$this->name}</a>";
+    }
+
+    public function renderInNotes()
+    {
+        $gloss = isset($this->translation) ? "'{$this->translation}'" : '('.$this->gloss->renderHTML().')';
+        return $this->renderHTML()." $gloss";
+    }
 }

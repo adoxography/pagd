@@ -7,7 +7,7 @@
 					<h5 class="title is-5">Class</h5>
 					<p class="control" style="padding-top: 1.5rem;">
 						<span class="select">
-							<select name="classes[]" v-model="line.formClass">
+							<select :name="'classes['+index+']'" v-model="line.formClass">
 								<option v-for="formClass in classArray" :value="formClass.id">{{ formClass.name }}</option>
 							</select>
 						</span>
@@ -21,7 +21,7 @@
 							<p class="control">
 								<label class="label argument-label">Subject</label>
 								<span class="select">
-									<select name="subjects[]" v-model="line.subject">
+									<select :name="'subjects['+index+']'" v-model="line.subject">
 										<option v-for="argument in argumentArray" :value="argument.id">{{ argument.name }}</option>
 									</select>
 								</span>
@@ -29,7 +29,7 @@
 							<p class="control">
 								<label class="label argument-label">P. Object</label>
 								<span class="select">
-									<select name="primaryObjects[]" v-model="line.primaryObject">
+									<select :name="'primaryObjects['+index+']'" v-model="line.primaryObject">
 										<option value="0">None</option>
 										<option v-for="argument in argumentArray" :value="argument.id">{{ argument.name }}</option>
 									</select>
@@ -38,7 +38,7 @@
 							<p class="control">
 								<label class="label argument-label">S. Object</label>
 								<span class="select">
-									<select name="secondaryObjects[]" v-model="line.secondaryObject">
+									<select :name="'secondaryObjects['+index+']'" v-model="line.secondaryObject">
 										<option value="0">None</option>
 										<option v-for="argument in argumentArray" :value="argument.id">{{ argument.name }}</option>
 									</select>
@@ -52,7 +52,7 @@
 					<h5 class="title is-5">Order</h5>
 					<p class="control" style="padding-top: 1.5rem;">
 						<span class="select">
-							<select name="orders[]" v-model="line.order">
+							<select :name="'orders['+index+']'" v-model="line.order">
 								<option v-for="order in orderArray" :value="order.id">{{ order.name }}</option>
 							</select>
 						</span>
@@ -63,7 +63,7 @@
 					<h5 class="title is-5">Mode</h5>
 					<p class="control" style="padding-top: 1.5rem;">
 						<span class="select">
-							<select name="modes[]" v-model="line.mode">
+							<select :name="'modes['+index+']'" v-model="line.mode">
 								<option v-for="mode in modeArray" :value="mode.id">{{ mode.name }}</option>
 							</select>
 						</span>
@@ -73,13 +73,13 @@
 				<div class="column">
 					<p class="control">
 						<label class="checkbox">
-							<input type="checkbox" name="isNegative[]" v-model="line.isNegative" />
+							<input type="checkbox" :name="'isNegative['+index+']'" v-model="line.isNegative" />
 							Negative
 						</label>
 					</p>								
 					<p class="control">
 						<label class="checkbox">
-							<input type="checkbox" name="isDiminutive[]" v-model="line.isDiminutive" />
+							<input type="checkbox" :name="'isDiminutive['+index+']'" v-model="line.isDiminutive" />
 							Diminutive
 						</label>
 					</p>

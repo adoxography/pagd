@@ -53,7 +53,7 @@ class SearchController extends Controller
         return $output;
     }
 
-    protected function generateStructures($subjects, $primaryObjects, $secondaryObjects, $classes, $orders, $modes)
+    protected function generateStructures($subjects, $primaryObjects, $secondaryObjects, $classes, $orders, $modes, $negatives, $diminutives)
     {
         $output = [];
 
@@ -65,6 +65,8 @@ class SearchController extends Controller
                 'class' => $classes[$i],
                 'order' => $orders[$i],
                 'mode' => $modes[$i],
+                'negative' => isset($negatives[$i]) ? 1 : 0,
+                'diminutive' => isset($diminutives[$i]) ? 1 : 0
             ];
         }
 
@@ -73,23 +75,27 @@ class SearchController extends Controller
 
     public function form(Request $request)
     {
-        $languages        = $this->getModel($request->languages, \App\Language::class);
+        $languages = [];
         $classes          = $this->getModel($request->classes, \App\FormClass::class);
         $subclasses       = $request->subclasses;
         $primaryObjects   = $this->getModel($request->primaryObjects, \App\Argument::class);
         $secondaryObjects = $this->getModel($request->secondaryObjects, \App\Argument::class);
         $orders           = $this->getModel($request->orders, \App\Order::class);
         $modes            = $this->getModel($request->modes, \App\Mode::class);
-        $searchAll        = $request->searchAll;
+        $searchAll        = $request->searchAll === "true";
         $subjects         = $this->getModel($request->subjects, \App\Argument::class);
+        $negatives        = $request->isNegative;
+        $diminutives      = $request->isDiminutive;
 
         if($searchAll) {
             $languages = \App\Language::select(['name', 'id'])->get();
         } else {
-
+            for($i = 0; $i < count($request->languages); $i+=2) {
+                $languages[] = \App\Language::find($request->languages[$i + 1]);
+            }
         }
 
-        $structures = $this->generateStructures($subjects, $primaryObjects, $secondaryObjects, $classes, $orders, $modes);
+        $structures = $this->generateStructures($subjects, $primaryObjects, $secondaryObjects, $classes, $orders, $modes, $negatives, $diminutives);
 
 
         $query = Form::with([
@@ -107,36 +113,96 @@ class SearchController extends Controller
             'morphemes.slot'
         ]);
 
+        if(!$searchAll) {
+            foreach($languages as $language) {
+                $query->where('language_id', $language->id);
+            }
+        }
+
         // Limit the forms by specifying which form types should be displayed
         for ($i = 0; $i < count($classes); $i++) {
             if($i == 0) {
-                $query->whereHas('formType', function ($query) use ($i, $classes, $subclasses, $subjects, $orders, $modes, $primaryObjects, $secondaryObjects) {
-                    $query->where('class_id', $classes[$i]->id)
-                          ->where('subject_id', $subjects[$i]->id)
+                $query->whereHas('formType', function ($subquery) use ($i, $classes, $subclasses, $subjects, $orders, $modes, $primaryObjects, $secondaryObjects, $negatives, $diminutives) {
+                    $subquery->where('class_id', $classes[$i]->id)
                           ->where('order_id', $orders[$i]->id)
-                          ->where('mode_id', $modes[$i]->id);
+                          ->where('mode_id', $modes[$i]->id)
+                          ->where('isNegative', isset($negatives[$i]) ? 1 : 0)
+                          ->where('isDiminutive', isset($diminutives[$i]) ? 1 : 0)
+                          ->whereHas('subject', function($subsubquery) use ($i, $subjects) {
+                            $subsubquery->where('person', $subjects[$i]->person)
+                                     ->where('obviativeCode', $subjects[$i]->obviativeCode);
 
-                    if ($primaryObjects[$i]) {
-                        $query->where('primaryObject_id', $primaryObjects[$i]->id);
+                            if(isset($subjects[$i]->number)) {
+                                $subsubquery->where('number', $subjects[$i]->number);
+                            }
+                          });
+
+                    if (isset($primaryObjects[$i])) {
+                        $subquery->whereHas('primaryObject', function($subsubquery) use($i, $primaryObjects) {
+                            $subsubquery->where('person', $primaryObjects[$i]->person)
+                                     ->where('obviativeCode', $primaryObjects[$i]->obviativeCode);
+
+                            if(isset($primaryObjects[$i]->number)) {
+                                $subsubquery->where('number', $primaryObjects[$i]->number);
+                            }
+                        });
+                    } else {
+                        $subquery->whereNull('primaryObject_id');
                     }
 
-                    if ($secondaryObjects[$i]) {
-                        $query->where('secondaryObject_id', $secondaryObjects[$i]->id);
+                    if (isset($secondaryObjects[$i])) {
+                        $subquery->whereHas('secondaryObject', function($subsubquery) use($i, $secondaryObjects) {
+                            $subsubquery->where('person', $secondaryObjects[$i]->person)
+                                     ->where('obviativeCode', $secondaryObjects[$i]->obviativeCode);
+
+                            if(isset($secondaryObjects[$i]->number)) {
+                                $subsubquery->where('number', $secondaryObjects[$i]->number);
+                            }
+                        });
+                    } else {
+                        $subquery->whereNull('secondaryObject_id');
                     }
                 });
             } else {
-                $query->orWhereHas('formType', function ($query) use ($i, $classes, $subclasses, $subjects, $orders, $modes, $primaryObjects, $secondaryObjects) {
+                $query->orWhereHas('formType', function ($query) use ($i, $classes, $subclasses, $subjects, $orders, $modes, $primaryObjects, $secondaryObjects, $negatives, $diminutives) {
                     $query->where('class_id', $classes[$i]->id)
-                          ->where('subject_id', $subjects[$i]->id)
                           ->where('order_id', $orders[$i]->id)
-                          ->where('mode_id', $modes[$i]->id);
+                          ->where('mode_id', $modes[$i]->id)
+                          ->where('isNegative', isset($negatives[$i]) ? 1 : 0)
+                          ->where('isDiminutive', isset($diminutives[$i]) ? 1 : 0)
+                          ->whereHas('subject', function($subquery) use ($i, $subjects) {
+                            $subquery->where('person', $subjects[$i]->person)
+                                     ->where('obviativeCode', $subjects[$i]->obviativeCode);
 
-                    if ($primaryObjects[$i]) {
-                        $query->where('primaryObject_id', $primaryObjects[$i]->id);
+                            if(isset($subjects[$i]->number)) {
+                                $subquery->where('number', $subjects[$i]->number);
+                            }
+                          });
+
+                    if (isset($primaryObjects[$i])) {
+                        $query->whereHas('primaryObject', function($subquery) use($i, $primaryObjects) {
+                            $subquery->where('person', $primaryObjects[$i]->person)
+                                     ->where('obviativeCode', $primaryObjects[$i]->obviativeCode);
+
+                            if(isset($primaryObjects[$i]->number)) {
+                                $subquery->where('number', $subjects[$i]->number);
+                            }
+                        });
+                    } else {
+                        $query->whereNull('primaryObject_id');
                     }
 
-                    if ($secondaryObjects[$i]) {
-                        $query->where('secondaryObject_id', $secondaryObjects[$i]->id);
+                    if (isset($secondaryObjects[$i])) {
+                        $query->whereHas('secondaryObject', function($subquery) use($i, $secondaryObjects) {
+                            $subquery->where('person', $secondaryObjects[$i]->person)
+                                     ->where('obviativeCode', $secondaryObjects[$i]->obviativeCode);
+
+                            if(isset($secondaryObjects[$i]->number)) {
+                                $subquery->where('number', $subjects[$i]->number);
+                            }
+                        });
+                    } else {
+                        $query->whereNull('secondaryObject_id');
                     }
                 });
             }

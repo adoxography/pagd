@@ -134580,7 +134580,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         expression: "line.formClass"
       }],
       attrs: {
-        "name": "classes[]"
+        "name": 'classes[' + index + ']'
       },
       on: {
         "change": function($event) {
@@ -134624,7 +134624,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         expression: "line.subject"
       }],
       attrs: {
-        "name": "subjects[]"
+        "name": 'subjects[' + index + ']'
       },
       on: {
         "change": function($event) {
@@ -134657,7 +134657,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         expression: "line.primaryObject"
       }],
       attrs: {
-        "name": "primaryObjects[]"
+        "name": 'primaryObjects[' + index + ']'
       },
       on: {
         "change": function($event) {
@@ -134694,7 +134694,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         expression: "line.secondaryObject"
       }],
       attrs: {
-        "name": "secondaryObjects[]"
+        "name": 'secondaryObjects[' + index + ']'
       },
       on: {
         "change": function($event) {
@@ -134736,7 +134736,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         expression: "line.order"
       }],
       attrs: {
-        "name": "orders[]"
+        "name": 'orders[' + index + ']'
       },
       on: {
         "change": function($event) {
@@ -134774,7 +134774,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         expression: "line.mode"
       }],
       attrs: {
-        "name": "modes[]"
+        "name": 'modes[' + index + ']'
       },
       on: {
         "change": function($event) {
@@ -134808,7 +134808,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }],
       attrs: {
         "type": "checkbox",
-        "name": "isNegative[]"
+        "name": 'isNegative[' + index + ']'
       },
       domProps: {
         "checked": Array.isArray(line.isNegative) ? _vm._i(line.isNegative, null) > -1 : (line.isNegative)
@@ -134844,7 +134844,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }],
       attrs: {
         "type": "checkbox",
-        "name": "isDiminutive[]"
+        "name": 'isDiminutive[' + index + ']'
       },
       domProps: {
         "checked": Array.isArray(line.isDiminutive) ? _vm._i(line.isDiminutive, null) > -1 : (line.isDiminutive)

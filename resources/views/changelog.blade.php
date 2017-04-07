@@ -10,6 +10,14 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			06-04-17: Implemented <a href="/search#for-a-form">search by form</a>
+			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+				<li>
+					(Search refinement still to come)
+				</li>
+			</ul>
+		</li>
+		<li>
 			06-04-17: Added a <a href="/guide">guide for contributors</a> on some of the non-obvious features of the database
 		</li>
 		<li>

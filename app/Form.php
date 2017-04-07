@@ -185,6 +185,11 @@ class Form extends Model
         return $this->uniqueNameWithLanguage;
     }
 
+    public function renderHTML()
+    {
+        return "<a href='/forms/{$this->id}'>{$this->surfaceForm}</a> (".$this->formType->renderArguments().")";
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Relations

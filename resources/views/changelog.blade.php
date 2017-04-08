@@ -10,6 +10,9 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			08-04-17: Improved search
+		</li>
+		<li>
 			08-04-17: Fixed an issue with some text fields resetting the carat to the beginning after each character
 		</li>
 		<li>

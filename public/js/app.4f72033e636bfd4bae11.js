@@ -25518,6 +25518,8 @@ module.exports = function spread(callback) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_clickaway__ = __webpack_require__(258);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_clickaway___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_clickaway__);
 //
 //
 //
@@ -25559,6 +25561,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = {
 
@@ -25574,6 +25578,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 
+
+	directives: {
+		onClickaway: __WEBPACK_IMPORTED_MODULE_0_vue_clickaway__["directive"]
+	},
 
 	computed: {
 		showCheck: function showCheck() {
@@ -25594,6 +25602,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				this.selectItem(this.options[this.curr - 1].name);
 			}
 		},
+
+
+		//===========================================================================================================//
+		// From http://stackoverflow.com/questions/1125292/how-to-move-cursor-to-end-of-contenteditable-entity
+		setEndOfContenteditable: function setEndOfContenteditable(contentEditableElement) {
+			var range, selection;
+			if (document.createRange) //Firefox, Chrome, Opera, Safari, IE 9+
+				{
+					range = document.createRange(); //Create a range (a range is a like the selection but invisible)
+					range.selectNodeContents(contentEditableElement); //Select the entire contents of the element with the range
+					range.collapse(false); //collapse the range to the end point. false means collapse to end rather than the start
+					selection = window.getSelection(); //get the selection object (allows you to change selection)
+					selection.removeAllRanges(); //remove any selections already made
+					selection.addRange(range); //make the range you have just created the visible selection
+				} else if (document.selection) //IE 8 and lower
+				{
+					range = document.body.createTextRange(); //Create a range (a range is a like the selection but invisible)
+					range.moveToElementText(contentEditableElement); //Select the entire contents of the element with the range
+					range.collapse(false); //collapse the range to the end point. false means collapse to end rather than the start
+					range.select(); //Select the range (make it the visible selection
+				}
+		},
+
+		//===========================================================================================================//
+
+		closeList: function closeList() {
+			this.showList = false;
+		},
 		determineValue: function determineValue(text) {
 			var val = '';
 			this.extra = '';
@@ -25609,7 +25645,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		},
 		selectItem: function selectItem(newText) {
 			// Hide the list
-			this.showList = false;
+			this.closeList();
 
 			// Reset the current element
 			this.curr = 0;
@@ -25627,6 +25663,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}
 		},
 		update: function update(newText) {
+			var _this = this;
+
 			var id = this.determineValue(newText);
 
 			this.$emit('input', {
@@ -25634,12 +25672,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				id: id,
 				extra: this.extra
 			});
+
+			Vue.nextTick(function () {
+				var list = _this.$refs.list;
+				_this.setEndOfContenteditable(list);
+			});
 		},
 		onInput: function onInput(newText) {
-			var _this = this;
+			var _this2 = this;
 
 			if (newText.length > 0) {
-				this.showList = false;
+				this.closeList();
 				this.loading = true;
 
 				axios.get(this.uri, {
@@ -25648,17 +25691,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 						language: this.with
 					}
 				}).then(function (response) {
-					_this.options = response.data;
+					_this2.options = response.data;
 
-					for (var i = 0; i < _this.options.length; i++) {
-						_this.options[i].name = _this.formatString(_this.options[i].name);
+					for (var i = 0; i < _this2.options.length; i++) {
+						_this2.options[i].name = _this2.formatString(_this2.options[i].name);
 					}
 
-					if (_this.options.length > 0) {
-						_this.showList = true;
+					if (_this2.options.length > 0) {
+						_this2.showList = true;
 					}
 
-					_this.loading = false;
+					_this2.loading = false;
 				});
 			}
 
@@ -134416,6 +134459,12 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
+    directives: [{
+      name: "on-clickaway",
+      rawName: "v-on-clickaway",
+      value: (_vm.closeList),
+      expression: "closeList"
+    }],
     staticClass: "alg-ajax-list"
   }, [_c('div', {
     staticClass: "control has-icon has-icon-right"

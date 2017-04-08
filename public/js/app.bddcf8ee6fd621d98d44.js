@@ -27824,6 +27824,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
 	props: ['method', 'action', 'orders', 'modes', 'languages', 'preset'],
@@ -27838,6 +27846,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				}],
 				affirmative: true,
 				negative: false,
+				nonDiminutive: true,
 				diminutive: false,
 				classes: {
 					AI: { id: 1, checked: false },
@@ -27958,7 +27967,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		if (this.preset) {
 			var presetArray = JSON.parse(this.preset);
 
-			this.loadCheck(presetArray, ['affirmative', 'negative', 'diminutive', 'showMorphology']);
+			this.loadCheck(presetArray, ['affirmative', 'negative', 'nonDiminutive', 'diminutive', 'showMorphology']);
 			this.loadSeries(presetArray, ['orders', 'modes', 'subclasses']);
 
 			this.form.modeSelect = presetArray.modeSelect;
@@ -131613,6 +131622,42 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }), _vm._v("\n\t\t\t\t\tNegative\n\t\t\t\t")])]), _vm._v(" "), _c('p', {
+    staticClass: "control"
+  }, [_c('label', {
+    staticClass: "checkbox"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.nonDiminutive),
+      expression: "form.nonDiminutive"
+    }],
+    attrs: {
+      "type": "checkbox",
+      "name": "nonDiminutive"
+    },
+    domProps: {
+      "checked": Array.isArray(_vm.form.nonDiminutive) ? _vm._i(_vm.form.nonDiminutive, null) > -1 : (_vm.form.nonDiminutive)
+    },
+    on: {
+      "__c": function($event) {
+        var $$a = _vm.form.nonDiminutive,
+          $$el = $event.target,
+          $$c = $$el.checked ? (true) : (false);
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$c) {
+            $$i < 0 && (_vm.form.nonDiminutive = $$a.concat($$v))
+          } else {
+            $$i > -1 && (_vm.form.nonDiminutive = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+          }
+        } else {
+          _vm.form.nonDiminutive = $$c
+        }
+      }
+    }
+  }), _vm._v("\n\t\t\t\t\tNon-diminutive\n\t\t\t\t")])]), _vm._v(" "), _c('p', {
     staticClass: "control"
   }, [_c('label', {
     staticClass: "checkbox"

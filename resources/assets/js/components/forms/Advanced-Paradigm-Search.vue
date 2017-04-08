@@ -156,6 +156,14 @@
 				<p class="control">
 					<label class="checkbox">
 						<input type="checkbox"
+							   v-model="form.nonDiminutive"
+							   name="nonDiminutive">
+						Non-diminutive
+					</label>
+				</p>
+				<p class="control">
+					<label class="checkbox">
+						<input type="checkbox"
 							   v-model="form.diminutive"
 							   name="diminutive">
 						Diminutive
@@ -193,6 +201,7 @@ export default {
 				}],
 				affirmative: true,
 				negative: false,
+				nonDiminutive: true,
 				diminutive: false,
 				classes: {
 					AI: { id: 1, checked: false },
@@ -319,7 +328,7 @@ export default {
 		if(this.preset) {
 			let presetArray = JSON.parse(this.preset);
 			
-			this.loadCheck(presetArray, ['affirmative', 'negative', 'diminutive', 'showMorphology']);
+			this.loadCheck(presetArray, ['affirmative', 'negative', 'nonDiminutive', 'diminutive', 'showMorphology']);
 			this.loadSeries(presetArray, ['orders', 'modes', 'subclasses']);
 
 			this.form.modeSelect = presetArray.modeSelect;

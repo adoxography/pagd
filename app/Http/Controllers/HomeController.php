@@ -60,7 +60,7 @@ class HomeController extends Controller
         }
 
         // Call the search
-        return redirect()->to("/search/paradigm?{$classes}{$orders}&modeSelect=allModes&affirmative=on&negative=on{$languages}");
+        return redirect()->to("/search/paradigm?{$classes}{$orders}&modeSelect=allModes&affirmative=on&negative=on&nonDiminutive=on&diminutive=on{$languages}");
     }
 
     /**

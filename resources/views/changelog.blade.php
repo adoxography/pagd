@@ -10,6 +10,9 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			07-04-17: Added non-diminutive option to advanced paradigm search
+		</li>
+		<li>
 			07-04-17: Updated labels in searches
 		</li>
 		<li>

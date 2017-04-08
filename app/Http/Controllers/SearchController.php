@@ -274,9 +274,8 @@ class SearchController extends Controller
         $this->subclasses  = $request->subclasses;
         $this->affirmative = $request->affirmative;
         $this->negative    = $request->negative;
+        $this->nonDiminutive = $request->nonDiminutive;
         $this->diminutive  = $request->diminutive;
-
-        // dd($this->subclasses);
 
         $formQuery = Form::with([
             'language',
@@ -351,12 +350,13 @@ class SearchController extends Controller
         $this->filterSubqueryUsingFuzzyList($query, 'formType', $this->subclasses, 'subclass');
         $this->filterSubqueryUsingList($query, 'formType', $this->orders, 'order_id');
 
-        if($this->diminutive) {
+        if($this->diminutive && !$this->nonDiminutive) {
             $query->whereHas('formType', function ($query) {
                 $query->where('isDiminutive', 1);
             });
         }
-        else {
+
+        if(!$this->diminutive && $this->nonDiminutive) {
             $query->whereHas('formType', function ($query) {
                 $query->where('isDiminutive', 0);
             });

@@ -70,10 +70,10 @@
 										|| (!isset($structure['subject']->number) && isset($form->formType->subject->number))
 										|| (!isset($structure['primaryObject']->number) && isset($form->formType->primaryObject) && isset($form->formType->primaryObject->number))
 										|| (!isset($structure['secondaryObject']->number) && isset($form->formType->secondaryObject) && isset($form->formType->secondaryObject->number)))
-										<span style="color: red;">({!! $form->formType->renderArguments() !!})</span>
+										<span class="alg-highlight">({!! $form->formType->renderArguments() !!})</span>
 									@endif
 									@if(isset($form->formType->isAbsolute))
-										<span style="color: red;">
+										<span class="alg-highlight">
 										@if($form->formType->isAbsolute === 1)
 											(Absolute)
 										@else

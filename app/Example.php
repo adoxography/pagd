@@ -163,6 +163,6 @@ class Example extends Model
 
     public function renderInNotes()
     {
-        return "<a href='/examples/{$this->id}'>{$this->name}</a>".$this->printMorphemes();
+        return "<blockquote><a href='/examples/{$this->id}'>{$this->name}</a>".$this->printMorphemes()."'{$this->translation}'</blockquote>";
     }
 }

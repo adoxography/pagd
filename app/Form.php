@@ -193,7 +193,7 @@ class Form extends Model
     public function renderInNotes()
     {
         $name = isset($this->phoneticForm) ? $this->phoneticForm : $this->surfaceForm;
-        return "<a href='/forms/{$this->id}'>{$name}</a>".$this->printMorphemes();
+        return "<blockquote><a href='/forms/{$this->id}'>{$name}</a>".$this->printMorphemes().'</blockquote>';
     }
 
     /*

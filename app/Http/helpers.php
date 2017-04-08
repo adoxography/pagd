@@ -113,6 +113,9 @@ function replaceTags($text, $id)
         // Get the tag, and look it up
         $tag = substr($text, $start + 1, $end - $start - 1);
 
+        if(is_numeric($tag{0})) {
+            $replacement = "#$tag";
+        }
         if(count(explode('.', $tag)) > 1) {
 
             $parts = explode('.', $tag);
@@ -153,7 +156,7 @@ function replaceTags($text, $id)
             }
         }
 
-        $output = replaceTags($firstPart.$replacement.$lastPart, $id);
+        $output = $firstPart.$replacement.replaceTags($lastPart, $id);
     }
 
     return $output;

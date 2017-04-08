@@ -84,17 +84,26 @@
 					<tr>
 						<td>Form</td>
 						<td>#f.id</td>
-						<td>The phonological representation, (or the surface form, if there is no phonological representation) above the full morphology</td>
+						<td>
+							The phonological representation, (or the surface form, if there is no phonological representation)<br />
+							The morphemes<br />
+							The morphemes' glosses
+						</td>
 					</tr>
 					<tr>
 						<td>Example</td>
 						<td>#e.id</td>
-						<td>The example above the full morphology</td>
+						<td>
+							The example<br />
+							The morphemes<br />
+							The morphemes' glosses<br />
+							The translation
+						</td>
 					</tr>
 					<tr>
 						<td>Morpheme</td>
 						<td>#m.id</td>
-						<td>The morpheme, immediately followed by its translation (if set) or gloss</td>
+						<td>The morpheme, immediately followed by its translation (if applicable) or gloss</td>
 					</tr>
 				</tbody>
 			</table>

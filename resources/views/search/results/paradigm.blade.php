@@ -1,4 +1,4 @@
-<!doctype html>
+{{-- <!doctype html>
 <html style="background-color: white;">
 	<head>
 		<link rel="stylesheet" type="text/css" href="{{ mix("/css/app.css") }}" />
@@ -10,10 +10,14 @@
 		</style>
 	</head>
 	<body>
-		<div id="root">
+		<div id="root"> --}}
+
+@extends('layout')
+
+@section('content')
 			<alg-paradigm-table morphemes-on="{{ $showMorphology }}" inline-template>
 				<div>
-					<nav class="level" style="position: fixed;">
+								<nav class="level">
 						<div class="level-left">
 							<div class="level-item">
 								<a class="button" @click="toggleShow">Show/Hide Morphology</a>
@@ -27,7 +31,8 @@
 							</div>
 						</div>
 					</nav>
-					<table class="table is-bordered" style="display: block; padding-top: 2.5rem;">
+				<div class="paradigm-container">
+					<table class="table is-bordered" style="display: block;">
 						{!! $search->renderHeaders(3) !!}
 						<tbody>
 							@foreach($rows as $class => $subjects)
@@ -98,8 +103,11 @@
 						</tbody>
 					</table>
 				</div>
+				</div>
 			</alg-paradigm-table>
-		</div>
+
+@endsection 
+{{-- 		</div>
 		<script src="{{ mix("/js/app.js") }}"></script>
 	</body>
-</html>
+</html> --}}

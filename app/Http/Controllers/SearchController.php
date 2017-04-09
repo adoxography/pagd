@@ -109,7 +109,7 @@ class SearchController extends Controller
             'morphemes' => function ($query) {
                 $query->orderBy('position');
             },
-            'morphemes.gloss',
+            'morphemes.glosses',
             'morphemes.slot'
         ]);
 
@@ -290,7 +290,7 @@ class SearchController extends Controller
             'morphemes' => function ($query) {
                 $query->orderBy('position');
             },
-            'morphemes.gloss',
+            'morphemes.glosses',
             'morphemes.slot'
         ]);
 

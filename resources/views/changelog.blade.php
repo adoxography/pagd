@@ -10,6 +10,10 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			08-04-17: Fixed bug in paradigm search
+		</li>
+		<hr>
+		<li>
 			08-04-17: Restructured how glosses work (<a href='/guide#glosses'>guide</a>)
 		</li>
 		<li>

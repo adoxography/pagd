@@ -30,8 +30,8 @@ class MorphemeController extends AlgModelController
         if($this->shouldShow($morpheme)) {
             $morpheme->load([
                 'language',
-                'gloss',
                 'forms',
+                'glosses',
                 'parent',
                 'parent.language',
                 'examples'
@@ -74,7 +74,7 @@ class MorphemeController extends AlgModelController
     {
         $morpheme->load([
             'language',
-            'gloss',
+            'glosses',
             'slot',
             'parent',
             'parent.language',

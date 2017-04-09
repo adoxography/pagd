@@ -33,6 +33,11 @@ class GlossController extends ClosedController
         return parent::showItem($gloss);
     }
 
+    public function create()
+    {
+        return parent::createItem(new Gloss());
+    }
+
     /**
      * Show the gloss edit form
      *
@@ -42,6 +47,13 @@ class GlossController extends ClosedController
     public function edit(Gloss $gloss)
     {
         return parent::editItem($gloss);
+    }
+
+    public function store(Request $request)
+    {
+        $item = Gloss::create($request->all());
+
+        return parent::storeItem($item);
     }
 
     /**

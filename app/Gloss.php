@@ -15,20 +15,17 @@ class Gloss extends Closed
 
     protected $fillable = ['name', 'abv', 'description'];
 
-    public function __construct()
-    {
-    	$this->relationList = ['morphemes'];
-    	$this->singular = 'Gloss';
-    	$this->plural = 'Glosses';
-    }
+    public $relationList = ['morphemes'];
+    public $singular = 'Gloss';
+    public $plural = 'Glosses';
 
     public function morphemes()
     {
-    	return $this->hasMany(Morpheme::class);
+    	return $this->belongsToMany(Morpheme::class, 'Glosses_Morphemes');
     }
 
     public function renderHTMl()
     {
-        return "<span class='gloss'>{$this->abv}</span>";
+        return "<span class='gloss'>{$this->name}</span>";
     }
 }

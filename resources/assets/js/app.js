@@ -45,6 +45,7 @@ Vue.component('alg-source-form',    require('./components/forms/Source.vue'));
 Vue.component('alg-order', require('./components/Order.vue'));
 Vue.component('alg-flag', require('./components/Flag.vue'));
 Vue.component('alg-textarea', require('./components/Textarea.vue'));
+Vue.component('alg-tag-input', require('./components/Tag-Input.vue'));
 
 Vue.component('alg-paradigm-search',  require('./components/forms/Paradigm-Search.vue'));
 Vue.component('alg-basic-paradigm-search', require('./components/forms/Basic-Paradigm-Search.vue'));

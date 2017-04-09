@@ -108,6 +108,19 @@
 				</tbody>
 			</table>
 		</alg-tab>
+		<alg-tab name="Glosses">
+			<h4 class="title is-4">Adding glosses to morphemes</h4>
+			<p>Because the gloss for a particular morpheme may be a combination of glosses, entering them is done differently from other fields, such as a morpheme's slot. Instead of just typing a gloss abbreviation into the text field and leaving it, press "enter" or click on an option provided to add the gloss to the morpheme's list of glosses. These glosses will be displayed together, separated by periods.</p>
+			<br />
+			<h4 class="title is-4">Adding glosses that aren't in the list</h4>
+			<p>It may be the case that you want to use a gloss that hasn't been added yet. If this is the case, just type the abbreviation you want to use, and press "enter." The gloss will appear in the same way as any other gloss; the only difference is that it won't be linked to any gloss detail page. When the gloss is added, the link will be updated automatically.</p>
+			<br />
+			<h4 class="title is-4">Adding multiple glosses at once</h4>
+			<p>The gloss input is designed to help you by suggesting possible glosses, but if you already know what the abbreviations of the glosses you want are, you can add multiple glosses at once by separating them with periods, exactly as you might expect to see them when rendered.</p>
+			<br />
+			<h4 class="title is-4">Adding translations as glosses</h4>
+			<p>Translation-style glosses need to be handled differently from other kinds of glosses (e.g. they don't appear in small caps). To let the database know that the gloss you've entered is a translation, just surround it with double quotes. Although it is true that translation-style glosses should be interspersed with periods, you should enter your translation with spaces, because otherwise, the database will assume that you're trying to add multiple glosses (see above). The spaces will be converted to periods when the gloss is rendered.</p>
+		</alg-tab>
 	</alg-tabs>
 </div>
 

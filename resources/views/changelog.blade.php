@@ -10,6 +10,9 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			08-04-17: Restructured how glosses work (<a href='/guide#glosses'>guide</a>)
+		</li>
+		<li>
 			08-04-17: Implemented source lookup with TNTSearch; typing "algonquin" will now return results for "Algonquian"
 		</li>
 		<li>

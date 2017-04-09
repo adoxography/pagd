@@ -24191,6 +24191,7 @@ Vue.component('alg-source-form', __webpack_require__(292));
 Vue.component('alg-order', __webpack_require__(277));
 Vue.component('alg-flag', __webpack_require__(265));
 Vue.component('alg-textarea', __webpack_require__(283));
+Vue.component('alg-tag-input', __webpack_require__(339));
 
 Vue.component('alg-paradigm-search', __webpack_require__(290));
 Vue.component('alg-basic-paradigm-search', __webpack_require__(285));
@@ -25952,6 +25953,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		classes: {}
 	},
 
+	computed: {
+		hasValue: function hasValue() {
+			return this.value.id > 0 && !this.showList;
+		}
+	},
+
 	directives: {
 		focus: __WEBPACK_IMPORTED_MODULE_0_vue_focus__["focus"],
 		onClickaway: __WEBPACK_IMPORTED_MODULE_1_vue_clickaway__["directive"]
@@ -25982,6 +25989,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			return val;
 		},
+		reset: function reset() {
+			// Hide the list
+			this.showList = false;
+
+			// Reset the current element
+			this.curr = 0;
+		},
 
 
 		/**
@@ -25999,14 +26013,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			this.showList = false;
 		},
 		selectItem: function selectItem(item) {
-			// Hide the list
-			this.showList = false;
-
-			// Reset the current element
-			this.curr = 0;
+			this.reset();
 
 			// Trigger an input event
 			this.update(item);
+
+			this.$emit("select");
 		},
 		onKeyUp: function onKeyUp(keyCode) {
 			if (keyCode == 40) {
@@ -26021,9 +26033,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				this.filterOptions();
 
 				// Only show the list if there is text in the field and there are options in the list
-				if (keyCode != 9) {
-					this.showList = this.value.text.length > 0 && this.options.length > 0;
-				}
+				this.showList = true;
+				// if(keyCode != 9) {
+				// 	this.showList = this.value.text.length > 0 && this.options.length > 0;
+				// }
 			}
 		},
 		onKeyDown: function onKeyDown(event) {
@@ -26033,6 +26046,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			} else if (event.keyCode == 13) {
 				// Enter key
 				this.handleEnterKey(event);
+				this.showList = false;
 			}
 		},
 		handleHover: function handleHover(item) {
@@ -26050,7 +26064,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var _this = this;
 
 			this.options = this.parsedList.filter(function (item) {
-				return item.name.toLowerCase().includes(_this.value.text.toLowerCase());
+				var currText = void 0;
+
+				if (_this.value.text) {
+					currText = _this.value.text.toLowerCase();
+				} else {
+					currText = '';
+				}
+
+				return item.name.toLowerCase().includes(currText);
 			});
 		},
 		handleDownKey: function handleDownKey() {
@@ -26087,6 +26109,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				// The list is open
 				event.preventDefault();
 				this.selectItem(this.options[this.curr - 1].name);
+			} else if (this.value.text.length > 0 && this.showList) {
+				event.preventDefault();
+				this.$emit("keydown", {
+					keyCode: 13
+				});
 			}
 		},
 		activeItem: function activeItem(n) {
@@ -29393,7 +29420,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = {
 	props: ['method', 'action', 'languages', 'glosses', 'slots', 'changeTypes', 'morpheme', 'language', 'prefill'],
@@ -29408,10 +29434,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					text: "",
 					id: ''
 				},
-				gloss: {
-					text: "",
-					id: ""
-				},
+				glosses: [],
+				gloss: this.gloss,
 				slot: {
 					text: "",
 					id: ""
@@ -29428,6 +29452,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			})
 		};
 	},
+
+
+	computed: {
+		gloss: function gloss() {
+			var output = "";
+
+			this.form.glosses.forEach(function (gloss) {
+				if (output.length > 0) {
+					output += ".";
+				}
+
+				output += gloss.text;
+			});
+
+			return output;
+		}
+	},
+
 	created: function created() {
 		var _this = this;
 
@@ -29449,14 +29491,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				text: morphemeArray.language.name,
 				id: morphemeArray.language_id
 			};
-			this.form.gloss = {
-				text: morphemeArray.gloss.abv,
-				id: morphemeArray.gloss_id
-			};
 			this.form.slot = {
 				text: morphemeArray.slot.abv,
 				id: morphemeArray.slot_id
 			};
+
+			morphemeArray.gloss.split('.').forEach(function (gloss) {
+				_this.form.glosses.push({
+					id: 0,
+					text: gloss
+				});
+			});
 
 			// Assign nullable foreign defaults
 			if (morphemeArray.translation) {
@@ -29502,6 +29547,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var _this2 = this;
 
 			this.loading = true;
+
+			this.form.gloss = this.gloss;
 
 			this.form.submit(this.method.toLowerCase(), this.action).then(function (response) {
 				window.location.replace("/morphemes/" + response);
@@ -130957,7 +131004,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }, [_vm._v(_vm._s(item.name)), (item.hasDuplicates) ? _c('sup', [_vm._v(_vm._s(item.disambiguator))]) : _vm._e(), _vm._v(" ("), _c('span', {
         staticClass: "gloss"
-      }, [_vm._v(_vm._s(item.gloss.abv))]), _vm._v(")")])])
+      }, [_vm._v(_vm._s(item.gloss))]), _vm._v(")")])])
     }))
   }))])
 },staticRenderFns: []}
@@ -133448,8 +133495,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: (_vm.showList),
-      expression: "showList"
+      value: (_vm.showList && _vm.value.text.length > 0 && _vm.options.length > 0),
+      expression: "showList && value.text.length > 0 && options.length > 0"
     }],
     staticClass: "box alg-datalist-dropdown"
   }, [_c('ul', _vm._l((_vm.options), function(option, index) {
@@ -134161,16 +134208,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('label', {
     staticClass: "label",
     attrs: {
-      "for": "gloss"
+      "for": "glosses"
     }
-  }, [_vm._v("Gloss")]), _vm._v(" "), _c('alg-datalist', {
+  }, [_vm._v("Gloss")]), _vm._v(" "), _c('alg-tag-input', {
     attrs: {
       "list": _vm.glosses,
       "name": "gloss",
       "id": "gloss",
-      "required": "required",
       "disabled": _vm.loading,
-      "placeholder": "Select a gloss from the list or type a new one in 'ABV (Full Name)' format",
+      "placeholder": "Select glosses from the list or type your own and press 'enter'",
       "classes": {
         'is-danger': _vm.form.errors.has('gloss')
       }
@@ -134181,11 +134227,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     },
     model: {
-      value: (_vm.form.gloss),
+      value: (_vm.form.glosses),
       callback: function($$v) {
-        _vm.form.gloss = $$v
+        _vm.form.glosses = $$v
       },
-      expression: "form.gloss"
+      expression: "form.glosses"
     }
   }), _vm._v(" "), _c('span', {
     directives: [{
@@ -137100,6 +137146,215 @@ exports.install = function(Vue) {
     })
 };
 
+
+/***/ }),
+/* 339 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(340),
+  /* template */
+  __webpack_require__(341),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/home/vagrant/Code/laravel/resources/assets/js/components/Tag-Input.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Tag-Input.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-ac3f8cb4", Component.options)
+  } else {
+    hotAPI.reload("data-v-ac3f8cb4", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 340 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+	props: ['list', 'preset', 'value', 'name', 'id', 'placeholder', 'classes', 'disabled'],
+
+	data: function data() {
+		return {
+			listValue: {
+				id: '',
+				text: ''
+			}
+		};
+	},
+
+
+	methods: {
+		addTag: function addTag(tag) {
+			var val = this.value;
+			if (!this.inArray(val, tag)) {
+				val.push(tag);
+
+				this.$emit("input", val);
+			}
+		},
+		removeTag: function removeTag(index) {
+			var val = this.value;
+			val.splice(index, 1);
+
+			this.$emit("input", val);
+		},
+		inArray: function inArray(haystack, needle) {
+			var found = false;
+
+			for (var i = 0; i < haystack.length && !found; i++) {
+				found = haystack[i].text === needle.text;
+			}
+
+			return found;
+		},
+		clearList: function clearList() {
+			this.listValue = {
+				text: '',
+				id: ''
+			};
+		},
+		onInput: function onInput() {
+			var _this = this;
+
+			Vue.nextTick(function () {
+				_this.addTag(_this.listValue);
+				_this.clearList();
+			});
+		},
+		onEnter: function onEnter(event) {
+			var _this2 = this;
+
+			if (this.listValue.text.length > 0) {
+
+				var glosses = this.listValue.text.split('.');
+
+				glosses.forEach(function (gloss) {
+					if (gloss.length > 0) {
+						_this2.addTag({
+							id: 0,
+							text: gloss
+						});
+					}
+				});
+
+				this.$refs.datalist.reset();
+				this.clearList();
+			}
+		}
+	}
+};
+
+/***/ }),
+/* 341 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('alg-datalist', {
+    ref: "datalist",
+    attrs: {
+      "list": _vm.list,
+      "name": _vm.name,
+      "id": _vm.id,
+      "disabled": _vm.disabled,
+      "placeholder": _vm.placeholder,
+      "classes": _vm.classes
+    },
+    on: {
+      "keydown": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.onEnter($event)
+      },
+      "select": _vm.onInput
+    },
+    model: {
+      value: (_vm.listValue),
+      callback: function($$v) {
+        _vm.listValue = $$v
+      },
+      expression: "listValue"
+    }
+  }), _vm._v(" "), _c('ul', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.value.length > 0),
+      expression: "value.length > 0"
+    }]
+  }, _vm._l((_vm.value), function(tag, index) {
+    return _c('li', {
+      staticStyle: {
+        "display": "inline-block",
+        "padding-top": ".5rem"
+      }
+    }, [_c('span', {
+      staticClass: "tag"
+    }, [_vm._v("\n\t\t\t\t" + _vm._s(tag.text) + "\n\t\t\t\t"), _c('a', {
+      staticClass: "delete is-small",
+      attrs: {
+        "tabindex": "-1"
+      },
+      on: {
+        "click": function($event) {
+          $event.preventDefault();
+          _vm.removeTag(index)
+        }
+      }
+    })])])
+  }))], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-ac3f8cb4", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

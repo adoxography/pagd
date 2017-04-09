@@ -11,6 +11,7 @@ class MorphemeObserver {
 	public function saved(Morpheme $morpheme)
 	{
 		$this->reconnectData($morpheme);
+		$morpheme->connectGlosses();
 	}
 
 	public function deleted(Morpheme $morpheme)

@@ -28,7 +28,7 @@
 			</p>
 		</div>
 
-		<div class="box alg-datalist-dropdown" v-show="showList">
+		<div class="box alg-datalist-dropdown" v-show="showList && value.text.length > 0 && options.length > 0">
 			<ul>
 				<li v-for="(option, index) in options">
 					<a @click="selectItem(option.name)"
@@ -69,6 +69,12 @@
 			classes: {}
 		},
 
+		computed: {
+			hasValue() {
+				return this.value.id > 0 && !this.showList;
+			}
+		},
+
 		directives: {
 			focus: focus,
 			onClickaway: onClickaway
@@ -100,6 +106,14 @@
 				return val;
 			},
 
+			reset() {
+				// Hide the list
+				this.showList = false;
+
+				// Reset the current element
+				this.curr = 0;
+			},
+
 			/**
 			 * Activated when the down arrow is pressed
 			 */
@@ -117,14 +131,12 @@
 			},
 
 			selectItem(item) {
-				// Hide the list
-				this.showList = false;
-
-				// Reset the current element
-				this.curr = 0;
+				this.reset();
 
 				// Trigger an input event
 				this.update(item);
+
+				this.$emit("select");
 			},
 
 			onKeyUp(keyCode) {
@@ -139,9 +151,10 @@
 					this.filterOptions();
 
 					// Only show the list if there is text in the field and there are options in the list
-					if(keyCode != 9) {
-						this.showList = this.value.text.length > 0 && this.options.length > 0;
-					}
+					this.showList = true;
+					// if(keyCode != 9) {
+					// 	this.showList = this.value.text.length > 0 && this.options.length > 0;
+					// }
 				}
 			},
 
@@ -151,6 +164,7 @@
 				}
 				else if(event.keyCode == 13) { // Enter key
 					this.handleEnterKey(event);
+					this.showList = false;
 				}
 			},
 
@@ -168,8 +182,16 @@
 			},
 
 			filterOptions() {
-				this.options = this.parsedList.filter((item) => {
-					return item.name.toLowerCase().includes(this.value.text.toLowerCase());
+				this.options = this.parsedList.filter(item => {
+					let currText;
+
+					if(this.value.text) {
+						currText = this.value.text.toLowerCase();
+					} else {
+						currText = '';
+					}
+
+					return item.name.toLowerCase().includes(currText);
 				});
 			},
 
@@ -207,6 +229,11 @@
 				if(this.curr > 0) { // The list is open
 					event.preventDefault();
 					this.selectItem(this.options[this.curr - 1].name);
+				} else if(this.value.text.length > 0 && this.showList) {
+					event.preventDefault();
+					this.$emit("keydown", {
+						keyCode: 13
+					});
 				}
 			},
 

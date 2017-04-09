@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Gloss;
 use Laravel\Scout\Searchable;
 use App\Events\Morpheme\Saved;
 use App\Events\Morpheme\Deleted;
@@ -35,7 +36,7 @@ class Morpheme extends Model
         'name',
         'language_id',
         'parent_id',
-        'gloss_id',
+        'gloss',
         'slot_id',
         'allomorphyNotes',
         'historicalNotes',
@@ -76,7 +77,7 @@ class Morpheme extends Model
         'comments'        => 'Comments',
         'historicalNotes' => 'Historical Notes',
         'language_id'     => 'Language ID',
-        'gloss_id'        => 'Gloss ID',
+        'gloss'           => 'Gloss',
         'name'            => 'Morpheme',
         'parent_id'       => 'Parent ID',
         'slot_id'         => 'Slot ID',
@@ -101,12 +102,14 @@ class Morpheme extends Model
 
     public function getUniqueNameWithLanguageAttribute()
     {
-        return "{$this->uniqueName} ({$this->language->name})";
+        $language = $this->language;
+
+        return "{$this->uniqueName} ({$language->name})";
     }
 
     public function getUniqueNameAttribute()
     {
-        return "{$this->name} ({$this->gloss->abv})";
+        return "{$this->name} (".$this->renderGloss().')';
     }
 
     public function getDisplayAttribute()
@@ -184,10 +187,15 @@ class Morpheme extends Model
     {
         return $this->belongsToMany(Example::class, 'Examples_Morphemes')->distinct();
     }
-    
-    public function gloss()
+
+    public function oldGloss()
     {
-        return $this->belongsTo(Gloss::class);
+        return $this->belongsTo(Gloss::class, 'gloss_id');
+    }
+    
+    public function glosses()
+    {
+        return $this->belongsToMany(Gloss::class, 'Glosses_Morphemes');
     }
 
     public function changeType()
@@ -197,7 +205,7 @@ class Morpheme extends Model
     
     public function slot()
     {
-        return $this->belongsTo(Slot::class);
+        return $this->belongsTo(Slot::class, 'slot_id');
     }
 
     public function initialChanges()
@@ -212,7 +220,75 @@ class Morpheme extends Model
 
     public function renderInNotes()
     {
-        $gloss = isset($this->translation) ? "'{$this->translation}'" : '('.$this->gloss->renderHTML().')';
+        $gloss = isset($this->translation) ? "'{$this->translation}'" : '('.$this->renderGloss(false).')';
         return $this->renderHTML()." $gloss";
+    }
+
+    public function renderGloss($colour = true)
+    {
+        $output = '';
+        $glosses = explode('.', $this->gloss);
+        $currGloss;
+        $colourHTML = '';
+
+        if($colour) {
+            $colourHTML = 'style="color:inherit;" ';
+        }
+
+        foreach($glosses as $glossText) {
+            if(strlen($output) > 0) {
+                $output .= '.';
+            }
+
+            if(strlen($glossText) > 0) {
+                if($glossText{0} == '"') {
+                    $currGloss = str_replace('"', '', $glossText);
+                    $currGloss = str_replace(' ', '.', $currGloss);
+
+                    $output .= $currGloss;
+                } else {
+                    $lookup = $this->glosses->where('abv', $glossText);
+
+                    if(count($lookup) > 0) {
+                        $currGloss = "<a href='/glosses/" . $lookup->first()->id . "' $colourHTML>" . $lookup->first()->abv . "</a>";
+                    } else {
+                        $currGloss = $glossText;
+                    }
+
+                    $output .= "<span class='gloss'>$currGloss</span>";
+                }
+            }
+        }
+
+        return $output;
+    }
+
+    public function renderGlossWithDescription()
+    {
+        $output = $this->renderGloss(false);
+        $description = '';
+
+        foreach($this->glosses as $gloss) {
+            $description .= $gloss->name . ' ';
+        }
+
+        $description = trim($description);
+
+        return "$output ($description)";
+    }
+
+    public function connectGlosses()
+    {
+        $this->glosses()->detach();
+
+        $glosses = explode('.', $this->gloss);
+
+        foreach($glosses as $glossAbv) {
+            $gloss = Gloss::where('abv', $glossAbv)->first();
+
+            if($gloss) {
+                $this->glosses()->attach($gloss);
+            }
+        }
     }
 }

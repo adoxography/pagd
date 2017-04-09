@@ -47,17 +47,16 @@
 
 			<!-- Gloss -->
 			<div class="column is-half">
-				<label for="gloss" class="label">Gloss</label>
-				<alg-datalist v-model="form.gloss"
-							  :list="glosses"
-							  name="gloss"
-							  id="gloss"
-							  required="required"
-							  :disabled="loading"
-							  @input="form.errors.clear('gloss')"
-							  placeholder="Select a gloss from the list or type a new one in 'ABV (Full Name)' format"
-							  :classes="{'is-danger': form.errors.has('gloss')}">
-				</alg-datalist>
+				<label for="glosses" class="label">Gloss</label>
+				<alg-tag-input v-model="form.glosses"
+							   :list="glosses"
+							   name="gloss"
+							   id="gloss"
+							   :disabled="loading"
+							   @input="form.errors.clear('gloss')"
+							   placeholder="Select glosses from the list or type your own and press 'enter'"
+							   :classes="{'is-danger': form.errors.has('gloss')}" >
+				</alg-tag-input>
 				<span class="help is-danger"
 					  v-show="form.errors.has('gloss')"
 					  v-text="form.errors.get('gloss')">
@@ -178,10 +177,8 @@ export default {
 					text: "",
 					id: ''
 				},
-				gloss: {
-					text: "",
-					id: ""
-				},
+				glosses: [],
+				gloss: this.gloss,
 				slot: {
 					text: "",
 					id: ""
@@ -197,6 +194,22 @@ export default {
 				sources: []
 			})
 		};
+	},
+
+	computed: {
+		gloss() {
+			let output = "";
+
+			this.form.glosses.forEach(gloss => {
+				if(output.length > 0) {
+					output += ".";
+				}
+
+				output += gloss.text;
+			});
+
+			return output;
+		}
 	},
 
 	created() {
@@ -218,14 +231,17 @@ export default {
 				text: morphemeArray.language.name,
 				id: morphemeArray.language_id
 			};
-			this.form.gloss = {
-				text: morphemeArray.gloss.abv,
-				id: morphemeArray.gloss_id
-			};
 			this.form.slot = {
 				text: morphemeArray.slot.abv,
 				id: morphemeArray.slot_id
 			};
+
+			morphemeArray.gloss.split('.').forEach(gloss => {
+				this.form.glosses.push({
+					id: 0,
+					text: gloss
+				});
+			});
 
 			// Assign nullable foreign defaults
 			if(morphemeArray.translation) {
@@ -270,6 +286,8 @@ export default {
 	methods: {
 		onSubmit() {
 			this.loading = true;
+
+			this.form.gloss = this.gloss;
 
 			this.form.submit(this.method.toLowerCase(), this.action)
 				.then(response => {

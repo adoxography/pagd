@@ -2,6 +2,33 @@
 
 define("NOT_FOUND", -1);
 
+function convertMorphemeGlosses() {
+    $morphemes = App\Morpheme::all();
+
+    foreach($morphemes as $morpheme) {
+
+        if(!isset($morpheme->gloss) || strlen($morpheme->gloss) == 0) {
+            if(isset($morpheme->translation)) {
+                $translation = $morpheme->translation;
+                $morpheme->gloss = "\"$translation\"";
+            } else if(isset($morpheme->gloss_id)) {
+                $gloss = $morpheme->oldGloss->abv;
+
+                if($gloss != 'V' && $gloss != 'X') {
+                    $gloss = strtolower($gloss);
+                }
+
+                $morpheme->gloss = $gloss;
+            }
+
+            $morpheme->save();
+        }
+
+    }
+
+    return "Operation complete";
+}
+
 function assessAllForms()
 {
     $forms = \App\Form::all();

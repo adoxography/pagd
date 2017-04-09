@@ -60,7 +60,7 @@ class LanguageController extends AlgModelController
                           ->where('name', '<>', '*V')
                           ->orderBy('name');
                 },
-                'morphemes.gloss',
+                'morphemes.glosses',
                 'morphemes.slot',
                 'forms',
                 'emptyForms',

@@ -20,8 +20,7 @@ Route::get('entire-paradigm', 'HomeController@entireParadigm');
 Route::get('changelog', 'HomeController@changelog');
 Route::get('about', 'HomeController@about');
 Route::get('sandbox', function() {
-    \Illuminate\Support\Facades\Artisan::call('algling:index');
-    return 'hello';
+    return view('sandbox');
 });
 Route::get('need-attention',        'HomeController@incompleteForms');
 Route::get('guide', 'HomeController@guide');

@@ -44,6 +44,11 @@ abstract class ClosedController extends AlgModelController
         return view('closed.show', compact('item'));
     }
 
+    public function createItem(Model $item)
+    {
+        return view('closed.create', compact('item'));
+    }
+
     /**
      * Show the item edit page
      *
@@ -53,6 +58,14 @@ abstract class ClosedController extends AlgModelController
     public function editItem(Model $item)
     {
         return view('closed.edit', compact('item'));
+    }
+
+    public function storeItem(Model $item)
+    {
+        $display = $this->getDisplay($item);
+
+        flash("$display created successfully", 'is-success');
+        return redirect('/'.strtolower($item->plural)."/{$item->id}");
     }
 
     /**

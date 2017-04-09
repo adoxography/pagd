@@ -231,11 +231,8 @@ trait HasMorphemesTrait {
         			if($morpheme->initialChanged()) {
         				$glossHTML .= "IC.";
         			}
-        			if($morpheme->translation) {
-        				$glossHTML .= str_replace(" ", ".", $morpheme->translation);
-        			} else {
-        				$glossHTML .= "<a href='/glosses/{$morpheme->gloss_id}' style='color: inherit;'><span class='gloss'>{$morpheme->gloss->abv}</span></a>";
-        			}
+
+    				$glossHTML .= $morpheme->renderGloss();
 
         			$morphemeHTML .= "<p style='color: $colour;'>$glossHTML</p>";
                 } else {

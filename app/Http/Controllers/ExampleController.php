@@ -28,7 +28,7 @@ class ExampleController extends AlgModelController
     public function show(Example $example)
     {
         if($this->shouldShow($example)){
-            $example->load(['form', 'form.language', 'form.sources', 'morphemes', 'morphemes.gloss', 'morphemes.slot']);
+            $example->load(['form', 'form.language', 'form.sources', 'morphemes', 'morphemes.glosses', 'morphemes.slot']);
 
             return view('examples.show', compact('example'));
         } else {

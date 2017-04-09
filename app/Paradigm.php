@@ -12,6 +12,8 @@ class Paradigm
 {
     private $headers;
     private $rows;
+    private $headerRows;
+    private $numHeaders;
 
     /**
      * Construct the paradigm
@@ -24,6 +26,9 @@ class Paradigm
         $this->loadHeaders($forms);
         $this->loadRows($forms);
 
+        $this->splitHeaders(5);
+        $this->filterHeaders();
+        $this->calculateNumHeaders();
         // Filter out the unnecessary data and deal with syncretism
         $this->filterRows();
     }
@@ -52,6 +57,130 @@ class Paradigm
             // What we're really worried about here is the keys, so no data actually needs to be assigned to the end of the array
             $this->headers[$form->language->name][$formType->order->name][$formType->mode->name][$formType->absoluteStatus][$formType->negativeStatus][$formType->diminutiveStatus] = null;
         }
+
+        $this->headers = $this->mergeHeaders();
+    }
+
+    private function mergeHeaders($headers = null, $span = 1, $bordered = true, $firstRow = true) {
+        $output = [];
+        $rowspan = 1;
+        $colspan = 1;
+        $show = true;
+        $subs = [];
+        $firstTime = true;
+
+        if(!isset($headers)) {
+            $headers = $this->headers;
+        }
+
+        if($headers !== null) {
+            foreach($headers as $header => $subheaders) {
+
+                if($firstTime) {
+                    $firstTime = false;
+                } elseif (!$firstRow) {
+                    $bordered = false;
+                }
+
+                if(array_first($headers) !== null) {
+                    $colspan = count(array_flatten($subheaders));
+                    $rowspan = $this->calculateHeaderColspan($subheaders);
+                    $subs = $this->mergeHeaders($subheaders, $rowspan, $bordered, false);
+                }
+
+                if($span > 1) {
+                    $show = false;
+                    $rowspan = $span - 1;
+                }
+
+                $output[$header] = [
+                    'rowspan'    => $rowspan,
+                    'colspan'    => $colspan,
+                    'subheaders' => $subs,
+                    'show'       => $show,
+                    'name'       => $header,
+                    'bordered'   => $bordered
+                ];
+            }
+        }
+
+        return $output;
+    }
+
+    protected function splitHeaders($numHeaders)
+    {
+        $output = [];
+
+        for($i = 0; $i < $numHeaders; $i++) {
+            $output[] = $this->splitHeaderRow($this->headers, $i);
+        }
+
+        $this->headerRows = $output;
+    }
+
+    protected function filterHeaders()
+    {
+        // $max = 1000;
+
+        // foreach($this->headerRows as &$row) {
+        //     foreach($row as $cell) {
+        //         if($cell['show']) {
+        //             $max = min([$max, $cell['rowspan']]);
+        //         }
+        //     }
+
+        //     foreach($row as &$cell) {
+        //         $cell['rowspan'] -= $max;
+        //     }
+        // }
+    }
+
+    protected function calculateNumHeaders()
+    {
+        $numHeaders = 0;
+        $found = false;
+
+        for($i = 0; $i < count($this->headerRows); $i++) {
+            $found = false;
+
+            for($j = 0; $j < count($this->headerRows[$i]) && !$found; $j++) {
+                if($this->headerRows[$i][$j]['show']) {
+                    $found = true;
+                    $numHeaders = $i;
+                }
+            }
+        }
+
+        $this->numHeaders = $numHeaders;
+    }
+
+    protected function splitHeaderRow($array, $index)
+    {
+        $output = [];
+
+        if($index > 0) {
+            foreach($array as $data) {
+                $output[] = $this->splitHeaderRow($data['subheaders'], $index - 1);
+            }
+
+            $output = array_collapse($output);
+        } else {
+            foreach($array as $data) {
+                $output[] = $data;
+            }
+        }
+
+        return $output;
+    }
+
+    private function calculateHeaderColspan($header) {
+        $span = 1;
+
+        if($header != NULL && count($header) == 1) {
+            $span += $this->calculateHeaderColspan(array_first($header));
+        }
+
+        return $span;
     }
 
     /**
@@ -348,142 +477,59 @@ class Paradigm
     /**
      * Renders out the header section of the paradigm
      *
-     * @param integer The number of normal headers - this excludes the final combined header
      * @return string The HTML for the header section
      */
-    public function renderHeaders($numHeaders)
+    public function renderHeaders()
     {
         $html = '';
-        $row = '';
-        $firstTime = true;
-
-        for ($i = 0; $i <= $numHeaders; $i++) {
-
-            // For all but the last row, render normally
-            if ($i < $numHeaders) {
-                $row = $this->renderHeaderLevel($i);
-
-                // The first row needs to include the code for the empty space in the top left corner
-                if ($firstTime) {
-                    $row  = "<th rowspan='$numHeaders' colspan='2'></th>$row";
-                    $firstTime = false;
-                }
-
-                $html .= "<tr>$row</tr>";
-            } else {
-                // The final combined row needs the class and argument headers as well
-                $html .= '<tr><th>Class</th><th>Arguments</th>'.$this->renderHeaderLevel($numHeaders, true).'</tr>';
-            }
-        }
-
-        return "<thead>$html</thead>";
-    }
-
-    /**
-     * Renders out a single header row
-     *
-     * Calls itself recursively to find the correct row
-     *
-     * @param integer The level to render
-     * @param boolean Renders a final header if true
-     * @param integer The row we're on
-     * @param array|null The array of headers; will be assigned the object's headers variable if null
-     * @param boolean True if this is the first row of a language and false otherwise
-     * @return string The HTML for a row of headers
-     */
-    public function renderHeaderLevel($level, $final = false, $index = 0, $currArray = null, $firstRow = true)
-    {
-        $html = '';
-
-        // Assign the object's headers instance variable if no array was provided
-        $array = isset($currArray) ? $currArray : $this->headers;
-
-        if ($level == $index) {
-            // Base case: We've found the right row
-
-            if (!$final) {
-                $html .= $this->renderNonFinalHeader($array, $firstRow);
-            } else {
-                $html .= $this->renderFinalHeader($array, $firstRow);
-            }
-        } else {
-            // Recursive case: keep looking for the row
-            foreach ($array as $key => $value) {
-                $html .= $this->renderHeaderLevel($level, $final, $index + 1, $value, $firstRow || $index == 0);
-
-                $firstRow = false;
-            }
-        }
-
-        return $html;
-    }
-
-    /**
-     * Renders a non-final header row
-     *
-     * @param array The array to pull the headers from
-     * @param boolean True if this falls in the first column of a language
-     * @return string The HTML for a non-final header row
-     */
-    private function renderNonFinalHeader($array, $firstRow)
-    {
-        $html = '';
-        $firstTime = true;
         $style = '';
+        $firstTime = true;
+        $index = 0;
+        $rowHTML = '';
 
-        foreach ($array as $key => $value) {
+        foreach($this->headerRows as $row) {
+            $rowHTML = '';
 
-            // If this is the first column of a language, it needs to have a solid left border
-            if ($firstTime && $firstRow) {
-                $style = "style='border-left: .2em solid #363636;'";
+            if($firstTime && $this->numHeaders > 1) {
+                $rowHTML .= '<th rowspan="'. ($this->numHeaders) .'" colspan="2"></th>';
                 $firstTime = false;
-            } else {
-                $style = '';
             }
 
-            // This row needs to span all of its children
-            $span = count(array_flatten($value));
+            if($this->numHeaders == $index) {
+                $rowHTML .= '<th>Class</th><th>Arguments</th>';
+            }
 
-            $html .= "<th colspan='$span' $style>$key</th>";
-        }
-
-        return $html;
-    }
-
-    /**
-     * Renders a final header row
-     *
-     * @param array The array to pull the headers from
-     * @param boolean True if this falls in the first column of a language
-     * @return string The HTML for a final header row
-     */
-    private function renderFinalHeader($array, $firstRow)
-    {
-        $html = '';
-        $firstTime = true;
-        $style = '';
-
-        // The final header is actually three headers glued together
-        foreach ($array as $key1 => $value1) {
-            foreach ($value1 as $key2 => $value2) {
-                foreach ($value2 as $key3 => $value3) {
-
-                    // If this is the first column of a language, it needs to have a solid left border
-                    if ($firstTime && $firstRow) {
-                        $style = "style='border-left: .2em solid #363636;'";
-                        $firstTime = false;
+            foreach($row as $cell) {
+                if($cell['show']) {
+                    if($cell['bordered']) {
+                        $style = 'style="border-left: .2em solid #363636;"';
                     } else {
                         $style = '';
                     }
 
-                    // Create the label
-                    $label = trim("$key1 $key2 $key3");
-                    
-                    $html .= "<th $style>$label</th>";
+                    $rowHTML .= '<th colspan='.$cell['colspan'].' rowspan='.$cell['rowspan']." $style>";
+                    $rowHTML .= $cell['name'];
+
+                    if($cell['rowspan'] > 1) {
+                        $temp = array_first($cell['subheaders']);
+
+                        for($i = 0; $i < $cell['rowspan']; $i++) {
+                            if(!$temp['show']) {
+                                $rowHTML .= ' '. $temp['name'];
+                            }
+                            $temp = array_first($temp['subheaders']);
+                        }
+                    }
+
+                    $rowHTML .= '</th>';
                 }
             }
+
+            $index++;
+
+            $html .= "<tr>$rowHTML</tr>";
         }
 
-        return $html;
+        return "<thead>$html</thead>";
     }
 }

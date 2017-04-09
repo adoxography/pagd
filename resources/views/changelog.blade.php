@@ -10,6 +10,9 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			08-04-17: Added header merging in paradigms
+		</li>
+		<li>
 			08-04-17: Fixed bug in paradigm search
 		</li>
 		<hr>

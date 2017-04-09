@@ -26,6 +26,10 @@ a {
 	overflow: scroll;
 	height: 700px;
 	background-color: $white;
+
+	th {
+		height: 3rem;
+	}
 }
 
 .content blockquote {

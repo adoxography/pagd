@@ -146,7 +146,7 @@ class FormType extends Model
         if ($this->isNegative) {
             return 'Negative';
         } else {
-            return '';
+            return 'Affirmative';
         }
     }
 
@@ -160,7 +160,7 @@ class FormType extends Model
         if ($this->isDiminutive) {
             return 'Diminutive';
         } else {
-            return '';
+            return 'Non-diminutive';
         }
     }
 

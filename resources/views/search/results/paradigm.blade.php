@@ -28,17 +28,22 @@
 								@foreach($subjects as $subject => $forms)
 									<td><nobr>{{ $subject }}</nobr></td>
 
-									@foreach($data as $language => $orders)
-										@foreach($orders['subheaders'] as $order => $modes)
-											@foreach($modes['subheaders'] as $mode => $absobvs)
-												@foreach($absobvs['subheaders'] as $absobv => $negatives)
-													@foreach($negatives['subheaders'] as $negative => $diminutives)
-														@foreach($diminutives['subheaders'] as $diminutive => $nulls)
+									@foreach($data as $language)
+										@foreach($language['subheaders'] as $order)
+											@foreach($order['subheaders'] as $mode)
+												@foreach($mode['subheaders'] as $absobj)
+													@foreach($absobj['subheaders'] as $negative)
+														@foreach($negative['subheaders'] as $diminutive)
 															<?php 
 																$lookup = [];
 
 																foreach($forms as $form) {
-																	if($form->language->name == $language && $form->formType->order->name == $order && $form->formType->mode->name == $mode && $form->formType->absoluteStatus === $absobv && $form->formType->negativeStatus === $negative && $form->formType->diminutiveStatus === $diminutive) {
+																	if($form->language->name == $language['name']
+																		&& $form->formType->order->name == $order['name']
+																		&& $form->formType->mode->name  == $mode['name']
+																		&& $form->formType->absoluteStatus === $absobj['name']
+																		&& $form->formType->negativeStatus === $negative['name']
+																		&& $form->formType->diminutiveStatus === $diminutive['name']) {
 																		$lookup[] = $form;
 																	}
 																}

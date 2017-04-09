@@ -26,8 +26,7 @@ class Paradigm
         $this->loadHeaders($forms);
         $this->loadRows($forms);
 
-        $this->splitHeaders(5);
-        $this->filterHeaders();
+        $this->splitHeaders(7);
         $this->calculateNumHeaders();
         // Filter out the unnecessary data and deal with syncretism
         $this->filterRows();
@@ -116,23 +115,6 @@ class Paradigm
         }
 
         $this->headerRows = $output;
-    }
-
-    protected function filterHeaders()
-    {
-        // $max = 1000;
-
-        // foreach($this->headerRows as &$row) {
-        //     foreach($row as $cell) {
-        //         if($cell['show']) {
-        //             $max = min([$max, $cell['rowspan']]);
-        //         }
-        //     }
-
-        //     foreach($row as &$cell) {
-        //         $cell['rowspan'] -= $max;
-        //     }
-        // }
     }
 
     protected function calculateNumHeaders()
@@ -514,7 +496,7 @@ class Paradigm
                         $temp = array_first($cell['subheaders']);
 
                         for($i = 0; $i < $cell['rowspan']; $i++) {
-                            if(!$temp['show']) {
+                            if(!$temp['show'] && $temp['name'] != 'Affirmative' && $temp['name'] != 'Non-diminutive') {
                                 $rowHTML .= ' '. $temp['name'];
                             }
                             $temp = array_first($temp['subheaders']);

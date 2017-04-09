@@ -28,7 +28,7 @@
 			</p>
 		</div>
 
-		<div class="box alg-datalist-dropdown" v-show="showList && value.text.length > 0 && options.length > 0">
+		<div class="box alg-datalist-dropdown" v-show="showList">
 			<ul>
 				<li v-for="(option, index) in options">
 					<a @click="selectItem(option.name)"
@@ -85,6 +85,7 @@
 				parsedList: [],
 				options: [],
 				showList: false,
+				writing: false,
 				curr: 0
 			};
 		},
@@ -109,6 +110,7 @@
 			reset() {
 				// Hide the list
 				this.showList = false;
+				this.writing = false;
 
 				// Reset the current element
 				this.curr = 0;
@@ -151,10 +153,11 @@
 					this.filterOptions();
 
 					// Only show the list if there is text in the field and there are options in the list
-					this.showList = true;
-					// if(keyCode != 9) {
-					// 	this.showList = this.value.text.length > 0 && this.options.length > 0;
-					// }
+					if(this.value.text.length > 0 && this.options.length > 0) {
+						this.showList = true;
+					}
+
+					this.writing = true;
 				}
 			},
 
@@ -229,7 +232,7 @@
 				if(this.curr > 0) { // The list is open
 					event.preventDefault();
 					this.selectItem(this.options[this.curr - 1].name);
-				} else if(this.value.text.length > 0 && this.showList) {
+				} else if(this.value.text.length > 0 && this.writing) {
 					event.preventDefault();
 					this.$emit("keydown", {
 						keyCode: 13

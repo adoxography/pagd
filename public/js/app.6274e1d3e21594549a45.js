@@ -25969,6 +25969,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			parsedList: [],
 			options: [],
 			showList: false,
+			writing: false,
 			curr: 0
 		};
 	},
@@ -25992,6 +25993,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		reset: function reset() {
 			// Hide the list
 			this.showList = false;
+			this.writing = false;
 
 			// Reset the current element
 			this.curr = 0;
@@ -26033,10 +26035,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				this.filterOptions();
 
 				// Only show the list if there is text in the field and there are options in the list
-				this.showList = true;
-				// if(keyCode != 9) {
-				// 	this.showList = this.value.text.length > 0 && this.options.length > 0;
-				// }
+				if (this.value.text.length > 0 && this.options.length > 0) {
+					this.showList = true;
+				}
+
+				this.writing = true;
 			}
 		},
 		onKeyDown: function onKeyDown(event) {
@@ -26109,7 +26112,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				// The list is open
 				event.preventDefault();
 				this.selectItem(this.options[this.curr - 1].name);
-			} else if (this.value.text.length > 0 && this.showList) {
+			} else if (this.value.text.length > 0 && this.writing) {
 				event.preventDefault();
 				this.$emit("keydown", {
 					keyCode: 13
@@ -133495,8 +133498,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: (_vm.showList && _vm.value.text.length > 0 && _vm.options.length > 0),
-      expression: "showList && value.text.length > 0 && options.length > 0"
+      value: (_vm.showList),
+      expression: "showList"
     }],
     staticClass: "box alg-datalist-dropdown"
   }, [_c('ul', _vm._l((_vm.options), function(option, index) {

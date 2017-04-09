@@ -187,11 +187,6 @@ class Morpheme extends Model
     {
         return $this->belongsToMany(Example::class, 'Examples_Morphemes')->distinct();
     }
-
-    public function oldGloss()
-    {
-        return $this->belongsTo(Gloss::class, 'gloss_id');
-    }
     
     public function glosses()
     {

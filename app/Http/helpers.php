@@ -2,6 +2,16 @@
 
 define("NOT_FOUND", -1);
 
+function removeOldGlosses() {
+    $glosses = App\Gloss::all();
+
+    foreach($glosses as $gloss) {
+        if(strpos($gloss, '.') !== false) {
+            $gloss->delete();
+        }
+    }
+}
+
 function convertMorphemeGlosses() {
     $morphemes = App\Morpheme::all();
 

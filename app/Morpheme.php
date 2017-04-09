@@ -267,9 +267,11 @@ class Morpheme extends Model
             $description .= $gloss->name . ' ';
         }
 
-        $description = trim($description);
+        if(strlen($description) > 0) {
+            $description = ' ('.trim($description).')';
+        }
 
-        return "$output ($description)";
+        return $output.$description;
     }
 
     public function connectGlosses()

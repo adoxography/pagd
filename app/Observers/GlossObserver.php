@@ -9,7 +9,7 @@ class GlossObserver {
 
 	public function created(Gloss $gloss)
 	{
-		$this->reconnectMorphemes();	
+		$this->reconnectMorphemes($gloss->abv);	
 	}
 
 	public function updated(Gloss $gloss)

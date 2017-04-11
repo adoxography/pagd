@@ -10,6 +10,10 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			10-04-17: Add "add another" to the <a href="/glosses/">gloss index</a> page
+		</li>
+		<hr>
+		<li>
 			08-04-17: Added header merging in paradigms
 		</li>
 		<li>

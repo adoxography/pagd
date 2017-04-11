@@ -2,6 +2,6 @@
 
 @section('content')
 
-<alg-tag-input list="{{ App\Gloss::select('id','abv as name')->get() }}"></alg-tag-input>
+{{ print_r(file_get_contents(storage_path("app/SourcesList.csv"))) }}
 
 @endsection

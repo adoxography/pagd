@@ -62,56 +62,6 @@ function indexAllModels() {
     \App\Source::reindex();
 }
 
-function clearDuplicateSources() {
-    $fields = ['forms', 'morphemes', 'examples', 'emptyForms', 'rules'];
-    $sources = App\Source::all();
-    $models;
-
-    foreach($sources as $source) {
-        foreach($fields as $field) {
-            $models = $source->$field;
-
-            
-        }
-    }
-}
-
-function splitUpSources() {
-    $sources = \App\Source::all();
-
-    $components;
-    $found;
-
-    foreach($sources as $source) {
-        $components = explode(' ', $source->short);
-        $source->author = '';
-        $found = false;
-
-        for($i = 0; $i < count($components) && !$found; $i++) {
-            if(is_numeric($components[$i])) {
-                $source->year = (int)$components[$i];
-                $found = true;
-            } else {
-                $source->author = trim($source->author .= (" " . $components[$i]));
-            }
-        }
-
-        $source->assignDisambiguator();
-
-        $source->save();
-    }
-}
-
-function setSubclasses() {
-    $formTypes = \App\FormType::all();
-
-    foreach($formTypes as $formType) {
-        $formType->subclass = null;
-        $formType->assignSubclass();
-        $formType->save();
-    }
-}
-
 /**
  * Replaces all of the rules tags in a block of text
  * 

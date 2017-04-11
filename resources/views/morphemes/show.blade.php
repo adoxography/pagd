@@ -20,11 +20,6 @@
 						{{-- Gloss field --}}
 						@component('components.model.field', ['width' => 'is-half', 'label' => 'Gloss'])
 							{!! $morpheme->renderGlossWithDescription() !!}
-{{-- 							@if($morpheme->translation)
-								{{ str_replace(" ", ".", $morpheme->translation) }}
-							@else
-								<a href="/glosses/{{ $morpheme->gloss_id }}"><span class="gloss">{{ $morpheme->gloss->abv }}</span> ({{ $morpheme->translation or $morpheme->gloss->name }})</a>
-							@endif --}}
 						@endcomponent
 
 						{{-- Slot field --}}
@@ -58,7 +53,7 @@
 							<p>
 								<em>Parent Morpheme: </em>
 								@if($morpheme->parent)
-									<a href="/morphemes/{{ $morpheme->parent_id }}">{{ $morpheme->parent->uniqueName() }}</a> (<a href="/languages/{{ $morpheme->parent->language_id }}">{{ $morpheme->parent->language->name }}</a>)
+									<a href="/morphemes/{{ $morpheme->parent_id }}">{!! $morpheme->parent->uniqueName() !!}</a> (<a href="/languages/{{ $morpheme->parent->language_id }}">{{ $morpheme->parent->language->name }}</a>)
 								@else
 									Unknown/Unclear
 								@endif

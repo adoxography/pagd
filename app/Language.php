@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\FormType;
 use Laravel\Scout\Searchable;
 use App\Events\Language\Saved;
 use App\Events\Language\Created;
@@ -148,6 +149,19 @@ class Language extends Model
         }
 
         return $output;
+    }
+
+    public function getParadigms()
+    {
+        return FormType::select('class_id', 'order_id', 'mode_id')
+            ->join('Forms', 'Forms.formType_id', 'FormTypes.id')
+            ->where('Forms.language_id', $this->id)
+            ->groupBy('class_id', 'order_id', 'mode_id')
+            ->with(['formClass', 'order', 'mode'])
+            ->orderBy('class_id')
+            ->orderby('order_id')
+            ->orderBy('mode_id')
+            ->get();
     }
 
     /*

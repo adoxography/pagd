@@ -2,6 +2,6 @@
 
 @section('content')
 
-{{ print_r(file_get_contents(storage_path("app/SourcesList.csv"))) }}
+{{ dd(\App\Language::find(1)->getParadigms()) }}
 
 @endsection

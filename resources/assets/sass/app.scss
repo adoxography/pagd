@@ -24,7 +24,7 @@ a {
 
 .paradigm-container {
 	overflow: scroll;
-	height: 700px;
+	max-height: 700px;
 	background-color: $white;
 
 	th {

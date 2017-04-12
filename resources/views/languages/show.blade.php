@@ -120,6 +120,18 @@
 			@endcomponent
 		</model-tab>
 
+		<model-tab name="Paradigms">
+			<ul>
+			@foreach($language->getParadigms() as $paradigm)
+				<li>
+					<a href="/search/paradigm?classes%5B%5D={{ $paradigm->formClass->id }}&orders%5B%5D={{ $paradigm->order->id }}&modeSelect=selectModes&modes%5B%5D={{ $paradigm->mode->id }}&affirmative=on&nonDiminutive=on&languages%5B%5D={{ $language->name }}&languages%5B%5D_id={{ $language->id }}">
+						{{ $paradigm->formClass->name }} {{ $paradigm->order->name }} {{ $paradigm->mode->name }}
+					</a>
+				</li>
+			@endforeach
+			</ul>
+		</model-tab>
+
 		@if(count($language->rules) > 0)
 			<model-tab name="Rules">
 				@component('components.model.field', ['width' => 'is-half'])

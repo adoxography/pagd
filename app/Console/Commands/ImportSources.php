@@ -56,8 +56,41 @@ class ImportSources extends Command
             $this->line("All sources loaded. Inserting to the database...");
 
             \App\Source::insert($sources);
-            $this->line("All done!");
         }
+
+        $this->line("All sources added to the database. Disambiguating...");
+
+        $this->disambiguate();
+
+        $this->line("All done!");
+    }
+
+    protected function disambiguate()
+    {
+        $sources = \App\Source::whereNull('disambiguator')->get();
+
+        foreach($sources as $source) {
+            if(!isset($source->disambiguator) && $this->isNotFirst($source, $sources)) {
+                $source->assignDisambiguator();
+
+                if($source->isDirty('disambiguator')) {
+                    $source->save();
+                }
+            }
+        }
+    }
+
+    protected function isNotFirst($source, $insertedSources)
+    {
+        $duplicates = $insertedSources->where('author', $source->author)->where('year', $source->year);
+
+        $found = false;
+
+        foreach($duplicates as $duplicate) {
+            $found = $found || $duplicate->id < $source->id;
+        }
+
+        return $found;
     }
 
     protected function organizeSource(string $line)

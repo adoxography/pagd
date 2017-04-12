@@ -168,7 +168,7 @@ trait DisambiguatableTrait {
         }
 
         if(isset($this->id)) {
-        	$query->where('id', '<>', $this->id);
+        	$query->where('id', '<', $this->id);
         }
         
         // Return the result

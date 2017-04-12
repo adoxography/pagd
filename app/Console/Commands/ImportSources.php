@@ -70,7 +70,7 @@ class ImportSources extends Command
         $sources = \App\Source::whereNull('disambiguator')->get();
 
         foreach($sources as $source) {
-            if(!isset($source->disambiguator) && $this->isNotFirst($source, $sources)) {
+            if(!isset($source->disambiguator) && !$this->isFirst($source, $sources)) {
                 $source->assignDisambiguator();
 
                 if($source->isDirty('disambiguator')) {
@@ -80,17 +80,21 @@ class ImportSources extends Command
         }
     }
 
-    protected function isNotFirst($source, $insertedSources)
+    protected function isFirst($source, $insertedSources)
     {
         $duplicates = $insertedSources->where('author', $source->author)->where('year', $source->year);
 
         $found = false;
 
         foreach($duplicates as $duplicate) {
-            $found = $found || $duplicate->id < $source->id;
+            $found = $duplicate->id < $source->id;
+
+            if($found) {
+                break;
+            }
         }
 
-        return $found;
+        return !$found;
     }
 
     protected function organizeSource(string $line)

@@ -75,7 +75,7 @@ class AutocompleteController extends Controller
     {
         $term = $request->term;
         
-        $sources = Source::search($term)->get();
+        $sources = Source::search($term)->take(10)->get();
 
         foreach($sources as $source) {
             $source->name = $source->long;

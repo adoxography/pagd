@@ -167,11 +167,12 @@
 							language: this.with
 						}
 					}).then(response => {
-						this.options = response.data;
+						this.options = [];
 
-						for(let i = 0; i < this.options.length; i++) {
-							this.options[i].name = this.formatString(this.options[i].name);
-						}
+						_.forEach(response.data, item => {
+							item.name = this.formatString(item.name);
+							this.options.push(item);
+						});
 
 						if(this.options.length > 0) {
 							this.showList = true;

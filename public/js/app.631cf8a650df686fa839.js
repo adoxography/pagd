@@ -25776,11 +25776,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 						language: this.with
 					}
 				}).then(function (response) {
-					_this2.options = response.data;
+					_this2.options = [];
 
-					for (var i = 0; i < _this2.options.length; i++) {
-						_this2.options[i].name = _this2.formatString(_this2.options[i].name);
-					}
+					_.forEach(response.data, function (item) {
+						item.name = _this2.formatString(item.name);
+						_this2.options.push(item);
+					});
 
 					if (_this2.options.length > 0) {
 						_this2.showList = true;

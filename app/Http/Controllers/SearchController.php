@@ -90,8 +90,8 @@ class SearchController extends Controller
         if($searchAll) {
             $languages = \App\Language::select(['Languages.name', 'Languages.id', 'Languages.group_id'])
                 ->join('Groups', 'Groups.id', '=', 'Languages.group_id')
-                ->orderBy('Groups.pos', 'asc')
-                ->orderBy('Languages.pos', 'asc')
+                ->orderBy('Groups.position', 'asc')
+                ->orderBy('Languages.position', 'asc')
                 ->get();
         } else {
             for($i = 0; $i < count($request->languages); $i+=2) {

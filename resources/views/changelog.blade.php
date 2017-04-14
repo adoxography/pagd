@@ -10,6 +10,9 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			13-04-17: Fixed ordering of languages in form search
+		</li>
+		<li>
 			13-04-17: Fixed nonexistent form error
 		</li>
 		<hr>

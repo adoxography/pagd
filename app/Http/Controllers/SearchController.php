@@ -88,7 +88,11 @@ class SearchController extends Controller
         $diminutives      = $request->isDiminutive;
 
         if($searchAll) {
-            $languages = \App\Language::select(['name', 'id'])->get();
+            $languages = \App\Language::select(['Languages.name', 'Languages.id', 'Languages.group_id'])
+                ->join('Groups', 'Groups.id', '=', 'Languages.group_id')
+                ->orderBy('Groups.pos', 'asc')
+                ->orderBy('Languages.pos', 'asc')
+                ->get();
         } else {
             for($i = 0; $i < count($request->languages); $i+=2) {
                 $languages[] = \App\Language::find($request->languages[$i + 1]);

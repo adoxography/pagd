@@ -14,11 +14,7 @@ class EmptyForm extends Model
     use SoftDeletes;
     use \App\HideableTrait;
     use \App\BookmarkableTrait;
-
-    public function formType()
-    {
-    	return $this->belongsTo(FormType::class, 'formType_id');
-    }
+    use \App\HasFormTypeTrait;
 
     public function language()
     {

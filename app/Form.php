@@ -30,6 +30,7 @@ class Form extends Model
     use \App\BookmarkableTrait;
     use SoftDeletes;
     use \App\HideableTrait;
+    use \App\HasFormTypeTrait;
 
     protected $morphemeTable = 'Forms_Morphemes';
 
@@ -201,10 +202,6 @@ class Form extends Model
     | Relations
     |--------------------------------------------------------------------------
     */
-    public function formType()
-    {
-        return $this->belongsTo(FormType::class, 'formType_id');
-    }
 
     public function language()
     {

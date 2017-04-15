@@ -21,6 +21,7 @@
 						<li><a href="/rules/create">Rule</a></li>
 						<li><a href="/changes">Initial Change</a></li>
 						<li><a href="/glosses/create">Gloss</a></li>
+						<li><a href="/slots/create">Slot</a></li>
 					</ul>
 				</div>
 			</div>

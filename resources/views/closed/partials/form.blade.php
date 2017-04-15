@@ -25,8 +25,6 @@
 				{{ old('colour') }}
 			@elseif($item)
 				{{ $item->colour }}
-			@else
-				black
 			@endif
 		@endslot
 	@endcomponent

@@ -15,12 +15,9 @@ class Slot extends Closed
 
     protected $fillable = ['name', 'colour', 'abv', 'description'];
 
-    public function __construct()
-    {
-    	$this->relationList = ['morphemes'];
-    	$this->singular = 'Slot';
-    	$this->plural = 'Slots';
-    }
+    public $relationList = ['morphemes'];
+    public $singular = 'Slot';
+    public $plural = 'Slots';
 
     public function morphemes()
     {

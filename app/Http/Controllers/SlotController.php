@@ -33,6 +33,11 @@ class SlotController extends ClosedController
         return parent::showItem($slot);
     }
 
+    public function create()
+    {
+        return parent::createItem(new Slot());
+    }
+
     /**
      * Show the slot edit form
      *
@@ -42,6 +47,13 @@ class SlotController extends ClosedController
     public function edit(Slot $slot)
     {
         return parent::editItem($slot);
+    }
+
+    public function store(Request $request)
+    {
+        $item = Slot::create($request->all());
+
+        return parent::storeItem($item);
     }
 
     /**

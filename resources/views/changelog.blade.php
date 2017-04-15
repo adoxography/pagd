@@ -10,6 +10,10 @@
 <div class="box">
 	<ul style="list-style-type: circle; list-style-position: inside;">
 		<li>
+			14-04-17: Added <a href="/slots/create">slot creation</a>
+		</li>
+		<hr>
+		<li>
 			13-04-17: Fixed ordering of languages in form search
 		</li>
 		<li>

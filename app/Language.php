@@ -153,7 +153,9 @@ class Language extends Model
 
     public function getParadigms()
     {
-        return FormType::select('class_id', 'order_id', 'mode_id')
+        $output = [];
+
+        $paradigms = FormType::select('class_id', 'order_id', 'mode_id')
             ->join('Forms', 'Forms.formType_id', 'FormTypes.id')
             ->where('Forms.language_id', $this->id)
             ->groupBy('class_id', 'order_id', 'mode_id')
@@ -162,6 +164,16 @@ class Language extends Model
             ->orderby('order_id')
             ->orderBy('mode_id')
             ->get();
+
+        foreach($paradigms as $paradigm) {
+            $output["{$paradigm->order->name} {$paradigm->mode->name}:"][] = [
+                'order' => $paradigm->order,
+                'mode'  => $paradigm->mode,
+                'class' => $paradigm->formClass
+            ];
+        }
+
+        return $output;
     }
 
     /*

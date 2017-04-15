@@ -10,6 +10,9 @@
 <div class="box">
 	<ul class="indented-list">
 		<li>
+			14-04-17: Modified paradigm tab
+		</li>
+		<li>
 			14-04-17: Modified the "tag input" component (i.e. the one used for glosses):
 			<ul>
 				<li>

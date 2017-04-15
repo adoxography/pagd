@@ -79,3 +79,5 @@ import 'tinymce/plugins/lists/plugin'
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
 // });
+
+Array.prototype.clone = function() { return this.slice(0); };

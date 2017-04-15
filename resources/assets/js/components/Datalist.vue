@@ -13,6 +13,9 @@
 					   @keyup="onKeyUp($event.keyCode)"
 					   @keydown="onKeyDown($event)"
 					   @input="update($event.target.value)"
+					   v-focus="focused"
+					   @focus="onFocus"
+					   @blur="onBlur"
 					   ref="textInput" autocomplete="off"
 					   :placeholder="placeholder"
 					   :required="required" />
@@ -86,7 +89,8 @@
 				options: [],
 				showList: false,
 				writing: false,
-				curr: 0
+				curr: 0,
+				focused: false
 			};
 		},
 
@@ -159,6 +163,16 @@
 
 					this.writing = true;
 				}
+			},
+
+			onFocus() {
+				this.focused = true;
+				this.$emit('focus');
+			},
+
+			onBlur() {
+				this.focused = false;
+				this.$emit('blur');
 			},
 
 			onKeyDown(event) {

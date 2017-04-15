@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="alg-tag-input">
 		<alg-datalist
 			ref="datalist"
 			@keydown.enter="onEnter($event)"
@@ -10,38 +10,60 @@
 			:id="id"
 			:disabled="disabled"
 			:placeholder="placeholder"
-			:classes="classes">
+			:classes="classes"
+			@focus="showTags = true"
+			@blur="showTags = false">
 		</alg-datalist>
-		<ul v-show="value.length > 0">
-			<li v-for="(tag, index) in value" style="display: inline-block; padding-top: .5rem;">
-				<span class="tag">
-					{{ tag.text }}
-					<a
-						class="delete is-small"
-						@click.prevent="removeTag(index)"
-						tabindex="-1"></a>
-				</span>
-			</li>
-		</ul>
+		<transition name="fade">
+			<draggable
+				v-model="currValue"
+				v-show="currValue.length > 0 || showTags"
+				@change="onChange($event, currValue)"
+				class="alg-tag-section">
+				<div v-for="(tag, index) in currValue" class="alg-tag-container">
+					<span class="tag is-info is-medium">
+						{{ tag.text }}
+						<a
+							class="delete is-small"
+							@click.prevent="removeTag(index)"
+							tabindex="-1"></a>
+					</span>
+				</div>
+			</draggable>
+		</transition>
 	</div>
 </template>
 
 <script>
+import draggable from 'vuedraggable';
+
 export default {
 	props: ['list', 'preset', 'value', 'name', 'id', 'placeholder', 'classes', 'disabled'],
+
+	components: {
+		draggable
+	},
 
 	data() {
 		return {
 			listValue: {
 				id: '',
 				text: ''
-			}
+			},
+
+			showTags: false
 		};
+	},
+
+	computed: {
+		currValue() {
+			return this.value;
+		}
 	},
 
 	methods: {
 		addTag(tag) {
-			let val = this.value;
+			let val = this.currValue;
 			if(!this.inArray(val, tag)) {
 				val.push(tag);
 
@@ -50,7 +72,7 @@ export default {
 		},
 
 		removeTag(index) {
-			let val = this.value;
+			let val = this.currValue;
 			val.splice(index, 1);
 
 			this.$emit("input", val);
@@ -70,6 +92,25 @@ export default {
 			this.listValue = {
 				text: '',
 				id: ''
+			}
+		},
+
+		onChange(event, list) {
+			let temp = list.clone();
+
+			if(event.moved) {
+				if(event.moved.newIndex > event.moved.oldIndex) {
+					for(let i = event.moved.oldIndex; i < event.moved.newIndex; i++) {
+						temp[i] = temp[i + 1];
+					}
+				} else {
+					for(let i = event.moved.oldIndex; i > event.moved.newIndex; i--) {
+						temp[i] = temp[i - 1];
+					}
+				}
+
+				temp[event.moved.newIndex] = event.moved.element;
+				this.$emit('input', temp);
 			}
 		},
 

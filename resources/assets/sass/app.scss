@@ -32,6 +32,33 @@ a {
 	}
 }
 
+.alg-tag-input {
+	.alg-tag-section {
+		@extend .input;
+		background-color: $white-ter;
+		height: 3em;
+
+		.alg-tag-container {
+			display: inline-block;
+
+			.tag {
+				cursor: default;
+			}
+		}
+	}
+}
+
+ul.indented-list {
+	list-style-type: circle;
+	list-style-position: inside;
+
+	ul {
+		list-style-type: circle;
+		list-style-position: inside;
+		margin-left: 2rem;
+	}
+}
+
 .content blockquote {
 	background-color: whitesmoke;
 }
@@ -295,4 +322,13 @@ p.is-danger {
 	&:not(:first-child)::before {
 		content: "•";
 	}
+}
+
+// Transitions
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0
 }

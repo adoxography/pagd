@@ -8,7 +8,24 @@
 <br />
 
 <div class="box">
-	<ul style="list-style-type: circle; list-style-position: inside;">
+	<ul class="indented-list">
+		<li>
+			14-04-17: Modified the "tag input" component (i.e. the one used for glosses):
+			<ul>
+				<li>
+					Made the tags draggable to enable ordering
+				</li>
+				<li>
+					Coloured the tags
+				</li>
+				<li>
+					Added a container for the tags to distinguish the component from a regular text input
+				</li>
+				<li>
+					Made the tags bigger to improve legibility
+				</li>
+			</ul>
+		</li>
 		<li>
 			14-04-17: Added <a href="/slots/create">slot creation</a>
 		</li>
@@ -66,7 +83,7 @@
 		<hr>
 		<li>
 			06-04-17: Implemented <a href="/search#for-a-form">search by form</a>
-			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+			<ul>
 				<li>
 					(Search refinement still to come)
 				</li>
@@ -109,7 +126,7 @@
 		</li>
 		<li>
 			04-04-17: Split "short" field of sources into author, year, and disambiguator
-			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+			<ul>
 				<li>
 					Disambiguator is a letter and is added automatically and only if necessary
 				</li>
@@ -123,7 +140,7 @@
 		<hr>
 		<li>
 			29-03-17: Added visibility toggle
-			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+			<ul>
 				<li>Available for languages and all components of languages (e.g. morphemes, forms, etc.)</li>
 				<li>Toggling the visibility (the eye icon on the display page) will hide that piece of data from the public</li>
 				<li>Hiding a language will hide all of that language's data</li>
@@ -131,7 +148,7 @@
 		</li>
 		<li>
 			29-03-17: Added "soft deletes" to tables
-			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+			<ul>
 				<li>Rather than being erased from the database, deleting an item will mark it as having been deleted</li>
 				<li>This allows deletion of data to be registered in the log</li>
 				<li>It's also easier to restore accidentally deleted data</li>
@@ -139,7 +156,7 @@
 		</li>
 		<li>
 			29-03-17: Added user roles
-			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+			<ul>
 				<li>
 					Administrators, contributors: can add, edit, and delete
 				</li>
@@ -202,7 +219,7 @@
 		</li>
 		<li>
 			21-03-17: Added bookmarking system
-			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+			<ul>
 				<li>
 					When logged in, click on the bookmark icon in the top right of any model display to bookmark it. You will be prompted for an optional comment.
 				</li>
@@ -252,7 +269,7 @@
 		<hr>
 		<li>
 			08-03-17: Added empty forms
-			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+			<ul>
 				<li>
 					Indicate that a given form does not exist within a language
 				</li>
@@ -263,7 +280,7 @@
 		<hr>
 		<li>
 			07-03-17: Added <a href="/changes">revised initial change</a> schema
-			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+			<ul>
 				<li>
 					Demos: <a href="/forms/403">form with changed vStem</a>, <a href="/forms/404">form with changed preverb</a>
 				</li>
@@ -286,7 +303,7 @@
 		</li>
 		<li>
 			07-03-17: Added <a href="/languages/order">ordering for languages and groups</a>
-			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+			<ul>
 				<li>
 					Governs ordering of languages in paradigms and lists
 				</li>
@@ -301,7 +318,7 @@
 		<hr>
 		<li>
 			06-03-17: Added <a href="/rules/1">rules</a>
-			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+			<ul>
 				<li>
 					Can be added using the <a href="/rules/create">creation form</a> (located in the add menu)
 				</li>
@@ -318,7 +335,7 @@
 		</li>
 		<li>
 			06-03-17: Allowed ISO to be used in URLs
-			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+			<ul>
 				<li><a href="/languages/1">http://www.algling.net/languages/1</a> still works, but now so does <a href="/languages/alg">http://www.algling.net/languages/alg</a></li>
 				<li>Will implement similar functionality for forms, morphemes, and examples in the future</li>
 			</ul>
@@ -367,16 +384,16 @@
 		<hr>
 		<li>
 			17-02-17: Added a patch for the network errors, but unable to test due to the randomness of the error
-			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+			<ul>
 				<li>The patch *should* have prevented the "perma-loading" error, and instead a dialog should notify the user of a network error</li>
 			</ul>
 		</li>
 		<li>
 			17-02-17: Added a tooltip-like component to example and form morphemes
-			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+			<ul>
 				<li><a href="/forms/70">When disambiguation is required, clicking on the morpheme will automatically apply it to the form</a></li>
 				<li><a href="/forms/218">When the morpheme is missing, the link will take you to the morpheme creation page with as many details as possible already filled in</a></li>
-				<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+				<ul>
 					<li>You will need to add in your own hyphen to the morpheme, as there's no way for the site to know which side(s) to put it on</li>
 				</ul>
 			</ul>
@@ -403,7 +420,7 @@
 		</li>
 		<li>
 			14-02-17: Fully implemented examples
-			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+			<ul>
 				<li>Validation</li>
 				<li>Creation</li>
 				<li>Display</li>
@@ -421,7 +438,7 @@
 		</li>
 		<li>
 			12-02-17: Rewrote most of the forms as Vue.js components for more cohesive functionality and cleaner code
-			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+			<ul>
 				<li>Forms are submitted and validated via AJAX requests</li>
 				<li>Validation errors appear below the field that had the error</li>
 				<li>Will aid in Example form development</li>
@@ -710,7 +727,7 @@
 		</li>
 		<li>
 			21-01-17: Added note fields (historical notes, allomorphy notes, usage notes, comments) to forms
-			<ul style="list-style-type: circle; list-style-position: inside; margin-left:2rem">
+			<ul>
 				<li>(The "Note" tab only appears on a form detail page when the form has at least some notes associated with it)</li>
 			</ul>
 		</li>

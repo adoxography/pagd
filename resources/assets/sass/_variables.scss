@@ -8,15 +8,10 @@ $family-sans-serif: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI",
 
 // Colour variables
 
-// $red: #690202;
-// $bright-red: #FF0000;
-// $white-bis: #d8d8d8;
-// $white-ter: #b7b4ab;
-// $grey: #504e4e;
-// $grey-dark: #262525;
+$blue: hsl(217, 71%, 53%);
+$turquoise: hsl(171, 100%, 41%);
+$background-color: #d8d8d8;
 
 // Colour mappings
-
-$primary: #3273dc;
-$background-color: #d8d8d8;
-// $danger: $bright-red;
+$primary: $blue;
+$info: $turquoise;

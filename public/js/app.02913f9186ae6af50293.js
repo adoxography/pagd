@@ -26014,6 +26014,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -26055,7 +26058,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			options: [],
 			showList: false,
 			writing: false,
-			curr: 0
+			curr: 0,
+			focused: false
 		};
 	},
 	created: function created() {
@@ -26126,6 +26130,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 				this.writing = true;
 			}
+		},
+		onFocus: function onFocus() {
+			this.focused = true;
+			this.$emit('focus');
+		},
+		onBlur: function onBlur() {
+			this.focused = false;
+			this.$emit('blur');
 		},
 		onKeyDown: function onKeyDown(event) {
 			if (event.keyCode == 9) {
@@ -27726,6 +27738,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuedraggable__ = __webpack_require__(332);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuedraggable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuedraggable__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -27755,22 +27777,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = {
 	props: ['list', 'preset', 'value', 'name', 'id', 'placeholder', 'classes', 'disabled'],
+
+	components: {
+		draggable: __WEBPACK_IMPORTED_MODULE_0_vuedraggable___default.a
+	},
 
 	data: function data() {
 		return {
 			listValue: {
 				id: '',
 				text: ''
-			}
+			},
+
+			showTags: false
 		};
 	},
 
 
+	computed: {
+		currValue: function currValue() {
+			return this.value;
+		}
+	},
+
 	methods: {
 		addTag: function addTag(tag) {
-			var val = this.value;
+			var val = this.currValue;
 			if (!this.inArray(val, tag)) {
 				val.push(tag);
 
@@ -27778,7 +27814,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}
 		},
 		removeTag: function removeTag(index) {
-			var val = this.value;
+			var val = this.currValue;
 			val.splice(index, 1);
 
 			this.$emit("input", val);
@@ -27797,6 +27833,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				text: '',
 				id: ''
 			};
+		},
+		onChange: function onChange(event, list) {
+			var temp = list.clone();
+
+			if (event.moved) {
+				if (event.moved.newIndex > event.moved.oldIndex) {
+					for (var i = event.moved.oldIndex; i < event.moved.newIndex; i++) {
+						temp[i] = temp[i + 1];
+					}
+				} else {
+					for (var _i = event.moved.oldIndex; _i > event.moved.newIndex; _i--) {
+						temp[_i] = temp[_i - 1];
+					}
+				}
+
+				temp[event.moved.newIndex] = event.moved.element;
+				this.$emit('input', temp);
+			}
 		},
 		onInput: function onInput() {
 			var _this = this;
@@ -30275,6 +30329,10 @@ window.Form = __WEBPACK_IMPORTED_MODULE_0__utilities_Form__["a" /* default */];
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
 // });
+
+Array.prototype.clone = function () {
+  return this.slice(0);
+};
 
 /***/ }),
 /* 121 */
@@ -133602,6 +133660,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('p', {
     staticClass: "control is-expanded"
   }, [_c('input', {
+    directives: [{
+      name: "focus",
+      rawName: "v-focus",
+      value: (_vm.focused),
+      expression: "focused"
+    }],
     ref: "textInput",
     staticClass: "input",
     class: _vm.classes,
@@ -133626,7 +133690,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       "input": function($event) {
         _vm.update($event.target.value)
-      }
+      },
+      "focus": _vm.onFocus,
+      "blur": _vm.onBlur
     }
   })]), _vm._v(" "), _c('p', {
     staticClass: "control"
@@ -135648,7 +135714,9 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('alg-datalist', {
+  return _c('div', {
+    staticClass: "alg-tag-input"
+  }, [_c('alg-datalist', {
     ref: "datalist",
     attrs: {
       "list": _vm.list,
@@ -135663,7 +135731,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
         _vm.onEnter($event)
       },
-      "select": _vm.onInput
+      "select": _vm.onInput,
+      "focus": function($event) {
+        _vm.showTags = true
+      },
+      "blur": function($event) {
+        _vm.showTags = false
+      }
     },
     model: {
       value: (_vm.listValue),
@@ -135672,22 +135746,36 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "listValue"
     }
-  }), _vm._v(" "), _c('ul', {
+  }), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "fade"
+    }
+  }, [_c('draggable', {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: (_vm.value.length > 0),
-      expression: "value.length > 0"
-    }]
-  }, _vm._l((_vm.value), function(tag, index) {
-    return _c('li', {
-      staticStyle: {
-        "display": "inline-block",
-        "padding-top": ".5rem"
+      value: (_vm.currValue.length > 0 || _vm.showTags),
+      expression: "currValue.length > 0 || showTags"
+    }],
+    staticClass: "alg-tag-section",
+    on: {
+      "change": function($event) {
+        _vm.onChange($event, _vm.currValue)
       }
+    },
+    model: {
+      value: (_vm.currValue),
+      callback: function($$v) {
+        _vm.currValue = $$v
+      },
+      expression: "currValue"
+    }
+  }, _vm._l((_vm.currValue), function(tag, index) {
+    return _c('div', {
+      staticClass: "alg-tag-container"
     }, [_c('span', {
-      staticClass: "tag"
-    }, [_vm._v("\n\t\t\t\t" + _vm._s(tag.text) + "\n\t\t\t\t"), _c('a', {
+      staticClass: "tag is-info is-medium"
+    }, [_vm._v("\n\t\t\t\t\t" + _vm._s(tag.text) + "\n\t\t\t\t\t"), _c('a', {
       staticClass: "delete is-small",
       attrs: {
         "tabindex": "-1"
@@ -135699,7 +135787,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })])])
-  }))], 1)
+  }))], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

@@ -32,6 +32,15 @@ a {
 	}
 }
 
+.alg-pagination-full {
+	@extend .pagination;
+	flex-wrap: wrap;
+
+	.pagination-list {
+		flex-wrap: inherit;
+	}
+}
+
 .alg-tag-input {
 	.alg-tag-section {
 		@extend .input;

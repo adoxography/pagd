@@ -53,6 +53,9 @@ Vue.component('alg-advanced-paradigm-search', require('./components/forms/Advanc
 
 Vue.component('alg-delete-button', require('./components/Delete-Button.vue'));
 Vue.component('alg-hidden-icon', require('./components/Hidden-Icon.vue'));
+Vue.component('alg-source-index', require('./components/Source-Index.vue'));
+Vue.component('alg-pagination-limited', require('./components/Pagination-Limited.vue'));
+Vue.component('alg-pagination-full', require('./components/Pagination-Full.vue'));
 
 Vue.component('alg-paradigm-table', {
 	props: ['morphemesOn'],

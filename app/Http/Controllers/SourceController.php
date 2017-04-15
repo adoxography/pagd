@@ -18,9 +18,17 @@ class SourceController extends Controller
     }
     
     public function index(){
-    	$sources = Source::all();
-        foreach($sources as $source) {
+    	$lookup = Source::all();
+        $sources = [];
+
+        $alphas = range('A', 'Z');
+        foreach($alphas as $char) {
+            $sources[] = [];
+        }
+
+        foreach($lookup as $source) {
             $source->name = $source->display;
+            $sources[array_search(strtoupper($source->author{0}), $alphas)][] = $source;
         }
     	return view('sources.index', compact('sources'));
     }

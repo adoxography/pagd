@@ -10,6 +10,10 @@
 <div class="box">
 	<ul class="indented-list">
 		<li>
+			15-04-17: Reformatted <a href="/sources">source index</a>
+		</li>
+		<hr>
+		<li>
 			14-04-17: Modified paradigm tab
 		</li>
 		<li>

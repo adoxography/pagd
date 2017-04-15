@@ -9,6 +9,6 @@
 	</div>
 	<br />
 
-	@include('components.index', ['items' => $sources, 'model' => 'sources'])
+	<alg-source-index sources="{{ json_encode($sources) }}"></alg-source-index>
 
 @stop

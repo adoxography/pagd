@@ -3869,14 +3869,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: ['pages', 'value', 'alpha'],
+	props: ['pages', 'value', 'alpha', 'labels'],
 
 	methods: {
 		onClick: function onClick(newValue) {
 			this.$emit('input', newValue);
 		},
 		printLabel: function printLabel(index) {
-			if (this.alpha) {
+			if (this.labels) {
+				return this.labels[index];
+			} else if (this.alpha) {
 				return (index + 10).toString(36).toUpperCase();
 			} else {
 				return index + 1;

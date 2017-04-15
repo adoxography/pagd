@@ -22,7 +22,7 @@
 
 <script>
 export default {
-	props: ['pages', 'value', 'alpha'],
+	props: ['pages', 'value', 'alpha', 'labels'],
 
 	methods: {
 		onClick(newValue) {
@@ -30,7 +30,9 @@ export default {
 		},
 
 		printLabel(index) {
-			if(this.alpha){
+			if(this.labels) {
+				return this.labels[index];
+			} else if(this.alpha){
 				return (index + 10).toString(36).toUpperCase();
 			} else {
 				return index + 1;

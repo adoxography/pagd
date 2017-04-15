@@ -158,7 +158,7 @@ class Example extends Model
 
     public function renderHTML()
     {
-        return "<a href='/examples/{$this->id}'>{$this->name}</a>";
+        return "<a href='/examples/{$this->id}'>{$this->name}</a> ({$this->form->formType->summary})";
     }
 
     public function renderInNotes()

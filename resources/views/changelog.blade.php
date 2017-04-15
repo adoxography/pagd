@@ -10,7 +10,10 @@
 <div class="box">
 	<ul class="indented-list">
 		<li>
-			15-04-17: Reformatted <a href="/sources">source index</a>
+			15-04-17: Reformatted the <a href="/need-attention">need attention</a> page
+		</li>
+		<li>
+			15-04-17: Reformatted the <a href="/sources">source index</a>
 		</li>
 		<hr>
 		<li>

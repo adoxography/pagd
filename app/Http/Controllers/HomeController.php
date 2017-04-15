@@ -70,38 +70,29 @@ class HomeController extends Controller
      */
     public function incompleteForms()
     {
-        $formLanguages = [];
-        $exampleLanguages = [];
+        $languages = \App\Language::with(['forms' => function($query) {
+            $query->where('Forms.complete', 0)
+                ->with('formType.primaryObject')
+                ->with('formType.secondaryObject')
+                ->with('formType.subject')
+                ->with('morphemes')
+                ->with('morphemes.glosses')
+                ->with('morphemes.slot');
+        }])->with(['examples' => function($query) {
+            $query->where('Examples.complete', 0)
+                ->with('form.formType.subject')
+                ->with('form.formType.primaryObject')
+                ->with('form.formType.secondaryObject')
+                ->with('form.formType.formClass')
+                ->with('form.formType.order')
+                ->with('form.formType.mode')
+                ->with('morphemes')
+                ->with('morphemes.glosses')
+                ->with('morphemes.slot');
+        }])
+        ->where('Languages.name', '<>', 'Demo')
+        ->get();
 
-        // Get all of the forms
-        $forms = \App\Form::where('complete', 0)
-                     ->orderBy('language_id')
-                     ->with('language')
-                     ->with('formType.subject')
-                     ->with('formType.primaryObject')
-                     ->with('formType.secondaryObject')
-                     ->get();
-
-        $examples = \App\Example::select('Examples.*')
-                           ->join('Forms', 'Forms.id', '=', 'form_id')
-                           ->where('Examples.complete', 0)
-                           ->with('form')
-                           ->with('form.language')
-                           ->orderBy('Forms.language_id')
-                           ->get();
-
-        // Pull out all of the unique languages
-        $formLanguageSet = $forms->pluck('language')->unique();
-        $exampleLanguageSet = $examples->pluck('form.language')->unique();
-
-        // Sort the forms into the language array
-        foreach ($formLanguageSet as $language) {
-            $formLanguages[$language->name] = $forms->where('language_id', $language->id);
-        }
-        foreach ($exampleLanguageSet as $language) {
-            $exampleLanguages[$language->name] = $examples->where('form.language_id', $language->id);
-        }
-
-        return view('forms.need-attention', compact('formLanguages', 'exampleLanguages'));
+        return view('forms.need-attention', compact('languages'));
     }
 }

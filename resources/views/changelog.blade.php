@@ -10,6 +10,10 @@
 <div class="box">
 	<ul class="indented-list">
 		<li>
+			17-04-17: Added a filter option to the <a href="/sources">source page</a>
+		</li>
+		<hr>
+		<li>
 			15-04-17: Reformatted the <a href="/need-attention">need attention</a> page
 		</li>
 		<li>

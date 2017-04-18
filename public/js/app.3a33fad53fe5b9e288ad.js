@@ -4033,18 +4033,61 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	props: ['sources'],
 
 	data: function data() {
 		return {
-			page: 0
+			page: 0,
+			filter: ''
 		};
 	},
+
+
+	methods: {
+		onFilter: function onFilter(text) {
+			if (text.length == 1) {
+				var chars = "abcdefghijklmnopqrstuvwxyz".split("");
+				var index = chars.indexOf(text.toLowerCase());
+
+				if (index >= 0) {
+					this.page = index;
+				}
+			}
+		},
+		filterList: function filterList(list) {
+			var output = [];
+			var filter = this.filter.toLowerCase();
+
+			if (filter.length > 0) {
+				list.forEach(function (item) {
+					if (item.long.toLowerCase().includes(filter) || item.display.toLowerCase().includes(filter)) {
+						output.push(item);
+					}
+				});
+			} else {
+				output = list;
+			}
+
+			return output;
+		}
+	},
+
 	created: function created() {
 		this.list = JSON.parse(this.sources);
-		console.log(this.list);
 	}
 });
 
@@ -120581,8 +120624,33 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "box"
-  }, [_c('alg-pagination-full', {
+    staticClass: "alg-source-index"
+  }, [_c('p', {
+    staticClass: "control has-icon"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.filter),
+      expression: "filter"
+    }],
+    staticClass: "input",
+    attrs: {
+      "type": "text",
+      "autofocus": "autofocus"
+    },
+    domProps: {
+      "value": (_vm.filter)
+    },
+    on: {
+      "input": [function($event) {
+        if ($event.target.composing) { return; }
+        _vm.filter = $event.target.value
+      }, function($event) {
+        _vm.onFilter($event.target.value)
+      }]
+    }
+  }), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('alg-pagination-full', {
     attrs: {
       "pages": _vm.list.length,
       "alpha": true
@@ -120596,7 +120664,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('table', {
     staticClass: "table"
-  }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.list[_vm.page]), function(row) {
+  }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.filterList(_vm.list[_vm.page])), function(row) {
     return _c('tr', [_c('td', [_c('a', {
       attrs: {
         "href": '/sources/' + row.id
@@ -120608,6 +120676,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })])
   }))])], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "icon is-left"
+  }, [_c('i', {
+    staticClass: "fa fa-search"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('th', [_vm._v("\n\t\t\t\t\tAuthor/Year\n\t\t\t\t")]), _vm._v(" "), _c('th', [_vm._v("\n\t\t\t\t\tFull Citation\n\t\t\t\t")])])])
 }]}
 module.exports.render._withStripped = true

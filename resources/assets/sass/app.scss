@@ -41,6 +41,14 @@ a {
 	}
 }
 
+.alg-source-index {
+	@extend .box;
+
+	.input {
+		margin-bottom: 1rem;
+	}
+}
+
 .alg-tag-input {
 	.alg-tag-section {
 		@extend .input;

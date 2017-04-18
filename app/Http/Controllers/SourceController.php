@@ -59,4 +59,12 @@ class SourceController extends Controller
         flash($source->display.' updated successfully.', 'is-success');
         return response()->json($source);
     }
+
+    public function destroy(Source $source)
+    {
+        $source->delete();
+
+        flash("{$source->display} deleted successfully.", 'is-info');
+        return redirect('/sources');
+    }
 }

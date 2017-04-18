@@ -10,6 +10,10 @@
 <div class="box">
 	<ul class="indented-list">
 		<li>
+			18-04-17: Added source deletion routine
+		</li>
+		<hr>
+		<li>
 			17-04-17: Made all JS forms autofocus first text input
 		</li>
 		<li>

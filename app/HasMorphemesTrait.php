@@ -287,11 +287,7 @@ trait HasMorphemesTrait {
 			foreach($morpheme['possibilities'] as $possibility) {
 
                 // Determine what the gloss should be
-				if($possibility->translation) {
-					$gloss = '<p>'.str_replace(' ', '.', $possibility->translation).'</p>';
-				} else {
-					$gloss = "<p class='gloss'>{$possibility->gloss->abv}</p>";
-				}
+                $gloss = $possibility->renderGloss();
 
                 // Create a button (disguised as a link) that will instruct the website to disambiguate the morpheme
 				$options .= "<li>".
@@ -312,8 +308,13 @@ trait HasMorphemesTrait {
 		} else {
         // There is no matching morpheme in the database
 
-			$title = "Morpheme missing";
-			$options = "<a href='/morphemes/create?name={$morpheme['name']}&language={$this->language->name}&languageID={$this->language->id}'>Add (-){$morpheme['name']}(-)</a>";
+            if(count($this->morphemicForm) > 0) {
+                $title = "Morpheme missing";
+                $options = "<a href='/morphemes/create?name={$morpheme['name']}&language={$this->language->name}&languageID={$this->language->id}'>Add (-){$morpheme['name']}(-)</a>";
+            } else {
+                $title = "Morphemic form undeclared";
+                $options = "<a href='/".strtolower($this->table)."/{$this->id}/edit'>Declare a morphemic form</a>";
+            }
 		}
 
 		return "<alg-morpheme-alert title='$title'>$options</alg-morpheme-alert>";

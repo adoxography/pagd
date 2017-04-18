@@ -18,7 +18,8 @@
 						   required="required"
 						   :disabled="loading"
 						   :class="{'is-danger': form.errors.has('name')}"
-						   placeholder="A few words to describe the rule" />
+						   placeholder="A few words to describe the rule"
+						   autofocus="autofocus" />
 				</p>
 				<span class="help is-danger"
 					  v-show="form.errors.has('name')"

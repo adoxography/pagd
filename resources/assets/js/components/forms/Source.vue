@@ -17,8 +17,8 @@
 						   :disabled="loading"
 						   autocomplete="off"
 						   required="required"
-						   :class="{'is-danger':
-						   form.errors.has('author')}">
+						   :class="{'is-danger': form.errors.has('author')}"
+						   autofocus="autofocus">
 				</p>
 				<span class="help is-danger"
 					  v-show="form.errors.has('author')"

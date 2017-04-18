@@ -34,7 +34,8 @@
 						   id="surfaceForm"
 						   :disabled="loading || form.empty"
 						   placeholder="The form as written in a text"
-						   :class="{'is-danger': form.errors.has('surfaceForm')}" />
+						   :class="{'is-danger': form.errors.has('surfaceForm')}"
+						   autofocus="autofocus" />
 				</p>
 				<span class="help is-danger"
 					  v-show="form.errors.has('surfaceForm')"

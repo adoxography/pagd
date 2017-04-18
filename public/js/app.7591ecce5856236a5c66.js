@@ -3146,6 +3146,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	props: ['languages', 'changes'],
@@ -5253,6 +5254,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	props: ['method', 'action', 'languages', 'example', 'language', 'presetForm'],
@@ -5383,6 +5385,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -6081,6 +6084,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	props: ['languages', 'groups', 'language', 'parent', 'method', 'action'],
@@ -6170,6 +6174,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -6547,6 +6552,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -122612,7 +122618,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "surfaceForm",
       "id": "surfaceForm",
       "disabled": _vm.loading || _vm.form.empty,
-      "placeholder": "The form as written in a text"
+      "placeholder": "The form as written in a text",
+      "autofocus": "autofocus"
     },
     domProps: {
       "value": (_vm.form.surfaceForm)
@@ -123540,7 +123547,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "name",
       "required": "required",
       "disabled": _vm.loading,
-      "placeholder": "A few words to describe the rule"
+      "placeholder": "A few words to describe the rule",
+      "autofocus": "autofocus"
     },
     domProps: {
       "value": (_vm.form.name)
@@ -123915,7 +123923,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "disabled": _vm.loading,
       "classes": {
         'is-danger': _vm.form.errors.has('language')
-      }
+      },
+      "autofocus": "autofocus"
     },
     on: {
       "input": _vm.onLanguageInput
@@ -124100,7 +124109,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "name",
       "id": "name",
       "required": "required",
-      "disabled": _vm.loading
+      "disabled": _vm.loading,
+      "autofocus": "autofocus"
     },
     domProps: {
       "value": (_vm.form.name)
@@ -125123,7 +125133,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "name",
       "id": "name",
       "required": "required",
-      "disabled": _vm.loading
+      "disabled": _vm.loading,
+      "autofocus": "autofocus"
     },
     domProps: {
       "value": (_vm.form.name)
@@ -125804,7 +125815,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "name",
       "id": "name",
       "required": "required",
-      "disabled": _vm.loading
+      "disabled": _vm.loading,
+      "autofocus": "autofocus"
     },
     domProps: {
       "value": (_vm.form.name)
@@ -126116,8 +126128,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "input",
     class: {
-      'is-danger':
-      _vm.form.errors.has('author')
+      'is-danger': _vm.form.errors.has('author')
     },
     attrs: {
       "type": "text",
@@ -126125,7 +126136,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "author",
       "disabled": _vm.loading,
       "autocomplete": "off",
-      "required": "required"
+      "required": "required",
+      "autofocus": "autofocus"
     },
     domProps: {
       "value": (_vm.form.author)

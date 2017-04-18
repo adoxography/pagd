@@ -39,7 +39,8 @@
 								  required="required"
 								  :disabled="loading"
 								  @input="onLanguageInput"
-								  :classes="{'is-danger': form.errors.has('language')}">
+								  :classes="{'is-danger': form.errors.has('language')}"
+								  autofocus="autofocus">
 					</alg-datalist>
 					<span class="help is-danger"
 						  v-show="form.errors.has('language')"

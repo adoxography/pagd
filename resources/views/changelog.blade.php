@@ -10,6 +10,9 @@
 <div class="box">
 	<ul class="indented-list">
 		<li>
+			17-04-17: Made all JS forms autofocus first text input
+		</li>
+		<li>
 			17-04-17: Added a filter option to the <a href="/sources">source page</a>
 		</li>
 		<hr>

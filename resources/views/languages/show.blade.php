@@ -136,6 +136,9 @@
 		</model-tab>
 
 		<model-tab name="Structural Survey">
+			<alg-tabs>
+			@foreach($types as $type)
+			<alg-tab name="{{ $type->name }}" {{ $loop->first ? 'selected="selected"' : ''}}>
 			<table class="table" style="display: block;">
 				<thead>
 					<tr>
@@ -144,7 +147,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					@foreach($variables as $variable)
+					@foreach($type->variables as $variable)
 						<tr>
 							<td><a href="/variables/{{ $variable->id }}">{{ $variable->name }}</a></td>
 							<td>
@@ -168,6 +171,9 @@
 					@endforeach
 				</tbody>
 			</table>
+			</alg-tab>
+			@endforeach
+			</alg-tabs>
 		</model-tab>
 
 		@if(count($language->rules) > 0)

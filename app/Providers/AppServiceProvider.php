@@ -7,9 +7,9 @@ use App\Gloss;
 use App\Language;
 use App\Morpheme;
 use App\Observers\FormObserver;
+use App\Observers\GlossObserver;
 use App\Observers\LanguageObserver;
 use App\Observers\MorphemeObserver;
-use App\Observers\GlossObserver;
 use Laravel\Dusk\DuskServiceProvider;
 use Illuminate\Support\ServiceProvider;
 

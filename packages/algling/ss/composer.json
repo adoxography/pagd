@@ -1,0 +1,12 @@
+{
+    "name": "algling/ss",
+    "description": "Structural survey of languages",
+    "authors": [
+        {
+            "name": "Graham Still",
+            "email": "gstill92@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

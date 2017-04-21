@@ -135,6 +135,41 @@
 			</ul>
 		</model-tab>
 
+		<model-tab name="Structural Survey">
+			<table class="table" style="display: block;">
+				<thead>
+					<tr>
+						<th>Variable</th>
+						<th>Value</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach($variables as $variable)
+						<tr>
+							<td><a href="/variables/{{ $variable->id }}">{{ $variable->name }}</a></td>
+							<td>
+								<?php
+									$index = $language->datapoints->search(function($val) use ($variable) {
+										return $val->variable_id == $variable->id;
+									});
+								?>
+								@if($index !== false)
+									<a href="/datapoints/{{ $language->datapoints[$index]->id }}">
+										{{ $language->datapoints[$index]->value->name }}
+									</a>
+								@else
+									Not entered
+									@if(Auth::user() && Auth::user()->permissions->canEdit)
+										(<a href="/variables/{{ $variable->id }}/languages/{{ $language->id }}/addDatapoint">Add</a>)
+									@endif
+								@endif
+							</td>
+						</tr>
+					@endforeach
+				</tbody>
+			</table>
+		</model-tab>
+
 		@if(count($language->rules) > 0)
 			<model-tab name="Rules">
 				@component('components.model.field', ['width' => 'is-half'])

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Group;
 use App\Language;
+use Algling\SS\Models\Variable;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LanguageRequest;
 use App\Http\Controllers\AlgModelController;
@@ -76,8 +77,9 @@ class LanguageController extends AlgModelController
             ]);
 
             $sources = $language->sources();
+            $variables = Variable::all();
 
-            return view('languages.show', compact('language', 'sources'));
+            return view('languages.show', compact('language', 'sources', 'variables'));
         } else {
             return view('errors.404');
         }

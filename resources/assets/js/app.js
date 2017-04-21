@@ -42,6 +42,9 @@ Vue.component('alg-morpheme-form',  require('./components/forms/Morpheme.vue'));
 Vue.component('alg-example-form',   require('./components/forms/Example.vue'));
 Vue.component('alg-rule-form',      require('./components/forms/Rule.vue'));
 Vue.component('alg-source-form',    require('./components/forms/Source.vue'));
+Vue.component('alg-variable-form',  require('./components/forms/Variable.vue'));
+Vue.component('alg-datapoint-form', require('./components/forms/Datapoint.vue'));
+
 Vue.component('alg-order', require('./components/Order.vue'));
 Vue.component('alg-flag', require('./components/Flag.vue'));
 Vue.component('alg-textarea', require('./components/Textarea.vue'));

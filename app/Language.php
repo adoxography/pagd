@@ -5,6 +5,7 @@ namespace App;
 use App\FormType;
 use Laravel\Scout\Searchable;
 use App\Events\Language\Saved;
+use Algling\SS\Models\Datapoint;
 use App\Events\Language\Created;
 use App\Events\Language\Deleting;
 use Illuminate\Database\Eloquent\Model;
@@ -123,6 +124,13 @@ class Language extends Model
     public function rules()
     {
         return $this->hasMany(Rule::class);
+    }
+
+    public function datapoints()
+    {
+        return $this->hasMany(Datapoint::class)
+            ->with('value')
+            ->with('variable');
     }
 
     /**

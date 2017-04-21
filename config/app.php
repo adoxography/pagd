@@ -184,6 +184,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ViewComposerServiceProvider::class,
         App\Providers\CustomValidationProvider::class,
+        Algling\SS\StructuralSurveyServiceProvider::class
 
     ],
 

@@ -2,6 +2,6 @@
 
 @section('content')
 
-{{ dd(\App\Language::find(1)->getParadigms()) }}
+<alg-variable-form types="{{ App\SS\Type::all() }}" values="{{ App\SS\Value::all() }}"></alg-variable-form>
 
 @endsection

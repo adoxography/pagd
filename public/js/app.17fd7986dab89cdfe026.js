@@ -4562,7 +4562,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: ['value', 'disabled', 'placeholder', 'name'],
+	props: ['value', 'disabled', 'placeholder', 'name', 'height'],
 
 	data: function data() {
 		return {
@@ -4581,7 +4581,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	mounted: function mounted() {
 		var _this = this;
 
-		tinymce.init({
+		var options = {
 			target: this.$el.children[0],
 			skin_url: '/css/skins/lightgray',
 			plugins: 'table charmap link lists',
@@ -4603,7 +4603,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					tinymce.remove(_this.$el.children[0]);
 				});
 			}
-		}).then(function (response) {
+		};
+
+		if (this.height) {
+			options.height = this.height;
+		}
+
+		tinymce.init(options).then(function (response) {
 			// Save a reference to the editor for later
 			_this.editor = response[0];
 		});
@@ -5105,6 +5111,199 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					id: ''
 				};
 			}
+		}
+	}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/Datapoint.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['method', 'action', 'languages', 'variables', 'datapoint', 'language', 'variable'],
+
+	data: function data() {
+		return {
+			form: new Form({
+				language: {
+					text: '',
+					id: ''
+				},
+				variable: {
+					text: '',
+					id: ''
+				},
+				value_id: '',
+				notes: '',
+				sources: []
+			}),
+			loading: false,
+			variableArray: []
+		};
+	},
+
+
+	computed: {
+		currentValues: function currentValues() {
+			var _this = this;
+
+			var variable = this.variableArray.find(function (variable) {
+				return variable.id == _this.form.variable.id;
+			});
+
+			if (variable) {
+				return variable.values;
+			} else {
+				return [];
+			}
+		}
+	},
+
+	created: function created() {
+		var _this2 = this;
+
+		this.variableArray = JSON.parse(this.variables);
+
+		if (this.datapoint) {
+			var datapointArray = JSON.parse(this.datapoint);
+
+			this.form.language = {
+				text: datapointArray.language.name,
+				id: datapointArray.language_id
+			};
+
+			this.form.variable = {
+				text: datapointArray.variable.name,
+				id: datapointArray.variable_id
+			};
+
+			this.form.value_id = datapointArray.value_id;
+			this.form.notes = datapointArray.notes;
+
+			if (datapointArray.sources) {
+				datapointArray.sources.forEach(function (source) {
+					_this2.form.sources.push({
+						short: source.display,
+						id: source.id,
+						long: source.long,
+						extraInfo: source.pivot.extraInfo
+					});
+				});
+			}
+		}
+
+		if (this.language) {
+			var languageArray = JSON.parse(this.language);
+			this.form.language = {
+				text: languageArray.name,
+				id: languageArray.id
+			};
+		}
+
+		if (this.variable) {
+			var variableArray = JSON.parse(this.variable);
+			this.form.variable = {
+				text: variableArray.name,
+				id: variableArray.id
+			};
+		}
+	},
+
+
+	methods: {
+		onSubmit: function onSubmit() {
+			var _this3 = this;
+
+			this.loading = true;
+
+			this.form.submit(this.method.toLowerCase(), this.action).then(function (response) {
+				window.location.replace("/datapoints/" + response);
+			}).catch(function (error) {
+				_this3.loading = false;
+			});
 		}
 	}
 });
@@ -6894,6 +7093,308 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			this.form.long = sourceArray.long;
 			this.form.url = sourceArray.url;
 			this.form.notes = sourceArray.notes;
+		}
+	}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/Variable.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['types', 'values', 'method', 'action', 'variable'],
+
+	data: function data() {
+		return {
+			form: new Form({
+				name: '',
+				type_id: '',
+				essay: '',
+				description: '',
+				sources: [],
+				values: []
+			}),
+			loading: false,
+			typeArray: [],
+			valueArray: [],
+			valueText: ''
+		};
+	},
+
+
+	computed: {
+		filteredValueArray: function filteredValueArray() {
+			var _this = this;
+
+			var output = [];
+
+			this.valueArray.forEach(function (value) {
+				if (value.name.toLowerCase().includes(_this.valueText.toLowerCase())) {
+					output.push(value);
+				}
+			});
+
+			return output;
+		},
+		selectedValues: function selectedValues() {
+			var values = [];
+
+			this.valueArray.forEach(function (value) {
+				if (value.checked) {
+					values.push({
+						id: value.id,
+						name: value.name
+					});
+				}
+			});
+
+			return values;
+		}
+	},
+
+	created: function created() {
+		var _this2 = this;
+
+		this.typeArray = JSON.parse(this.types);
+		var valueArray = JSON.parse(this.values);
+
+		for (var i = 0; i < valueArray.length; i++) {
+			this.valueArray.push({
+				id: valueArray[i].id,
+				name: valueArray[i].name,
+				checked: false,
+				used: false
+			});
+		}
+
+		if (this.variable) {
+			var variableArray = JSON.parse(this.variable);
+
+			this.form.name = variableArray.name;
+			this.form.type_id = variableArray.type_id;
+			this.form.description = variableArray.description;
+			this.form.essay = variableArray.essay;
+
+			variableArray.values.forEach(function (value) {
+				var found = false;
+
+				for (var _i = 0; _i < _this2.valueArray.length && !found; _i++) {
+					if (_this2.valueArray[_i].id == value.id) {
+						_this2.valueArray[_i].checked = true;
+						_this2.valueArray[_i].used = value.used;
+						found = true;
+					}
+				}
+			});
+
+			if (variableArray.sources) {
+				variableArray.sources.forEach(function (source) {
+					_this2.form.sources.push({
+						short: source.display,
+						id: source.id,
+						long: source.long,
+						extraInfo: source.pivot.extraInfo
+					});
+				});
+			}
+		}
+	},
+
+
+	methods: {
+		onEnter: function onEnter(event) {
+
+			if (this.valueText.length > 0) {
+				event.preventDefault();
+				this.form.errors.clear('values');
+
+				if (!this.selectItemInList(event.target.value, this.valueArray)) {
+					this.valueArray.push({
+						id: 0,
+						name: event.target.value,
+						checked: true
+					});
+				}
+
+				this.valueText = '';
+			}
+		},
+		removeValue: function removeValue(name) {
+			var index = this.valueArray.findIndex(function (value) {
+				return value.name == name;
+			});
+
+			this.valueArray.splice(index, 1);
+		},
+		selectItemInList: function selectItemInList(lookup, array) {
+			var found = false;
+
+			for (var i = 0; i < array.length && !found; i++) {
+				if (array[i].name.toLowerCase() == lookup.toLowerCase()) {
+					found = true;
+					array[i].checked = true;
+				}
+			}
+
+			return found;
+		},
+		onSubmit: function onSubmit() {
+			var _this3 = this;
+
+			this.loading = true;
+			this.form.values = this.selectedValues;
+
+			this.form.submit(this.method.toLowerCase(), this.action).then(function (response) {
+				window.location.replace("/variables/" + response);
+			}).catch(function (error) {
+				_this3.loading = false;
+			});
 		}
 	}
 });
@@ -120853,6 +121354,340 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-19c23c7d\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/forms/Variable.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('form', {
+    staticClass: "box",
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.onSubmit($event)
+      },
+      "keydown": function($event) {
+        _vm.form.errors.clear($event.target.name)
+      }
+    }
+  }, [_c('alg-tabs', [_c('alg-tab', {
+    attrs: {
+      "name": "Basic details",
+      "selected": "selected"
+    }
+  }, [_c('div', {
+    staticClass: "columns"
+  }, [_c('div', {
+    staticClass: "column is-8"
+  }, [_c('div', {
+    staticClass: "field"
+  }, [_c('label', {
+    staticClass: "label",
+    attrs: {
+      "for": "name"
+    }
+  }, [_vm._v("Name")]), _vm._v(" "), _c('p', {
+    staticClass: "control"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.name),
+      expression: "form.name"
+    }],
+    staticClass: "input",
+    attrs: {
+      "type": "text",
+      "name": "name",
+      "id": "name",
+      "disabled": _vm.loading,
+      "autofocus": "autofocus"
+    },
+    domProps: {
+      "value": (_vm.form.name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.form.name = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.form.errors.has('name')),
+      expression: "form.errors.has('name')"
+    }],
+    staticClass: "help is-danger",
+    domProps: {
+      "textContent": _vm._s(_vm.form.errors.get('name'))
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "field"
+  }, [_c('label', {
+    staticClass: "label",
+    attrs: {
+      "for": "type_id"
+    }
+  }, [_vm._v("Type")]), _vm._v(" "), _c('p', {
+    staticClass: "control"
+  }, [_c('span', {
+    staticClass: "select"
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.type_id),
+      expression: "form.type_id"
+    }],
+    attrs: {
+      "name": "type_id",
+      "id": "type_id",
+      "disabled": _vm.loading
+    },
+    on: {
+      "input": function($event) {
+        _vm.form.errors.clear('type_id')
+      },
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.form.type_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, _vm._l((_vm.typeArray), function(type) {
+    return _c('option', {
+      domProps: {
+        "value": type.id
+      }
+    }, [_vm._v(_vm._s(type.name))])
+  }))])]), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.form.errors.has('type_id')),
+      expression: "form.errors.has('type_id')"
+    }],
+    staticClass: "help is-danger",
+    domProps: {
+      "textContent": _vm._s(_vm.form.errors.get('type_id'))
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "field"
+  }, [_c('label', {
+    staticClass: "label",
+    attrs: {
+      "for": "description"
+    }
+  }, [_vm._v("Description")]), _vm._v(" "), _c('p', {
+    staticClass: "control"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.description),
+      expression: "form.description"
+    }],
+    staticClass: "input",
+    attrs: {
+      "type": "text",
+      "name": "description",
+      "id": "description",
+      "disabled": _vm.loading
+    },
+    domProps: {
+      "value": (_vm.form.description)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.form.description = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.form.errors.has('description')),
+      expression: "form.errors.has('description')"
+    }],
+    staticClass: "help is-danger",
+    domProps: {
+      "textContent": _vm._s(_vm.form.errors.get('description'))
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "column"
+  }, [_c('div', {
+    staticClass: "field"
+  }, [_c('label', {
+    staticClass: "label"
+  }, [_vm._v("Options")]), _vm._v(" "), _c('div', {
+    staticClass: "multi-select box"
+  }, [_c('div', {
+    staticClass: "field"
+  }, [_c('p', {
+    staticClass: "control"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.valueText),
+      expression: "valueText"
+    }],
+    staticClass: "input",
+    attrs: {
+      "type": "text",
+      "name": "value-input",
+      "id": "value-input",
+      "placeholder": "Filter the options"
+    },
+    domProps: {
+      "value": (_vm.valueText)
+    },
+    on: {
+      "keydown": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.onEnter($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.valueText = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "box",
+    staticStyle: {
+      "height": "200px",
+      "overflow": "auto"
+    }
+  }, [_c('p', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.filteredValueArray.length == 0 && _vm.valueText.length > 0),
+      expression: "filteredValueArray.length == 0 && valueText.length > 0"
+    }]
+  }, [_c('em', [_vm._v("Press 'enter' to add '" + _vm._s(_vm.valueText) + "' as an option")])]), _vm._v(" "), _vm._l((_vm.filteredValueArray), function(item) {
+    return _c('div', {
+      staticClass: "field"
+    }, [_c('p', {
+      staticClass: "control"
+    }, [_c('label', {
+      staticClass: "checkbox",
+      attrs: {
+        "title": item.used ? 'This value cannot be removed because it is being used in a datapoint.' : ''
+      }
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (item.checked),
+        expression: "item.checked"
+      }],
+      attrs: {
+        "type": "checkbox",
+        "disabled": _vm.loading || item.used
+      },
+      domProps: {
+        "checked": Array.isArray(item.checked) ? _vm._i(item.checked, null) > -1 : (item.checked)
+      },
+      on: {
+        "__c": function($event) {
+          var $$a = item.checked,
+            $$el = $event.target,
+            $$c = $$el.checked ? (true) : (false);
+          if (Array.isArray($$a)) {
+            var $$v = null,
+              $$i = _vm._i($$a, $$v);
+            if ($$c) {
+              $$i < 0 && (item.checked = $$a.concat($$v))
+            } else {
+              $$i > -1 && (item.checked = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+            }
+          } else {
+            item.checked = $$c
+          }
+        }
+      }
+    }), _vm._v("\n\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(item.name) + "\n\t\t\t\t\t\t\t\t\t\t")]), _vm._v(" "), _c('a', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (item.id == 0),
+        expression: "item.id == 0"
+      }],
+      staticClass: "delete is-small is-pulled-right",
+      on: {
+        "click": function($event) {
+          $event.preventDefault();
+          _vm.removeValue(item.name)
+        }
+      }
+    })])])
+  })], 2), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.selectedValues.length < 2),
+      expression: "selectedValues.length < 2"
+    }],
+    staticClass: "help is-danger"
+  }, [_vm._v("\n\t\t\t\t\t\t\t\tVariables must have at least two options\n\t\t\t\t\t\t\t")])])])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('alg-sources', {
+    attrs: {
+      "disabled": _vm.loading
+    },
+    model: {
+      value: (_vm.form.sources),
+      callback: function($$v) {
+        _vm.form.sources = $$v
+      },
+      expression: "form.sources"
+    }
+  })], 1), _vm._v(" "), _c('alg-tab', {
+    attrs: {
+      "name": "Essay"
+    }
+  }, [_c('div', {
+    staticClass: "field"
+  }, [_c('alg-textarea', {
+    attrs: {
+      "disabled": _vm.loading,
+      "name": "essay",
+      "height": "500"
+    },
+    model: {
+      value: (_vm.form.essay),
+      callback: function($$v) {
+        _vm.form.essay = $$v
+      },
+      expression: "form.essay"
+    }
+  })], 1), _vm._v(" "), _c('br')])], 1), _vm._v(" "), _c('div', {
+    staticClass: "field"
+  }, [_c('button', {
+    staticClass: "button is-primary",
+    class: {
+      'is-loading': _vm.loading, 'is-disabled': _vm.form.errors.any() || _vm.loading || _vm.selectedValues.length < 2
+    },
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("\n\t\t\t\tSubmit\n\t\t")])])], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-19c23c7d", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-1b1356ea\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Hidden-Icon.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -122220,6 +123055,208 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-3d1e2d1c", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4ba12775\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/forms/Datapoint.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('form', {
+    staticClass: "box",
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.onSubmit($event)
+      },
+      "keydown": function($event) {
+        _vm.form.errors.clear($event.target.name)
+      }
+    }
+  }, [_c('h4', {
+    staticClass: "subtitle is-4"
+  }, [_vm._v("Basic Details")]), _vm._v(" "), _c('div', {
+    staticClass: "columns"
+  }, [_c('div', {
+    staticClass: "column"
+  }, [_c('label', {
+    staticClass: "label",
+    attrs: {
+      "for": "language"
+    }
+  }, [_vm._v("Language")]), _vm._v(" "), _c('alg-datalist', {
+    attrs: {
+      "list": _vm.languages,
+      "name": "language",
+      "id": "language",
+      "disabled": _vm.loading,
+      "classes": {
+        'is-danger': _vm.form.errors.has('language')
+      }
+    },
+    on: {
+      "input": function($event) {
+        _vm.form.errors.clear('language')
+      }
+    },
+    model: {
+      value: (_vm.form.language),
+      callback: function($$v) {
+        _vm.form.language = $$v
+      },
+      expression: "form.language"
+    }
+  }), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.form.errors.has('language')),
+      expression: "form.errors.has('language')"
+    }],
+    staticClass: "help is-danger",
+    domProps: {
+      "textContent": _vm._s(_vm.form.errors.get('language'))
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "column"
+  }, [_c('label', {
+    staticClass: "label",
+    attrs: {
+      "for": "variable"
+    }
+  }, [_vm._v("Variable")]), _vm._v(" "), _c('alg-datalist', {
+    attrs: {
+      "list": _vm.variables,
+      "name": "variable",
+      "id": "variable",
+      "disabled": _vm.loading,
+      "classes": {
+        'is-danger': _vm.form.errors.has('variable')
+      }
+    },
+    on: {
+      "input": function($event) {
+        _vm.form.errors.clear('variable')
+      }
+    },
+    model: {
+      value: (_vm.form.variable),
+      callback: function($$v) {
+        _vm.form.variable = $$v
+      },
+      expression: "form.variable"
+    }
+  }), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.form.errors.has('variable')),
+      expression: "form.errors.has('variable')"
+    }],
+    staticClass: "help is-danger",
+    domProps: {
+      "textContent": _vm._s(_vm.form.errors.get('variable'))
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "column"
+  }, [_c('label', {
+    staticClass: "label",
+    attrs: {
+      "for": "value_id"
+    }
+  }, [_vm._v("Value")]), _vm._v(" "), _c('p', {
+    staticClass: "control"
+  }, [_c('span', {
+    staticClass: "select"
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.value_id),
+      expression: "form.value_id"
+    }],
+    attrs: {
+      "name": "value_id",
+      "id": "value_id",
+      "disabled": _vm.loading
+    },
+    on: {
+      "input": function($event) {
+        _vm.form.errors.clear('value_id')
+      },
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.form.value_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, _vm._l((_vm.currentValues), function(value) {
+    return _c('option', {
+      domProps: {
+        "value": value.id
+      }
+    }, [_vm._v(_vm._s(value.name))])
+  }))])]), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.form.errors.has('value_id')),
+      expression: "form.errors.has('value_id')"
+    }],
+    staticClass: "help is-danger",
+    domProps: {
+      "textContent": _vm._s(_vm.form.errors.get('value_id'))
+    }
+  })])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('alg-sources', {
+    attrs: {
+      "disabled": _vm.loading
+    },
+    model: {
+      value: (_vm.form.sources),
+      callback: function($$v) {
+        _vm.form.sources = $$v
+      },
+      expression: "form.sources"
+    }
+  }), _vm._v(" "), _c('hr'), _vm._v(" "), _c('h4', {
+    staticClass: "subtitle is-4"
+  }, [_vm._v("Notes")]), _vm._v(" "), _c('div', {
+    staticClass: "field"
+  }, [_c('alg-textarea', {
+    attrs: {
+      "disabled": _vm.loading,
+      "name": "notes"
+    },
+    model: {
+      value: (_vm.form.notes),
+      callback: function($$v) {
+        _vm.form.notes = $$v
+      },
+      expression: "form.notes"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "field"
+  }, [_c('button', {
+    staticClass: "button is-primary",
+    class: {
+      'is-loading': _vm.loading, 'disabled': _vm.form.errors.any() || _vm.loading
+    },
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("Submit")])])], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-4ba12775", module.exports)
   }
 }
 
@@ -136698,6 +137735,9 @@ Vue.component('alg-morpheme-form', __webpack_require__("./resources/assets/js/co
 Vue.component('alg-example-form', __webpack_require__("./resources/assets/js/components/forms/Example.vue"));
 Vue.component('alg-rule-form', __webpack_require__("./resources/assets/js/components/forms/Rule.vue"));
 Vue.component('alg-source-form', __webpack_require__("./resources/assets/js/components/forms/Source.vue"));
+Vue.component('alg-variable-form', __webpack_require__("./resources/assets/js/components/forms/Variable.vue"));
+Vue.component('alg-datapoint-form', __webpack_require__("./resources/assets/js/components/forms/Datapoint.vue"));
+
 Vue.component('alg-order', __webpack_require__("./resources/assets/js/components/Order.vue"));
 Vue.component('alg-flag', __webpack_require__("./resources/assets/js/components/Flag.vue"));
 Vue.component('alg-textarea', __webpack_require__("./resources/assets/js/components/Textarea.vue"));
@@ -137983,6 +139023,41 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/assets/js/components/forms/Datapoint.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/Datapoint.vue"),
+  /* template */
+  __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4ba12775\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/forms/Datapoint.vue"),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/home/vagrant/Code/laravel/resources/assets/js/components/forms/Datapoint.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Datapoint.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4ba12775", Component.options)
+  } else {
+    hotAPI.reload("data-v-4ba12775", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
 /***/ "./resources/assets/js/components/forms/Example.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -138220,6 +139295,41 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-e7179e48", Component.options)
   } else {
     hotAPI.reload("data-v-e7179e48", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/forms/Variable.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/Variable.vue"),
+  /* template */
+  __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-19c23c7d\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/forms/Variable.vue"),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/home/vagrant/Code/laravel/resources/assets/js/components/forms/Variable.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Variable.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-19c23c7d", Component.options)
+  } else {
+    hotAPI.reload("data-v-19c23c7d", Component.options)
   }
 })()}
 

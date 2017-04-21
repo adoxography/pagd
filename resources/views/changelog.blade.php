@@ -10,6 +10,10 @@
 <div class="box">
 	<ul class="indented-list">
 		<li>
+			20-04-17: Added structural survey
+		</li>
+		<hr>
+		<li>
 			18-04-17: Added source deletion routine
 		</li>
 		<hr>

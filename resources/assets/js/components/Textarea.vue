@@ -12,7 +12,7 @@
 
 <script>
 export default {
-	props: ['value', 'disabled', 'placeholder', 'name'],
+	props: ['value', 'disabled', 'placeholder', 'name', 'height'],
 
 	data() {
 		return {
@@ -28,7 +28,7 @@ export default {
 	},
 
 	mounted() {
-		tinymce.init({
+		let options = {
 			target: this.$el.children[0],
 			skin_url: '/css/skins/lightgray',
 			plugins: 'table charmap link lists',
@@ -53,7 +53,13 @@ export default {
 					tinymce.remove(this.$el.children[0]);
 				});
 			}
-		})
+		};
+
+		if(this.height) {
+			options.height = this.height;
+		}
+
+		tinymce.init(options)
 		.then(response => {
 			// Save a reference to the editor for later
 			this.editor = response[0];

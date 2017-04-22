@@ -3202,6 +3202,175 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Language-Model.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_clickaway__ = __webpack_require__("./node_modules/vue-clickaway/dist/vue-clickaway.common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_clickaway___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_clickaway__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {
+			isOpen: true,
+			tabs: [],
+			subtabs: [],
+			activeTab: {},
+			activeSubtab: ''
+		};
+	},
+
+
+	directives: {
+		onClickaway: __WEBPACK_IMPORTED_MODULE_0_vue_clickaway__["directive"]
+	},
+
+	created: function created() {
+		this.tabs = this.$children;
+	},
+	mounted: function mounted() {
+		var _this = this;
+
+		this.activeTab = this.tabs[0];
+
+		this.tabs.forEach(function (tab) {
+			_this.subtabs = _this.subtabs.concat(tab.subtabs);
+		});
+
+		this.activeSubtab = this.subtabs[0];
+
+		this.selectSubtab(this.activeSubtab);
+	},
+
+
+	methods: {
+		toggleMenu: function toggleMenu() {
+			if (this.isOpen) {
+				this.isOpen = false;
+			} else {
+				this.isOpen = true;
+				this.justOpened = true;
+			}
+		},
+		clickaway: function clickaway() {
+			if (this.isOpen) {
+				if (this.justOpened) {
+					this.justOpened = false;
+				} else {
+					this.isOpen = false;
+				}
+			}
+		},
+		onClickSubtab: function onClickSubtab(subtab) {
+			this.activeSubtab = subtab;
+
+			this.selectSubtab(subtab);
+
+			// this.isOpen = false;
+		},
+		selectSubtab: function selectSubtab(subtab) {
+			this.subtabs.forEach(function (currSubtab) {
+				currSubtab.show = currSubtab.name == subtab.name;
+			});
+		}
+	}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Language-Subtab.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['name'],
+
+	data: function data() {
+		return {
+			show: false
+		};
+	}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Language-Tab.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['name'],
+
+	data: function data() {
+		return {
+			subtabs: []
+		};
+	},
+	created: function created() {
+		this.subtabs = this.$children;
+	}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Message.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -123060,6 +123229,90 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4532cc75\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Language-Model.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "card"
+  }, [_c('header', {
+    staticClass: "card-header"
+  }, [_c('p', {
+    staticClass: "card-header-title"
+  }, [_vm._v("\n\t\t\tProto-Algonquian\n\t\t")]), _vm._v(" "), _c('a', {
+    staticClass: "card-header-icon",
+    attrs: {
+      "title": "Menu"
+    },
+    on: {
+      "click": _vm.toggleMenu
+    }
+  }, [_c('span', {
+    staticClass: "icon"
+  }, [(_vm.isOpen) ? _c('i', {
+    staticClass: "fa fa-angle-double-right"
+  }) : _c('i', {
+    staticClass: "fa fa-angle-double-left"
+  })])])]), _vm._v(" "), _c('div', [_c('div', {
+    directives: [{
+      name: "on-clickaway",
+      rawName: "v-on-clickaway",
+      value: (_vm.clickaway),
+      expression: "clickaway"
+    }],
+    staticClass: "language-menu",
+    class: {
+      'is-open': _vm.isOpen
+    }
+  }, [_c('nav', {
+    staticClass: "panel"
+  }, [_c('div', {
+    staticClass: "panel-tabs"
+  }, _vm._l((_vm.tabs), function(tab) {
+    return _c('a', {
+      class: {
+        'is-active': tab.name == _vm.activeTab.name
+      },
+      on: {
+        "click": function($event) {
+          _vm.activeTab = tab
+        }
+      }
+    }, [_c('nobr', [_vm._v(_vm._s(tab.name))])], 1)
+  })), _vm._v(" "), _vm._l((_vm.activeTab.subtabs), function(subtab) {
+    return _c('a', {
+      staticClass: "panel-block",
+      class: {
+        'is-active': subtab.name == _vm.activeSubtab.name
+      },
+      on: {
+        "click": function($event) {
+          _vm.onClickSubtab(subtab)
+        }
+      }
+    }, [_vm._m(0, true), _vm._v("\n\t\t\t\t\t" + _vm._s(subtab.name) + "\n\t\t\t\t")])
+  })], 2)]), _vm._v(" "), _c('div', {
+    staticClass: "card-content"
+  }, [_c('div', {
+    staticClass: "content"
+  }, [_vm._t("default")], 2)])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "panel-icon"
+  }, [_c('i', {
+    staticClass: "fa fa-circle"
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-4532cc75", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4ba12775\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/forms/Datapoint.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -124424,6 +124677,27 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-5b842f45", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-63a8368e\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Language-Subtab.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "language-menu-subtab",
+    class: {
+      'is-active': _vm.show
+    }
+  }, [_vm._t("default")], 2)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-63a8368e", module.exports)
   }
 }
 
@@ -126756,6 +127030,24 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-bdbe3078", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-c754903e\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Language-Tab.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "language-menu-tab"
+  }, [_vm._t("default")], 2)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-c754903e", module.exports)
   }
 }
 
@@ -137753,6 +138045,10 @@ Vue.component('alg-source-index', __webpack_require__("./resources/assets/js/com
 Vue.component('alg-pagination-limited', __webpack_require__("./resources/assets/js/components/Pagination-Limited.vue"));
 Vue.component('alg-pagination-full', __webpack_require__("./resources/assets/js/components/Pagination-Full.vue"));
 
+Vue.component('alg-language-model', __webpack_require__("./resources/assets/js/components/Language-Model.vue"));
+Vue.component('alg-language-tab', __webpack_require__("./resources/assets/js/components/Language-Tab.vue"));
+Vue.component('alg-language-subtab', __webpack_require__("./resources/assets/js/components/Language-Subtab.vue"));
+
 Vue.component('alg-paradigm-table', {
 	props: ['morphemesOn'],
 
@@ -138280,6 +138576,111 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-7c0b2449", Component.options)
   } else {
     hotAPI.reload("data-v-7c0b2449", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Language-Model.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Language-Model.vue"),
+  /* template */
+  __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4532cc75\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Language-Model.vue"),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/home/vagrant/Code/laravel/resources/assets/js/components/Language-Model.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Language-Model.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4532cc75", Component.options)
+  } else {
+    hotAPI.reload("data-v-4532cc75", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Language-Subtab.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Language-Subtab.vue"),
+  /* template */
+  __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-63a8368e\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Language-Subtab.vue"),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/home/vagrant/Code/laravel/resources/assets/js/components/Language-Subtab.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Language-Subtab.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-63a8368e", Component.options)
+  } else {
+    hotAPI.reload("data-v-63a8368e", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Language-Tab.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Language-Tab.vue"),
+  /* template */
+  __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-c754903e\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Language-Tab.vue"),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/home/vagrant/Code/laravel/resources/assets/js/components/Language-Tab.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Language-Tab.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-c754903e", Component.options)
+  } else {
+    hotAPI.reload("data-v-c754903e", Component.options)
   }
 })()}
 

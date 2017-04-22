@@ -349,3 +349,31 @@ p.is-danger {
 .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
   opacity: 0
 }
+
+.language-menu {
+	float: right;
+	position: absolute;
+	background-color: white;
+	z-index: 10;
+	right: 0;
+	transform: translateX(100%);
+	opacity: 0;
+	transition: transform 0.6s, opacity 0.6s;
+
+	&.is-open {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+.language-menu-subtab {
+	display: none;
+
+	&.is-active {
+		display: block;
+	}
+}
+
+[v-cloak] {
+	display: none;
+}

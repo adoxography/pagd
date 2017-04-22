@@ -60,6 +60,10 @@ Vue.component('alg-source-index', require('./components/Source-Index.vue'));
 Vue.component('alg-pagination-limited', require('./components/Pagination-Limited.vue'));
 Vue.component('alg-pagination-full', require('./components/Pagination-Full.vue'));
 
+Vue.component('alg-language-model', require('./components/Language-Model.vue'));
+Vue.component('alg-language-tab', require('./components/Language-Tab.vue'));
+Vue.component('alg-language-subtab', require('./components/Language-Subtab.vue'));
+
 Vue.component('alg-paradigm-table', {
 	props: ['morphemesOn'],
 

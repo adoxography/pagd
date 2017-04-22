@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-	<alg-paradigm-table morphemes-on="{{ $showMorphology }}" inline-template>
+	<alg-paradigm-table morphemes-on="{{ $showMorphology }}" inline-template v-cloak>
 		<div>
 			<nav class="level">
 				<div class="level-left">

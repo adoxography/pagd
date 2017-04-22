@@ -10,6 +10,9 @@
 <div class="box">
 	<ul class="indented-list">
 		<li>
+			21-04-17: Prevented paradigms and detail pages from appearing before JS finishes loading
+		</li>
+		<li>
 			20-04-17: Added structural survey
 		</li>
 		<hr>

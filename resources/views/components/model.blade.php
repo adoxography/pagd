@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" v-cloak>
 
 	@if(isset($header))
 		<header class="card-header">

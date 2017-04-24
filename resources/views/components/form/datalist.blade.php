@@ -1,12 +1,18 @@
-{{-- Display the label if it was included --}}
-@if(isset($label))
-	@component('components.form.label')
-		@slot('for')
-			{{ $name }}
-		@endslot
-		{{ $label }}
-	@endcomponent
-@endif
+@extends('components.form.field')
 
-{{-- Display the datalist --}}
-<alg-datalist list="{{ $list }}" name="{{ $name }}" {{ isset($required) ? "required=\"true\"" : "" }} placeholder="{{ $placeholder or '' }}"></alg-datalist>
+@section("{$name}_control")
+	<alg-datalist
+		v-model="{{ $name }}"
+		:list="{{ $list }}"
+		name="{{ $name }}"
+		id="{{ $id or $name }}"
+		initial="{{ old($name, 'not found') !== 'not found' ? old($name) : $value }}"
+		:has-errors="errors.has('{{ $name }}')"
+
+		@if(isset($rules))
+		v-validate="'{{ $rules }}'"
+		@endif
+
+		{{-- :classes="{'is-danger': errors.has('{{ $name }}')}" --}}
+	></alg-datalist>
+@endsection

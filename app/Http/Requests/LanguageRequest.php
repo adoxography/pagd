@@ -17,24 +17,7 @@ class LanguageRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user();
-    }
-
-    public function all()
-    {
-        $attributes = parent::all();
-
-        foreach(parent::all() as $key => $value) {
-            if(is_array($value)) {
-                foreach($value as $subKey => $subValue) {
-                    $attributes["{$key}_{$subKey}"] = $subValue;
-                }
-            }
-        }
-
-        $this->replace($attributes);
-
-        return parent::all();
+        return Auth::user() && Auth::user()->permissions->canEdit;
     }
 
     /**
@@ -45,13 +28,13 @@ class LanguageRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'group.text'    => ['required'],
-            'group.id'      => ['required','integer','exists:Groups,id'],
-            'parent.text'   => ['nullable','exists:Languages,name'],
-            'parent.id'     => ['nullable','integer','exists:Languages,id'],
+            'group'         => ['required'],
+            'group_id'      => ['required','integer','exists:Groups,id'],
+            'parent'        => ['nullable','exists:Languages,name'],
+            'parent_id'     => ['nullable','integer','exists:Languages,id'],
             'reconstructed' => ['required','boolean'],
             'name'          => ['required'],
-            'iso'           => ['required', 'size:3'],
+            'iso'           => ['nullable', 'size:3'],
             'algoCode'      => ['required', 'between:1,5']
         ];
 
@@ -76,14 +59,15 @@ class LanguageRequest extends FormRequest
         return $rules;
     }
 
-    public function messages(){
+    public function messages()
+    {
         return [
-            'group.text.required' => 'Please enter a group.',
-            'group.id.required'   => 'There is no group by that name in the database.',
-            'parent.text.exists'  => 'There is no language by that name in the databse.',
-            'parent.id.nomatch'   => 'A language cannot be its own parent!',
-            'iso.unique' => 'That ISO is already in use.',
-            'algoCode.unique' => 'That algonquianist code is already in use.',
+            'group.required'      => 'Please enter a group.',
+            'group_id.required'   => 'There is no group by that name in the database.',
+            'parent.exists'       => 'There is no language by that name in the databse.',
+            'parent_id.nomatch'   => 'A language cannot be its own parent!',
+            'iso.unique'          => 'That ISO is already in use.',
+            'algoCode.unique'     => 'That algonquianist code is already in use.',
         ];
     }
 }

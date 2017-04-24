@@ -124,7 +124,7 @@ class LanguageController extends AlgModelController
         $language = Language::create($request->all());
 
         flash("{$language->name} added successfully. <a href='/languages/order'>Set its order</a>", 'is-success');
-        return $language->id;
+        return redirect("/languages/{$language->id}");
     }
 
     /**
@@ -139,7 +139,7 @@ class LanguageController extends AlgModelController
         $language->update($request->all());
 
         flash("{$language->name} updated successfully.", 'is-success');
-        return $language->id;
+        return redirect("/languages/{$language->id}");
     }
 
     /**

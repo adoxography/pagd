@@ -8,7 +8,7 @@
 					   :id="id"
 					   :disabled="disabled"
 					   class="input"
-					   :class="classes"
+					   :class="{ 'is-danger': hasErrors }"
 					   :value="value.text"
 					   @keyup="onKeyUp($event.keyCode)"
 					   @keydown="onKeyDown($event)"
@@ -16,13 +16,14 @@
 					   v-focus="focused"
 					   @focus="onFocus"
 					   @blur="onBlur"
-					   ref="textInput" autocomplete="off"
+					   ref="textInput"
+					   autocomplete="off"
 					   :placeholder="placeholder"
 					   :required="required" />
 			</p>
 			<p class="control">
 	   			<a class="button"
-	   			   :class="{ 'is-disabled': disabled }"
+	   			   :class="{ 'is-disabled': disabled, 'is-danger': hasErrors }"
 	   			   @click="handleButtonClicked">
 					<span class="icon is-small">
 						<i class="fa fa-chevron-down"></i>
@@ -53,24 +54,7 @@
 	import  { directive as onClickaway } from 'vue-clickaway';
 
 	export default {
-		props: {
-			list: String,
-			name: String,
-			id: {},
-			disabled: Boolean,
-			required: {},
-
-			value: {
-				default: function () {
-					return {
-						text: '',
-						id: ''
-					};
-				}
-			},
-			placeholder: {},
-			classes: {}
-		},
+		props: ['list', 'name', 'id', 'disabled', 'required', 'value', 'placeholder', 'hasErrors', 'initial'],
 
 		computed: {
 			hasValue() {
@@ -95,7 +79,17 @@
 		},
 
 		created() {
-			this.parsedList = JSON.parse(this.list);
+			if(Array.isArray(this.list)) {
+				this.parsedList = this.list;
+			} else {
+				this.parsedList = JSON.parse(this.list);
+			}
+		},
+
+		mounted() {
+			if(this.initial) {
+				this.update(this.initial);
+			}
 		},
 
 		methods: {

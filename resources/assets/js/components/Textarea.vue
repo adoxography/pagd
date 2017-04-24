@@ -16,7 +16,6 @@ export default {
 
 	data() {
 		return {
-			height: 0,
 			editor: null
 		};
 	},

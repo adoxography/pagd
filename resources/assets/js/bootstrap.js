@@ -1,5 +1,6 @@
 import Form from './utilities/Form';
 import axiosRetry from 'axios-retry';
+import VeeValidate from 'vee-validate';
 
 window._ = require('lodash');
 
@@ -20,10 +21,11 @@ require('jquery-ui');
  */
 
 window.Vue = require('vue');
-// require('vue-resource');
+require('vue-resource');
 
 let vueScrollTo = require('vue-scroll-to');
 Vue.use(vueScrollTo);
+Vue.use(VeeValidate);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -61,11 +63,11 @@ import 'tinymce/plugins/lists/plugin'
  * included with Laravel will automatically verify the header's value.
  */
 
-// Vue.http.interceptors.push((request, next) => {
-//     request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken);
+Vue.http.interceptors.push((request, next) => {
+    request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken);
 
-//     next();
-// });
+    next();
+});
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

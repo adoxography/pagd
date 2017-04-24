@@ -33,7 +33,7 @@ class LanguageObserver {
             'name'          => 'V',
             'alternateName' => 'IC.V',
             'language_id'   => $language->id,
-            'gloss_id'      => 1, // V
+            'gloss'         => 'V',
             'slot_id'       => 1, // V
         ]);
 

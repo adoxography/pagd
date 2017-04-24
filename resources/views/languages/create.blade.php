@@ -7,11 +7,13 @@
 	</div>
 	<br />
 
-	<alg-language-form method="POST"
+	@include('languages.partials.form', ['method' => 'POST', 'action' => '/languages'])
+
+{{-- 	<alg-language-form method="POST"
 					   action="/languages"
 					   languages="{{ $parents }}"
 					   groups="{{ $groups }}"
 					   parent="{{ $presetParent or "" }}">
-	</alg-language-form>
+	</alg-language-form> --}}
 
 @stop

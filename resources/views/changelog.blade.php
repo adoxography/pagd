@@ -10,6 +10,16 @@
 <div class="box">
 	<ul class="indented-list">
 		<li>
+			24-04-17: Made ISO nullable
+		</li>
+		<li>
+			24-04-17: Recoded language form to submit without AJAX
+			<ul>
+				<li>This should eliminate most remaining submission errors</li>
+				<li>Will transition other forms to follow a similar structure</li>
+			</li>
+		</li>
+		<li>
 			21-04-17: Prevented paradigms and detail pages from appearing before JS finishes loading
 		</li>
 		<li>

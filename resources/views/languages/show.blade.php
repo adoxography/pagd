@@ -32,15 +32,17 @@
 				<div class="column is-half"></div>
 			@endif
 
-			{{-- ISO field --}}
-			@component('components.model.field', ['width' => 'is-half', 'label' => 'ISO Code'])
-				{{ $language->iso }}
-			@endcomponent
-
 			{{-- Algonquianist code field --}}
 			@component('components.model.field', ['width' => 'is-half', 'label' => 'Algonquianist Code'])
 				{{ $language->algoCode }}
 			@endcomponent
+
+			{{-- ISO field --}}
+			@if($language->iso)
+				@component('components.model.field', ['width' => 'is-half', 'label' => 'ISO Code'])
+					{{ $language->iso }}
+				@endcomponent
+			@endif
 
 			@include('components.model.text', ['width' => 'is-12', 'label' => 'Notes', 'text' => $language->notes, 'language_id' => $language->id])
 		</model-tab>

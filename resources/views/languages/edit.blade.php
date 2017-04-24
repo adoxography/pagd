@@ -7,11 +7,13 @@
 	</div>
 	<br />
 
-	<alg-language-form method="PATCH"
+	@include('languages.partials.form', ['method' => 'PATCH', 'action' => "/languages/{$language->id}"])
+
+{{-- 	<alg-language-form method="PATCH"
 					   action="/languages/{{ $language->id }}"
 					   languages="{{ $parents }}"
 					   groups="{{ $groups }}"
 					   language="{{ $language }}">
-	</alg-language-form>
+	</alg-language-form> --}}
 
 @stop

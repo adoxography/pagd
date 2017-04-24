@@ -1,1 +1,0 @@
-<label for="{{ $for or '' }}" class="label">{{ $slot }}</label>

@@ -5,6 +5,9 @@
 		<title>{{ $title or "Database of Algonquian Language Structures" }}</title>
 
 		<link rel="stylesheet" type="text/css" href="{{ mix("/css/app.css") }}" />
+		<script>
+		    window.Laravel = { csrfToken: '{{ csrf_token() }}' };
+		</script>
 		
 		@yield('header')
 	</head>

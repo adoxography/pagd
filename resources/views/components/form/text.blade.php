@@ -1,14 +1,33 @@
-{{-- Display the label if it was included --}}
-@if(isset($label))
-	@component('components.form.label')
-		@slot('for')
-			{{ $name or "" }}
-		@endslot
-		{{ $label }}
-	@endcomponent
-@endif
+@extends('components.form.field')
 
-{{-- Display the text field --}}
-<p class="control">
-	<input type="{{ $type or "text" }}" class="input" autocomplete="off" {{ isset($required) ? "required=\"true\"" : "" }} name="{{ $name or '' }}" id="{{ $id or (isset($name) ? $name : '') }}" value="{{ $value or "" }}" placeholder="{{ $placeholder or '' }}" />
-</p>
+@section("{$name}_control")
+	<input
+		type="text"
+		class="input"
+		value="{{ old($name, 'not found') !== 'not found' ? old($name) : $value }}"
+		autocomplete="off"
+		name="{{ $name }}"
+		id="{{ $id or $name }}"
+		:class="{'is-danger': errors.has('{{ $name }}')}"
+
+		@if(isset($autofocus) && !old($name) && strlen($value) == 0)
+		autofocus="autofocus"
+		@endif
+
+		@if(isset($placeholder))
+		placeholder="{{ $placeholder }}"
+		@endif
+
+		@if(isset($rules))
+		v-validate="'{{ $rules }}'"
+		@endif
+
+		@if(isset($delay))
+		data-vv-delay="{{ $delay }}"
+		@endif
+
+		@if(isset($label))
+		data-vv-as="{{ $label }}"
+		@endif
+	/>
+@endsection

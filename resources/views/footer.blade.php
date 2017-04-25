@@ -21,9 +21,9 @@
 				@endif
 			</ul>
 			@if(Auth::user())
-				@component('components.form', ['url' => '/backup'])
+{{-- 				@component('components.form', ['url' => '/backup'])
 					<button type="submit" class="button is-info is-small">Download a Backup</button>
-				@endcomponent
+				@endcomponent --}}
 			@else
 				<a href="/register">Sign up</a>
 			@endif

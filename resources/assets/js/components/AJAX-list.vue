@@ -44,7 +44,7 @@
 
 	export default {
 
-		props: ['name', 'id', 'value', 'with', 'uri', 'placeholder', 'disabled'],
+		props: ['name', 'id', 'value', 'with', 'uri', 'placeholder', 'disabled', 'initial'],
 
 		data() {
 			return {
@@ -68,6 +68,16 @@
 
 		mounted() {
 			this.$refs.list.contentEditable = true;
+
+			if(this.initial) {
+				let initial = JSON.parse(this.initial);
+
+				this.$emit('input', {
+					text: initial.text,
+					id: initial.id,
+					extra: this.extra
+				});
+			}
 		},
 
 		methods: {

@@ -19,23 +19,6 @@ class LangFormRequest extends FormRequest
         return Auth::user();
     }
 
-    public function all()
-    {
-        $attributes = parent::all();
-
-        foreach(parent::all() as $key => $value) {
-            if(is_array($value)) {
-                foreach($value as $subKey => $subValue) {
-                    $attributes["{$key}_{$subKey}"] = $subValue;
-                }
-            }
-        }
-
-        $this->replace($attributes);
-
-        return parent::all();
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -45,30 +28,27 @@ class LangFormRequest extends FormRequest
     {
         $rules = [
             //Base form info
-            'surfaceForm'          => ['required_without:empty'],
-            'phoneticForm'         => ['nullable'],
-            'morphemicForm'        => ['nullable','has:V'],
+            'surfaceForm'        => ['required_without:empty'],
+            'phoneticForm'       => ['nullable'],
+            'morphemicForm'      => ['nullable','has:V'],
 
             //Language Info
-            'language.text'        => ['required'],
-            'language.id'          => ['required','integer','exists:Languages,id'],
-            'parent.id'            => ['nullable','exists:Forms,id'],
-            'subject.text'         => ['required'],
-            'subject.id'           => ['required','exists:Arguments,id'],  
-            'primaryObject.text'   => ['nullable','exists:Arguments,name'],         
-            'primaryObject.id'     => ['nullable','integer','exists:Arguments,id'],
-            'secondaryObject.text' => ['nullable','exists:Arguments,name'],  
-            'secondaryObject.id'   => ['nullable','integer','exists:Arguments,id'],
-            'class.text'           => ['required'],
-            'class.id'             => ['required','integer','exists:Classes,id'],
-            'order.text'           => ['required'],
-            'order.id'             => ['required','integer','exists:Orders,id'],
-            'mode.text'            => ['required'],
-            'mode.id'              => ['required','exists:Modes,id'],
-
-            'isNegative'           => ['boolean'],
-            'isDiminutive'         => ['boolean'],
-            'isAbsolute'           => ['nullable', 'boolean']
+            'language'           => ['required'],
+            'language_id'        => ['required','integer','exists:Languages,id'],
+            'parent_id'          => ['nullable','exists:Forms,id'],
+            'subject'            => ['required'],
+            'subject_id'         => ['required','exists:Arguments,id'],  
+            'primaryObject'      => ['nullable','exists:Arguments,name'],         
+            'primaryObject_id'   => ['nullable','integer','exists:Arguments,id'],
+            'secondaryObject'    => ['nullable','exists:Arguments,name'],  
+            'secondaryObject_id' => ['nullable','integer','exists:Arguments,id'],
+            'verbClass'          => ['required'],
+            'verbClass_id'       => ['required','integer','exists:Classes,id'],
+            'order'              => ['required'],
+            'order_id'           => ['required','integer','exists:Orders,id'],
+            'mode'               => ['required'],
+            'mode_id'            => ['required','exists:Modes,id'],
+            'isAbsolute'         => ['nullable']
         ];
 
         switch($this->method()){
@@ -77,7 +57,7 @@ class LangFormRequest extends FormRequest
             case 'PATCH':
                     $form = $this->route('form');
 
-                    $rules['parent.id'][] = "nomatch:{$form->id}";
+                    $rules['parent_id'][] = "nomatch:{$form->id}";
                 break;
             default:
                 break;
@@ -89,21 +69,22 @@ class LangFormRequest extends FormRequest
     public function messages(){
         return [
             'surfaceForm.required' => 'Please enter a surface form.',
-            'language.text.required' => 'Please enter a language.',
-            'language.id.required'   => 'There is no language by that name in the database.',
-            'subject.text.required' => 'Please enter a subject.',
-            'subject.id.required' => 'There is no subject by that name in the database.',
-            'primaryObject.text.exists' => 'There is no primary object by that name in the database',
-            'secondaryObject.text.exists' => 'There is no secondary object by that name in the database',
-            'class.text.required' => 'Please enter a class.',
-            'class.id.required'   => 'There is no class by that name in the database.',
-            'order.text.required' => 'Please enter a order.',
-            'order.id.required'   => 'There is no order by that name in the database.',
-            'mode.text.required' => 'Please enter a mode.',
-            'mode.id.required'   => 'There is no mode by that name in the database.',
+            'surfaceForm.required_without' => 'Please enter a surface form.',
+            'language.required' => 'Please enter a language.',
+            'language_id.required'   => 'There is no language by that name in the database.',
+            'subject.required' => 'Please enter a subject.',
+            'subject_id.required' => 'There is no subject by that name in the database.',
+            'primaryObject.exists' => 'There is no primary object by that name in the database',
+            'secondaryObject.exists' => 'There is no secondary object by that name in the database',
+            'class.required' => 'Please enter a class.',
+            'class_id.required'   => 'There is no class by that name in the database.',
+            'order.required' => 'Please enter a order.',
+            'order_id.required'   => 'There is no order by that name in the database.',
+            'mode.required' => 'Please enter a mode.',
+            'mode_id.required'   => 'There is no mode by that name in the database.',
 
             'morphemicForm.has'    => 'Please inclue a placeholder for the Vstem.',
-            'parent.id.nomatch'    => 'A form cannot be its own parent!'
+            'parent_id.nomatch'    => 'A form cannot be its own parent!'
         ];
     }
     

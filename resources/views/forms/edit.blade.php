@@ -7,7 +7,9 @@
 	</div>
 	<br />
 
-	<alg-form-form method="PATCH"
+	@include('forms.partials.form', ['method' => 'PATCH', 'action' => "/forms/{$form->id}"])
+
+{{-- 	<alg-form-form method="PATCH"
 				   action="/forms/{{ $form->id }}"
 				   languages="{{ $languages }}"
 				   args="{{ $arguments }}"
@@ -16,6 +18,6 @@
 				   modes="{{ $modes }}"
 				   change-types="{{ $changeTypes }}"
 				   model="{{ $form }}">
-	</alg-form-form>
+	</alg-form-form> --}}
 
 @stop

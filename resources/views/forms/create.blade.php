@@ -7,7 +7,9 @@
 	</div>
 	<br />
 
-	<alg-form-form method="POST"
+	@include('forms.partials.form', ['method' => 'POST', 'action' => '/forms'])
+
+{{-- 	<alg-form-form method="POST"
 				   action="/forms"
 				   languages="{{ $languages }}"
 				   args="{{ $arguments }}"
@@ -16,6 +18,6 @@
 				   modes="{{ $modes }}"
 				   change-types="{{ $changeTypes }}"
 				   language="{{ $presetLanguage or "" }}">
-	</alg-form-form>
+	</alg-form-form> --}}
 
 @stop

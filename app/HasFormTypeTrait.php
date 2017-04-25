@@ -51,12 +51,12 @@ trait HasFormTypeTrait {
         $data['primaryObject_id']   = $attributes['primaryObject_id'];
         $data['secondaryObject_id'] = $attributes['secondaryObject_id'];
         $data['mode_id']            = $attributes['mode_id'];
-        $data['class_id']           = $attributes['class_id'];
+        $data['class_id']           = $attributes['verbClass_id'];
         $data['order_id']           = $attributes['order_id'];
-        $data['isNegative']         = $attributes['isNegative'] ? 1 : 0;
-        $data['isDiminutive']       = $attributes['isDiminutive'] ? 1 : 0;
-        $data['isAbsolute']         = $attributes['isAbsolute'];
-        $data['head']               = $attributes['head'];
+        $data['isNegative']         = isset($attributes['isNegative']) ? 1 : 0;
+        $data['isDiminutive']       = isset($attributes['isDiminutive']) ? 1 : 0;
+        $data['isAbsolute']         = isset($attributes['isAbsolute']) ? $attributes['isAbsolute'] : null;
+        $data['head']               = isset($attributes['head']) ? $attributes['head'] : null;
 
         return $data;
     }

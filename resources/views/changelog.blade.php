@@ -10,6 +10,12 @@
 <div class="box">
 	<ul class="indented-list">
 		<li>
+			24-04-17: Recoded form form to submit without AJAX
+			<ul>
+				<li>This form is long and complicated, so there's a good chance bugs will show up. Please report ASAP.</li>
+			</ul>
+		</li>
+		<li>
 			24-04-17: Made ISO nullable
 		</li>
 		<li>

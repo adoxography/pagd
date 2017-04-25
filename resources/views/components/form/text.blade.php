@@ -29,5 +29,9 @@
 		@if(isset($label))
 		data-vv-as="{{ $label }}"
 		@endif
+
+		@if(isset($disabled))
+		:disabled="{{ $disabled }}"
+		@endif
 	/>
 @endsection

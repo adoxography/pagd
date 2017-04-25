@@ -9,10 +9,16 @@
 	class="{{ $class }}"
 	@endif
 	>
-	
+
 	@if(isset($method) && ($method != 'GET' && $method != 'POST'))
 		{{ method_field($method) }}
 	@endif
 	{{ csrf_field() }}
 	{{ $slot }}
+
+	@if(isset($visible) && $visible)
+	<div class="field">
+		<button type="submit" class="button is-primary" :class="{'is-disabled': errors.any() }">Submit</button>
+	</div>
+	@endif
 </form>

@@ -101,12 +101,12 @@ class FormController extends AlgModelController
         if($request->empty) {
             $form = EmptyForm::create($request->all());
             flash("{$form->formType->summary} created successfully.", 'is-success');
+            return redirect("/empty-forms/{$form->id}");
         } else {
             $form = Form::create($request->all());
             flash("{$form->surfaceForm} created successfully.", 'is-success');
+            return redirect("/forms/{$form->id}");
         }
-
-        return $form->id;
     }
     
     /**
@@ -121,7 +121,7 @@ class FormController extends AlgModelController
         $form->update($request->all());
 
         flash("{$form->surfaceForm} updated successfully", 'is-success');
-        return $form->id;
+        return redirect("/forms/{$form->id}");
     }
     
     /**

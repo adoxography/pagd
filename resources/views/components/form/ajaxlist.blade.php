@@ -1,12 +1,27 @@
-{{-- Display the label if it was included --}}
-@if(isset($label))
-	@component('components.form.label')
-		@slot('for')
-			{{ $name }}
-		@endslot
-		{{ $label }}
-	@endcomponent
-@endif
+@extends('components.form.field')
 
-{{-- Display the datalist --}}
-<alg-ajaxlist v-model="{text: '', id: ''}" {!! isset($name) ? "name=$name" : "" !!} uri="{{ $uri }}" placeholder="{{ $placeholder or '' }}" listen="{{ $listen or "" }}" {{ isset($ref) ? "ref=$ref" : "" }}></alg-ajaxlist>
+@section("{$name}_control")
+	<alg-ajaxlist
+		v-model="{{ $name }}"
+		uri="{{ $uri }}"
+		:with="{{ $with }}"
+		name="{{ $name }}"
+		id="{{ $id or $name }}"
+
+		@if(isset($disabled))
+		:disabled="{{ $disabled }}"
+		@endif
+
+		@if(isset($placeholder))
+		placeholder="{{  $placeholder  }}"
+		@endif
+
+		@if(isset($rules))
+		v-validate="'{{ $rules }}'"
+		@endif
+
+		@if(isset($value) && strlen($value) > 0)
+		initial="{{ $value }}"
+		@endif
+	></alg-ajaxlist>
+@endsection	

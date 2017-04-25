@@ -1,20 +1,53 @@
-{{-- Display the label if it was included --}}
-@if(isset($label))
-	@component('components.form.label')
-	@slot('for')
-			{{ $name or "" }}
-	@endslot
-		{{ $label }}
-	@endcomponent
-@endif
+@extends('components.form.field')
 
-{{-- Display the select box --}}
-<p class="control">
-	<span class="select">
-		<select name="{{ $name or '' }}">
-			@foreach($options as $option)
-				<option value="{{ $option['id'] }}" {{ (string)$option['id'] == $value ? "selected='selected'" : '' }}>{{ $option['name'] }}</option>
-			@endforeach
-		</select>
-	</span>
-</p>
+@section("{$name}_control")
+	<div class="control">
+		<span class="select">
+			<select
+				name="{{ $name }}"
+				id="{{ $id or $name }}"
+
+				@if(isset($disabled))
+				:disabled="{{ $disabled }}"
+				@endif
+			>
+
+				@if($options instanceof Illuminate\Database\Eloquent\Collection)
+					@foreach($options as $option)
+						<option
+							value="{{ $option['id'] }}"
+							@if(old($name, 'not found') !== 'not found')
+								@if(old($name) === $option['id'])
+									selected="selected"
+								@endif
+							@elseif(isset($selected))
+								@if($selected === $option['id'])
+									selected="selected"
+								@endif
+							@endif
+						>
+							{{ $option['name'] }}
+						</option>
+					@endforeach
+				@else
+					@foreach($options as $display => $value)
+						<option
+							value="{{ $value }}"
+							@if(old($name, 'not found') !== 'not found')
+								@if(old($name) === $value)
+									selected="selected"
+								@endif
+							@elseif(isset($selected))
+								@if($selected === $value)
+									selected="selected"
+								@endif
+							@endif
+						>
+							{{ $display }}
+						</option>
+					@endforeach
+				@endif
+			</select>
+		</span>
+	</div>
+@endsection

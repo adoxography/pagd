@@ -1,10 +1,17 @@
-<alg-language-form inline-template v-cloak old-errors="{{ json_encode($errors->messages()) }}">
-	@component('components.form', ['method' => $method, 'action' => $action, 'class' => 'box'])
+<alg-language-form
+	inline-template
+	v-cloak
+	old-errors="{{ json_encode($errors->messages()) }}">
+	@component('components.form', ['method' => $method, 'action' => $action, 'class' => 'box', 'visible' => true])
 		<div class="columns is-multiline">
 
 			<!-- Language Name -->
 			<div class="column is-half">
-				@component('components.form.text', ['name' => 'name', 'autofocus' => true, 'rules' => 'required'])
+				@component('components.form.text', [
+					'name'      => 'name',
+					'autofocus' => true, 
+					'rules'     => 'required'
+				])
 					@slot('value')
 						@if(isset($language))
 							{{ $language->name }}
@@ -26,7 +33,11 @@
 
 			<!-- Group -->
 			<div class="column is-half">
-				@component('components.form.datalist', ['name' => 'group', 'list' => $groups, 'rules' => 'datalist_required|datalist_exists'])
+				@component('components.form.datalist', [
+					'name'  => 'group',
+					'list'  => $groups,
+					'rules' => 'required|exists'
+				])
 					@slot('value')
 						@if(isset($language))
 							{{ $language->group->name }}
@@ -41,7 +52,11 @@
 
 			<!-- Parent -->
 			<div class="column is-half">
-				@component('components.form.datalist', ['name' => 'parent', 'list' => $parents, 'rules' => 'datalist_exists'])
+				@component('components.form.datalist', [
+					'name'  => 'parent',
+					'list'  => $parents,
+					'rules' => 'exists'
+				])
 					@slot('value')
 						@if(isset($language))
 							@if($language->parent)
@@ -58,7 +73,12 @@
 
 			<!-- ISO -->
 			<div class="column is-3">
-				@component('components.form.text', ['name' => 'iso', 'label' => 'ISO', 'rules' => 'min:3|max:3', 'delay' => 500])
+				@component('components.form.text', [
+					'name'  => 'iso',
+					'label' => 'ISO',
+					'rules' => 'min:3|max:3',
+					'delay' => 500
+				])
 					@slot('value')
 						@if(isset($language))
 							{{ $language->iso }}
@@ -69,7 +89,11 @@
 
 			<!-- Algonquianist Code -->
 			<div class="column is-3">
-				@component('components.form.text', ['name' => 'algoCode', 'label' => 'algonquianist code', 'rules' => 'required'])
+				@component('components.form.text', [
+					'name'  => 'algoCode',
+					'label' => 'algonquianist code',
+					'rules' => 'required'
+				])
 					@slot('value')
 						@if(isset($language))
 							{{ $language->algoCode }}
@@ -80,7 +104,14 @@
 
 			<!-- Reconstructed/Attested -->
 			<div class="column is-half">
-				@component('components.form.radiogroup', ['name' => 'reconstructed', 'options' => ['Attested' => '0', 'Reconstructed' => '1'], 'checked' => isset($language) ? $language->reconstructed : '0'])
+				@component('components.form.radiogroup', [
+					'name' => 'reconstructed',
+					'options' => [
+						'Attested' => '0',
+						'Reconstructed' => '1'
+					],
+					'checked' => isset($language) ? $language->reconstructed : '0'
+				])
 				@endcomponent
 			</div>
 
@@ -94,10 +125,6 @@
 					@endslot
 				@endcomponent
 			</div>
-		</div>
-
-		<div class="field">
-			<button type="submit" class="button is-primary" :class="{'is-disabled': errors.any() }">Submit</button>
 		</div>
 	@endcomponent
 </alg-language-form>

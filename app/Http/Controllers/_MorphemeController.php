@@ -38,7 +38,7 @@ class MorphemeController extends AlgModelController
             ]);
             $cognates = $morpheme->cognates();
 
-            return view('morphemes.show', compact('morpheme', 'cognates'));
+            return view('morph::morphemes.show', compact('morpheme', 'cognates'));
         } else {
             return view('errors.404');
         }
@@ -61,7 +61,7 @@ class MorphemeController extends AlgModelController
             ]
         ]);
 
-        return view('morphemes.create', compact('prefill'));
+        return view('morph::morphemes.create', compact('prefill'));
     }
 
     /**
@@ -81,7 +81,7 @@ class MorphemeController extends AlgModelController
             'sources'
         ]);
 
-        return view('morphemes.edit', compact('morpheme'));
+        return view('morph::morphemes.edit', compact('morpheme'));
     }
 
     /**

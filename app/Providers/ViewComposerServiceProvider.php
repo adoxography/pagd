@@ -26,7 +26,6 @@ class ViewComposerServiceProvider extends ServiceProvider
         $this->composeExampleForm();
         $this->composeFormForm();
         $this->composeLanguageForm();
-        $this->composeMorphemeForm();
         $this->composeRuleForm();
 
         $this->composeSearch();
@@ -76,20 +75,6 @@ class ViewComposerServiceProvider extends ServiceProvider
                 'languages'   => Language::select('id','name')->get(),
                 'modes'       => Mode::select('id','name')->get(),
                 'orders'      => Order::select('id','name')->get(),
-                'changeTypes' => ChangeType::select('id','name')->get()->prepend(['id' => null, 'name' => 'N/A'])
-            ];
-            $view->with($data);
-        });
-    }
-
-    private function composeMorphemeForm()
-    {
-        view()->composer(['morphemes.create', 'morphemes.edit'], function($view)
-        {
-            $data = [
-                'languages' => Language::select('id','name')->get(),
-                'glosses'   => Gloss::select('id','abv as name')->get(),
-                'slots'     => Slot::select('id','abv as name')->get(),
                 'changeTypes' => ChangeType::select('id','name')->get()->prepend(['id' => null, 'name' => 'N/A'])
             ];
             $view->with($data);

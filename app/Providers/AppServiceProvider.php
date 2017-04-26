@@ -24,8 +24,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Language::observe(LanguageObserver::class);
         Form::observe(FormObserver::class);
-        Morpheme::observe(MorphemeObserver::class);
-        Gloss::observe(GlossObserver::class);
+        // Morpheme::observe(MorphemeObserver::class);
+        // Gloss::observe(GlossObserver::class);
     }
 
     /**

@@ -1,0 +1,11 @@
+{
+    "name": "algling/morphemes",
+    "description": "Morphemes of a language",
+    "authors": [
+        {
+            "name": "Graham Still",
+            "email": "gstill92@gmail.com"
+        }
+    ],
+    "require": {}
+}

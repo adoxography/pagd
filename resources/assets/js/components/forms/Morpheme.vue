@@ -151,10 +151,10 @@
 
 			<!-- Private Comments -->
 			<div class="column is-half">
-				<label for="comments" class="label">Private Comments</label>
-				<alg-textarea v-model="form.comments"
+				<label for="privateNotes" class="label">Private Comments</label>
+				<alg-textarea v-model="form.privateNotes"
 							  :disabled="loading"
-							  name="comments"
+							  name="privateNotes"
 							  placeholder="Comments here will not be available to the public">
 				</alg-textarea>
 			</div>
@@ -191,7 +191,7 @@ export default {
 				},
 				changeType_id: null,
 				historicalNotes: '',
-				comments: '',
+				privateNotes: '',
 				sources: []
 			})
 		};

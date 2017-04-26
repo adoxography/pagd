@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Form;
-use App\Http\Requests;
-use App\Language;
-use App\Morpheme;
-use App\Source;
-use Illuminate\Http\Request;
 use Response;
+use App\Source;
+use App\Language;
+use App\Http\Requests;
+use Illuminate\Http\Request;
+use Algling\Morphemes\Models\Morpheme;
 
 class AutocompleteController extends Controller
 {

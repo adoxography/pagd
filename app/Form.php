@@ -23,7 +23,7 @@ class Form extends Model
     use Searchable;
     use \Venturecraft\Revisionable\RevisionableTrait;
     use \App\SourceableTrait;
-    use \App\HasMorphemesTrait;
+    use \Algling\Morphemes\Traits\HasMorphemesTrait;
     use \App\ReconstructableTrait;
     use \App\HasChildrenTrait;
     use \App\BacksUpTrait;

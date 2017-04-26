@@ -53,12 +53,12 @@ Route::get('log', 'LogController@index');
 Route::post('sources/ajax', 'SourceController@store');
 
 // Initial Change routes
-Route::get('changes', 'InitialChangeController@index');
-Route::post('changes', 'InitialChangeController@store');
-Route::delete('changes/{change}', 'InitialChangeController@destroy');
+// Route::get('changes', 'InitialChangeController@index');
+// Route::post('changes', 'InitialChangeController@store');
+// Route::delete('changes/{change}', 'InitialChangeController@destroy');
 
-Route::resource('glosses',           'GlossController');
-Route::patch('glosses/{gloss}/hide', 'GlossController@hide');
+// Route::resource('glosses',           'GlossController');
+// Route::patch('glosses/{gloss}/hide', 'GlossController@hide');
 
 // Example Routes
 Route::resource('examples',                     'ExampleController');
@@ -92,15 +92,15 @@ Route::get('languages/{language}/addRule',     'LanguageController@addRule');
 Route::patch('languages/{language}/hide',      'LanguageController@hide');
 
 // Morpheme Routes
-Route::resource('morphemes',              'MorphemeController');
-Route::patch('morphemes/{morpheme}/hide', 'MorphemeController@hide');
+// Route::resource('morphemes',              'MorphemeController');
+// Route::patch('morphemes/{morpheme}/hide', 'MorphemeController@hide');
 
 // Rule routes
 Route::resource('rules',          'RuleController');
 Route::patch('rules/{rule}/hide', 'RuleController@hide');
 
-Route::resource('slots',          'SlotController');
-Route::patch('slots/{slot}/hide', 'SlotController@hide');
+// Route::resource('slots',          'SlotController');
+// Route::patch('slots/{slot}/hide', 'SlotController@hide');
 
 Route::resource('sources',            'SourceController');
 Route::patch('sources/{source}/hide', 'SourceController@hide');

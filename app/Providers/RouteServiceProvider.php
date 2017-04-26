@@ -37,7 +37,6 @@ class RouteServiceProvider extends ServiceProvider
             \App\Example::class   => 'example',
             \App\Form::class      => 'form',
             \App\EmptyForm::class => 'emptyform',
-            \App\Morpheme::class  => 'morpheme',
             \App\Source::class    => 'source',
             \App\Rule::class      => 'rule'
         ];

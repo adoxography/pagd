@@ -14,7 +14,7 @@ class Example extends Model
     use \Venturecraft\Revisionable\RevisionableTrait;
     use Searchable;
     use \App\SourceableTrait;
-    use \App\HasMorphemesTrait;
+    use \Algling\Morphemes\Traits\HasMorphemesTrait;
     use \App\BacksUpTrait;
     use \App\ReconstructableTrait;
     use \App\BookmarkableTrait;

@@ -96,9 +96,7 @@ class FormController extends AlgModelController
      */
     public function store(LangFormRequest $request)
     {
-        $form;
-
-        if($request->empty) {
+        if($request->empty == 'true') {
             $form = EmptyForm::create($request->all());
             flash("{$form->formType->summary} created successfully.", 'is-success');
             return redirect("/empty-forms/{$form->id}");

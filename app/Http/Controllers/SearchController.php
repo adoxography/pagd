@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Form;
-use App\Mode;
-use App\Order;
-use App\FormType;
-use App\EmptyForm;
-use App\FormClass;
+use App\Language;
+use App\Paradigm;
 use App\Http\Requests;
 use App\Search\SearchTable;
 use Illuminate\Http\Request;
+use Algling\Words\Models\Gap;
+use Algling\Words\Models\Form;
+use Algling\Verbals\Models\Mode;
+use Algling\Verbals\Models\Order;
 use Illuminate\Support\Facades\DB;
+use Algling\Verbals\Models\Argument;
+use Algling\Verbals\Models\VerbClass;
 
 class SearchController extends Controller
 {
@@ -76,26 +78,26 @@ class SearchController extends Controller
     public function form(Request $request)
     {
         $languages = [];
-        $classes          = $this->getModel($request->classes, \App\FormClass::class);
+        $classes          = $this->getModel($request->classes, VerbClass::class);
         $subclasses       = $request->subclasses;
-        $primaryObjects   = $this->getModel($request->primaryObjects, \App\Argument::class);
-        $secondaryObjects = $this->getModel($request->secondaryObjects, \App\Argument::class);
-        $orders           = $this->getModel($request->orders, \App\Order::class);
-        $modes            = $this->getModel($request->modes, \App\Mode::class);
+        $primaryObjects   = $this->getModel($request->primaryObjects, Argument::class);
+        $secondaryObjects = $this->getModel($request->secondaryObjects, Argument::class);
+        $orders           = $this->getModel($request->orders, Order::class);
+        $modes            = $this->getModel($request->modes, Mode::class);
         $searchAll        = $request->searchAll === "true";
-        $subjects         = $this->getModel($request->subjects, \App\Argument::class);
+        $subjects         = $this->getModel($request->subjects, Argument::class);
         $negatives        = $request->isNegative;
         $diminutives      = $request->isDiminutive;
 
         if($searchAll) {
-            $languages = \App\Language::select(['Languages.name', 'Languages.id', 'Languages.group_id'])
+            $languages = Language::select(['Languages.name', 'Languages.id', 'Languages.group_id'])
                 ->join('Groups', 'Groups.id', '=', 'Languages.group_id')
                 ->orderBy('Groups.position', 'asc')
                 ->orderBy('Languages.position', 'asc')
                 ->get();
         } else {
             for($i = 0; $i < count($request->languages); $i+=2) {
-                $languages[] = \App\Language::find($request->languages[$i + 1]);
+                $languages[] = Language::find($request->languages[$i + 1]);
             }
         }
 
@@ -105,7 +107,7 @@ class SearchController extends Controller
         $query = Form::with([
             'language.group',
             'formType.mode',
-            'formType.formClass',
+            'formType.VerbClass',
             'formType.order',
             'formType.subject',
             'formType.primaryObject',
@@ -237,7 +239,7 @@ class SearchController extends Controller
         $forms = $this->paradigmSearch($request);
         $showMorphology = $request->showMorphology;
 
-        $search = new \App\Paradigm($forms);
+        $search = new Paradigm($forms);
         $data = $search->getHeaders();
         $rows = $search->getRows();
 
@@ -298,7 +300,7 @@ class SearchController extends Controller
             'morphemes.slot'
         ]);
 
-        $emptyFormQuery = EmptyForm::with([
+        $emptyFormQuery = Gap::with([
             'language',
             'language.group',
             'formType',
@@ -316,21 +318,21 @@ class SearchController extends Controller
         $this->filter($formQuery);
         $this->filter($emptyFormQuery);
 
-        return $formQuery->get(['Forms.*'])->merge($emptyFormQuery->get(['EmptyForms.*']));
+        return $formQuery->get(['Word_Forms.*'])->merge($emptyFormQuery->get(['Word_Gaps.*']));
     }
 
     protected function order(&$query)
     {
-        $query->join('FormTypes', 'FormTypes.id', '=', 'formType_id')
+        $query->join('Verb_Structures as Structures', 'Structures.id', '=', 'structure_id')
         ->join('Languages', 'Languages.id', '=', 'language_id')
         ->join('Groups', 'Groups.id', '=', 'Languages.group_id')
-        ->join('Orders', 'Orders.id', '=', 'FormTypes.order_id')
+        ->join('Verb_Orders as Orders', 'Orders.id', '=', 'Structures.order_id')
         ->orderBy('Groups.position', 'asc')
         ->orderBy('Languages.position', 'asc')
         ->orderBy('Orders.position', 'asc')
-        ->orderByRaw('-FormTypes.isAbsolute ASC')
-        ->orderBy('FormTypes.isNegative', 'asc')
-        ->orderBy('FormTypes.isDiminutive', 'asc');     
+        ->orderByRaw('-Structures.isAbsolute ASC')
+        ->orderBy('Structures.isNegative', 'asc')
+        ->orderBy('Structures.isDiminutive', 'asc');     
     }
 
     protected function filter(&$query)

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Algling\Verbals\Http\Controllers;
 
-use App\Form;
-use App\EmptyForm;
-use App\Http\Requests\LangFormRequest;
+use Algling\Words\Models\Gap;
+use Algling\Verbals\Models\Form;
+use Algling\Words\Http\Requests\FormRequest;
 use App\Http\Controllers\AlgModelController;
 
 /**
@@ -36,19 +36,19 @@ class FormController extends AlgModelController
                 },
                 'duplicates',
                 'parent.language',
-                'formType.subject',
-                'formType.primaryObject',
-                'formType.secondaryObject',
-                'formType.order',
-                'formType.mode',
-                'formType.formClass',
+                'structure.subject',
+                'structure.primaryObject',
+                'structure.secondaryObject',
+                'structure.order',
+                'structure.mode',
+                'structure.verbClass',
                 'sources',
                 'changeType'
             ]);
 
             $cognates = $form->cognates();
 
-            return view('forms.show', compact('form', 'cognates'));
+            return view('verb::forms.show', compact('form', 'cognates'));
         } else {
             return view('errors.404');
         }
@@ -61,7 +61,7 @@ class FormController extends AlgModelController
      */
     public function create()
     {
-        return view('forms.create');
+        return view('verb::forms.create');
     }
 
     /**
@@ -76,16 +76,16 @@ class FormController extends AlgModelController
             'language',
             'parent',
             'parent.language',
-            'formType',
-            'formType.subject',
-            'formType.primaryObject',
-            'formType.secondaryObject',
-            'formType.mode',
-            'formType.formClass',
-            'formType.order',
+            'structure',
+            'structure.subject',
+            'structure.primaryObject',
+            'structure.secondaryObject',
+            'structure.mode',
+            'structure.verbClass',
+            'structure.order',
             'sources'
         );
-        return view('forms.edit', compact('form'));
+        return view('verb::forms.edit', compact('form'));
     }
 
     /**
@@ -94,10 +94,10 @@ class FormController extends AlgModelController
      * @param \App\Http\Requests\LangFormRequest
      * @return \Illuminate\Http\Response
      */
-    public function store(LangFormRequest $request)
+    public function store(FormRequest $request)
     {
         if($request->empty == 'true') {
-            $form = EmptyForm::create($request->all());
+            $form = Gap::create($request->all());
             flash("{$form->formType->summary} created successfully.", 'is-success');
             return redirect("/empty-forms/{$form->id}");
         } else {
@@ -114,7 +114,7 @@ class FormController extends AlgModelController
      * @param \App\Form The form
      * @return \Illuminate\Http\Response
      */
-    public function update(LangFormRequest $request, Form $form)
+    public function update(FormRequest $request, Form $form)
     {
         $form->update($request->all());
 
@@ -160,6 +160,6 @@ class FormController extends AlgModelController
     {
         $presetForm = $form->load('language');
 
-        return view('examples.create', compact('presetForm'));
+        return view('verb::examples.create', compact('presetForm'));
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Argument;
 use Illuminate\Support\Facades\Config;
 
 /**

@@ -4,6 +4,7 @@ namespace Algling\Morphemes\Http\Controllers;
 
 use App\Language;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Algling\Morphemes\Models\InitialChange;
 use Algling\Morphemes\Http\Requests\InitialChangeRequest;
 

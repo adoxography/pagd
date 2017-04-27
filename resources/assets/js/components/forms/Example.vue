@@ -114,20 +114,20 @@
 		<div class="columns">
 			<!-- Notes -->
 			<div class="column is-half">
-				<label for="notes" class="label">Public Notes</label>
-				<alg-textarea v-model="form.notes"
+				<label for="publicNotes" class="label">Public Notes</label>
+				<alg-textarea v-model="form.publicNotes"
 							  :disabled="loading"
-							  name="notes"
+							  name="publicNotes"
 							  placeholder="Comments here will be seen publicly">
 				</alg-textarea>
 			</div>
 
 			<!-- Comments -->
 			<div class="column is-half">
-				<label for="comments" class="label">Private Comments</label>
-				<alg-textarea v-model="form.comments"
+				<label for="privateNotes" class="label">Private Comments</label>
+				<alg-textarea v-model="form.privateNotes"
 							  :disabled="loading"
-							  name="comments"
+							  name="privateNotes"
 							  placeholder="Comments here will not be available to the public">
 				</alg-textarea>
 			</div>
@@ -157,8 +157,8 @@ export default {
 				},
 				morphemicForm: '',
 				translation: '',
-				comments: '',
-				notes: '',
+				privateNotes: '',
+				publicNotes: '',
 				sources: []
 			})
 		};

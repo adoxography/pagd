@@ -2,12 +2,12 @@
 
 namespace App;
 
-use App\FormType;
 use Laravel\Scout\Searchable;
-use App\Events\Language\Saved;
+use Algling\Words\Models\Form;
 use Algling\SS\Models\Datapoint;
-use App\Events\Language\Created;
-use App\Events\Language\Deleting;
+use Algling\Words\Models\Example;
+use Algling\Words\Models\EmptyForm;
+use Algling\Verbals\Models\Structure;
 use Algling\Morphemes\Models\Morpheme;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -164,8 +164,8 @@ class Language extends Model
     {
         $output = [];
 
-        $paradigms = FormType::select('class_id', 'order_id', 'mode_id')
-            ->join('Forms', 'Forms.formType_id', 'FormTypes.id')
+        $paradigms = Structure::select('class_id', 'order_id', 'mode_id')
+            ->join('Word_Forms as Forms', 'Forms.structure_id', 'Verb_Structures.id')
             ->where('Forms.language_id', $this->id)
             ->groupBy('class_id', 'order_id', 'mode_id')
             ->with(['formClass', 'order', 'mode'])

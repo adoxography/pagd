@@ -1,17 +1,16 @@
 <?php
 
-namespace App;
+namespace Algling\Verbals\Models;
 
-use App\Form;
-use Validator;
+use Algling\Verbals\Models\Form;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * The syntax information about a form
  */
-class FormType extends Model
+class Structure extends Model
 {
-    public $table = 'FormTypes';
+    public $table = 'Verb_Structures';
     public $errors;
     protected $fillable = [
         'class_id',
@@ -299,9 +298,14 @@ class FormType extends Model
         return $this->arguments;
     }
 
+    public function verbClass()
+    {
+        return $this->belongsTo(VerbClass::class, 'class_id');
+    }
+
     public function formClass()
     {
-        return $this->belongsTo(FormClass::class, 'class_id');
+        return $this->verbClass();
     }
 
     public function mode()

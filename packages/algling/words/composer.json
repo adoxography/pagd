@@ -1,0 +1,11 @@
+{
+    "name": "algling/forms",
+    "description": "Forms and examples",
+    "authors": [
+        {
+            "name": "Graham Still",
+            "email": "gstill92@gmail.com"
+        }
+    ],
+    "require": {}
+}

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Language;
 use Illuminate\Http\Request;
+use Algling\Verbals\Models\Order;
+use Algling\Verbals\Models\VerbClass;
 
 class HomeController extends Controller
 {
@@ -38,7 +41,7 @@ class HomeController extends Controller
         $firstTime = true;
 
         // Load all the classes
-        foreach(\App\FormClass::all() as $class) {
+        foreach(VerbClass::all() as $class) {
             if($firstTime) {
                 $firstTime = false;
             } else {
@@ -49,12 +52,12 @@ class HomeController extends Controller
         }
 
         // Load all the orders
-        foreach(\App\Order::all() as $order) {
+        foreach(Order::all() as $order) {
             $orders .= "&orders[]={$order->id}";
         }
 
         // Load all the languages
-        foreach(\App\Language::all() as $language) {
+        foreach(Language::all() as $language) {
             if($language->name != 'Demo')
                 $languages .= "&languages[]={$language->name}&languages[]_id={$language->id}";
         }
@@ -70,8 +73,8 @@ class HomeController extends Controller
      */
     public function incompleteForms()
     {
-        $languages = \App\Language::with(['forms' => function($query) {
-            $query->where('Forms.complete', 0)
+        $languages = Language::with(['forms' => function($query) {
+            $query->where('Word_Forms.complete', 0)
                 ->with('formType.primaryObject')
                 ->with('formType.secondaryObject')
                 ->with('formType.subject')
@@ -79,7 +82,7 @@ class HomeController extends Controller
                 ->with('morphemes.glosses')
                 ->with('morphemes.slot');
         }])->with(['examples' => function($query) {
-            $query->where('Examples.complete', 0)
+            $query->where('Word_Examples.complete', 0)
                 ->with('form.formType.subject')
                 ->with('form.formType.primaryObject')
                 ->with('form.formType.secondaryObject')

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Algling\Verbals\Http\Controllers;
 
-use App\Example;
-use App\Http\Requests\ExampleRequest;
+use Algling\Words\Models\Example;
 use App\Http\Controllers\AlgModelController;
+use Algling\Words\Http\Requests\ExampleRequest;
 
 /**
  * HTTP Controller for examples
@@ -30,7 +30,7 @@ class ExampleController extends AlgModelController
         if($this->shouldShow($example)){
             $example->load(['form', 'form.language', 'form.sources', 'morphemes', 'morphemes.glosses', 'morphemes.slot']);
 
-            return view('examples.show', compact('example'));
+            return view('verb::examples.show', compact('example'));
         } else {
             return view('errors.404');
         }
@@ -43,7 +43,7 @@ class ExampleController extends AlgModelController
      */
     public function create()
     {
-        return view('examples.create');
+        return view('verb::examples.create');
     }
 
     /**
@@ -56,7 +56,7 @@ class ExampleController extends AlgModelController
     {
         $example->load(['form', 'form.language', 'sources']);
 
-        return view('examples.edit', compact('example'));
+        return view('verb::examples.edit', compact('example'));
     }
 
     /**

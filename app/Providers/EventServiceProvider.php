@@ -17,9 +17,7 @@ class EventServiceProvider extends ServiceProvider
         // Backup Event
         'App\Events\Backup' => [
             'App\Listeners\Backup'
-        ],
-
-        // Morpheme Events
+        ]
     ];
 
     /**

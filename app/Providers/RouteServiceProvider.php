@@ -34,9 +34,6 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         $connections = [
-            \App\Example::class   => 'example',
-            \App\Form::class      => 'form',
-            \App\EmptyForm::class => 'emptyform',
             \App\Source::class    => 'source',
             \App\Rule::class      => 'rule'
         ];

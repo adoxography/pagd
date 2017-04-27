@@ -58,7 +58,7 @@
 
 																			{{-- The form --}}
 																			<p>
-																				@if($form instanceof \App\Form)
+																				@if($form instanceof Algling\Words\Models\Form)
 																					<a href='/forms/{{ $form->id }}'>
 																				@else
 																					<a href="/empty-forms/{{ $form->id }}">
@@ -70,7 +70,7 @@
 																			<?php $form->placed = true; ?>
 
 																			{{-- The morphology --}}
-																			@if($form instanceof \App\Form)
+																			@if($form instanceof Algling\Words\Models\Form)
 																			<div v-show="show">
 																				{!! $form->printMorphemes() !!}
 																			</div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Algling\Morphemes\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Algling\Morphemes\Models\Slot;

@@ -2,11 +2,11 @@
 
 namespace Algling\Morphemes\Models;
 
-use App\Form;
-use App\Example;
 use App\Language;
 use App\ChangeType;
 use Laravel\Scout\Searchable;
+use Algling\Words\Models\Form;
+use Algling\Words\Models\Example;
 use Algling\Morphemes\Models\Slot;
 use Algling\Morphemes\Models\Gloss;
 use Illuminate\Database\Eloquent\Model;

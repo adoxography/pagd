@@ -2,8 +2,8 @@
 
 namespace Algling\Morphemes\Traits;
 
-use App\Form;
-use App\Example;
+use Algling\Verbals\Models\Form;
+use Algling\Verbals\Models\Example;
 use Illuminate\Support\Facades\Auth;
 use Algling\Morphemes\Models\Morpheme;
 
@@ -24,14 +24,9 @@ trait HasMorphemesTrait {
         });
     }
 
-    protected function getMorphemeTable()
-    {
-        return $this->morphemeTable;
-    }
-
     public function morphemes()
     {
-        return $this->belongsToMany(Morpheme::class, $this->getMorphemeTable())->orderBy('position')->withPivot('position');
+        return $this->morphToMany(Morpheme::class, 'morphemeable', 'Morph_Morphemeables')->orderBy('position')->withPivot('position');
     }
 
     /**

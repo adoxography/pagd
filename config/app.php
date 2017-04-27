@@ -185,8 +185,9 @@ return [
         App\Providers\ViewComposerServiceProvider::class,
         App\Providers\CustomValidationProvider::class,
         Algling\SS\StructuralSurveyServiceProvider::class,
-        Algling\Morphemes\MorphemeServiceProvider::class
-
+        Algling\Morphemes\MorphemeServiceProvider::class,
+        Algling\Words\WordServiceProvider::class,
+        Algling\Verbals\VerbalServiceProvider::class
     ],
 
     /*

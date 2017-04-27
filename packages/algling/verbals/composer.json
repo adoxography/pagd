@@ -1,0 +1,11 @@
+{
+    "name": "algling/verbals",
+    "description": "Package for verbal forms",
+    "authors": [
+        {
+            "name": "Graham Still",
+            "email": "gstill92@gmail.com"
+        }
+    ],
+    "require": {}
+}

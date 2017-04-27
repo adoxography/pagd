@@ -2,16 +2,13 @@
 
 namespace App\Providers;
 
-use App\Mode;
-use App\Slot;
-use App\Gloss;
 use App\Group;
-use App\Order;
-use App\Argument;
 use App\Language;
-use App\FormClass;
-use App\ChangeType;
 use Netcarver\Textile\Parser;
+use Algling\Verbals\Models\Mode;
+use Algling\Verbals\Models\Order;
+use Algling\Verbals\Models\Argument;
+use Algling\Verbals\Models\VerbClass;
 use Illuminate\Support\ServiceProvider;
 
 class ViewComposerServiceProvider extends ServiceProvider
@@ -23,8 +20,6 @@ class ViewComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->composeExampleForm();
-        $this->composeFormForm();
         $this->composeLanguageForm();
         $this->composeRuleForm();
 
@@ -42,17 +37,6 @@ class ViewComposerServiceProvider extends ServiceProvider
         });
     }
 
-    private function composeExampleForm()
-    {
-        view()->composer(['examples.create', 'examples.edit'], function($view)
-        {
-            $data = [
-                'languages' => Language::select('id', 'name')->get()
-            ];
-            $view->with($data);
-        });
-    }
-
     private function composeLanguageForm()
     {
         view()->composer(['languages.create', 'languages.edit'], function($view)
@@ -60,22 +44,6 @@ class ViewComposerServiceProvider extends ServiceProvider
             $data = [
                 'parents' => Language::select('id','name')->get(),
                 'groups'  => Group::select('id','name')->orderBy('position')->get()
-            ];
-            $view->with($data);
-        });
-    }
-
-    private function composeFormForm()
-    {
-        view()->composer(['forms.create', 'forms.edit', 'emptyForms.edit'], function($view)
-        {
-            $data = [
-                'arguments'   => Argument::select('id','name')->get(),
-                'classes'     => FormClass::select('id','name')->get(),
-                'languages'   => Language::select('id','name')->get(),
-                'modes'       => Mode::select('id','name')->get(),
-                'orders'      => Order::select('id','name')->get(),
-                'changeTypes' => ChangeType::select('id','name')->get()->prepend(['id' => null, 'name' => 'N/A'])
             ];
             $view->with($data);
         });
@@ -98,7 +66,7 @@ class ViewComposerServiceProvider extends ServiceProvider
         {
             $data = [
                 'arguments' => Argument::select('id','name')->get(),
-                'classes'   => FormClass::select('id','name')->get(),
+                'classes'   => VerbClass::select('id','name')->get(),
                 'languages' => Language::select('id','name')->get(),
                 'modes'     => Mode::select('id','name')->get(),
                 'orders'    => Order::select('id','name')->orderBy('position')->get()

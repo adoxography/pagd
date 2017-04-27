@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Language::observe(LanguageObserver::class);
-        Form::observe(FormObserver::class);
+        // Form::observe(FormObserver::class);
         // Morpheme::observe(MorphemeObserver::class);
         // Gloss::observe(GlossObserver::class);
     }

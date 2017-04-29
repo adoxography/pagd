@@ -240,9 +240,4 @@ class Form extends Model
     {
         return $this->structure();
     }
-
-    public function structure()
-    {
-        return $this->morphTo();
-    }
 }

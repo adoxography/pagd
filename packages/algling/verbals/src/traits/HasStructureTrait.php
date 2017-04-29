@@ -20,6 +20,11 @@ trait HasStructureTrait {
 		});
 	}
 
+    public function structure()
+    {
+        return \App\BelongsToMorph::build($this, Structure::class, 'structure');
+    }
+
 	protected function assignStructure()
 	{
         $this->structure_id = $this->getStructure();

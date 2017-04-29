@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Search\SearchTable;
 use Illuminate\Http\Request;
 use Algling\Words\Models\Gap;
-use Algling\Words\Models\Form;
+use Algling\Verbals\Models\Form;
 use Algling\Verbals\Models\Mode;
 use Algling\Verbals\Models\Order;
 use Illuminate\Support\Facades\DB;
@@ -252,8 +252,8 @@ class SearchController extends Controller
     {
         if ($list) {
             $query->whereHas($subfield, function ($query) use ($list, $field) {
-                $query->WhereIn($field, $list);
-            });
+                $query->whereIn($field, $list);
+            }, '>', '0');
         }
     }
 
@@ -266,7 +266,7 @@ class SearchController extends Controller
                 foreach($list as $item) {
                     $query->orWhere(DB::raw('BINARY `'.$field.'`'), 'LIKE', "%$item%");
                 }
-            });
+            }, '>', '0');
         }
     }
 
@@ -286,13 +286,13 @@ class SearchController extends Controller
         $formQuery = Form::with([
             'language',
             'language.group',
-            'formType',
-            'formType.mode',
-            'formType.formClass',
-            'formType.order',
-            'formType.subject',
-            'formType.primaryObject',
-            'formType.secondaryObject',
+            'structure',
+            'structure.mode',
+            'structure.verbClass',
+            'structure.order',
+            'structure.subject',
+            'structure.primaryObject',
+            'structure.secondaryObject',
             'morphemes' => function ($query) {
                 $query->orderBy('position');
             },
@@ -303,13 +303,13 @@ class SearchController extends Controller
         $emptyFormQuery = Gap::with([
             'language',
             'language.group',
-            'formType',
-            'formType.mode',
-            'formType.formClass',
-            'formType.order',
-            'formType.subject',
-            'formType.primaryObject',
-            'formType.secondaryObject'
+            'structure',
+            'structure.mode',
+            'structure.verbClass',
+            'structure.order',
+            'structure.subject',
+            'structure.primaryObject',
+            'structure.secondaryObject'
         ]);
 
         $this->order($formQuery);
@@ -341,41 +341,41 @@ class SearchController extends Controller
 
         switch ($this->modeSelect) {
             case 'indicativeOnly':
-                $query->whereHas('formType', function ($query) {
+                $query->whereHas('structure', function ($query) {
                     $query->where('mode_id', 1);
                 });
                 break;
             case 'selectModes':
-                $this->filterSubqueryUsingList($query, 'formType', $this->modes, 'mode_id');
+                $this->filterSubqueryUsingList($query, 'structure', $this->modes, 'mode_id');
                 break;
             default:
                 break;
         }
 
-        $this->filterSubqueryUsingList($query, 'formType', $this->classes, 'class_id');
-        $this->filterSubqueryUsingFuzzyList($query, 'formType', $this->subclasses, 'subclass');
-        $this->filterSubqueryUsingList($query, 'formType', $this->orders, 'order_id');
+        $this->filterSubqueryUsingList($query, 'structure', $this->classes, 'class_id');
+        $this->filterSubqueryUsingFuzzyList($query, 'structure', $this->subclasses, 'subclass');
+        $this->filterSubqueryUsingList($query, 'structure', $this->orders, 'order_id');
 
         if($this->diminutive && !$this->nonDiminutive) {
-            $query->whereHas('formType', function ($query) {
+            $query->whereHas('structure', function ($query) {
                 $query->where('isDiminutive', 1);
             });
         }
 
         if(!$this->diminutive && $this->nonDiminutive) {
-            $query->whereHas('formType', function ($query) {
+            $query->whereHas('structure', function ($query) {
                 $query->where('isDiminutive', 0);
             });
         }
 
         if($this->negative && !$this->affirmative) {
-            $query->whereHas('formType', function ($query) {
+            $query->whereHas('structure', function ($query) {
                 $query->where('isNegative', 1);
             });
         }
 
         if(!$this->negative && $this->affirmative) {
-            $query->whereHas('formType', function ($query) {
+            $query->whereHas('structure', function ($query) {
                 $query->where('isNegative', 0);
             });
         }

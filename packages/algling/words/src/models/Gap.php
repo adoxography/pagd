@@ -3,6 +3,7 @@
 namespace Algling\Words\Models;
 
 use App\Language;
+use Algling\Verbals\Models\Structure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -29,6 +30,6 @@ class Gap extends Model
 
     public function structure()
     {
-        return $this->morphTo();
+        return \App\BelongsToMorph::build($this, Structure::class, 'structure');
     }
 }

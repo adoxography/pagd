@@ -27,7 +27,7 @@ class PageController extends Controller
     	$files = [];
 
     	// Find all of the css file names
-    	$fileNames = array_where(Storage::files('pages'), function($value) {
+    	$fileNames = array_where(Storage::files('css'), function($value) {
     		return preg_match('/.+\.css/', $value);
     	});
 

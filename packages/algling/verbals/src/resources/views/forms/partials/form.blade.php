@@ -232,17 +232,17 @@
 		<h4 class="subtitle is-4">Morphology</h4>
 		<div class="columns">
 
-			<!-- phoneticForm -->
+			<!-- phonemicForm -->
 			<div class="column is-half">
 				@component('components.form.text', [
-					'name'        => 'phoneticForm',
+					'name'        => 'phonemicForm',
 					'label'       => 'phonemic representation',
 					'placeholder' => 'The Algonquianist phonemic representation (Leave blank if unknown or unclear)',
 					'disabled'    => 'empty'
 				])
 					@slot('value')
 						@if(isset($form))
-							{{ $form->phoneticForm }}
+							{{ $form->phonemic }}
 						@endif
 					@endslot
 				@endcomponent

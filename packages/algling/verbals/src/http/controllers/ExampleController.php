@@ -4,7 +4,7 @@ namespace Algling\Verbals\Http\Controllers;
 
 use Algling\Words\Models\Example;
 use App\Http\Controllers\AlgModelController;
-use Algling\Words\Http\Requests\ExampleRequest;
+use Algling\Verbals\Http\Requests\ExampleRequest;
 
 /**
  * HTTP Controller for examples

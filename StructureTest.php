@@ -1,14 +1,13 @@
 <?php
 
-use App\Form;
-use App\Mode;
-use App\Order;
-use App\Argument;
-use App\FormType;
-use App\FormClass;
+use Algling\Verbals\Models\Form;
+use Algling\Verbals\Models\Mode;
+use Algling\Verbals\Models\Order;
+use Algling\Verbals\Models\Argument;
+use Algling\Verbals\Models\Structure;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class FormTypeTest extends TestCase
+class StructureTest extends TestCase
 {
 	use DatabaseTransactions;
 
@@ -17,14 +16,14 @@ class FormTypeTest extends TestCase
 	/** @test */
 	function a_form_type_has_attributes()
 	{
-		$class = factory(FormClass::class)->create();
+		$class = factory(Structure::class)->create();
 		$mode = factory(Mode::class)->create();
 		$order = factory(Order::class)->create();
 		$subject = Argument::all()->random();
 		$primaryObject = Argument::all()->random();
 		$secondaryObject = Argument::all()->random();
 
-		$type = FormType::create([
+		$type = Structure::create([
 			'class_id' => $class->id,
 			'mode_id' => $mode->id,
 			'order_id' => $order->id,
@@ -45,11 +44,11 @@ class FormTypeTest extends TestCase
 	/** @test */
 	function a_form_type_negative_status_must_be_0_or_1()
 	{
-		$type1 = factory(FormType::class)->create(['isNegative' => 0]);
-		$type2 = factory(FormType::class)->create(['isNegative' => 1]);
-		$type3 = factory(FormType::class)->create(['isNegative' => 2]);
-		$type4 = factory(FormType::class)->create(['isNegative' => -1]);
-		$type5 = factory(FormType::class)->create(['isNegative' => null]);
+		$type1 = factory(Structure::class)->create(['isNegative' => 0]);
+		$type2 = factory(Structure::class)->create(['isNegative' => 1]);
+		$type3 = factory(Structure::class)->create(['isNegative' => 2]);
+		$type4 = factory(Structure::class)->create(['isNegative' => -1]);
+		$type5 = factory(Structure::class)->create(['isNegative' => null]);
 
 		$this->assertEquals(0, $type1->isNegative);
 		$this->assertEquals(1, $type2->isNegative);
@@ -61,11 +60,11 @@ class FormTypeTest extends TestCase
 	/** @test */
 	function a_form_type_diminutive_status_must_be_0_or_1()
 	{
-		$type1 = factory(FormType::class)->create(['isDiminutive' => 0]);
-		$type2 = factory(FormType::class)->create(['isDiminutive' => 1]);
-		$type3 = factory(FormType::class)->create(['isDiminutive' => 2]);
-		$type4 = factory(FormType::class)->create(['isDiminutive' => -1]);
-		$type5 = factory(FormType::class)->create(['isDiminutive' => null]);
+		$type1 = factory(Structure::class)->create(['isDiminutive' => 0]);
+		$type2 = factory(Structure::class)->create(['isDiminutive' => 1]);
+		$type3 = factory(Structure::class)->create(['isDiminutive' => 2]);
+		$type4 = factory(Structure::class)->create(['isDiminutive' => -1]);
+		$type5 = factory(Structure::class)->create(['isDiminutive' => null]);
 
 		$this->assertEquals(0, $type1->isDiminutive);
 		$this->assertEquals(1, $type2->isDiminutive);
@@ -77,11 +76,11 @@ class FormTypeTest extends TestCase
 	/** @test */
 	function a_form_type_absolute_status_must_be_null_or_0_or_1()
 	{
-		$type1 = factory(FormType::class)->create();
-		$type2 = factory(FormType::class)->create(['isAbsolute' => 0]);
-		$type3 = factory(FormType::class)->create(['isAbsolute' => 1]);
-		$type4 = factory(FormType::class)->create(['isAbsolute' => 2]);
-		$type5 = factory(FormType::class)->create(['isAbsolute' => -1]);
+		$type1 = factory(Structure::class)->create();
+		$type2 = factory(Structure::class)->create(['isAbsolute' => 0]);
+		$type3 = factory(Structure::class)->create(['isAbsolute' => 1]);
+		$type4 = factory(Structure::class)->create(['isAbsolute' => 2]);
+		$type5 = factory(Structure::class)->create(['isAbsolute' => -1]);
 
 		$this->assertEquals(null, $type1->isAbsolute);
 		$this->assertEquals(0, $type2->isAbsolute);
@@ -93,7 +92,7 @@ class FormTypeTest extends TestCase
 	/** @test */
 	function a_form_type_fetches_its_forms()
 	{
-		$type = factory(FormType::class)->create();
+		$type = factory(Structure::class)->create();
 
 		factory(Form::class, 10)->create([
 			'formType_id' => $type->id

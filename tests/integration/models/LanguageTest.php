@@ -1,10 +1,10 @@
 <?php
 
-use App\Form;
 use App\Group;
 use App\Source;
 use App\Language;
-use App\Morpheme;
+use Algling\Verbals\Models\Form;
+use Algling\Morphemes\Models\Morpheme;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class LanguageTest extends TestCase

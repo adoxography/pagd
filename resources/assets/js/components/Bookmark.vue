@@ -56,7 +56,7 @@ export default {
 		unBookmark() {
 			this.loading = true;
 
-			axios.delete('/bookmark'+this.uri)
+			axios.delete(this.uri+'/bookmark')
 				.then(response => {
 					this.loading = false;
 					this.bookmarkable = true;
@@ -70,7 +70,7 @@ export default {
 		onSubmit() {
 			this.loading = true;
 
-			axios.post('/bookmark'+this.uri, {comment: this.comment})
+			axios.post(this.uri+'/bookmark', {comment: this.comment})
 				.then(response => {
 					this.loading = false;
 					this.comment = '';

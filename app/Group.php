@@ -13,12 +13,9 @@ class Group extends Closed
 
 	protected $fillable = ['name', 'description'];
 
-	public function __construct()
-	{
-		$this->relationList = ['languages'];
-		$this->singular = 'Group';
-		$this->plural = 'Groups';
-	}
+	public $relationList = ['languages'];
+	public $singular = 'Group';
+	public $plural = 'Groups';
 	
     public function languages(){
     	return $this->hasMany(Language::class);

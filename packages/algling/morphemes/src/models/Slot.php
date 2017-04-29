@@ -3,7 +3,7 @@
 namespace Algling\Morphemes\Models;
 
 use App\Closed;
-use Alging\Models\Morpheme;
+use Algling\Morphemes\Models\Morpheme;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -12,7 +12,7 @@ class Slot extends Closed
     use \App\BookmarkableTrait;
     use SoftDeletes;
 
-    public $table = 'Slots';
+    public $table = 'Morph_Slots';
 
     protected $fillable = ['name', 'colour', 'abv', 'description'];
 

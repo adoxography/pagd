@@ -11,7 +11,7 @@ class seed_arguments extends Seeder
      */
     public function run()
     {
-        DB::table('Arguments')->delete();
+        DB::table('Verb_Arguments')->delete();
         
         $arguments = array(
         	['id' => 1, 'name'  => '1',     'person' => '1', 'obviativeCode' => NULL, 'number' => NULL],
@@ -39,6 +39,6 @@ class seed_arguments extends Seeder
     		['id' => 23, 'name' => '0\'\'', 'person' => '0', 'obviativeCode' => 2, 'number' => NULL]
         );
         
-        DB::table('Arguments')->insert($arguments);
+        DB::table('Verb_Arguments')->insert($arguments);
     }
 }

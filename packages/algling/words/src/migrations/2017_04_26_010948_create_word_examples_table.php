@@ -37,7 +37,7 @@ class CreateWordExamplesTable extends Migration
             $table->timestamp('hidden_at')->nullable();
             $table->softDeletes();
 
-            $table->boolean('complete');
+            $table->boolean('complete')->default(0);
 
             // Constraints
             $table->foreign('form_id')->references('id')->on('Word_Forms');

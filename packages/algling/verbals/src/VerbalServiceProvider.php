@@ -14,6 +14,10 @@ use Illuminate\Support\ServiceProvider;
 
 class VerbalServiceProvider extends ServiceProvider
 {
+    protected $connections = [
+        \Algling\Verbals\Models\Form::class => 'form'
+    ];
+
     /**
      * Bootstrap the application services.
      *
@@ -23,13 +27,9 @@ class VerbalServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/migrations');
         $this->loadViewsFrom(__DIR__.'/resources/views', 'verb');
-
-        if($this->app->runningInConsole()) {
-            $this->commands([Transfer::class]);
-        }
-
-        $this->composeExampleForm();
-        $this->composeFormForm();
+        $this->bootCommands();
+        $this->bootRouteModelBindings();
+        $this->composeViews();
     }
 
     /**
@@ -45,6 +45,28 @@ class VerbalServiceProvider extends ServiceProvider
         ], function ($router) {
             require __DIR__.'/routes.php';
         });
+    }
+
+    protected function bootCommands()
+    {
+        if($this->app->runningInConsole()) {
+            $this->commands([Transfer::class]);
+        }
+    }
+
+    protected function bootRouteModelBindings()
+    {
+        foreach($this->connections as $model => $binding) {
+            Route::bind($binding, function($value) use ($model) {
+                return $model::find($value);
+            });
+        }
+    }
+
+    protected function composeViews()
+    {
+        $this->composeExampleForm();
+        $this->composeFormForm();
     }
 
     private function composeFormForm()

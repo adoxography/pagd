@@ -8,24 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class BookmarkController extends Controller
 {
-    public function bookmark($table, $id)
-    {
-    	$comment = request()->comment;
-    	$item = $this->getModel($table, $id);
-
-    	$item->bookmark($comment);
-
-    	return 'success';
-    }
-
-    public function unbookmark($table, $id)
-    {
-    	$item = $this->getModel($table, $id);
-
-    	$item->unbookmark();
-
-    	return 'success';
-    }
 
     protected function getModel($table, $id)
     {

@@ -2,8 +2,6 @@
 
 namespace Algling\Morphemes\Models\Observers;
 
-use App\Form;
-use App\Example;
 use Algling\Morphemes\Models\Morpheme;
 
 class MorphemeObserver {
@@ -23,12 +21,7 @@ class MorphemeObserver {
 	{
         $morphemeName = str_replace(['*', '-'], '', $morpheme->name);
         $language = $morpheme->language_id;
-
-        $forms    = $this->queryForms($language, $morphemeName);
-        $examples = $this->queryExamples($language, $morphemeName);
-
-        $this->reconnect($forms);
-        $this->reconnect($examples);
+        $this->reconnect($morpheme->allWords());
 	}
 
 	protected function queryForms($language, $lookup)

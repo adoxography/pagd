@@ -12,6 +12,11 @@ use Algling\SS\Models\Observers\VariableObserver;
 
 class StructuralSurveyServiceProvider extends ServiceProvider
 {
+    protected $connections = [
+        Value::class => 'value',
+        Variable::class => 'variable'
+    ];
+
     /**
      * Bootstrap the application services.
      *
@@ -23,10 +28,9 @@ class StructuralSurveyServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/migrations');
         $this->publishes([__DIR__.'/assets' => resource_path('assets')], 'assets');
 
-        $this->composeVariableForm();
-        $this->composeDatapointForm();
-
-        Variable::observe(VariableObserver::class);
+        $this->bootObservers();
+        $this->bootRouteModelBindings();
+        $this->composeViews();
     }
 
     /**
@@ -42,6 +46,26 @@ class StructuralSurveyServiceProvider extends ServiceProvider
         ], function ($router) {
             require __DIR__.'/routes.php';
         });
+    }
+
+    protected function bootObservers()
+    {
+        Variable::observe(VariableObserver::class);
+    }
+
+    protected function bootRouteModelBindings()
+    {
+        foreach($this->connections as $model => $binding) {
+            Route::bind($binding, function($value) use ($model) {
+                return $model::find($value);
+            });
+        }
+    }
+
+    protected function composeViews()
+    {
+        $this->composeVariableForm();
+        $this->composeDatapointForm();
     }
 
     private function composeVariableForm()

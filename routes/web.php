@@ -15,10 +15,12 @@ use App\Contracts\Search;
 
 Route::get('',     'HomeController@index');
 Route::get('home', 'HomeController@index');
-Route::get('glossary', function() { return view('glossary.index'); });
+Route::get('welcome', 'HomeController@index');
+
+Route::get('glossary', 'HomeController@glossary');
 Route::get('entire-paradigm', 'HomeController@entireParadigm');
 Route::get('changelog', 'HomeController@changelog');
-Route::get('about', 'HomeController@about');
+
 Route::get('sandbox', function() {
     return view('sandbox');
 });
@@ -27,8 +29,8 @@ Route::get('guide', 'HomeController@guide');
 
 Route::post('backup', 'BackupController@store');
 
-Route::post('bookmark/{model}/{id}', 'BookmarkController@bookmark');
-Route::delete('bookmark/{model}/{id}', 'BookmarkController@unbookmark');
+// Route::post('bookmark/{model}/{id}', 'BookmarkController@bookmark');
+// Route::delete('bookmark/{model}/{id}', 'BookmarkController@unbookmark');
 Route::get('profile/bookmarks', 'UserController@bookmarks');
 
 // Contact Routes
@@ -76,3 +78,5 @@ Route::patch('sources/{source}/hide', 'SourceController@hide');
 
 Route::get('profile', 'UserController@show');
 Auth::routes();
+
+Route::get('{args}', 'PageController@show')->where('args', '.*');

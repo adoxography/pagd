@@ -11,7 +11,7 @@ class seed_orders extends Seeder
      */
     public function run()
     {
-        DB::table('Orders')->delete();
+        DB::table('Verb_Orders')->delete();
         
         $orders = array(
         	['id' => 1, 'name' => 'Conjunct'],
@@ -19,6 +19,6 @@ class seed_orders extends Seeder
         	['id' => 3, 'name' => 'Independent']
         );
         
-        DB::table('Orders')->insert($orders);
+        DB::table('Verb_Orders')->insert($orders);
     }
 }

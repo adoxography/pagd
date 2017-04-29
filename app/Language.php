@@ -2,11 +2,11 @@
 
 namespace App;
 
+use Algling\Words\Models\Gap;
 use Laravel\Scout\Searchable;
-use Algling\Words\Models\Form;
 use Algling\SS\Models\Datapoint;
+use Algling\Verbals\Models\Form;
 use Algling\Words\Models\Example;
-use Algling\Words\Models\EmptyForm;
 use Algling\Verbals\Models\Structure;
 use Algling\Morphemes\Models\Morpheme;
 use Illuminate\Database\Eloquent\Model;
@@ -109,7 +109,7 @@ class Language extends Model
 
     public function emptyForms()
     {
-        return $this->hasMany(EmptyForm::class, 'language_id');
+        return $this->hasMany(Gap::class, 'language_id');
     }
 
     public function examples()

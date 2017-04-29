@@ -3,7 +3,7 @@
 namespace App\Observers;
 
 use App\Language;
-use App\Morpheme;
+use Algling\Morphemes\Models\Morpheme;
 
 class LanguageObserver {
 
@@ -31,7 +31,6 @@ class LanguageObserver {
         // Create the vStem
         $vStem = new Morpheme([
             'name'          => 'V',
-            'alternateName' => 'IC.V',
             'language_id'   => $language->id,
             'gloss'         => 'V',
             'slot_id'       => 1, // V

@@ -3,6 +3,9 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Algling\Verbals\Models\Form;
+use Algling\Words\Models\Example;
+use Algling\Morphemes\Models\Morpheme;
 use Illuminate\Support\Facades\Artisan;
 
 class IndexSearchableModels extends Command
@@ -29,9 +32,9 @@ class IndexSearchableModels extends Command
     protected $models = [
         \App\Source::class,
         \App\Language::class,
-        \App\Morpheme::class,
-        \App\Form::class,
-        \App\Example::class
+        Morpheme::class,
+        Form::class,
+        Example::class
     ];
 
     /**

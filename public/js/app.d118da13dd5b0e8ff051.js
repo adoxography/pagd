@@ -2365,7 +2365,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			this.loading = true;
 
-			axios.delete('/bookmark' + this.uri).then(function (response) {
+			axios.delete(this.uri + '/bookmark').then(function (response) {
 				_this.loading = false;
 				_this.bookmarkable = true;
 			}).catch(function (error) {
@@ -2378,7 +2378,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			this.loading = true;
 
-			axios.post('/bookmark' + this.uri, { comment: this.comment }).then(function (response) {
+			axios.post(this.uri + '/bookmark', { comment: this.comment }).then(function (response) {
 				_this2.loading = false;
 				_this2.comment = '';
 				_this2.$refs.modal.close();
@@ -5645,8 +5645,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				},
 				morphemicForm: '',
 				translation: '',
-				comments: '',
-				notes: '',
+				privateNotes: '',
+				publicNotes: '',
 				sources: []
 			})
 		};
@@ -6040,7 +6040,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				},
 				changeType_id: null,
 				historicalNotes: '',
-				comments: '',
+				privateNotes: '',
 				sources: []
 			})
 		};
@@ -127258,20 +127258,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('label', {
     staticClass: "label",
     attrs: {
-      "for": "comments"
+      "for": "privateNotes"
     }
   }, [_vm._v("Private Comments")]), _vm._v(" "), _c('alg-textarea', {
     attrs: {
       "disabled": _vm.loading,
-      "name": "comments",
+      "name": "privateNotes",
       "placeholder": "Comments here will not be available to the public"
     },
     model: {
-      value: (_vm.form.comments),
+      value: (_vm.form.privateNotes),
       callback: function($$v) {
-        _vm.form.comments = $$v
+        _vm.form.privateNotes = $$v
       },
-      expression: "form.comments"
+      expression: "form.privateNotes"
     }
   })], 1)]), _vm._v(" "), _c('button', {
     staticClass: "button is-primary",
@@ -128518,40 +128518,40 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('label', {
     staticClass: "label",
     attrs: {
-      "for": "notes"
+      "for": "publicNotes"
     }
   }, [_vm._v("Public Notes")]), _vm._v(" "), _c('alg-textarea', {
     attrs: {
       "disabled": _vm.loading,
-      "name": "notes",
+      "name": "publicNotes",
       "placeholder": "Comments here will be seen publicly"
     },
     model: {
-      value: (_vm.form.notes),
+      value: (_vm.form.publicNotes),
       callback: function($$v) {
-        _vm.form.notes = $$v
+        _vm.form.publicNotes = $$v
       },
-      expression: "form.notes"
+      expression: "form.publicNotes"
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "column is-half"
   }, [_c('label', {
     staticClass: "label",
     attrs: {
-      "for": "comments"
+      "for": "privateNotes"
     }
   }, [_vm._v("Private Comments")]), _vm._v(" "), _c('alg-textarea', {
     attrs: {
       "disabled": _vm.loading,
-      "name": "comments",
+      "name": "privateNotes",
       "placeholder": "Comments here will not be available to the public"
     },
     model: {
-      value: (_vm.form.comments),
+      value: (_vm.form.privateNotes),
       callback: function($$v) {
-        _vm.form.comments = $$v
+        _vm.form.privateNotes = $$v
       },
-      expression: "form.comments"
+      expression: "form.privateNotes"
     }
   })], 1)]), _vm._v(" "), _c('button', {
     staticClass: "button is-primary",

@@ -1,10 +1,10 @@
 <?php
 
-use App\Slot;
-use App\Gloss;
 use App\Source;
 use App\Language;
-use App\Morpheme;
+use Algling\Morphemes\Models\Slot;
+use Algling\Morphemes\Models\Gloss;
+use Algling\Morphemes\Models\Morpheme;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class MorphemeTest extends TestCase
@@ -17,27 +17,26 @@ class MorphemeTest extends TestCase
 	function a_morpheme_has_attributes()
 	{
 		$language = factory(Language::class)->create();
-		$gloss = factory(Gloss::class)->create();
 		$slot = factory(Slot::class)->create();
 
 		$morpheme = Morpheme::create([
 			'name' => 'tst',
 			'language_id' => $language->id,
-			'gloss_id' => $gloss->id,
+			'gloss' => 'V',
 			'slot_id' => $slot->id,
 			'allomorphyNotes' => 'These are the allomorphy notes',
 			'historicalNotes' => 'These are the historical notes',
-			'comments' => 'These are the private comments'
+			'privateNotes' => 'These are the private comments'
 		]);
 
 		$this->assertNotNull($morpheme->id);
 		$this->assertEquals('tst', $morpheme->name);
 		$this->assertEquals($language->id, $morpheme->language_id);
-		$this->assertEquals($gloss->id, $morpheme->gloss_id);
+		$this->assertEquals('V', $morpheme->gloss);
 		$this->assertEquals($slot->id, $morpheme->slot_id);
 		$this->assertEquals('These are the allomorphy notes', $morpheme->allomorphyNotes);
 		$this->assertEquals('These are the historical notes', $morpheme->historicalNotes);
-		$this->assertEquals('These are the private comments', $morpheme->comments);
+		$this->assertEquals('These are the private comments', $morpheme->privateNotes);
 		$this->assertEquals(1, $morpheme->disambiguator);
 	}
 
@@ -64,7 +63,7 @@ class MorphemeTest extends TestCase
 		$source = factory(Source::class)->create();
 		$morpheme = factory(Morpheme::class)->create();
 
-		$sourceData = [['id' => $source->id, 'extraInfo' => 'page 7']];
+		$sourceData = collect([['id' => $source->id, 'extraInfo' => 'page 7']]);
 		$morpheme->connectSources($sourceData);
 
 		$this->assertCount(1, $morpheme->sources);

@@ -1,12 +1,12 @@
 <?php
 
-namespace Algling\Words\Traits;
+namespace Algling\Verbals\Traits;
 
 use Algling\Verbals\Models\Structure;
 
-trait HasFormTypeTrait {
+trait HasStructureTrait {
 
-	public static function bootHasFormTypeTrait() {
+	public static function bootHasStructureTrait() {
 		static::saving(function($model) {
         	/**
         	 * Only attempt to assign the form type if the data from a create or edit form
@@ -15,29 +15,20 @@ trait HasFormTypeTrait {
         	 * the form already has a type, and it won't be altered anyway.
         	 */
 			if(request()->subject_id) {
-				$model->assignFormType();
+				$model->assignStructure();
 			}
 		});
 	}
 
-    public function formType()
-    {
-        return $this->structure();
-    }
-
-    public function structure()
-    {
-        return $this->belongsTo(Structure::class, 'structure_id');
-    }
-
-	protected function assignFormType()
+	protected function assignStructure()
 	{
-        $this->formType_id = $this->getType();
+        $this->structure_id = $this->getStructure();
+        $this->structure_type = Structure::class;
 	}
 
-    private function getType()
+    private function getStructure()
     {
-        $data = $this->parseFormTypeData(request()->all());
+        $data = $this->parseStructureData(request()->all());
         $type = null;
 
         //Try to find the type in the database
@@ -52,7 +43,7 @@ trait HasFormTypeTrait {
         return $type->id;
     }
 
-    private function parseFormTypeData($attributes)
+    private function parseStructureData($attributes)
     {
         $data['subject_id']         = $attributes['subject_id'];
         $data['primaryObject_id']   = $attributes['primaryObject_id'];

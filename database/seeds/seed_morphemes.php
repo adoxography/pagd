@@ -14,16 +14,18 @@ class seed_morphemes extends Seeder
      */
     public function run()
     {
-    	DB::table('Morphemes')->delete();
+    	DB::table('Morph_Morphemes')->delete();
 
     	$morphemes = [
     		'id'          => 1,
     		'name'        => 'V',
     		'language_id' => 1,
-    		'gloss_id'    => 1,
-    		'slot_id'     => 1
+    		'gloss'       => 'V',
+    		'slot_id'     => 1,
+            'disambiguator' => 1,
+            'hasDuplicates' => 0
     	];
 
-        DB::table('Morphemes')->insert($morphemes);
+        DB::table('Morph_Morphemes')->insert($morphemes);
     }
 }

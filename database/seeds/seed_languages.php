@@ -11,6 +11,7 @@ class seed_languages extends Seeder
      */
     public function run()
     {
+        DB::table('Morph_Morphemes')->delete();
         DB::table('Languages')->delete();
         
         $languages = [

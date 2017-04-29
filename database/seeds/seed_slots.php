@@ -11,7 +11,7 @@ class seed_slots extends Seeder
      */
     public function run()
     {
-        DB::table('Slots')->delete();
+        DB::table('Morph_Slots')->delete();
         
         $slots = array(
         	['id' => 1, 'abv' => 'V', 'name' => 'verb stem'],
@@ -33,6 +33,6 @@ class seed_slots extends Seeder
         	['id' => 17, 'abv' => 'PV', 'name' => 'preverb'],
         );
         
-        DB::table('Slots')->insert($slots);
+        DB::table('Morph_Slots')->insert($slots);
     }
 }

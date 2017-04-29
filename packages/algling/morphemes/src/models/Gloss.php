@@ -22,7 +22,7 @@ class Gloss extends Closed
 
     public function morphemes()
     {
-    	return $this->belongsToMany(Morpheme::class, 'Glosses_Morphemes');
+    	return $this->belongsToMany(Morpheme::class, 'Morph_Glosses_Morphemes', 'gloss_id', 'morpheme_id');
     }
 
     public function renderHTMl()

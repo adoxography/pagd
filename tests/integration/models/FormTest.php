@@ -1,10 +1,10 @@
 <?php
 
-use App\Form;
 use App\Source;
-use App\FormType;
 use App\Language;
-use App\Morpheme;
+use Algling\Verbals\Models\Form;
+use Algling\Verbals\Models\Structure;
+use Algling\Morphemes\Models\Morpheme;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class FormTest extends TestCase
@@ -18,34 +18,36 @@ class FormTest extends TestCase
 	{
 		// Get prerequisites ready
 		$language = factory(Language::class)->create();
-		$type = factory(FormType::class)->create();
+		$type = factory(Structure::class)->create();
 		$parent = factory(Form::class)->create();
 
 		// Create the form
 		$form = Form::create([
-			'surfaceForm' => 'testform',
-			'phoneticForm' => '[ɑæəɛɪŋɾʃ]',
+			'name' => 'testform',
+			'phonemicForm' => '[ɑæəɛɪŋɾʃ]',
 			'morphemicForm' => 'a-b-c',
 			'language_id' => $language->id,
-			'formType_id' => $type->id,
+			'structure_id' => $type->id,
+			'structure_type' => Structure::class,
 			'parent_id' => $parent->id,
 			'historicalNotes' => "These are the historical notes",
 			'allomorphyNotes' => "These are the allomorphy notes",
 			'usageNotes' => "These are the usage notes",
-			'comments' => "These are the comments",
+			'privateNotes' => "These are the comments",
 		]);
 
 		// Run the tests
 		$this->assertNotNull($form->id);
-		$this->assertEquals('testform', $form->surfaceForm);
-		$this->assertEquals('[ɑæəɛɪŋɾʃ]', $form->phoneticForm);
+		$this->assertEquals('testform', $form->name);
+		$this->assertEquals('[ɑæəɛɪŋɾʃ]', $form->phonemicForm);
 		$this->assertEquals('a-b-c', $form->morphemicForm);
 		$this->assertEquals($language->id, $form->language_id);
-		$this->assertEquals($type->id, $form->formType_id);
+		$this->assertEquals($type->id, $form->structure_id);
+		$this->assertEquals(Structure::class, $form->structure_type);
 		$this->assertEquals("These are the historical notes", $form->historicalNotes);
 		$this->assertEquals("These are the allomorphy notes", $form->allomorphyNotes);
 		$this->assertEquals("These are the usage notes", $form->usageNotes);
-		$this->assertEquals("These are the comments", $form->comments);
+		$this->assertEquals("These are the comments", $form->privateNotes);
 	}
 
 	/** @test */
@@ -85,10 +87,10 @@ class FormTest extends TestCase
 		// Add a form to it
 		$form = factory(Form::class)->create([
 			'language_id' => $language->id,
-			'surfaceForm' => 'V-test'
+			'name' => 'V-test'
 		]);
 
-		$this->assertEquals('*V-test', $form->surfaceForm);
+		$this->assertEquals('*V-test', $form->name);
 	}
 
 	/** @test */

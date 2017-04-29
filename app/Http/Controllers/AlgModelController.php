@@ -30,4 +30,19 @@ class AlgModelController extends Controller
     {
     	return Auth::user() || (!$model->isHidden() && isset($model->language) && !$model->language->isHidden());
     }
+
+    public function bookmark($model)
+    {
+        $comment = request()->comment;
+        $model->bookmark($comment);
+
+        return 'success';
+    }
+
+    public function unbookmark($model)
+    {
+        $model->unbookmark();
+
+        return 'success';
+    }
 }

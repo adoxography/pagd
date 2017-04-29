@@ -9,7 +9,7 @@ class InitialChange extends Model
 {
 	use \App\DisambiguatableTrait;
 
-    public $table = 'InitialChanges';
+    public $table = 'Morph_InitialChanges';
     protected $fillable = ['change', 'morpheme_id'];
 
     protected $disambiguatableFields = ['morpheme_id'];

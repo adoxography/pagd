@@ -17,7 +17,8 @@ class seed_users extends Seeder
         	[
         		'name'     => 'adoxography',
         		'email'    => 'nevermore667@gmail.com',
-        		'password' => bcrypt('Water52')
+        		'password' => bcrypt('Water52'),
+                'userRoles_id' => 1
         	]
         ];
 

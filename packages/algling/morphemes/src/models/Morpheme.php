@@ -45,7 +45,7 @@ class Morpheme extends Model
         'allomorphyNotes',
         'historicalNotes',
         'translation',
-        'comments'
+        'privateNotes'
     ];
     protected $appends = [
         'uniqueNameWithLanguage',
@@ -78,7 +78,7 @@ class Morpheme extends Model
     ];
     protected $revisionFormattedFieldNames = [
         'allomorphyNotes' => 'Allomorphy Notes',
-        'comments'        => 'Comments',
+        'privateNotes'    => 'Comments',
         'historicalNotes' => 'Historical Notes',
         'language_id'     => 'Language ID',
         'gloss'           => 'Gloss',
@@ -172,6 +172,21 @@ class Morpheme extends Model
         return isset($this->altName);
     }
 
+    public function allWords()
+    {
+        $output = null;
+        $forms = $this->forms;
+        $examples = $this->examples;
+
+        if(count($forms) > 0) {
+            $output = $forms->merge($examples);
+        } else {
+            $output = $examples;
+        }
+
+        return $output;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Relations
@@ -184,17 +199,17 @@ class Morpheme extends Model
 
     public function forms()
     {
-        return $this->belongsToMany(Form::class, 'Forms_Morphemes')->distinct();
+        return $this->morphedByMany(Form::class, 'morphemeable', 'Morph_Morphemeables')->distinct();
     }
 
     public function examples()
     {
-        return $this->belongsToMany(Example::class, 'Examples_Morphemes')->distinct();
+        return $this->morphedByMany(Example::class, 'morphemeable', 'Morph_Morphemeables')->distinct();
     }
     
     public function glosses()
     {
-        return $this->belongsToMany(Gloss::class, 'Glosses_Morphemes');
+        return $this->belongsToMany(Gloss::class, 'Morph_Glosses_Morphemes', 'morpheme_id', 'gloss_id');
     }
 
     public function changeType()
@@ -289,6 +304,9 @@ class Morpheme extends Model
 
             if($gloss) {
                 $this->glosses()->attach($gloss);
+                if($this->name == 'morph') {
+                    dd($this->gloss);
+                }
             }
         }
     }

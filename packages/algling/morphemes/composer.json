@@ -7,5 +7,6 @@
             "email": "gstill92@gmail.com"
         }
     ],
+    "minimum-stability": "stable",
     "require": {}
 }

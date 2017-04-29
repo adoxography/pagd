@@ -6,6 +6,7 @@ use App\Language;
 use Illuminate\Http\Request;
 use Algling\Verbals\Models\Order;
 use Algling\Verbals\Models\VerbClass;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -16,7 +17,36 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        $page = Storage::get('pages/welcome.php');
+
+        return view('welcome', compact('page'));
+    }
+
+    public function glossary()
+    {
+        $pages = [];
+
+        $files = array_where(Storage::allFiles('pages'), function($value) {
+            return preg_match('/.+\.php/', $value);
+        });
+
+        foreach($files as $file) {
+            $uri = str_replace(['pages', '.php'], '', $file);
+            $structure = explode('/', $uri);
+            // $label = str_replace('_', ' ', array_last($structure));
+            $label = substr($uri, 1);
+
+            $hide = json_decode(Storage::get('pages/hide.json'));
+
+            if(!in_array(substr($uri, 1), $hide)) {
+                $pages[] = [
+                    'uri' => $uri,
+                    'label' => $label
+                ];
+            }
+        }
+
+        return view('glossary.index', compact('pages'));
     }
 
     public function changelog()

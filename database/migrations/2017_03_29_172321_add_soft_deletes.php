@@ -13,7 +13,7 @@ class AddSoftDeletes extends Migration
      */
     public function up()
     {
-        $tableNames = ['Languages', 'Morphemes', 'Forms', 'EmptyForms', 'Examples', 'Glosses', 'Sources', 'Slots', 'Rules', 'Groups'];
+        $tableNames = ['Languages', 'Sources', 'Rules', 'Groups'];
 
         Schema::table('Languages', function(Blueprint $table) {
             $table->dropColumn('verified');
@@ -33,7 +33,7 @@ class AddSoftDeletes extends Migration
      */
     public function down()
     {
-        $tableNames = ['Languages', 'Morphemes', 'Forms', 'EmptyForms', 'Examples', 'Glosses', 'Sources', 'Slots', 'Rules', 'Groups'];
+        $tableNames = ['Languages', 'Sources', 'Rules', 'Groups'];
 
         foreach($tableNames as $tableName) {
             Schema::table($tableName, function(Blueprint $table) {

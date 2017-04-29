@@ -13,7 +13,7 @@ class AddHiddenAtField extends Migration
      */
     public function up()
     {
-        $tableNames = ['Languages', 'Morphemes', 'Forms', 'EmptyForms', 'Examples', 'Rules'];
+        $tableNames = ['Languages', 'Rules'];
 
         foreach($tableNames as $tableName) {
             Schema::table($tableName, function(Blueprint $table) {
@@ -29,7 +29,7 @@ class AddHiddenAtField extends Migration
      */
     public function down()
     {
-        $tableNames = ['Languages', 'Morphemes', 'Forms', 'EmptyForms', 'Examples', 'Rules'];
+        $tableNames = ['Languages', 'Rules'];
 
         foreach($tableNames as $tableName) {
             Schema::table($tableName, function(Blueprint $table) {

@@ -15,6 +15,12 @@ use Algling\Morphemes\Models\Observers\MorphemeObserver;
 
 class MorphemeServiceProvider extends ServiceProvider
 {
+    protected $connections = [
+        Morpheme::class => 'morpheme',
+        Gloss::class => 'gloss',
+        Slot::class => 'slot',
+    ];
+
     /**
      * Bootstrap the application services.
      *
@@ -25,14 +31,10 @@ class MorphemeServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/resources/views', 'morph');
         $this->loadMigrationsFrom(__DIR__.'/migrations');
 
-        if($this->app->runningInConsole()) {
-            $this->commands([Transfer::class]);
-        }
-
-        $this->composeMorphemeForm();
-
-        Gloss::observe(GlossObserver::class);
-        Morpheme::observe(MorphemeObserver::class);
+        $this->bootObservers();
+        $this->bootCommands();
+        $this->bootRouteModelBindings();
+        $this->composeViews();
     }
 
     /**
@@ -48,6 +50,33 @@ class MorphemeServiceProvider extends ServiceProvider
         ], function ($router) {
             require __DIR__.'/routes.php';
         });
+    }
+
+    protected function bootObservers()
+    {
+        Gloss::observe(GlossObserver::class);
+        Morpheme::observe(MorphemeObserver::class);
+    }
+
+    protected function bootCommands()
+    {
+        if($this->app->runningInConsole()) {
+            $this->commands([Transfer::class]);
+        }
+    }
+
+    protected function bootRouteModelBindings()
+    {
+        foreach($this->connections as $model => $binding) {
+            Route::bind($binding, function($value) use ($model) {
+                return $model::find($value);
+            });
+        }
+    }
+
+    protected function composeViews()
+    {
+        $this->composeMorphemeForm();
     }
 
     private function composeMorphemeForm()

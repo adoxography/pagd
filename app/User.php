@@ -32,9 +32,8 @@ class User extends Authenticatable
     public function bookmarks($table = null, $returnRelation = false)
     {
         if($table) {
-            $class = '\\App\\'.ucfirst($table);
 
-            $relation = $this->morphedByMany($class, 'Bookmarkable')->withPivot('comment');
+            $relation = $this->morphedByMany($table, 'Bookmarkable')->withPivot('comment');
 
             if($returnRelation) {
                 return $relation;

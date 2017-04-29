@@ -11,7 +11,7 @@ class seed_classes extends Seeder
      */
     public function run()
     {
-        DB::table('Classes')->delete();
+        DB::table('Verb_Classes')->delete();
         
         $classes = array(
         	['id' => 1, 'name' => 'AI'],
@@ -25,7 +25,7 @@ class seed_classes extends Seeder
             ['id' => 9, 'name' => 'TA-O'],
         );
         
-        DB::table('Classes')->insert($classes);
+        DB::table('Verb_Classes')->insert($classes);
     }
 }
 

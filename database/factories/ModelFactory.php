@@ -1,5 +1,17 @@
 <?php
 
+use App\Group;
+use App\Language;
+use Algling\Verbals\Models\Form;
+use Algling\Verbals\Models\Mode;
+use Algling\Verbals\Models\Order;
+use Algling\Morphemes\Models\Slot;
+use Algling\Morphemes\Models\Gloss;
+use Algling\Verbals\Models\Argument;
+use Algling\Verbals\Models\Structure;
+use Algling\Verbals\Models\VerbClass;
+use Algling\Morphemes\Models\Morpheme;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -24,38 +36,41 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Source::class, function (Faker\Generator $faker) {
     return [
-        'short' => $faker->sentence,
+        'author' => $faker->name,
+        'year' => $faker->randomNumber(4, true),
+        'summary' => $faker->paragraph,
         'long' => $faker->paragraph,
         'url' => $faker->url,
         'notes' => $faker->paragraph
     ];
 });
 
-$factory->define(App\Form::class, function (Faker\Generator $faker) {
+$factory->define(Form::class, function (Faker\Generator $faker) {
 	return [
-		'surfaceForm' => $faker->word,
-		'language_id' => factory(App\Language::class)->create()->id,
+		'name' => $faker->word,
+		'language_id' => factory(Language::class)->create()->id,
 		'morphemicForm' => function (array $post) use ($faker) {
-			$morpheme1 = factory(App\Morpheme::class)->create(['language_id' => $post['language_id']]);
-			$morpheme2 = factory(App\Morpheme::class)->create(['language_id' => $post['language_id']]);
+			$morpheme1 = factory(Morpheme::class)->create(['language_id' => $post['language_id']]);
+			$morpheme2 = factory(Morpheme::class)->create(['language_id' => $post['language_id']]);
 
 			return $morpheme1->name . '-V-' . $morpheme2->name;
 		},
-		'formType_id' => factory(App\FormType::class)->create()->id
+		'structure_id' => factory(Structure::class)->create()->id,
+        'structure_type' => Structure::class
 	];
 });
 
-$factory->define(App\Group::class, function (Faker\Generator $faker) {
+$factory->define(Group::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name
     ];
 });
 
-$factory->define(App\Language::class, function (Faker\Generator $faker) {
+$factory->define(Language::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'group_id' => function () {
-            return factory(App\Group::class)->create()->id;
+            return factory(Group::class)->create()->id;
         },
         'iso' => function () use ($faker) {
             $output = '';
@@ -78,44 +93,42 @@ $factory->define(App\Language::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Morpheme::class, function (Faker\Generator $faker) {
+$factory->define(Morpheme::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,
         'language_id' => function () {
-            return factory(App\Language::class)->create()->id;
+            return factory(Language::class)->create()->id;
         },
-        'gloss_id' => function () {
-            return factory(App\Gloss::class)->create()->id;
-        },
+        'gloss' => $faker->word,
         'slot_id' => function () {
-            return factory(App\Slot::class)->create()->id;
+            return factory(Slot::class)->create()->id;
         },
         'allomorphyNotes' => $faker->paragraph,
         'historicalNotes' => $faker->paragraph,
-        'comments' => $faker->paragraph
+        'privateNotes' => $faker->paragraph
     ];
 });
 
-$factory->define(App\FormType::class, function (Faker\Generator $faker) {
+$factory->define(Structure::class, function (Faker\Generator $faker) {
     return [
         'class_id' => function () {
-            return factory(App\FormClass::class)->create()->id;
+            return factory(VerbClass::class)->create()->id;
         },
         'mode_id' => function () {
-            return factory(App\Mode::class)->create()->id;
+            return factory(Mode::class)->create()->id;
         },
         'order_id' => function () {
-            return factory(App\Order::class)->create()->id;
+            return factory(Order::class)->create()->id;
         },
-        'subject_id' => App\Argument::all()->random()->id,
-        'primaryObject_id' => App\Argument::all()->random()->id,
-        'secondaryObject_id' => App\Argument::all()->random()->id,
+        'subject_id' => Argument::all()->random()->id,
+        'primaryObject_id' => Argument::all()->random()->id,
+        'secondaryObject_id' => Argument::all()->random()->id,
         'isNegative' => $faker->numberBetween(0,1),
         'isDiminutive' => $faker->numberBetween(0,1)
     ];
 });
 
-$factory->define(App\Argument::class, function (Faker\Generator $faker) {
+$factory->define(Argument::class, function (Faker\Generator $faker) {
     $OBVIATIVE_CODES = ['', '\'', '\'\''];
     $NUMBERS         = ['', 's', 'd', 'p'];
 
@@ -141,27 +154,27 @@ $factory->define(App\Argument::class, function (Faker\Generator $faker) {
     return $argument;
 });
 
-$factory->define(App\FormClass::class, function (Faker\Generator $faker) {
+$factory->define(VerbClass::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word
     ];
 });
 
-$factory->define(App\Mode::class, function (Faker\Generator $faker) {
+$factory->define(Mode::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'description' => $faker->paragraph
     ];
 });
 
-$factory->define(App\Order::class, function (Faker\Generator $faker) {
+$factory->define(Order::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,
         'description' => $faker->paragraph
     ];
 });
 
-$factory->define(App\Gloss::class, function (Faker\Generator $faker) {
+$factory->define(Gloss::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,
         'abv'  => function () use ($faker) {
@@ -177,7 +190,7 @@ $factory->define(App\Gloss::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Slot::class, function (Faker\Generator $faker) {
+$factory->define(Slot::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,
         'abv'  => function () use ($faker) {

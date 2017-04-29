@@ -31,13 +31,13 @@ class Example extends Model
     |
     */
     public $table = 'Word_Examples';
-    protected $fillable = ['id', 'name','translation','form_id','comments','notes','morphemicForm'];
+    protected $fillable = ['id', 'name','translation','form_id','publicNotes','privateNotes','morphemicForm'];
 
     public function toSearchableArray()
     {
         $array = $this->toArray();
 
-        return array_only($array, ['id', 'name', 'translation', 'comments', 'notes']);
+        return array_only($array, ['id', 'name', 'translation', 'publicNotes', 'privateNotes']);
     }
 
     /*
@@ -55,8 +55,8 @@ class Example extends Model
         'name'          => 'Example',
         'translation'   => 'Translation',
         'form_id'       => 'Form ID',
-        'comments'      => 'Private Comments',
-        'notes'         => 'Public Notes',
+        'privateNotes'      => 'Private Comments',
+        'publicNotes'         => 'Public Notes',
         'morphemicForm' => 'Morphemes',
     ];
     protected $dontKeepRevisionOf = [
@@ -65,10 +65,6 @@ class Example extends Model
         'created_at',
         'updated_at'
     ];
-
-    public static function boot() {
-        parent::boot();
-    }
 
     /*
     |--------------------------------------------------------------------------

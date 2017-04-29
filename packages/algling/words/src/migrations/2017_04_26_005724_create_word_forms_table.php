@@ -40,7 +40,7 @@ class CreateWordFormsTable extends Migration
             $table->softDeletes();
             $table->timestamps();
 
-            $table->boolean('complete');
+            $table->boolean('complete')->default(0);
 
             // Constraints
             $table->foreign('language_id')->references('id')->on('Languages');

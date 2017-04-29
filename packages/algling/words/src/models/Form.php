@@ -30,7 +30,6 @@ class Form extends Model
     use \App\BookmarkableTrait;
     use SoftDeletes;
     use \App\HideableTrait;
-    use \Algling\Words\Traits\HasFormTypeTrait;
 
     /*
     |--------------------------------------------------------------------------
@@ -45,14 +44,15 @@ class Form extends Model
     protected $fillable = [
         'allomorphyNotes',
         'changeType_id',
-        'comments',
-        'formType_id',
+        'privateNotes',
+        'structure_id',
+        'structure_type',
         'historicalNotes',
         'language_id',
         'morphemicForm',
         'parent_id',
-        'phoneticForm',
-        'surfaceForm',
+        'phonemicForm',
+        'name',
         'usageNotes'
     ];
 
@@ -62,7 +62,7 @@ class Form extends Model
     {
         $array = $this->toArray();
 
-        return array_only($array, ['id', 'allomorphyNotes', 'comments', 'historicalNotes', 'morphemicForm', 'phoneticForm', 'surfaceForm', 'usageNotes']);
+        return array_only($array, ['id', 'allomorphyNotes', 'privateNotes', 'historicalNotes', 'morphemicForm', 'phonemicForm', 'surfaceForm', 'usageNotes']);
     }
 
     /*
@@ -78,13 +78,13 @@ class Form extends Model
     protected $revisionNullString = 'none';
     protected $revisionFormattedFieldNames = [
         'allomorphyNotes' => 'Allomorphy Notes',
-        'comments'        => 'Comments',
-        'formType_id'     => 'Syntax Details ID',
+        'privateNotes'    => 'Comments',
+        'structure_id'    => 'Syntax Details ID',
         'historicalNotes' => 'Historical Notes',
         'language_id'     => 'Language ID',
         'morphemicForm'   => 'Morphemes',
         'parent_id'       => 'Parent ID',
-        'phoneticForm'    => 'Phonemic Representation',
+        'phonemicForm'    => 'Phonemic Representation',
         'surfaceForm'     => 'Surface Form',
         'usageNotes'      => 'Usage Notes'
     ];
@@ -234,5 +234,15 @@ class Form extends Model
     public function examples()
     {
         return $this->hasMany(Example::class, 'form_id');
+    }
+
+    public function formType()
+    {
+        return $this->structure();
+    }
+
+    public function structure()
+    {
+        return $this->morphTo();
     }
 }

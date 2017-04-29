@@ -9,7 +9,7 @@
 	</div>
 	<br />
 
-	<alg-tabs class="box">
+	<alg-tabs class="box content">
 		@foreach($types as $type)
 			<alg-tab name="{{ $type->name }}" {{ $loop->first ? 'selected="selected"' : '' }}>
 				<ul>

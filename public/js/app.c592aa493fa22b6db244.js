@@ -5122,6 +5122,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		this.form.orders = JSON.parse(this.orders);
 		this.form.modes = JSON.parse(this.modes);
 
+		var unmarkedIndex = this.form.modes.findIndex(function (mode) {
+			return mode.name == 'Unmarked';
+		});
+
+		this.form.modes.splice(unmarkedIndex, 1);
+
+		var indicativeIndex = this.form.modes.findIndex(function (mode) {
+			return mode.name == 'Indicative';
+		});
+
+		this.form.modes[indicativeIndex].name = "Indicative/Unmarked";
+
 		if (this.preset) {
 			var presetArray = JSON.parse(this.preset);
 
@@ -124792,7 +124804,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.form.modeSelect = "indicativeOnly"
       }
     }
-  }), _vm._v("\n\t\t\t\t\tIndicative only\n\t\t\t\t")])]), _vm._v(" "), _c('p', {
+  }), _vm._v("\n\t\t\t\t\tIndicative/Unmarked only\n\t\t\t\t")])]), _vm._v(" "), _c('p', {
     staticClass: "control"
   }, [_c('label', {
     staticClass: "radio"

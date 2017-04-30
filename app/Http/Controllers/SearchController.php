@@ -283,6 +283,10 @@ class SearchController extends Controller
         $this->nonDiminutive = $request->nonDiminutive;
         $this->diminutive  = $request->diminutive;
 
+        if(in_array(1, $this->modes)) {
+            $this->modes[] = 17;
+        }
+
         $formQuery = Form::with([
             'language',
             'language.group',
@@ -342,7 +346,7 @@ class SearchController extends Controller
         switch ($this->modeSelect) {
             case 'indicativeOnly':
                 $query->whereHas('structure', function ($query) {
-                    $query->where('mode_id', 1);
+                    $query->whereIn('mode_id', [1, 17]);
                 });
                 break;
             case 'selectModes':

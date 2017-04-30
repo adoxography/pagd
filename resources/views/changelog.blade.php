@@ -10,6 +10,18 @@
 <div class="box">
 	<ul class="indented-list">
 		<li>
+			29-04-17: Added "Unmarked" to the list of modes
+			<ul>
+				<li>
+					will only appear as a column label in a paradigm if it contrasts with another mode
+				</li>
+				<li>
+					paired with "indicative" when searching
+				</li>
+			</ul>
+		</li>
+		<hr>
+		<li>
 			28-04-17: Added the ability to add miscellaneous pages
 		</li>
 		<hr>

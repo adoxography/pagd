@@ -19,17 +19,17 @@ class FormRequest extends Request
 
         $rules += [
             'subject'            => ['required'],
-            'subject_id'         => ['required','exists:Arguments,id'],  
-            'primaryObject'      => ['nullable','exists:Arguments,name'],         
-            'primaryObject_id'   => ['nullable','integer','exists:Arguments,id'],
-            'secondaryObject'    => ['nullable','exists:Arguments,name'],  
-            'secondaryObject_id' => ['nullable','integer','exists:Arguments,id'],
+            'subject_id'         => ['required','exists:Verb_Arguments,id'],  
+            'primaryObject'      => ['nullable','exists:Verb_Arguments,name'],         
+            'primaryObject_id'   => ['nullable','integer','exists:Verb_Arguments,id'],
+            'secondaryObject'    => ['nullable','exists:Verb_Arguments,name'],  
+            'secondaryObject_id' => ['nullable','integer','exists:Verb_Arguments,id'],
             'verbClass'          => ['required'],
-            'verbClass_id'       => ['required','integer','exists:Classes,id'],
+            'verbClass_id'       => ['required','integer','exists:Verb_Classes,id'],
             'order'              => ['required'],
-            'order_id'           => ['required','integer','exists:Orders,id'],
+            'order_id'           => ['required','integer','exists:Verb_Orders,id'],
             'mode'               => ['required'],
-            'mode_id'            => ['required','exists:Modes,id'],
+            'mode_id'            => ['required','exists:Verb_Modes,id'],
             'isAbsolute'         => ['nullable']
         ];
 

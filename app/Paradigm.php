@@ -495,7 +495,7 @@ class Paradigm
                         $temp = array_first($cell['subheaders']);
 
                         for($i = 0; $i < $cell['rowspan']; $i++) {
-                            if(!$temp['show'] && $temp['name'] != 'Affirmative' && $temp['name'] != 'Non-diminutive') {
+                            if(!$temp['show'] && $temp['name'] != 'Affirmative' && $temp['name'] != 'Non-diminutive' && $temp['name'] != 'Unmarked') {
                                 $rowHTML .= ' '. $temp['name'];
                             }
                             $temp = array_first($temp['subheaders']);

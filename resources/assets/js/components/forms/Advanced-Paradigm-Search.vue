@@ -99,7 +99,7 @@
 							   name="modeSelect"
 							   value="indicativeOnly"
 							   v-model="form.modeSelect">
-						Indicative only
+						Indicative/Unmarked only
 					</label>
 				</p>
 				<p class="control">
@@ -324,6 +324,18 @@ export default {
 	created() {
 		this.form.orders = JSON.parse(this.orders);
 		this.form.modes = JSON.parse(this.modes);
+
+		let unmarkedIndex = this.form.modes.findIndex(mode => {
+			return mode.name == 'Unmarked';
+		});
+
+		this.form.modes.splice(unmarkedIndex, 1);
+
+		let indicativeIndex = this.form.modes.findIndex(mode => {
+			return mode.name == 'Indicative';
+		});
+
+		this.form.modes[indicativeIndex].name = "Indicative/Unmarked";
 
 		if(this.preset) {
 			let presetArray = JSON.parse(this.preset);

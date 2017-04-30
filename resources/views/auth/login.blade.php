@@ -13,15 +13,21 @@
                     <i class="fa fa-envelope"></i>
                 </span>
             </p>
+        </div>
+        <div class="field">
             <p class="control has-icon">
                 <input type="password" id="password" class="input" name="password" placeholder="Password" required />
                 <span class="icon is-small">
                     <i class="fa fa-lock"></i>
                 </span>
             </p>
+        </div>
+        <div class="field">
             <p class="control">
                 <input type="checkbox" class="checkbox"  name="remember" /> Remember Me
             </p>
+        </div>
+        <div class="field">
             <p class="control">
                 <button class="button is-primary" type="submit">Login</button>
                 <a href="{{ url('/password/email') }}" class="button is-link">Forgot Your Password?</a>

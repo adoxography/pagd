@@ -2,6 +2,8 @@
 	@slot('value')
 		@if(old('abv'))
 			{{ old('abv') }}
+		@elseif(request()->abv)
+			{{ request()->abv }}
 		@elseif($item)
 			{{ $item->abv }}
 		@endif

@@ -10,6 +10,9 @@
 <div class="box">
 	<ul class="indented-list">
 		<li>
+			29-04-17: Added link to add missing glosses when logged in
+		</li>
+		<li>
 			29-04-17: Added "Unmarked" to the list of modes
 			<ul>
 				<li>

@@ -264,12 +264,12 @@ class Morpheme extends Model
                     $lookup = $this->glosses->where('abv', $glossText);
 
                     if(count($lookup) > 0) {
-                        $currGloss = "<a href='/glosses/" . $lookup->first()->id . "' $colourHTML>" . $lookup->first()->abv . "</a>";
+                        $currGloss = "<span class='gloss'><a href='/glosses/" . $lookup->first()->id . "' $colourHTML>" . $lookup->first()->abv . "</a></span>";
                     } else {
-                        $currGloss = $glossText;
+                        $currGloss = "<span class='gloss'>$glossText</span><alg-morpheme-alert title='Gloss missing'><a href='/glosses/create?abv=$glossText'>Add <span class='gloss'>$glossText</span></a></alg-morpheme-alert>";
                     }
 
-                    $output .= "<span class='gloss'>$currGloss</span>";
+                    $output .= $currGloss;
                 }
             }
         }

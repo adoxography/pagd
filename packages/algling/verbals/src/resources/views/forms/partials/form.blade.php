@@ -187,7 +187,7 @@
 						'N/A' => '',
 						'Subject' => 'subject',
 						'Primary Object' => 'primaryObject',
-						'secondaryObject' => 'secondaryObject'
+						'Secondary Object' => 'secondaryObject'
 					],
 					'selected' => isset($form) ? $form->formType->head : ''
 				])

@@ -1,7 +1,7 @@
 <template>
 	<div class="modal is-active" @keydown.enter="onEnter($event)">
  		<div class="modal-background"></div>
- 	 	<div class="modal-card">
+ 	 	<div class="modal-card" v-on-clickaway="clickOutside">
     		<header class="modal-card-head">
       			<p class="modal-card-title">Add a new source</p>
       			<a class="delete" @click="close"></a>
@@ -35,6 +35,8 @@
 </template>
 
 <script>
+	import  { directive as onClickaway } from 'vue-clickaway';
+
 	export default {
 
 		props: ['open'],
@@ -48,6 +50,10 @@
 				notes: '',
 				loading: false
 			};
+		},
+
+		directives: {
+			onClickaway: onClickaway
 		},
 
 		computed: {
@@ -65,6 +71,12 @@
 				this.notes = '';
 
 				this.$emit('close');
+			},
+
+			clickOutside(event) {
+				if(event.srcElement.id != 'new-source-button') {
+					this.close();
+				}
 			},
 
 			onEnter(event) {

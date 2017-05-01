@@ -19,6 +19,7 @@
 				<a class="button"
 				   @click="open"
 				   :class="{ 'is-disabled': disabled }"
+				   id="new-source-button"
 				   style="margin-top: 2rem;">
 				   	Add a new source
 			    </a>

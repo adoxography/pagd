@@ -283,7 +283,7 @@ class SearchController extends Controller
         $this->nonDiminutive = $request->nonDiminutive;
         $this->diminutive  = $request->diminutive;
 
-        if(in_array(1, $this->modes)) {
+        if($this->modes && in_array(1, $this->modes)) {
             $this->modes[] = 17;
         }
 

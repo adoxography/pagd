@@ -2552,7 +2552,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				this.filterOptions();
 
 				// Only show the list if there is text in the field and there are options in the list
-				if (this.value.text.length > 0 && this.options.length > 0) {
+				if (this.value.text && this.value.text.length > 0 && this.options.length > 0) {
 					this.showList = true;
 				}
 
@@ -2571,6 +2571,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			if (event.keyCode == 9) {
 				// Tab key
 				this.showList = false;
+				this.$emit("keydown", {
+					keyCode: 9
+				});
 			} else if (event.keyCode == 13) {
 				// Enter key
 				this.handleEnterKey(event);
@@ -4690,10 +4693,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this.clearList();
 			});
 		},
-		onEnter: function onEnter(event) {
+		onKeyDown: function onKeyDown(event) {
 			var _this2 = this;
 
-			if (this.listValue.text.length > 0) {
+			if (this.listValue.text.length > 0 && (event.keyCode == 9 || event.keyCode == 13)) {
 
 				var glosses = this.listValue.text.split('.');
 
@@ -128023,8 +128026,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "keydown": function($event) {
-        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
-        _vm.onEnter($event)
+        _vm.onKeyDown($event)
       },
       "select": _vm.onInput,
       "focus": function($event) {

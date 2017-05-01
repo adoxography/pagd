@@ -2,7 +2,7 @@
 	<div class="alg-tag-input">
 		<alg-datalist
 			ref="datalist"
-			@keydown.enter="onEnter($event)"
+			@keydown="onKeyDown($event)"
 			@select="onInput"
 			v-model="listValue"
 			:list="list"
@@ -121,8 +121,8 @@ export default {
 			});
 		},
 
-		onEnter(event) {
-			if(this.listValue.text.length > 0) {
+		onKeyDown(event) {
+			if(this.listValue.text.length > 0 && (event.keyCode == 9 || event.keyCode == 13)) {
 
 				let glosses = this.listValue.text.split('.');
 

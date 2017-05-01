@@ -151,7 +151,7 @@
 					this.filterOptions();
 
 					// Only show the list if there is text in the field and there are options in the list
-					if(this.value.text.length > 0 && this.options.length > 0) {
+					if(this.value.text && this.value.text.length > 0 && this.options.length > 0) {
 						this.showList = true;
 					}
 
@@ -172,6 +172,9 @@
 			onKeyDown(event) {
 				if(event.keyCode == 9) { // Tab key
 					this.showList = false;
+					this.$emit("keydown", {
+						keyCode: 9
+					});
 				}
 				else if(event.keyCode == 13) { // Enter key
 					this.handleEnterKey(event);

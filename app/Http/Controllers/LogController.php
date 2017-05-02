@@ -16,7 +16,7 @@ class LogController extends Controller
     		$type  = $revision->revisionable_type;
     		$model = (new $type)->find($revision->revisionable_id);
 
-    		if($model && !($model instanceof \App\Morpheme && $model->name == 'V')) {
+    		if($model && $model->language && !($model instanceof \Algling\Morphemes\Models\Morpheme && $model->name == 'V')) {
 				$log[] = [
 					'model' => $model,
 					'revision' => $revision

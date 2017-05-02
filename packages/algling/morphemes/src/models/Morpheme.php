@@ -113,7 +113,7 @@ class Morpheme extends Model
 
     public function getUniqueNameAttribute()
     {
-        return "{$this->name} (".$this->renderGloss().')';
+        return "{$this->name} (".$this->renderGloss(false, false).')';
     }
 
     public function getDisplayAttribute()
@@ -238,7 +238,7 @@ class Morpheme extends Model
         return $this->renderHTML()." $gloss";
     }
 
-    public function renderGloss($colour = true)
+    public function renderGloss($colour = true, $showAlert = true)
     {
         $output = '';
         $glosses = explode('.', $this->gloss);
@@ -265,8 +265,10 @@ class Morpheme extends Model
 
                     if(count($lookup) > 0) {
                         $currGloss = "<span class='gloss'><a href='/glosses/" . $lookup->first()->id . "' $colourHTML>" . $lookup->first()->abv . "</a></span>";
-                    } else {
+                    } elseif($showAlert) {
                         $currGloss = "<span class='gloss'>$glossText</span><alg-morpheme-alert title='Gloss missing'><a href='/glosses/create?abv=$glossText'>Add <span class='gloss'>$glossText</span></a></alg-morpheme-alert>";
+                    } else {
+                        $currGloss = "<span class='gloss'>$glossText</span>";
                     }
 
                     $output .= $currGloss;

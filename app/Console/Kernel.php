@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \App\Console\Commands\DatabaseBackup::class,
+        \App\Console\Commands\DatabaseRestore::class,
         \App\Console\Commands\IndexSearchableModels::class,
         \App\Console\Commands\ImportSources::class,
     ];

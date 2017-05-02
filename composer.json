@@ -45,7 +45,8 @@
             "tests/TestCase.php"
         ],
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests/",
+            "Algling\\Log\\": "packages/algling/log/src"
         }
     },
     "scripts": {

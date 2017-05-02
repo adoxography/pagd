@@ -62,7 +62,7 @@ class Form extends Model
     {
         $array = $this->toArray();
 
-        return array_only($array, ['id', 'allomorphyNotes', 'privateNotes', 'historicalNotes', 'morphemicForm', 'phonemicForm', 'surfaceForm', 'usageNotes']);
+        return array_only($array, ['id', 'allomorphyNotes', 'privateNotes', 'historicalNotes', 'morphemicForm', 'phonemicForm', 'name', 'usageNotes']);
     }
 
     /*
@@ -151,7 +151,7 @@ class Form extends Model
      */
     public function getUniqueNameAttribute()
     {
-        return "{$this->surfaceForm} ({$this->formType->renderArguments()})";
+        return "{$this->surfaceForm} ({$this->structure->renderArguments()})";
     }
 
     /**

@@ -7,7 +7,7 @@ use App\Source;
 use App\Language;
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use Algling\Words\Models\Form;
+use Algling\Verbals\Models\Form;
 use Algling\Morphemes\Models\Morpheme;
 
 class AutocompleteController extends Controller
@@ -24,18 +24,18 @@ class AutocompleteController extends Controller
         $term     = $request->term;
         $language = $request->language;
 
-        $results = Form::select('id', 'surfaceForm', 'language_id', 'morphemicForm as extra', 'formType_id')
+        $results = Form::select('id', 'name', 'language_id', 'morphemicForm as extra', 'structure_id')
                        ->with('language')
-                       ->with('formType')
-                       ->with('formType.subject')
-                       ->with('formType.primaryObject')
-                       ->with('formType.secondaryObject')
-                       ->where('surfaceForm', 'LIKE', "%$term%")
+                       ->with('structure')
+                       ->with('structure.subject')
+                       ->with('structure.primaryObject')
+                       ->with('structure.secondaryObject')
+                       ->where('name', 'LIKE', "%$term%")
                        ->where('language_id', $language)
                        ->get();
 
         foreach ($results as $result) {
-            $result->name = $result->uniqueName;
+            $result->name = str_replace('*', '', $result->uniqueName);
         }
 
         return $results->toJson();

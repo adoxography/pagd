@@ -105,20 +105,20 @@ class HomeController extends Controller
     {
         $languages = Language::with(['forms' => function($query) {
             $query->where('Word_Forms.complete', 0)
-                ->with('formType.primaryObject')
-                ->with('formType.secondaryObject')
-                ->with('formType.subject')
+                ->with('structure.primaryObject')
+                ->with('structure.secondaryObject')
+                ->with('structure.subject')
                 ->with('morphemes')
                 ->with('morphemes.glosses')
                 ->with('morphemes.slot');
         }])->with(['examples' => function($query) {
             $query->where('Word_Examples.complete', 0)
-                ->with('form.formType.subject')
-                ->with('form.formType.primaryObject')
-                ->with('form.formType.secondaryObject')
-                ->with('form.formType.formClass')
-                ->with('form.formType.order')
-                ->with('form.formType.mode')
+                ->with('form.structure.subject')
+                ->with('form.structure.primaryObject')
+                ->with('form.structure.secondaryObject')
+                ->with('form.structure.formClass')
+                ->with('form.structure.order')
+                ->with('form.structure.mode')
                 ->with('morphemes')
                 ->with('morphemes.glosses')
                 ->with('morphemes.slot');

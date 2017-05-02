@@ -5,7 +5,7 @@ namespace Algling\Words\Models;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Algling\Words\Models\Form;
+use Algling\Verbals\Models\Form; // FIX ME LATER
 
 /**
  * An example of a form

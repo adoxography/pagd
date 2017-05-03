@@ -5,14 +5,19 @@
 // Variables
 @import "_variables";
 
-// Bootstrap
-//@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+// Mixins
+@import "_mixins";
 
 // Font Awesome
 @import "node_modules/font-awesome/scss/font-awesome";
 
 // Bulma
 @import "node_modules/bulma/bulma.sass";
+
+@include font-face("DejaVuSerifCondensed", css/fonts/DejaVuSerifCondensed-webfont, null, null, woff);
+@include font-face("DejaVuSerifCondensed", css/fonts/DejaVuSerifCondensed-Bold-webfont, bold, null, woff);
+@include font-face("DejaVuSerifCondensed", css/fonts/DejaVuSerifCondensed-BoldItalic-webfont, bold, italic, woff);
+@include font-face("DejaVuSerifCondensed", css/fonts/DejaVuSerifCondensed-Italic-webfont, null, italic, woff);
 
 html, .footer, .section {
 	background-color: $background-color;
@@ -333,11 +338,18 @@ p.is-danger {
 	}
 }
 
-.horizontal-list.has-bullets li {
-	display: inline-block;
+.horizontal-list {
+	li {
+		display: inline-block;
+		padding: .5rem;
+	}
 
-	&:not(:first-child)::before {
-		content: "•";
+	&.has-bullets li:not(:first-child) {
+		// padding-left: 0;
+
+		&::before {
+			content: "•";
+		}
 	}
 }
 
@@ -376,4 +388,96 @@ p.is-danger {
 
 [v-cloak] {
 	display: none;
+}
+
+body.sandbox {
+	background-color: white;
+	font-size: 1.25rem;
+	font-family: "DejaVuSerifCondensed";
+
+	.hero-body {
+		padding-bottom: 2rem;
+		font-family: "DejaVuSerifCondensed";
+
+		.is-ancestor {
+			margin-left: 0;
+		}
+
+		a {
+			color: black;
+			font-family: "DejaVuSerifCondensed";
+		}
+
+		#logo {
+			width: 270px;
+
+			.is-child {
+				padding: 0.75rem;
+
+				.title {
+					font-family: "DejaVuSerifCondensed";
+				}
+			}
+		}
+
+		#logo, #addbutton {
+			background-color: #fef368;
+		}
+
+		#main-menu {
+			display: flex;
+			justify-content: flex-end;
+			flex-direction: column;
+		}
+
+		#user-menu {
+			display: flex;
+			justify-content: flex-end;
+		}
+
+		#action-menu {
+			display: flex;
+			justify-content: flex-end;
+			flex-direction: column;
+			align-items: flex-end;
+		}
+	}
+
+	#main-content {
+		padding-top: 0;
+		padding-bottom: 0;
+		background-color: white;
+
+		.card {
+			border: 1px solid black;
+			border-top: 4px solid black;
+			border-bottom: 3px solid black;
+			box-shadow: none;
+
+			.card-header {
+				box-shadow: none;
+				border-bottom: 1px solid black;
+				background-color: #e8e8e8;
+				font-family: "DejaVuSerifCondensed";
+			}
+
+			.card-content {
+				font-family: "DejaVuSerifCondensed";
+
+				a {
+					color: #56abff;
+				}
+			}
+		}
+	}
+
+	.footer {
+		background-color: white;
+		font-family: "DejaVuSerifCondensed";
+		padding-top: 1rem;
+
+		a {
+			color: black;
+		}
+	}
 }

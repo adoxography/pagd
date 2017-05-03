@@ -8,23 +8,23 @@
 		</div>
 		@if(Auth::user())
 			<div class="nav-center">
-				<div class="dropdown" style="display: flex; justify-content: center">
-					<a class="control nav-item dropdown-switch is-tab" style="margin-bottom: 0;">
+				<div class="dropdown">
+					<a class="control nav-item dropdown-switch is-tab">
 						Add
 					</a>			
-					<ul class="box dropdown-options">
-						<li><a href="/languages/create">Language</a></li>
-						<li><a href="/forms/create">Form</a></li>
-						<li><a href="/examples/create">Example</a></li>
-						<li><a href="/morphemes/create">Morpheme</a></li>
-						<li><a href="/sources/create">Source</a></li>
-						<li><a href="/rules/create">Rule</a></li>
-						<li><a href="/changes">Initial Change</a></li>
-						<li><a href="/glosses/create">Gloss</a></li>
-						<li><a href="/slots/create">Slot</a></li>
-						<li><a href="/variables/create">Variable</a></li>
-						<li><a href="/datapoints/create">Datapoint</a></li>
-					</ul>
+					<div class="dropdown-options">
+						<a href="/languages/create">Language</a>
+						<a href="/forms/create">Form</a>
+						<a href="/examples/create">Example</a>
+						<a href="/morphemes/create">Morpheme</a>
+						<a href="/sources/create">Source</a>
+						<a href="/rules/create">Rule</a>
+						<a href="/changes">Initial Change</a>
+						<a href="/glosses/create">Gloss</a>
+						<a href="/slots/create">Slot</a>
+						<a href="/variables/create">Variable</a>
+						<a href="/datapoints/create">Datapoint</a>
+					</div>
 				</div>
 			</div>
 		@endif

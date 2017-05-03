@@ -245,4 +245,23 @@ class LanguageController extends AlgModelController
 
         return 'success';
     }
+
+    public function showSandbox(Language $language)
+    {
+        return $this->showBasicDetails($language);
+    }
+
+    public function showBasicDetails(Language $language)
+    {
+        $language->load(['group', 'parent']);
+
+        return view('languages/partials/basic', compact('language'));        
+    }
+
+    public function showChildren(Language $language)
+    {
+        $language->load('children');
+
+        return view('languages/partials/children', compact('language'));
+    }
 }

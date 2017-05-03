@@ -29,8 +29,6 @@ Route::get('guide', 'HomeController@guide');
 
 Route::post('backup', 'BackupController@store');
 
-// Route::post('bookmark/{model}/{id}', 'BookmarkController@bookmark');
-// Route::delete('bookmark/{model}/{id}', 'BookmarkController@unbookmark');
 Route::get('profile/bookmarks', 'UserController@bookmarks');
 
 // Contact Routes
@@ -78,5 +76,10 @@ Route::patch('sources/{source}/hide', 'SourceController@hide');
 
 Route::get('profile', 'UserController@show');
 Auth::routes();
+
+Route::group(['as' => 'languages::'], function() {
+	Route::get('sandbox/languages/{language}', 'LanguageController@showSandbox')->name('showBasic');
+	Route::get('sandbox/languages/{language}/children', 'LanguageController@showChildren')->name('showChildren');
+});
 
 Route::get('{args}', 'PageController@show')->where('args', '.*');

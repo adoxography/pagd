@@ -71,7 +71,7 @@ function indexAllModels() {
  * @param integer The ID of the language whose rules to look for
  * @return string The text with tags replaced
  */
-function replaceTags($text, $id)
+function replaceTags($text, $id = 0)
 {
     $output = $text;
     $start;
@@ -112,13 +112,13 @@ function replaceTags($text, $id)
                     $model = \App\Language::find($parts[1]);
                     break;
                 case 'f':
-                    $model = \App\Form::find($parts[1]);
+                    $model = \Algling\Verbals\Models\Form::find($parts[1]);
                     break;
                 case 'e':
-                    $model = \App\Example::find($parts[1]);
+                    $model = \Algling\Words\Models\Example::find($parts[1]);
                     break;
                 case 'm':
-                    $model = \App\Morpheme::find($parts[1]);
+                    $model = \Algling\Morphemes\Models\Morpheme::find($parts[1]);
                 default:
                     break;
             }

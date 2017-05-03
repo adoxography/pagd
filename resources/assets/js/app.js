@@ -120,24 +120,35 @@ const app = new Vue({
 });
 
 // Navigation menu
-$(document).ready(function(){
-	const target = $(".dropdown");
-	const dropdown = target.children('.dropdown-options');
+// $(document).ready(function(){
+// 	const target = $(".dropdown");
 
-	var menuMoving = false;
+// 	target.each(button => {
+// 		let dropdown = button.children('.dropdown-options');
+// 		let menuMoving = false;
 
-	target.mouseenter(() => {
-		toggleMenu();
-	}).mouseleave(() => {
-		toggleMenu();
-	});
+// 		button.mouseenter(() => {
+// 			toggleMenu(menuMoving);
+// 		}).mouseleave(() => {
+// 			toggleMenu(menuMoving);
+// 		});
+// 	});
+// 	// const dropdown = target.children('.dropdown-options');
 
-	function toggleMenu() {
-		if(!menuMoving) {
-			menuMoving = true;
-			dropdown.slideToggle('fast', function() {
-				menuMoving = false;
-			});
-		}
-	};
-});
+// 	// var menuMoving = false;
+
+// 	// target.mouseenter(() => {
+// 	// 	toggleMenu();
+// 	// }).mouseleave(() => {
+// 	// 	toggleMenu();
+// 	// });
+
+// 	function toggleMenu(menuMoving) {
+// 		if(!menuMoving) {
+// 			menuMoving = true;
+// 			dropdown.slideToggle('fast', function() {
+// 				menuMoving = false;
+// 			});
+// 		}
+// 	};
+// });

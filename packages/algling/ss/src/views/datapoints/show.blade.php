@@ -24,7 +24,7 @@
 		</div>
 
 		<div class="column">
-			@include('components.model.text', ['width' => 'is-12', 'label' => 'Notes', 'text' => $datapoint->notes])
+			@include('components.model.text', ['width' => 'is-12', 'label' => 'Notes', 'text' => $datapoint->notes, 'language_id' => $datapoint->language->id])
 		</div>
 	</div>
 

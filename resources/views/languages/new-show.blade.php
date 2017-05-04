@@ -11,8 +11,8 @@
 <div class="columns is-gapless">
 	<div class="column is-narrow">
 		<nav class="panel">
-			<a href="#" class="panel-block is-active">Basic details</a>
-			<a href="/sandbox/languages/{{ $language->id }}/children" class="panel-block @if(route('languages::showChildren')) is-active @endif">Children</a>
+			<a href="/sandbox/languages/{{ $language->id }}" class="panel-block @if(Route::is('languages::showBasic')) is-active @endif">Basic details</a>
+			<a href="/sandbox/languages/{{ $language->id }}/children" class="panel-block @if(Route::is('languages::showChildren')) is-active @endif">Children</a>
 			<a href="#" class="panel-block">Structural survey</a>
 			<a href="#" class="panel-block">Forms</a>
 			<a href="#" class="panel-block">Morphemes</a>

@@ -22,7 +22,7 @@ trait HasStructureTrait {
 
     public function structure()
     {
-        return \App\BelongsToMorph::build($this, Structure::class, 'structure');
+        return $this->belongsTo(Structure::class, 'structure_id');
     }
 
 	protected function assignStructure()

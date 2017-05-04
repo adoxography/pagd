@@ -17,7 +17,7 @@ class Form extends WordForm
 
     	// Limit scope to only records that have verb structures
     	static::addGlobalScope('verb', function(Builder $builder) {
-    		$builder->where('structure_type', Structure::class);
+    		$builder->where('structure_type', 'verbStructures');
     	});
     }
 }

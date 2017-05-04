@@ -184,6 +184,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ViewComposerServiceProvider::class,
         App\Providers\CustomValidationProvider::class,
+        App\Providers\MorphMapServiceProvider::class,
         Algling\SS\StructuralSurveyServiceProvider::class,
         Algling\Morphemes\MorphemeServiceProvider::class,
         Algling\Words\WordServiceProvider::class,

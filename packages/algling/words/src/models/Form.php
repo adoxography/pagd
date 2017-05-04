@@ -201,7 +201,7 @@ class Form extends Model
 
     public function renderHTML()
     {
-        return "<a href='/forms/{$this->id}'>{$this->surfaceForm}</a> (".$this->formType->renderArguments().")";
+        return "<a href='/forms/{$this->id}'>{$this->surfaceForm}</a> (".$this->structure->renderArguments().")";
     }
 
     public function renderInNotes()

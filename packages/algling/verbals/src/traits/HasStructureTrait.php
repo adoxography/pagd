@@ -28,7 +28,7 @@ trait HasStructureTrait {
 	protected function assignStructure()
 	{
         $this->structure_id = $this->getStructure();
-        $this->structure_type = Structure::class;
+        $this->structure_type = 'verbStructures';
 	}
 
     private function getStructure()

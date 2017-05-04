@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Venturecraft\Revisionable\Revision;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class LogController extends Controller
 {
@@ -13,7 +14,7 @@ class LogController extends Controller
     	$log = [];
 
     	foreach($revisions as $revision) {
-    		$type  = $revision->revisionable_type;
+    		$type  = $this->getType($revision->revisionable_type);
     		$model = (new $type)->find($revision->revisionable_id);
 
     		if($model && $model->language && !($model instanceof \Algling\Morphemes\Models\Morpheme && $model->name == 'V')) {
@@ -25,5 +26,16 @@ class LogController extends Controller
     	}
     	
     	return view('log.index', compact('log'));
+    }
+
+    protected function getType($type)
+    {
+        $map = Relation::morphMap();
+
+        if(isset($map[$type])) {
+            return $map[$type];
+        } else {
+            return $type;
+        }
     }
 }

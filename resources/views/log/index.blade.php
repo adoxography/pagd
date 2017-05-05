@@ -1,12 +1,14 @@
-@extends('layout')
+@extends('layout', ['title' => 'Activity log'])
+
+@section('title')
+<p class="card-header-title">
+	Activity log
+</p>
+@endsection
 
 @section('content')
-	<div class="heading">
-		<h1 class="title">Log</h1>
-	</div>
-	<br />
 
-	<div class="box">
+	<div class="card-content">
 		<ul>
 			@foreach($log as $entry)
 				<li>
@@ -36,6 +38,8 @@
 						@elseif($entry['model'] instanceof Algling\Words\Models\Example)
 							<a href="/examples/{{ $entry['model']->id }}">{{ $entry['model']->uniqueNameWithLanguage() }}</a>
 						@endif
+
+						{{-- from <strong>{{ $entry['revision']->oldValue() }}</strong> to <strong>{{ $entry['revision']->newValue() }}</strong> --}}
 
 						at {{ $entry['revision']->updated_at }}
 					@endif

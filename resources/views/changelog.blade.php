@@ -1,13 +1,14 @@
-@extends('layout')
+@extends('layout', ['title' => 'Changelog'])
+
+@section('title')
+<p class="card-header-title">
+	Changelog
+</p>
+@endsection
 
 @section('content')
 
-<div class="heading">
-	<h1 class="title">Changelog</h1>
-</div>
-<br />
-
-<div class="box">
+<div class="card-content">
 	<ul class="indented-list">
 		<li>
 			29-04-17: Added link to add missing glosses when logged in

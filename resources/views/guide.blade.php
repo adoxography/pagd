@@ -1,13 +1,14 @@
-@extends('layout')
+@extends('layout', ['title' => 'Contributor guide'])
+
+@section('title')
+<p class="card-header-title">
+	Contributor guide
+</p>
+@endsection
 
 @section('content')
 
-<div class="heading">
-	<h1 class="title">Guide for contributors</h1>
-</div>
-<br />
-
-<div class="box content" style="padding-top: 0;">
+<div class="card-content">
 	<alg-tabs>
 		<alg-tab name="Morphemes" selected="true">
 			<h4 class="title is-4">Adding morphemes to forms and examples</h4>

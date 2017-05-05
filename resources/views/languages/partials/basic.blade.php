@@ -1,4 +1,4 @@
-@extends('languages/new-show')
+@extends('languages/show')
 
 @section('model-content')
 

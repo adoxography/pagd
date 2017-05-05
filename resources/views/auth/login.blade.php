@@ -1,10 +1,13 @@
 @extends('layout')
 
+@section('title')
+<p class="card-header-title">
+    Log in
+</p>
+@endsection
+
 @section('content')
-    <div class="heading">
-        <h1 class="title">Login</h1>
-    </div>
-    <form class="box" role="form" method="POST" action="{{ url('/login') }}">
+    <form class="card-content" role="form" method="POST" action="{{ url('/login') }}">
         {{ csrf_field() }}
         <div class="field">
             <p class="control has-icon">

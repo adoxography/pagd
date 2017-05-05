@@ -1,13 +1,14 @@
 @extends('layout', ['title' => 'Data that need attention'])
 
+@section('title')
+<p class="card-header-title">
+	Data that need attention
+</p>
+@endsection
+
 @section('content')
 
-<div class="heading">
-	<h1 class="title">Data that need attention</h1>
-</div>
-<br />
-
-<alg-tabs class="box">
+<alg-tabs class="card-content">
 	@foreach($languages as $language)
 		@if(count($language->forms) > 0 || count($language->examples) > 0)
 			<alg-tab name="{{ $language->name }}" {{ $loop->first ? "selected='true'" : '' }}>

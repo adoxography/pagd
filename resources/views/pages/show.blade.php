@@ -6,14 +6,14 @@
 	@endforeach
 @endsection
 
+@section('title')
+<p class="card-header-title">
+	{{ $title }}
+</p>
+@endsection
+
 @section('content')
-
-	<div class="heading">
-		<h1 class="title">{{ $title }}</h1>
-	</div>
-	<br />
-
-	<div class="alg-page box">
-		{!! $page !!}
+	<div class="card-content">
+		{{ $page }}
 	</div>
 @endsection

@@ -45,6 +45,7 @@ class LanguageController extends AlgModelController
      */
     public function show(Language $language)
     {
+        return redirect("/languages/{$language->id}/basic");
         if(Auth::user() || !$language->isHidden()) {
             $language->load([
                 'group',
@@ -255,13 +256,69 @@ class LanguageController extends AlgModelController
     {
         $language->load(['group', 'parent']);
 
-        return view('languages/partials/basic', compact('language'));        
+        return view('languages.partials.basic', compact('language'));        
     }
 
     public function showChildren(Language $language)
     {
         $language->load('children');
 
-        return view('languages/partials/children', compact('language'));
+        return view('languages.partials.children', compact('language'));
+    }
+
+    public function showSurvey(Language $language)
+    {
+        $types = Type::with('variables')->get();
+
+        if(count($types) > 0) {
+            $types = $types->filter(function($value, $key) {
+                return count($value->variables) > 0;
+            });
+        }
+
+        return view('languages.partials.survey', compact('language', 'types'));
+    }
+
+    public function showForms(Language $language)
+    {
+        $language->load([
+            'gaps',
+            'gaps.structure',
+            'gaps.structure.mode',
+            'gaps.structure.verbClass',
+            'gaps.structure.order',
+            'gaps.structure.subject',
+            'gaps.structure.primaryObject',
+            'gaps.structure.secondaryObject',
+
+            'forms',
+            'forms.structure',
+            'forms.structure.mode',
+            'forms.structure.verbClass',
+            'forms.structure.order',
+            'forms.structure.subject',
+            'forms.structure.primaryObject',
+            'forms.structure.secondaryObject',
+            'forms.morphemes',
+            'forms.morphemes.slot',
+            'forms.morphemes.glosses',
+
+            'examples',
+            'examples.morphemes',
+            'examples.morphemes.glosses'
+        ]);
+
+        return view('languages.partials.forms', compact('language'));
+    }
+
+    public function showMorphemes(Language $language)
+    {
+        $language->load([
+            'morphemes',
+            'morphemes.slot',
+            'morphemes.glosses'
+        ]);
+
+        return view('languages.partials.morphemes', compact('language'));
     }
 }

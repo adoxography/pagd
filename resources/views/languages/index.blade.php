@@ -1,14 +1,21 @@
 @extends('layout', ['title' => 'Language Index'])
 
+@section('title')
+<p class="card-header-title">
+	Languages
+</p>
+@endsection
+
 @section('content')
-	<div class="heading">
+{{-- 	<div class="heading">
 		<h1 class="title">Languages</h1>
 		@if(Auth::user())
 			<h3 class="subtitle"><a href="/languages/create">Add another</a></h3>
 		@endif
 	</div>
-	<br />
+	<br /> --}}
 
+	<div class="card-content">
 	@foreach($groups as $group)
 	@if(count($group->languages) > 0)
 	<h4 class="title is-4">{{ $group->name }}</h4>
@@ -19,4 +26,5 @@
 	<br />
 	<a href="/languages/order" class="button is-info is-medium">Modify the order</a>
 	@endif
+	</div>
 @stop

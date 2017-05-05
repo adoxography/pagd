@@ -57,15 +57,24 @@ Route::resource('groups',           'GroupController');
 Route::patch('groups/{group}/hide', 'GroupController@hide');
 
 // Language Routes
-Route::get('languages/order',                  'LanguageController@order');
-Route::post('languages/order',                 'LanguageController@storeOrder');
-Route::resource('languages',                   'LanguageController');
-Route::get('languages/{language}/addChild',    'LanguageController@addChild');
-Route::get('languages/{language}/addExample',  'LanguageController@addExample');
-Route::get('languages/{language}/addForm',     'LanguageController@addForm');
-Route::get('languages/{language}/addMorpheme', 'LanguageController@addMorpheme');
-Route::get('languages/{language}/addRule',     'LanguageController@addRule');
-Route::patch('languages/{language}/hide',      'LanguageController@hide');
+Route::group(['as' => 'languages::'], function() {
+	Route::get('languages/order',                  'LanguageController@order');
+	Route::post('languages/order',                 'LanguageController@storeOrder');
+	Route::resource('languages',                   'LanguageController');
+	Route::get('languages/{language}/basic',     'LanguageController@showBasicDetails')->name('showBasic');
+	Route::get('languages/{language}/children',  'LanguageController@showChildren')->name('showChildren');
+	Route::get('languages/{language}/survey',    'LanguageController@showSurvey')->name('showSurvey');
+	Route::get('languages/{language}/forms',     'LanguageController@showForms')->name('showForms');
+	Route::get('languages/{language}/morphemes', 'LanguageController@showMorphemes')->name('showMorphemes');
+	Route::get('languages/{language}/paradigm',  'LanguageController@showParadigms')->name('showParadigms');
+	Route::get('languages/{language}/phonemes',  'LanguageController@showPhonemes')->name('showPhonemes');
+	Route::get('languages/{language}/addChild',    'LanguageController@addChild');
+	Route::get('languages/{language}/addExample',  'LanguageController@addExample');
+	Route::get('languages/{language}/addForm',     'LanguageController@addForm');
+	Route::get('languages/{language}/addMorpheme', 'LanguageController@addMorpheme');
+	Route::get('languages/{language}/addRule',     'LanguageController@addRule');
+	Route::patch('languages/{language}/hide',      'LanguageController@hide');
+});
 
 // Rule routes
 Route::resource('rules',          'RuleController');
@@ -77,9 +86,9 @@ Route::patch('sources/{source}/hide', 'SourceController@hide');
 Route::get('profile', 'UserController@show');
 Auth::routes();
 
-Route::group(['as' => 'languages::'], function() {
-	Route::get('sandbox/languages/{language}', 'LanguageController@showSandbox')->name('showBasic');
-	Route::get('sandbox/languages/{language}/children', 'LanguageController@showChildren')->name('showChildren');
-});
+// Route::group(['as' => 'languages::'], function() {
+// 	Route::get('sandbox/languages/{language}', 'LanguageController@showSandbox')->name('showBasic');
+// 	Route::get('sandbox/languages/{language}/children', 'LanguageController@showChildren')->name('showChildren');
+// });
 
 Route::get('{args}', 'PageController@show')->where('args', '.*');

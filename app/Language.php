@@ -107,7 +107,7 @@ class Language extends Model
         return $this->hasMany(Form::class, 'language_id');
     }
 
-    public function emptyForms()
+    public function gaps()
     {
         return $this->hasMany(Gap::class, 'language_id');
     }

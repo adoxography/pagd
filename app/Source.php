@@ -2,10 +2,12 @@
 
 namespace App;
 
-use App\Form;
-use App\Example;
-use App\Morpheme;
+use App\Rule;
+use Algling\Words\Models\Gap;
 use Laravel\Scout\Searchable;
+use Algling\Verbals\Models\Form;
+use Algling\Words\Models\Example;
+use Algling\Morphemes\Models\Morpheme;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -48,26 +50,26 @@ class Source extends Model
 
     public function forms()
     {
-    	return $this->morphedByMany('App\Form', 'Sourceable')->withPivot('extraInfo');
+    	return $this->morphedByMany(Form::class, 'Sourceable')->withPivot('extraInfo');
     }
 
     public function morphemes()
     {
-    	return $this->morphedByMany('App\Morpheme', 'Sourceable')->withPivot('extraInfo');
+    	return $this->morphedByMany(Morpheme::class, 'Sourceable')->withPivot('extraInfo');
     }
 
     public function examples()
     {
-    	return $this->morphedByMany('App\Example', 'Sourceable')->withPivot('extraInfo');
+    	return $this->morphedByMany(Example::class, 'Sourceable')->withPivot('extraInfo');
     }
 
     public function rules()
     {
-        return $this->morphedByMany('App\Rule', 'Sourceable')->withPivot('extraInfo');
+        return $this->morphedByMany(Rule::class, 'Sourceable')->withPivot('extraInfo');
     }
 
     public function emptyForms()
     {
-        return $this->morphedByMany('App\EmptyForm', 'Sourceable')->withPivot('extraInfo');
+        return $this->morphedByMany(Gap::class, 'Sourceable')->withPivot('extraInfo');
     }
 }

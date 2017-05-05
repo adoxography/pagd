@@ -10,6 +10,10 @@
 <div class="box">
 	<ul class="indented-list">
 		<li>
+			04-05-17: Added escape sequence for # (just type ##)
+		</li>
+		<hr>
+		<li>
 			29-04-17: Added link to add missing glosses when logged in
 		</li>
 		<li>

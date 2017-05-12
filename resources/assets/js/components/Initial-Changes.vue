@@ -13,13 +13,16 @@
 			<tbody>
 				<tr v-for="(row, index) in rows">
 					<td><a :href="'/languages/'+row.morpheme.language.iso">{{ row.morpheme.language.name }}</a></td>
-					<td><a :href="'/morphemes/'+row.morpheme.id">{{ row.morpheme.uniqueName }}</a></td>
+					<td><a :href="'/morphemes/'+row.morpheme.id" v-html="row.morpheme.uniqueName"></a></td>
 					<td>{{ row.disambiguator }}</td>
 					<td>{{ row.change }}</td>
 					<td>
 						<a class="button">
-							<span class="icon" title="delete" @click="deleteRow(row, index)">
+							<span v-if="deleting != row.id" class="icon" title="delete" @click="deleteRow(row, index)">
 								<i class="fa fa-times"></i>
+							</span>
+							<span v-else class="icon">
+								<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
 							</span>
 						</a>
 					</td>
@@ -27,8 +30,7 @@
 			</tbody>
 		</table>
 
-		<form class="box"
-			  @submit.prevent="onSubmit"
+		<form @submit.prevent="onSubmit"
 			  @keydown="form.errors.clear($event.target.name)">
 			<div class="columns">
 				<div class="column is-one-third">
@@ -98,6 +100,7 @@ export default {
 		return {
 			rows: [],
 			loading: false,
+			deleting: 0,
 			form: new Form({
 				language: {
 					text: '',
@@ -127,8 +130,15 @@ export default {
 		},
 
 		deleteRow(row, index) {
-			this.rows.splice(index, 1);
-			axios.delete("/changes/"+row.id);
+			this.deleting = row.id;
+			axios.delete("/changes/"+row.id)
+				.then(response => {
+					this.deleting = 0;
+					this.rows.splice(index, 1);
+				})
+				.catch(error => {
+					this.deleting = 0;
+				});
 		},
 
 		onLanguageInput() {
@@ -140,7 +150,7 @@ export default {
 	},
 
 	created() {
-		this.rows = JSON.parse(this.changes);
+		this.rows = this.changes;
 	}
 }
 </script>

@@ -2,7 +2,7 @@
 
 namespace Algling\Morphemes\Models;
 
-use Alging\Morphemes\Models\Morpheme;
+use Algling\Morphemes\Models\Morpheme;
 use Illuminate\Database\Eloquent\Model;
 
 class InitialChange extends Model

@@ -2,6 +2,7 @@
 
 namespace Algling\Words;
 
+use App\Language;
 use Algling\Words\Models\Form;
 use Algling\Words\Commands\Transfer;
 use Illuminate\Support\Facades\Route;
@@ -11,6 +12,7 @@ use Algling\Words\Models\Observers\FormObserver;
 class WordServiceProvider extends ServiceProvider
 {
     protected $connections = [
+        \Algling\Words\Models\Form::class => 'form',
         \Algling\Words\Models\Example::class => 'example',
         \Algling\Words\Models\Gap::class => 'emptyform'
     ];
@@ -23,9 +25,10 @@ class WordServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadMigrationsFrom(__DIR__.'/migrations');
+        $this->loadViewsFrom(__DIR__.'/resources/views', 'word');
         $this->bootObservers();
-        $this->bootCommands();
         $this->bootRouteModelBindings();
+        $this->composeViews();
     }
 
     /**
@@ -35,19 +38,17 @@ class WordServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        Route::group([
+            'middleware' => 'web',
+            'namespace' => 'Algling\Words\Http\Controllers',
+        ], function ($router) {
+            require __DIR__.'/routes.php';
+        });
     }
 
     protected function bootObservers()
     {
         Form::observe(FormObserver::class);
-    }
-
-    protected function bootCommands()
-    {
-        if($this->app->runningInConsole()) {
-            $this->commands([Transfer::class]);
-        }
     }
 
     protected function bootRouteModelBindings()
@@ -57,5 +58,21 @@ class WordServiceProvider extends ServiceProvider
                 return $model::find($value);
             });
         }
+    }
+
+    protected function composeViews()
+    {
+        $this->composeExampleForm();
+    }
+
+    private function composeExampleForm()
+    {
+        view()->composer(['word::examples.create', 'word::examples.edit'], function($view)
+        {
+            $data = [
+                'languages' => Language::select('id', 'name')->get()
+            ];
+            $view->with($data);
+        });
     }
 }

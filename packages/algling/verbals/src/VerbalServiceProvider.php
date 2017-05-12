@@ -9,13 +9,13 @@ use Algling\Verbals\Models\Order;
 use Algling\Verbals\Models\Argument;
 use Algling\Verbals\Models\VerbClass;
 use Illuminate\Support\Facades\Route;
-use Algling\Verbals\Commands\Transfer;
 use Illuminate\Support\ServiceProvider;
 
 class VerbalServiceProvider extends ServiceProvider
 {
     protected $connections = [
-        \Algling\Verbals\Models\Form::class => 'form'
+        \Algling\Verbals\Models\Form::class => 'verbForm',
+        \Algling\Verbals\Models\Gap::class => 'verbGap'
     ];
 
     /**
@@ -27,7 +27,6 @@ class VerbalServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/migrations');
         $this->loadViewsFrom(__DIR__.'/resources/views', 'verb');
-        $this->bootCommands();
         $this->bootRouteModelBindings();
         $this->composeViews();
     }
@@ -47,13 +46,6 @@ class VerbalServiceProvider extends ServiceProvider
         });
     }
 
-    protected function bootCommands()
-    {
-        if($this->app->runningInConsole()) {
-            $this->commands([Transfer::class]);
-        }
-    }
-
     protected function bootRouteModelBindings()
     {
         foreach($this->connections as $model => $binding) {
@@ -65,13 +57,12 @@ class VerbalServiceProvider extends ServiceProvider
 
     protected function composeViews()
     {
-        $this->composeExampleForm();
         $this->composeFormForm();
     }
 
     private function composeFormForm()
     {
-        view()->composer(['verb::forms.create', 'verb::forms.edit', 'verb::emptyForms.edit'], function($view)
+        view()->composer('verb::forms.partials.form', function($view)
         {
             $data = [
                 'arguments'   => Argument::select('id','name')->get(),
@@ -80,17 +71,6 @@ class VerbalServiceProvider extends ServiceProvider
                 'modes'       => Mode::select('id','name')->get(),
                 'orders'      => Order::select('id','name')->get(),
                 'changeTypes' => ChangeType::select('id','name')->get()->prepend(['id' => null, 'name' => 'N/A'])
-            ];
-            $view->with($data);
-        });
-    }
-
-    private function composeExampleForm()
-    {
-        view()->composer(['verb::examples.create', 'verb::examples.edit'], function($view)
-        {
-            $data = [
-                'languages' => Language::select('id', 'name')->get()
             ];
             $view->with($data);
         });

@@ -2,7 +2,7 @@
 
 namespace App;
 
-trait hasChildrenTrait {
+trait HasChildrenTrait {
 	
     /*
     |--------------------------------------------------------------------------
@@ -30,12 +30,12 @@ trait hasChildrenTrait {
 
     public function parent()
     {
-        return $this->belongsTo(get_class($this), 'parent_id');
+        return $this->belongsTo(static::class, 'parent_id');
     }
 
     public function children()
     {
-        return $this->hasMany(get_class($this), 'parent_id');
+        return $this->hasMany(static::class, 'parent_id');
     }
 
     public function allChildren()

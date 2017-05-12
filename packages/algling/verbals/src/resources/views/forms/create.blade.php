@@ -1,23 +1,9 @@
-@extends('layout', ['title' => 'Add a form'])
+@extends('layout', ['title' => 'Add verb form'])
+
+@section('title')
+	Add verb form
+@endsection
 
 @section('content')
-
-	<div class="heading">
-		<h1 class="title">Add a form</h1>
-	</div>
-	<br />
-
-	@include('verb::forms.partials.form', ['method' => 'POST', 'action' => '/forms'])
-
-{{-- 	<alg-form-form method="POST"
-				   action="/forms"
-				   languages="{{ $languages }}"
-				   args="{{ $arguments }}"
-				   classes="{{ $classes }}"
-				   orders="{{ $orders }}"
-				   modes="{{ $modes }}"
-				   change-types="{{ $changeTypes }}"
-				   language="{{ $presetLanguage or "" }}">
-	</alg-form-form> --}}
-
+	@include('verb::forms.partials.form', ['method' => 'POST', 'action' => '/verbs/forms'])
 @stop

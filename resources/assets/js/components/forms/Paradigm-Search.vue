@@ -5,12 +5,13 @@
 			</alg-basic-paradigm-search>
 		</alg-tab>
 		<alg-tab name="Advanced">
-			<alg-advanced-paradigm-search :orders="orders"
-										  :modes="modes"
-										  :languages="languages"
-										  :preset="preset"
-										  ref="Advanced">
-			</alg-advanced-paradigm-search>
+			<alg-advanced-paradigm-search
+				:orders="orders"
+				:modes="modes"
+				:languages="languages"
+				:preset="preset"
+				ref="Advanced"
+			></alg-advanced-paradigm-search>
 		</alg-tab>
 	</alg-tabs>
 </template>

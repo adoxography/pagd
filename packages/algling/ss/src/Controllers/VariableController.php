@@ -5,10 +5,10 @@ namespace Algling\SS\Controllers;
 use App\Language;
 use Algling\SS\Models\Type;
 use Algling\SS\Models\Variable;
-use App\Http\Controllers\Controller;
 use Algling\SS\Requests\VariableRequest;
+use App\Http\Controllers\AlgModelController;
 
-class VariableController extends Controller
+class VariableController extends AlgModelController
 {
     public function __construct()
     {
@@ -37,15 +37,13 @@ class VariableController extends Controller
     {
     	$variable = Variable::create($request->all());
 
-    	return $variable->id;
+        flash("{$variable->name} created successfully", 'is-success');
+        return redirect("/variables/{$variable->id}/basic");
     }
 
     public function show(Variable $variable)
     {
-    	$variable->load(['values', 'type', 'sources']);
-        $languages = Language::all();
-
-    	return view('ss::variables.show', compact('variable', 'languages'));
+        return redirect("/variables/{$variable->id}/basic");
     }
 
     public function edit(Variable $variable)
@@ -68,7 +66,8 @@ class VariableController extends Controller
     {
         $variable->update($request->all());
 
-        return $variable->id;
+        flash("{$variable->name} updated successfully", 'is-success');
+        return redirect("/variables/{$variable->id}/basic");
     }
 
     public function destroy(Variable $variable)

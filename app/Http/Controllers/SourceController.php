@@ -44,20 +44,27 @@ class SourceController extends Controller
 
     public function show(Source $source)
     {
+        return redirect("/sources/{$source->id}/basic");
         return view('sources.show', compact('source'));
     }
 
     public function store(SourceRequest $request){
-    	$newSource = Source::create($request->all());
-    	return response()->json($newSource);
+    	$source = Source::create($request->all());
+
+        if($request->ajax()) {
+            return response()->json($source);
+        } else {
+            flash("{$source->display} created successfully.", 'is-success');
+            return redirect("/sources/{$source->id}");
+        }
     }
 
     public function update(SourceRequest $request, Source $source)
     {
         $source->update($request->all());
 
-        flash($source->display.' updated successfully.', 'is-success');
-        return response()->json($source);
+        flash("{$source->display} updated successfully.", 'is-success');
+        return redirect("/sources/{$source->id}");
     }
 
     public function destroy(Source $source)

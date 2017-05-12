@@ -7,6 +7,7 @@
 		:with="{{ $with }}"
 		name="{{ $name }}"
 		id="{{ $id or $name }}"
+		ref="{{ $name }}"
 
 		@if(isset($disabled))
 		:disabled="{{ $disabled }}"
@@ -21,7 +22,7 @@
 		@endif
 
 		@if(isset($value) && strlen($value) > 0)
-		initial="{{ $value }}"
+		:initial="{{ $value }}"
 		@endif
 	></alg-ajaxlist>
 @endsection	

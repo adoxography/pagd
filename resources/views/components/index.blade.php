@@ -8,11 +8,11 @@
 							<a href="/{{ $model }}/{{ $item->id }}">{{ $item->abv or $item->name }}</a>
 						</div>
 					</div>
-					@if(Auth::user())
+					@if(Auth::user() && Auth::user()->permissions->canEdit)
 						<div class="level-right">
 							@if($item->isHideable)
 								<div class="level-item">
-									@component('components.form', ['method' => 'PATCH', 'url' => "/$model/{$item->id}/hide"])
+									@component('components.form', ['method' => 'PATCH', 'action' => "/$model/{$item->id}/hide"])
 										<a class="button" onclick="event.preventDefault(); this.parentNode.submit();">
 											<span class="icon" title="Toggle visibility">
 												@if($item->isHidden())
@@ -34,7 +34,7 @@
 							</div>
 							
 							<div class="level-item">
-								@component('components.form', ['method' => 'DELETE', 'url' => "/$model/{$item->id}"])
+								@component('components.form', ['method' => 'DELETE', 'action' => "/$model/{$item->id}"])
 									<a class="button" onclick="event.preventDefault(); var confirm = window.confirm('Are you sure?'); if(confirm) { this.parentNode.submit(); }">
 										<span class="icon" title="Delete">
 											<i class="fa fa-times"></i>

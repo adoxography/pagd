@@ -6,6 +6,7 @@ use Algling\Verbals\Models\Form;
 use Algling\Verbals\Models\Example;
 use Illuminate\Support\Facades\Auth;
 use Algling\Morphemes\Models\Morpheme;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 /**
  * Assignable trait to classes that need to deal with morphemes.
@@ -24,9 +25,14 @@ trait HasMorphemesTrait {
         });
     }
 
-    public function morphemes()
-    {
-        return $this->morphToMany(Morpheme::class, 'morphemeable', 'Morph_Morphemeables')->orderBy('position')->withPivot('position');
+    protected function getMorphemeableMorphClass() {
+        return $this->morphCode;
+    }
+
+    public function morphemes() {
+        $type = $this->getMorphemeableMorphClass();
+
+        return $this->belongsToMany(Morpheme::class, 'Morph_Morphemeables', 'morphemeable_id')->where('morphemeable_type', $type)->orderBy('position')->withPivot('position');
     }
 
     /**
@@ -68,7 +74,7 @@ trait HasMorphemesTrait {
 
                 // Connect the morpheme if exactly one result was returned
                 if (count($lookup) == 1) {
-                    $this->morphemes()->attach($lookup[0]->id, ['position' => $index + 1]);
+                    $this->morphemes()->attach($lookup[0]->id, ['position' => $index + 1, 'morphemeable_type' => $this->getMorphemeableMorphClass()]);
                 }
             }
         }
@@ -282,7 +288,7 @@ trait HasMorphemesTrait {
 			foreach($morpheme['possibilities'] as $possibility) {
 
                 // Determine what the gloss should be
-                $gloss = $possibility->renderGloss();
+                $gloss = $possibility->gloss;
 
                 // Create a button (disguised as a link) that will instruct the website to disambiguate the morpheme
 				$options .= "<li>".
@@ -292,7 +298,7 @@ trait HasMorphemesTrait {
 						method_field("PATCH").
 						"<input type='hidden' name='disambiguator' value='{$possibility->disambiguator}' />".
 						"<button type='submit' class='button is-link'>".
-							"{$possibility->name}<sup>{$possibility->disambiguator}</sup>$gloss".
+							"{$possibility->name}<sup>{$possibility->disambiguator}</sup> ($gloss)".
 						"</button>".
 					"</form>".
 				"</li>";
@@ -305,7 +311,7 @@ trait HasMorphemesTrait {
 
             if(count($this->morphemicForm) > 0) {
                 $title = "Morpheme missing";
-                $options = "<a href='/morphemes/create?name={$morpheme['name']}&language={$this->language->name}&languageID={$this->language->id}'>Add (-){$morpheme['name']}(-)</a>";
+                $options = "<a href='/morphemes/create?name={$morpheme['name']}&language={$this->language->name}'>Add (-){$morpheme['name']}(-)</a>";
             } else {
                 $title = "Morphemic form undeclared";
                 $options = "<a href='/".strtolower($this->table)."/{$this->id}/edit'>Declare a morphemic form</a>";

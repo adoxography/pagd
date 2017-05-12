@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="alg-morpheme-alert" v-show="showModal" @mouseleave="showModal = false">
-			<article class="message is-info">
+			<article class="message is-primary">
 				<div class="message-header">
 					<p>{{ title }}</p>
 				</div>

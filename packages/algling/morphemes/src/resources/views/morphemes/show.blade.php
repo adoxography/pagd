@@ -1,12 +1,18 @@
-@extends('layout', ['title' => "{$morpheme->name} ({$morpheme->language->name})"])
+@extends('layout', ['title' => $morpheme->name])
 
-@section('content')
-	<div id="root">
+@section('title')
+	<label>Morpheme details:</label>
+	{{ $morpheme->name }}<em><sup>{{ $morpheme->disambiguator }}</sup></em>
+	<span style="padding-left: .25em;">({!! $morpheme->language->renderHTML() !!}</a>)</span>
+@endsection
 
-		<div class="heading">
-			<h1 class="title">Morpheme Details</h1>
-		</div>
-		<br />
+@section('icons')
+	@include('components.show-icons', ['model' => $morpheme])
+@endsection
+
+@section('panel')
+	@include('morph::morphemes.partials.panel')
+@endsection
 
 		@component('components.model', ['uri' => "/morphemes/{$morpheme->id}", 'model' => $morpheme, 'history' => $morpheme->revisionHistory])
 			@slot('header')
@@ -72,11 +78,11 @@
 				</div>
 			</model-tab>
 
-			@if(count($cognates->allChildren) > 0)
+{{-- 			@if(count($cognates->allChildren) > 0)
 				<model-tab name="Cognates">
 					@include('components.model.cognates', ['list' => $cognates, 'current' => $morpheme, 'model' => 'morphemes'])
 				</model-tab>
-			@endif
+			@endif --}}
 
 			<model-tab name="Forms">
 				@component('components.model.field', ['width' => 'is-half', 'label' => 'Forms that contain this morpheme'])
@@ -104,6 +110,3 @@
 			</model-tab>
 
 		@endcomponent
-	</div>
-
-@stop

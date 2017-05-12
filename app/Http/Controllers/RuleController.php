@@ -43,20 +43,23 @@ class RuleController extends AlgModelController
     {
     	$rule = Rule::create($request->all());
 
-        return $rule->id;
+        flash("{$rule->abv} added successfully.", 'is-success');
+        return redirect("/rules/{$rule->id}");
     }
 
     public function update(RuleRequest $request, Rule $rule)
     {
     	$rule->update($request->all());
 
-        return $rule->id;
+        flash("{$rule->abv} updated successfully.", 'is-success');
+        return redirect("/rules/{$rule->id}");
     }
 
     public function destroy(Rule $rule)
     {
     	$rule->delete();
 
-        return redirect("/languages/{$rule->language->iso}");
+        flash("{$rule->abv} deleted successfully.");
+        return redirect("/languages/{$rule->language_id}");
     }
 }

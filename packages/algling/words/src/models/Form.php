@@ -40,6 +40,7 @@ class Form extends Model
     |
     */
     public $table = 'Word_Forms';
+    public $morphCode = 'forms';
 
     protected $fillable = [
         'allomorphyNotes',
@@ -56,7 +57,7 @@ class Form extends Model
         'usageNotes'
     ];
 
-    protected $appends = ['uniqueName', 'uniqueNameWithLanguage'];
+    protected $appends = ['uniqueName', 'uniqueNameWithLanguage', 'html'];
 
     public function toSearchableArray()
     {
@@ -169,6 +170,11 @@ class Form extends Model
         return $this->uniqueNameWithLanguage;
     }
 
+    public function getHtmlAttribute()
+    {
+        return $this->renderHTML();
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Methods
@@ -239,5 +245,10 @@ class Form extends Model
     public function formType()
     {
         return $this->structure();
+    }
+
+    public function structure()
+    {
+        return $this->morphTo();
     }
 }

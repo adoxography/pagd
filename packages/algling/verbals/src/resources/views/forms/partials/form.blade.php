@@ -1,13 +1,17 @@
 <alg-form-form
 	inline-template
 	v-cloak
-	old-errors="{{ json_encode($errors->messages()) }}"
+	:old-errors="{{ json_encode($errors->messages()) }}"
+
+	@if(isset($form) && !$form->name)
+	:is-empty="true"
+	@endif
 
 	@if(isset($form))
-	old-sources="{{ $form->sources }}"
+	:old-sources="{{ $form->sources }}"
 	@endif
 >
-	@component('components.form', ['method' => $method, 'action' => $action, 'class' => 'box', 'visible' => true])
+	@component('components.form', ['method' => $method, 'action' => $action, 'visible' => true])
 		<h4 class="subtitle is-4">Basic Details</h4>
 		<div class="columns is-multiline">
 
@@ -40,7 +44,7 @@
 					'disabled'    => 'empty'
 				])
 					@slot('value')
-						@if(isset($form))
+						@if(isset($form) && $form->name)
 							{{ str_replace('*', '', $form->name) }}
 						@endif
 					@endslot
@@ -57,8 +61,8 @@
 					@slot('value')
 						@if(isset($form))
 							{{ $form->language->name }}
-						@elseif(isset($presetLanguage))
-							{{ $presetLanguage->name }}
+						@elseif(isset($language))
+							{{ $language->name }}
 						@endif
 					@endslot
 				@endcomponent
@@ -76,7 +80,7 @@
 					])
 						@slot('value')
 							@if(isset($form))
-								{{ $form->formType->subject->name }}
+								{{ $form->structure->subject->name }}
 							@endif
 						@endslot
 					@endcomponent
@@ -90,8 +94,8 @@
 					])
 						@slot('value')
 							@if(isset($form))
-								@if($form->formType->primaryObject)
-									{{ $form->formType->primaryObject->name }}
+								@if($form->structure->primaryObject)
+									{{ $form->structure->primaryObject->name }}
 								@endif
 							@endif
 						@endslot
@@ -106,8 +110,8 @@
 					])
 						@slot('value')
 							@if(isset($form))
-								@if($form->formType->secondaryObject)
-									{{ $form->formType->secondaryObject->name }}
+								@if($form->structure->secondaryObject)
+									{{ $form->structure->secondaryObject->name }}
 								@endif
 							@endif
 						@endslot
@@ -137,7 +141,7 @@
 				])
 					@slot('value')
 						@if(isset($form))
-							{{ $form->formType->formClass->name }}
+							{{ $form->structure->formClass->name }}
 						@else
 							AI
 						@endif
@@ -154,7 +158,7 @@
 				])
 					@slot('value')
 						@if(isset($form))
-							{{ $form->formType->order->name }}
+							{{ $form->structure->order->name }}
 						@else
 							Conjunct
 						@endif
@@ -171,7 +175,7 @@
 				])
 					@slot('value')
 						@if(isset($form))
-							{{ $form->formType->mode->name }}
+							{{ $form->structure->mode->name }}
 						@else
 							Indicative
 						@endif
@@ -189,7 +193,7 @@
 						'Primary Object' => 'primaryObject',
 						'Secondary Object' => 'secondaryObject'
 					],
-					'selected' => isset($form) ? $form->formType->head : ''
+					'selected' => isset($form) ? $form->structure->head : ''
 				])
 			</div>
 
@@ -203,7 +207,7 @@
 						'Absolute'  => 1,
 						'Objective' => 0
 					],
-					'selected' => isset($form) ? $form->formType->isAbsolute : ''
+					'selected' => isset($form) ? $form->structure->isAbsolute : ''
 				])
 			</div>
 
@@ -213,7 +217,7 @@
 					'name'    => 'isNegative',
 					'label'   => 'negative',
 					'value'   => 'true',
-					'checked' => isset($form) && $form->formType->isNegative
+					'checked' => isset($form) && $form->structure->isNegative
 				])
 			</div>
 
@@ -223,7 +227,7 @@
 					'name'    => 'isDiminutive',
 					'label'   => 'diminutive',
 					'value'   => 'true',
-					'checked' => isset($form) && $form->formType->isDiminutive
+					'checked' => isset($form) && $form->structure->isDiminutive
 				])
 			</div>
 		</div>
@@ -241,8 +245,8 @@
 					'disabled'    => 'empty'
 				])
 					@slot('value')
-						@if(isset($form))
-							{{ $form->phonemic }}
+						@if(isset($form) && $form->phonemicForm)
+							{{ str_replace('*', '', $form->phonemicForm) }}
 						@endif
 					@endslot
 				@endcomponent
@@ -255,11 +259,11 @@
 					'label'       => 'morphemic form',
 					'disabled'    => 'empty',
 					'placeholder' => 'The morphemes, separated by hyphens (Leave blank if unknown or unclear)',
-					'rules'       => 'hasVStem:true',
+					'rules'       => 'hasMorpheme:V',
 					'delay'       => 500
 				])
 					@slot('value')
-						@if(isset($form))
+						@if(isset($form) && $form->morphemicForm)
 							{{ $form->morphemicForm }}
 						@endif
 					@endslot
@@ -298,7 +302,7 @@
 					'label' => 'change type',
 					'disabled' => '!parent.id || !language.id || empty',
 					'options' => $changeTypes,
-					'selected' => isset($form) ? $form->changeType_id : ''
+					'selected' => isset($form) && $form->changeType_id ? $form->changeType_id : ''
 				])
 			</div>
 		</div>
@@ -319,7 +323,7 @@
 					'disabled'    => 'empty'
 				])
 					@slot('value')
-						@if(isset($form))
+						@if(isset($form) && $form->usageNotes)
 							{{ $form->usageNotes }}
 						@endif
 					@endslot
@@ -335,7 +339,7 @@
 					'disabled'    => 'empty'
 				])
 					@slot('value')
-						@if(isset($form))
+						@if(isset($form) && $form->allomorphyNotes)
 							{{ $form->allomorphyNotes }}
 						@endif
 					@endslot

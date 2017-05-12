@@ -32,6 +32,14 @@
 					<input type="hidden"
 						   v-model="source.id"
 						   :name="'sources['+index+'][id]'" />
+					<input
+						type="hidden"
+						v-model="source.short"
+						:name="'sources['+index+'][short]'" />
+					<input
+						type="hidden"
+						v-model="source.long"
+						:name="'sources['+index+'][long]'" />
 					<div class="column is-one-quarter">
 						<div>
 							<p :title="source.long">{{ index + 1 }}. {{ source.short }}</p>

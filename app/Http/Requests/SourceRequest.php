@@ -14,7 +14,7 @@ class SourceRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user();
+        return Auth::user() && Auth::user()->permissions->canEdit;
     }
 
     /**

@@ -1,5 +1,5 @@
 <template>
-	<form action="/search/paradigm" method="GET">
+	<form action="/verbs/search/paradigm/results" method="GET">
 		<input type="hidden" name="affirmative" value="on">
 		<input type="hidden" name="modeSelect" value="indicativeOnly">
 		<div class="field is-grouped">

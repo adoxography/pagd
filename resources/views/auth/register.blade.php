@@ -1,10 +1,11 @@
 @extends('layout')
 
+@section('title')
+    Register
+@endsection
+
 @section('content')
-    <div class="heading">
-        <h1 class="title">Register</h1>
-    </div>
-    @component('components.form', ['class' => 'box', 'url' => url('/register')])
+    @component('components.form', ['url' => url('/register')])
         <div class="columns is-multiline">
             <div class="column is-half">
                 @component('components.form.text', ['name' => 'name', 'label' => 'Name', 'required' => 'true'])
@@ -43,7 +44,9 @@
                 @endcomponent
             </div>
         </div>
-        <button type="submit" class="button is-primary">Register</button>
+        <div class="field">
+            <button type="submit" class="button is-primary">Register</button>
+        </div>
     @endcomponent
     @include('errors.list')
 @endsection

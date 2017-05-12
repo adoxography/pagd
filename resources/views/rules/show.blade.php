@@ -1,45 +1,41 @@
 @extends('layout', ['title' => $rule->name])
 
+@section('title')
+	<label>Rule details:</label>
+	{{ $rule->name }} ({!! $rule->language->renderHTML() !!})
+@endsection
+
+@include('components.show-icons', ['model' => $rule])
+
 @section('content')
-<div class="heading">
-	<h1 class="title">Rule Details</h1>
-</div>
-<br />
-
-@component('components.model', ['model' => $rule, 'uri' => "/rules/{$rule->id}"])
-	@slot('header')
-		{{ $rule->name }}
-		<span class="detail-title-language">(<a href="/languages/{{ $rule->language->iso }}">{{ $rule->language->name }}</a>)</span>
-	@endslot
-	<model-tab name="Basic Details" selected="true">
-		<div class="column is-half">
-			{{-- Rule field --}}
-			@component('components.model.field', ['width' => 'is-12', 'label' => 'Rule'])
+	<div class="columns">
+		<div class="column">
+			<div class="field">
+				<span class="label">Rule</span>
 				{{ $rule->rule }}
-			@endcomponent
-
-			@if(Auth::user())
-				{{-- Abbreviation field --}}
-				@component('components.model.field', ['label' => 'Abbreviation'])
-					{{ $rule->abv }}
-				@endcomponent
-			@endif
-
-			{{-- Sources --}}
-			@component('components.model.field', ['label' => "Sources (Hover a source for the full citation)"])
-				@include('components.model.sourcelist', ['sources' => $rule->sources])
-			@endcomponent
+			</div>
+			<div class="field">
+				<span class="label">Abbreviation</span>
+				{{ $rule->abv }}
+			</div>
 		</div>
-		<div class="column is-half">
-
-			{{-- Public comments field --}}
-			@include('components.model.text', ['width' => 'is-12', 'label' => 'Comments', 'text' => $rule->publicComments, 'language_id' => $rule->language_id])	
-
-			@if(Auth::user())
-				{{-- Private comments field --}}
-				@include('components.model.text', ['width' => 'is-12', 'label' => 'Private Comments', 'text' => $rule->privateComments, 'language_id' => $rule->language_id])
+		<div class="column">
+			@if($rule->publicComments)
+				<div class="field">
+					<span class="label">Notes</span>
+					{!! replaceTags($rule->publicComments, $rule->language_id) !!}
+				</div>
+			@endif
+			@if(Auth::user() && Auth::user()->permissions->canEdit && $rule->privateComments)
+				<div class="field">
+					<span class="label">Notes</span>
+					{!! replaceTags($rule->privateComments, $rule->language_id) !!}
+				</div>
 			@endif
 		</div>
-	</model-tab>
-@endcomponent
+	</div>
+	<div class="field">
+		<span class="label">Sources</span>
+		@include('components.model.sourcelist', ['sources' => $rule->sources])
+	</div>
 @endsection

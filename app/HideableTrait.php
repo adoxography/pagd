@@ -48,7 +48,9 @@ trait HideableTrait {
                 $this->respondToHiding();
             }
 
-            $this->unsearchable();
+            if(method_exists($this, 'unsearchable')) {
+                $this->unsearchable();
+            }
 
 	    	$this->save();
     	}
@@ -59,7 +61,9 @@ trait HideableTrait {
     	if($this->isHidden()) {
     		$this->hidden_at = NULL;
 
-            $this->searchable();
+            if(method_exists($this, 'searchable')) {
+                $this->searchable();
+            }
 
     		$this->save();
     	}

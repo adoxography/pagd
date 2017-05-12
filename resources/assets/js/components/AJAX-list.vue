@@ -2,20 +2,21 @@
 	<div class="alg-ajax-list" v-on-clickaway="closeList">
 		<div class="control has-icon has-icon-right">
 			<div class="alg-datalist-container">
-				<div :name="name"
-					   :id="id"
-					   type="text"
-					   class="input single-line"
-					   @input="onInput($event.target.textContent)"
-					   v-html="value.text"
-					   @keyup="onKeyUp($event.keyCode)"
-					   @keydown.enter="onEnter($event)"
-					   autocomplete="off" 
-					   rows="1"
-					   ref="list"
-					   :placeholder="placeholder"
-					   :disabled="disabled">
-				</div>
+				<div
+					:id="id"
+					type="text"
+					class="input single-line"
+					@input="onInput($event.target.textContent)"
+					v-html="value.text"
+					@keyup="onKeyUp($event.keyCode)"
+					@keydown.enter="onEnter($event)"
+					autocomplete="off" 
+					rows="1"
+					ref="list"
+					:placeholder="placeholder"
+					:disabled="disabled"
+				></div>
+				<input type="hidden" :name="name" :value="value.text" />
 				<div class="box alg-datalist-dropdown" v-show="showList && options.length > 0 && value.text.length > 0">
 					<ul style="white-space: nowrap;">
 						<li v-for="(option, index) in options">
@@ -70,12 +71,8 @@
 			this.$refs.list.contentEditable = true;
 
 			if(this.initial) {
-				let initial = JSON.parse(this.initial);
-
-				this.$emit('input', {
-					text: initial.text,
-					id: initial.id,
-					extra: this.extra
+				Vue.nextTick(() => {
+					this.$emit('input', this.initial);
 				});
 			}
 		},

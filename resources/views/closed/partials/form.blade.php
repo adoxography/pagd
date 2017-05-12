@@ -1,45 +1,55 @@
-@component('components.form.text', ['label' => 'Abbreviation', 'name' => 'abv'])
-	@slot('value')
-		@if(old('abv'))
-			{{ old('abv') }}
-		@elseif(request()->abv)
-			{{ request()->abv }}
-		@elseif($item)
-			{{ $item->abv }}
-		@endif
-	@endslot
-@endcomponent
+<alg-generic-form
+	inline-template
+	v-cloak
+	:old-errors="{{ json_encode($errors->messages()) }}"
+>
+	@component('components.form', ['method' => $method, 'action' => $action, 'visible' => true])
+		@component('components.form.text', [
+			'name'      => 'abv',
+			'label'     => 'abbreviation',
+			'autofocus' => true,
+			'rules'     => 'required'
+		])
+			@slot('value')
+				@if(request()->abv)
+					{{ request()->abv }}
+				@elseif(isset($model))
+					{{ $model->abv }}
+				@endif
+			@endslot
+		@endcomponent
 
-@component('components.form.text', ['label' => 'Full name', 'name' => 'name'])
-	@slot('value')
-		@if(old('name'))
-			{{ old('name') }}
-		@elseif($item)
-			{{ $item->name }}
-		@endif
-	@endslot
-@endcomponent
+		@component('components.form.text', [
+			'name'      => 'name',
+			'rules'     => 'required'
+		])
+			@slot('value')
+				@if(isset($model))
+					{{ $model->name }}
+				@endif
+			@endslot
+		@endcomponent
 
-@if($item instanceof \App\Slot)
-	@component('components.form.text', ['label' => 'Colour', 'name' => 'colour'])
-		@slot('value')
-			@if(old('colour'))
-				{{ old('colour') }}
-			@elseif($item)
-				{{ $item->colour }}
-			@endif
-		@endslot
+		@if(Schema::hasColumn($model->getTable(), 'colour'))
+			@component('components.form.text', [
+				'name'      => 'colour'
+			])
+				@slot('value')
+					@if(isset($model))
+						{{ $model->colour }}
+					@endif
+				@endslot
+			@endcomponent
+		@endif
+
+		@component('components.form.textarea', [
+			'name'        => 'description'
+		])
+			@slot('value')
+				@if(isset($model))
+					{{ $model->description }}
+				@endif
+			@endslot
+		@endcomponent
 	@endcomponent
-@endif
-
-@component('components.form.textarea', ['label' => 'Description', 'name' => 'description'])
-	@slot('value')
-		@if(old('description'))
-			{{ old('description') }}
-		@elseif($item)
-			{{ $item->description }}
-		@endif
-	@endslot
-@endcomponent
-
-<button type="submit" class="button is-primary">Submit</button>
+</alg-generic-form>

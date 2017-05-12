@@ -46,11 +46,13 @@ Vue.component('alg-rule-form',      require('./components/forms/Rule.vue'));
 Vue.component('alg-source-form',    require('./components/forms/Source.vue'));
 Vue.component('alg-variable-form',  require('./components/forms/Variable.vue'));
 Vue.component('alg-datapoint-form', require('./components/forms/Datapoint.vue'));
+Vue.component('alg-generic-form',   require('./components/forms/Generic.vue'));
 
 Vue.component('alg-order', require('./components/Order.vue'));
 Vue.component('alg-flag', require('./components/Flag.vue'));
 Vue.component('alg-textarea', require('./components/Textarea.vue'));
 Vue.component('alg-tag-input', require('./components/Tag-Input.vue'));
+Vue.component('alg-value-input', require('./components/Value-Input.vue'));
 
 Vue.component('alg-paradigm-search',  require('./components/forms/Paradigm-Search.vue'));
 Vue.component('alg-basic-paradigm-search', require('./components/forms/Basic-Paradigm-Search.vue'));
@@ -65,6 +67,8 @@ Vue.component('alg-pagination-full', require('./components/Pagination-Full.vue')
 Vue.component('alg-language-model', require('./components/Language-Model.vue'));
 Vue.component('alg-language-tab', require('./components/Language-Tab.vue'));
 Vue.component('alg-language-subtab', require('./components/Language-Subtab.vue'));
+
+Vue.component('alg-filter', require('./components/Filter.vue'));
 
 Vue.component('alg-paradigm-table', {
 	props: ['morphemesOn'],
@@ -114,41 +118,11 @@ const app = new Vue({
 
     data() {
     	return {
-    		showFlash: true
+    		showFlash: true,
+
+    		object1: {},
+    		object2: {},
+    		object3: {}
     	};
     }
 });
-
-// Navigation menu
-// $(document).ready(function(){
-// 	const target = $(".dropdown");
-
-// 	target.each(button => {
-// 		let dropdown = button.children('.dropdown-options');
-// 		let menuMoving = false;
-
-// 		button.mouseenter(() => {
-// 			toggleMenu(menuMoving);
-// 		}).mouseleave(() => {
-// 			toggleMenu(menuMoving);
-// 		});
-// 	});
-// 	// const dropdown = target.children('.dropdown-options');
-
-// 	// var menuMoving = false;
-
-// 	// target.mouseenter(() => {
-// 	// 	toggleMenu();
-// 	// }).mouseleave(() => {
-// 	// 	toggleMenu();
-// 	// });
-
-// 	function toggleMenu(menuMoving) {
-// 		if(!menuMoving) {
-// 			menuMoving = true;
-// 			dropdown.slideToggle('fast', function() {
-// 				menuMoving = false;
-// 			});
-// 		}
-// 	};
-// });

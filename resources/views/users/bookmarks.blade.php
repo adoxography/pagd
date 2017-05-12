@@ -1,13 +1,10 @@
 @extends('layout', ['title' => 'Bookmarks'])
 
+@section('title')
+	Bookmarks
+@endsection
+
 @section('content')
-
-<div class="heading">
-	<h1 class="title">Bookmarks</h1>
-</div>
-<br />
-
-<div class="box">
 	@if(count($user->bookmarks(App\Language::class)) > 0)
 		<h4 class="subtitle is-4">Languages</h4>
 		<ul>
@@ -83,6 +80,21 @@
 		<br />
 	@endif
 
+	@if(count($user->bookmarks(App\Rule::class)) > 0)
+		<h4 class="subtitle is-4">Rules</h4>
+		<ul>
+			@foreach($user->bookmarks(App\Rule::class) as $rule)
+				<li>
+					<a href="/sources/{{ $rule->id }}">{{ $rule->name }}</a>
+					@if($rule->pivot->comment)
+						<div style="margin-left: 2rem">{!! $rule->pivot->comment !!}</div>
+					@endif
+				</li>
+			@endforeach
+		</ul>
+		<br />
+	@endif
+
 	@if(count($user->bookmarks(Algling\Morphemes\Models\Slot::class)) > 0)
 		<h4 class="subtitle is-4">Slots</h4>
 		<ul>
@@ -112,6 +124,4 @@
 		</ul>
 		<br />
 	@endif
-</div>
-
 @endsection

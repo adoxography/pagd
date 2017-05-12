@@ -1,5 +1,4 @@
 <?php
-
 namespace App;
 
 use Algling\Words\Models\Gap;
@@ -10,6 +9,7 @@ use Algling\Words\Models\Example;
 use Algling\Verbals\Models\Structure;
 use Algling\Morphemes\Models\Morpheme;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -107,7 +107,7 @@ class Language extends Model
         return $this->hasMany(Form::class, 'language_id');
     }
 
-    public function emptyForms()
+    public function gaps()
     {
         return $this->hasMany(Gap::class, 'language_id');
     }

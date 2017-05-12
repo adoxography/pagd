@@ -24,4 +24,9 @@ class Slot extends Closed
     {
     	return $this->hasMany(Morpheme::class);
     }
+
+    public function renderHTML()
+    {
+        return "<a href='/slots/{$this->id}' style='color: {$this->colour};'>{$this->abv}</a>";
+    }
 }

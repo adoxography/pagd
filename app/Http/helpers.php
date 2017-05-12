@@ -100,10 +100,10 @@ function replaceTags($text, $id = 0)
         // Get the tag, and look it up
         $tag = substr($text, $start + 1, $end - $start - 1);
 
-        if(strlen($tag) == 0 || $tag{0} == '#') { // Escape sequence
-            $replacement = '#';
-        } elseif(is_numeric($tag{0})) { // Special case for hex codes
+        if(is_numeric($tag{0})) { // Special case for hex codes
             $replacement = "#$tag";
+        } elseif ($tag{0} == ' ') {
+            $replacement = '#';
         }
 
         if(count(explode('.', $tag)) > 1) {

@@ -6,7 +6,7 @@
 			@select="onInput"
 			v-model="listValue"
 			:list="list"
-			:name="name"
+			:name="name+'-input'"
 			:id="id"
 			:disabled="disabled"
 			:placeholder="placeholder"
@@ -21,7 +21,7 @@
 				@change="onChange($event, currValue)"
 				class="alg-tag-section">
 				<div v-for="(tag, index) in currValue" class="alg-tag-container">
-					<span class="tag is-info is-medium">
+					<span class="tag is-primary is-medium">
 						{{ tag.text }}
 						<a
 							class="delete is-small"
@@ -31,6 +31,7 @@
 				</div>
 			</draggable>
 		</transition>
+		<input type="hidden" :value="gluedValue" :name="name" />
 	</div>
 </template>
 
@@ -38,7 +39,7 @@
 import draggable from 'vuedraggable';
 
 export default {
-	props: ['list', 'preset', 'value', 'name', 'id', 'placeholder', 'classes', 'disabled'],
+	props: ['list', 'value', 'name', 'id', 'placeholder', 'classes', 'disabled', 'initial'],
 
 	components: {
 		draggable
@@ -55,9 +56,33 @@ export default {
 		};
 	},
 
+	mounted() {
+		if(this.initial) {
+			this.listValue = { id: '', text: this.initial };
+			this.onInput();
+		}
+	},
+
 	computed: {
 		currValue() {
 			return this.value;
+		},
+
+		gluedValue() {
+			let output = '';
+			let firstTime = true;
+
+			this.value.forEach(item => {
+				if(firstTime) {
+					firstTime = false;
+				} else {
+					output += '.';
+				}
+
+				output += item.text;
+			});
+
+			return output;
 		}
 	},
 

@@ -1,19 +1,10 @@
-@extends('layout', ['title' => "Edit {$morpheme->name} ({$morpheme->language->name})"])
+@extends('layout', ['title' => "Edit {$morpheme->name}"])
+
+@section('title')
+	<label>Editing </label>
+	{{ $morpheme->name }}
+@endsection
 
 @section('content')
-
-	<div class="heading">
-		<h1 class="title">Edit a Morpheme</h1>
-	</div>
-	<br />
-
-	<alg-morpheme-form method="PATCH"
-					   action="/morphemes/{{ $morpheme->id }}"
-					   languages="{{ $languages }}"
-					   glosses="{{ $glosses }}"
-					   slots="{{ $slots }}"
-					   change-types="{{ $changeTypes->toJson() }}"
-					   morpheme="{{ $morpheme }}">
-	</alg-morpheme-form>
-	
+	@include('morph::morphemes.partials.form', ['method' => 'PATCH', 'action' => "/morphemes/{$morpheme->id}"])
 @stop

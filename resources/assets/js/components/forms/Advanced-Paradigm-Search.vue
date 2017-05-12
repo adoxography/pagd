@@ -1,6 +1,6 @@
 <template>
 	<form class="paradigm-search-form"
-		  action="/search/paradigm"
+		  action="/verbs/search/paradigm/results"
 		  method="GET">
 		<div class="columns">
 			<div class="column box is-2">
@@ -322,8 +322,8 @@ export default {
 	},
 
 	created() {
-		this.form.orders = JSON.parse(this.orders);
-		this.form.modes = JSON.parse(this.modes);
+		this.form.orders = this.orders;
+		this.form.modes = this.modes;
 
 		let unmarkedIndex = this.form.modes.findIndex(mode => {
 			return mode.name == 'Unmarked';
@@ -337,20 +337,18 @@ export default {
 
 		this.form.modes[indicativeIndex].name = "Indicative/Unmarked";
 
-		if(this.preset) {
-			let presetArray = JSON.parse(this.preset);
-			
-			this.loadCheck(presetArray, ['affirmative', 'negative', 'nonDiminutive', 'diminutive', 'showMorphology']);
-			this.loadSeries(presetArray, ['orders', 'modes', 'subclasses']);
+		if(this.preset) {			
+			this.loadCheck(this.preset, ['affirmative', 'negative', 'nonDiminutive', 'diminutive', 'showMorphology']);
+			this.loadSeries(this.preset, ['orders', 'modes', 'subclasses']);
 
-			this.form.modeSelect = presetArray.modeSelect;
+			this.form.modeSelect = this.preset.modeSelect;
 
-			if(presetArray.classes) {
+			if(this.preset.classes) {
 				_.forEach(this.form.classes, value => {
 					value.checked = false;
 				});
 
-				presetArray.classes.forEach(formClass => {
+				this.preset.classes.forEach(formClass => {
 					_.forEach(this.form.classes, value => {
 						if(value.id == formClass) {
 							value.checked = true;
@@ -360,13 +358,13 @@ export default {
 				});
 			}
 
-			if(presetArray.languages) {
+			if(this.preset.languages) {
 				let temp = [];
 
-				for(let i = 0; i < presetArray.languages.length; i+=2) {
+				for(let i = 0; i < this.preset.languages.length; i+=2) {
 					temp.push({
-						text: presetArray.languages[i],
-						id: presetArray.languages[i + 1]
+						text: this.preset.languages[i],
+						id: this.preset.languages[i + 1]
 					});
 				}
 

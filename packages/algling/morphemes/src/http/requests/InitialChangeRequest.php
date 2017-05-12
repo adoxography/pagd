@@ -45,7 +45,7 @@ class InitialChangeRequest extends FormRequest
             'language.text'   => ['required'],
             'language.id'     => ['required','integer','exists:Languages,id'],
             'morpheme.text'   => ['required'],
-            'morpheme.id'     => ['required','integer','exists:Morphemes,id'],
+            'morpheme.id'     => ['required','integer','exists:Morph_Morphemes,id'],
             'change'          => ['required','isMorpheme']
         ];
     }

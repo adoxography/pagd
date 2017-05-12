@@ -18,7 +18,7 @@
 
 	@if(isset($visible) && $visible)
 	<div class="field">
-		<button type="submit" class="button is-primary" :class="{'is-disabled': errors.any() }">Submit</button>
+		<button type="submit" class="button is-primary" :disabled="errors.any()">Submit</button>
 	</div>
 	@endif
 </form>

@@ -2,7 +2,7 @@
 
 use App\Group;
 use App\Language;
-use Algling\Verbals\Models\Form;
+use Algling\Verbals\Models\Form as VerbForm;
 use Algling\Verbals\Models\Mode;
 use Algling\Verbals\Models\Order;
 use Algling\Morphemes\Models\Slot;
@@ -45,7 +45,7 @@ $factory->define(App\Source::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(Form::class, function (Faker\Generator $faker) {
+$factory->define(VerbForm::class, function (Faker\Generator $faker) {
 	return [
 		'name' => $faker->word,
 		'language_id' => factory(Language::class)->create()->id,
@@ -56,7 +56,7 @@ $factory->define(Form::class, function (Faker\Generator $faker) {
 			return $morpheme1->name . '-V-' . $morpheme2->name;
 		},
 		'structure_id' => factory(Structure::class)->create()->id,
-        'structure_type' => Structure::class
+        'structure_type' => 'verbStructures'
 	];
 });
 
@@ -69,6 +69,7 @@ $factory->define(Group::class, function (Faker\Generator $faker) {
 $factory->define(Language::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
+        'alternateNames' => $faker->name,
         'group_id' => function () {
             return factory(Group::class)->create()->id;
         },
@@ -89,7 +90,8 @@ $factory->define(Language::class, function (Faker\Generator $faker) {
             }
 
             return $output;
-        }
+        },
+        'notes' => $faker->paragraph
     ];
 });
 

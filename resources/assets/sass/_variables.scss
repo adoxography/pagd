@@ -2,16 +2,17 @@
 @fa-font-path:   "../fonts";
 
 // Fonts
-$family-sans-serif: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI",
-"Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-"Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$family-serif: "DejaVuSerifCondensed", "Palatino Linotype";
+$family-primary: $family-serif;
 
 // Colour variables
 
 $blue: hsl(217, 71%, 53%);
 $turquoise: hsl(171, 100%, 41%);
 $background-color: #d8d8d8;
+$yellow: #fef368;
+$light-blue: #41b7d8;
 
 // Colour mappings
-$primary: $blue;
-$info: $turquoise;
+$primary: $light-blue;
+$info: $yellow;

@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html style="background-color: white;">
 	<head>
 		<meta charset="UTF-8" />
 		<title>{{ $title or "Database of Algonquian Language Structures" }}</title>
@@ -9,44 +9,41 @@
 		    window.Laravel = { csrfToken: '{{ csrf_token() }}' };
 		</script>
 		
-		@yield('header')
+		@yield('styles')
 	</head>
 	<body>
-		<section class="hero is-primary">
-			<div class="hero-body">
-				<div class="container">
-					<h1 class="title">
-						Database of Algonquian Language Structures
-					</h1>
+		@include('layout.header')
+
+		<section class="section" id="main-content">
+			<div class="container" id="root">
+				<div class="card">
+					<header class="card-header">
+						<p class="card-header-title">
+							@yield('title')
+						</p>
+						@yield('icons')
+					</header>
+
+					@include('partials.flash')
+
+					<div class="columns is-gapless">
+						<div class="column is-narrow">
+							<nav class="panel">
+								@yield('panel')
+							</nav>
+						</div>
+						<div class="column">
+							<div class="card-content">
+								@yield('content')
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>
-		<div id='menu'>
-			@include('partials.menu')
-		</div>
 
-		<div id="root">
-			@include('partials.flash')
-
-			<section class="section">
-				<div class="container">
-					@yield('content')
-				</div>
-			</section>
-		</div>
-
-		@yield('table')
-
-		@include('footer')	
-		@yield('footer')
+		@include('layout.footer')
 
 		<script src="{{ mix("/js/app.js") }}"></script>
-	
-		@if(App::environment('local'))
-			<p>Browser sync enabled</p>
-			<script id="__bs_script__">//<![CDATA[
-				document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.18.7'><\/script>".replace("HOST", location.hostname));
-			//]]></script>
-		@endif
 	</body>
 </html>

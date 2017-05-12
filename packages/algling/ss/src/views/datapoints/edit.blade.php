@@ -1,18 +1,10 @@
-@extends('layout', ['title' => 'Edit a datapoint'])
+@extends('layout', ['title' => 'Edit datapoint'])
+
+@section('title')
+	<label>Editing</label>
+	{{ $datapoint->language->name}}/{{ $datapoint->variable->name }}
+@endsection
 
 @section('content')
-
-<div class="heading">
-	<h1 class="title">Edit a Datapoint</h1>
-</div>
-<br />
-
-<alg-datapoint-form
-	method="PATCH"
-	action="/datapoints/{{ $datapoint->id }}"
-	languages="{{ $languages }}"
-	variables="{{ $variables }}"
-	datapoint="{{ $datapoint }}">
-</alg-datapoint-form>
-
+	@include('ss::datapoints.partials.form', ['method' => 'PATCH', 'action' => "/datapoints/{$datapoint->id}"])
 @endsection

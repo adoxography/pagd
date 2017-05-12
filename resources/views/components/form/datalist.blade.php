@@ -17,8 +17,13 @@
 		:list="{{ $list }}"
 		name="{{ $name }}"
 		id="{{ $id or $name }}"
-		initial="{{ old($name, 'not found') !== 'not found' ? old($name) : $value }}"
+		initial="{{ old($name, 'not found') !== 'not found' ? old($name) : (request()->$name ? request()->$name->name : $value) }}"
 		:has-errors="errors.has('{{ $name }}')"
+		ref="{{ $name }}"
+
+		@if(isset($model))
+		v-model="{{ $model }}"
+		@endif
 
 		@if(isset($rules))
 		v-validate="'{{ $datalistRules }}'"

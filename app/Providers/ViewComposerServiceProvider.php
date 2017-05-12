@@ -51,7 +51,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
     private function composeRuleForm()
     {
-        view()->composer(['rules.create', 'rules.edit'], function($view)
+        view()->composer('rules.partials.form', function($view)
         {
             $data = [
                 'languages' => Language::select('id','name')->get()

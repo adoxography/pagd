@@ -16,6 +16,7 @@ class MorphMapServiceProvider extends ServiceProvider
     {
         Relation::morphMap([
             'verbForms'  => 'Algling\Verbals\Models\Form',
+            'forms'      => 'Algling\Words\Models\Form',
             'examples'   => 'Algling\Words\Models\Example',
             'morphemes'  => 'Algling\Morphemes\Models\Morpheme',
             'gaps'       => 'Algling\Words\Models\Gap',

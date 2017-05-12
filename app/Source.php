@@ -5,7 +5,7 @@ namespace App;
 use App\Rule;
 use Algling\Words\Models\Gap;
 use Laravel\Scout\Searchable;
-use Algling\Verbals\Models\Form;
+use Algling\Words\Models\Form;
 use Algling\Words\Models\Example;
 use Algling\Morphemes\Models\Morpheme;
 use Illuminate\Database\Eloquent\Model;
@@ -68,7 +68,7 @@ class Source extends Model
         return $this->morphedByMany(Rule::class, 'Sourceable')->withPivot('extraInfo');
     }
 
-    public function emptyForms()
+    public function gaps()
     {
         return $this->morphedByMany(Gap::class, 'Sourceable')->withPivot('extraInfo');
     }

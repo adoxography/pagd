@@ -1,12 +1,14 @@
+// Mixins
+@import "_mixins";
 
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+@include font-face("DejaVuSerifCondensed", css/fonts/DejaVuSerifCondensed-webfont, null, null, woff);
+@include font-face("DejaVuSerifCondensed", css/fonts/DejaVuSerifCondensed-Bold-webfont, bold, null, woff);
+@include font-face("DejaVuSerifCondensed", css/fonts/DejaVuSerifCondensed-BoldItalic-webfont, bold, italic, woff);
+@include font-face("DejaVuSerifCondensed", css/fonts/DejaVuSerifCondensed-Italic-webfont, null, italic, woff);
 
 // Variables
 @import "_variables";
-
-// Mixins
-@import "_mixins";
 
 // Font Awesome
 @import "node_modules/font-awesome/scss/font-awesome";
@@ -14,41 +16,33 @@
 // Bulma
 @import "node_modules/bulma/bulma.sass";
 
-@include font-face("DejaVuSerifCondensed", css/fonts/DejaVuSerifCondensed-webfont, null, null, woff);
-@include font-face("DejaVuSerifCondensed", css/fonts/DejaVuSerifCondensed-Bold-webfont, bold, null, woff);
-@include font-face("DejaVuSerifCondensed", css/fonts/DejaVuSerifCondensed-BoldItalic-webfont, bold, italic, woff);
-@include font-face("DejaVuSerifCondensed", css/fonts/DejaVuSerifCondensed-Italic-webfont, null, italic, woff);
+@import "layout";
 
-html, .footer, .section {
-	background-color: $background-color;
+.notification {
+	padding: .75rem 2.5rem .75rem .75rem;
 }
 
-a {
-	font-weight: 500;
-}
+.paradigm-results {
+	display: inline-grid;
 
-.paradigm-container {
-	overflow: auto;
-	max-height: 700px;
-	background-color: $white;
+	.paradigm-container {
+		overflow: auto;
+		max-height: 700px;
+		position: relative;
 
-	th {
-		height: 3rem;
+		.table {
+			display: block;
+		}
+
+		th {
+			height: 3rem;
+		}
 	}
 }
 
-.alg-pagination-full {
-	@extend .pagination;
-	flex-wrap: wrap;
-
-	.pagination-list {
-		flex-wrap: inherit;
-	}
-}
+@import "pagination";
 
 .alg-source-index {
-	@extend .box;
-
 	.input {
 		margin-bottom: 1rem;
 	}
@@ -208,6 +202,7 @@ a.nav-item, .footer a {
 
 	a {
 		display: block;
+		box-shadow: none;
 	}
 
 	.is-highlighted {
@@ -401,5 +396,3 @@ p.is-danger {
 [v-cloak] {
 	display: none;
 }
-
-@import "layout";

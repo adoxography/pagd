@@ -4,11 +4,12 @@
 	<input
 		type="text"
 		class="input"
-		value="{{ old($name, 'not found') !== 'not found' ? old($name) : $value }}"
+		value="{{ old($name, 'not found') !== 'not found' ? old($name) : ((request()->$name && (!isset($loadRequest) || $loadRequest)) ? request()->$name : $value) }}"
 		autocomplete="off"
 		name="{{ $name }}"
 		id="{{ $id or $name }}"
 		:class="{'is-danger': errors.has('{{ $name }}')}"
+		ref="{{ $name }}"
 
 		@if(isset($autofocus) && !old($name) && strlen($value) == 0)
 		autofocus="autofocus"
@@ -32,6 +33,10 @@
 
 		@if(isset($disabled))
 		:disabled="{{ $disabled }}"
+		@endif
+
+		@if(isset($model))
+		v-model="{{ $model }}"
 		@endif
 	/>
 @endsection

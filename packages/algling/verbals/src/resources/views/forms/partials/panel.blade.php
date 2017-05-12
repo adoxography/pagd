@@ -1,0 +1,2 @@
+<a href="/verbs/forms/{{ $form->id }}/basic" class="panel-block @if(Route::is('verbForms::showBasic')) is-active @endif">Basic details</a>
+<a href="/verbs/forms/{{ $form->id }}/cognates" class="panel-block @if(Route::is('verbForms::showCognates')) is-active @endif">Cognates</a>

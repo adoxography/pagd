@@ -2,6 +2,8 @@
 
 namespace Algling\Morphemes\Models\Observers;
 
+use Algling\Words\Models\Form;
+use Algling\Words\Models\Example;
 use Algling\Morphemes\Models\Morpheme;
 
 class MorphemeObserver {
@@ -19,26 +21,11 @@ class MorphemeObserver {
 
 	protected function reconnectData(Morpheme $morpheme)
 	{
-        $morphemeName = str_replace(['*', '-'], '', $morpheme->name);
+        $morphemeNames = $this->getNames($morpheme);
         $language = $morpheme->language_id;
-        $this->reconnect($morpheme->allWords());
-	}
 
-	protected function queryForms($language, $lookup)
-	{
-		$query = Form::where('language_id', $language)
-					 ->where('morphemicForm', 'LIKE', "%$lookup%");
-
-		return $query->get();
-	}
-
-	protected function queryExamples($language, $lookup)
-	{
-		$query = Example::whereHas('form', function($subquery) use ($language) {
-			$subquery->where('language_id', $language);
-		})->where('morphemicForm', 'LIKE', "%$lookup%");
-
-		return $query->get();
+        $this->reconnect($this->queryForms($language, $morphemeNames));
+        $this->reconnect($this->queryExamples($language, $morphemeNames));
 	}
 
 	protected function reconnect($data)
@@ -47,5 +34,52 @@ class MorphemeObserver {
 			$item->dontConnectSources();
 			$item->connectMorphemes();
 		}
+	}
+
+	protected function getNames(Morpheme $morpheme)
+	{
+		$output = [$morpheme->name];
+
+		if($morpheme->isDirty('name')) {
+			$output[] = $morpheme->getOriginal('name');
+		}
+
+		return str_replace(['*', '-'], '', $output);
+	}
+
+	protected function queryForms($language, array $lookups)
+	{
+		$firstTime = true;
+		$query = Form::where('language_id', $language);
+
+		foreach($lookups as $lookup) {
+			if($firstTime) {
+				$firstTime = false;
+				$query->where('morphemicForm', 'LIKE', "%$lookup%");
+			} else {
+				$query->orWhere('morphemicForm', 'LIKE', "%$lookup%");
+			}
+		}
+
+		return $query->get();
+	}
+
+	protected function queryExamples($language, array $lookups)
+	{
+		$firstTime = true;
+		$query = Example::whereHas('form', function($subquery) use ($language) {
+			$subquery->where('language_id', $language);
+		});
+
+		foreach($lookups as $lookup) {
+			if($firstTime) {
+				$firstTime = false;
+				$query->where('morphemicForm', 'LIKE', "%$lookup%");
+			} else {
+				$query->orWhere('morphemicForm', 'LIKE', "%$lookup%");
+			}
+		}
+
+		return $query->get();
 	}
 }

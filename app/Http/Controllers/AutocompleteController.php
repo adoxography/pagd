@@ -52,7 +52,7 @@ class AutocompleteController extends Controller
         $term = $request->term;
         $language = $request->language;
 
-        $results = Morpheme::select('name', 'id', 'gloss_id', 'language_id')
+        $results = Morpheme::select('name', 'id', 'gloss', 'language_id')
                            ->where('name', 'LIKE', "%$term%")
                            ->where('name', '<>', 'V')
                            ->where('language_id', $language)
@@ -100,7 +100,7 @@ class AutocompleteController extends Controller
         $language = Language::with('parent')
                             ->find($language_id);
 
-        $results = $this->findParents($language, $term, 'forms', 'surfaceForm');
+        $results = $this->findParents($language, $term, 'forms', 'name');
 
         return json_encode($results);
     }

@@ -26,7 +26,9 @@ trait DisambiguatableTrait {
 	protected function disambiguatableOnDeleting()
 	{
 		if($this->getShouldAlwaysAssignDisambiguator()) {
-			$this->hasDuplicates = false;
+			if(Schema::hasColumn($this->getTable(), 'hasDuplicates')) {
+				$this->hasDuplicates = false;
+			}
 		} else {
 			$this->disambiguator = null;
 		}

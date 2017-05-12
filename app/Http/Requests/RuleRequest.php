@@ -8,23 +8,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class RuleRequest extends FormRequest
 {
-    public function all()
-    {
-        $attributes = parent::all();
-
-        foreach(parent::all() as $key => $value) {
-            if(is_array($value)) {
-                foreach($value as $subKey => $subValue) {
-                    $attributes["{$key}_{$subKey}"] = $subValue;
-                }
-            }
-        }
-
-        $this->replace($attributes);
-
-        return parent::all();
-    }
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -32,7 +15,7 @@ class RuleRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user();
+        return Auth::user() && Auth::user()->permissions->canEdit;
     }
 
     /**
@@ -50,10 +33,10 @@ class RuleRequest extends FormRequest
         }
 
         $rules = [
-            'name' => ['required', "unique:Rules,name,$id,id,language_id,$language_id"],
-            'abv'  => ['required', "unique:Rules,abv,$id,id,language_id,$language_id"],
-            'language.text' => ['required', 'exists:Languages,name'],
-            'language.id' => ['required', 'integer', 'exists:Languages,id']
+            'name'        => ['required', "unique:Rules,name,$id,id,language_id,$language_id"],
+            'abv'         => ['required', "unique:Rules,abv,$id,id,language_id,$language_id"],
+            'language'    => ['required', 'exists:Languages,name'],
+            'language_id' => ['required', 'integer', 'exists:Languages,id']
         ];
 
         return $rules;
@@ -61,8 +44,8 @@ class RuleRequest extends FormRequest
 
     public function messages(){
         return [
-            'language.text.exists' => 'There is no language by that name in the database',
-            'language.id.required' => 'There is no language by that name in the database.'
+            'language.exists' => 'There is no language by that name in the database',
+            'language_id.required' => 'There is no language by that name in the database.'
         ];
     }
 }

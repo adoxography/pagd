@@ -10,7 +10,7 @@ class PageController extends Controller
     public function show($args)
     {
     	$path = $this->generatePath($args);
-    	$title = $this->getTitle($args);
+    	$title = ucfirst($this->getTitle($args));
 
     	if(Storage::exists($path)) {
     		$styles = $this->getCSSFiles();

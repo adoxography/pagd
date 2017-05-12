@@ -18,27 +18,6 @@ class MorphemeRequest extends FormRequest
         return Auth::user() && Auth::user()->permissions->canEdit;
     }
 
-    public function all()
-    {
-        $attributes = parent::all();
-
-        if(!isset($attributes['modified'])) {
-            foreach(parent::all() as $key => $value) {
-                if(is_array($value)) {
-                    foreach($value as $subKey => $subValue) {
-                        $attributes["{$key}_{$subKey}"] = $subValue;
-                    }
-                }
-            }
-
-            $attributes['modified'] = true;
-
-            $this->replace($attributes);
-        }
-
-        return parent::all();
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -48,26 +27,25 @@ class MorphemeRequest extends FormRequest
     {
         return [
             'name'            => ['required','isMorpheme'],
-            'alternateName'   => ['nullable','isMorpheme'],
             'gloss'           => ['required'],
-            'slot.text'       => ['required'],
-            'slot.id'         => ['required','integer','exists:Slots,id'],
-            'language.text'   => ['required'],
-            'language.id'     => ['required','integer','exists:Languages,id'],
-            'parent.id'       => ['nullable','integer'],
+            'slot'            => ['required'],
+            'slot_id'         => ['required','integer','exists:Morph_Slots,id'],
+            'language'        => ['required'],
+            'language_id'     => ['required','integer','exists:Languages,id'],
+            'parent_id'       => ['nullable','integer','exists:Morph_Morphemes,id'],
             'allomorphyNotes' => ['nullable'],
             'historicalNotes' => ['nullable'],
-            'comments'        => ['nullable']
+            'privateNotes'    => ['nullable']
         ];
     }
 
     public function messages(){
         return [
-            'gloss.required'         => 'Please enter a gloss.',
-            'slot.text.required'     => 'Please enter a slot.',
-            'slot.id.required'       => 'There is no slot by that name in the database.',            
-            'language.text.required' => 'Please enter a language.',
-            'language.id.required'   => 'There is no language by that name in the database.',
+            'gloss.required'       => 'Please enter a gloss.',
+            'slot.required'        => 'Please enter a slot.',
+            'slot_id.required'     => 'There is no slot by that name in the database.',            
+            'language.required'    => 'Please enter a language.',
+            'language_id.required' => 'There is no language by that name in the database.',
         ];
     }
 }

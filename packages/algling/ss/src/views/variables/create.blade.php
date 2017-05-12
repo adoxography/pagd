@@ -1,12 +1,9 @@
-@extends('layout', ['title' => 'Add a variable'])
+@extends('layout', ['title' => 'Add variable'])
+
+@section('title')
+	Add variable
+@endsection
 
 @section('content')
-
-<div class="heading">
-	<h1 class="title">Add a Variable</h1>
-</div>
-<br />
-
-<alg-variable-form method="POST" action="/variables" types="{{ $types }}" values="{{ $values }}"></alg-variable-form>
-
+	@include('ss::variables.partials.form', ['method' => 'POST', 'action' => '/variables'])
 @endsection

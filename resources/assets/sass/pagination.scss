@@ -1,0 +1,13 @@
+.alg-pagination-full {
+	@extend .pagination;
+	flex-wrap: wrap;
+
+	.pagination-list {
+		flex-wrap: inherit;
+	}
+
+	a {
+		box-shadow: none;
+		font-size: .9em;
+	}
+}

@@ -1,11 +1,9 @@
-@extends('layout', ['title' => "Edit $source->short"])
+@extends('layout', ['title' => "Edit {$source->display}"])
+
+@section('title')
+	Editing {{ $source->display }}
+@endsection
 
 @section('content')
-	<div class="heading">
-		<h1 class="title">Edit a Source</h1>
-	</div>
-	<br />
-
-	<alg-source-form method="PATCH" action="/sources/{{ $source->id }}" source="{{ $source }}"></alg-source-form>
-
+	@include('sources.partials.form', ['method' => 'PATCH', 'action' => "/sources/{$source->id}"])
 @endsection

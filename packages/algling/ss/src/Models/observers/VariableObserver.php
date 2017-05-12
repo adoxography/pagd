@@ -21,23 +21,13 @@ class VariableObserver {
 	protected function connectValues(Variable $variable, $values)
 	{
 		$variable->values()->detach();
+		$ids = [];
 
-		for($i = 0; $i < count($values); $i++) {
-			$value = $values[$i];
-
-			if($value['id'] == 0) {
-				$values[$i] = $this->registerNewValue($value['name'])->id;
-			} else {
-				$values[$i] = $value['id'];
-			}
+		foreach($values as $value) {
+			$ids[] = Value::firstOrCreate(['name' => $value])->id;
 		}
 
-		$variable->values()->attach($values);
-	}
-
-	protected function registerNewValue(string $name) 
-	{
-		return Value::create(['name' => $name]);
+		$variable->values()->attach($ids);
 	}
 
 	protected function destroyDatapoints(Variable $variable)

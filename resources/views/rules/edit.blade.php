@@ -1,14 +1,10 @@
-@extends('layout', ['title' => 'Edit a rule'])
+@extends('layout', ['title' => "Edit {$rule->abv}"])
+
+@section('title')
+	<label>Editing </label>
+	{{ $rule->abv }}
+@endsection
 
 @section('content')
-<div class="heading">
-	<h1 class="title">Edit a Rule</h1>
-</div>
-<br />
-
-<alg-rule-form method="PATCH"
-			   action="/rules/{{ $rule->id }}"
-			   languages="{{ $languages }}"
-			   rule="{{ $rule }}">
-</alg-rule-form>
+	@include('rules.partials.form', ['method' => 'PATCH', 'action' => "/rules/{$rule->id}"])
 @endsection

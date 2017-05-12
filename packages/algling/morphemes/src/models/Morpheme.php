@@ -10,6 +10,7 @@ use Algling\Words\Models\Example;
 use Algling\Morphemes\Models\Slot;
 use Algling\Morphemes\Models\Gloss;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Algling\Morphemes\Models\InitialChange;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -49,7 +50,8 @@ class Morpheme extends Model
     ];
     protected $appends = [
         'uniqueNameWithLanguage',
-        'uniqueName'
+        'uniqueName',
+        'html'
     ];
     protected $altName;
 
@@ -119,6 +121,11 @@ class Morpheme extends Model
     public function getDisplayAttribute()
     {
         return $this->uniqueNameWithLanguage;
+    }
+
+    public function getHtmlAttribute()
+    {
+        return $this->renderHTML();
     }
 
     /*
@@ -202,6 +209,10 @@ class Morpheme extends Model
         return $this->morphedByMany(Form::class, 'morphemeable', 'Morph_Morphemeables')->distinct();
     }
 
+    public function nominalForms()
+    {
+    }
+
     public function examples()
     {
         return $this->morphedByMany(Example::class, 'morphemeable', 'Morph_Morphemeables')->distinct();
@@ -227,9 +238,9 @@ class Morpheme extends Model
         return $this->hasMany(InitialChange::class);
     }
 
-    public function renderHTMl()
+    public function renderHTML()
     {
-        return "<a href='{$this->id}'>{$this->name}</a>";
+        return "<a href='/morphemes/{$this->id}'>{$this->name}</a> (".$this->renderGloss(true, false).')';
     }
 
     public function renderInNotes()

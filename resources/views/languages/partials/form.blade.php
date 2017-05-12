@@ -1,8 +1,8 @@
 <alg-language-form
 	inline-template
 	v-cloak
-	old-errors="{{ json_encode($errors->messages()) }}">
-	@component('components.form', ['method' => $method, 'action' => $action, 'class' => 'box', 'visible' => true])
+	:old-errors="{{ json_encode($errors->messages()) }}">
+	@component('components.form', ['method' => $method, 'action' => $action, 'visible' => true])
 		<div class="columns is-multiline">
 
 			<!-- Language Name -->

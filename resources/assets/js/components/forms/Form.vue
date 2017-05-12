@@ -1,6 +1,11 @@
 <script>
+import oldErrors from '../../mixins/OldErrors';
+import oldSources from '../../mixins/OldSources';
+
 export default {
-	props: ['method', 'action', 'oldErrors', 'oldSources'],
+	mixins: [oldErrors, oldSources],
+
+	props: ['isEmpty'],
 
 	data() {
 		return {
@@ -18,27 +23,8 @@ export default {
 	},
 
 	created() {
-		if(this.oldSources) {
-			JSON.parse(this.oldSources).forEach(source => {
-				this.sources.push({
-					short:     source.display,
-					id:        source.id,
-					long:      source.long,
-					extraInfo: source.pivot.extraInfo
-				});
-			})
-		}
-	},
-
-	mounted() {
-		if(this.oldErrors) {
-			_.forEach(JSON.parse(this.oldErrors), (errors, field) => {
-				field = field.split('_')[0];
-
-				errors.forEach(message => {
-					this.errors.add(field, message, 'database');
-				});
-			});
+		if(this.isEmpty) {
+			this.empty = this.isEmpty;
 		}
 	}
 }

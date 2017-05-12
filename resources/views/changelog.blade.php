@@ -1,15 +1,27 @@
 @extends('layout', ['title' => 'Changelog'])
 
 @section('title')
-<p class="card-header-title">
 	Changelog
-</p>
 @endsection
 
 @section('content')
-
-<div class="card-content">
 	<ul class="indented-list">
+		<li>
+			11-05-17: Removed the spacing in front of the colon on sources
+		</li>
+		<li>
+			11-05-17: Included extra identifying information on cognates tab
+		</li>
+		<li>
+			11-05-17: Added filters for form and morpheme pages
+		</li>
+		<li>
+			11-05-17: Converted remaining AJAX forms to syncronous forms
+		</li>
+		<li>
+			11-05-17: Restyled the website
+		</li>
+		<hr>
 		<li>
 			29-04-17: Added link to add missing glosses when logged in
 		</li>
@@ -796,6 +808,4 @@
 			</ul>
 		</li>
 	</ul>
-</div>
-
 @endsection

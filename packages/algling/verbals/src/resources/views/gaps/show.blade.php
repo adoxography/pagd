@@ -1,76 +1,51 @@
-@extends('layout', ['title' => "{$form->formType->summary} ({$form->language->name})"])
+@extends('layout', ['title' => $gap->structure->summary])
+
+@section('title')
+	{{ $gap->structure->summary }} ({!! $gap->language->renderHTML() !!})
+@endsection
+
+@include('components.show-icons', ['model' => $gap, 'uri' => '/verbs/gaps/'])
 
 @section('content')
-
-<div class="heading">
-	<h1 class="title">Form Details</h1>
-</div>
-<br />
-
-@component('components.model', ['uri' => "/empty-forms/{$form->id}", 'model' => $form])
-	@slot('header')
-		{{ $form->formType->summary }} <span class="detail-title-language">(<a href="/languages/{{ $form->language_id }}">{{ $form->language->name }}</a>)</span>
-	@endslot
-
-	<model-tab name="Basic Details" selected = "true">
-		<div class="column is-half">
-			@component('components.model.field', ['width' => 'is-12'])
-				@slot('label')
+	<div class="columns">
+		<div class="column">
+			<div class="field">
+				<span class="label">
 					Description
 					<a class="icon">
 						<span class="icon is-small" title="?">
 							<i class="fa fa-question-circle-o"></i>
 						</span>
 					</a>
-				@endslot
-				<ul class="description-list">
-					<li>
-						{{ $form->formType->getArguments() }}
-					</li>
-					<li>
-						<a href="/classes/{{ $form->formType->class_id }}">{{ $form->formType->formClass->name }}</a>
-					</li>
-					<li>
-						<a href="/orders/{{ $form->formType->order_id }}">{{ $form->formType->order->name }}</a>
-					</li>
-					<li>
-						<a href="/modes/{{ $form->formType->mode_id }}">{{ $form->formType->mode->name }}</a>
-					</li>
-					@if($form->formType->hasModifiers())
-						<li>(
-							@if($form->formType->isNegative)
-								Negative
-							@endif									
-							@if($form->formType->isDiminutive)
-								Diminutive
-							@endif									
-							@if(isset($form->formType->isAbsolute))
-								@if($form->formType->isAbsolute)
-									Absolute
-								@else
-									Objective
-								@endif
-							@endif
-						)</li>
-					@endif
-				</ul>
-				</br />
-				<a href="/search/paradigm?languages[]={{ $form->language_id }}&classes[]={{ $form->formType->class_id }}&orders[]={{ $form->formType->order_id }}&affirmative={{ $form->formType->isNegative ? '0' : '1' }}&negative={{ $form->formType->isNegative or '0' }}&diminutive={{ $form->formType->isDiminutive or '0' }}&modeSelect=selectModes&modes[]={{ $form->formType->mode_id }}" style="text-decoration: underline;"><em>View Paradigm</em></a>
-			@endcomponent
+				</span>
+				{{ $gap->structure->summary }}
+				@if($gap->structure->hasModifiers())
+					({{ $gap->structure->isNegative ? 'Negative' : '' }} {{ $gap->structure->isDiminutive ? 'Diminutive' : '' }}			
+					{{ isset($gap->structure->isAbsolute) ? ($gap->structure->isAbsolute ? 'Absolute' : 'Objective') : '' }})
+				@endif
+				<br />
+				<em><a href="/verbs/search/paradigm/results?languages%5B%5D={{ $gap->language->name }}&languages%5B%5D_id={{ $gap->language_id }}&classes[]={{ $gap->structure->class_id }}&subclasses[]={{ $gap->structure->subclass }}&orders[]={{ $gap->structure->order_id }}&affirmative={{ $gap->structure->isNegative ? '0' : '1' }}&negative={{ $gap->structure->isNegative or '0' }}&diminutive={{ $gap->structure->isDiminutive or '0' }}&modeSelect=selectModes&modes[]={{ $gap->structure->mode_id }}">View paradigm</a>
+				</em>
+			</div>
 		</div>
+		<div class="column">
+			@if($gap->historicalNotes)
+				<div class="field">
+					<span class="label">Historical notes</span>
+					{!! replaceTags($gap->historicalNotes, $gap->language_id) !!}
+				</div>
+			@endif
 
-		<div class="column is-half">
-			@include('components.model.text', ['width' => 'is-12', 'label' => 'Historical Notes', 'text' => $form->historicalNotes, 'language_id' => $form->language_id])						
-			@if(Auth::user())
-				@include('components.model.text', ['width' => 'is-12', 'label' => 'Private Comments', 'text' => $form->comments, 'language_id' => $form->language_id])
+			@if($gap->privateNotes && Auth::user() && Auth::user()->permissions->canEdit)
+				<div class="field">
+					<span class="label">Private notes</span>
+					{!! replaceTags($gap->privateNotes, $gap->language_id) !!}
+				</div>
 			@endif
 		</div>
-
-		@component('components.model.field', ['width' => 'is-12', 'label' => 'Sources (hover over a source for the full citation)'])
-			@include('components.model.sourcelist', ['sources' => $form->sources])
-		@endcomponent
-
-	</model-tab>
-@endcomponent
-
-@stop
+	</div>
+	<div class="field">
+		<span class="label">Sources</span>
+		@include('components.model.sourcelist', ['sources' => $gap->sources])
+	</div>
+@endsection

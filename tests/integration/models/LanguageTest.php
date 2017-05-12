@@ -61,7 +61,7 @@ class LanguageTest extends TestCase
 	{
 		$language = factory(Language::class)->create();
 
-		factory(Form::class, 5)->create([
+		$forms = factory(Form::class, 5)->create([
 			'language_id' => $language->id
 		]);
 

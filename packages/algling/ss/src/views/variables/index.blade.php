@@ -1,15 +1,15 @@
 @extends('layout', ['title' => 'Variable Index'])
 
-@section('content')
-	<div class="heading">
-		<h1 class="title">List of Variables</h1>
-		@if(Auth::user() && Auth::user()->permissions->canEdit)
-			<h3 class="subtitle"><a href="/variables/create">Add another</a></h3>
-		@endif
-	</div>
-	<br />
+@section('title')
+	List of variables
+@endsection
 
-	<alg-tabs class="box content">
+@section('content')
+	@if(Auth::user() && Auth::user()->permissions->canEdit)
+		<h3 class="subtitle"><a href="/variables/create">Add another</a></h3>
+	@endif
+
+	<alg-tabs>
 		@foreach($types as $type)
 			<alg-tab name="{{ $type->name }}" {{ $loop->first ? 'selected="selected"' : '' }}>
 				<ul>

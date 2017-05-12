@@ -2,10 +2,11 @@
 
 namespace Algling\Words\Models;
 
+use App\HasChildrenTrait;
 use Laravel\Scout\Searchable;
+use Algling\Words\Models\Form;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Algling\Verbals\Models\Form; // FIX ME LATER
 
 /**
  * An example of a form
@@ -21,6 +22,7 @@ class Example extends Model
     use \App\BookmarkableTrait;
     use SoftDeletes;
     use \App\HideableTrait;
+    use HasChildrenTrait;
 
     /*
     |--------------------------------------------------------------------------
@@ -32,6 +34,8 @@ class Example extends Model
     */
     public $table = 'Word_Examples';
     protected $fillable = ['id', 'name','translation','form_id','publicNotes','privateNotes','morphemicForm'];
+    protected $appends = ['html'];
+    public $morphCode = 'examples';
 
     public function toSearchableArray()
     {
@@ -115,6 +119,11 @@ class Example extends Model
         }
     }
 
+    public function getHtmlAttribute()
+    {
+        return $this->renderHTML();
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Relations
@@ -162,7 +171,7 @@ class Example extends Model
 
     public function renderHTML()
     {
-        return "<a href='/examples/{$this->id}'>{$this->name}</a> ({$this->form->formType->summary})";
+        return "<a href='/examples/{$this->id}'>{$this->name}</a> (".$this->form->structure->renderSummary().")";
     }
 
     public function renderInNotes()

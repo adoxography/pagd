@@ -27,23 +27,25 @@ class FormRequest extends Request
     {
         $rules = [
             //Base form info
-            'surfaceForm'        => ['required_without:empty'],
-            'phoneticForm'       => ['nullable'],
-            'morphemicForm'      => ['nullable','has:V'],
+            'name'          => ['required_without:empty'],
+            'phoneticForm'  => ['nullable'],
+            'morphemicForm' => ['nullable','has:V'],
 
             //Language Info
-            'language'           => ['required'],
-            'language_id'        => ['required','integer','exists:Languages,id'],
-            'parent_id'          => ['nullable','exists:Forms,id']
+            'language'    => ['required'],
+            'language_id' => ['required','integer','exists:Languages,id'],
+            'parent_id'   => ['nullable','exists:Forms,id']
         ];
 
         switch($this->method()){
             case 'POST':
                 break;
             case 'PATCH':
-                    $form = $this->route('form');
+                if($this->route('verbForm')) {
+                    $form = $this->route('verbForm');
 
                     $rules['parent_id'][] = "nomatch:{$form->id}";
+                }
                 break;
             default:
                 break;
@@ -54,12 +56,12 @@ class FormRequest extends Request
 
     public function messages(){
         return [
-            'surfaceForm.required' => 'Please enter a surface form.',
-            'surfaceForm.required_without' => 'Please enter a surface form.',
-            'language.required' => 'Please enter a language.',
-            'language_id.required'   => 'There is no language by that name in the database.',
-            'morphemicForm.has'    => 'Please inclue a placeholder for the Vstem.',
-            'parent_id.nomatch'    => 'A form cannot be its own parent!'
+            'name.required'         => 'Please enter a surface form.',
+            'name.required_without' => 'Please enter a surface form.',
+            'language.required'     => 'Please enter a language.',
+            'language_id.required'  => 'There is no language by that name in the database.',
+            'morphemicForm.has'     => 'Please inclue a placeholder for the Vstem.',
+            'parent_id.nomatch'     => 'A form cannot be its own parent!'
         ];
     }
     

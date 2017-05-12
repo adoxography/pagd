@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use Algling\Morphemes\Models\Morpheme;
 use Illuminate\Support\ServiceProvider;
 use Algling\Morphemes\Commands\Transfer;
+use Algling\Morphemes\Models\InitialChange;
 use Algling\Morphemes\Models\Observers\GlossObserver;
 use Algling\Morphemes\Models\Observers\MorphemeObserver;
 
@@ -18,7 +19,7 @@ class MorphemeServiceProvider extends ServiceProvider
     protected $connections = [
         Morpheme::class => 'morpheme',
         Gloss::class => 'gloss',
-        Slot::class => 'slot',
+        Slot::class => 'slot'
     ];
 
     /**
@@ -81,7 +82,7 @@ class MorphemeServiceProvider extends ServiceProvider
 
     private function composeMorphemeForm()
     {
-        view()->composer(['morph::morphemes.create', 'morph::morphemes.edit'], function($view)
+        view()->composer('morph::morphemes.partials.form', function($view)
         {
             $data = [
                 'languages' => Language::select('id','name')->get(),

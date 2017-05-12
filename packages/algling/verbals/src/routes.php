@@ -1,35 +1,33 @@
 <?php
+Route::get('verbs/gaps/{verbGap}',        'GapController@show');
+Route::delete('verbs/gaps/{verbGap}',     'GapController@destroy');
+Route::patch('verbs/gaps/{verbGap}',      'GapController@update');
+Route::get('verbs/gaps/{verbGap}/edit',   'GapController@edit');
+Route::patch('verbs/gaps/{verbGap}/hide', 'GapController@hide');
+Route::post('verbs/gaps/{verbGap}/bookmark',      'GapController@bookmark');
+Route::delete('verbs/gaps/{verbGap}/bookmark',    'GapController@unbookmark');
 
-Route::resource('examples',                     'ExampleController');
-Route::patch('examples/{example}/disambiguate', 'ExampleController@disambiguate');
-Route::patch('examples/{example}/hide',         'ExampleController@hide');
-Route::post('examples/{example}/bookmark',      'ExampleController@bookmark');
-Route::delete('examples/{example}/bookmark',    'ExampleController@unbookmark');
+Route::get('verbs/forms',                           'FormController@index');
+Route::post('verbs/forms',                          'FormController@store');
+Route::get('verbs/forms/create',                    'FormController@create');
+Route::get('verbs/forms/{verbForm}',                'FormController@show');
+Route::patch('verbs/forms/{verbForm}',              'FormController@update');
+Route::delete('verbs/forms/{verbForm}',             'FormController@destroy');
+Route::get('verbs/forms/{verbForm}/edit',           'FormController@edit');
+Route::get('verbs/forms/{verbForm}/addExample',     'FormController@addExample');
+Route::patch('verbs/forms/{verbForm}/disambiguate', 'FormController@disambiguate');
+Route::patch('verbs/forms/{verbForm}/hide',         'FormController@hide');
+Route::post('verbs/forms/{verbForm}/bookmark',      'FormController@bookmark');
+Route::delete('verbs/forms/{verbForm}/bookmark',    'FormController@unbookmark');
 
-Route::get('empty-forms/{emptyform}',        'GapController@show');
-Route::delete('empty-forms/{emptyform}',     'GapController@destroy');
-Route::patch('empty-forms/{emptyform}',      'GapController@update');
-Route::get('empty-forms/{emptyform}/edit',   'GapController@edit');
-Route::patch('empty-forms/{emptyform}/hide', 'GapController@hide');
-Route::post('empty-forms/{emptyform}/bookmark',      'GapController@bookmark');
-Route::delete('empty-forms/{emptyform}/bookmark',    'GapController@unbookmark');
+Route::group(['as' => 'verbForms::'], function() {
+	Route::post('verbs/forms',  'FormController@store')->name('store');
+	Route::patch('verbs/forms/{verbForm}', 'FormController@update')->name('update');
+	Route::get('verbs/forms/{verbForm}/basic',    'FormShowController@basicDetails')->name('showBasic');
+	Route::get('verbs/forms/{verbForm}/cognates', 'FormShowController@cognates')->name('showCognates');
+});
 
-Route::resource('forms',                  'FormController');
-Route::get('forms/{form}/addExample',     'FormController@addExample');
-Route::patch('forms/{form}/disambiguate', 'FormController@disambiguate');
-Route::patch('forms/{form}/hide',         'FormController@hide');
-Route::post('forms/{form}/bookmark',      'FormController@bookmark');
-Route::delete('forms/{form}/bookmark',    'FormController@unbookmark');
-
-Route::get('verbs',             'FormController@index');
-Route::post('verbs',            'FormController@store');
-Route::get('verbs/create',      'FormController@create');
-Route::get('verbs/{form}',      'FormController@show');
-Route::patch('verbs/{form}',    'FormController@update');
-Route::delete('verbs/{form}',   'FormController@destroy');
-Route::get('verbs/{form}/edit', 'FormController@edit');
-Route::get('verbs/{form}/addExample',     'FormController@addExample');
-Route::patch('verbs/{form}/disambiguate', 'FormController@disambiguate');
-Route::patch('verbs/{form}/hide',         'FormController@hide');
-Route::post('verbs/{verb}/bookmark',      'FormController@bookmark');
-Route::delete('verbs/{verb}/bookmark',    'FormController@unbookmark');
+Route::get('verbs/search/paradigm',         'SearchController@paradigm');
+Route::get('verbs/search/paradigm/results', 'SearchController@paradigmResults');
+Route::get('verbs/search/form',             'SearchController@form');
+Route::get('verbs/search/form/results',      'SearchController@formResults');

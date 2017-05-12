@@ -3,7 +3,7 @@
 namespace Algling\Verbals\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Algling\Words\Models\Gap;
+use Algling\Verbals\Models\Gap;
 use Algling\Verbals\Http\Requests\FormRequest;
 use App\Http\Controllers\AlgModelController;
 
@@ -22,6 +22,7 @@ class GapController extends AlgModelController
                 'structure.primaryObject',
                 'structure.secondaryObject'
             ]);
+
             return view('verb::gaps.show', compact('gap'));
         } else {
             return view('errors.404');
@@ -30,7 +31,7 @@ class GapController extends AlgModelController
 
     public function edit(Gap $gap)
     {
-    	$gap->load([
+    	$form = $gap->load([
     		'language',
     		'structure',
     		'structure.mode',
@@ -41,7 +42,7 @@ class GapController extends AlgModelController
     		'structure.secondaryObject'
     	]);
 
-    	return view('verb::gaps.edit', compact('gap'));
+    	return view('verb::gaps.edit', compact('form'));
     }
 
     /**
@@ -56,7 +57,7 @@ class GapController extends AlgModelController
         $gap->update($request->all());
 
         flash("{$gap->structure->summary} updated successfully", 'is-success');
-        return $gap->id;
+        return redirect("/verbs/gaps/{$gap->id}");
     }
 
     public function destroy(Gap $gap)

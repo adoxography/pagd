@@ -1,19 +1,9 @@
-@extends('layout', ['title' => 'Add a language'])
+@extends('layout', ['title' => 'Add language'])
+
+@section('title')
+	Add language
+@endsection
 
 @section('content')
-
-	<div class="heading">
-		<h1 class="title">Add a Language</h1>
-	</div>
-	<br />
-
 	@include('languages.partials.form', ['method' => 'POST', 'action' => '/languages'])
-
-{{-- 	<alg-language-form method="POST"
-					   action="/languages"
-					   languages="{{ $parents }}"
-					   groups="{{ $groups }}"
-					   parent="{{ $presetParent or "" }}">
-	</alg-language-form> --}}
-
 @stop

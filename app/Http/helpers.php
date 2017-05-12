@@ -102,7 +102,7 @@ function replaceTags($text, $id = 0)
 
         if(is_numeric($tag{0})) { // Special case for hex codes
             $replacement = "#$tag";
-        } elseif ($tag{0} == '#') { // Escape sequence
+        } elseif ($tag{0} == ' ') {
             $replacement = '#';
         }
 

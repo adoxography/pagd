@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Source;
+
 trait SourceableTrait {
 
     public $isSourceable = true;
@@ -40,7 +42,7 @@ trait SourceableTrait {
 
     public function sources($includeExtraInfo = true)
     {
-    	$output = $this->morphToMany('App\Source', 'Sourceable');
+    	$output = $this->morphToMany(Source::class, 'Sourceable');
 
     	if($includeExtraInfo) {
     		$output->withPivot('extraInfo');

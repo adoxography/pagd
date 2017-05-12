@@ -1,0 +1,18 @@
+@extends('languages/show')
+
+@section('content')
+	<label class="label">
+		Rules
+		@component('components.model.add-icon', ['uri' => "/languages/{$language->id}/addRule"]) @endcomponent
+	</label>
+
+	@if(count($language->rules) > 0)
+		<ul>
+			@foreach($language->rules as $rule)
+				<li><a href="/rules/{{ $rule->id }}">{{ $rule->name }}</a></li>
+			@endforeach
+		</ul>
+	@else
+		None
+	@endif
+@endsection

@@ -27,21 +27,7 @@ class MorphemeController extends AlgModelController
      */
     public function show(Morpheme $morpheme)
     {
-        if($this->shouldShow($morpheme)) {
-            $morpheme->load([
-                'language',
-                'forms',
-                'glosses',
-                'parent',
-                'parent.language',
-                'examples'
-            ]);
-            $cognates = $morpheme->cognates();
-
-            return view('morph::morphemes.show', compact('morpheme', 'cognates'));
-        } else {
-            return view('errors.404');
-        }
+        return redirect("/morphemes/{$morpheme->id}/basic");
     }
 
     /**
@@ -94,7 +80,7 @@ class MorphemeController extends AlgModelController
         $morpheme = Morpheme::create($request->all());
 
         flash("{$morpheme->name} created successfully.", 'is-success');
-        return $morpheme->id;
+        return redirect("/morphemes/{$morpheme->id}");
     }
 
     /**
@@ -109,7 +95,7 @@ class MorphemeController extends AlgModelController
         $morpheme->update($request->all());
 
         flash("{$morpheme->name} updated successfully.", 'is-success');
-        return $morpheme->id;
+        return redirect("/morphemes/{$morpheme->id}");
     }
 
     /**

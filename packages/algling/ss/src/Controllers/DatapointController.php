@@ -31,7 +31,8 @@ class DatapointController extends Controller
 	{
 		$datapoint = Datapoint::create($request->all());
 
-		return $datapoint->id;
+		flash("{$datapoint->language->name}/{$datapoint->variable->name} updated successfully", 'is-success');
+		return redirect("/datapoints/{$datapoint->id}");
 	}
 
 	public function edit(Datapoint $datapoint)
@@ -45,14 +46,15 @@ class DatapointController extends Controller
 	{
 		$datapoint->update($request->all());
 
-		return $datapoint->id;
+		flash("{$datapoint->language->name}/{$datapoint->variable->name} updated successfully", 'is-success');
+		return redirect("/datapoints/{$datapoint->id}");
 	}
 
 	public function destroy(Datapoint $datapoint)
 	{
 		$datapoint->delete();
 
-		return redirect("/variabes/{{ $datapoint->variable_id }}");
+		return redirect("/variables/{{ $datapoint->variable_id }}");
 	}
 
 	public function addDatapointToLanguage(Language $language)

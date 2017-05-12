@@ -7,8 +7,8 @@
 					<h5 class="title is-5">Class</h5>
 					<p class="control" style="padding-top: 1.5rem;">
 						<span class="select">
-							<select :name="'classes['+index+']'" v-model="line.formClass">
-								<option v-for="formClass in classArray" :value="formClass.id">{{ formClass.name }}</option>
+							<select :name="'classes['+index+']'" v-model="line.verbClass">
+								<option v-for="verbClass in classes" :value="verbClass.id">{{ verbClass.name }}</option>
 							</select>
 						</span>
 					</p>
@@ -22,7 +22,7 @@
 								<label class="label argument-label">Subject</label>
 								<span class="select">
 									<select :name="'subjects['+index+']'" v-model="line.subject">
-										<option v-for="argument in argumentArray" :value="argument.id">{{ argument.name }}</option>
+										<option v-for="argument in args" :value="argument.id">{{ argument.name }}</option>
 									</select>
 								</span>
 							</p>								
@@ -31,7 +31,7 @@
 								<span class="select">
 									<select :name="'primaryObjects['+index+']'" v-model="line.primaryObject">
 										<option value="0">None</option>
-										<option v-for="argument in argumentArray" :value="argument.id">{{ argument.name }}</option>
+										<option v-for="argument in args" :value="argument.id">{{ argument.name }}</option>
 									</select>
 								</span>
 							</p>								
@@ -40,7 +40,7 @@
 								<span class="select">
 									<select :name="'secondaryObjects['+index+']'" v-model="line.secondaryObject">
 										<option value="0">None</option>
-										<option v-for="argument in argumentArray" :value="argument.id">{{ argument.name }}</option>
+										<option v-for="argument in args" :value="argument.id">{{ argument.name }}</option>
 									</select>
 								</span>
 							</p>
@@ -53,7 +53,7 @@
 					<p class="control" style="padding-top: 1.5rem;">
 						<span class="select">
 							<select :name="'orders['+index+']'" v-model="line.order">
-								<option v-for="order in orderArray" :value="order.id">{{ order.name }}</option>
+								<option v-for="order in orders" :value="order.id">{{ order.name }}</option>
 							</select>
 						</span>
 					</p>
@@ -64,7 +64,7 @@
 					<p class="control" style="padding-top: 1.5rem;">
 						<span class="select">
 							<select :name="'modes['+index+']'" v-model="line.mode">
-								<option v-for="mode in modeArray" :value="mode.id">{{ mode.name }}</option>
+								<option v-for="mode in modes" :value="mode.id">{{ mode.name }}</option>
 							</select>
 						</span>
 					</p>
@@ -91,14 +91,14 @@
 			</div>
 			<div class="level-right">
 				<div class="level-item">
-					<a class="button is-info" @click="addLine" :disabled="numLines >= 10" title="Add">
+					<a class="button is-primary" @click="addLine" :disabled="numLines >= 10" title="Add">
 						<span class="icon">
 							<i class="fa fa-plus"></i>
 						</span>
 					</a>
 				</div>
 				<div class="level-item">
-					<a class="button is-info" @click="removeLine" :disabled="numLines <= 1" title="Remove">
+					<a class="button is-primary" @click="removeLine" :disabled="numLines <= 1" title="Remove">
 						<span class="icon">
 							<i class="fa fa-minus"></i>
 						</span>
@@ -111,17 +111,12 @@
 
 <script>
 	export default {
-		props: ['arguments', 'classes', 'modes', 'orders'],
+		props: ['args', 'classes', 'modes', 'orders'],
 
 		data() {
 			return {
-				argumentArray: [],
-				classArray: [],
-				modeArray: [],
-				orderArray: [],
-
 				lines: [{
-					formClass: 1,
+					verbClass: 1,
 					subject: 1,
 					primaryObject: 0,
 					secondaryObject: 0,
@@ -137,13 +132,6 @@
 			numLines() {
 				return this.lines.length;
 			}
-		},
-
-		created() {
-			this.argumentArray = JSON.parse(this.arguments);
-			this.classArray    = JSON.parse(this.classes);
-			this.modeArray     = JSON.parse(this.modes);
-			this.orderArray    = JSON.parse(this.orders);
 		},
 
 		methods: {

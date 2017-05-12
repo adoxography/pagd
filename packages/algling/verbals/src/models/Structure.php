@@ -24,6 +24,7 @@ class Structure extends Model
         'isNegative',
         'isDiminutive'
     ];
+    protected $appends = ['summary'];
 
     public static function boot() {
         parent::boot();
@@ -252,6 +253,11 @@ class Structure extends Model
     public function hasModifiers()
     {
         return $this->isNegative || $this->isDiminutive || isset($this->isAbsolute);
+    }
+
+    public function renderSummary()
+    {
+        return $this->renderArguments()." {$this->formClass->name} {$this->order->name} {$this->mode->name}";
     }
 
     public function renderArguments()

@@ -13,18 +13,19 @@ class InitialChangeController extends Controller
     public function index()
     {
     	$languages = Language::all();
-    	$changes = InitialChange::select(['InitialChanges.*', 'Morphemes.*', 'Languages.*'])
-    							->join('Morphemes', 'Morphemes.id', '=', 'morpheme_id')
-    							->join('Languages', 'Languages.id', '=', 'Morphemes.language_id')
-    							->join('Groups', 'Groups.id', '=', 'Languages.group_id')
-    							->orderBy('Groups.position')
-    							->orderBy('Languages.position')
-    							->orderBy('InitialChanges.disambiguator')
-                                ->whereNull('Languages.hidden_at')
-    							->with(['morpheme' => function($query) {
-    								$query->whereNull('hidden_at')->with('language');
-    							}])->get();
-    	return view('initial-changes.index', compact('languages', 'changes'));
+    	$changes = InitialChange::select('Morph_InitialChanges.*')
+            ->join('Morph_Morphemes as Morphemes', 'Morphemes.id', '=', 'morpheme_id')
+    		->join('Languages', 'Languages.id', '=', 'Morphemes.language_id')
+    		->join('Groups', 'Groups.id', '=', 'Languages.group_id')
+    		->orderBy('Groups.position')
+    		->orderBy('Languages.position')
+    		->orderBy('Morph_InitialChanges.disambiguator')
+            ->whereNull('Languages.hidden_at')
+    		->with(['morpheme' => function($query) {
+    			$query->whereNull('hidden_at')->with('language');
+    		}])->get('Morph_InitialChanges.*');
+
+    	return view('morph::changes.index', compact('languages', 'changes'));
     }
 
     public function store(InitialChangeRequest $request)

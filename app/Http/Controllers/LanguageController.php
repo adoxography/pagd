@@ -46,50 +46,6 @@ class LanguageController extends AlgModelController
     public function show(Language $language)
     {
         return redirect("/languages/{$language->id}/basic");
-        if(Auth::user() || !$language->isHidden()) {
-            $language->load([
-                'group',
-                'parent',
-                'children' => function($query) {
-                    $query->select('Languages.*')
-                          ->join('Groups', 'Groups.id', '=', 'group_id')
-                          ->orderBy('Groups.position', 'asc')
-                          ->orderBy('Languages.position', 'asc');
-                },
-                'morphemes' => function ($query) {
-                    // Don't bother with the V placeholder morpheme
-                    $query->where('name', '<>', 'V')
-                          ->where('name', '<>', '*V')
-                          ->orderBy('name');
-                },
-                'morphemes.glosses',
-                'morphemes.slot',
-                'forms',
-                'emptyForms',
-                'emptyForms.formType',
-                'emptyForms.formType.subject',
-                'emptyForms.formType.primaryObject',
-                'emptyForms.formType.secondaryObject',
-                'emptyForms.formType.mode',
-                'emptyForms.formType.order',
-                'emptyForms.formType.formClass',
-                'examples',
-                'examples.form'
-            ]);
-
-            $sources = $language->sources();
-            $types = Type::with('variables')->get();
-
-            if(count($types) > 0) {
-                $types = $types->filter(function($value, $key) {
-                            return count($value->variables) > 0;
-                         });
-            }
-
-            return view('languages.show', compact('language', 'sources', 'types'));
-        } else {
-            return view('errors.404');
-        }
     }
 
     /**
@@ -153,7 +109,7 @@ class LanguageController extends AlgModelController
     {
         $language->delete();
 
-        flash("{$language->name} deleted successfully.", 'is-info');
+        flash("{$language->name} deleted successfully.", 'is-success');
         return redirect('/languages');
     }
 
@@ -177,7 +133,7 @@ class LanguageController extends AlgModelController
      */
     public function addExample(Language $language)
     {
-        return view('examples.create')->with('presetLanguage', $language);
+        return view('word::examples.create')->with('language', $language);
     }
 
     /**
@@ -188,7 +144,7 @@ class LanguageController extends AlgModelController
      */
     public function addForm(Language $language)
     {
-        return view('forms.create')->with('presetLanguage', $language);
+        return view('verb::forms.create')->with('language', $language);
     }
    
     /**
@@ -199,7 +155,7 @@ class LanguageController extends AlgModelController
      */
     public function addMorpheme(Language $language)
     {
-        return view('morphemes.create')->with('presetLanguage', $language);
+        return view('morph::morphemes.create')->with('language', $language);
     }   
 
     /**
@@ -210,7 +166,7 @@ class LanguageController extends AlgModelController
      */
     public function addRule(Language $language)
     {
-        return view('rules.create')->with('presetLanguage', $language);
+        return view('rules.create')->with('language', $language);
     }
 
     public function order()
@@ -245,80 +201,5 @@ class LanguageController extends AlgModelController
         }
 
         return 'success';
-    }
-
-    public function showSandbox(Language $language)
-    {
-        return $this->showBasicDetails($language);
-    }
-
-    public function showBasicDetails(Language $language)
-    {
-        $language->load(['group', 'parent']);
-
-        return view('languages.partials.basic', compact('language'));        
-    }
-
-    public function showChildren(Language $language)
-    {
-        $language->load('children');
-
-        return view('languages.partials.children', compact('language'));
-    }
-
-    public function showSurvey(Language $language)
-    {
-        $types = Type::with('variables')->get();
-
-        if(count($types) > 0) {
-            $types = $types->filter(function($value, $key) {
-                return count($value->variables) > 0;
-            });
-        }
-
-        return view('languages.partials.survey', compact('language', 'types'));
-    }
-
-    public function showForms(Language $language)
-    {
-        $language->load([
-            'gaps',
-            'gaps.structure',
-            'gaps.structure.mode',
-            'gaps.structure.verbClass',
-            'gaps.structure.order',
-            'gaps.structure.subject',
-            'gaps.structure.primaryObject',
-            'gaps.structure.secondaryObject',
-
-            'forms',
-            'forms.structure',
-            'forms.structure.mode',
-            'forms.structure.verbClass',
-            'forms.structure.order',
-            'forms.structure.subject',
-            'forms.structure.primaryObject',
-            'forms.structure.secondaryObject',
-            'forms.morphemes',
-            'forms.morphemes.slot',
-            'forms.morphemes.glosses',
-
-            'examples',
-            'examples.morphemes',
-            'examples.morphemes.glosses'
-        ]);
-
-        return view('languages.partials.forms', compact('language'));
-    }
-
-    public function showMorphemes(Language $language)
-    {
-        $language->load([
-            'morphemes',
-            'morphemes.slot',
-            'morphemes.glosses'
-        ]);
-
-        return view('languages.partials.morphemes', compact('language'));
     }
 }

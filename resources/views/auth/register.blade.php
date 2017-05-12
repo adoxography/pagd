@@ -1,16 +1,10 @@
 @extends('layout')
 
 @section('title')
-
-<p class="card-header-title">
     Register
-</p>
-
 @endsection
 
 @section('content')
-
-    <div class="card-content">
     @component('components.form', ['url' => url('/register')])
         <div class="columns is-multiline">
             <div class="column is-half">
@@ -55,5 +49,4 @@
         </div>
     @endcomponent
     @include('errors.list')
-    </div>
 @endsection

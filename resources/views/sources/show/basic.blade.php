@@ -8,7 +8,7 @@
 	@if($source->url)
 		<div class="field">
 			<span class="label">URL</span>
-			{{ $source->url }}
+			<a href="{{ $source->url }}">{{ $source->url }}</a>
 		</div>
 	@endif
 	@if($source->summary)

@@ -5,7 +5,7 @@ namespace Algling\Verbals\Http\Controllers;
 use App\Language;
 use Illuminate\Http\Request;
 use Algling\Verbals\Paradigm;
-use Algling\Words\Models\Gap;
+use Algling\Verbals\Models\Gap;
 use Algling\Verbals\Models\Form;
 use Algling\Verbals\Models\Mode;
 use Algling\Verbals\Models\Order;
@@ -299,7 +299,7 @@ class SearchController extends Controller
             'morphemes.slot'
         ]);
 
-        $emptyFormQuery = Gap::with([
+        $gapQuery = Gap::with([
             'language',
             'language.group',
             'structure',
@@ -312,12 +312,12 @@ class SearchController extends Controller
         ]);
 
         $this->order($formQuery);
-        $this->order($emptyFormQuery);
+        $this->order($gapQuery);
 
         $this->filter($formQuery);
-        $this->filter($emptyFormQuery);
+        $this->filter($gapQuery);
 
-        return $formQuery->get(['Word_Forms.*'])->merge($emptyFormQuery->get(['Word_Gaps.*']));
+        return $formQuery->get(['Word_Forms.*'])->merge($gapQuery->get(['Word_Gaps.*']));
     }
 
     protected function order(&$query)

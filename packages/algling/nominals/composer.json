@@ -1,0 +1,11 @@
+{
+    "name": "algling/nominals",
+    "description": "Nominals structures",
+    "authors": [
+        {
+            "name": "Graham Still",
+            "email": "gstill92@gmail.com"
+        }
+    ],
+    "require": {}
+}

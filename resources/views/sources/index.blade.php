@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-	@if(Auth::user() && Auth::user()->permisssions->canEdit)
+	@if(Auth::user() && Auth::user()->permissions->canEdit)
 		<h3 class="subtitle"><a href="/sources/create">Add another</a></h3>
 	@endif
 

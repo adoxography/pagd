@@ -22,7 +22,13 @@ Route::get('entire-paradigm', 'HomeController@entireParadigm');
 Route::get('changelog', 'HomeController@changelog');
 
 Route::get('sandbox', function() {
-    return view('sandbox');
+	$language = 23;
+
+	$query = \Algling\Words\Models\Example::whereHas('form', function($subquery) use ($language) {
+		$subquery->where('language_id', $language);
+	});
+
+	return $query->get();
 });
 Route::get('need-attention',        'HomeController@incompleteForms');
 Route::get('guide', 'HomeController@guide');

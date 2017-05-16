@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(seed_users::class);
         $this->call(seed_change_types::class);
         $this->call(WordSeeder::class);
+        $this->call(NominalSeeder::class);
     }
 }

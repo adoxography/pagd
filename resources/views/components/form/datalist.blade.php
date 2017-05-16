@@ -32,5 +32,9 @@
 		@if(isset($label))
 		data-vv-as="{{ $label }}"
 		@endif
+
+		@if(isset($autofocus))
+		:autofocus="{{ $autofocus }}"
+		@endif
 	></alg-datalist>
 @endsection

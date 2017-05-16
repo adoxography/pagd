@@ -77,7 +77,7 @@ class LanguageShowController extends Controller
 
     public function paradigms(Language $language)
     {
-        $language->paradigms = $language->getParadigms();
+        $language->loadParadigms();
 
         return view('languages.show.paradigms', compact('language'));
     }

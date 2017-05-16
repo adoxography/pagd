@@ -22,7 +22,8 @@ class MorphMapServiceProvider extends ServiceProvider
             'gaps'       => 'Algling\Words\Models\Gap',
             'datapoints' => 'Algling\SS\Models\Datapoint',
             'rules'      => 'App\Rule',
-            'verbStructures' => 'Algling\Verbals\Models\Structure'
+            'verbStructures' => 'Algling\Verbals\Models\Structure',
+            'nominalStructures' => 'Algling\Nominals\Models\Structure'
         ]);
     }
 }

@@ -11,7 +11,7 @@
 	Morphemes <span class="tag">{{ $language->morphemes()->count() }}</span>
 </a>
 <a href="/languages/{{ $language->id }}/paradigms" class="panel-block @if(Route::is('languages::showParadigms')) is-active @endif">
-	Paradigms <span class="tag">{{ isset($paradigms) ? count($paradigms) : count($language->getParadigms()) }}</span>
+	Paradigms <span class="tag">{{ $language->countParadigms() + $language->nominalParadigms()->count() }}</span>
 </a>
 <a href="/languages/{{ $language->id }}/phonemes" class="panel-block @if(Route::is('languages::showPhonemes')) is-active @endif">
 	Phonemes <span class="tag">{{ $language->phonemes_count or 0 }}</span>

@@ -10,6 +10,14 @@
 		</script>
 		
 		@yield('styles')
+
+		@if(App::environment() == 'local')
+			<style>
+				.hero-body #logo {
+					background-color: #00ff00;
+				}
+			</style>
+		@endif
 	</head>
 	<body>
 		@include('layout.header')

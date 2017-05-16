@@ -47,38 +47,41 @@ class MorphemeObserver {
 		return str_replace(['*', '-'], '', $output);
 	}
 
-	protected function queryForms($language, array $lookups)
+	protected function queryForms(int $language, array $lookups)
 	{
-		$firstTime = true;
-		$query = Form::where('language_id', $language);
+		$query = Form::where('language_id', $language)
+			->where(function($query) use ($lookups) {
+				$firstTime = true;
 
-		foreach($lookups as $lookup) {
-			if($firstTime) {
-				$firstTime = false;
-				$query->where('morphemicForm', 'LIKE', "%$lookup%");
-			} else {
-				$query->orWhere('morphemicForm', 'LIKE', "%$lookup%");
-			}
-		}
+				foreach($lookups as $lookup) {
+					if($firstTime) {
+						$firstTime = false;
+						$query->where('morphemicForm', 'LIKE', "%$lookup%");
+					} else {
+						$query->orWhere('morphemicForm', 'LIKE', "%$lookup%");
+					}
+				}
+			});
 
 		return $query->get();
 	}
 
-	protected function queryExamples($language, array $lookups)
+	protected function queryExamples(int $language, array $lookups)
 	{
-		$firstTime = true;
-		$query = Example::whereHas('form', function($subquery) use ($language) {
-			$subquery->where('language_id', $language);
-		});
+		$query = Example::whereHas('form', function($query) use ($language) {
+			$query->where('language_id', $language);
+		})->where(function($query) use ($lookups) {
+			foreach($lookups as $lookup) {
+				$firstTime = true;
 
-		foreach($lookups as $lookup) {
-			if($firstTime) {
-				$firstTime = false;
-				$query->where('morphemicForm', 'LIKE', "%$lookup%");
-			} else {
-				$query->orWhere('morphemicForm', 'LIKE', "%$lookup%");
+				if($firstTime) {
+					$firstTime = false;
+					$query->where('morphemicForm', 'LIKE', "%$lookup%");
+				} else {
+					$query->orWhere('morphemicForm', 'LIKE', "%$lookup%");
+				}
 			}
-		}
+		});
 
 		return $query->get();
 	}

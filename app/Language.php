@@ -9,7 +9,9 @@ use Algling\Words\Models\Example;
 use Algling\Verbals\Models\Structure;
 use Algling\Morphemes\Models\Morpheme;
 use Illuminate\Database\Eloquent\Model;
+use Algling\Verbals\Traits\HasVerbsTrait;
 use Illuminate\Database\Eloquent\Builder;
+use Algling\Nominals\Traits\HasNominalsTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -24,6 +26,14 @@ class Language extends Model
     use \App\BacksUpTrait;
     use \App\BookmarkableTrait;
     use \App\HideableTrait;
+    use HasVerbsTrait {
+        getParadigmsAttribute as getVerbParadigmsAttribute;
+        forms as verbForms;
+        gaps as verbGaps;
+        examples as verbExamples;
+    }
+
+    use HasNominalsTrait;
 
     /*
     |--------------------------------------------------------------------------
@@ -102,21 +112,6 @@ class Language extends Model
         return $this->belongsTo(Group::class);
     }
 
-    public function forms()
-    {
-        return $this->hasMany(Form::class, 'language_id');
-    }
-
-    public function gaps()
-    {
-        return $this->hasMany(Gap::class, 'language_id');
-    }
-
-    public function examples()
-    {
-        return $this->hasManyThrough(Example::class, Form::class);
-    }
-
     public function morphemes()
     {
         return $this->hasMany(Morpheme::class);
@@ -155,31 +150,6 @@ class Language extends Model
         }
         if($sources) {
             $output = $sources->sortBy('short');
-        }
-
-        return $output;
-    }
-
-    public function getParadigms()
-    {
-        $output = [];
-
-        $paradigms = Structure::select('class_id', 'order_id', 'mode_id')
-            ->join('Word_Forms as Forms', 'Forms.structure_id', 'Verb_Structures.id')
-            ->where('Forms.language_id', $this->id)
-            ->groupBy('class_id', 'order_id', 'mode_id')
-            ->with(['formClass', 'order', 'mode'])
-            ->orderBy('class_id')
-            ->orderby('order_id')
-            ->orderBy('mode_id')
-            ->get();
-
-        foreach($paradigms as $paradigm) {
-            $output["{$paradigm->order->name} {$paradigm->mode->name}:"][] = [
-                'order' => $paradigm->order,
-                'mode'  => $paradigm->mode,
-                'class' => $paradigm->formClass
-            ];
         }
 
         return $output;

@@ -19,6 +19,7 @@
 					   ref="textInput"
 					   autocomplete="off"
 					   :placeholder="placeholder"
+					   :autofocus="autofocus"
 					   :required="required" />
 			</p>
 			<p class="control">
@@ -54,7 +55,7 @@
 	import  { directive as onClickaway } from 'vue-clickaway';
 
 	export default {
-		props: ['list', 'name', 'id', 'disabled', 'required', 'value', 'placeholder', 'hasErrors', 'initial'],
+		props: ['list', 'name', 'id', 'disabled', 'required', 'value', 'placeholder', 'hasErrors', 'initial', 'autofocus'],
 
 		computed: {
 			hasValue() {

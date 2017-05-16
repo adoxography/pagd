@@ -341,6 +341,6 @@ class Structure extends Model
 
     public function forms()
     {
-        return $this->hasMany(Form::class, 'formType_id');
+        return $this->hasMany(Form::class, 'structure_id');
     }
 }

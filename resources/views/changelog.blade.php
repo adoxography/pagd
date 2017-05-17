@@ -7,6 +7,14 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			17-05-17: Made filter case-insensitive, and ignore parentheses in results
+			<ul>
+				<li>
+					"yani" will return results for both "(y)ani" and "yani," but "(y)ani" will only return "(y)ani"
+				</li>
+			</ul>
+		</li>
+		<li>
 			17-05-17: Moved children onto the basic details of the language page
 		</li>
 		<li>

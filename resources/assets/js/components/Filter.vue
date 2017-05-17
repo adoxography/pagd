@@ -3,12 +3,7 @@ class Filter {
 	constructor(name, value, operator) {
 		this.keys = name.split('.');
 		this.operator = operator;
-
-		if(typeof value === 'string') {
-			this.value = value.toLowerCase();
-		} else {
-			this.value = value;
-		}
+		this.setValue(value);
 	}
 
 	allows(item) {
@@ -22,7 +17,10 @@ class Filter {
 		} else if(this.value == 'null') {
 			return typeof itemValue == 'undefined';
 		} else if(this.operator == 'like') {
-			if(itemValue.toLowerCase().includes(this.value)) {
+			let val = itemValue.toLowerCase();
+
+			if(val.includes(this.value)
+				|| val.replace(/\(|\)/g, '').includes(this.value)) {
 				rc = true;
 			}
 		} else if(itemValue == this.value) {
@@ -33,7 +31,7 @@ class Filter {
 	}
 
 	update(newValue) {
-		this.value = newValue;
+		this.setValue(newValue);
 	}
 
 	getValue(item) {
@@ -51,6 +49,14 @@ class Filter {
 		}
 
 		return item;
+	}
+
+	setValue(newValue) {
+		if(typeof newValue === 'string') {
+			this.value = newValue.toLowerCase();
+		} else {
+			this.value = newValue;
+		}
 	}
 }
 

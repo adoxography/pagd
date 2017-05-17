@@ -122,7 +122,7 @@ class LanguageController extends AlgModelController
     public function addChild(Language $language)
     {
         $language->load('group');
-        return view('languages.create')->with('presetParent', $language);
+        return view('languages.create')->with('parent', $language);
     }
 
     /**

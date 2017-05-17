@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			17-05-17: Moved children onto the basic details of the language page
+		</li>
+		<li>
 			17-05-17: Changed "Structural survey" to "Datapoints" on language detail and displayed datapoint count
 		</li>
 		<hr>

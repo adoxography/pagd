@@ -10,16 +10,9 @@ class LanguageShowController extends Controller
 {
     public function basicDetails(Language $language)
     {
-        $language->load(['group', 'parent']);
+        $language->load(['group', 'parent', 'children']);
 
         return view('languages.show.basic', compact('language'));        
-    }
-
-    public function children(Language $language)
-    {
-        $language->load('children');
-
-        return view('languages.show.children', compact('language'));
     }
 
     public function survey(Language $language)

@@ -1,9 +1,6 @@
 <a href="/languages/{{ $language->id }}" class="panel-block @if(Route::is('languages::showBasic')) is-active @endif">
 	Basic details
 </a>
-<a href="/languages/{{ $language->id }}/children" class="panel-block @if(Route::is('languages::showChildren')) is-active @endif">
-	Children <span class="tag">{{ $language->children()->count() }}</span>
-</a>
 <a href="/languages/{{ $language->id }}/survey" class="panel-block @if(Route::is('languages::showSurvey')) is-active @endif">
 	Datapoints <span class="tag">{{ $language->datapoints()->count() }}</span>
 </a>

@@ -69,7 +69,6 @@ Route::group(['as' => 'languages::'], function() {
 	Route::patch('languages/{language}/hide',      'LanguageController@hide');
 
 	Route::get('languages/{language}/basic',     'LanguageShowController@basicDetails')->name('showBasic');
-	Route::get('languages/{language}/children',  'LanguageShowController@children')->name('showChildren');
 	Route::get('languages/{language}/survey',    'LanguageShowController@survey')->name('showSurvey');
 	Route::get('languages/{language}/forms',     'LanguageShowController@forms')->name('showForms');
 	Route::get('languages/{language}/morphemes', 'LanguageShowController@morphemes')->name('showMorphemes');

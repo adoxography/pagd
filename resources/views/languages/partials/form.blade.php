@@ -41,8 +41,8 @@
 					@slot('value')
 						@if(isset($language))
 							{{ $language->group->name }}
-						@elseif(isset($presetParent))
-							{{ $presetParent->group->name }}
+						@elseif(isset($parent))
+							{{ $parent->group->name }}
 						@else
 							Central
 						@endif
@@ -62,8 +62,8 @@
 							@if($language->parent)
 								{{ $language->parent->name }}
 							@endif
-						@elseif(isset($presetParent))
-							{{ $presetParent->name }}
+						@elseif(isset($parent))
+							{{ $parent->name }}
 						@else
 							Proto-Algonquian
 						@endif

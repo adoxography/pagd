@@ -15,13 +15,10 @@ require('./validation');
  * the application, or feel free to tweak this setup for your needs.
  */
 
-import VueMarkdown from 'vue-markdown'
-
 Vue.component('alg-datalist',       require('./components/DataList.vue'));
 Vue.component('alg-multi-datalist', require('./components/Multi-DataList.vue'));
 Vue.component('alg-tabs',           require('./components/Tabs.vue'));
 Vue.component('alg-tab',            require('./components/Tab.vue'));
-Vue.component('model-tab',          require('./components/Model-Tab.vue'));
 Vue.component('alg-message',        require('./components/Message.vue'));
 Vue.component('alg-radio-toggle',   require('./components/Radio-Toggle.vue'));
 Vue.component('alg-form-search',    require('./components/Form-Search.vue'));
@@ -29,14 +26,13 @@ Vue.component('alg-ajaxlist',       require('./components/AJAX-List.vue'));
 Vue.component('alg-new-source',     require('./components/New-Source.vue'));
 Vue.component('alg-old-source',     require('./components/Old-Source.vue'));
 Vue.component('alg-sources',        require('./components/Sources.vue'));
-Vue.component('autosize-textarea',  require('./components/Autosize-Textarea.vue'));
 Vue.component('alg-paginated-list', require('./components/Paginated-List.vue'));
 Vue.component('alg-filter-list',    require('./components/Filter-List.vue'));
 Vue.component('alg-notification',   require('./components/Notification.vue'));
 Vue.component('alg-morpheme-alert', require('./components/Morpheme-Alert.vue'));
 Vue.component('alg-initial-changes', require('./components/Initial-Changes.vue'));
 Vue.component('alg-bookmark',        require('./components/Bookmark.vue'));
-Vue.component('alg-modal', require('./components/Modal.vue'));
+Vue.component('alg-modal',           require('./components/Modal.vue'));
 
 Vue.component('alg-language-form',  require('./components/forms/Language.vue'));
 Vue.component('alg-form-form',      require('./components/forms/Form.vue'));
@@ -49,7 +45,6 @@ Vue.component('alg-datapoint-form', require('./components/forms/Datapoint.vue'))
 Vue.component('alg-generic-form',   require('./components/forms/Generic.vue'));
 
 Vue.component('alg-order', require('./components/Order.vue'));
-Vue.component('alg-flag', require('./components/Flag.vue'));
 Vue.component('alg-textarea', require('./components/Textarea.vue'));
 Vue.component('alg-tag-input', require('./components/Tag-Input.vue'));
 Vue.component('alg-value-input', require('./components/Value-Input.vue'));
@@ -63,10 +58,6 @@ Vue.component('alg-hidden-icon', require('./components/Hidden-Icon.vue'));
 Vue.component('alg-source-index', require('./components/Source-Index.vue'));
 Vue.component('alg-pagination-limited', require('./components/Pagination-Limited.vue'));
 Vue.component('alg-pagination-full', require('./components/Pagination-Full.vue'));
-
-Vue.component('alg-language-model', require('./components/Language-Model.vue'));
-Vue.component('alg-language-tab', require('./components/Language-Tab.vue'));
-Vue.component('alg-language-subtab', require('./components/Language-Subtab.vue'));
 
 Vue.component('alg-filter', require('./components/Filter.vue'));
 
@@ -111,9 +102,6 @@ Vue.component('paradigm-mode-select', {
 window.Event = new Vue();
 
 const app = new Vue({
-    components: {
-    	VueMarkdown
-    },
     el: '#root',
 
     data() {

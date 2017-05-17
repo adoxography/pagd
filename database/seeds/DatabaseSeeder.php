@@ -13,7 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(seed_groups::class);
         $this->call(seed_classes::class);
-        $this->call(seed_arguments::class);
         $this->call(seed_orders::class);
         $this->call(seed_modes::class);
         $this->call(seed_glosses::class);
@@ -22,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(seed_morphemes::class);
         $this->call(seed_users::class);
         $this->call(seed_change_types::class);
+        $this->call(WordSeeder::class);
     }
 }

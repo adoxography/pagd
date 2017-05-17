@@ -35,7 +35,7 @@ class Example extends Model
     public $table = 'Word_Examples';
     protected $fillable = ['id', 'name','translation','form_id','publicNotes','privateNotes','morphemicForm'];
     protected $appends = ['html'];
-    public $morphCode = 'examples';
+    public $uri = '/examples';
 
     public function toSearchableArray()
     {

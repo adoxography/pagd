@@ -11,6 +11,8 @@ class Form extends WordForm
 {
 	use HasStructureTrait;
 
+	public $uri = '/verbs/forms';
+
     public static function boot()
     {
     	parent::boot();

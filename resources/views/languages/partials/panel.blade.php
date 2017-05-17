@@ -5,7 +5,7 @@
 	Children <span class="tag">{{ $language->children()->count() }}</span>
 </a>
 <a href="/languages/{{ $language->id }}/survey" class="panel-block @if(Route::is('languages::showSurvey')) is-active @endif">
-	Structural survey
+	Datapoints <span class="tag">{{ $language->datapoints()->count() }}</span>
 </a>
 <a href="/languages/{{ $language->id }}/forms" class="panel-block @if(Route::is('languages::showForms')) is-active @endif">
 	Forms <span class="tag">{{ $language->forms()->count() + $language->gaps()->count() + $language->examples()->count() }}</span>

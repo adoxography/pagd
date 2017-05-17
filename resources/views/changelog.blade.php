@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			17-05-17: Changed "Structural survey" to "Datapoints" on language detail and displayed datapoint count
+		</li>
+		<hr>
+		<li>
 			11-05-17: Removed the spacing in front of the colon on sources
 		</li>
 		<li>

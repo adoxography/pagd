@@ -32,7 +32,6 @@ class MorphemeServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/resources/views', 'morph');
         $this->loadMigrationsFrom(__DIR__.'/migrations');
 
-        $this->bootObservers();
         $this->bootCommands();
         $this->bootRouteModelBindings();
         $this->composeViews();
@@ -51,12 +50,6 @@ class MorphemeServiceProvider extends ServiceProvider
         ], function ($router) {
             require __DIR__.'/routes.php';
         });
-    }
-
-    protected function bootObservers()
-    {
-        Gloss::observe(GlossObserver::class);
-        Morpheme::observe(MorphemeObserver::class);
     }
 
     protected function bootCommands()

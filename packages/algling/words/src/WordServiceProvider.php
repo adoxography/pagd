@@ -26,7 +26,6 @@ class WordServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/migrations');
         $this->loadViewsFrom(__DIR__.'/resources/views', 'word');
-        $this->bootObservers();
         $this->bootRouteModelBindings();
         $this->composeViews();
     }
@@ -44,11 +43,6 @@ class WordServiceProvider extends ServiceProvider
         ], function ($router) {
             require __DIR__.'/routes.php';
         });
-    }
-
-    protected function bootObservers()
-    {
-        Form::observe(FormObserver::class);
     }
 
     protected function bootRouteModelBindings()

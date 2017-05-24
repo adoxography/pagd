@@ -55,6 +55,11 @@ trait HasChildrenTrait {
     |--------------------------------------------------------------------------
     */
 
+    public function getCognatesAttribute()
+    {
+        return $this->cognates();
+    }
+
     /**
      * Fetches a complete list of this model's cognates
      *

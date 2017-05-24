@@ -4,30 +4,32 @@ namespace Algling\Verbals\Traits;
 
 use Algling\Verbals\Models\Gap;
 use Algling\Verbals\Models\Form;
-use Algling\Words\Models\Example;
+use Algling\Verbals\Models\Example;
 use Algling\Verbals\Models\Structure;
+use Algling\Words\Traits\HasWordsTrait;
 
 trait HasVerbsTrait {
+	use HasWordsTrait;
 
 	protected $verbParadigms;
 	protected $verbParadigmsLoaded = false;
 
-	public function forms()
+	public function verbForms()
 	{
 		return $this->hasMany(Form::class);
 	}
 
-	public function gaps()
+	public function verbGaps()
 	{
 		return $this->hasMany(Gap::class);
 	}
 
-    public function examples()
-    {
-        return $this->hasManyThrough(Example::class, Form::class);
-    }
+	public function verbExamples()
+	{
+		return $this->examples()->ofType('verbStructures');
+	}
 
-    protected function queryParadigms()
+    protected function queryVerbParadigms()
     {
     	$language = $this->id;
 
@@ -37,12 +39,12 @@ trait HasVerbsTrait {
     		})->groupBy('class_id', 'order_id', 'mode_id');
     }
 
-    public function loadParadigms()
+    public function loadVerbParadigms()
     {
         $output = [];
         $this->verbParadigmsLoaded = true;
 
-        $paradigms = $this->queryParadigms()->get();
+        $paradigms = $this->queryVerbParadigms()->get();
 
         foreach($paradigms as $paradigm) {
             $output["{$paradigm->order->name} {$paradigm->mode->name}:"][] = [
@@ -55,19 +57,19 @@ trait HasVerbsTrait {
         $this->verbParadigms = $output;	
     }
 
-    public function countParadigms()
+    public function countVerbParadigms()
     {
 		if(!$this->verbParadigmsLoaded) {
-			$this->loadParadigms();
+			$this->loadVerbParadigms();
 		}
 
     	return count($this->verbParadigms);
     }
 
-	public function getParadigmsAttribute()
+	public function getVerbParadigmsAttribute()
 	{
 		if(!$this->verbParadigmsLoaded) {
-			$this->loadParadigms();
+			$this->loadVerbParadigms();
 		}
 
 		return $this->verbParadigms;

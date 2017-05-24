@@ -280,7 +280,7 @@
 				@component('components.form.ajaxlist', [
 					'name' => 'parent',
 					'uri' => '/autocomplete/formParents',
-					'with' => 'language.id',
+					'with' => '{ language: language.id, type: "verb" }',
 					'disabled' => '!language.id || empty',
 					'placeholder' => 'Make sure to select the language first',
 					'rules' => 'datalist_exists',

@@ -90,7 +90,7 @@
 				@component('components.form.ajaxlist', [
 					'name' => 'parent',
 					'uri' => '/autocomplete/morphemeParents',
-					'with' => 'language.id',
+					'with' => '{ language: language.id }',
 					'disabled' => '!language.id',
 					'placeholder' => 'Make sure to select the language first',
 					'rules' => 'datalist_exists',

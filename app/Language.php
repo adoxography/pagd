@@ -8,6 +8,7 @@ use Algling\Verbals\Models\Form;
 use Algling\Words\Models\Example;
 use Algling\Verbals\Models\Structure;
 use Algling\Morphemes\Models\Morpheme;
+use Algling\Words\Traits\HasWordsTrait;
 use Illuminate\Database\Eloquent\Model;
 use Algling\Verbals\Traits\HasVerbsTrait;
 use Illuminate\Database\Eloquent\Builder;
@@ -26,14 +27,11 @@ class Language extends Model
     use \App\BacksUpTrait;
     use \App\BookmarkableTrait;
     use \App\HideableTrait;
-    use HasVerbsTrait {
-        getParadigmsAttribute as getVerbParadigmsAttribute;
-        forms as verbForms;
-        gaps as verbGaps;
-        examples as verbExamples;
+    use HasVerbsTrait, HasNominalsTrait {
+        HasVerbsTrait::forms    insteadof HasNominalsTrait;
+        HasVerbsTrait::examples insteadof HasNominalsTrait;
+        HasVerbsTrait::gaps     insteadof HasNominalsTrait;
     }
-
-    use HasNominalsTrait;
 
     /*
     |--------------------------------------------------------------------------
@@ -66,6 +64,8 @@ class Language extends Model
 
         return array_only($array, ['id', 'alternateNames', 'name', 'iso', 'algoCode', 'notes']);
     }
+
+    public $uri = '/languages';
 
     /*
     |--------------------------------------------------------------------------

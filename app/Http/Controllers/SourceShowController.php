@@ -15,12 +15,14 @@ class SourceShowController extends Controller
     public function forms(Source $source)
     {
     	$source->load([
-    		'forms',
-    		'forms.structure',
     		'examples',
     		'gaps',
     		'gaps.structure'
     	]);
+
+        $source->loadVerbForms(['structure', 'structure.subject', 'structure.primaryObject', 'structure.secondaryObject', 'structure.mode', 'structure.verbClass', 'structure.order']);
+
+        $source->loadNominalForms(['structure', 'structure.mode', 'structure.pronominalFeature', 'structure.nominalFeature', 'structure.paradigm']);
 
     	return view('sources.show.forms', compact('source'));
     }

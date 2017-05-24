@@ -36,6 +36,7 @@ class Example extends Model
     protected $fillable = ['id', 'name','translation','form_id','publicNotes','privateNotes','morphemicForm'];
     protected $appends = ['html'];
     public $uri = '/examples';
+    protected $morphCode = 'examples';
 
     public function toSearchableArray()
     {
@@ -177,5 +178,12 @@ class Example extends Model
     public function renderInNotes()
     {
         return "<blockquote><a href='/examples/{$this->id}'>{$this->name}</a>".$this->printMorphemes()."'{$this->translation}'</blockquote>";
+    }
+
+    public function scopeOfType($query, string $type)
+    {
+        $query->whereHas('form', function($query) use ($type) {
+            $query->where('structure_type', $type);
+        });
     }
 }

@@ -6,13 +6,18 @@ use App\Rule;
 use Algling\Words\Models\Gap;
 use Laravel\Scout\Searchable;
 use Algling\Words\Models\Form;
+use Algling\Verbals\Models\Form as VerbForm;
+use Algling\Words\FormRepository;
 use Algling\Words\Models\Example;
 use Algling\Morphemes\Models\Morpheme;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Algling\Nominals\Models\Form as NominalForm;
+use Algling\Verbals\VerbFormRepositoryInterface;
+use Algling\Nominals\NominalFormRepositoryInterface;
 
-class Source extends Model
+class Source extends Model implements VerbFormRepositoryInterface, NominalFormRepositoryInterface
 {
     use Searchable;
     use \App\BookmarkableTrait;
@@ -24,6 +29,17 @@ class Source extends Model
     protected $appends = ['display'];
     protected $disambiguatableFields = ['author', 'year'];
     protected $shouldAlwaysAssignDisambiguator = false;
+
+    protected $verbFormRepo;
+    protected $nominalFormRepo;
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->verbFormRepo    = new FormRepository(VerbForm::class);
+        $this->nominalFormRepo = new FormRepository(NominalForm::class);
+    }
 
     public static function boot() {
         parent::boot();
@@ -48,6 +64,47 @@ class Source extends Model
         }
     }
 
+    public function prepareFormRepoOptions()
+    {
+        return [
+            'id' => $this->id,
+            'pivotTable'   => 'Sourceables',
+            'morphIDKey'   => 'sourceable_id',
+            'morphTypeKey' => 'sourceable_type',
+            'foreignKey'   => 'source_id'
+        ];
+    }
+
+    public function getVerbFormsAttribute()
+    {
+        return $this->verbFormRepo->get($this->prepareFormRepoOptions());
+    }
+
+    public function getNominalFormsAttribute()
+    {
+        return $this->nominalFormRepo->get($this->prepareFormRepoOptions());
+    }
+
+    public function loadVerbForms($with = [])
+    {
+        $this->verbFormRepo->load($this->prepareFormRepoOptions(), $with);
+    }
+
+    public function loadNominalForms($with = [])
+    {
+        $this->nominalFormRepo->load($this->prepareFormRepoOptions(), $with);
+    }
+
+    public function verbForms()
+    {
+        return $this->verbFormRepo->query($this->prepareFormRepoOptions());
+    }
+
+    public function nominalForms()
+    {
+        return $this->nominalFormRepo->query($this->prepareFormRepoOptions());
+    }
+
     public function forms()
     {
     	return $this->morphedByMany(Form::class, 'Sourceable')->withPivot('extraInfo');
@@ -61,6 +118,16 @@ class Source extends Model
     public function examples()
     {
     	return $this->morphedByMany(Example::class, 'Sourceable')->withPivot('extraInfo');
+    }
+
+    public function verbExamples()
+    {
+        return $this->examples()->ofType('verbStructures');
+    }
+
+    public function nominalExamples()
+    {
+        return $this->examples()->ofType('nominalStructures');
     }
 
     public function rules()

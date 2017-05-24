@@ -2,41 +2,18 @@
 
 define("NOT_FOUND", -1);
 
-function removeOldGlosses() {
-    $glosses = App\Gloss::all();
+function initializeNominals() {
+    \Algling\Morphemes\Models\Gloss::create(['abv' => 'N', 'name' => 'noun stem']);
 
-    foreach($glosses as $gloss) {
-        if(strpos($gloss, '.') !== false) {
-            $gloss->delete();
+    $languages = \App\Language::withTrashed()->orderBy('parent_id')->get();
+
+    foreach($languages as $language) {
+        $language->createNStem();
+
+        if($language->nominalParadigms()->count() == 0) {
+            $language->createInitialParadigms();
         }
     }
-}
-
-function convertMorphemeGlosses() {
-    $morphemes = App\Morpheme::all();
-
-    foreach($morphemes as $morpheme) {
-
-        if(!isset($morpheme->gloss) || strlen($morpheme->gloss) == 0) {
-            if(isset($morpheme->translation)) {
-                $translation = $morpheme->translation;
-                $morpheme->gloss = "\"$translation\"";
-            } else if(isset($morpheme->gloss_id)) {
-                $gloss = $morpheme->oldGloss->abv;
-
-                if($gloss != 'V' && $gloss != 'X') {
-                    $gloss = strtolower($gloss);
-                }
-
-                $morpheme->gloss = $gloss;
-            }
-
-            $morpheme->save();
-        }
-
-    }
-
-    return "Operation complete";
 }
 
 function assessAllForms()
@@ -178,28 +155,6 @@ function binarySearch($item, $list)
     return $spot;
 }//binarySearch
 
-function getOptions($collection, $field = 'name')
-{
-    $options = array();
-
-    foreach ($collection as $item) {
-        $options[] = ['value' => $item->$field];
-    }
-
-    return $options;
-}
-
-function organizeForDropdown($collection)
-{
-    $output = [];
-
-    foreach ($collection as $item) {
-        $output += [$item->id => $item->name];
-    }
-
-    return $output;
-}
-
 function flash($message, $level = 'info')
 {
     session()->flash('flashMessage', $message);
@@ -225,51 +180,6 @@ function intcmp($n1, $n2)
         }
     }
     return $output;
-}
-
-function linearSearch($item, $list)
-{
-    $pos = NOT_FOUND;
-    for ($i=0; $i<count($list) && $pos === NOT_FOUND; $i++) {
-        // if (isset($list[$i]) && $list[$i]->compareTo($item) == 0) {
-        //     $pos = $i;
-        // }
-        if (isset($list[$i]) && $list[$i] === $item) {
-            $pos = $i;
-        }
-    }//for
-    return $pos;
-}//findInList
-
-function ordInsert($item, &$list)
-{
-    $spotFound = false;
-    $index = count($list);
-        
-    while ($index > 0 && !$spotFound) {
-        if ($list[$index-1]->compareTo($item) <= 0) {
-            $spotFound = true;
-        } else {
-            $list[$index] = $list[$index-1];
-            $index--;
-        }//else
-    }//while
-
-    $list[$index] = $item;
-        
-    return $index;
-}//ordInsert
-
-function printOptions($items, $preset = null, $presetField = null, $display = 'name')
-{
-    foreach ($items as $item) {
-        if (old($presetField) === $item->id || (isset($preset[$presetField]) && $preset[$presetField] === $item->id)) {
-            echo "<option value = '" . $item->id . "' selected = 'selected'>" . $item->getAttribute($display) . '</option>';
-        }//if
-        else {
-            echo "<option value = '" . $item->id . "'>" . $item->getAttribute($display) . '</option>';
-        }
-    }
 }
 
 function validDatabaseInput($val)

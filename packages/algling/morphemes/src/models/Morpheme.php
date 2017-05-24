@@ -6,12 +6,14 @@ use App\Language;
 use App\ChangeType;
 use Laravel\Scout\Searchable;
 use Algling\Words\Models\Form;
+use Algling\Nominals\Models\Form as NominalForm;
 use Algling\Words\Models\Example;
 use Algling\Morphemes\Models\Slot;
 use Algling\Morphemes\Models\Gloss;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Algling\Morphemes\Models\InitialChange;
+use Algling\Verbals\Models\Form as VerbForm;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Morpheme extends Model
@@ -63,6 +65,9 @@ class Morpheme extends Model
     }
 
     protected $disambiguatableFields = ['name', 'language_id'];
+
+    protected $verbFormRepository = null;
+    protected $nominalFormRepository = null;
 
     /*
     |--------------------------------------------------------------------------
@@ -209,13 +214,77 @@ class Morpheme extends Model
         return $this->morphedByMany(Form::class, 'morphemeable', 'Morph_Morphemeables')->distinct();
     }
 
-    public function nominalForms()
+    public function getVerbFormsAttribute()
     {
+        if($this->verbFormRepository === null) {
+            $this->verbFormRepository = $this->verbForms()->get();
+        }
+
+        return $this->verbFormRepository;
+    }
+
+    public function loadVerbForms($with = [])
+    {
+        $this->verbFormRepository = $this->verbForms($with)->get();
+    }
+
+    public function loadNominalForms($with = [])
+    {
+        $this->nominalFormRepository = $this->nominalForms($with)->get();
+    }
+
+    public function getNominalFormsAttribute()
+    {
+        if($this->nominalFormRepository === null) {
+            $this->nominalFormRepository = $this->nominalForms()->get();
+        }
+        
+        return $this->nominalFormRepository;
+    }
+
+    public function verbForms($with = [])
+    {
+        $query = VerbForm::select('Word_Forms.*')
+            ->join('Morph_Morphemeables', function($join) {
+                $join->on('Word_Forms.id', '=', 'morphemeable_id')
+                    ->where('morphemeable_type', 'forms');
+            })->where('morpheme_id', $this->id);
+
+        foreach($with as $eagerLoad) {
+            $query->with($eagerLoad);
+        }
+
+        return $query;
+    }
+
+    public function nominalForms($with = [])
+    {
+        $query = NominalForm::select('Word_Forms.*')
+            ->join('Morph_Morphemeables', function($join) {
+                $join->on('Word_Forms.id', '=', 'morphemeable_id')
+                    ->where('morphemeable_type', 'forms');
+            })->where('morpheme_id', $this->id);
+
+        foreach($with as $eagerLoad) {
+            $query->with($eagerLoad);
+        }
+
+        return $query;
     }
 
     public function examples()
     {
         return $this->morphedByMany(Example::class, 'morphemeable', 'Morph_Morphemeables')->distinct();
+    }
+
+    public function verbExamples()
+    {
+        return $this->examples()->ofType('verbStructures');
+    }
+
+    public function nominalExamples()
+    {
+        return $this->examples()->ofType('nominalStructures');
     }
     
     public function glosses()
@@ -317,9 +386,6 @@ class Morpheme extends Model
 
             if($gloss) {
                 $this->glosses()->attach($gloss);
-                if($this->name == 'morph') {
-                    dd($this->gloss);
-                }
             }
         }
     }

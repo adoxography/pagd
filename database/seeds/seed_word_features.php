@@ -37,7 +37,12 @@ class seed_word_features extends Seeder
     		['id' => 21, 'name' => '0\'d',  'person' => '0',  'obviativeCode' => 1,    'number' => 2],
     		['id' => 22, 'name' => '0\'p',  'person' => '0',  'obviativeCode' => 1,    'number' => 3],
     		['id' => 23, 'name' => '0\'\'', 'person' => '0',  'obviativeCode' => 2,    'number' => null],
-    		['id' => 24, 'name' => 'LOC',   'person' => null, 'obviativeCode' => null, 'number' => null]
+    		['id' => 24, 'name' => '3\'s',  'person' => '3',  'obviativeCode' => 1,    'number' => 1],
+    		['id' => 25, 'name' => '3\'d',  'person' => '3',  'obviativeCode' => 1,    'number' => 2],
+    		['id' => 26, 'name' => '3\'p',  'person' => '3',  'obviativeCode' => 1,    'number' => 3],
+    		['id' => 27, 'name' => '3\'\'s', 'person' => '3', 'obviativeCode' => 2,    'number' => 1],
+    		['id' => 28, 'name' => '3\'\'p', 'person' => '3', 'obviativeCode' => 2,    'number' => 3],
+    		['id' => 29, 'name' => 'LOC',   'person' => null, 'obviativeCode' => null, 'number' => null]
         ];
         
         DB::table('Word_Features')->insert($features);

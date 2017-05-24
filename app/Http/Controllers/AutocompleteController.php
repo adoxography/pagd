@@ -7,8 +7,9 @@ use App\Source;
 use App\Language;
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use Algling\Verbals\Models\Form;
 use Algling\Morphemes\Models\Morpheme;
+use Algling\Verbals\Models\Form as VerbForm;
+use Algling\Nominals\Models\Form as NominalForm;
 
 class AutocompleteController extends Controller
 {
@@ -22,23 +23,46 @@ class AutocompleteController extends Controller
     {
         // Unpack parameters
         $term     = $request->term;
-        $language = $request->language;
+        $options  = json_decode($request->options, true);
+        $language = $options['language'];
+        $type     = isset($options['type']) ? $options['type'] : 'all';
 
-        $results = Form::select('id', 'name', 'language_id', 'morphemicForm as extra', 'structure_id')
-                       ->with('language')
-                       ->with('structure')
-                       ->with('structure.subject')
-                       ->with('structure.primaryObject')
-                       ->with('structure.secondaryObject')
-                       ->where('name', 'LIKE', "%$term%")
-                       ->where('language_id', $language)
-                       ->get();
+        if($type == 'verb') {
+            $results = $this->queryVerbForms($term, $language);
+        } elseif($type == 'nominal') {
+            $results = $this->queryNominalForms($term, $language);           
+        } else {
+            $results = $this->queryVerbForms($term, $language)->merge($this->queryNominalForms($term, $language));
+        }
 
         foreach ($results as $result) {
             $result->name = str_replace('*', '', $result->uniqueName);
         }
 
         return $results->toJson();
+    }
+
+    protected function queryVerbForms($term, $language)
+    {
+        return VerbForm::select('id', 'name', 'language_id', 'morphemicForm as extra', 'structure_id', 'structure_type')
+            ->with('language')
+            ->with('structure')
+            ->with('structure.subject')
+            ->with('structure.primaryObject')
+            ->with('structure.secondaryObject')
+            ->where('name', 'LIKE', "%$term%")
+            ->where('language_id', $language)
+            ->get();
+    }
+
+    protected function queryNominalForms($term, $language)
+    {
+        return NominalForm::select('id', 'name', 'language_id', 'morphemicForm as extra', 'structure_id', 'structure_type')
+            ->with('language')
+            ->with('structure')
+            ->where('name', 'LIKE', "%$term%")
+            ->where('language_id', $language)
+            ->get();
     }
 
     /**
@@ -50,7 +74,8 @@ class AutocompleteController extends Controller
     public function morphemes(Request $request)
     {
         $term = $request->term;
-        $language = $request->language;
+        $options  = json_decode($request->options, true);
+        $language = $options['language'];
 
         $results = Morpheme::select('name', 'id', 'gloss', 'language_id')
                            ->where('name', 'LIKE', "%$term%")
@@ -95,12 +120,16 @@ class AutocompleteController extends Controller
     {
         // Unpack parameters
         $term        = $request->term;
-        $language_id = $request->language;
+        $options     = json_decode($request->options, true);
+        $language_id = $options['language'];
+        $type        = $options['type'];
+
+        $type .= 'Forms';
 
         $language = Language::with('parent')
                             ->find($language_id);
 
-        $results = $this->findParents($language, $term, 'forms', 'name');
+        $results = $this->findParents($language, $term, $type, 'name');
 
         return json_encode($results);
     }
@@ -115,7 +144,7 @@ class AutocompleteController extends Controller
     {
         // Unpack parameters
         $term        = $request->term;
-        $language_id = $request->language;
+        $language_id = $request->options->langage;
 
         $language = Language::with('parent')
                             ->find($language_id);

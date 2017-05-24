@@ -7,6 +7,14 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			24-05-17: Added nominals
+			<ul>
+				<li>Nominal forms have their own entry form</li>
+				<li>Nominal examples are entered using the existing example form</li>
+			</ul>
+		</li>
+		<hr>
+		<li>
 			17-05-17: Made filter case-insensitive, and ignore parentheses in results
 			<ul>
 				<li>

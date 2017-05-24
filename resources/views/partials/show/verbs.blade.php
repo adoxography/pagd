@@ -5,7 +5,11 @@ if(!isset($uri)) {
 @endphp
 
 <alg-filter
-	:lists="{{ json_encode(['forms' => $model->forms, 'gaps' => $model->gaps, 'examples' => $model->examples]) }}"
+	:lists="{{ json_encode([
+		'forms'    => method_exists($model, 'verbForms')    ? $model->verbForms    : $model->forms,
+		'gaps'     => method_exists($model, 'verbGaps')     ? $model->verbGaps     : $model->gaps,
+		'examples' => method_exists($model, 'verbExamples') ? $model->verbExamples : $model->examples
+	]) }}"
 	inline-template
 	v-cloak
 >
@@ -107,7 +111,7 @@ if(!isset($uri)) {
 					<label class="label">
 						Forms
 						@if(!isset($showAddButtons) || $showAddButtons)
-							@include('components.model.add-icon', ['uri' => "{$uri}{$model->id}/addForm"])
+							@include('components.model.add-icon', ['uri' => "{$uri}{$model->id}/addVerbForm"])
 						@endif
 					</label>
 					<ul>

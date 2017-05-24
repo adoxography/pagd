@@ -54,7 +54,7 @@
 					<label for="morpheme" class="label">Morpheme</label>
 					<alg-ajaxlist v-model="form.morpheme"
 								  uri="/autocomplete/morphemes"
-								  :with="form.language.id"
+								  :with="{ language: form.language.id }"
 								  :disabled="loading || !form.language.id"
 								  placeholder="Make sure to select the language first"
 								  :classes="{'is-danger': form.errors.has('morpheme')}"

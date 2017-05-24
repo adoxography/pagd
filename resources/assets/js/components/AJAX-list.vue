@@ -171,7 +171,7 @@
 					axios.get(this.uri, {
 						params: {
 							term: newText,
-							language: this.with
+							options: this.with
 						}
 					}).then(response => {
 						this.options = [];

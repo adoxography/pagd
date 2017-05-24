@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Language;
 use Algling\SS\Models\Type;
 use Illuminate\Http\Request;
+use Algling\Nominals\Models\Paradigm;
 
 class LanguageShowController extends Controller
 {
@@ -28,32 +29,32 @@ class LanguageShowController extends Controller
         return view('languages.show.survey', compact('language', 'types'));
     }
 
-    public function forms(Language $language)
+    public function verbs(Language $language)
     {
         $language->load([
-            'gaps',
-            'gaps.structure',
-            'gaps.structure.mode',
-            'gaps.structure.verbClass',
-            'gaps.structure.order',
-            'gaps.structure.subject',
-            'gaps.structure.primaryObject',
-            'gaps.structure.secondaryObject',
+            'verbGaps',
+            'verbGaps.structure',
+            'verbGaps.structure.mode',
+            'verbGaps.structure.verbClass',
+            'verbGaps.structure.order',
+            'verbGaps.structure.subject',
+            'verbGaps.structure.primaryObject',
+            'verbGaps.structure.secondaryObject',
 
-            'forms',
-            'forms.structure',
-            'forms.structure.mode',
-            'forms.structure.verbClass',
-            'forms.structure.order',
-            'forms.structure.subject',
-            'forms.structure.primaryObject',
-            'forms.structure.secondaryObject',
-            'forms.examples'
+            'verbForms',
+            'verbForms.structure',
+            'verbForms.structure.mode',
+            'verbForms.structure.verbClass',
+            'verbForms.structure.order',
+            'verbForms.structure.subject',
+            'verbForms.structure.primaryObject',
+            'verbForms.structure.secondaryObject',
+            'verbForms.examples'
         ]);
 
         $language->examples = collect();
 
-        foreach($language->forms as $form) {
+        foreach($language->verbForms as $form) {
             foreach($form->examples as &$example) {
                 $example->structure = $form->structure;
             }
@@ -61,7 +62,30 @@ class LanguageShowController extends Controller
             $language->examples = $language->examples->merge($form->examples);
         }
 
-        return view('languages.show.forms', compact('language'));
+        return view('languages.show.verbs', compact('language'));
+    }
+
+    public function nominals(Language $language)
+    {
+        $language->load([
+            'nominalForms',
+            'nominalForms.structure.mode',
+            'nominalForms.structure.paradigm',
+            'nominalForms.structure.pronominalFeature',
+            'nominalForms.structure.nominalFeature',
+        ]);
+
+        $language->examples = collect();
+
+        foreach($language->nominalForms as $form) {
+            foreach($form->examples as &$example) {
+                $example->structure = $form->structure;
+            }
+
+            $language->examples = $language->examples->merge($form->examples);
+        }
+
+        return view('languages.show.nominals', compact('language'));
     }
 
     public function morphemes(Language $language)
@@ -77,7 +101,8 @@ class LanguageShowController extends Controller
 
     public function paradigms(Language $language)
     {
-        $language->loadParadigms();
+        $language->load(['nominalParadigms']);
+        $language->loadVerbParadigms();
 
         return view('languages.show.paradigms', compact('language'));
     }

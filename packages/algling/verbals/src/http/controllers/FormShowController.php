@@ -31,7 +31,9 @@ class FormShowController extends AlgModelController
         $form->load([
             'language',
             'parent',
-            'children'
+            'parent.language',
+            'children',
+            'children.language'
         ]);
         $cognates = $form->cognates();
 

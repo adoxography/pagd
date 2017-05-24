@@ -52,7 +52,7 @@
 				@component('components.form.ajaxlist', [
 					'name' => 'form',
 					'uri' => '/autocomplete/forms',
-					'with' => 'language.id',
+					'with' => '{ language: language.id }',
 					'disabled' => '!language.id',
 					'placeholder' => 'Make sure to select the language first',
 					'rules' => 'datalist_exists',
@@ -72,7 +72,7 @@
 				@component('components.form.text', [
 					'name'      => 'morphemicForm',
 					'label'     => 'morphemes',
-					'rules'     => 'required|notHasMorpheme:V',
+					'rules'     => 'required|notHasMorpheme:V|notHasMorpheme:N',
 					'model'     => 'morphemicForm',
 					'disabled'  => '!form.extra'
 				])

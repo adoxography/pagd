@@ -10,12 +10,12 @@ class Filter {
 		let itemValue = this.getValue(item);
 		let rc = false;
 
-		if(!this.value) {
+		if(this.value == 'null') {
+			return itemValue == null;
+		} else if(!this.value) {
 			rc = true;
 		} else if(itemValue === null) {
 			rc = false;
-		} else if(this.value == 'null') {
-			return typeof itemValue == 'undefined';
 		} else if(this.operator == 'like') {
 			let val = itemValue.toLowerCase();
 
@@ -36,6 +36,10 @@ class Filter {
 
 	getValue(item) {
 		let found = true;
+
+		if(item.form) {
+			item = item.form;
+		}
 
 		for(let i = 0; i < this.keys.length && found; i++) {
 			let key = this.keys[i];

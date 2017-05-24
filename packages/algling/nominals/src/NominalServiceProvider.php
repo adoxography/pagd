@@ -2,11 +2,21 @@
 
 namespace Algling\Nominals;
 
+use App\Language;
+use App\ChangeType;
+use Algling\Nominals\Models\Mode;
+use Algling\Nominals\Models\Paradigm;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Algling\Nominals\Models\NominalFeature;
+use Algling\Nominals\Models\PronominalFeature;
 
 class NominalServiceProvider extends ServiceProvider
 {
+    protected $connections = [
+        \Algling\Nominals\Models\Form::class => 'nominalForm'
+    ];
+
     /**
      * Bootstrap the application services.
      *
@@ -16,9 +26,11 @@ class NominalServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/migrations');
         $this->loadViewsFrom(__DIR__.'/resources/views', 'nom');
+        $this->bootRouteModelBindings();
         $this->publishes([
             __DIR__.'/config/nominals.php' => config_path('nominals.php')
         ]);
+        $this->composeViews();
     }
 
     /**
@@ -33,6 +45,48 @@ class NominalServiceProvider extends ServiceProvider
             'namespace' => 'Algling\Nominals\Http\Controllers',
         ], function ($router) {
             require __DIR__.'/routes.php';
+        });
+    }
+
+    protected function bootRouteModelBindings()
+    {
+        foreach($this->connections as $model => $binding) {
+            Route::bind($binding, function($value) use ($model) {
+                return $model::find($value);
+            });
+        }
+    }
+
+    protected function composeViews()
+    {
+        $this->composeFormForm();
+        $this->composeShowNominals();
+    }
+
+    protected function composeFormForm()
+    {
+        view()->composer('nom::forms.partials.form', function($view) {
+            $data = [
+                'languages'          => Language::select(['name', 'id'])->get(),
+                'pronominalFeatures' => PronominalFeature::all(),
+                'nominalFeatures'    => NominalFeature::all(),
+                'paradigms'          => Paradigm::with('type')->get(),
+                'modes'              => Mode::all(),
+                'changeTypes'        => ChangeType::all()
+            ];
+            $view->with($data);
+        });
+    }
+
+    protected function composeShowNominals()
+    {
+        view()->composer('nom::partials.show.nominals', function($view) {
+            $data = [
+                'modes'              => Mode::all(),
+                'pronominalFeatures' => PronominalFeature::all(),
+                'nominalFeatures'    => NominalFeature::all()
+            ];
+            $view->with($data);
         });
     }
 }

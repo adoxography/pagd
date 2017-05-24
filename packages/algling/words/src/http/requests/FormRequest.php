@@ -29,12 +29,11 @@ class FormRequest extends Request
             //Base form info
             'name'          => ['required_without:empty'],
             'phoneticForm'  => ['nullable'],
-            'morphemicForm' => ['nullable','has:V'],
 
             //Language Info
             'language'    => ['required'],
             'language_id' => ['required','integer','exists:Languages,id'],
-            'parent_id'   => ['nullable','exists:Forms,id']
+            'parent_id'   => ['nullable','exists:Word_Forms,id']
         ];
 
         switch($this->method()){
@@ -43,9 +42,11 @@ class FormRequest extends Request
             case 'PATCH':
                 if($this->route('verbForm')) {
                     $form = $this->route('verbForm');
-
-                    $rules['parent_id'][] = "nomatch:{$form->id}";
+                } else {
+                    $form = $this->route('nominalForm');
                 }
+
+                $rules['parent_id'][] = "nomatch:{$form->id}";
                 break;
             default:
                 break;

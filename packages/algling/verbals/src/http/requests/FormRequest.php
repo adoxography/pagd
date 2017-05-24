@@ -18,12 +18,14 @@ class FormRequest extends Request
         $rules = parent::rules();
 
         $rules += [
+            'morphemicForm' => ['nullable','has:V'],
+            
             'subject'            => ['required'],
-            'subject_id'         => ['required','exists:Verb_Arguments,id'],  
-            'primaryObject'      => ['nullable','exists:Verb_Arguments,name'],         
-            'primaryObject_id'   => ['nullable','integer','exists:Verb_Arguments,id'],
-            'secondaryObject'    => ['nullable','exists:Verb_Arguments,name'],  
-            'secondaryObject_id' => ['nullable','integer','exists:Verb_Arguments,id'],
+            'subject_id'         => ['required','exists:Word_Features,id'],  
+            'primaryObject'      => ['nullable','exists:Word_Features,name'],         
+            'primaryObject_id'   => ['nullable','integer','exists:Word_Features,id'],
+            'secondaryObject'    => ['nullable','exists:Word_Features,name'],  
+            'secondaryObject_id' => ['nullable','integer','exists:Word_Features,id'],
             'verbClass'          => ['required'],
             'verbClass_id'       => ['required','integer','exists:Verb_Classes,id'],
             'order'              => ['required'],

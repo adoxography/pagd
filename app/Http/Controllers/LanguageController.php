@@ -142,9 +142,14 @@ class LanguageController extends AlgModelController
      * @param \App\Language The language
      * @return \Illuminate\Http\Response
      */
-    public function addForm(Language $language)
+    public function addVerbForm(Language $language)
     {
         return view('verb::forms.create')->with('language', $language);
+    }
+
+    public function addNominalForm(Language $language)
+    {
+        return view('nom::forms.create')->with('language', $language);
     }
    
     /**
@@ -167,6 +172,11 @@ class LanguageController extends AlgModelController
     public function addRule(Language $language)
     {
         return view('rules.create')->with('language', $language);
+    }
+
+    public function addParadigm(Language $language)
+    {
+        return view('nom::paradigms.create', compact('language'));
     }
 
     public function order()

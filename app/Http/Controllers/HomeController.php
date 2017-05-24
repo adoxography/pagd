@@ -93,7 +93,7 @@ class HomeController extends Controller
         }
 
         // Call the search
-        return redirect()->to("/search/paradigm?{$classes}{$orders}&modeSelect=allModes&affirmative=on&negative=on&nonDiminutive=on&diminutive=on{$languages}");
+        return redirect("/verbs/search/paradigm/results?{$classes}{$orders}&modeSelect=allModes&affirmative=on&negative=on&nonDiminutive=on&diminutive=on{$languages}");
     }
 
     /**

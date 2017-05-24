@@ -1904,7 +1904,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				axios.get(this.uri, {
 					params: {
 						term: newText,
-						language: this.with
+						options: this.with
 					}
 				}).then(function (response) {
 					_this3.options = [];
@@ -2122,12 +2122,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: ['list', 'name', 'id', 'disabled', 'required', 'value', 'placeholder', 'hasErrors', 'initial'],
+	props: ['list', 'name', 'id', 'disabled', 'required', 'value', 'placeholder', 'hasErrors', 'initial', 'autofocus'],
 
 	computed: {
 		hasValue: function hasValue() {
@@ -2142,20 +2144,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	data: function data() {
 		return {
-			parsedList: [],
 			options: [],
 			showList: false,
 			writing: false,
 			curr: 0,
 			focused: false
 		};
-	},
-	created: function created() {
-		if (Array.isArray(this.list)) {
-			this.parsedList = this.list;
-		} else {
-			this.parsedList = JSON.parse(this.list);
-		}
 	},
 	mounted: function mounted() {
 		if (this.initial) {
@@ -2168,9 +2162,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		getID: function getID(text) {
 			var val = "";
 
-			for (var i = 0; i < this.parsedList.length && val === ""; i++) {
-				if (this.parsedList[i].name.toLowerCase() === text.toLowerCase()) {
-					val = this.parsedList[i].id;
+			for (var i = 0; i < this.list.length && val === ""; i++) {
+				if (this.list[i].name.toLowerCase() === text.toLowerCase()) {
+					val = this.list[i].id;
 				}
 			}
 
@@ -2191,13 +2185,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
    */
 		toggleList: function toggleList() {
 			// Reset the list
-			this.options = this.parsedList;
+			this.options = this.list;
 
 			// Toggle its visibility
 			this.showList = !this.showList;
 		},
 		closeList: function closeList() {
-			this.options = this.parsedList;
+			this.options = this.list;
 			this.showList = false;
 		},
 		selectItem: function selectItem(item) {
@@ -2257,13 +2251,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}
 		},
 		handleButtonClicked: function handleButtonClicked() {
-			this.toggleList();
-			this.$refs.textInput.focus();
+			if (!this.disabled) {
+				this.toggleList();
+				this.$refs.textInput.focus();
+			}
 		},
 		filterOptions: function filterOptions() {
 			var _this = this;
 
-			this.options = this.parsedList.filter(function (item) {
+			this.options = this.list.filter(function (item) {
 				var currText = void 0;
 
 				if (_this.value.text) {
@@ -2291,7 +2287,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				// The list is closed
 
 				// Reset the list
-				this.options = this.parsedList;
+				this.options = this.list;
 
 				// Open the list
 				this.showList = true;
@@ -2457,12 +2453,12 @@ var Filter = function () {
 			var itemValue = this.getValue(item);
 			var rc = false;
 
-			if (!this.value) {
+			if (this.value == 'null') {
+				return itemValue == null;
+			} else if (!this.value) {
 				rc = true;
 			} else if (itemValue === null) {
 				rc = false;
-			} else if (this.value == 'null') {
-				return typeof itemValue == 'undefined';
 			} else if (this.operator == 'like') {
 				var val = itemValue.toLowerCase();
 
@@ -2484,6 +2480,10 @@ var Filter = function () {
 		key: 'getValue',
 		value: function getValue(item) {
 			var found = true;
+
+			if (item.form) {
+				item = item.form;
+			}
 
 			for (var i = 0; i < this.keys.length && found; i++) {
 				var key = this.keys[i];
@@ -5259,6 +5259,127 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/NominalForm.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_OldErrors__ = __webpack_require__("./resources/assets/js/mixins/OldErrors.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_OldSources__ = __webpack_require__("./resources/assets/js/mixins/OldSources.js");
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_OldErrors__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_OldSources__["a" /* default */]],
+
+	props: ['pronominalFeatures', 'nominalFeatures', 'paradigms', 'oldParadigm', 'oldNominalFeature', 'oldPronominalFeature'],
+
+	data: function data() {
+		return {
+			language: { id: '', text: '' },
+			pronominalFeature: { id: '', text: '' },
+			nominalFeature: { id: '', text: '' },
+			paradigm: { id: '', text: '' },
+			mode: { id: '', text: '' },
+			parent: { id: '', text: '' },
+			sources: []
+		};
+	},
+
+
+	computed: {
+		filteredParadigms: function filteredParadigms() {
+			var _this = this;
+
+			return this.paradigms.filter(function (paradigm) {
+				return paradigm.language_id == _this.language.id;
+			});
+		}
+	},
+
+	watch: {
+		language: function language() {
+			this.paradigm = { id: '', text: '' };
+		},
+		paradigm: function paradigm() {
+			this.pronominalFeature = { id: '', text: '' };
+			this.nominalFeature = { id: '', text: '' };
+
+			if (this.paradigmHasPronominalFeature()) {
+				this.$validator.attach('pronominalFeature', 'datalist_required|datalist_exists', { prettyName: 'pronominal feature' });
+			} else {
+				this.$validator.attach('pronominalFeature', '');
+			}
+
+			if (this.paradigmHasNominalFeature()) {
+				this.$validator.attach('nominalFeature', 'datalist_required|datalist_exists', { prettyName: 'nominal feature' });
+			} else {
+				this.$validator.attach('nominalFeature', '');
+			}
+		}
+	},
+
+	mounted: function mounted() {
+		var _this2 = this;
+
+		if (this.oldParadigm) {
+			Vue.nextTick(function () {
+				_this2.$refs.paradigm.update(_this2.oldParadigm);
+				if (_this2.oldPronominalFeature) {
+					Vue.nextTick(function () {
+						_this2.$refs.pronominalFeature.update(_this2.oldPronominalFeature);
+					});
+				}
+
+				if (_this2.oldNominalFeature) {
+					Vue.nextTick(function () {
+						_this2.$refs.nominalFeature.update(_this2.oldNominalFeature);
+					});
+				}
+			});
+		}
+	},
+
+
+	methods: {
+		paradigmHasPronominalFeature: function paradigmHasPronominalFeature() {
+			var paradigm = this.getParadigm();
+			var result = false;
+
+			if (paradigm) {
+				result = paradigm.type.hasPronominalFeature;
+			}
+
+			return result;
+		},
+		paradigmHasNominalFeature: function paradigmHasNominalFeature() {
+			var paradigm = this.getParadigm();
+			var result = false;
+
+			if (paradigm) {
+				result = paradigm.type.hasNominalFeature;
+			}
+
+			return result;
+		},
+		getParadigm: function getParadigm() {
+			var id = this.paradigm.id;
+			var lookup = null;
+
+			if (id) {
+				lookup = this.paradigms.find(function (paradigm) {
+					return paradigm.id == id;
+				});
+			}
+
+			return lookup;
+		}
+	}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/Paradigm-Search.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -5321,6 +5442,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		} else {
 			this.activeTab = 'Basic';
 		}
+	}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/Paradigm.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_OldErrors__ = __webpack_require__("./resources/assets/js/mixins/OldErrors.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_OldSources__ = __webpack_require__("./resources/assets/js/mixins/OldSources.js");
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_OldErrors__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_OldSources__["a" /* default */]],
+
+	data: function data() {
+		return {
+			language: { id: "", text: "" },
+			paradigmType: { id: "", text: "" },
+			sources: []
+		};
 	}
 });
 
@@ -100810,6 +100956,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "disabled": _vm.disabled,
       "autocomplete": "off",
       "placeholder": _vm.placeholder,
+      "autofocus": _vm.autofocus,
       "required": _vm.required
     },
     domProps: {
@@ -100833,7 +100980,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('a', {
     staticClass: "button",
     class: {
-      'is-disabled': _vm.disabled, 'is-danger': _vm.hasErrors
+      'is-danger': _vm.hasErrors
+    },
+    attrs: {
+      "disabled": _vm.disabled
     },
     on: {
       "click": _vm.handleButtonClicked
@@ -101078,7 +101228,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Morpheme")]), _vm._v(" "), _c('alg-ajaxlist', {
     attrs: {
       "uri": "/autocomplete/morphemes",
-      "with": _vm.form.language.id,
+      "with": {
+        language: _vm.form.language.id
+      },
       "disabled": _vm.loading || !_vm.form.language.id,
       "placeholder": "Make sure to select the language first",
       "classes": {
@@ -114059,6 +114211,8 @@ Vue.component('alg-source-form', __webpack_require__("./resources/assets/js/comp
 Vue.component('alg-variable-form', __webpack_require__("./resources/assets/js/components/forms/Variable.vue"));
 Vue.component('alg-datapoint-form', __webpack_require__("./resources/assets/js/components/forms/Datapoint.vue"));
 Vue.component('alg-generic-form', __webpack_require__("./resources/assets/js/components/forms/Generic.vue"));
+Vue.component('alg-paradigm-form', __webpack_require__("./resources/assets/js/components/forms/Paradigm.vue"));
+Vue.component('alg-nominal-form-form', __webpack_require__("./resources/assets/js/components/forms/NominalForm.vue"));
 
 Vue.component('alg-order', __webpack_require__("./resources/assets/js/components/Order.vue"));
 Vue.component('alg-textarea', __webpack_require__("./resources/assets/js/components/Textarea.vue"));
@@ -115502,6 +115656,40 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/assets/js/components/forms/NominalForm.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/NominalForm.vue"),
+  /* template */
+  null,
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/home/vagrant/Code/laravel/resources/assets/js/components/forms/NominalForm.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3946d762", Component.options)
+  } else {
+    hotAPI.reload("data-v-3946d762", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
 /***/ "./resources/assets/js/components/forms/Paradigm-Search.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -115529,6 +115717,40 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-d1d74c4e", Component.options)
   } else {
     hotAPI.reload("data-v-d1d74c4e", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/forms/Paradigm.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/Paradigm.vue"),
+  /* template */
+  null,
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/home/vagrant/Code/laravel/resources/assets/js/components/forms/Paradigm.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2966eae8", Component.options)
+  } else {
+    hotAPI.reload("data-v-2966eae8", Component.options)
   }
 })()}
 

@@ -14,7 +14,7 @@
 						<ul>
 							<li><h5 class="subtitle is-5"><a href="#">Structural survey</a></h5></li>
 							<li><h5 class="subtitle is-5"><a href="#">Verb forms</a></h5></li>
-							<li><h5 class="subtitle is-5"><a href="#">Nominal forms</a></h5></li>
+							<li><h5 class="subtitle is-5"><a href="#"><nobr>Nominal forms</nobr></a></h5></li>
 							<li><h5 class="subtitle is-5"><a href="#">Phonology</a></h5></li>
 							<li><h5 class="subtitle is-5"><a href="/sources">Bibliography</a></h5></li>
 						</ul>
@@ -85,7 +85,8 @@
 									</a>
 									<div class="dropdown-options">
 										<a href="/languages/create">Language</a>
-										<a href="/verbs/forms/create">Form</a>
+										<a href="/verbs/forms/create">Verb Form</a>
+										<a href="/nominals/forms/create">Nominal Form</a>
 										<a href="/examples/create">Example</a>
 										<a href="/morphemes/create">Morpheme</a>
 										<a href="/sources/create">Source</a>
@@ -95,6 +96,7 @@
 										<a href="/slots/create">Slot</a>
 										<a href="/variables/create">Variable</a>
 										<a href="/datapoints/create">Datapoint</a>
+										<a href="/nominals/paradigms/create"><nobr>Nominal paradigm</nobr></a>
 									</div>
 								</div>	
 							</li>

@@ -40,8 +40,26 @@ class MorphemeShowController extends AlgModelController
     {
         $morpheme->load([
             'language',
-            'forms',
-            'forms.structure'
+            'language.nominalParadigms',
+            'examples'
+        ]);
+
+        $morpheme->loadNominalForms([
+            'structure',
+            'structure.paradigm',
+            'structure.mode',
+            'structure.pronominalFeature',
+            'structure.nominalFeature'
+        ]);
+
+        $morpheme->loadVerbForms([
+            'structure',
+            'structure.subject',
+            'structure.primaryObject',
+            'structure.secondaryObject',
+            'structure.mode',
+            'structure.order',
+            'structure.verbClass',
         ]);
 
         return view('morph::morphemes.show.forms', compact('morpheme'));

@@ -24,7 +24,8 @@
 			</p>
 			<p class="control">
 	   			<a class="button"
-	   			   :class="{ 'is-disabled': disabled, 'is-danger': hasErrors }"
+	   			   :class="{ 'is-danger': hasErrors }"
+	   			   :disabled="disabled"
 	   			   @click="handleButtonClicked">
 					<span class="icon is-small">
 						<i class="fa fa-chevron-down"></i>
@@ -70,21 +71,12 @@
 
 		data() {
 			return {
-				parsedList: [],
 				options: [],
 				showList: false,
 				writing: false,
 				curr: 0,
 				focused: false
 			};
-		},
-
-		created() {
-			if(Array.isArray(this.list)) {
-				this.parsedList = this.list;
-			} else {
-				this.parsedList = JSON.parse(this.list);
-			}
 		},
 
 		mounted() {
@@ -97,9 +89,9 @@
 			getID(text) {
 				let val = "";
 
-				for(let i = 0; i < this.parsedList.length && val === ""; i++) {
-					if(this.parsedList[i].name.toLowerCase() === text.toLowerCase()) {
-						val = this.parsedList[i].id;
+				for(let i = 0; i < this.list.length && val === ""; i++) {
+					if(this.list[i].name.toLowerCase() === text.toLowerCase()) {
+						val = this.list[i].id;
 					}
 				}
 
@@ -120,14 +112,14 @@
 			 */
 			toggleList() {
 				// Reset the list
-				this.options = this.parsedList;
+				this.options = this.list;
 
 				// Toggle its visibility
 				this.showList = !this.showList;
 			},
 
 			closeList() {
-				this.options = this.parsedList;
+				this.options = this.list;
 				this.showList = false;
 			},
 
@@ -192,12 +184,14 @@
 			},
 
 			handleButtonClicked() {
-				this.toggleList();
-				this.$refs.textInput.focus();
+				if(!this.disabled) {
+					this.toggleList();
+					this.$refs.textInput.focus();
+				}
 			},
 
 			filterOptions() {
-				this.options = this.parsedList.filter(item => {
+				this.options = this.list.filter(item => {
 					let currText;
 
 					if(this.value.text) {
@@ -225,7 +219,7 @@
 				else { // The list is closed
 
 					// Reset the list
-					this.options = this.parsedList;
+					this.options = this.list;
 
 					// Open the list
 					this.showList = true;

@@ -1,5 +1,5 @@
 @extends('languages/show')
 
 @section('content')
-	@include('partials.show.forms', ['model' => $language])
+	@include('partials.show.verbs', ['model' => $language])
 @endsection

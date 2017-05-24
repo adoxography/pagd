@@ -2,6 +2,7 @@
 
 namespace Algling\Nominals\Models;
 
+use Algling\Nominals\Models\Structure;
 use Illuminate\Database\Eloquent\Builder;
 use Algling\Words\Models\Form as WordForm;
 use Algling\Nominals\Traits\HasStructureTrait;
@@ -9,6 +10,8 @@ use Algling\Nominals\Traits\HasStructureTrait;
 class Form extends WordForm
 {
 	use HasStructureTrait;
+
+	public $uri = '/nominals/forms';
 
     public static function boot()
     {

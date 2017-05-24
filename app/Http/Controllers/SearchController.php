@@ -2,19 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Language;
-use App\Paradigm;
-use App\Http\Requests;
-use App\Search\SearchTable;
-use Illuminate\Http\Request;
-use Algling\Words\Models\Gap;
-use Algling\Verbals\Models\Form;
-use Algling\Verbals\Models\Mode;
-use Algling\Verbals\Models\Order;
-use Illuminate\Support\Facades\DB;
-use Algling\Verbals\Models\Argument;
-use Algling\Verbals\Models\VerbClass;
-
 class SearchController extends Controller
 {
     public function index()

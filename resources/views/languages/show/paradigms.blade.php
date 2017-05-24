@@ -21,7 +21,10 @@
 		</div>
 		<div class="column">
 			<div class="field">
-				<span class="label">Nominal paradigms</span>
+				<span class="label">
+					Nominal paradigms
+					@include('components.model.add-icon', ['uri' => "/languages/{$language->id}/addParadigm"])
+				</span>
 				<ul>
 					@foreach($language->nominalParadigms as $paradigm)
 						<li>

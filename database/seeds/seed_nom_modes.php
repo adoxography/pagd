@@ -16,10 +16,12 @@ class seed_nom_modes extends Seeder
 
         $modes = [
         	['id' => 1, 'name' => 'Unmarked/Default'],
-        	['id' => 2, 'name' => 'Vocative	'],
+        	['id' => 2, 'name' => 'Vocative'],
         	['id' => 3, 'name' => 'Preterit'],
         	['id' => 4, 'name' => 'Dubitative'],
         	['id' => 5, 'name' => 'Evidential']
         ];
+
+        DB::table('Nom_Modes')->insert($modes);
     }
 }

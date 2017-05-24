@@ -2,8 +2,8 @@
 
 namespace Algling\Morphemes\Traits;
 
-use Algling\Verbals\Models\Form;
-use Algling\Verbals\Models\Example;
+use Algling\Words\Models\Form;
+use Algling\Words\Models\Example;
 use Illuminate\Support\Facades\Auth;
 use Algling\Morphemes\Models\Morpheme;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -25,12 +25,8 @@ trait HasMorphemesTrait {
         });
     }
 
-    protected function getMorphemeableMorphClass() {
-        return $this->morphCode;
-    }
-
     public function morphemes() {
-        $type = $this->getMorphemeableMorphClass();
+        $type = $this->morphCode ? $this->morphCode : $this->getMorphClass();
 
         return $this->belongsToMany(Morpheme::class, 'Morph_Morphemeables', 'morphemeable_id')->where('morphemeable_type', $type)->orderBy('position')->withPivot('position');
     }
@@ -46,41 +42,43 @@ trait HasMorphemesTrait {
 	{
     	$morphemes = explode('-', $this->morphemicForm);
 
-        $chunk;  // Will hold an array, where index 0 is the morpheme name, and index 1 is the disambiguator
+        $chunks;  // Will hold an array, where index 0 is the morpheme name, and index 1 is the disambiguator
         $query;
         $lookup;
+        $type = $this->morphCode ? $this->morphCode : $this->getMorphClass();
 
         // Unlink all of the existing morphemes
         $this->morphemes()->detach();
 
         // Check each morpheme against the database
         foreach ($morphemes as $index => $morpheme) {
-            $chunk = explode('.', $this->extractRealMorpheme($morpheme));
+            $chunks = $this->extractRealMorpheme($morpheme);
 
-            if (count($chunk) > 0) {
-                $query = Morpheme::whereIn('name', [
-                    $chunk[0],
-                    '-'.$chunk[0],
-                    '-'.$chunk[0].'-',
-                    $chunk[0].'-',
-                ])->where('language_id', $this->language->id);
+            $query = Morpheme::whereIn('name', [
+                $chunks->get('morpheme'),
+                "-{$chunks->get('morpheme')}",
+                "-{$chunks->get('morpheme')}-",
+                "{$chunks->get('morpheme')}-",
+            ])->where('language_id', $this->language->id);
 
-                if (count($chunk) > 1) { // Chunk has a disambiguator
-                    $query->where('disambiguator', $chunk[1]);
-                }
+            if ($chunks->has('disambiguator')) {
+                $query->where('disambiguator', $chunks->get('disambiguator'));
+            }
 
-                // Execute the query
-                $lookup = $query->get();
+            // Execute the query
+            $lookup = $query->get();
 
-                // Connect the morpheme if exactly one result was returned
-                if (count($lookup) == 1) {
-                    $this->morphemes()->attach($lookup[0]->id, ['position' => $index + 1, 'morphemeable_type' => $this->getMorphemeableMorphClass()]);
-                }
+            // Connect the morpheme if exactly one result was returned
+            if ($lookup->count() == 1) {
+                $this->morphemes()->attach($lookup->first()->id, [
+                    'position' => $index + 1,
+                    'morphemeable_type' => $type
+                ]);
             }
         }
 
         // Update the complete status, if necessary
-        $this->assessIsComplete(count($morphemes), count($this->morphemes));
+        $this->assessIsComplete(count($morphemes), $this->morphemes->count());
 	}
 
     /**
@@ -91,8 +89,17 @@ trait HasMorphemesTrait {
      */
     protected function extractRealMorpheme($morpheme)
     {
-        $pieces = explode('|', $morpheme);
-        return $pieces[count($pieces) - 1];        
+        $output = [];
+        $withoutInitialChange = array_last(explode('|', $morpheme));
+        $chunks = explode('.', $withoutInitialChange);
+
+        $output['morpheme'] = $chunks[0];
+
+        if(count($chunks) > 1) {
+            $output['disambiguator'] = $chunks[1];
+        }
+
+        return collect($output);
     }
 
     /**
@@ -279,9 +286,9 @@ trait HasMorphemesTrait {
 			$model = "";
 
             // Set the model name so the URI can be set correctly
-			if($this instanceof Form) {
+			if($this instanceof Form || is_subclass_of($this, Form::class)) {
 				$model = "forms";
-			} else if($this instanceof Example) {
+			} else if($this instanceof Example || is_subclass_of($this, Example::class)) {
 				$model = "examples";
 			}
 
@@ -314,7 +321,7 @@ trait HasMorphemesTrait {
                 $options = "<a href='/morphemes/create?name={$morpheme['name']}&language={$this->language->name}'>Add (-){$morpheme['name']}(-)</a>";
             } else {
                 $title = "Morphemic form undeclared";
-                $options = "<a href='/".strtolower(isset($this->uri) ? $this->uri : $this->table)."/{$this->id}/edit'>Declare a morphemic form</a>";
+                $options = "<a href='".strtolower(isset($this->uri) ? $this->uri : $this->table)."/{$this->id}/edit'>Declare a morphemic form</a>";
             }
 		}
 
@@ -339,5 +346,31 @@ trait HasMorphemesTrait {
         // Put the morphemicForm back together and save it
         $this->morphemicForm = implode('-', $morphemes);
         $this->save();
+    }
+
+    public function containsMorpheme($morpheme)
+    {
+        $found = false;
+
+        if(is_array($morpheme)) {
+            for($i = 0; $i < count($morpheme) && !$found; $i++) {
+                $found = $this->containsMorphemeHelper($morpheme[$i]);
+            }
+        } else {
+            $found = $this->containsMorphemeHelper($morpheme);
+        }
+
+        return $found;
+    }
+
+    protected function containsMorphemeHelper($morpheme)
+    {
+        if(is_string($morpheme)) {
+            $lookup = $morpheme;
+        } else {
+            $lookup = $morpheme->name;
+        }
+
+        return preg_match("/$lookup/", $this->morphemicForm);
     }
 }

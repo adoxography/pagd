@@ -26,14 +26,22 @@ trait SourceableTrait {
 
     public function connectSources($sources)
     {
+        $type = $this->morphCode ? $this->morphCode : $this->getMorphClass();
         $added = [];
+        $options = [];
 
         if($sources) {
             $this->sources()->detach();
 
             foreach($sources as $source) {
                 if(!in_array($source['id'], $added)) {
-                    $this->sources()->attach($source['id'], ($source['extraInfo'] ? ['extraInfo' => $source['extraInfo']] : []));
+                    $options = ['sourceable_type' => $type];
+
+                    if($source['extraInfo']) {
+                        $options['extraInfo'] = $source['extraInfo'];
+                    }
+
+                    $this->sources()->attach($source['id'], $options);
                     $added[] = $source['id'];
                 }
             }
@@ -42,7 +50,10 @@ trait SourceableTrait {
 
     public function sources($includeExtraInfo = true)
     {
-    	$output = $this->morphToMany(Source::class, 'Sourceable');
+        $type = $this->morphCode ? $this->morphCode : $this->getMorphClass();
+
+        $output = $this->belongstoMany(Source::class, 'Sourceables', 'sourceable_id')
+            ->where('sourceable_type', $type);
 
     	if($includeExtraInfo) {
     		$output->withPivot('extraInfo');

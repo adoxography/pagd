@@ -143,16 +143,9 @@ class Form extends Model
         return $this->phonemicForm;
     }
 
-    /**
-     * Fetches the name of this example that is unique within its language
-     *
-     * Adds the arguments to the surfaceForm - while this doesn't guarantee that the name will be unique, it does make it very likely.
-     *
-     * @return string The surfaceForm followed by the form's arguments
-     */
     public function getUniqueNameAttribute()
     {
-        return "{$this->surfaceForm} ({$this->structure->renderArguments()})";
+        return $this->name;
     }
 
     /**
@@ -207,7 +200,7 @@ class Form extends Model
 
     public function renderHTML()
     {
-        return "<a href='/forms/{$this->id}'>{$this->surfaceForm}</a> (".$this->structure->renderArguments().")";
+        return "<a href='/forms/{$this->id}'>{$this->surfaceForm}</a>";
     }
 
     public function renderInNotes()

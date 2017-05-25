@@ -39,18 +39,6 @@ if(method_exists($model, 'nominalParadigms')) {
 						</div>
 					</div>
 				</div>
-				<div class="field">
-					<div class="control">
-						<div class="select is-fullwidth">
-							<select name="structure.mode_id" @input="onInput($event)">
-								<option value="">By mode</option>
-								@foreach($modes as $mode)
-								<option value="{{ $mode->id }}">{{ $mode->name }}</option>
-								@endforeach
-							</select>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 		<div class="field is-horizontal">

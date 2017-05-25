@@ -15,8 +15,7 @@ class FormShowController extends Controller
         	'language',
         	'structure.paradigm',
         	'structure.nominalFeature',
-        	'structure.pronominalFeature',
-        	'structure.mode'
+        	'structure.pronominalFeature'
         ]);
 
         return view('nom::forms.show.basic', compact('form'));

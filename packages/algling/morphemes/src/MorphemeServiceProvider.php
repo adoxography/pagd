@@ -9,7 +9,6 @@ use Algling\Morphemes\Models\Gloss;
 use Illuminate\Support\Facades\Route;
 use Algling\Morphemes\Models\Morpheme;
 use Illuminate\Support\ServiceProvider;
-use Algling\Morphemes\Commands\Transfer;
 use Algling\Morphemes\Models\InitialChange;
 use Algling\Morphemes\Models\Observers\GlossObserver;
 use Algling\Morphemes\Models\Observers\MorphemeObserver;
@@ -32,7 +31,6 @@ class MorphemeServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/resources/views', 'morph');
         $this->loadMigrationsFrom(__DIR__.'/migrations');
 
-        $this->bootCommands();
         $this->bootRouteModelBindings();
         $this->composeViews();
     }
@@ -50,13 +48,6 @@ class MorphemeServiceProvider extends ServiceProvider
         ], function ($router) {
             require __DIR__.'/routes.php';
         });
-    }
-
-    protected function bootCommands()
-    {
-        if($this->app->runningInConsole()) {
-            $this->commands([Transfer::class]);
-        }
     }
 
     protected function bootRouteModelBindings()

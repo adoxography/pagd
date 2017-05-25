@@ -4,7 +4,6 @@ $languages = App\Language::all();
 $pronominalFeatures = Algling\Nominals\Models\PronominalFeature::all();
 $nominalFeatures = Algling\Nominals\Models\NominalFeature::all();
 $paradigms = Algling\Nominals\Models\Paradigm::with('type')->get();
-$modes = Algling\Nominals\Models\Mode::all();
 $changeTypes = App\ChangeType::all();
 
 @endphp
@@ -77,7 +76,7 @@ $changeTypes = App\ChangeType::all();
 				@endcomponent
 			</div>
 
-			<div class="column is-one-quarter">
+			<div class="column is-half">
 				@component('components.form.datalist', [
 					'name' => 'paradigm',
 					'list' => 'filteredParadigms',
@@ -87,20 +86,6 @@ $changeTypes = App\ChangeType::all();
 					@slot('value')
 						@if(isset($form))
 							{{ $form->structure->paradigm->name }}
-						@endif
-					@endslot
-				@endcomponent
-			</div>
-
-			<div class="column is-one-quarter">
-				@component('components.form.datalist', [
-					'name' => 'mode',
-					'list' => $modes,
-					'rules' => 'required|exists'
-				])
-					@slot('value')
-						@if(isset($form))
-							{{ $form->structure->mode->name }}
 						@endif
 					@endslot
 				@endcomponent

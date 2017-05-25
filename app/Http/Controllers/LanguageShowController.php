@@ -69,7 +69,6 @@ class LanguageShowController extends Controller
     {
         $language->load([
             'nominalForms',
-            'nominalForms.structure.mode',
             'nominalForms.structure.paradigm',
             'nominalForms.structure.pronominalFeature',
             'nominalForms.structure.nominalFeature',

@@ -26,7 +26,6 @@ class FormController extends Controller
             'structure.paradigm',
             'structure.nominalFeature',
             'structure.pronominalFeature',
-            'structure.mode',
             'sources',
             'parent'
         ]);

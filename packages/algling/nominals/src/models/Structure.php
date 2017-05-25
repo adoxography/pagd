@@ -2,7 +2,6 @@
 
 namespace Algling\Nominals\Models;
 
-use Algling\Nominals\Models\Mode;
 use Algling\Words\Models\Feature;
 use Algling\Nominals\Models\Paradigm;
 use Illuminate\Database\Eloquent\Model;
@@ -26,11 +25,6 @@ class Structure extends Model
     public function paradigm()
     {
     	return $this->belongsTo(Paradigm::class);
-    }
-
-    public function mode()
-    {
-    	return $this->belongsTo(Mode::class);
     }
 
     public function renderSummary()

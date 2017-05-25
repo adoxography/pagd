@@ -4,7 +4,6 @@ namespace Algling\Nominals;
 
 use App\Language;
 use App\ChangeType;
-use Algling\Nominals\Models\Mode;
 use Algling\Nominals\Models\Paradigm;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -71,7 +70,6 @@ class NominalServiceProvider extends ServiceProvider
                 'pronominalFeatures' => PronominalFeature::all(),
                 'nominalFeatures'    => NominalFeature::all(),
                 'paradigms'          => Paradigm::with('type')->get(),
-                'modes'              => Mode::all(),
                 'changeTypes'        => ChangeType::all()
             ];
             $view->with($data);
@@ -82,7 +80,6 @@ class NominalServiceProvider extends ServiceProvider
     {
         view()->composer('nom::partials.show.nominals', function($view) {
             $data = [
-                'modes'              => Mode::all(),
                 'pronominalFeatures' => PronominalFeature::all(),
                 'nominalFeatures'    => NominalFeature::all()
             ];

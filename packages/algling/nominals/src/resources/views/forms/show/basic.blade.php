@@ -20,11 +20,6 @@
 						{{ $form->structure->nominalFeature->name }}
 					</span>
 				@endif
-
-				<span class="is-one-line">
-					<label class="label">Mode:</label>
-					{{ $form->structure->mode->name }}
-				</span>
 			</div>
 
 			<div class="field">

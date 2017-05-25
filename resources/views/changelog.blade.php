@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			25-05-17: Removed nominal modes
+		</li>
+		<hr>
+		<li>
 			24-05-17: Added nominals
 			<ul>
 				<li>Nominal forms have their own entry form</li>

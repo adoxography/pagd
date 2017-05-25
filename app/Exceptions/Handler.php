@@ -36,7 +36,7 @@ class Handler extends ExceptionHandler
     {
         Log::info($exception->getMessage(), [
             'url' => Request::url(),
-            'input' => Request::except(['password', 'password_confirmation']);
+            'input' => Request::except(['password', 'password_confirmation'])
         ]);
         return parent::report($exception);
     }

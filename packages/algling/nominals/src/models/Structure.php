@@ -2,6 +2,7 @@
 
 namespace Algling\Nominals\Models;
 
+use Algling\Nominals\Models\Form;
 use Algling\Words\Models\Feature;
 use Algling\Nominals\Models\Paradigm;
 use Illuminate\Database\Eloquent\Model;
@@ -30,6 +31,11 @@ class Structure extends Model
     public function paradigm()
     {
     	return $this->belongsTo(Paradigm::class);
+    }
+
+    public function forms()
+    {
+        return $this->hasMany(Form::class, 'structure_id');
     }
 
     public function renderSummary()

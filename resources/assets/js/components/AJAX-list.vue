@@ -163,7 +163,7 @@
 				});
 			},
 
-			onInput(newText) {
+			onInput: _.debounce(function (newText) {
 				if(newText.length > 0) {
 					this.closeList();
 					this.loading = true;
@@ -190,7 +190,7 @@
 				}
 
 				this.update(newText);			
-			},
+			}, 500),
 
 			formatString(str) {
 				let tempString = str.replace(/<(?:.|\n)*?>/gm, '');

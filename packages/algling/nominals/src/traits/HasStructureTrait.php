@@ -43,7 +43,6 @@ trait HasStructureTrait {
         $data['pronominalFeature_id'] = $attributes['pronominalFeature_id'];
         $data['nominalFeature_id']    = $attributes['nominalFeature_id'];
         $data['paradigm_id']          = $attributes['paradigm_id'];
-        $data['mode_id']              = $attributes['mode_id'];
 
         return $data;
     }

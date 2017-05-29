@@ -12,6 +12,11 @@ class Structure extends Model
 
     protected $fillable = ['pronominalFeature_id', 'nominalFeature_id', 'paradigm_id', 'mode_id'];
 
+    public function getSummaryAttribute()
+    {
+        return $this->renderSummary();
+    }
+
     public function pronominalFeature()
     {
    		return $this->belongsTo(Feature::class, 'pronominalFeature_id');
@@ -29,6 +34,20 @@ class Structure extends Model
 
     public function renderSummary()
     {
-        return '';
+        $output = "";
+
+        if($this->pronominalFeature) {
+            $output .= $this->pronominalFeature->name;
+
+            if($this->nominalFeature) {
+                $output .= '—' . $this->nominalFeature->name;
+            }
+        } else {
+            $output .= $this->nominalFeature->name;
+        }
+
+        $output .= " <a href='/nominals/paradigms/{$this->paradigm->id}'>{$this->paradigm->name}</a>";
+
+        return $output;
     }
 }

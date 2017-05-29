@@ -4,19 +4,21 @@
 	<div class="columns">
 		<div class="column">
 			<div class="field">
-				<span class="label">Paradigm</span>
-				<a href="/nominals/paradigms/{{ $form->structure->paradigm_id }}">{{ $form->structure->paradigm->name }}</a>
+				<span class="is-one-line">
+					<span class="label">Paradigm:</span>
+					<a href="/nominals/paradigms/{{ $form->structure->paradigm_id }}">{{ $form->structure->paradigm->name }}</a>
+				</span>
 
 				@if($form->structure->pronominalFeature)
 					<span class="is-one-line">
-						<label class="label">Pronominal feature:</label>
+						<span class="label">Pronominal feature:</span>
 						{{ $form->structure->pronominalFeature->name }}
 					</span>
 				@endif
 				
 				@if($form->structure->nominalFeature)
 					<span class="is-one-line">
-						<label class="label">Nominal feature:</label>
+						<span class="label">Nominal feature:</span>
 						{{ $form->structure->nominalFeature->name }}
 					</span>
 				@endif
@@ -28,20 +30,23 @@
 				{!! $form->printMorphemes() !!}
 			</div>
 
-			<div class="field">
-			</div>
 		</div>
 		<div class="column">
 			<div class="field">
-				<span class="label">Examples @component('components.model.add-icon', ['uri' => "/forms/{$form->id}/addExample"]) @endcomponent</span>
-				@if(count($form->examples) > 0)
-					<ul>
-						@foreach($form->examples as $example)
-							<li><a href="/examples/{{ $example->id }}">{{ $example->name }}</a>
-						@endforeach
-					</ul>
+				@if($form->isStemless() && $form->examples()->count() > 0)
+					<span class="label">Translation</span>
+					{{ $form->examples()->first()->translation }}
 				@else
-					None
+					<span class="label">Examples @component('components.model.add-icon', ['uri' => "/forms/{$form->id}/addExample"]) @endcomponent</span>
+					@if(count($form->examples) > 0)
+						<ul>
+							@foreach($form->examples as $example)
+								<li><a href="/examples/{{ $example->id }}">{{ $example->name }}</a>
+							@endforeach
+						</ul>
+					@else
+						None
+					@endif
 				@endif
 			</div>
 

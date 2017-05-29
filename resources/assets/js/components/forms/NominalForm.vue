@@ -15,7 +15,8 @@ export default {
 			paradigm:          { id: '', text: '' },
 			mode:              { id: '', text: '' },
 			parent:            { id: '', text: '' },
-			sources: []
+			sources: [],
+			translationRequired: false
 		}
 	},
 
@@ -47,7 +48,7 @@ export default {
 			} else {
 				this.$validator.attach('nominalFeature', '');
 			}
-		},
+		}
 	},
 
 	mounted() {
@@ -67,6 +68,8 @@ export default {
 				}
 			});
 		}
+
+		this.morphemicFormUpdated(this.$refs.morphemicForm.value);
 	},
 
 	methods: {
@@ -103,6 +106,34 @@ export default {
 			}
 
 			return lookup;
+		},
+
+		morphemicFormUpdated(text) {
+			if(text.length > 0 && !this.containsStem(text)) {
+				this.translationRequired = true;
+				this.$validator.attach('translation', 'required');
+			} else {
+				this.translationRequired = false;
+				this.$validator.attach('translation', '');
+				this.$refs.translation.value = '';
+			}
+		},
+
+		containsStem(text) {
+			let rc = false;
+
+			// REPLACE ME WITH REGEX
+			let morphemes = text.split('-');
+
+			morphemes.forEach(morpheme => {
+				let icParts = morpheme.split('|');
+				let noIC = icParts[icParts.length - 1];
+				let realMorpheme = noIC[0];
+
+				rc = rc || (realMorpheme == 'V' || realMorpheme == 'N');
+			});
+
+			return rc;
 		}
 	}
 }

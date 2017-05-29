@@ -32,11 +32,11 @@ class Form extends WordForm
      */
     public function getUniqueNameAttribute()
     {
-        return "{$this->surfaceForm} ({$this->structure->renderArguments()})";
+        return "{$this->name} ({$this->structure->renderArguments()})";
     }
 
     public function renderHTML()
     {
-        return "<a href='/forms/{$this->id}'>{$this->surfaceForm}</a> (".$this->structure->renderArguments().")";
+        return "<a href='/verbs/forms/{$this->id}'>{$this->name}</a> (".$this->structure->renderArguments().")";
     }
 }

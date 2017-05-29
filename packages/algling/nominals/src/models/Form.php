@@ -22,4 +22,14 @@ class Form extends WordForm
     		$builder->where('structure_type', 'nominalStructures');
     	});
     }
+
+    // public function getUniqueNameAttribute()
+    // {
+    //     return "{$this->name} ()";
+    // }
+
+    public function renderHTML()
+    {
+        return "<a href='/nominals/forms/{$this->id}'>{$this->name}</a> ({$this->structure->summary})";
+    }
 }

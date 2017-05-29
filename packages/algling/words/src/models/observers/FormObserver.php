@@ -6,59 +6,24 @@ use Algling\Words\Models\Form;
 
 class FormObserver {
 
-	public function saved(Form $form)
-	{
-		$this->connectDuplicates($form);
-	}
+    public function created(Form $form)
+    {
+        if($this->isStemless($form) && request()->translation) {
+            $this->createExample($form, request()->translation);
+        }
+    }
+
+    public function updated(Form $form)
+    {
+        if($this->isStemless($form) && request()->translation) {
+            $this->updateExample($form, request()->translation);
+        }
+    }
 
 	public function deleting(Form $form)
 	{
 		$this->destroyExamples($form);
-		$this->disconnectDuplicates($form);
 	}
-
-    protected function connectDuplicates(Form $form)
-    {
-        // Unlink all of the form's duplicates
-        $form->duplicates()->detach();
-
-        // Get rid of all the disambiguators from the morphemic form
-        $morphemicForm = $this->sanitize($form->morphemicForm);
-
-        //Get all of the duplicates that aren't the form itself
-        $duplicates = Form::where('morphemicForm', $morphemicForm)
-                          ->where('language_id', $form->language_id)
-                          ->where('id', '<>', $form->id)
-                          ->get();
-
-        //Add a link from each duplicate to the new form, and from the new form to each duplicate
-        foreach ($duplicates as $duplicate) {
-            $duplicate->duplicates()->attach($form->id);
-            $form->duplicates()->attach($duplicate->id);
-        }
-    }
-
-    protected function sanitize($morphemicForm)
-    {
-        $output = '';
-        $firstTime = true;
-
-        // Split the morphemic form up into individual morphemes
-        $morphemes = explode('-', $morphemicForm);
-
-        // Split each morpheme into name and disambiguator, then only take the name
-        foreach ($morphemes as $morpheme) {
-            if ($firstTime) {
-                $firstTime = false;
-            } else {
-            	 	$output .= '-';
-            }
-            $chunks = explode('.', $morpheme);
-            $output .= $chunks[0];
-        }
-
-        return $output;
-    }
 
     protected function destroyExamples(Form $form)
     {
@@ -71,16 +36,52 @@ class FormObserver {
         }	
     }
 
-    protected function disconnectDuplicates(Form $form)
+    protected function isStemless(Form $form)
     {
-        $duplicates = $form->duplicates;
+        return !preg_match('/N|V/', $form->morphemicForm);
+    }
 
-        if($duplicates) {
-            foreach($duplicates as $duplicate){
-                $duplicate->duplicates()->detach($form->id);
+    protected function createExample(Form $form, string $translation)
+    {
+        $exampleData = [
+            'form_id'       => $form->id,
+            'name'          => str_replace('*', '', $form->name),
+            'phonemicForm'  => str_replace('*', '', $form->phonemicForm),
+            'morphemicForm' => $form->morphemicForm,
+            'translation'   => $translation
+        ];
+
+        if($form->parent_id && $form->parent->examples()->count() > 0) {
+            $exampleData['parent_id'] = $form->parent->examples()->first()->id;
+        }
+
+        $form->examples()->create($exampleData);
+    }
+
+    protected function updateExample(Form $form, string $translation)
+    {
+        $example = $form->examples()->first();
+
+        $example->name          = str_replace('*', '', $form->name);
+        $example->morphemicForm = $form->morphemicForm;
+        $example->translation   = $translation;
+
+        if($form->phonemicForm) {
+            $example->phonemicForm = str_replace('*', '', $form->phonemicForm);
+        } else {
+            $examples->phonemicForm = null;
+        }
+
+        if($form->isDirty('parent_id')) {
+            if(!$form->parent_id) {
+                $example->parent_id = null;
+            } else if($form->examples()->count() > 0) {
+                $example->parent_id = $form->parent->examples()->first()->id;
             }
+        }
 
-            $form->duplicates()->detach();
+        if($example->isDirty()) {
+            $example->save();
         }
     }
 }

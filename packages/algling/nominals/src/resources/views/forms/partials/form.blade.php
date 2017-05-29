@@ -49,7 +49,8 @@ $changeTypes = App\ChangeType::all();
 					'name'        => 'name',
 					'label'       => 'surface form',
 					'autofocus'   => true,
-					'placeholder' => 'The form as written in a text'
+					'placeholder' => 'The form as written in a text',
+					'rules'       => 'required'
 				])
 					@slot('value')
 						@if(isset($form) && $form->name)
@@ -153,7 +154,7 @@ $changeTypes = App\ChangeType::all();
 		<div class="columns">
 
 			<!-- phonemicForm -->
-			<div class="column is-half">
+			<div class="column">
 				@component('components.form.text', [
 					'name'        => 'phonemicForm',
 					'label'       => 'phonemic representation',
@@ -168,13 +169,13 @@ $changeTypes = App\ChangeType::all();
 			</div>
 
 			<!-- morphemicForm -->
-			<div class="column is-half">
+			<div class="column">
 				@component('components.form.text', [
 					'name'        => 'morphemicForm',
 					'label'       => 'morphemic form',
 					'placeholder' => 'The morphemes, separated by hyphens (Leave blank if unknown or unclear)',
-					'rules'       => 'hasMorpheme:N',
-					'delay'       => 500
+					'delay'       => 500,
+					'events'      => ['input' => 'morphemicFormUpdated($event.target.value)']
 				])
 					@slot('value')
 						@if(isset($form) && $form->morphemicForm)
@@ -182,6 +183,24 @@ $changeTypes = App\ChangeType::all();
 						@endif
 					@endslot
 				@endcomponent
+			</div>
+		</div>
+
+		<div class="columns">
+			<div class="column"></div>
+			<div class="column">
+				@component('components.form.text', [
+					'name' => 'translation',
+					'placeholder' => 'Required only for stemless forms',
+					'rules' => '',
+					'disabled' => '!translationRequired'
+				])
+					@slot('value')
+						@if(isset($form) && $form->isStemless())
+							{{ $form->examples()->first()->translation }}
+						@endif
+					@endslot
+					@endcomponent	
 			</div>
 		</div>
 

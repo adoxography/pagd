@@ -38,5 +38,11 @@
 		@if(isset($model))
 		v-model="{{ $model }}"
 		@endif
+
+		@if(isset($events))
+			@foreach($events as $event => $listener)
+				{!! "@$event='$listener' "!!}
+			@endforeach
+		@endif
 	/>
 @endsection

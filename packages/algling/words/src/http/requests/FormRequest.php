@@ -61,7 +61,6 @@ class FormRequest extends Request
             'name.required_without' => 'Please enter a surface form.',
             'language.required'     => 'Please enter a language.',
             'language_id.required'  => 'There is no language by that name in the database.',
-            'morphemicForm.has'     => 'Please inclue a placeholder for the Vstem.',
             'parent_id.nomatch'     => 'A form cannot be its own parent!'
         ];
     }

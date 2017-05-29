@@ -209,6 +209,18 @@ class Form extends Model
         return "<blockquote><a href='/forms/{$this->id}'>{$name}</a>".$this->printMorphemes().'</blockquote>';
     }
 
+    public function isStemless()
+    {
+        $morphemes = $this->morphemes;
+        $found = false;
+
+        for($i = 0; $i < $morphemes->count() && !$found; $i++) {
+            $found = $morphemes[$i]->slot->name == 'stem';
+        }
+
+        return !$found;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Relations

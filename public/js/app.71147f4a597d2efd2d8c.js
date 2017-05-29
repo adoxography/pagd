@@ -1894,7 +1894,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this2.setEndOfContenteditable(list);
 			});
 		},
-		onInput: function onInput(newText) {
+
+
+		onInput: _.debounce(function (newText) {
 			var _this3 = this;
 
 			if (newText.length > 0) {
@@ -1923,7 +1925,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}
 
 			this.update(newText);
-		},
+		}, 500),
+
 		formatString: function formatString(str) {
 			var tempString = str.replace(/<(?:.|\n)*?>/gm, '');
 
@@ -5283,7 +5286,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			paradigm: { id: '', text: '' },
 			mode: { id: '', text: '' },
 			parent: { id: '', text: '' },
-			sources: []
+			sources: [],
+			translationRequired: false
 		};
 	},
 
@@ -5339,6 +5343,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				}
 			});
 		}
+
+		this.morphemicFormUpdated(this.$refs.morphemicForm.value);
 	},
 
 
@@ -5374,6 +5380,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}
 
 			return lookup;
+		},
+		morphemicFormUpdated: function morphemicFormUpdated(text) {
+			if (text.length > 0 && !this.containsStem(text)) {
+				this.translationRequired = true;
+				this.$validator.attach('translation', 'required');
+			} else {
+				this.translationRequired = false;
+				this.$validator.attach('translation', '');
+				this.$refs.translation.value = '';
+			}
+		},
+		containsStem: function containsStem(text) {
+			var rc = false;
+
+			// REPLACE ME WITH REGEX
+			var morphemes = text.split('-');
+
+			morphemes.forEach(function (morpheme) {
+				var icParts = morpheme.split('|');
+				var noIC = icParts[icParts.length - 1];
+				var realMorpheme = noIC[0];
+
+				rc = rc || realMorpheme == 'V' || realMorpheme == 'N';
+			});
+
+			return rc;
 		}
 	}
 });

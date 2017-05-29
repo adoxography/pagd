@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Language;
 use Algling\Words\Models\Form;
 use Algling\SS\Models\Variable;
+use Algling\Verbals\Models\Form as VerbForm;
+use Algling\Nominals\Models\Form as NominalForm;
 use Algling\Morphemes\Models\Gloss;
 use App\Observers\LanguageObserver;
 use Laravel\Dusk\DuskServiceProvider;
@@ -28,6 +30,8 @@ class AppServiceProvider extends ServiceProvider
         Gloss::observe(GlossObserver::class);
         Morpheme::observe(MorphemeObserver::class);
         Form::observe(FormObserver::class);
+        NominalForm::observe(FormObserver::class);
+        VerbForm::observe(FormObserver::class);
         Variable::observe(VariableObserver::class);
     }
 

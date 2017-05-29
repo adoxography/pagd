@@ -26,9 +26,11 @@ class FormRequest extends WordFormRequest
     {
         $rules = parent::rules();
 
-        $rules += [
-            'morphemicForm' => ['nullable','has:N'],
+        if(request()->morphemicForm && !preg_match('/N|V/', request()->morphemicForm)) {
+            $rules += ['translation' => 'required'];
+        }
 
+        $rules += [
             'pronominalFeature'    => ['nullable'],
             'pronominalFeature_id' => ['nullable','exists:Word_Features,id'], 
             'nominalFeature'       => ['nullable'],

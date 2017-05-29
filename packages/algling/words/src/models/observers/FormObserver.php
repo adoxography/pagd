@@ -61,7 +61,7 @@ class FormObserver {
         if($form->phonemicForm) {
             $example->phonemicForm = str_replace('*', '', $form->phonemicForm);
         } else {
-            $examples->phonemicForm = null;
+            $example->phonemicForm = null;
         }
 
         if($form->isDirty('parent_id')) {

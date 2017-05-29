@@ -12,6 +12,14 @@ use App\Http\Controllers\AlgModelController;
  */
 class FormController extends AlgModelController
 {
+    /**
+     * Initialize middleware
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except('show');
+    }
+
 	public function show(Form $verbForm)
 	{
 		return redirect("/verbs/forms/{$verbForm->id}/basic");

@@ -9,6 +9,14 @@ use Algling\Nominals\Http\Requests\FormRequest;
 
 class FormController extends Controller
 {
+    /**
+     * Initialize middleware
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except('show');
+    }
+
     public function show(Form $nominalForm)
     {
         return redirect("/nominals/forms/{$nominalForm->id}/basic");

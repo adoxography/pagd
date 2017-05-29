@@ -8,15 +8,19 @@ class FormObserver {
 
     public function created(Form $form)
     {
-        if($this->isStemless($form) && request()->translation) {
+        if((!$form->morphemicForm || $this->isStemless($form)) && request()->translation) {
             $this->createExample($form, request()->translation);
         }
     }
 
     public function updated(Form $form)
     {
-        if($this->isStemless($form) && request()->translation) {
-            $this->updateExample($form, request()->translation);
+        if((!$form->morphemicForm || $this->isStemless($form)) && request()->translation) {
+            if($form->examples()->count() == 0) {
+                $this->createExample($form, request()->translation);
+            } else {
+                $this->updateExample($form, request()->translation);
+            }
         }
     }
 
@@ -43,19 +47,7 @@ class FormObserver {
 
     protected function createExample(Form $form, string $translation)
     {
-        $exampleData = [
-            'form_id'       => $form->id,
-            'name'          => str_replace('*', '', $form->name),
-            'phonemicForm'  => str_replace('*', '', $form->phonemicForm),
-            'morphemicForm' => $form->morphemicForm,
-            'translation'   => $translation
-        ];
-
-        if($form->parent_id && $form->parent->examples()->count() > 0) {
-            $exampleData['parent_id'] = $form->parent->examples()->first()->id;
-        }
-
-        $form->examples()->create($exampleData);
+        $form->generateExample($translation);
     }
 
     protected function updateExample(Form $form, string $translation)

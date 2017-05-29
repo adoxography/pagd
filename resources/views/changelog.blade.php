@@ -7,6 +7,16 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			28-05-17: Added identifying information to nominal forms and examples
+		</li>
+		<li>
+			28-05-17: Forms without a stem now automatically generate an example
+		</li>
+		<li>
+			28-05-17: Merged V and N slots into STM (Stem)
+		</li>
+		<hr>
+		<li>
 			25-05-17: Removed nominal modes
 		</li>
 		<hr>

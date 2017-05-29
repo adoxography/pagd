@@ -196,8 +196,8 @@ $changeTypes = App\ChangeType::all();
 					'disabled' => '!translationRequired'
 				])
 					@slot('value')
-						@if(isset($form) && $form->isStemless())
-							{{ $form->examples()->first()->translation }}
+						@if(isset($form) && $form->isStemless() && $form->examples->count() > 0)
+							{{ $form->examples->first()->translation }}
 						@endif
 					@endslot
 					@endcomponent	

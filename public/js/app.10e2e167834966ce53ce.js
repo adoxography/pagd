@@ -5287,7 +5287,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			mode: { id: '', text: '' },
 			parent: { id: '', text: '' },
 			sources: [],
-			translationRequired: false
+			translationRequired: true
 		};
 	},
 
@@ -5344,7 +5344,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			});
 		}
 
+		var temp = this.$refs.translation.value;
 		this.morphemicFormUpdated(this.$refs.morphemicForm.value);
+		this.$refs.translation.value = temp;
 	},
 
 
@@ -5382,9 +5384,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			return lookup;
 		},
 		morphemicFormUpdated: function morphemicFormUpdated(text) {
-			if (text.length > 0 && !this.containsStem(text)) {
+			if (text.length == 0 || !this.containsStem(text)) {
 				this.translationRequired = true;
-				this.$validator.attach('translation', 'required');
+
+				if (text.length == 0) {
+					this.$validator.attach('translation', '');
+				} else {
+					this.$validator.attach('translation', 'required');
+				}
 			} else {
 				this.translationRequired = false;
 				this.$validator.attach('translation', '');

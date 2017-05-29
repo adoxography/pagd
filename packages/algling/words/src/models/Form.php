@@ -211,6 +211,15 @@ class Form extends Model
 
     public function isStemless()
     {
+        if($this->morphemicForm) {
+            return !$this->hasStem();
+        } else {
+            return $this->hasIdenticalExample();
+        }
+    }
+
+    protected function hasStem()
+    {
         $morphemes = $this->morphemes;
         $found = false;
 
@@ -218,7 +227,36 @@ class Form extends Model
             $found = $morphemes[$i]->slot->name == 'stem';
         }
 
-        return !$found;
+        return $found;
+    }
+
+    protected function hasIdenticalExample()
+    {
+        $examples = $this->examples;
+        $found = false;
+
+        if($examples->count() == 1) {
+            $found = $this->morphemicForm == $this->examples->first()->morphemicForm;
+        }
+
+        return $found;
+    }
+
+    public function generateExample(string $translation)
+    {
+        $exampleData = [
+            'form_id'       => $this->id,
+            'name'          => str_replace('*', '', $this->name),
+            'phonemicForm'  => str_replace('*', '', $this->phonemicForm),
+            'morphemicForm' => $this->morphemicForm,
+            'translation'   => $translation
+        ];
+
+        if($this->parent_id && $this->parent->examples()->count() > 0) {
+            $exampleData['parent_id'] = $this->parent->examples()->first()->id;
+        }
+
+        return $this->examples()->create($exampleData);
     }
 
     /*

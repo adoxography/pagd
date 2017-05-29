@@ -27,7 +27,8 @@ class FormController extends Controller
             'structure.nominalFeature',
             'structure.pronominalFeature',
             'sources',
-            'parent'
+            'parent',
+            'examples'
         ]);
 
     	return view('nom::forms.edit', compact('form'));
@@ -43,6 +44,14 @@ class FormController extends Controller
     public function update(FormRequest $request, Form $nominalForm)
     {
     	$nominalForm->update($request->all());
+
+        if($request->translation) {
+            if($nominalForm->examples->count() == 0) {
+                $nominalForm->generateExample($request->translation);
+            } else {
+                $nominalForm->examples->first()->update(['translation' => $request->translation]);
+            }
+        }
 
         return redirect("/nominals/forms/{$nominalForm->id}");
     }

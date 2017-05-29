@@ -16,7 +16,7 @@ export default {
 			mode:              { id: '', text: '' },
 			parent:            { id: '', text: '' },
 			sources: [],
-			translationRequired: false
+			translationRequired: true
 		}
 	},
 
@@ -69,7 +69,9 @@ export default {
 			});
 		}
 
+		let temp = this.$refs.translation.value;
 		this.morphemicFormUpdated(this.$refs.morphemicForm.value);
+		this.$refs.translation.value = temp;
 	},
 
 	methods: {
@@ -109,9 +111,14 @@ export default {
 		},
 
 		morphemicFormUpdated(text) {
-			if(text.length > 0 && !this.containsStem(text)) {
+			if(text.length == 0 || !this.containsStem(text)) {
 				this.translationRequired = true;
-				this.$validator.attach('translation', 'required');
+				
+				if(text.length == 0) {
+					this.$validator.attach('translation', '');
+				} else {
+					this.$validator.attach('translation', 'required');
+				}
 			} else {
 				this.translationRequired = false;
 				this.$validator.attach('translation', '');

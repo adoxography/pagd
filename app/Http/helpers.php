@@ -1,46 +1,5 @@
 <?php
 
-function fixWillsCrap() {
-    $paradigms = \Algling\Nominals\Models\Paradigm::with('structures')->get();
-
-    foreach($paradigms as $paradigm) {
-        $tokens = explode('\'', $paradigm->name);
-
-        if(count($tokens) > 1) {
-            $translation = $tokens[1];
-
-            foreach($paradigm->structures as $structure) {
-                foreach($structure->forms as $form) {
-                    $data = [
-                        'name'          => str_replace('*', '', $form->name),
-                        'morphemicForm' => $form->morphemicForm,
-                        'translation'   => $translation
-                    ];
-
-                    if($form->phonemicForm) {
-                        $data['phonemicForm'] = str_replace('*', '', $form->phonemicForm);
-                    }
-
-                    $example = $form->examples()->create($data);
-
-                    foreach($form->sources as $source) {
-                        $options = ['sourceable_type' => 'examples'];
-
-                        if($source->pivot->extraInfo) {
-                            $options['extraInfo'] = $source->pivot->extraInfo;
-                        }
-
-                        $example->sources()->attach($source->id, $options);
-                    }
-                }
-            }
-
-            $paradigm->name = trim(str_replace('(', '', $tokens[0]));
-            $paradigm->save();
-        }
-    }
-}
-
 function assessAllForms()
 {
     $forms = \Algling\Words\Models\Form::all();

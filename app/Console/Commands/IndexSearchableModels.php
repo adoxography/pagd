@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Algling\Verbals\Models\Form;
+use Algling\Words\Models\Form;
 use Algling\Words\Models\Example;
 use Algling\Morphemes\Models\Morpheme;
 use Illuminate\Support\Facades\Artisan;

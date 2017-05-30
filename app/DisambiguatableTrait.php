@@ -179,7 +179,7 @@ trait DisambiguatableTrait {
 
     protected function generatePossibleMatches($field)
     {
-    	$noHyphens = str_replace('-', '', $this->$field);
+    	$noHyphens = str_replace(['*', '-'], '', $this->$field);
 
     	return [
     		$noHyphens,

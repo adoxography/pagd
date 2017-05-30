@@ -50,6 +50,6 @@ trait HasNominalsTrait {
 			$parent = $this->parent->morphemes()->where('name', 'N-')->first()->id;
 		}
 
-		$this->morphemes()->create(['name' => 'N-', 'gloss' => 'N', 'slot_id' => 2, 'parent_id' => $parent]);
+		$this->morphemes()->create(['name' => 'N-', 'gloss' => 'N', 'slot_id' => 1, 'parent_id' => $parent]);
 	}
 }

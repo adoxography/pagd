@@ -22,7 +22,7 @@ class SourceShowController extends Controller
 
         $source->loadVerbForms(['structure', 'structure.subject', 'structure.primaryObject', 'structure.secondaryObject', 'structure.mode', 'structure.verbClass', 'structure.order']);
 
-        $source->loadNominalForms(['structure', 'structure.mode', 'structure.pronominalFeature', 'structure.nominalFeature', 'structure.paradigm']);
+        $source->loadNominalForms(['structure', 'structure.pronominalFeature', 'structure.nominalFeature', 'structure.paradigm']);
 
     	return view('sources.show.forms', compact('source'));
     }

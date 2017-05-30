@@ -47,7 +47,6 @@ class MorphemeShowController extends AlgModelController
         $morpheme->loadNominalForms([
             'structure',
             'structure.paradigm',
-            'structure.mode',
             'structure.pronominalFeature',
             'structure.nominalFeature'
         ]);

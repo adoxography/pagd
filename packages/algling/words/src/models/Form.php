@@ -236,7 +236,7 @@ class Form extends Model
         $found = false;
 
         if($examples->count() == 1) {
-            $found = $this->morphemicForm == $this->examples->first()->morphemicForm;
+            $found = $this->surfaceForm == $this->examples->first()->surfaceForm;
         }
 
         return $found;

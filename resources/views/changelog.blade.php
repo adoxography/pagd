@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			01-06-17: Fixed bug in non-stemless forms
+		</li>
+		<hr>
+		<li>
 			28-05-17: Added identifying information to nominal forms and examples
 		</li>
 		<li>

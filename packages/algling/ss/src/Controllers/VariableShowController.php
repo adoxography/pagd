@@ -19,11 +19,6 @@ class VariableShowController extends Controller
         return view('ss::variables.show.basic', compact('variable'));
     }
 
-    public function essay(Variable $variable)
-    {
-        return view('ss::variables.show.essay', compact('variable'));
-    }
-
     public function datapoints(Variable $variable)
     {
         $variable->load('datapoints');

@@ -69,18 +69,27 @@
 				</div>
 			</div>
 		</div>
+		@component('components.form.textarea', [
+			'name' => 'note'
+		])
+			@slot('value')
+				@if(isset($datapoint))
+					{{ $datapoint->note }}
+				@endif
+			@endslot
+		@endcomponent
 
 		<hr>
 		<alg-sources v-model="sources"></alg-sources>
 
 		<hr>
-		<h4 class="subtitle is-4">Notes</h4>
+		{{-- <h4 class="subtitle is-4">Notes</h4> --}}
 		@component('components.form.textarea', [
-			'name' => 'notes'
+			'name' => 'comments'
 		])
 			@slot('value')
 				@if(isset($datapoint))
-					{{ $datapoint->notes }}
+					{{ $datapoint->comments }}
 				@endif
 			@endslot
 		@endcomponent

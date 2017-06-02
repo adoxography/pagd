@@ -43,7 +43,7 @@ class VariableController extends AlgModelController
 
     public function show(Variable $variable)
     {
-        return redirect("/variables/{$variable->id}/basic");
+        return redirect("/variables/{$variable->id}/datapoints");
     }
 
     public function edit(Variable $variable)

@@ -9,6 +9,5 @@ Route::group(['as' => 'variables::'], function() {
 	Route::post('variables/{variable}/bookmark', 'VariableController@bookmark');
 
 	Route::get('variables/{variable}/basic',      'VariableShowController@basicDetails')->name('showBasic');
-	Route::get('variables/{variable}/essay',      'VariableShowController@essay')->name('showEssay');
 	Route::get('variables/{variable}/datapoints', 'VariableShowController@datapoints')->name('showDatapoints');
 });

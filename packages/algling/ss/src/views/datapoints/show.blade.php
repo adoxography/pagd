@@ -24,10 +24,10 @@
 			</div>
 		</div>
 		<div class="column">
-			@if($datapoint->notes)
+			@if($datapoint->comments)
 				<div class="field">
-					<span class="label">Notes</span>
-					{!! replaceTags($datapoint->notes) !!}
+					<span class="label">Comments</span>
+					{!! replaceTags($datapoint->comments) !!}
 				</div>
 			@endif
 		</div>

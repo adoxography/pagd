@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			02-06-17: Modified the datapoints
+		</li>
+		<hr>
+		<li>
 			01-06-17: Fixed bug in non-stemless forms
 		</li>
 		<hr>

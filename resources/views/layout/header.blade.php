@@ -12,7 +12,7 @@
 				<div class="tile is-parent is-3">
 					<div class="tile is-child" id="main-menu">
 						<ul>
-							<li><h5 class="subtitle is-5"><a href="#">Structural survey</a></h5></li>
+							<li><h5 class="subtitle is-5"><a href="/variables">Structural survey</a></h5></li>
 							<li><h5 class="subtitle is-5"><a href="#">Verb forms</a></h5></li>
 							<li><h5 class="subtitle is-5"><a href="#"><nobr>Nominal forms</nobr></a></h5></li>
 							<li><h5 class="subtitle is-5"><a href="#">Phonology</a></h5></li>

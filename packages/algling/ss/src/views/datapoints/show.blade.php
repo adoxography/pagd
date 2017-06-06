@@ -22,12 +22,18 @@
 				<span class="label">Value</span>
 				{{ $datapoint->value->name }}
 			</div>
+			@if($datapoint->note)
+				<div class="field">
+					<span class="label">Note</span>
+					{!! $datapoint->note !!}
+				</div>
+			@endif
 		</div>
 		<div class="column">
-			@if($datapoint->comments)
+			@if($datapoint->notes)
 				<div class="field">
-					<span class="label">Comments</span>
-					{!! replaceTags($datapoint->comments) !!}
+					<span class="label">Notes</span>
+					{!! replaceTags($datapoint->notes) !!}
 				</div>
 			@endif
 		</div>

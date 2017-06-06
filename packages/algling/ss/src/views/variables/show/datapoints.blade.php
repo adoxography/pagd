@@ -43,7 +43,9 @@
 						</td>
 						@if($hasNoteColumn)
 							<td>
-								{!! $variable->datapoints[$index]->note !!}
+								@if($index !== false)
+									{!! $variable->datapoints[$index]->note !!}
+								@endif
 							</td>
 						@endif
 					</tr>

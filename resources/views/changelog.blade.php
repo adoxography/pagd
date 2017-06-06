@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			05-06-17: Fixes to datapoint notes
+		</li>
+		<li>
 			05-06-17: Reformatted the <a href="/log">activity log</a>
 		</li>
 		<hr>

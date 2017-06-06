@@ -82,13 +82,9 @@ class Language extends Model
         'reconstructed' => 'boolean:Attested|Reconstructed'
     ];
     protected $revisionFormattedFieldNames = [
-        'algoCode'       => 'Algonquianist Code',
-        'alternateNames' => 'Alternate Names',
-        'iso'            => 'ISO Code',
-        'name'           => 'Name',
-        'notes'          => 'Notes',
-        'parent_id'      => 'Parent ID',
-        'reconstructed'  => 'Reconstructed'
+        'algoCode'       => 'algonquianist code',
+        'alternateNames' => 'alternate names',
+        'iso'            => 'ISO code'
     ];
     protected $dontKeepRevisionOf = [
         'id',
@@ -96,6 +92,11 @@ class Language extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function identifiableName()
+    {
+        return $this->name;
+    }
 
     public function getDisplayAttribute()
     {
@@ -188,5 +189,10 @@ class Language extends Model
     public function renderHTML()
     {
         return "<a href='/languages/{$this->id}'>{$this->name}</a>";
+    }
+
+    public function renderLink()
+    {
+        return $this->renderHTML();
     }
 }

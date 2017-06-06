@@ -16,6 +16,11 @@ class Group extends Closed
 	public $relationList = ['languages'];
 	public $singular = 'Group';
 	public $plural = 'Groups';
+
+	public function identifiableTrait()
+	{
+		return $this->name;
+	}
 	
     public function languages(){
     	return $this->hasMany(Language::class);

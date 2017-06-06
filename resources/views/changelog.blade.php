@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			05-06-17: Reformatted the <a href="/log">activity log</a>
+		</li>
+		<hr>
+		<li>
 			02-06-17: Modified the datapoints
 		</li>
 		<hr>

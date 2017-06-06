@@ -78,16 +78,15 @@ class Form extends Model
     protected $revisionCreationsEnabled = true;
     protected $revisionNullString = 'none';
     protected $revisionFormattedFieldNames = [
-        'allomorphyNotes' => 'Allomorphy Notes',
-        'privateNotes'    => 'Comments',
-        'structure_id'    => 'Syntax Details ID',
-        'historicalNotes' => 'Historical Notes',
-        'language_id'     => 'Language ID',
-        'morphemicForm'   => 'Morphemes',
-        'parent_id'       => 'Parent ID',
-        'phonemicForm'    => 'Phonemic Representation',
-        'surfaceForm'     => 'Surface Form',
-        'usageNotes'      => 'Usage Notes'
+        'allomorphyNotes' => 'allomorphy notes',
+        'privateNotes'    => 'comments',
+        'historicalNotes' => 'historical notes',
+        'morphemicForm'   => 'morphemes',
+        'parent_id'       => 'parent',
+        'phonemicForm'    => 'phonemic representation',
+        'name'            => 'surface form',
+        'usageNotes'      => 'usage notes',
+        'changeType_id'   => 'change type'
     ];
     protected $dontKeepRevisionOf = [
         'id',
@@ -95,6 +94,11 @@ class Form extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function identifiableName()
+    {
+        return $this->renderLink();
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -108,10 +112,10 @@ class Form extends Model
     }
 
     /**
-     * Modifies the surfaceForm attribute to include an asterisk if the form belongs to a reconstructed language
+     * Modifies the name attribute to include an asterisk if the form belongs to a reconstructed language
      *
-     * @param string The original surfaceForm attribute
-     * @return string The modified surfaceForm attribute
+     * @param string The original name attribute
+     * @return string The modified name attribute
      */
     public function getSurfaceFormAttribute()
     {
@@ -177,7 +181,7 @@ class Form extends Model
     /**
      * Fetches the name of this example that is unique within its language
      *
-     * @return string The surfaceForm followed by the form's arguments
+     * @return string The name followed by the form's arguments
      * @deprecated
      * @see Form::getUniqueNameAttribute()
      */
@@ -200,12 +204,17 @@ class Form extends Model
 
     public function renderHTML()
     {
-        return "<a href='/forms/{$this->id}'>{$this->surfaceForm}</a>";
+        return "<a href='/forms/{$this->id}'>{$this->name}</a>";
+    }
+
+    public function renderLink()
+    {
+        return "<a href='/forms/{$this->id}'>{$this->name}</a>";
     }
 
     public function renderInNotes()
     {
-        $name = isset($this->phoneticForm) ? $this->phoneticForm : $this->surfaceForm;
+        $name = isset($this->phoneticForm) ? $this->phoneticForm : $this->name;
         return "<blockquote><a href='/forms/{$this->id}'>{$name}</a>".$this->printMorphemes().'</blockquote>';
     }
 
@@ -236,7 +245,7 @@ class Form extends Model
         $found = false;
 
         if($examples->count() == 1) {
-            $found = $this->surfaceForm == $this->examples->first()->surfaceForm;
+            $found = $this->name == $this->examples->first()->name;
         }
 
         return $found;

@@ -4,12 +4,15 @@ namespace Algling\Verbals\Models;
 
 use Algling\Verbals\Models\Form;
 use Illuminate\Database\Eloquent\Model;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 /**
  * The syntax information about a form
  */
 class Structure extends Model
 {
+    use RevisionableTrait;
+
     public $table = 'Verb_Structures';
     public $errors;
     protected $fillable = [
@@ -32,6 +35,11 @@ class Structure extends Model
         static::saving(function($model) {
             $model->assignSubclass();
         });
+    }
+
+    public function identifiableName()
+    {
+        return $this->summary;
     }
 
     /*

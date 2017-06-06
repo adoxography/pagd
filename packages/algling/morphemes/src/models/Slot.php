@@ -20,6 +20,11 @@ class Slot extends Closed
     public $singular = 'Slot';
     public $plural = 'Slots';
 
+    public function identifiableName()
+    {
+        return $this->name;
+    }
+
     public function morphemes()
     {
     	return $this->hasMany(Morpheme::class);

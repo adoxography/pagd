@@ -84,20 +84,22 @@ class Morpheme extends Model
         'reconstructed' => 'boolean:Attested|Reconstructed'
     ];
     protected $revisionFormattedFieldNames = [
-        'allomorphyNotes' => 'Allomorphy Notes',
-        'privateNotes'    => 'Comments',
-        'historicalNotes' => 'Historical Notes',
-        'language_id'     => 'Language ID',
-        'gloss'           => 'Gloss',
+        'allomorphyNotes' => 'allomorphy notes',
+        'privateNotes'    => 'comments',
+        'historicalNotes' => 'historical notes',
         'name'            => 'Morpheme',
-        'parent_id'       => 'Parent ID',
-        'slot_id'         => 'Slot ID',
+        'changeType_id'   => 'change type'
     ];
     protected $dontKeepRevisionOf = [
         'id',
         'created_at',
         'updated_at'
     ];
+
+    public function identifiableName()
+    {
+        return $this->renderLink();
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -310,6 +312,11 @@ class Morpheme extends Model
     public function renderHTML()
     {
         return "<a href='/morphemes/{$this->id}'>{$this->name}</a> (".$this->renderGloss(true, false).')';
+    }
+
+    public function renderLink()
+    {
+        return "<a href='/forms/{$this->id}'>{$this->name}</a>";
     }
 
     public function renderInNotes()

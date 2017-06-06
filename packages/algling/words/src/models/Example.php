@@ -57,13 +57,10 @@ class Example extends Model
     protected $revisionCreationsEnabled = true;
     protected $revisionNullString = 'none';
     protected $revisionFormattedFieldNames = [
-        'name'          => 'Example',
-        'translation'   => 'Translation',
-        'form_id'       => 'Form ID',
-        'privateNotes'      => 'Private Comments',
-        'publicNotes'         => 'Public Notes',
-        'morphemicForm' => 'Morphemes',
-        'parent_id'     => 'Parent ID'
+        'name'          => 'example',
+        'privateNotes'  => 'private comments',
+        'publicNotes'   => 'public notes',
+        'morphemicForm' => 'morphemes'
     ];
     protected $dontKeepRevisionOf = [
         'id',
@@ -71,6 +68,11 @@ class Example extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function identifiableName()
+    {
+        return $this->renderLink();
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -174,6 +176,11 @@ class Example extends Model
     public function renderHTML()
     {
         return "<a href='/examples/{$this->id}'>{$this->name}</a> (".$this->form->structure->renderSummary().")";
+    }
+
+    public function renderLink()
+    {
+        return "<a href='/forms/{$this->id}'>{$this->name}</a>";
     }
 
     public function renderInNotes()

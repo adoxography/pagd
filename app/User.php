@@ -49,4 +49,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(UserRole::class, 'userRoles_id', 'id');
     }
+
+    public function renderLink()
+    {
+        return "<a href='/users/{$this->id}'>{$this->name}</a>";
+    }
 }

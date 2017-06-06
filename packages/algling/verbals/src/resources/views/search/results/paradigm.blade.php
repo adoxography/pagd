@@ -97,6 +97,22 @@
 					</tbody>
 				</table>
 			</div>
+
+			<br>
+			<p>
+				<strong>Sources for forms in this paradigm:</strong>
+				@foreach($sources as $source)
+					@php
+						$output = $source->renderLink();
+
+						if(!$loop->last) {
+							$output .= ';';
+						}
+					@endphp
+
+					{!! $output !!}
+				@endforeach
+			</p>
 		</div>
 	</alg-paradigm-table>
 

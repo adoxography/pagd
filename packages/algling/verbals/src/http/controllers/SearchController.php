@@ -53,6 +53,12 @@ class SearchController extends Controller
     public function paradigmResults(Request $request)
     {
         $forms = $this->paradigmSearch($request);
+        $sources = $forms->pluck('sources')
+            ->flatten(1)
+            ->unique('id')
+            ->sortBy('disambiguator')
+            ->sortByDesc('year')
+            ->sortBy('name');
         $showMorphology = $request->showMorphology;
 
         $search = new Paradigm($forms);
@@ -61,7 +67,7 @@ class SearchController extends Controller
 
         $params = serialize($request->all());
 
-        return view('verb::search.results.paradigm', compact('data', 'rows', 'showMorphology', 'search', 'params'));
+        return view('verb::search.results.paradigm', compact('data', 'rows', 'showMorphology', 'search', 'params', 'sources'));
     }
 
     public function formResults(Request $request)
@@ -296,7 +302,8 @@ class SearchController extends Controller
                 $query->orderBy('position');
             },
             'morphemes.glosses',
-            'morphemes.slot'
+            'morphemes.slot',
+            'sources'
         ]);
 
         $gapQuery = Gap::with([

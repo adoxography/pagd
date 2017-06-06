@@ -139,4 +139,9 @@ class Source extends Model implements VerbFormRepositoryInterface, NominalFormRe
     {
         return $this->morphedByMany(Gap::class, 'Sourceable')->withPivot('extraInfo');
     }
+
+    public function renderLink()
+    {
+        return "<a href='/sources/{$this->id}'>{$this->display}</a>";
+    }
 }

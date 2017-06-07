@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			07-06-17: Added auto-generated colours to datapoints
+		</li>
+		<li>
 			07-06-17: Fixed bug preventing examples from saving phonemic representations
 		</li>
 		<hr>

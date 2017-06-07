@@ -100,7 +100,7 @@
 
 			<br>
 			<p>
-				<strong>Sources for forms in this paradigm:</strong>
+				Sources for forms in this paradigm:
 				@foreach($sources as $source)
 					@php
 						$output = $source->renderLink();

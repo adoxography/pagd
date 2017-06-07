@@ -180,7 +180,7 @@ class Example extends Model
 
     public function renderLink()
     {
-        return "<a href='/forms/{$this->id}'>{$this->name}</a>";
+        return "<a href='/examples/{$this->id}'>{$this->name}</a>";
     }
 
     public function renderInNotes()

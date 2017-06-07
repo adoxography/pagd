@@ -316,7 +316,7 @@ class Morpheme extends Model
 
     public function renderLink()
     {
-        return "<a href='/forms/{$this->id}'>{$this->name}</a>";
+        return "<a href='/morphemes/{$this->id}'>{$this->name}</a>";
     }
 
     public function renderInNotes()

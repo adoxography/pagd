@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			07-06-17: Fixed log links
+		</li>
+		<li>
 			07-06-17: Updated header links
 		</li>
 		<li>

@@ -31,10 +31,16 @@
 						<td>{!! $language->renderHTML() !!}</td>
 						<td>
 							@if($index !== false)
+								<span class="icon is-small">
+									<i class="fa fa-circle" style="color: #{{ $colorAssignments[$variable->datapoints[$index]->value->name] }};"></i>
+								</span>
 								<a href="/datapoints/{{ $variable->datapoints[$index]->id }}">
 									{{ $variable->datapoints[$index]->value->name }}
 								</a>
 							@else
+								<span class="icon is-smalle">
+									{{-- Placeholder --}}
+								</span>
 								Not entered
 								@if(Auth::user() && Auth::user()->permissions->canEdit)
 									(<a href="/variables/{{ $variable->id }}/languages/{{ $language->id }}/addDatapoint">Add</a>)

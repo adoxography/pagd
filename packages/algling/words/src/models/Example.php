@@ -33,7 +33,7 @@ class Example extends Model
     |
     */
     public $table = 'Word_Examples';
-    protected $fillable = ['id', 'name','translation','form_id','publicNotes','privateNotes','morphemicForm', 'parent_id'];
+    protected $fillable = ['id', 'name','translation','form_id','publicNotes','privateNotes','morphemicForm', 'parent_id', 'phonemicForm'];
     protected $appends = ['html'];
     public $uri = '/examples';
     protected $morphCode = 'examples';

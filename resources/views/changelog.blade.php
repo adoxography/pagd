@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			07-06-17: Fixed bug preventing examples from saving phonemic representations
+		</li>
+		<hr>
+		<li>
 			05-06-17: Added sources below paradigms
 		</li>
 		<li>

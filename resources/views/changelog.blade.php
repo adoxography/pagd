@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			07-06-17: Fixed custom page style class
+		</li>
+		<li>
 			07-06-17: Unbolded source title on paradigms
 		</li>
 		<li>

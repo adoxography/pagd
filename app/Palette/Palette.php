@@ -2,6 +2,7 @@
 
 namespace App\Palette;
 
+use App\Palette\Mapper;
 use App\Palette\Generator;
 use MikeAlmond\Color\Color;
 use Illuminate\Support\Collection;
@@ -16,10 +17,13 @@ class Palette {
 
 	private $generator;
 
+	private $mapper;
+
 	public function __construct($color = self::DEFAULT_COLOR)
 	{
 		$this->baseColor = Color::fromHex($color);
 		$this->generator = new Generator;
+		$this->mapper    = new Mapper;
 	}
 
 	public function generate($n = 2)
@@ -31,18 +35,10 @@ class Palette {
 
 	public function map(Collection $collection, $key = 'id')
 	{
-		$map = [];
-
 		if(!isset($this->palette)) {
 			$this->generate($collection->count());
 		}
 
-		foreach($collection as $item) {
-			if(!isset($map[$item->$key])) {
-				$map[$item->$key] = $this->palette[count($map)];
-			}
-		}
-
-		return $map;
+		return $this->mapper->map($collection, $this->palette, $key);
 	}
 }

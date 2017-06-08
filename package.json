@@ -13,7 +13,7 @@
     "exports-loader": "^0.6.4",
     "imports-loader": "^0.7.1",
     "jquery": "^3.2.0",
-    "laravel-mix": "^0.11.3",
+    "laravel-mix": "^0.12.1",
     "lodash": "^4.16.2",
     "vee-validate": "^2.0.0-beta.25",
     "vue": "^2.2.4",

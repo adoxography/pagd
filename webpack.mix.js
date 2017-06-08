@@ -1,4 +1,4 @@
-let mix = require('laravel-mix').mix;
+let mix = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -16,7 +16,7 @@ mix.autoload({
 
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
-   .browserSync()
+   // .browserSync()
    .version()
    .copy('resources/assets/libs/font-awesome/fonts', 'public/build/fonts');
 

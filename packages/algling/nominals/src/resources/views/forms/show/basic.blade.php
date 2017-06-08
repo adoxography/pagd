@@ -41,7 +41,7 @@
 					@if(count($form->examples) > 0)
 						<ul>
 							@foreach($form->examples as $example)
-								<li><a href="/examples/{{ $example->id }}">{{ $example->name }}</a>
+								<li>{!! $example->renderLink() !!} '{{ $example->translation }}'</li>
 							@endforeach
 						</ul>
 					@else

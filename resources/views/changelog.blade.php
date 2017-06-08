@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			08-06-17: Added translations to examples on form details
+		</li>
+		<hr>
+		<li>
 			07-06-17: Fixed log links
 		</li>
 		<li>

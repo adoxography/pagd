@@ -38,7 +38,7 @@
 									{{ $variable->datapoints[$index]->value->name }}
 								</a>
 							@else
-								<span class="icon is-smalle">
+								<span class="icon is-small">
 									{{-- Placeholder --}}
 								</span>
 								Not entered

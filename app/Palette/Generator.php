@@ -9,10 +9,13 @@ class Generator {
 	public function generate(Color $color, $n)
 	{
 		$palette = [];
-		$degrees = 360 / $n;
 
-		for($i = 0; $i < $n; $i++) {
-			$palette[] = $color->adjustHue($degrees * $i);
+		if($n > 0) {
+			$degrees = 360 / $n;
+
+			for($i = 0; $i < $n; $i++) {
+				$palette[] = $color->adjustHue($degrees * $i);
+			}
 		}
 
 		return $palette;

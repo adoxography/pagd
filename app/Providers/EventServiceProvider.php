@@ -17,6 +17,10 @@ class EventServiceProvider extends ServiceProvider
         // Backup Event
         'App\Events\Backup' => [
             'App\Listeners\Backup'
+        ],
+
+        'Illuminate\Auth\Events\Login' => [
+            'App\Listeners\LogSuccessfulLogin'
         ]
     ];
 

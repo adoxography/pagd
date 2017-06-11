@@ -30,7 +30,7 @@ class LanguageObserver {
 	{
         // Create the vStem
         $vStem = new Morpheme([
-            'name'          => 'V',
+            'name'          => 'V-',
             'language_id'   => $language->id,
             'gloss'         => 'V',
             'slot_id'       => 1, // V
@@ -44,6 +44,7 @@ class LanguageObserver {
             $vStem->parent_id = $parentStem->id;
         }
 
+        $vStem->disableRevisions();
         $vStem->save();
 	}
 

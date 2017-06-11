@@ -1,0 +1,30 @@
+@extends('users.show')
+
+@section('content')
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Data</th>
+				<th>Language</th>
+				<th>Field</th>
+				<th>Old value</th>
+				<th>New value</th>
+				<th>Time</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach($user->revisions()->take(1000)->get() as $revision)
+				@if($model = $revision->historyOf())
+					<tr>
+						<td>{!! $model->renderLink() !!}</td>
+						<td>{!! $model->language ? $model->language->renderLink() : 'N/A' !!}</td>
+						<td>{{ $revision->fieldName() == 'created_at' ? 'N/A' : $revision->fieldName() }}</td>
+						<td>{{ condenseString($revision->oldValue()) }}
+						<td>{{ $revision->fieldName() == 'created_at' ? '[Created]' : condenseString($revision->newValue()) }}
+						<td>{{ Carbon\Carbon::parse($revision->created_at)->setTimezone('America/Winnipeg')->toDayDateTimeString() }}</td>
+					</td>
+				@endif
+			@endforeach
+		</tbody>
+	</table>
+@endsection

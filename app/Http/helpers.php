@@ -113,6 +113,17 @@ function replaceTags($text, $id = 0)
     return $output;
 }
 
+function condenseString($str)
+{
+    $output = strip_tags($str);
+
+    if(strlen($output) > 50) {
+        $output = substr($output, 0, 50) . '...';
+    }
+
+    return $output;
+}
+
 function binarySearch($item, $list)
 {
     $hi = count($list)-1;

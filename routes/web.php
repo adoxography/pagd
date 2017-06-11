@@ -103,8 +103,13 @@ Route::group(['as' => 'sources::'], function() {
 });
 
 Route::get('users', 'UserController@index');
-Route::get('profile', 'UserController@show');
-Route::get('users/{user}', 'UserController@show');
+
+Route::group(['as' => 'users::'], function() {
+	Route::get('profile', 'UserController@show')->name('profile');
+	Route::get('users/{user}', 'UserController@show')->name('show');
+	Route::get('users/{user}/history', 'UserController@history')->name('showHistory');
+});
+
 Auth::routes();
 
 Route::get('{args}', 'PageController@show')->where('args', '.*');

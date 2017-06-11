@@ -5,6 +5,7 @@ namespace Algling\Nominals\Traits;
 use Algling\Nominals\Models\Form;
 use Algling\Words\Models\Example;
 use Algling\Nominals\Models\Paradigm;
+use Algling\Morphemes\Models\Morpheme;
 use Algling\Words\Traits\HasWordsTrait;
 
 trait HasNominalsTrait {
@@ -50,6 +51,14 @@ trait HasNominalsTrait {
 			$parent = $this->parent->morphemes()->where('name', 'N-')->first()->id;
 		}
 
-		$this->morphemes()->create(['name' => 'N-', 'gloss' => 'N', 'slot_id' => 1, 'parent_id' => $parent]);
+		$stem = new Morpheme([
+			'name' => 'N-',
+			'gloss' => 'N',
+			'slot_id' => 1,
+			'parent_id' => $parent
+		]);
+
+		$stem->disableRevisions();
+		$this->morphemes()->save($stem);
 	}
 }

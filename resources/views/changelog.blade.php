@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			11-06-17: Added user history to profile
+		</li>
+		<hr>
+		<li>
 			10-06-17: Added <a href="/users">user directory</a>
 		</li>
 		<li>

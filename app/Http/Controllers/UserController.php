@@ -29,7 +29,14 @@ class UserController extends Controller
             $user = Auth::user();
         }
 
-    	return view('users.show', compact('user'));
+    	return view('users.show.basic', compact('user'));
+    }
+
+    public function history(User $user)
+    {
+        $user->load('revisions');
+
+        return view('users.show.history', compact('user'));
     }
 
     public function bookmarks()

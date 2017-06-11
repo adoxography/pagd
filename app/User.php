@@ -1,8 +1,9 @@
 <?php
 namespace App;
+use App\UserRole;
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\UserRole;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -24,9 +25,23 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function getLastLoginAttribute($value)
+    {
+        if($value) {
+            return Carbon::parse($value, 'UTC')->setTimezone('America/Winnipeg')->toDayDateTimeString();
+        } else {
+            return 'Never';
+        }
+    }
+
     public function revisions()
     {
-        return $this->hasMany('Venturecraft\Revisionable\Revision')->latest()->take(30);
+        return $this->hasMany('Venturecraft\Revisionable\Revision')->latest();
+    }
+
+    public function creations()
+    {
+        return $this->revisions()->where('key', 'created_at');
     }
 
     public function bookmarks($table = null, $returnRelation = false)
@@ -45,9 +60,14 @@ class User extends Authenticatable
         }
     }
 
-    public function permissions()
+    public function type()
     {
         return $this->belongsTo(UserRole::class, 'userRoles_id', 'id');
+    }
+
+    public function permissions()
+    {
+        return $this->type();
     }
 
     public function renderLink()

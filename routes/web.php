@@ -102,7 +102,9 @@ Route::group(['as' => 'sources::'], function() {
 	Route::get('sources/{source}/morphemes', 'SourceShowController@morphemes')->name('showMorphemes');
 });
 
+Route::get('users', 'UserController@index');
 Route::get('profile', 'UserController@show');
+Route::get('users/{user}', 'UserController@show');
 Auth::routes();
 
 Route::get('{args}', 'PageController@show')->where('args', '.*');

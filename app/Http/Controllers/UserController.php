@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,9 +16,18 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
-    public function show()
+    public function index()
     {
-    	$user = Auth::user();
+        $users = User::orderBy('name')->get();
+
+        return view('users.index', compact('users'));
+    }
+
+    public function show(User $user = null)
+    {
+        if(!$user->id) {
+            $user = Auth::user();
+        }
 
     	return view('users.show', compact('user'));
     }

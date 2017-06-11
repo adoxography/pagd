@@ -49,9 +49,12 @@
 			@endif
 		</div>
 
-	@if($language->description)
-		<br />
-		<label class="label">Description</label>
-		{!! replaceTags($language->description, $language->id) !!}
-	@endif
+		<div class="column">
+			@if($language->notes)
+				<div class="field">
+					<label class="label">Description</label>
+					{!! replaceTags($language->notes, $language->id) !!}
+				</div>
+			@endif
+		</div>
 @endsection

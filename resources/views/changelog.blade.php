@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			12-06-17: Added flag to sources with summaries
+		</li>
+		<hr>
+		<li>
 			11-06-17: Fixed bug with language notes
 		</li>
 		<li>

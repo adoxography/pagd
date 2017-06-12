@@ -6,15 +6,16 @@ use App\Rule;
 use Algling\Words\Models\Gap;
 use Laravel\Scout\Searchable;
 use Algling\Words\Models\Form;
-use Algling\Verbals\Models\Form as VerbForm;
 use Algling\Words\FormRepository;
 use Algling\Words\Models\Example;
 use Algling\Morphemes\Models\Morpheme;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Algling\Verbals\Models\Form as VerbForm;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Algling\Nominals\Models\Form as NominalForm;
 use Algling\Verbals\VerbFormRepositoryInterface;
+use Venturecraft\Revisionable\RevisionableTrait;
 use Algling\Nominals\NominalFormRepositoryInterface;
 
 class Source extends Model implements VerbFormRepositoryInterface, NominalFormRepositoryInterface
@@ -23,6 +24,7 @@ class Source extends Model implements VerbFormRepositoryInterface, NominalFormRe
     use \App\BookmarkableTrait;
     use \App\DisambiguatableTrait;
     use SoftDeletes;
+    use RevisionableTrait;
 
     public $table = 'Sources';
     protected $fillable = ['author', 'year', 'disambiguator', 'long', 'url', 'summary', 'notes'];

@@ -29,8 +29,7 @@
 					<td>
 						<a :href="'/sources/'+row.id">{{ row.display }}</a>
 					</td>
-					<td v-html="row.long">
-					</td>
+					<td v-html="setHTML(row)"></td>
 				</tr>
 			</tbody>
 		</table>
@@ -72,6 +71,16 @@ export default {
 				});
 			} else {
 				output = list;
+			}
+
+			return output;
+		},
+
+		setHTML(row) {
+			let output = row.long;
+
+			if(row.summary) {
+				output = "<div>" + output + "<span class=\"tag is-primary\">Summary available</span></div>";
 			}
 
 			return output;

@@ -115,10 +115,14 @@ function replaceTags($text, $id = 0)
 
 function condenseString($str)
 {
-    $output = strip_tags($str);
+    $stripped = strip_tags($str);
+    $output = '';
 
-    if(strlen($output) > 50) {
-        $output = substr($output, 0, 50) . '...';
+    if(strlen($stripped) > 50) {
+        $output = substr($stripped, 0, 50) . '...';
+        $output = "<span title=\"$stripped\">$output</span>";
+    } else {
+        $output = $stripped;
     }
 
     return $output;

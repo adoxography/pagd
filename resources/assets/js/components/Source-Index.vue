@@ -9,6 +9,16 @@
 			</span>
 		</p>
 
+		<!-- The summary filter -->
+		<div class="field" style="display: flex; flex-direction: row-reverse;">
+			<p class="control">
+				<label class="checkbox">
+					<em>Only show sources that have summaries</em>
+					<input type="checkbox" v-model="onlySummaries" />
+				</label>
+			</p>
+		</div>
+
 		<!-- The pages -->
 		<alg-pagination-full :pages="list.length" v-model="page" :alpha="true"></alg-pagination-full>
 
@@ -37,13 +47,16 @@
 </template>
 
 <script>
+import Translator from '../utilities/Translator';
+
 export default {
 	props: ['sources'],
 
 	data() {
 		return {
 			page: 0,
-			filter: ''
+			filter: '',
+			onlySummaries: false
 		};
 	},
 
@@ -63,9 +76,9 @@ export default {
 			let output = [];
 			let filter = this.filter.toLowerCase();
 			
-			if(filter.length > 0) {
+			if(filter.length > 0 || this.onlySummaries) {
 				list.forEach(item => {
-					if(item.long.toLowerCase().includes(filter) || item.display.toLowerCase().includes(filter)) {
+					if(this.itemIncludesFilter(item, filter) && (!this.onlySummaries || item.summary)) {
 						output.push(item);
 					}
 				});
@@ -74,6 +87,19 @@ export default {
 			}
 
 			return output;
+		},
+
+		itemIncludesFilter(item, filter) {
+			let rc = true;
+
+			if(filter) {
+				let long = Translator.removeDiacritics(item.long.toLowerCase());
+				let display = Translator.removeDiacritics(item.display.toLowerCase());
+
+				rc = long.includes(filter) || display.includes(filter);
+			}
+
+			return rc;
 		},
 
 		setHTML(row) {

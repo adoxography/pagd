@@ -2,19 +2,19 @@
 	<nav class="alg-pagination-full">
 		<a
 			class="pagination-previous"
-			:class="{ 'is-disabled': value == 0 }"
+			:disabled="value == 0"
 			@click="onClick(value - 1)">
 				Previous
 		</a>
 		<a
 			class="pagination-next"
-			:class="{ 'is-disabled': value == pages - 1 }"
+			:disabled="value == pages - 1"
 			@click="onClick(value + 1)">
 				Next
 		</a>
 		<ul class="pagination-list">
 			<li v-for="n in pages">
-				<a class="pagination-link" :class="{ 'is-disabled': value == n - 1 }" @click="onClick(n - 1)">{{ printLabel(n - 1) }}</a>
+				<a class="pagination-link" :disabled="value == n - 1" @click="onClick(n - 1)">{{ printLabel(n - 1) }}</a>
 			</li>
 		</ul>
 	</nav>

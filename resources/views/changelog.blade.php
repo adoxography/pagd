@@ -7,6 +7,12 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			12-06-17: Source text filter is now diacritic-insensitive
+		</li>
+		<li>
+			12-06-17: Added filter for sources with summaries
+		</li>
+		<li>
 			12-06-17: Added flag to sources with summaries
 		</li>
 		<hr>

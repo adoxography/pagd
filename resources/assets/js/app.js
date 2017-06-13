@@ -33,6 +33,7 @@ Vue.component('alg-morpheme-alert', require('./components/Morpheme-Alert.vue'));
 Vue.component('alg-initial-changes', require('./components/Initial-Changes.vue'));
 Vue.component('alg-bookmark',        require('./components/Bookmark.vue'));
 Vue.component('alg-modal',           require('./components/Modal.vue'));
+Vue.component('alg-button',          require('./components/Button.vue'));
 
 Vue.component('alg-language-form',  require('./components/forms/Language.vue'));
 Vue.component('alg-form-form',      require('./components/forms/Form.vue'));

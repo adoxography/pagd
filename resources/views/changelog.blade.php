@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			13-06-17: Added delete button for administrator-level users
+		</li>
+		<hr>
+		<li>
 			12-06-17: Source text filter is now diacritic-insensitive
 		</li>
 		<li>

@@ -15,5 +15,12 @@ if(!isset($uri)) {
 	        	<i class="fa fa-pencil"></i>
 	      	</span>
 	    </a>
+	    @if(Auth::user()->permissions->canHardDelete)
+	    	<alg-button action="{{ $uri }}{{ $model->id }}" method="DELETE" class="card-header-icon">
+	    		<span class="icon">
+	    			<i class="fa fa-trash"></i>
+	    		</span>
+	    	</alg-button>
+	    @endif
     @endsection
 @endif

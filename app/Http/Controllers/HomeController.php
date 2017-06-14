@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 use Algling\Verbals\Models\Order;
 use Algling\Verbals\Models\VerbClass;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\PageController;
 
-class HomeController extends Controller
+class HomeController extends PageController
 {
     /**
      * Show the application dashboard.
@@ -18,8 +19,9 @@ class HomeController extends Controller
     public function index()
     {
         $page = Storage::get('pages/welcome.php');
+        $styles = $this->getCSSFiles();
 
-        return view('welcome', compact('page'));
+        return view('welcome', compact('page', 'styles'));
     }
 
     public function glossary()

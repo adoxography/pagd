@@ -18,6 +18,14 @@ a {
 	}
 }
 
+strong {
+	color: inherit;
+
+	a {
+		font-weight: bold;
+	}
+}
+
 .card-header-icon a {
 	color: $sandbox-dark-grey;
 }

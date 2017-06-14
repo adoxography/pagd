@@ -52,6 +52,8 @@
 
 		@include('layout.footer')
 
+		@yield('scripts')
+
 		<script src="{{ mix("/js/app.js") }}"></script>
 	</body>
 </html>

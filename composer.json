@@ -16,7 +16,8 @@
         "laravel/tinker": "^1.0",
         "laravel/dusk": "^1.0",
         "h4cc/wkhtmltopdf-i386": "0.12.x",
-        "teamtnt/laravel-scout-tntsearch-driver": "^2.0"
+        "teamtnt/laravel-scout-tntsearch-driver": "^2.0",
+        "mikealmond/color": "0.0.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

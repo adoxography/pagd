@@ -1,6 +1,7 @@
 <?php
 namespace App;
 
+use App\LocatableTrait;
 use Algling\Words\Models\Gap;
 use Laravel\Scout\Searchable;
 use Algling\SS\Models\Datapoint;
@@ -27,6 +28,7 @@ class Language extends Model
     use \App\BacksUpTrait;
     use \App\BookmarkableTrait;
     use \App\HideableTrait;
+    use LocatableTrait;
     use HasVerbsTrait, HasNominalsTrait {
         HasVerbsTrait::forms    insteadof HasNominalsTrait;
         HasVerbsTrait::examples insteadof HasNominalsTrait;
@@ -50,7 +52,8 @@ class Language extends Model
         'iso',
         'algoCode',
         'notes',
-        'reconstructed'
+        'reconstructed',
+        'location'
     ];
     protected $assets = [
         'forms',

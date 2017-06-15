@@ -3,13 +3,14 @@
 		:center="center"
 		:zoom="zoom"
 		style="width: 100%; height: 400px"
+		@rightclick="onRightClick($event)"
 	>
 		<gmap-marker
-			v-for="(location, index) in tempLanguages"
+			v-for="(location, index) in markerArray"
 			:key="index"
-			:position="location.latLng"
+			:position="getLatLng(location)"
 			:clickable="true"
-			@click="onClick(location)"
+			@click="onClickMarker(location)"
 		></gmap-marker>
 		<gmap-info-window
 			:opened="infoWindow.opened"
@@ -31,7 +32,7 @@ Vue.use(VueGoogleMaps, {
 });
 
 export default {
-	props: ['languages'],
+	props: ['markers', 'addMode', 'marker'],
 
 	data() {
 		return {
@@ -50,9 +51,11 @@ export default {
 				content: ''
 			},
 
+			markerArray: [],
+
 			// Temporary language variables - will come from the database when its encoded
-			tempLanguages: {
-				protoAlgonquian: {
+			tempLanguages: [
+				{
 					info: '<strong>Proto\-Algonquian</strong><br>\
 						<a href="languages/1">View details</a>',
 					latLng: {
@@ -60,7 +63,7 @@ export default {
 						lng: -93.9426735
 					}
 				},
-				southwesternOjibwe: {
+				{
 					info: '<strong>Southwestern Ojibwe</strong><br>\
 						<a href="languages/21">View details</a>',
 					latLng: {
@@ -68,7 +71,7 @@ export default {
 						lng: -93.3965611
 					}
 				},
-				shawnee: {
+				{
 					info: '<strong>Shawnee</strong><br>\r\
 								<a href="languages/20">View details</a>',
 					latLng: {
@@ -76,7 +79,7 @@ export default {
 						lng: -96.9450287
 					}
 				},
-				kickapoo: {
+				{
 					info: '<strong>Kickapoo</strong><br>\r\
 								<a href="languages/3">View details</a>',
 					latLng: {
@@ -84,7 +87,7 @@ export default {
 						lng: -95.5462955
 					}
 				},
-				meskwaki: {
+				{
 					info: '<strong>Meskwaki</strong><br>\r\
 								<a href="languages/6">View details</a>',
 					latLng: {
@@ -92,7 +95,7 @@ export default {
 						lng: -92.6267701
 					}
 				},
-				mooseCree: {
+				{
 					info: '<strong>Moose Cree</strong><br>\r\
 								<a href="languages/5">View details</a>',
 					latLng: {
@@ -100,7 +103,7 @@ export default {
 						lng: -80.6183709
 					}
 				},
-				plainsCree: {
+				{
 					info: '<strong>Plains Cree</strong><br>\r\
 								<a href="languages/2">View details</a>',
 					latLng: {
@@ -108,7 +111,7 @@ export default {
 						lng: -109.9575429
 					}
 				},
-				massachusett: {
+				{
 					info: '<strong>Massachusett</strong><br>\r\
 								<a href="languages/4">View details</a>',
 					latLng: {
@@ -116,7 +119,7 @@ export default {
 						lng: -70.7674654
 					}
 				},
-				ProtoEasternAlgonquian: {
+				{
 					info: '<strong>Proto\-Eastern\-Algonquian</strong><br>\r\
 								<a href="languages/14">View details</a>',
 					latLng: {
@@ -124,7 +127,7 @@ export default {
 						lng: -72.1798952
 					}
 				},
-				nishnaabemwin: {
+				{
 					info: '<strong>Nishnaabemwin</strong><br>\r\
 								<a href="languages/22">View details</a>',
 					latLng: {
@@ -132,7 +135,7 @@ export default {
 						lng: -81.7002825
 					}
 				},
-				penobscot: {
+				{
 					info: '<strong>Penobscot</strong><br>\r\
 								<a href="languages/23">View details</a>',
 					latLng: {
@@ -140,15 +143,117 @@ export default {
 						lng: -68.7220242
 					}
 				}
-			}
+			]
 		};
 	},
 
+	computed: {
+		markerIndex() {
+			let index = 0; // Database primary keys will never be 0
+
+			if(this.marker) {
+				index = this.marker.id;
+			}
+
+			return this.markerArray.findIndex(lang => {
+				return lang.id == index;
+			});
+		}
+	},
+
+	created() {
+		if(this.markers) {
+			this.markers.forEach(marker => {
+				if(marker.location) {
+					this.markerArray.push(marker);
+				}
+			});
+		}
+	},
+
+	mounted() {
+		if(this.marker) {
+			this.openInfoWindow(this.marker);
+		}
+	},
+
 	methods: {
-		onClick(location) {
+		onClickMarker(location) {
+			this.openInfoWindow(location);
+		},
+
+		onRightClick(e) {
+			if(this.addMode) {
+				let newMarker = this.addMarker(e.latLng);
+				this.openInfoWindow(newMarker);
+			}
+		},
+
+		addMarker(latLng) {
+			let marker;
+			let index = this.markerIndex;
+
+			if(index >= 0) {
+				marker = this.removeMarker(index);
+			} else if (this.marker) {
+				marker = this.marker;
+			} else {
+				marker = {
+					id: 0,
+					name: "New language"
+				}
+			}
+
+			marker.latLng = latLng;
+
+			this.markerArray.push(marker);
+
+			this.$emit('marker-added', {
+				latLng: latLng
+			});
+
+			return marker;
+		},
+
+		removeMarker(index) {
+			let output = this.markerArray.splice(index, 1)[0];
+
+			console.log(output);
+			console.log(this.markerArray);
+
+			return output;
+		},
+
+		openInfoWindow(location) {
 			this.infoWindow.opened = true;
-			this.infoWindow.position = location.latLng;
-			this.infoWindow.content  = location.info;
+			this.infoWindow.position = this.getLatLng(location);
+			this.infoWindow.content  = this.setMarkerContent(location);
+		},
+
+		setMarkerContent(location) {
+			let output = "<strong>" + location.name + "</strong>";
+
+			if(location.id > 0) {
+				let link = "<a href=\"languages/" + location.id + "\">View details</a>";
+				output += "<br>\n" + link;
+			}
+			
+			return output;
+		},
+
+		getLatLng(location) {
+			if(location.latLng) {
+				return location.latLng;
+			} else if(location.location) {
+				let array = location.location.replace(/[\(\)\s]/g,'').split(',');
+
+				return {
+					lat: parseFloat(array[0]),
+					lng: parseFloat(array[1])
+				}
+			} else {
+				return null;
+			}
 		}
 	}
 }

@@ -7,6 +7,15 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			14-06-17: Added locations to languages
+			<ul>
+				<li>
+					Locations can be added and changed through the standard language create/edit form
+				</li>
+			</ul>
+		</li>
+		<hr>
+		<li>
 			13-06-17: Added delete button for administrator-level users
 		</li>
 		<hr>

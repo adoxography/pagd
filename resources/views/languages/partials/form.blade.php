@@ -1,8 +1,14 @@
 <alg-language-form
 	inline-template
 	v-cloak
-	:old-errors="{{ json_encode($errors->messages()) }}">
+	:old-errors="{{ json_encode($errors->messages()) }}"
+
+	@if(isset($language) && $language->location)
+	:old-location="{{ $language->location }}"
+	@endif
+>
 	@component('components.form', ['method' => $method, 'action' => $action, 'visible' => true])
+
 		<div class="columns is-multiline">
 
 			<!-- Language Name -->
@@ -125,6 +131,23 @@
 					@endslot
 				@endcomponent
 			</div>
+
+			{{-- Location --}}
+			<div class="column is-12">
+				<label class="label">Location <em>(Right click to add)</em></label>
+				<alg-map
+					:add-mode="true"
+					:markers="{{ $parents }}"
+
+					@if(isset($language))
+					:marker="{{ $language }}"
+					@endif
+
+					v-on:marker-added="updateLocation($event)"
+				></alg-map>
+			</div>
+
+			<input type="hidden" name="location" v-model="location">
 		</div>
 	@endcomponent
 </alg-language-form>

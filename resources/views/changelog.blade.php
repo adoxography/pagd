@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			16-06-17: Added credits to individual logs
+		</li>
+		<li>
 			16-06-17: Added log to individual pages
 		</li>
 		<hr>

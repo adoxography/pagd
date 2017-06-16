@@ -1,6 +1,9 @@
 @php
+
 $userIDs = $model->revisionHistory->pluck('user_id');
 $users = App\User::whereIn('id', $userIDs)->orderBy('name')->get();
+
+$creation = $model->revisionHistory->where('key', 'created_at')->first();
 @endphp
 
 @if($users->count() > 0)
@@ -13,7 +16,19 @@ $users = App\User::whereIn('id', $userIDs)->orderBy('name')->get();
 	<br />
 @endif
 
-<div class="field">
+@if($creation)
+	<p>Created on <strong>{{ parseTime($creation->created_at) }}</strong> by <strong>{{ $users->where('id', $creation->user_id)->first()->name }}</strong></p>
+@endif
+
+@if($model->revisionHistory->count() > 0)
+	@php
+		$revision = $model->revisionHistory->last();
+	@endphp
+
+	<p>Last modified on <strong>{{ parseTime($revision->created_at) }}</strong> by <strong>{{ $users->where('id', $revision->user_id)->first()->name }}</strong></p>
+@endif
+
+{{-- <div class="field">
 	<span class="label">Changelog</span>
 	<table class="table is-striped">
 		<thead>
@@ -37,4 +52,4 @@ $users = App\User::whereIn('id', $userIDs)->orderBy('name')->get();
 			@endforeach
 		</tbody>
 	</table>
-</div>
+</div> --}}

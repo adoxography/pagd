@@ -30,6 +30,6 @@
 </a>
 @if(Auth::user() && Auth::user()->permissions->canEdit)
 	<a href="/languages/{{ $language->id }}/log" class="panel-block @if(Route::is('languages::showLog')) is-active @endif">
-		Log
+		Credits
 	</a>
 @endif

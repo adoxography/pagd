@@ -8,5 +8,5 @@
 	Forms <span class="tag">{{ $morpheme->forms()->count() + $morpheme->examples()->count() }}</span>
 </a>
 <a href="/morphemes/{{ $morpheme->id }}/log" class="panel-block @if(Route::is('morphemes::showLog')) is-active @endif">
-	Log
+	Credit
 </a>

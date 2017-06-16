@@ -23,6 +23,10 @@ function indexAllModels() {
     \App\Source::reindex();
 }
 
+function parseTime($time) {
+    return Carbon\Carbon::parse($time)->setTimezone('America/Winnipeg')->toDayDateTimeString();
+}
+
 /**
  * Replaces all of the rules tags in a block of text
  * 

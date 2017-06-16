@@ -25,6 +25,7 @@ Route::group(['as' => 'verbForms::'], function() {
 	Route::patch('verbs/forms/{verbForm}', 'FormController@update')->name('update');
 	Route::get('verbs/forms/{verbForm}/basic',    'FormShowController@basicDetails')->name('showBasic');
 	Route::get('verbs/forms/{verbForm}/cognates', 'FormShowController@cognates')->name('showCognates');
+	Route::get('verbs/forms/{verbForm}/log',      'FormShowController@log')->name('showLog');
 });
 
 Route::get('verbs/search/paradigm',         'SearchController@paradigm');

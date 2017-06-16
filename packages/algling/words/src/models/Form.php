@@ -86,13 +86,15 @@ class Form extends Model
         'phonemicForm'    => 'phonemic representation',
         'name'            => 'surface form',
         'usageNotes'      => 'usage notes',
-        'changeType_id'   => 'change type'
+        'changeType_id'   => 'change type',
+        'created_at'      => '[created]'
     ];
     protected $dontKeepRevisionOf = [
         'id',
         'complete',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'structure_type'
     ];
 
     public function identifiableName()

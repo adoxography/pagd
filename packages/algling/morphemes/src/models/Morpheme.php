@@ -88,7 +88,8 @@ class Morpheme extends Model
         'privateNotes'    => 'comments',
         'historicalNotes' => 'historical notes',
         'name'            => 'Morpheme',
-        'changeType_id'   => 'change type'
+        'changeType_id'   => 'change type',
+        'created_at'      => '[created]'
     ];
     protected $dontKeepRevisionOf = [
         'id',

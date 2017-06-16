@@ -132,6 +132,8 @@ class LanguageShowController extends Controller
 
     public function log(Language $language)
     {
+        $language->load('revisionHistory');
+
         return view('languages.show.log', compact('language'));
     }
 }

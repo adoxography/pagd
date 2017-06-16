@@ -60,7 +60,8 @@ class Example extends Model
         'name'          => 'example',
         'privateNotes'  => 'private comments',
         'publicNotes'   => 'public notes',
-        'morphemicForm' => 'morphemes'
+        'morphemicForm' => 'morphemes',
+        'created_at'    => '[created]'
     ];
     protected $dontKeepRevisionOf = [
         'id',

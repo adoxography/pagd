@@ -31,4 +31,14 @@ class ExampleShowController extends AlgModelController
 
         return view('word::examples.show.cognates', compact('example'));
     }
+
+    public function log(Example $example)
+    {
+        $example->load([
+            'revisionHistory',
+            'form.language'
+        ]);
+
+        return view('word::examples.show.log', compact('example'));
+    }
 }

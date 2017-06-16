@@ -16,4 +16,5 @@ Route::delete('examples/{example}/bookmark',    'ExampleController@unbookmark');
 Route::group(['as' => 'examples::'], function() {
 	Route::get('examples/{example}/basic', 'ExampleShowController@basicDetails')->name('showBasic');
 	Route::get('examples/{example}/cognates', 'ExampleShowController@cognates')->name('showCognates');
+	Route::get('examples/{example}/log', 'ExampleShowController@log')->name('showLog');
 });

@@ -35,6 +35,31 @@ class Source extends Model implements VerbFormRepositoryInterface, NominalFormRe
     protected $verbFormRepo;
     protected $nominalFormRepo;
 
+    /*
+    |--------------------------------------------------------------------------
+    | Revision variables
+    |--------------------------------------------------------------------------
+    |
+    | These are variable overrides used by the Revisionable trait.
+    |
+    */
+    protected $revisionEnabled = true;
+    protected $revisionCreationsEnabled = true;
+    protected $revisionNullString = 'none';
+    protected $revisionFormattedFieldNames = [
+        'created_at' => '[created]'
+    ];
+    protected $dontKeepRevisionOf = [
+        'id',
+        'created_at',
+        'updated_at'
+    ];
+
+    public function identifiableName()
+    {
+        return $this->renderLink();
+    }
+
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);

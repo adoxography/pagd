@@ -1,7 +1,7 @@
 @extends('users.show')
 
 @section('content')
-	<table class="table">
+	<table class="table is-striped">
 		<thead>
 			<tr>
 				<th>Data</th>

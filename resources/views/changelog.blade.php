@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			16-06-17: Added log to individual pages
+		</li>
+		<hr>
+		<li>
 			14-06-17: Added locations to languages
 			<ul>
 				<li>

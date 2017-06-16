@@ -33,4 +33,14 @@ class FormShowController extends Controller
 
     	return view('nom::forms.show.cognates', compact('form'));
     }
+
+    public function log(Form $nominalForm)
+    {
+        $form = $nominalForm->load([
+            'language',
+            'revisionHistory'
+        ]);
+
+        return view('nom::forms.show.log', compact('form'));
+    }
 }

@@ -1,5 +1,5 @@
-@extends('languages/show')
+@extends('languages.show')
 
 @section('content')
-	Coming soon
+	@include('partials.show.log', ['model' => $language])
 @endsection

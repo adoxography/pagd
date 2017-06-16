@@ -63,4 +63,14 @@ class MorphemeShowController extends AlgModelController
 
         return view('morph::morphemes.show.forms', compact('morpheme'));
     }
+
+    public function log(Morpheme $morpheme)
+    {
+        $morpheme->load([
+            'language',
+            'revisionHistory'
+        ]);
+
+        return view('morph::morphemes.show.log', compact('morpheme'));
+    }
 }

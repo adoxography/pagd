@@ -39,4 +39,11 @@ class FormShowController extends AlgModelController
 
         return view('verb::forms.show.cognates', compact('form', 'cognates'));
     }
+
+    public function log(Form $form)
+    {
+        $form->load('revisionHistory');
+
+        return view('verb::forms.show.log', compact('form'));
+    }
 }

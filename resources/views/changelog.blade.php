@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			19-06-17: Fixed bug with languages dropping locations
+		</li>
+		<li>
 			19-06-17: Enhanced groups by making them recursive and createable
 			<ul>
 				<li>

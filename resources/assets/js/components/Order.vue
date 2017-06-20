@@ -4,10 +4,10 @@
 			<div v-for="(item, n) in listArray">
 				<div
 					:id="item.name"
-					style="border: 1px solid black; border-radius: 1rem; margin-bottom: 1rem"
+					style="border: 1px solid black; border-radius: 1rem; margin-bottom: 1rem; padding: .5rem; cursor: move"
 				>
 					<p :class="{'is-danger': item.position < 0 && listArray.length > 1}">
-						{{ item.name }}
+						{{ renderName(item) }}
 					</p>
 					<input type="hidden" name="ids[]" :value="item.id" />
 					<input type="hidden" name="types[]" :value="item.type" />
@@ -32,6 +32,18 @@ export default {
 		return {
 			listArray: []
 		};
+	},
+
+	methods: {
+		renderName(item) {
+			let name = item.name;
+
+			if(item.type == 'App\\Group') {
+				name += " languages";
+			}
+
+			return name;
+		}
 	},
 
 	created() {

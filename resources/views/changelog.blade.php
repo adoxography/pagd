@@ -7,6 +7,12 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			19-06-17: Fixed bug preventing Mi'kmaq from being displayed
+		</li>
+		<li>
+			19-06-17: Fixed but with group ordering
+		</li>
+		<li>
 			19-06-17: Fixed bug with languages dropping locations
 		</li>
 		<li>

@@ -3,7 +3,7 @@
 function recursiveRender($group) {
 	$html = '';
 
-	$data = getChildData($group);
+	$data = $group->directDescendants()->sortBy('position');
 
 	foreach($data as $child) {
 		$html .= "<li>{$child->renderLink()}</li>";
@@ -14,10 +14,6 @@ function recursiveRender($group) {
 	}
 
 	return "<ul style='margin-left:2rem'>$html</ul>";
-}
-
-function getChildData($group) {
-	return $group->children->merge($group->languages)->sortBy('position');
 }
 
 @endphp

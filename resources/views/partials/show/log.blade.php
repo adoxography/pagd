@@ -17,7 +17,11 @@ $creation = $model->revisionHistory->where('key', 'created_at')->first();
 @endif
 
 @if($creation)
-	<p>Created on <strong>{{ parseTime($creation->created_at) }}</strong> by <strong>{{ $users->where('id', $creation->user_id)->first()->name }}</strong></p>
+	<p>Created on <strong>{{ parseTime($creation->created_at) }}</strong>
+
+	@if($creation->user_id)
+		by <strong>{{ $users->where('id', $creation->user_id)->first()->name }}</strong></p>
+	@endif
 @endif
 
 @if($model->revisionHistory->count() > 0)
@@ -25,7 +29,11 @@ $creation = $model->revisionHistory->where('key', 'created_at')->first();
 		$revision = $model->revisionHistory->last();
 	@endphp
 
-	<p>Last modified on <strong>{{ parseTime($revision->created_at) }}</strong> by <strong>{{ $users->where('id', $revision->user_id)->first()->name }}</strong></p>
+	<p>Last modified on <strong>{{ parseTime($revision->created_at) }}</strong>
+
+	@if($creation->user_id)
+		by <strong>{{ $users->where('id', $revision->user_id)->first()->name }}</strong></p>
+	@endif
 @endif
 
 {{-- <div class="field">

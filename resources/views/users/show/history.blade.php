@@ -13,7 +13,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach($user->revisions()->take(1000)->get() as $revision)
+			@foreach($user->revisions as $revision)
 				@if($model = $revision->historyOf())
 					<tr>
 						<td>{!! $model->renderLink() !!}</td>

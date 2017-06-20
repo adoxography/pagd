@@ -97,6 +97,7 @@
 										<a href="/variables/create">Variable</a>
 										<a href="/datapoints/create">Datapoint</a>
 										<a href="/nominals/paradigms/create"><nobr>Nominal paradigm</nobr></a>
+										<a href="/groups/create">Group</a>
 									</div>
 								</div>	
 							</li>

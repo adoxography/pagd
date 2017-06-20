@@ -40,12 +40,10 @@ trait HasChildrenTrait {
 
     public function allChildren()
     {
-        return $this->children()->with(['allchildren' => function($query) {
-            $query->select("{$this->table}.*")
-                  ->join('Languages', 'Languages.id', 'language_id')
-                  ->join('Groups', 'Groups.id', 'group_id')
-                  ->orderBy('Groups.position', 'asc')
-                  ->orderBy('Languages.position', 'asc');
+        $model = $this;
+
+        return $this->children()->with(['allchildren' => function($query) use ($model) {
+            $query->select("{$this->table}.*");
         }]);
     }
 
@@ -67,7 +65,27 @@ trait HasChildrenTrait {
      */
     public function cognates()
     {
-        return $this->firstAncestor()->load('allChildren');
+        $firstAncestor = $this->firstAncestor()->load(['allChildren', 'allChildren.language']);
+        $scaffolding = \App\Group::orderScaffolding();
+
+        $this->assignPosition($firstAncestor, $scaffolding);
+
+        return $firstAncestor;
+    }
+
+    protected function assignPosition(&$model, $scaffolding)
+    {
+        $model->position = $scaffolding->search(function($item) use ($model) {
+            $item instanceof \App\Language && $item->id == $model->language_id;
+        });
+
+        if($model->children->count() > 0) {
+            foreach($model->children as $child) {
+                $this->assignPosition($child, $scaffolding);
+            }
+
+            $model->children->sortBy('position');
+        }
     }
 
     /**

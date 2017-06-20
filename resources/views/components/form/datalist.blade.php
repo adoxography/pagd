@@ -4,11 +4,13 @@
 	$datalistRules = '';
 	$initial = '';
 
-	foreach(explode('|', $rules) as $rule) {
-		if(strlen($datalistRules) > 0) {
-			$datalistRules .= '|';
+	if(isset($rules)) {
+		foreach(explode('|', $rules) as $rule) {
+			if(strlen($datalistRules) > 0) {
+				$datalistRules .= '|';
+			}
+			$datalistRules .= "datalist_{$rule}";
 		}
-		$datalistRules .= "datalist_{$rule}";
 	}
 
 	// If there was old data, use that

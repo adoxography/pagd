@@ -21,20 +21,10 @@ class ViewComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->composeLanguageForm();
+        $this->composeGroupForm();
         $this->composeRuleForm();
 
         $this->composeSearch();
-        $this->composeLayout();
-    }
-
-    private function composeLayout(){
-        view()->composer('layout', function($view){
-            $data = [
-                'languageHeadings' => Language::select('id','name')->get()
-            ];
-
-            $view->with($data);
-        });
     }
 
     private function composeLanguageForm()
@@ -45,6 +35,17 @@ class ViewComposerServiceProvider extends ServiceProvider
                 'parents' => Language::select('id','name', 'location')->get(),
                 'groups'  => Group::select('id','name')->orderBy('position')->get()
             ];
+            $view->with($data);
+        });
+    }
+
+    protected function composeGroupForm()
+    {
+        view()->composer('groups.partials.form', function($view) {
+            $data = [
+                'parents' => Group::select('id', 'name')->orderBy('name')->get()
+            ];
+
             $view->with($data);
         });
     }

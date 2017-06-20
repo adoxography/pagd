@@ -2,16 +2,18 @@
 
 namespace App\Providers;
 
+use App\Group;
 use App\Language;
+use App\GroupObserver;
 use Algling\Words\Models\Form;
 use Algling\SS\Models\Variable;
-use Algling\Verbals\Models\Form as VerbForm;
-use Algling\Nominals\Models\Form as NominalForm;
 use Algling\Morphemes\Models\Gloss;
 use App\Observers\LanguageObserver;
 use Laravel\Dusk\DuskServiceProvider;
 use Algling\Morphemes\Models\Morpheme;
 use Illuminate\Support\ServiceProvider;
+use Algling\Verbals\Models\Form as VerbForm;
+use Algling\Nominals\Models\Form as NominalForm;
 use Algling\Words\Models\Observers\FormObserver;
 use Algling\SS\Models\Observers\VariableObserver;
 use Algling\Morphemes\Models\Observers\GlossObserver;
@@ -27,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Language::observe(LanguageObserver::class);
+        Group::observe(GroupObserver::class);
         Gloss::observe(GlossObserver::class);
         Morpheme::observe(MorphemeObserver::class);
         Form::observe(FormObserver::class);

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="field">
-			<alg-datalist ref="datalists" :list="list" v-for="(line, n) in value" :name="name" v-model="value[n]" :disabled="disabled"></alg-datalist>
+			<alg-datalist ref="datalists" :list="list" v-for="(line, n) in value" :key="n" :name="name" v-model="value[n]" :disabled="disabled"></alg-datalist>
 		</div>
 		<div class="level">
 			<div class="level-left">

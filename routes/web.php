@@ -59,8 +59,10 @@ Route::get('log', 'LogController@index');
 Route::post('sources/ajax', 'SourceController@store');
 
 // Group Routes
+Route::patch('groups/{group}/order', 'GroupOrderController@update');
 Route::resource('groups',           'GroupController');
 Route::patch('groups/{group}/hide', 'GroupController@hide');
+Route::get('groups/{group}/order/edit', 'GroupOrderController@edit');
 
 // Language Routes
 Route::group(['as' => 'languages::'], function() {

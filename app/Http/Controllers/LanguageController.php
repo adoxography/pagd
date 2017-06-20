@@ -29,12 +29,7 @@ class LanguageController extends AlgModelController
      */
     public function index()
     {
-        $groups = Group::orderBy('position')
-                       ->with(['languages' => function($query) {
-                            $query->orderBy('position');
-                       }])->get();
-        $languages = Language::orderBy('name')->get();
-        return view('languages.index', compact('groups', 'languages'));
+        return redirect('/groups/1');
     }
 
     /**
@@ -80,8 +75,8 @@ class LanguageController extends AlgModelController
     {
         $language = Language::create($request->all());
 
-        flash("{$language->name} added successfully. <a href='/languages/order'>Set its order</a>", 'is-success');
-        return redirect("/languages/{$language->id}");
+        flash("{$language->name} added successfully. <a href='/groups/{$language->group_id}/order/edit'>Set its order</a>", 'is-success');
+        return redirect("/languages/{$language->id}/basic");
     }
 
     /**
@@ -96,7 +91,7 @@ class LanguageController extends AlgModelController
         $language->update($request->all());
 
         flash("{$language->name} updated successfully.", 'is-success');
-        return redirect("/languages/{$language->id}");
+        return redirect("/languages/{$language->id}/basic");
     }
 
     /**

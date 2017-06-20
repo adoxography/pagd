@@ -7,6 +7,15 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			19-06-17: Enhanced groups by making them recursive and createable
+			<ul>
+				<li>
+					Admin-level users can delete groups, so long as the group has a parent. Languages belonging to the deleted group will be assigned the group's parent as their new group.
+				</li>
+			</ul>
+		</li>
+		<hr>
+		<li>
 			16-06-17: Added credits to individual logs
 		</li>
 		<li>

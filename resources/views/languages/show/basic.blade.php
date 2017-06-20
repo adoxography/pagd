@@ -14,13 +14,13 @@
 			@if($language->parent)
 				<span class="is-one-line">
 					<label class="label">Parent:</label>
-					<a href="/languages/{{ $language->parent_id }}">{{ $language->parent->name }}</a>
+					{!! $language->parent->renderLink() !!}
 				</span>
 			@endif
 
 			<span class="is-one-line">
 				<label class="label">Group:</label>
-				<a href="/groups/{{ $language->group_id }}">{{ $language->group->name }}</a>
+				{!! $language->group->renderLink() !!}
 			</span>
 
 			<span class="is-one-line">

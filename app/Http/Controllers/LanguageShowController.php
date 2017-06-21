@@ -11,7 +11,13 @@ class LanguageShowController extends Controller
 {
     public function basicDetails(Language $language)
     {
-        $language->load(['group', 'parent', 'children']);
+        $language->load([
+            'group', 
+            'parent',
+            'children' => function($query) {
+                $query->orderBy('name');
+            }
+        ]);
 
         return view('languages.show.basic', compact('language'));        
     }

@@ -14,7 +14,11 @@
 		</thead>
 		<tbody>
 			@foreach($user->revisions as $revision)
-				@if($model = $revision->historyOf())
+				@php
+					$model = $revision->historyOf();
+				@endphp
+
+				@if($model)
 					<tr>
 						<td>{!! $model->renderLink() !!}</td>
 						<td>{!! $model->language ? $model->language->renderLink() : 'N/A' !!}</td>

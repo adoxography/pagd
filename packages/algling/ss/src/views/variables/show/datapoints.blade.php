@@ -27,6 +27,7 @@
 						});
 					@endphp
 
+					@if($index !== false || (Auth::user() && Auth::user()->permissions->canEdit))
 					<tr>
 						<td>{!! $language->renderHTML() !!}</td>
 						<td>
@@ -55,6 +56,7 @@
 							</td>
 						@endif
 					</tr>
+					@endif
 				@endforeach
 			</tbody>
 		</table>

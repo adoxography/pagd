@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			24-06-17: Hid languages without datapoints on variable list
+		</li>
+		<li>
 			24-06-17: Added map overlay capabilities
 		</li>
 		<hr>

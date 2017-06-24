@@ -3532,6 +3532,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3562,90 +3569,31 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__, {
 				content: ''
 			},
 
-			markerArray: [],
-
-			// Temporary language variables - will come from the database when its encoded
-			tempLanguages: [{
-				info: '<strong>Proto\-Algonquian</strong><br>\
-						<a href="languages/1">View details</a>',
-				latLng: {
-					lat: 47.8193982,
-					lng: -93.9426735
-				}
-			}, {
-				info: '<strong>Southwestern Ojibwe</strong><br>\
-						<a href="languages/21">View details</a>',
-				latLng: {
-					lat: 46.264673,
-					lng: -93.3965611
-				}
-			}, {
-				info: '<strong>Shawnee</strong><br>\r\
-								<a href="languages/20">View details</a>',
-				latLng: {
-					lat: 35.3581866,
-					lng: -96.9450287
-				}
-			}, {
-				info: '<strong>Kickapoo</strong><br>\r\
-								<a href="languages/3">View details</a>',
-				latLng: {
-					lat: 39.6637455,
-					lng: -95.5462955
-				}
-			}, {
-				info: '<strong>Meskwaki</strong><br>\r\
-								<a href="languages/6">View details</a>',
-				latLng: {
-					lat: 41.987105,
-					lng: -92.6267701
-				}
-			}, {
-				info: '<strong>Moose Cree</strong><br>\r\
-								<a href="languages/5">View details</a>',
-				latLng: {
-					lat: 51.2455103,
-					lng: -80.6183709
-				}
-			}, {
-				info: '<strong>Plains Cree</strong><br>\r\
-								<a href="languages/2">View details</a>',
-				latLng: {
-					lat: 53.7205087,
-					lng: -109.9575429
-				}
-			}, {
-				info: '<strong>Massachusett</strong><br>\r\
-								<a href="languages/4">View details</a>',
-				latLng: {
-					lat: 42.0593895,
-					lng: -70.7674654
-				}
-			}, {
-				info: '<strong>Proto\-Eastern\-Algonquian</strong><br>\r\
-								<a href="languages/14">View details</a>',
-				latLng: {
-					lat: 44.4807343,
-					lng: -72.1798952
-				}
-			}, {
-				info: '<strong>Nishnaabemwin</strong><br>\r\
-								<a href="languages/22">View details</a>',
-				latLng: {
-					lat: 45.7073775,
-					lng: -81.7002825
-				}
-			}, {
-				info: '<strong>Penobscot</strong><br>\r\
-								<a href="languages/23">View details</a>',
-				latLng: {
-					lat: 44.9502696,
-					lng: -68.7220242
-				}
-			}]
+			markerArray: []
 		};
 	},
 
+
+	components: {
+		'ground-overlay': Vue.extend({
+			render: function render() {
+				return '';
+			},
+
+			mixins: [__WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__["MapElementMixin"]],
+			props: ['source', 'bounds', 'opacity'],
+			created: function created() {},
+
+			deferredReady: function deferredReady() {
+				this.$overlay = new google.maps.GroundOverlay(this.source, this.bounds);
+				this.$overlay.setOpacity(this.opacity);
+				this.$overlay.setMap(this.$map);
+			},
+			destroyed: function destroyed() {
+				this.$overlay.setMap(null);
+			}
+		})
+	},
 
 	computed: {
 		markerIndex: function markerIndex() {
@@ -6327,6 +6275,54 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			paradigmType: { id: "", text: "" },
 			sources: []
 		};
+	}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/Phoneme.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_OldErrors__ = __webpack_require__("./resources/assets/js/mixins/OldErrors.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_OldSources__ = __webpack_require__("./resources/assets/js/mixins/OldSources.js");
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_OldErrors__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_OldSources__["a" /* default */]],
+
+	props: ['oldType'],
+
+	data: function data() {
+		return {
+			type: '',
+
+			language: { text: '', id: '' },
+
+			// Consonant features
+			place: { text: '', id: '' },
+			manner: { text: '', id: '' },
+			voicing: { text: '', id: '' },
+
+			// Vowel features
+			height: { text: '', id: '' },
+			backness: { text: '', id: '' },
+			length: { text: '', id: '' },
+
+			// Cluster features
+			firstSegment: { text: '', id: '' },
+			secondSegment: { text: '', id: '' },
+
+			sources: []
+		};
+	},
+	created: function created() {
+		if (this.oldType) {
+			this.type = this.oldType;
+		}
 	}
 });
 
@@ -110277,7 +110273,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.onRightClick($event)
       }
     }
-  }, [_vm._l((_vm.markerArray), function(location, index) {
+  }, [_c('ground-overlay', {
+    attrs: {
+      "source": "./img/nicolas-cage-1.jpg",
+      "bounds": {
+        north: 1.502,
+        south: 1.185,
+        east: 104.0262,
+        west: 103.5998,
+      },
+      "opacity": 0.5
+    }
+  }), _vm._v(" "), _vm._l((_vm.markerArray), function(location, index) {
     return _c('gmap-marker', {
       key: index,
       attrs: {
@@ -110919,7 +110926,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "alg-datalist alg-datalist-container"
   }, [_c('div', {
     staticClass: "field has-addons"
-  }, [_c('p', {
+  }, [_c('span', {
     staticClass: "control is-expanded"
   }, [_c('input', {
     directives: [{
@@ -128050,6 +128057,7 @@ Vue.component('alg-datapoint-form', __webpack_require__("./resources/assets/js/c
 Vue.component('alg-generic-form', __webpack_require__("./resources/assets/js/components/forms/Generic.vue"));
 Vue.component('alg-paradigm-form', __webpack_require__("./resources/assets/js/components/forms/Paradigm.vue"));
 Vue.component('alg-nominal-form-form', __webpack_require__("./resources/assets/js/components/forms/NominalForm.vue"));
+Vue.component('alg-phoneme-form', __webpack_require__("./resources/assets/js/components/forms/Phoneme.vue"));
 
 Vue.component('alg-order', __webpack_require__("./resources/assets/js/components/Order.vue"));
 Vue.component('alg-textarea', __webpack_require__("./resources/assets/js/components/Textarea.vue"));
@@ -129692,6 +129700,40 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-2966eae8", Component.options)
   } else {
     hotAPI.reload("data-v-2966eae8", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/forms/Phoneme.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/Phoneme.vue"),
+  /* template */
+  null,
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/home/vagrant/Code/laravel/resources/assets/js/components/forms/Phoneme.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-12c7fed6", Component.options)
+  } else {
+    hotAPI.reload("data-v-12c7fed6", Component.options)
   }
 })()}
 

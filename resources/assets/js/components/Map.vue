@@ -5,6 +5,13 @@
 		style="width: 100%; height: 400px"
 		@rightclick="onRightClick($event)"
 	>
+	    <ground-overlay source="./img/nicolas-cage-1.jpg" :bounds="{
+	            north: 1.502,
+	            south: 1.185,
+	            east: 104.0262,
+	            west: 103.5998,
+	      	}" :opacity="0.5"
+        ></ground-overlay>
 		<gmap-marker
 			v-for="(location, index) in markerArray"
 			:key="index"
@@ -51,100 +58,30 @@ export default {
 				content: ''
 			},
 
-			markerArray: [],
-
-			// Temporary language variables - will come from the database when its encoded
-			tempLanguages: [
-				{
-					info: '<strong>Proto\-Algonquian</strong><br>\
-						<a href="languages/1">View details</a>',
-					latLng: {
-						lat: 47.8193982,
-						lng: -93.9426735
-					}
-				},
-				{
-					info: '<strong>Southwestern Ojibwe</strong><br>\
-						<a href="languages/21">View details</a>',
-					latLng: {
-						lat: 46.264673,
-						lng: -93.3965611
-					}
-				},
-				{
-					info: '<strong>Shawnee</strong><br>\r\
-								<a href="languages/20">View details</a>',
-					latLng: {
-						lat: 35.3581866,
-						lng: -96.9450287
-					}
-				},
-				{
-					info: '<strong>Kickapoo</strong><br>\r\
-								<a href="languages/3">View details</a>',
-					latLng: {
-						lat: 39.6637455,
-						lng: -95.5462955
-					}
-				},
-				{
-					info: '<strong>Meskwaki</strong><br>\r\
-								<a href="languages/6">View details</a>',
-					latLng: {
-						lat: 41.987105,
-						lng: -92.6267701
-					}
-				},
-				{
-					info: '<strong>Moose Cree</strong><br>\r\
-								<a href="languages/5">View details</a>',
-					latLng: {
-						lat: 51.2455103,
-						lng: -80.6183709
-					}
-				},
-				{
-					info: '<strong>Plains Cree</strong><br>\r\
-								<a href="languages/2">View details</a>',
-					latLng: {
-						lat: 53.7205087,
-						lng: -109.9575429
-					}
-				},
-				{
-					info: '<strong>Massachusett</strong><br>\r\
-								<a href="languages/4">View details</a>',
-					latLng: {
-						lat: 42.0593895,
-						lng: -70.7674654
-					}
-				},
-				{
-					info: '<strong>Proto\-Eastern\-Algonquian</strong><br>\r\
-								<a href="languages/14">View details</a>',
-					latLng: {
-						lat: 44.4807343,
-						lng: -72.1798952
-					}
-				},
-				{
-					info: '<strong>Nishnaabemwin</strong><br>\r\
-								<a href="languages/22">View details</a>',
-					latLng: {
-						lat: 45.7073775,
-						lng: -81.7002825
-					}
-				},
-				{
-					info: '<strong>Penobscot</strong><br>\r\
-								<a href="languages/23">View details</a>',
-					latLng: {
-						lat: 44.9502696,
-						lng: -68.7220242
-					}
-				}
-			]
+			markerArray: []
 		};
+	},
+
+	components: {
+		'ground-overlay': Vue.extend({
+	        render() {
+	          	return '';
+	        },
+	        mixins: [VueGoogleMaps.MapElementMixin],
+	        props: ['source', 'bounds', 'opacity'],
+	        created() {},
+	        deferredReady: function() {
+	          	this.$overlay = new google.maps.GroundOverlay(
+	            	this.source,
+	            	this.bounds
+	          	);
+	          	this.$overlay.setOpacity(this.opacity);
+	          	this.$overlay.setMap(this.$map);
+	        },
+	        destroyed: function() {
+	          	this.$overlay.setMap(null);
+	        },
+      	})
 	},
 
 	computed: {

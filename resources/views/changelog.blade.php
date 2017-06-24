@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			24-06-17: Added map overlay capabilities
+		</li>
+		<hr>
+		<li>
 			19-06-17: Fixed bug preventing Mi'kmaq from being displayed
 		</li>
 		<li>

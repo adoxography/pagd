@@ -15,11 +15,10 @@ class seed_groups extends Seeder
         DB::table('Groups')->delete();
         
         $groups = array(
-        	['id' => 1, 'name' => 'Unknown'],
+        	['id' => 1, 'name' => 'Algonquian'],
         	['id' => 2, 'name' => 'Plains'],
         	['id' => 3, 'name' => 'Central'],
-        	['id' => 4, 'name' => 'Eastern'],
-        	['id' => 5, 'name' => 'N/A']
+        	['id' => 4, 'name' => 'Eastern']
         );
         
         DB::table('Groups')->insert($groups);

@@ -114,7 +114,17 @@ class LanguageShowController extends Controller
 
     public function phonemes(Language $language)
     {
-        return view('languages.show.phonemes', compact('language'));
+        $language->load([
+            'phonemes',
+            'phonemes.features',
+            'phonemes.allophones'
+        ]);
+
+        $consonants = $language->phonemes->where('phonemeable_type', 'consonantTypes');
+        $vowels = $language->phonemes->where('phonemeable_type', 'vowelTypes');
+        $clusters = $language->phonemes->where('phonemeable_type', 'clusterTypes');
+
+        return view('languages.show.phonemes', compact('language', 'consonants', 'vowels', 'clusters'));
     }
 
     public function clusters(Language $language)

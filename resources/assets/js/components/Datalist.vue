@@ -2,7 +2,7 @@
 	<div class="alg-datalist alg-datalist-container" v-on-clickaway="closeList">
 
 		<div class="field has-addons">
-			<p class="control is-expanded">
+			<span class="control is-expanded">
 				<input type="text"
 					   :name="name"
 					   :id="id"
@@ -21,7 +21,7 @@
 					   :placeholder="placeholder"
 					   :autofocus="autofocus"
 					   :required="required" />
-			</p>
+			</span>
 			<p class="control">
 	   			<a class="button"
 	   			   :class="{ 'is-danger': hasErrors }"

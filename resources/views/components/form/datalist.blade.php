@@ -64,5 +64,9 @@
 		@if(isset($disabled))
 		:disabled="{{ $disabled }}"
 		@endif
+
+		@if(isset($placeholder))
+		placeholder="{{ $placeholder }}"
+		@endif
 	></alg-datalist>
 @endsection

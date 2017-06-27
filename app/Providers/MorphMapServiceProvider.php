@@ -23,7 +23,13 @@ class MorphMapServiceProvider extends ServiceProvider
             'datapoints' => 'Algling\SS\Models\Datapoint',
             'rules'      => 'App\Rule',
             'verbStructures' => 'Algling\Verbals\Models\Structure',
-            'nominalStructures' => 'Algling\Nominals\Models\Structure'
+            'nominalStructures' => 'Algling\Nominals\Models\Structure',
+            'consonants' => 'Algling\Phonology\Models\Consonant',
+            'vowels'     => 'Algling\Phonology\Models\Vowel',
+            'clusters'   => 'Algling\Phonology\Models\Cluster',
+            'consonantTypes' => 'Algling\Phonology\Models\ConsonantType',
+            'vowelTypes' => 'Algling\Phonology\Models\VowelType',
+            'clusterTypes' => 'Algling\Phonology\Models\ClusterType',
         ]);
     }
 }

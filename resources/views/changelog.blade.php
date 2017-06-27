@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			26-06-17: Added beginnings of phonology module *STILL UNDER DEVELOPMENT*
+		</li>
+		<hr>
+		<li>
 			24-06-17: Hid languages without datapoints on variable list
 		</li>
 		<li>

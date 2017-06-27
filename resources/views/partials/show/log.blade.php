@@ -31,7 +31,7 @@ $creation = $model->revisionHistory->where('key', 'created_at')->first();
 
 	<p>Last modified on <strong>{{ parseTime($revision->created_at) }}</strong>
 
-	@if($creation->user_id)
+	@if($revision->user_id)
 		by <strong>{{ $users->where('id', $revision->user_id)->first()->name }}</strong></p>
 	@endif
 @endif

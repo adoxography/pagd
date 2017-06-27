@@ -54,6 +54,7 @@ Route::get('autocomplete/formParents',     'AutocompleteController@formParents')
 Route::get('autocomplete/morphemes',       'AutocompleteController@morphemes');
 Route::get('autocomplete/morphemeParents', 'AutocompleteController@morphemeParents');
 Route::get('autocomplete/sources',         'AutocompleteController@sources');
+Route::get('autocomplete/phonemes',        'AutocompleteController@phonemes');
 
 Route::get('log', 'LogController@index');
 Route::post('sources/ajax', 'SourceController@store');

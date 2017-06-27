@@ -7,6 +7,7 @@ use App\Source;
 use App\Language;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Algling\Phonology\Models\Phoneme;
 use Algling\Morphemes\Models\Morpheme;
 use Algling\Verbals\Models\Form as VerbForm;
 use Algling\Nominals\Models\Form as NominalForm;
@@ -85,6 +86,28 @@ class AutocompleteController extends Controller
 
         foreach($results as $result) {
             $result->name = str_replace('*', '', $result->uniqueName);
+        }
+
+        return $results->toJson();
+    }
+
+    public function phonemes(Request $request)
+    {
+        $term = $request->term;
+        $options = json_decode($request->options, true);
+        $language = $options['language'];
+
+        $results = Phoneme::select('algoName', 'ipaName', 'orthoName', 'id', 'language_id')
+            ->where(function($query) use ($term) {
+                $query->where('algoName', 'LIKE', "%$term%")
+                    ->orWhere('ipaName', 'LIKE', "%$term%")
+                    ->orWhere('orthoName', 'LIKE', "%$term%");
+            })
+            ->where('language_id', $language)
+            ->get();
+
+        foreach($results as $result) {
+            $result->name = "/{$result->algoName}/";
         }
 
         return $results->toJson();

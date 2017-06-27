@@ -7,6 +7,7 @@ use Laravel\Scout\Searchable;
 use Algling\SS\Models\Datapoint;
 use Algling\Verbals\Models\Form;
 use Algling\Words\Models\Example;
+use Algling\Phonology\Models\Phoneme;
 use Algling\Verbals\Models\Structure;
 use Algling\Morphemes\Models\Morpheme;
 use Algling\Words\Traits\HasWordsTrait;
@@ -58,7 +59,8 @@ class Language extends Model
     protected $assets = [
         'forms',
         'examples',
-        'morphemes'
+        'morphemes',
+        'phonemes'
     ];
 
     public function toSearchableArray()
@@ -131,6 +133,11 @@ class Language extends Model
         return $this->hasMany(Datapoint::class)
             ->with('value')
             ->with('variable');
+    }
+
+    public function phonemes()
+    {
+        return $this->hasMany(Phoneme::class);
     }
 
     /**

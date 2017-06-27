@@ -5,7 +5,7 @@
 				type="checkbox"
 				name="{{ $name }}"
 				id="{{ $id or $name }}"
-				value="{{ $value }}"
+				value="{{ $value or true }}"
 
 				@if((old($name, 'not found') !== 'not found' && old($name) == $value) || (isset($checked) && $checked))
 				checked="checked"

@@ -1,0 +1,11 @@
+{
+    "name": "algling/phonology",
+    "description": "Phonology",
+    "authors": [
+        {
+            "name": "Graham Still",
+            "email": "gstill92@gmail.com"
+        }
+    ],
+    "require": {}
+}

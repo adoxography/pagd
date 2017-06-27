@@ -10,6 +10,10 @@
 				@if(isset($disabled))
 				:disabled="{{ $disabled }}"
 				@endif
+
+				@if(isset($model))
+				v-model="{{ $model }}"
+				@endif
 			>
 
 				@if($options instanceof Illuminate\Database\Eloquent\Collection)

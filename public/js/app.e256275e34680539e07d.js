@@ -5662,6 +5662,123 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/Allophone.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var Row = function () {
+	function Row() {
+		var allophone = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+		var environment = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+		_classCallCheck(this, Row);
+
+		this.allophone = allophone;
+		this.environment = environment;
+	}
+
+	_createClass(Row, [{
+		key: 'isEmpty',
+		value: function isEmpty() {
+			return this.allophone.length == 0 && this.environment.length == 0;
+		}
+	}, {
+		key: 'clear',
+		value: function clear() {
+			this.allophone = '';
+			this.environment = '';
+		}
+	}]);
+
+	return Row;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['old'],
+
+	data: function data() {
+		return {
+			rows: []
+		};
+	},
+	created: function created() {
+		var _this = this;
+
+		if (this.old && this.old.length > 0) {
+			this.old.forEach(function (row) {
+				_this.rows.push(new Row(row.name.replace(/[\[\]\*]/g, ''), row.environment));
+			});
+		}
+
+		this.rows.push(new Row());
+	},
+
+
+	methods: {
+		onInput: function onInput(index) {
+			if (index == this.rows.length - 1) {
+				this.rows.push(new Row());
+			}
+		},
+		onDelete: function onDelete(index) {
+			if (this.rows.length > 1) {
+				this.rows.splice(index, 1);
+			} else {
+				this.rows[0].clear();
+			}
+		}
+	}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/Basic-Paradigm-Search.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -6322,6 +6439,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	created: function created() {
 		if (this.oldType) {
 			this.type = this.oldType;
+		}
+	},
+
+
+	watch: {
+		language: function language() {
+			this.firstSegment = { text: '', id: '' };
+			this.secondSegment = { text: '', id: '' };
 		}
 	}
 });
@@ -109861,6 +109986,99 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-21fadce2\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/forms/Allophone.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', _vm._l((_vm.rows), function(row, n) {
+    return _c('div', {
+      staticClass: "field is-grouped"
+    }, [_c('p', {
+      staticClass: "control"
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (row.allophone),
+        expression: "row.allophone"
+      }],
+      staticClass: "input",
+      attrs: {
+        "name": "allophones[]",
+        "type": "text",
+        "placeholder": "allophone",
+        "autocomplete": "off"
+      },
+      domProps: {
+        "value": (row.allophone)
+      },
+      on: {
+        "input": [function($event) {
+          if ($event.target.composing) { return; }
+          row.allophone = $event.target.value
+        }, function($event) {
+          _vm.onInput(n)
+        }]
+      }
+    })]), _vm._v(" "), _c('p', {
+      staticClass: "control is-expanded"
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (row.environment),
+        expression: "row.environment"
+      }],
+      staticClass: "input",
+      attrs: {
+        "name": "environments[]",
+        "type": "text",
+        "placeholder": "environment (leave blank if elsewhere case)",
+        "autocomplete": "off"
+      },
+      domProps: {
+        "value": (row.environment)
+      },
+      on: {
+        "input": [function($event) {
+          if ($event.target.composing) { return; }
+          row.environment = $event.target.value
+        }, function($event) {
+          _vm.onInput(n)
+        }]
+      }
+    })]), _vm._v(" "), _c('p', {
+      staticClass: "control"
+    }, [_c('a', {
+      staticClass: "button is-danger",
+      attrs: {
+        "disabled": _vm.rows.length == 1 && row.isEmpty(),
+        "tabindex": "-1"
+      },
+      on: {
+        "click": function($event) {
+          _vm.onDelete(n)
+        }
+      }
+    }, [_vm._m(0, true)])])])
+  }))
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "icon"
+  }, [_c('i', {
+    staticClass: "fa fa-times"
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-21fadce2", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-28af57d8\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./node_modules/vue2-google-maps/dist/components/map.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -128058,6 +128276,7 @@ Vue.component('alg-generic-form', __webpack_require__("./resources/assets/js/com
 Vue.component('alg-paradigm-form', __webpack_require__("./resources/assets/js/components/forms/Paradigm.vue"));
 Vue.component('alg-nominal-form-form', __webpack_require__("./resources/assets/js/components/forms/NominalForm.vue"));
 Vue.component('alg-phoneme-form', __webpack_require__("./resources/assets/js/components/forms/Phoneme.vue"));
+Vue.component('alg-allophone-form', __webpack_require__("./resources/assets/js/components/forms/Allophone.vue"));
 
 Vue.component('alg-order', __webpack_require__("./resources/assets/js/components/Order.vue"));
 Vue.component('alg-textarea', __webpack_require__("./resources/assets/js/components/Textarea.vue"));
@@ -129324,6 +129543,41 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-20b07700", Component.options)
   } else {
     hotAPI.reload("data-v-20b07700", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/forms/Allophone.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/Allophone.vue"),
+  /* template */
+  __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-21fadce2\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/forms/Allophone.vue"),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/home/vagrant/Code/laravel/resources/assets/js/components/forms/Allophone.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Allophone.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-21fadce2", Component.options)
+  } else {
+    hotAPI.reload("data-v-21fadce2", Component.options)
   }
 })()}
 

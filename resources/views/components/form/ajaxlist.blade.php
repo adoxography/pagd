@@ -24,5 +24,9 @@
 		@if(isset($value) && strlen($value) > 0)
 		:initial="{{ $value }}"
 		@endif
+
+		@if(isset($label))
+		data-vv-as="{{ $label }}"
+		@endif
 	></alg-ajaxlist>
 @endsection	

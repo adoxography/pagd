@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			02-17-17: Removed bullets from the SS index and changed the default bullet style to square
+		</li>
+		<li>
 			02-07-17: Added phonology module (still WIP)
 		</li>
 		<li>

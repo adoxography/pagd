@@ -17,8 +17,11 @@ mix.autoload({
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
    // .browserSync()
-   .version()
    .copy('resources/assets/libs/font-awesome/fonts', 'public/build/fonts');
+
+if (mix.config.inProduction) {
+	mix.version();
+}
 
 // mix.browserSync('algling.dev');
 // Full API

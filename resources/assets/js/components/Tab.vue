@@ -1,9 +1,7 @@
 <template>
-	<div class="content" v-show="isActive">
+	<div v-show="isActive">
 		<div class="tabs-details">
-			<div class="content">
-				<slot></slot>
-			</div>
+			<slot></slot>
 		</div>
 	</div>
 </template>

@@ -9,16 +9,6 @@
 			</span>
 		</p>
 
-		<!-- The summary filter -->
-		<div class="field" style="display: flex; flex-direction: row-reverse;">
-			<p class="control">
-				<label class="checkbox">
-					<em>Only show sources that have summaries</em>
-					<input type="checkbox" v-model="onlySummaries" />
-				</label>
-			</p>
-		</div>
-
 		<!-- The pages -->
 		<alg-pagination-full :pages="list.length" v-model="page" :alpha="true"></alg-pagination-full>
 
@@ -43,6 +33,16 @@
 				</tr>
 			</tbody>
 		</table>
+
+		<!-- The summary filter -->
+		<div class="field">
+			<p class="control">
+				<label class="checkbox">
+					<input type="checkbox" v-model="onlySummaries" />
+					<em>Only show sources that have summaries</em>
+				</label>
+			</p>
+		</div>
 	</div>
 </template>
 

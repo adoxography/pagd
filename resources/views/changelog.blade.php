@@ -7,7 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
-			Changed "add another" to icon in sources, variables indexes
+			02-07-17: Moved source summary filter to the bottom
+		</li>
+		<li>
+			02-07-17: Changed "add another" to icon in sources, variables indexes
 		</li>
 		<hr>
 		<li>

@@ -30,7 +30,7 @@
 					</span>
 				@endif
 
-				@include("phon::phonemes.show.{$phoneme->type}")
+				@include('phon::phonemes.show.' . strtolower($phoneme->type))
 			</div>
 
 			<div class="field">

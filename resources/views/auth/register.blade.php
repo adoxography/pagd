@@ -8,11 +8,22 @@
     @component('components.form', ['url' => url('/register')])
         <div class="columns is-multiline">
             <div class="column is-half">
-                @component('components.form.text', ['name' => 'name', 'label' => 'Name', 'required' => 'true'])
-                    @slot('value')
-                        {{ old('name') }}
-                    @endslot
-                @endcomponent
+                <div class="columns">
+                    <div class="column">
+                        @component('components.form.text', ['name' => 'firstName', 'label' => 'First name', 'required' => 'true'])
+                            @slot('value')
+                                {{ old('firstName') }}
+                            @endslot
+                        @endcomponent
+                    </div>
+                    <div class="column">
+                        @component('components.form.text', ['name' => 'lastName', 'label' => 'Last name', 'required' => 'true'])
+                            @slot('value')
+                                {{ old('lastName') }}
+                            @endslot
+                        @endcomponent
+                    </div>
+                </div>
             </div>
             <div class="column is-half">   
                 @component('components.form.text', ['name' => 'email', 'type' => 'email', 'label' => 'Email', 'required' => 'true'])

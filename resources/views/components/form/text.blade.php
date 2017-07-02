@@ -2,7 +2,13 @@
 
 @section("{$name}_control")
 	<input
+
+		@if(isset($type))
+		type="{{ $type }}"
+		@else
 		type="text"
+		@endif
+
 		class="input"
 		value="{{ old($name, 'not found') !== 'not found' ? old($name) : ((request()->$name && (!isset($loadRequest) || $loadRequest)) ? request()->$name : $value) }}"
 		autocomplete="off"
@@ -37,6 +43,10 @@
 
 		@if(isset($model))
 		v-model="{{ $model }}"
+		@endif
+
+		@if(isset($required) && $required)
+		required
 		@endif
 
 		@if(isset($events))

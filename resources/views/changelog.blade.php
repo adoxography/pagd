@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			02-17-17: Split user names into first and last names
+		</li>
+		<li>
 			02-17-17: Removed bullets from the SS index and changed the default bullet style to square
 		</li>
 		<li>

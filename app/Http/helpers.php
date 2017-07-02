@@ -189,3 +189,24 @@ function validDatabaseInput($val)
 {
     return !is_null($val) && $val !== '';
 }
+
+function splitUserNames() {
+    $users = \App\User::all();
+
+    foreach($users as $user) {
+        $names = explode(' ', $user->firstName);
+
+        if(count($names) > 1) {
+            $firstName = '';
+
+            for($i = 0; $i < count($names) - 1; $i++) {
+                $firstName .= $names[$i] . ' ';
+            }
+
+            $user->firstName = trim($firstName);
+            $user->lastName = array_last($names);
+
+            $user->save();
+        }
+    }
+}

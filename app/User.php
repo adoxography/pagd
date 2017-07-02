@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'userRoles_id',
+        'firstName', 'lastName', 'email', 'password', 'userRoles_id',
     ];
     /**
      * The attributes that should be hidden for arrays.
@@ -25,6 +25,17 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getNameAttribute()
+    {
+        $name = $this->firstName;
+
+        if($this->lastName) {
+            $name .= ' ' . $this->lastName;
+        }
+
+        return $name;
+    }
 
     public function getLastLoginAttribute($value)
     {

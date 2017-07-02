@@ -9,7 +9,7 @@
 					@if($phoneme->ipaName)
 					<span class="is-one-line">
 						<span class="label">Algonquianist transcription:</span>
-						{{ $phoneme->getTranscription('ipaName') }}
+						{{ $phoneme->present()->transcription('ipaName') }}
 					</span>
 					@endif
 

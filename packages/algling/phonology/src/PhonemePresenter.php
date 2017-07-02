@@ -17,7 +17,7 @@ class PhonemePresenter extends AlgPresenter {
 			$name = $this->model->$attribute;
 		}
 
-		return preg_replace('`^(/?)(\*?)(/?)([^/\[\]]*)(/?)`', '$2/$4/', $name);
+		return preg_replace('`^(/?)(\*?)(/?)([^/\[\]]+)(/?)`', '$2/$4/', $name);
 	}
 
 	public function parentReflexes()

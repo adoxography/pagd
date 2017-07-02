@@ -93,7 +93,7 @@ class Phoneme extends Model
     public function getIpaNameAttribute($value)
     {
         if($value) {
-            return sprintf('/%s/', $this->modifyIfReconstructed($value));
+            return preg_replace('`^(/?)([^/\[\]]+)(/?)`', '/$2/', $this->modifyIfReconstructed($value));
         }
 
         return null;

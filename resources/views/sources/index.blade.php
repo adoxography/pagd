@@ -1,14 +1,9 @@
 @extends('layout')
 
 @section('title')
-	Sources
+	Sources @include('components.model.add-icon', ['uri' => "/sources/create"])
 @endsection
 
 @section('content')
-	@if(Auth::user() && Auth::user()->permissions->canEdit)
-		<h3 class="subtitle"><a href="/sources/create">Add another</a></h3>
-	@endif
-
 	<alg-source-index sources="{{ json_encode($sources) }}"></alg-source-index>
-
 @stop

@@ -1,14 +1,10 @@
 @extends('layout', ['title' => 'Variable Index'])
 
 @section('title')
-	List of variables
+	List of variables @include('components.model.add-icon', ['uri' => "/variables/create"])
 @endsection
 
 @section('content')
-	@if(Auth::user() && Auth::user()->permissions->canEdit)
-		<h3 class="subtitle"><a href="/variables/create">Add another</a></h3>
-	@endif
-
 	<alg-tabs>
 		@foreach($types as $type)
 			<alg-tab name="{{ $type->name }}" {{ $loop->first ? 'selected="selected"' : '' }}>

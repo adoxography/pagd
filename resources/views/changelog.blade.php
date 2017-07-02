@@ -6,6 +6,9 @@
 
 @section('content')
 	<ul class="indented-list">
+		<li>
+			Changed "add another" to icon in sources, variables indexes
+		</li>
 		<hr>
 		<li>
 			24-06-17: Hid languages without datapoints on variable list

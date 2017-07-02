@@ -55,6 +55,7 @@ Route::get('autocomplete/morphemes',       'AutocompleteController@morphemes');
 Route::get('autocomplete/morphemeParents', 'AutocompleteController@morphemeParents');
 Route::get('autocomplete/sources',         'AutocompleteController@sources');
 Route::get('autocomplete/phonemes',        'AutocompleteController@phonemes');
+Route::get('autocomplete/phonemeParents',  'AutocompleteController@phonemeParents');
 
 Route::get('log', 'LogController@index');
 Route::post('sources/ajax', 'SourceController@store');
@@ -77,6 +78,7 @@ Route::group(['as' => 'languages::'], function() {
 	Route::get('languages/{language}/addMorpheme', 'LanguageController@addMorpheme');
 	Route::get('languages/{language}/addRule',     'LanguageController@addRule');
 	Route::get('languages/{language}/addParadigm',     'LanguageController@addParadigm');
+	Route::get('languages/{language}/addPhoneme',     'LanguageController@addPhoneme');
 	Route::patch('languages/{language}/hide',      'LanguageController@hide');
 
 	Route::get('languages/{language}/basic',     'LanguageShowController@basicDetails')->name('showBasic');

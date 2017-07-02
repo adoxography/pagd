@@ -93,7 +93,7 @@
 					'with' => '{ language: language.id }',
 					'disabled' => '!language.id',
 					'placeholder' => 'Make sure to select the language first',
-					'rules' => 'datalist_exists',
+					'rules' => 'exists',
 				])
 					@slot('value')
 						@if(isset($morpheme))

@@ -16,7 +16,11 @@ class PhonemeController extends Controller
 
 	public function show(Phoneme $phoneme)
 	{
-		return redirect("/phonemes/{$phoneme->id}/basic");
+        if($phoneme->type == 'Cluster') {
+            return redirect("/clusters/{$phoneme->id}/basic");
+        } else {
+            return redirect("/phonemes/{$phoneme->id}/basic");
+        }
 	}
 
     public function create()
@@ -35,7 +39,11 @@ class PhonemeController extends Controller
 
     	flash("{$phoneme->name} added successfully.", 'is-success');
 
-    	return redirect("/phonemes/{$phoneme->id}/basic");
+        if($phoneme->type == 'Cluster') {
+            return redirect("/clusters/{$phoneme->id}/basic");
+        } else {
+            return redirect("/phonemes/{$phoneme->id}/basic");
+        }
     }
 
     public function update(PhonemeRequest $request, Phoneme $phoneme)
@@ -44,6 +52,40 @@ class PhonemeController extends Controller
 
     	flash("{$phoneme->name} updated successfully.", 'is-success');
 
-    	return redirect("/phonemes/{$phoneme->id}/basic");
+        if($phoneme->type == 'Cluster') {
+            return redirect("/clusters/{$phoneme->id}/basic");
+        } else {
+            return redirect("/phonemes/{$phoneme->id}/basic");
+        }
+    }
+
+    public function destroy(Phoneme $phoneme)
+    {
+        $phoneme->delete();
+
+        flash("{$phoneme->name} deleted successfully");
+
+        if($phoneme->type == 'Cluster') {
+            return redirect("/languages/{$phoneme->language_id}/clusters");
+        } else {
+            return redirect("/languages/{$phoneme->language_id}/phonemes");
+        }
+    }
+
+    public function addParent(Phoneme $phoneme)
+    {
+        $parent = $phoneme->load([
+            'language',
+            'language.allChildren'
+        ]);
+
+        return view('phon::reflexes.create', compact('parent'));
+    }
+
+    public function addChild(Phoneme $phoneme)
+    {
+        $child = $phoneme->load('language');
+
+        return view('phon::reflexes.create', compact('child'));
     }
 }

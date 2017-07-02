@@ -13,7 +13,9 @@ class AddInventoryNotesToLanguages extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('Languages', function(Blueprint $table) {
+            $table->text('inventoryNotes')->nullable();
+        });
     }
 
     /**
@@ -23,6 +25,8 @@ class AddInventoryNotesToLanguages extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('Languages', function(Blueprint $table) {
+            $table->dropColumn('inventoryNotes');
+        });
     }
 }

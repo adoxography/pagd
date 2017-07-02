@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			02-07-17: Added phonology module (still WIP)
+		</li>
+		<li>
 			02-07-17: Moved source summary filter to the bottom
 		</li>
 		<li>

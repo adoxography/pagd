@@ -98,7 +98,8 @@
 										<a href="/datapoints/create">Datapoint</a>
 										<a href="/nominals/paradigms/create"><nobr>Nominal paradigm</nobr></a>
 										<a href="/groups/create">Group</a>
-										<a href="/phonemes/create">Phoneme</a>
+										<a href="/phonemes/create">Phoneme/Cluster</a>
+										<a href="/reflexes/create">Reflex</a>
 									</div>
 								</div>	
 							</li>

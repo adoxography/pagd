@@ -17,10 +17,10 @@
 	Paradigms <span class="tag">{{ $language->countVerbParadigms() + $language->nominalParadigms()->count() }}</span>
 </a>
 <a href="/languages/{{ $language->id }}/phonemes" class="panel-block @if(Route::is('languages::showPhonemes')) is-active @endif">
-	Phonemes <span class="tag">{{ $language->phonemes_count or 0 }}</span>
+	Phonemes <span class="tag">{{ $language->phonemes()->ofType(['consonant', 'vowel'])->count() }}</span>
 </a>
 <a href="/languages/{{ $language->id }}/clusters" class="panel-block @if(Route::is('languages::showClusters')) is-active @endif">
-	Clusters <span class="tag">{{ $language->clusters_count or 0 }}</span>
+	Clusters <span class="tag">{{ $language->phonemes()->ofType('cluster')->count() }}</span>
 </a>
 <a href="/languages/{{ $language->id }}/rules" class="panel-block @if(Route::is('languages::showRules')) is-active @endif">
 	Rules <span class="tag">{{ $language->rules()->count() }}</span>

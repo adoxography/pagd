@@ -21,7 +21,7 @@ class CreateReflexesTable extends Migration
             $table->string('environment')->nullable();
 
             // Foreign keys
-            $table->unsignedInteger('phoneme_id');
+            $table->unsignedInteger('reflex_id');
             $table->unsignedInteger('parent_id');
 
             // Text fields
@@ -34,9 +34,9 @@ class CreateReflexesTable extends Migration
             $table->timestamp('hidden_at')->nullable();
 
             // Constraints
-            $table->foreign('phoneme_id')->references('id')->on('Phon_Phonemes');
+            $table->foreign('reflex_id')->references('id')->on('Phon_Phonemes');
             $table->foreign('parent_id')->references('id')->on('Phon_Phonemes');
-            $table->unique(['phoneme_id', 'parent_id', 'deleted_at']);
+            $table->unique(['reflex_id', 'parent_id', 'deleted_at']);
         });
     }
 

@@ -46,27 +46,27 @@
 		ref="{{ $name }}"
 
 		@if(isset($model))
-		v-model="{{ $model }}"
+			v-model="{{ $model }}"
 		@endif
 
 		@if(isset($rules))
-		v-validate="'{{ $datalistRules }}'"
+			v-validate="'{{ $datalistRules }}'"
 		@endif
 
 		@if(isset($label))
-		data-vv-as="{{ $label }}"
+			data-vv-as="{{ $label }}"
 		@endif
 
-		@if(isset($autofocus))
-		:autofocus="{{ $autofocus }}"
+		@if(isset($autofocus) && !$value)
+			:autofocus="{{ $autofocus }}"
 		@endif
 
 		@if(isset($disabled))
-		:disabled="{{ $disabled }}"
+			:disabled="{{ $disabled }}"
 		@endif
 
 		@if(isset($placeholder))
-		placeholder="{{ $placeholder }}"
+			placeholder="{{ $placeholder }}"
 		@endif
 	></alg-datalist>
 @endsection

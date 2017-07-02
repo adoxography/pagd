@@ -1,21 +1,22 @@
 <?php
 namespace App;
 
-use App\LocatableTrait;
-use Algling\Words\Models\Gap;
-use Laravel\Scout\Searchable;
+use Algling\Morphemes\Models\Morpheme;
+use Algling\Nominals\Traits\HasNominalsTrait;
+use Algling\Phonology\Models\Phoneme;
 use Algling\SS\Models\Datapoint;
 use Algling\Verbals\Models\Form;
-use Algling\Words\Models\Example;
-use Algling\Phonology\Models\Phoneme;
 use Algling\Verbals\Models\Structure;
-use Algling\Morphemes\Models\Morpheme;
-use Algling\Words\Traits\HasWordsTrait;
-use Illuminate\Database\Eloquent\Model;
 use Algling\Verbals\Traits\HasVerbsTrait;
+use Algling\Words\Models\Example;
+use Algling\Words\Models\Gap;
+use Algling\Words\Traits\HasWordsTrait;
+use App\LanguagePresenter;
+use App\LocatableTrait;
 use Illuminate\Database\Eloquent\Builder;
-use Algling\Nominals\Traits\HasNominalsTrait;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 /**
  * A natural language
@@ -204,5 +205,10 @@ class Language extends Model
     public function renderLink()
     {
         return $this->renderHTML();
+    }
+
+    public function present()
+    {
+        return new LanguagePresenter($this);
     }
 }

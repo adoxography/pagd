@@ -174,6 +174,13 @@ class LanguageController extends AlgModelController
         return view('nom::paradigms.create', compact('language'));
     }
 
+    public function addPhoneme(Language $language)
+    {
+        $type = request()->type;
+
+        return view('phon::phonemes.create', compact('language', 'type'));
+    }
+
     public function order()
     {
         $groups = \App\Group::with(['languages' => function($query) {

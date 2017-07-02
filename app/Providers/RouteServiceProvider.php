@@ -16,6 +16,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected $namespace = 'App\Http\Controllers';
 
+    protected $connections = [
+        \App\Source::class    => 'source',
+        \App\Rule::class      => 'rule',
+        \Algling\Phonology\Models\Phoneme::class => 'phoneme'
+    ];
+
     /**
      * Define your route model bindings, pattern filters, etc.
      *
@@ -33,12 +39,7 @@ class RouteServiceProvider extends ServiceProvider
             }
         });
 
-        $connections = [
-            \App\Source::class    => 'source',
-            \App\Rule::class      => 'rule'
-        ];
-
-        foreach($connections as $model => $binding) {
+        foreach($this->connections as $model => $binding) {
             Route::bind($binding, function($value) use ($model) {
                 return $model::find($value);
             });

@@ -3,27 +3,32 @@
 @section('content')
 	<div class="columns">
 		<div class="column">
-			<div class="field">
-				@if($phoneme->ipaName)
-				<span class="is-one-line">
-					<span class="label">Algonquianist transcription:</span>
-					{{ $phoneme->getTranscription('ipaName') }}
-				</span>
-				@endif
 
-				@if($phoneme->orthoName)
-				<span class="is-one-line">
-					<span class="label">Orthographic transcription:</span>
-					{{ $phoneme->orthoName }}
-				</span>
-				@endif
-			</div>
+			@if($phoneme->ipaName || $phoneme->orthoName)
+				<div class="field">
+					@if($phoneme->ipaName)
+					<span class="is-one-line">
+						<span class="label">Algonquianist transcription:</span>
+						{{ $phoneme->getTranscription('ipaName') }}
+					</span>
+					@endif
+
+					@if($phoneme->orthoName)
+					<span class="is-one-line">
+						<span class="label">Orthographic transcription:</span>
+						{{ $phoneme->orthoName }}
+					</span>
+					@endif
+				</div>
+			@endif
 
 			<div class="field">
-				<span class="is-one-line">
-					<span class="label">Type:</span>
-					{{ $phoneme->type }}
-				</span>
+				@if($phoneme->type != 'Cluster')
+					<span class="is-one-line">
+						<span class="label">Type:</span>
+						{{ $phoneme->type }}
+					</span>
+				@endif
 
 				@include("phon::phonemes.show.{$phoneme->type}")
 			</div>
@@ -32,7 +37,7 @@
 				<span class="label">Allophones</span>
 				<ul>
 					@foreach($phoneme->allophones as $allophone)
-						<li>{{ $phoneme->name }} → {{ $allophone->rule }}</li>
+						<li>{{ $phoneme->present()->transcription }} → {{ $allophone->rule }}</li>
 					@endforeach
 				</ul>
 			</div>

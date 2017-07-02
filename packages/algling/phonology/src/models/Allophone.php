@@ -15,6 +15,24 @@ class Allophone extends Model
 
     protected $fillable = ['name', 'environment', 'phoneme_id'];
 
+    public static function translateArray(array $array, int $phoneme_id)
+    {
+        $output = '';
+
+        for($i = 0; $i < count($array); $i++) {
+            $allophone = new Allophone($array[$i]);
+            $allophone->phoneme_id = $phoneme_id;
+
+            if($i > 0) {
+                $output .= '; ';
+            }
+
+            $output .= $allophone->rule;
+        }
+
+        return "<ul>$output</ul>";
+    }
+
     public function getNameAttribute($value)
     {
         return $this->modifyIfReconstructed("[$value]");

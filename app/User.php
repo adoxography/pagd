@@ -1,9 +1,10 @@
 <?php
 namespace App;
+use App\Presenter;
 use App\UserRole;
 use Carbon\Carbon;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -73,5 +74,10 @@ class User extends Authenticatable
     public function renderLink()
     {
         return "<a href='/users/{$this->id}'>{$this->name}</a>";
+    }
+
+    public function present($method = 'name')
+    {
+        return new Presenter($this, $method);
     }
 }

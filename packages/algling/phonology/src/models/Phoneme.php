@@ -2,16 +2,17 @@
 
 namespace Algling\Phonology\Models;
 
-use App\Language;
-use App\SourceableTrait;
-use App\BookmarkableTrait;
-use App\ReconstructableTrait;
-use Laravel\Scout\Searchable;
 use Algling\Phonology\Models\Allophone;
-use Illuminate\Database\Eloquent\Model;
-use Algling\Phonology\Traits\HasTypeTrait;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Algling\Phonology\PhonemePresenter;
 use Algling\Phonology\Traits\HasAllophonesTrait;
+use Algling\Phonology\Traits\HasTypeTrait;
+use App\BookmarkableTrait;
+use App\Language;
+use App\ReconstructableTrait;
+use App\SourceableTrait;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 class Phoneme extends Model
@@ -76,22 +77,23 @@ class Phoneme extends Model
 
     public function getNameAttribute()
     {
-    	return $this->getTranscription('algoName');
+    	return $this->algoName;
+    }
+
+    public function getAlgoNameAttribute($value)
+    {
+        return $this->modifyIfReconstructed($value);
     }
 
     public function getTypeAttribute()
     {
-    	return $this->features->name;
+    	return $this->phonemeable->name;
     }
 
-    public function getTranscription(string $name)
+    public function getIpaName($value)
     {
-    	if($this->$name) {
-    		return $this->modifyIfReconstructed("/{$this->$name}/");
-    	} else {
-    		return null;
-    	}
-    }
+        return sprintf('/%s/', $value);
+    }   
 
     public function language()
     {
@@ -103,9 +105,52 @@ class Phoneme extends Model
     	return $this->morphTo('phonemeable');
     }
 
+    public function phonemeable()
+    {
+        return $this->features();
+    }
+
     public function allophones()
     {
     	return $this->hasMany(Allophone::class);
+    }
+
+    public function reflexes()
+    {
+        return $this->belongsToMany(
+            Phoneme::class,
+            with(new Reflex)->getTable(),
+            'parent_id',
+            'reflex_id'
+        )->withPivot(['environment', 'id']);
+    }
+
+    public function parents()
+    {
+        return $this->belongsToMany(
+            Phoneme::class,
+            with(new Reflex)->getTable(),
+            'reflex_id',
+            'parent_id'
+        )->withPivot(['environment', 'id']);
+    }
+
+    public function allParents()
+    {
+        $model = $this;
+
+        return $this->parents()->with(['parents', 'allParents' => function($query) use ($model) {
+            $query->select("{$this->table}.*");
+        }]);
+    }
+
+    public function allChildren()
+    {
+        $model = $this;
+
+        return $this->reflexes()->with(['reflexes', 'allChildren' => function($query) use ($model) {
+            $query->select("{$this->table}.*");
+        }]);
     }
 
     public function renderLink()
@@ -113,8 +158,38 @@ class Phoneme extends Model
     	return "<a href=\"/phonemes/{$this->id}\">{$this->name}</a>";
     }
 
-    public function scopeOfType($query, string $type)
+    public function scopeOfType($query, $type)
     {
-		$query->where('phonemeable_type', $type);
+        if(is_array($type)) {
+            for($i = 0; $i < count($type); $i++) {
+                $currType = $type[$i];
+
+                if(!preg_match('/.Types/', $currType)) {
+                    $currType .= 'Types';
+                }
+
+                if($i == 0) {
+                    $query->where('phonemeable_type', $currType);
+                } else {
+                    $query->orWhere('phonemeable_type', $currType);
+                }
+            }
+        } else {
+            if(!preg_match('/.Types/', $type)) {
+                $type .= 'Types';
+            }
+
+            $query->where('phonemeable_type', $type);
+        }
+    }
+
+    public function uniqueNameWithLanguage()
+    {
+        return "{$this->name} ({$this->language->name})";
+    }
+
+    public function present(string $method = 'name')
+    {
+        return new PhonemePresenter($this, $method);
     }
 }

@@ -4,13 +4,15 @@
 	:old-errors="{{ json_encode($errors->messages()) }}"
 
 	@if(isset($phoneme))
-	old-type="{{ $phoneme->phonemeable_type }}"
+		old-type="{{ $phoneme->phonemeable_type }}"
+	@elseif(isset($type))
+		old-type="{{ $type . 'Types' }}"
 	@endif
 
 	@if(old('sources', 'not found') !== 'not found')
-	:old-sources="{{ json_encode(old('sources')) }}"
+		:old-sources="{{ json_encode(old('sources')) }}"
 	@elseif(isset($phoneme))
-	:old-sources="{{ $phoneme->sources }}"
+		:old-sources="{{ $phoneme->sources }}"
 	@endif
 >
 	@component('components.form', ['method' => $method, 'action' => $action, 'visible' => true])

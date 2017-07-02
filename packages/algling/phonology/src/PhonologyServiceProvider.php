@@ -44,6 +44,7 @@ class PhonologyServiceProvider extends ServiceProvider
     protected function composeViews()
     {
         $this->composePhonemeForm();
+        $this->composeReflexForm();
     }
 
     protected function composePhonemeForm()
@@ -59,6 +60,17 @@ class PhonologyServiceProvider extends ServiceProvider
                 'heights'    => Height::select('id', 'name')->orderBy('id')->get(),
                 'backnesses' => Backness::select('id', 'name')->orderBy('id')->get(),
                 'lengths'    => Length::select('id', 'name')->orderBy('id')->get(),
+            ];
+
+            $view->with($data);
+        });
+    }
+
+    protected function composeReflexForm()
+    {
+        view()->composer('phon::reflexes.partials.form', function($view) {
+            $data = [
+                'languages' => Language::select('id', 'name')->get()
             ];
 
             $view->with($data);

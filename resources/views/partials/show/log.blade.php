@@ -10,7 +10,7 @@ $creation = $model->revisionHistory->where('key', 'created_at')->first();
 	<div class="field">
 		<span class="label">Contributors to this record:</span>
 		@foreach($users as $user)
-			{!! $user->renderLink() !!}@if(!$loop->last), @endif
+			{!! $user->present('link') !!}@if(!$loop->last), @endif
 		@endforeach
 	</div>
 	<br />

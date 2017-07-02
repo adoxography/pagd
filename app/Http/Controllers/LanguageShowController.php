@@ -124,12 +124,28 @@ class LanguageShowController extends Controller
         $vowels = $language->phonemes->where('phonemeable_type', 'vowelTypes');
         $clusters = $language->phonemes->where('phonemeable_type', 'clusterTypes');
 
-        return view('languages.show.phonemes', compact('language', 'consonants', 'vowels', 'clusters'));
+        $features = [
+            'backnesses' => $vowels->pluck('phonemeable')->pluck('backness')->unique()->sortByDesc('id'),
+            'heights'    => $vowels->pluck('phonemeable')->pluck('height')->unique()->sortBy('id'),
+            'places'     => $consonants->pluck('phonemeable')->pluck('place')->unique()->sortBy('id'),
+            'manners'    => $consonants->pluck('phonemeable')->pluck('manner')->unique()->sortBy('id'),
+            'voicings'   => $consonants->pluck('phonemeable')->pluck('voicing')->unique()->sortBy('id')
+        ];
+
+        return view('languages.show.phonemes', compact('language', 'consonants', 'vowels', 'clusters', 'features'));
     }
 
     public function clusters(Language $language)
     {
-        return view('languages.show.clusters', compact('language'));
+        $language->load([
+            'phonemes',
+            'phonemes.features',
+            'phonemes.allophones'
+        ]);
+
+        $clusters = $language->phonemes->where('phonemeable_type', 'clusterTypes');
+
+        return view('languages.show.clusters', compact('language', 'clusters'));
     }
 
     public function rules(Language $language)

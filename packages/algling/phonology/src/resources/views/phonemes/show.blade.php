@@ -1,8 +1,8 @@
-@extends('layout')
+@extends('layout', ['title' => $phoneme->name])
 
 @section('title')
-	<label>Phoneme details:</label>
-	{{ $phoneme->name }}
+	<label>{{ $phoneme->type == 'Cluster' ? 'Cluster' : 'Phoneme' }} details:</label>
+	{!! $phoneme->present('link')->with('language')->as('link', $phoneme->type == 'Cluster' ? 'clusters' : 'phonemes') !!}
 @endsection
 
 @include('components.show-icons', ['model' => $phoneme])

@@ -150,7 +150,7 @@ class AutocompleteController extends Controller
         $type .= 'Forms';
 
         $language = Language::with('parent')
-                            ->find($language_id);
+            ->find($language_id);
 
         $results = $this->findParents($language, $term, $type, 'name');
 
@@ -167,11 +167,27 @@ class AutocompleteController extends Controller
     {
         // Unpack parameters
         $term        = $request->term;
-        $language_id = $request->options->langage;
+        $options = json_decode($request->options, true);
+        $language_id = $options['language'];
 
         $language = Language::with('parent')
-                            ->find($language_id);
+            ->find($language_id);
+
         $results  = $this->findParents($language, $term, 'morphemes', 'name');
+
+        return Response::json($results);
+    }
+
+    public function phonemeParents(Request $request)
+    {
+        $term = $request->term;
+        $options = json_decode($request->options, true);
+        $language_id = $options['language'];
+
+        $language = Language::with('parent')
+            ->find($language_id);
+
+        $results = $this->findParents($language, $term, 'phonemes', 'algoName');
 
         return Response::json($results);
     }
@@ -197,7 +213,19 @@ class AutocompleteController extends Controller
             $parent = Language::with([
                 'parent',
                 $items => function ($query) use ($term, $field) {
-                    $query->where($field, 'LIKE', "%$term%");
+                    if(is_array($field)) {
+                        for($i = 0; $i < count($field); $i++) {
+                            $currField = $field[$i];
+
+                            if($i == 0) {
+                                $query->where($currField, 'LIKE', "%$term%");
+                            } else {
+                                $query->orWhere($currField, 'LIKE', "%$term%");
+                            }
+                        }
+                    } else {
+                        $query->where($field, 'LIKE', "%$term%");
+                    }
                 }]
             )->find($language->parent->id);
 

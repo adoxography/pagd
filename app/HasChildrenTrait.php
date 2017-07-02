@@ -38,11 +38,20 @@ trait HasChildrenTrait {
         return $this->hasMany(static::class, 'parent_id');
     }
 
+    public function allParents()
+    {
+        $model = $this;
+
+        return $this->parent()->with(['parent', 'allParents' => function($query) use ($model) {
+            $query->select("{$this->table}.*");
+        }]);
+    }
+
     public function allChildren()
     {
         $model = $this;
 
-        return $this->children()->with(['allchildren' => function($query) use ($model) {
+        return $this->children()->with(['children', 'allChildren' => function($query) use ($model) {
             $query->select("{$this->table}.*");
         }]);
     }

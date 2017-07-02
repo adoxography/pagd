@@ -90,9 +90,9 @@ class Phoneme extends Model
     	return $this->phonemeable->name;
     }
 
-    public function getIpaName($value)
+    public function getIpaNameAttribute($value)
     {
-        return sprintf('/%s/', $value);
+        return sprintf('/%s/', $this->modifyIfReconstructed($value));
     }   
 
     public function language()

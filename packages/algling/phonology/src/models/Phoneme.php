@@ -92,7 +92,11 @@ class Phoneme extends Model
 
     public function getIpaNameAttribute($value)
     {
-        return sprintf('/%s/', $this->modifyIfReconstructed($value));
+        if($value) {
+            return sprintf('/%s/', $this->modifyIfReconstructed($value));
+        }
+
+        return null;
     }   
 
     public function language()

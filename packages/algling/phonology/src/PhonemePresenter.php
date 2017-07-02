@@ -7,9 +7,17 @@ use App\AlgPresenter;
 
 class PhonemePresenter extends AlgPresenter {
 
-	public function transcription($attribute = 'algoName')
+	public function transcription($attribute = '')
 	{
-		return preg_replace('`^(/?)(\*?)(/?)([^/\[\]]*)(/?)`', '$2/$4/', $this->model->$attribute);
+		$name = '';
+
+		if(strlen($attribute) == 0) {
+			$name = $this->model->ipaName ?: $this->model->algoName;
+		} else {
+			$name = $this->model->$attribute;
+		}
+
+		return preg_replace('`^(/?)(\*?)(/?)([^/\[\]]*)(/?)`', '$2/$4/', $name);
 	}
 
 	public function parentReflexes()

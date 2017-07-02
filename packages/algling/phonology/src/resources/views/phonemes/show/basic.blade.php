@@ -8,7 +8,7 @@
 				<div class="field">
 					@if($phoneme->ipaName)
 					<span class="is-one-line">
-						<span class="label">Algonquianist transcription:</span>
+						<span class="label">IPA transcription:</span>
 						{{ $phoneme->present()->transcription('ipaName') }}
 					</span>
 					@endif

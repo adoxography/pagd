@@ -1,6 +1,6 @@
 <?php
 namespace App;
-use App\Presenter;
+use App\AlgPresenter;
 use App\UserRole;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -89,6 +89,6 @@ class User extends Authenticatable
 
     public function present($method = 'name')
     {
-        return new Presenter($this, $method);
+        return new AlgPresenter($this, $method);
     }
 }

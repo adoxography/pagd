@@ -3,7 +3,10 @@
 @section('content')
 
 	<div class="field">
-		<span class="label">Vowel inventory</span>
+		<span class="label">
+			Vowel inventory
+			@include('components.model.add-icon', ['uri' => "/languages/{$language->id}/addPhoneme?type=vowel"])
+		</span>
 
 		<table class="table is-narrow is-bordered" style="display: block;">
 			@if($vowels->count() > 0)
@@ -48,20 +51,14 @@
 			@else
 				<tbody><tr><td>No data</td></tr></tbody>
 			@endif
-			@if(Auth::user() && Auth::user()->permissions->canEdit)
-				<tfoot>
-					<tr>
-						<td colspan="100%" style="border: none;">
-							<a href="/languages/{{ $language->id }}/addPhoneme?type=vowel">Add another</a>
-						</td>
-					</tr>
-				</tfoot>
-			@endif
 		</table>
 	</div>
 
 	<div class="field">
-		<span class="label">Consonant inventory</span>
+		<span class="label">
+			Consonant inventory
+			@include('components.model.add-icon', ['uri' => "/languages/{$language->id}/addPhoneme?type=consonant"])
+		</span>
 
 		<table class="table is-narrow is-bordered" style="display: block;">
 			@if($consonants->count() > 0)
@@ -126,15 +123,6 @@
 				</tbody>
 			@else
 				<tbody><tr><td>No data</td></tr></tbody>
-			@endif
-			@if(Auth::user() && Auth::user()->permissions->canEdit)
-				<tfoot>
-					<tr>
-						<td colspan="100%" style="border: none;">
-							<a href="/languages/{{ $language->id }}/addPhoneme?type=consonant">Add another</a>
-						</td>
-					</tr>
-				</tfoot>
 			@endif
 		</table>
 	</div>

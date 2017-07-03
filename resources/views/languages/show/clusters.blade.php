@@ -8,7 +8,10 @@
 @section('content')
 
 	<div class="field">
-		<span class="label">Clusters</span>
+		<span class="label">
+			Clusters
+			@include('components.model.add-icon', ['uri' => "/languages/{$language->id}/addPhoneme?type=cluster"])
+		</span>
 
 		<table class="table is-narrow is-bordered" style="display: block;">
 			@if($clusters->count() > 0)
@@ -45,15 +48,6 @@
 				</tbody>
 			@else
 				<tbody><tr><td>No data</td></tr></tbody>
-			@endif
-			@if(Auth::user() && Auth::user()->permissions->canEdit)
-				<tfoot>
-					<tr>
-						<td colspan="100%" style="border: none;">
-							<a href="/languages/{{ $language->id }}/addPhoneme?type=cluster">Add another</a>
-						</td>
-					</tr>
-				</tfoot>
 			@endif
 		</table>
 	</div>	

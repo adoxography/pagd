@@ -122,7 +122,7 @@ class PhonemePresenter extends AlgPresenter {
 			$output .= '&nbsp>&nbsp';
 		}
 
-		$output .= $this->as('name', 'bold')
+		$output .= $this->model->present()->as('name', 'bold')
 					->before('language');
 
 		$output .= array_last($parents)->present('environment');
@@ -134,7 +134,7 @@ class PhonemePresenter extends AlgPresenter {
 
 	protected function printChildReflexLine(array $children)
 	{
-		$output = $this->as('name', 'bold')
+		$output = $this->model->present()->as('name', 'bold')
 					->before('language');
 
 		foreach($children as $child) {

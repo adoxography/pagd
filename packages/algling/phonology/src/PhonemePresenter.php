@@ -116,7 +116,7 @@ class PhonemePresenter extends AlgPresenter {
 						->before('language');
 
 			if($i > 0) {
-				$output .= $this->$parents[$i - 1]->present()->environment;
+				$output .= $parents[$i - 1]->present()->environment;
 			}
 
 			$output .= '&nbsp>&nbsp';

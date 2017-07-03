@@ -117,11 +117,9 @@ class Example extends Model
         return "{$this->uniqueName} ({$this->language->name})";
     }
 
-    public function getLanguageAttribute()
+    public function language()
     {
-        if(isset($this->form)) {
-            return $this->form->language;
-        }
+        return $this->form->language();
     }
 
     public function getHtmlAttribute()

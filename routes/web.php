@@ -111,6 +111,8 @@ Route::group(['as' => 'sources::'], function() {
 });
 
 Route::get('users', 'UserController@index');
+Route::get('users/{user}/edit', 'UserController@edit');
+Route::patch('users/{user}', 'UserController@update');
 
 Route::group(['as' => 'users::'], function() {
 	Route::get('profile', 'UserController@show')->name('profile');

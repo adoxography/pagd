@@ -32,6 +32,28 @@ class UserController extends Controller
     	return view('users.show.basic', compact('user'));
     }
 
+    public function edit(User $user)
+    {
+        if($user->id != Auth::user()->id) {
+            throw new \Exception('You are not allowed to modify someone else\s profile!');
+        }
+
+        return view('users.edit', compact('user'));
+    }
+
+    public function update(User $user)
+    {
+        $user->firstName = request()->firstName;
+        $user->lastName = request()->lastName;
+        $user->email = request()->email;
+
+        $user->save();
+
+        flash('Profile updated successfully.', 'is-success');
+
+        return redirect('profile');
+    }
+
     public function history(User $user)
     {
         $user->load('revisions');

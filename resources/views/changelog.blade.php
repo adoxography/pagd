@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			02-17-17: Added the ability to update personal information on the profile page
+		</li>
+		<li>
 			02-17-17: Added a <a href="resources/statistics">statistics</a> page
 		</li>
 		<li>

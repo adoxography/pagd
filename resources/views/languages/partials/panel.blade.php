@@ -4,6 +4,9 @@
 <a href="/languages/{{ $language->id }}/survey" class="panel-block @if(Route::is('languages::showSurvey')) is-active @endif">
 	Datapoints <span class="tag">{{ $language->datapoints()->count() }}</span>
 </a>
+<a href="/languages/{{ $language->id }}/paradigms" class="panel-block @if(Route::is('languages::showParadigms')) is-active @endif">
+	Paradigms <span class="tag">{{ $language->countVerbParadigms() + $language->nominalParadigms()->count() }}</span>
+</a>
 <a href="/languages/{{ $language->id }}/verbs" class="panel-block @if(Route::is('languages::showVerbs')) is-active @endif">
 	Verbs <span class="tag">{{ $language->verbForms()->count() + $language->verbGaps()->count() + $language->verbExamples()->count() }}</span>
 </a>
@@ -12,9 +15,6 @@
 </a>
 <a href="/languages/{{ $language->id }}/morphemes" class="panel-block @if(Route::is('languages::showMorphemes')) is-active @endif">
 	Morphemes <span class="tag">{{ $language->morphemes()->count() }}</span>
-</a>
-<a href="/languages/{{ $language->id }}/paradigms" class="panel-block @if(Route::is('languages::showParadigms')) is-active @endif">
-	Paradigms <span class="tag">{{ $language->countVerbParadigms() + $language->nominalParadigms()->count() }}</span>
 </a>
 <a href="/languages/{{ $language->id }}/phonemes" class="panel-block @if(Route::is('languages::showPhonemes')) is-active @endif">
 	Phonemes <span class="tag">{{ $language->phonemes()->ofType(['consonant', 'vowel'])->count() }}</span>

@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			03-17-17: Changed the ordering of the language panel's tabs
+		</li>
+		<hr>
+		<li>
 			02-17-17: Added the ability to update personal information on the profile page
 		</li>
 		<li>

@@ -22,6 +22,25 @@ class PageController extends Controller
     	}
     }
 
+    public function resources()
+    {
+        return view('resources.index');
+    }
+
+    public function statistics()
+    {
+        $stats = [
+            'languages' => \App\Language::whereNull('hidden_at')->count(),
+            'verbForms' => \Algling\Verbals\Models\Form::whereNull('hidden_at')->count(),
+            'nominalForms' => \Algling\Nominals\Models\Form::whereNull('hidden_at')->count(),
+            'examples'  => \Algling\Words\Models\Example::whereNull('hidden_at')->count(),
+            'morphemes' => \Algling\Morphemes\Models\Morpheme::whereNull('hidden_at')->count(),
+            'phonemes' => \Algling\Phonology\Models\Phoneme::whereNull('hidden_at')->count()
+        ];
+
+        return view('resources.statistics', compact('stats'));
+    }
+
     protected function getCSSFiles()
     {
     	$files = [];

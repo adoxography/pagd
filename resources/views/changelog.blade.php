@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			02-17-17: Added a <a href="resources/statistics">statistics</a> page
+		</li>
+		<li>
 			02-17-17: Split user names into first and last names
 		</li>
 		<li>

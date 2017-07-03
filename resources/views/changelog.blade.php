@@ -7,6 +7,12 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			03-17-17: Modified main activity log
+		</li>
+		<li>
+			03-17-17: Altered formatting of group detail page
+		</li>
+		<li>
 			03-17-17: Changed the ordering of the language panel's tabs
 		</li>
 		<hr>

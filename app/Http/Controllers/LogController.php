@@ -10,7 +10,7 @@ class LogController extends Controller
 {
     public function index()
     {
-    	$revisions = Revision::latest()->take(30)->get();
+    	$revisions = Revision::latest()->take(100)->get();
     	$log = [];
 
     	foreach($revisions as $revision) {

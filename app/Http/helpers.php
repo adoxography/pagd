@@ -124,7 +124,8 @@ function condenseString($str)
 
     if(strlen($stripped) > 50) {
         $output = substr($stripped, 0, 50) . '...';
-        $output = "<span title=\"$stripped\">$output</span>";
+        $title = str_replace('"', '\'', $stripped);
+        $output = "<span title=\"$title\">$output</span>";
     } else {
         $output = $stripped;
     }

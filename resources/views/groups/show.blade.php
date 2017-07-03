@@ -30,11 +30,11 @@ function recursiveRender($group) {
 @section('content')
 	<div class="columns">
 		<div class="column is-narrow">
-			<label class="label">Languages in this group</label>
-			@if(Auth::user() && Auth::user()->permissions->canEdit)
-			<a href="/groups/{{ $group->id }}/order/edit"><em>Change the order</em></a>
-			<br /><br />
-			@endif
+			<label class="label">Languages in this group
+				@if(Auth::user() && Auth::user()->permissions->canEdit)
+					(<a href="/groups/{{ $group->id }}/order/edit">reorder</a>)
+				@endif
+			</label>
 			<ul>
 				<li>{{ $group->name }} languages</li>
 				<li>{!! recursiveRender($group) !!}</li>

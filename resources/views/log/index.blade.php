@@ -14,6 +14,7 @@
 				<td>Field</td>
 				<td>Old value</td>
 				<td>New value</td>
+				<td>Time</td>
 			</hr>
 		</thead>
 		<tbody>
@@ -35,13 +36,12 @@
 							N/A
 						@endif
 					</td>
-					<td>{!! $entry['revision']->oldValue() !!}</td>
+					<td>{!! condenseString($entry['revision']->oldValue()) !!}</td>
 					<td>
-						@if($entry['revision']->key != 'created_at')
-							{!! $entry['revision']->newValue() !!}
-						@else
-							[Created]
-						@endif
+						{!! $entry['revision']->fieldName() == 'created_at' ? '[Created]' : condenseString($entry['revision']->newValue()) !!}
+					</td>
+					<td>
+						{{ Carbon\Carbon::parse($entry['revision']->created_at)->setTimezone('America/Winnipeg')->toDayDateTimeString() }}
 					</td>
 				</tr>
 			@endforeach

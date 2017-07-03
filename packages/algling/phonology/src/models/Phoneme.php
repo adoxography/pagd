@@ -6,6 +6,7 @@ use Algling\Phonology\Models\Allophone;
 use Algling\Phonology\PhonemePresenter;
 use Algling\Phonology\Traits\HasAllophonesTrait;
 use Algling\Phonology\Traits\HasTypeTrait;
+use App\BacksUpTrait;
 use App\BookmarkableTrait;
 use App\Language;
 use App\ReconstructableTrait;
@@ -25,6 +26,7 @@ class Phoneme extends Model
     use HasTypeTrait;
     use HasAllophonesTrait;
     use Searchable;
+    use BacksUpTrait;
 
     public $table = 'Phon_Phonemes';
     public $uri = '/phonemes';

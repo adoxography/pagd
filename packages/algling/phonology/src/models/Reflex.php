@@ -3,6 +3,7 @@
 namespace Algling\Phonology\Models;
 
 use Algling\Phonology\Models\Phoneme;
+use App\BacksUpTrait;
 use App\BookmarkableTrait;
 use App\SourceableTrait;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +18,7 @@ class Reflex extends Model
 	use BookmarkableTrait;
 	use SoftDeletes;
 	use Searchable;
+    use BacksUpTrait;
 
     public $table = 'Phon_Reflexes';
 

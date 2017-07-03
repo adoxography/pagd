@@ -20,6 +20,10 @@ class ExampleShowController extends AlgModelController
             'morphemes.slot'
         ]);
 
+        if(!isset($example->language) || $example->language->hidden_at !== null) {
+            abort(404);
+        }
+
         return view('word::examples.show.basic', compact('example'));
     }
 
@@ -28,6 +32,10 @@ class ExampleShowController extends AlgModelController
         $example->load([
             'form.language'
         ]);
+
+        if(!isset($example->language) || $example->language->hidden_at !== null) {
+            abort(404);
+        }
 
         return view('word::examples.show.cognates', compact('example'));
     }
@@ -38,6 +46,10 @@ class ExampleShowController extends AlgModelController
             'revisionHistory',
             'form.language'
         ]);
+
+        if(!isset($example->language) || $example->language->hidden_at !== null) {
+            abort(404);
+        }
 
         return view('word::examples.show.log', compact('example'));
     }

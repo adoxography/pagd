@@ -85,7 +85,7 @@ trait HasAllophonesTrait {
 	{
 		$name = $this->ipaName ?: $this->algoName;
 
-		return ['name' => $name];
+		return ['name' => str_replace(['*', '/', '[', ']'], '', $name)];
 	}
 
 	protected function allophonesChanged(array $newAllophones, array $oldAllophones)

@@ -85,6 +85,7 @@ class Phoneme extends Model
     public function getAlgoNameAttribute($value)
     {
         return $this->modifyIfReconstructed($value);
+        // return '<em>' . $this->modifyIfReconstructed($value) . '</em>';
     }
 
     public function getTypeAttribute()

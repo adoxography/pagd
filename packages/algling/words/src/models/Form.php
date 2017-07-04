@@ -127,6 +127,8 @@ class Form extends Model
     public function getNameAttribute($value)
     {
         return $this->modifyIfReconstructed($value);
+
+        // return preg_replace('/^([^A-Z]*)([A-Z]*)(.*)/', '<em>$1</em>$2<em>$3</em>', $name);
     }
 
     /**

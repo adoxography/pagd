@@ -39,7 +39,14 @@
 
 								<td>
 									@foreach ($phonemes as $phoneme)
-										{!! $phoneme->present('link') !!}
+										@php
+											$link = $phoneme->present('link');
+
+											if($phoneme->isMarginal) {
+												$link = "($link)";
+											}
+										@endphp
+										{!! $link !!}
 									@endforeach
 								</td>
 							@endforeach

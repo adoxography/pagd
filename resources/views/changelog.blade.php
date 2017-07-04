@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			03-17-17: Made checked variables appear at the top of the list instead of the bottom in the variable creation page
+		</li>
+		<li>
 			03-17-17: Modified main activity log
 		</li>
 		<li>

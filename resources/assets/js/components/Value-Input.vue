@@ -64,15 +64,21 @@ export default {
 
 	computed: {
 		filteredValues() {
-			let output = [];
+			let unchecked = [];
+			let checked = [];
 
 			this.values.forEach(value => {
 				if(value.name.toLowerCase().includes(this.valueText.toLowerCase())) {
-					output.push(value);
+
+					if(value.checked) {
+						checked.push(value);
+					} else {
+						unchecked.push(value);
+					}
 				}
 			});
 
-			return output;
+			return checked.concat(unchecked);
 		},
 
 		selectedValues() {
@@ -80,7 +86,7 @@ export default {
 
 			this.values.forEach(value => {
 				if(value.checked) {
-					values.push({
+					values.unshift({
 						id: value.id,
 						name: value.name
 					});

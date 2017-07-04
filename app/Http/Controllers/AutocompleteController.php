@@ -96,15 +96,21 @@ class AutocompleteController extends Controller
         $term = $request->term;
         $options = json_decode($request->options, true);
         $language = $options['language'];
+        $type = $options['type'];
 
-        $results = Phoneme::select('algoName', 'ipaName', 'orthoName', 'id', 'language_id')
+        $query = Phoneme::select('algoName', 'ipaName', 'orthoName', 'id', 'language_id')
             ->where(function($query) use ($term) {
                 $query->where('algoName', 'LIKE', "%$term%")
                     ->orWhere('ipaName', 'LIKE', "%$term%")
                     ->orWhere('orthoName', 'LIKE', "%$term%");
             })
-            ->where('language_id', $language)
-            ->get();
+            ->where('language_id', $language);
+
+        if($type == 'phoneme') {
+            $query->where('phonemeable_type', '<>', 'clusterTypes');
+        }
+
+        $results = $query->get();
 
         foreach($results as $result) {
             $result->name = "/{$result->algoName}/";

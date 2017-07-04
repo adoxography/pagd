@@ -7,33 +7,36 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
-			04-17-17: Fixed doubling of reconstructed phoneme asterisks
+			04-07-17: Excluded clusters from options of cluster segments
+		</li>
+		<li>
+			04-07-17: Fixed doubling of reconstructed phoneme asterisks
 		</li>
 		<hr />
 		<li>
-			03-17-17: Made checked variables appear at the top of the list instead of the bottom in the variable creation page
+			03-07-17: Made checked variables appear at the top of the list instead of the bottom in the variable creation page
 		</li>
 		<li>
-			03-17-17: Modified main activity log
+			03-07-17: Modified main activity log
 		</li>
 		<li>
-			03-17-17: Altered formatting of group detail page
+			03-07-17: Altered formatting of group detail page
 		</li>
 		<li>
-			03-17-17: Changed the ordering of the language panel's tabs
+			03-07-17: Changed the ordering of the language panel's tabs
 		</li>
 		<hr>
 		<li>
-			02-17-17: Added the ability to update personal information on the profile page
+			02-07-17: Added the ability to update personal information on the profile page
 		</li>
 		<li>
-			02-17-17: Added a <a href="resources/statistics">statistics</a> page
+			02-07-17: Added a <a href="resources/statistics">statistics</a> page
 		</li>
 		<li>
-			02-17-17: Split user names into first and last names
+			02-07-17: Split user names into first and last names
 		</li>
 		<li>
-			02-17-17: Removed bullets from the SS index and changed the default bullet style to square
+			02-07-17: Removed bullets from the SS index and changed the default bullet style to square
 		</li>
 		<li>
 			02-07-17: Added phonology module (still WIP)

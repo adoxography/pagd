@@ -30,7 +30,7 @@
 						])
 							@slot('value')
 								@if(isset($phoneme))
-									{{ $phoneme->algoName }}
+									{{ str_replace('*', '', $phoneme->algoName) }}
 								@endif
 							@endslot
 						@endcomponent
@@ -43,7 +43,7 @@
 						])
 							@slot('value')
 								@if(isset($phoneme))
-									{{ $phoneme->ipaName }}
+									{{ str_replace('*', '', $phoneme->ipaName) }}
 								@endif
 							@endslot
 						@endcomponent

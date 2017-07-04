@@ -5,7 +5,7 @@
 		style="width: 100%; height: 400px"
 		@rightclick="onRightClick($event)"
 	>
-	    <ground-overlay source="./img/nicolas-cage-1.jpg" :bounds="{
+	    <ground-overlay source="./img/giphy.gif" :bounds="{
 	            north: 1.502,
 	            south: 1.185,
 	            east: 104.0262,

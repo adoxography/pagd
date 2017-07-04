@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			04-17-17: Fixed doubling of reconstructed phoneme asterisks
+		</li>
+		<hr />
+		<li>
 			03-17-17: Made checked variables appear at the top of the list instead of the bottom in the variable creation page
 		</li>
 		<li>

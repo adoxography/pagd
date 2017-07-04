@@ -13,7 +13,9 @@ class VariableShowController extends Controller
     public function basicDetails(Variable $variable)
     {
         $variable->load([
-            'values',
+            'values' => function($query) {
+                $query->orderBy('name');
+            },
             'sources',
             'type'
         ]);

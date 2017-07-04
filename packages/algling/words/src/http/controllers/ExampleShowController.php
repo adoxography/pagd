@@ -20,7 +20,7 @@ class ExampleShowController extends AlgModelController
             'morphemes.slot'
         ]);
 
-        if(!isset($example->language) || $example->language->hidden_at !== null) {
+        if((!isset($example->language) || $example->language->hidden_at !== null) && !(\Auth::user() && \Auth::user()->permissions->canEdit)) {
             abort(404);
         }
 
@@ -33,7 +33,7 @@ class ExampleShowController extends AlgModelController
             'form.language'
         ]);
 
-        if(!isset($example->language) || $example->language->hidden_at !== null) {
+        if((!isset($example->language) || $example->language->hidden_at !== null) && !(\Auth::user() && \Auth::user()->permissions->canEdit)) {
             abort(404);
         }
 
@@ -47,7 +47,7 @@ class ExampleShowController extends AlgModelController
             'form.language'
         ]);
 
-        if(!isset($example->language) || $example->language->hidden_at !== null) {
+        if((!isset($example->language) || $example->language->hidden_at !== null) && !(\Auth::user() && \Auth::user()->permissions->canEdit)) {
             abort(404);
         }
 

@@ -125,7 +125,7 @@ class LanguageShowController extends Controller
         $clusters = $language->phonemes->where('phonemeable_type', 'clusterTypes');
 
         $features = [
-            'backnesses' => $vowels->pluck('phonemeable')->pluck('backness')->unique()->sortByDesc('id'),
+            'backnesses' => $vowels->pluck('phonemeable')->pluck('backness')->unique()->sortBy('id'),
             'heights'    => $vowels->pluck('phonemeable')->pluck('height')->unique()->sortBy('id'),
             'places'     => $consonants->pluck('phonemeable')->pluck('place')->unique()->sortBy('id'),
             'manners'    => $consonants->pluck('phonemeable')->pluck('manner')->unique()->sortBy('id'),

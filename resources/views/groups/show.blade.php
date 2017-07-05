@@ -75,6 +75,11 @@ function recursiveRender($group) {
 				</div>
 			</div>
 			<div class="field">
+				<span class="label">Map</span>
+				<alg-map :markers="{{ $group->allLanguages()->toJson() }}"></alg-map>
+			</div>
+
+			<div class="field">
 				<span class="label">Sources</span>
 				@include('components.model.sourcelist', ['sources' => $group->sources])
 			</div>

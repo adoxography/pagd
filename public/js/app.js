@@ -46657,7 +46657,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__, {
 			},
 
 			overlays: [{
-				source: "./img/giphy.gif",
+				source: "/img/giphy.gif",
 				bounds: {
 					north: 1.502,
 					south: 1.185,
@@ -46666,12 +46666,12 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__, {
 				},
 				opacity: 0.5
 			}, {
-				source: "./img/EasternAlgMap.gif",
+				source: "/img/EasternAlgMap.gif",
 				bounds: {
-					north: 48.82,
-					south: 34.39,
-					east: -64.81,
-					west: -76.80
+					north: 49.30,
+					south: 35,
+					east: -64.87,
+					west: -77.69
 				},
 				opacity: 0.5
 			}],
@@ -46720,11 +46720,17 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__, {
 		var _this = this;
 
 		if (this.markers) {
-			this.markers.forEach(function (marker) {
-				if (marker.location) {
-					_this.markerArray.push(marker);
-				}
-			});
+
+			if (Array.isArray(this.markers)) {
+				this.markers.forEach(function (marker) {
+					if (marker.location) {
+						_this.markerArray.push(marker);
+					}
+				});
+			} else {
+				this.markerArray.push(this.markers);
+				this.center = this.getLatLng(this.markers);
+			}
 		}
 	},
 	mounted: function mounted() {

@@ -90,4 +90,21 @@ class Group extends Model
 		return $this->languages->concat($this->children);
 	}
 
+	public function allLanguages()
+	{
+		$languages = collect();
+	    $descendants = $this->directDescendants();
+	    $class = self::class;
+
+	    foreach($descendants as $descendant) {
+	    	if($descendant instanceof $class) {
+	    		$languages = $languages->concat($descendant->allLanguages());
+	    	} else {
+	    		$languages->push($descendant);
+	    	}
+	    }
+
+	    return $languages;
+	}
+
 }

@@ -61,7 +61,7 @@ export default {
 
 			overlays: [
 				{
-					source: "./img/giphy.gif",
+					source: "/img/giphy.gif",
 					bounds: {
 			            north: 1.502,
 			            south: 1.185,
@@ -71,12 +71,12 @@ export default {
 					opacity: 0.5
 				}
 				// {
-				// 	source: "./img/EasternAlgMap.gif",
+				// 	source: "/img/EasternAlgMap.gif",
 				// 	bounds: {
-		  //       		north: 48.82,
-		  //       		south: 34.39,
-		  //       		east: -64.81,
-		  //       		west: -76.80
+		  //       		north: 49.30,
+		  //       		south: 35,
+		  //       		east: -64.87,
+		  //       		west: -77.69
 				// 	},
 				// 	opacity: 0.5
 				// }
@@ -124,11 +124,17 @@ export default {
 
 	created() {
 		if(this.markers) {
-			this.markers.forEach(marker => {
-				if(marker.location) {
-					this.markerArray.push(marker);
-				}
-			});
+
+			if(Array.isArray(this.markers)) {
+				this.markers.forEach(marker => {
+					if(marker.location) {
+						this.markerArray.push(marker);
+					}
+				});
+			} else {
+				this.markerArray.push(this.markers);
+				this.center = this.getLatLng(this.markers);
+			}
 		}
 	},
 

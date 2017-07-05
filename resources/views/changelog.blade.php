@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			05-07-17: Added maps to group and language detail pages
+		</li>
+		<li>
 			05-07-17: Reorganized add menu
 		</li>
 		<li>

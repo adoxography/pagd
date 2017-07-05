@@ -172,6 +172,13 @@ return [
         Laravel\Scout\ScoutServiceProvider::class,
         TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
 
+        Algling\SS\StructuralSurveyServiceProvider::class,
+        Algling\Morphemes\MorphemeServiceProvider::class,
+        Algling\Words\WordServiceProvider::class,
+        Algling\Verbals\VerbalServiceProvider::class,
+        Algling\Nominals\NominalServiceProvider::class,
+        Algling\Phonology\PhonologyServiceProvider::class
+
         /*
          * Application Service Providers...
          */
@@ -183,12 +190,7 @@ return [
         App\Providers\ViewComposerServiceProvider::class,
         App\Providers\CustomValidationProvider::class,
         App\Providers\MorphMapServiceProvider::class,
-        Algling\SS\StructuralSurveyServiceProvider::class,
-        Algling\Morphemes\MorphemeServiceProvider::class,
-        Algling\Words\WordServiceProvider::class,
-        Algling\Verbals\VerbalServiceProvider::class,
-        Algling\Nominals\NominalServiceProvider::class,
-        Algling\Phonology\PhonologyServiceProvider::class
+        App\Providers\ObserverServiceProvider::class
     ],
 
     /*

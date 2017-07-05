@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			05-07-17: Made maps detect their own centers
+		</li>
+		<li>
 			05-07-17: Added maps to group and language detail pages
 		</li>
 		<li>

@@ -133,8 +133,9 @@ export default {
 				});
 			} else {
 				this.markerArray.push(this.markers);
-				this.center = this.getLatLng(this.markers);
 			}
+
+			this.center = this.getCenter();
 		}
 	},
 
@@ -185,9 +186,6 @@ export default {
 		removeMarker(index) {
 			let output = this.markerArray.splice(index, 1)[0];
 
-			console.log(output);
-			console.log(this.markerArray);
-
 			return output;
 		},
 
@@ -220,6 +218,37 @@ export default {
 				}
 			} else {
 				return null;
+			}
+		},
+
+		getCenter() {
+			let location, left, right, top, bottom;
+			let markerCompensation = 2.0;
+			let initialized = false;
+
+			this.markerArray.forEach(marker => {
+				location = this.getLatLng(marker);
+
+				if(location) {
+					if(!initialized) {
+						initialized = true;
+
+						top = location.lat;
+						bottom = location.lat;
+						left = location.lng;
+						right = location.lng;
+					} else {
+						top = Math.max(top, location.lat);
+						bottom = Math.min(bottom, location.lat);
+						left = Math.min(left, location.lng);
+						right = Math.max(right, location.lng);
+					}
+				}
+			});
+
+			return {
+				lat: ((top + bottom) / 2) + markerCompensation,
+				lng: ((left + right) / 2)
 			}
 		}
 	}

@@ -59,9 +59,11 @@
 		</div>
 	</div>
 
-	<div class="field">
-		<span class="label">Location</span>
-		<em>(centre of the area in which the language has most recently been spoken)</em>
-		<alg-map :markers="{{ $language->toJson() }}"></alg-map>
-	</div>
+	@if($language->location)
+		<div class="field">
+			<span class="label">Location</span>
+			<em>(centre of the area in which the language has most recently been spoken)</em>
+			<alg-map :markers="{{ $language->toJson() }}"></alg-map>
+		</div>
+	@endif
 @endsection

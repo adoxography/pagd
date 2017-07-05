@@ -46665,15 +46665,16 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__, {
 					west: 103.5998
 				},
 				opacity: 0.5
-			}, {
-				source: "/img/EasternAlgMap.gif",
-				bounds: {
-					north: 49.30,
-					south: 35,
-					east: -64.87,
-					west: -77.69
-				},
-				opacity: 0.5
+				// {
+				// 	source: "/img/EasternAlgMap.gif",
+				// 	bounds: {
+				//       		north: 49.30,
+				//       		south: 35,
+				//       		east: -64.87,
+				//       		west: -77.69
+				// 	},
+				// 	opacity: 0.5
+				// }
 			}],
 
 			markerArray: []
@@ -46729,8 +46730,9 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__, {
 				});
 			} else {
 				this.markerArray.push(this.markers);
-				this.center = this.getLatLng(this.markers);
 			}
+
+			this.center = this.getCenter();
 		}
 	},
 	mounted: function mounted() {
@@ -46778,9 +46780,6 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__, {
 		removeMarker: function removeMarker(index) {
 			var output = this.markerArray.splice(index, 1)[0];
 
-			console.log(output);
-			console.log(this.markerArray);
-
 			return output;
 		},
 		openInfoWindow: function openInfoWindow(location) {
@@ -46811,6 +46810,42 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__, {
 			} else {
 				return null;
 			}
+		},
+		getCenter: function getCenter() {
+			var _this2 = this;
+
+			var location = void 0,
+			    left = void 0,
+			    right = void 0,
+			    top = void 0,
+			    bottom = void 0;
+			var markerCompensation = 2.0;
+			var initialized = false;
+
+			this.markerArray.forEach(function (marker) {
+				location = _this2.getLatLng(marker);
+
+				if (location) {
+					if (!initialized) {
+						initialized = true;
+
+						top = location.lat;
+						bottom = location.lat;
+						left = location.lng;
+						right = location.lng;
+					} else {
+						top = Math.max(top, location.lat);
+						bottom = Math.min(bottom, location.lat);
+						left = Math.min(left, location.lng);
+						right = Math.max(right, location.lng);
+					}
+				}
+			});
+
+			return {
+				lat: (top + bottom) / 2 + markerCompensation,
+				lng: (left + right) / 2
+			};
 		}
 	}
 });

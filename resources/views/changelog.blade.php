@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			05-07-17: Added an annoying message which shows up anytime a user visits a URL containing algling.net, prompting them to visit alglang.net instead
+		</li>
+		<hr />
+		<li>
 			04-07-17: Excluded clusters from options of cluster segments
 		</li>
 		<li>

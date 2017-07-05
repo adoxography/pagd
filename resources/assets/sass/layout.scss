@@ -76,7 +76,6 @@ p {
 			}
 
 			a {
-				// border: none;
 				box-shadow: none;
 			}
 		}
@@ -94,10 +93,13 @@ p {
 			background-color: $primary;
 
 			.subtitle {
-				// border: none;
 				box-shadow: none;
 				color: $sandbox-dark-grey;
 			}
+		}
+
+		hr {
+			margin: 0;
 		}
 	}
 

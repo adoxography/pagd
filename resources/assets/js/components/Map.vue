@@ -5,13 +5,14 @@
 		style="width: 100%; height: 400px"
 		@rightclick="onRightClick($event)"
 	>
-	    <ground-overlay source="./img/giphy.gif" :bounds="{
-	            north: 1.502,
-	            south: 1.185,
-	            east: 104.0262,
-	            west: 103.5998,
-	      	}" :opacity="0.5"
+	    <ground-overlay
+	    	v-for="(overlay, index) in overlays"
+	    	:key="index"
+	    	:source="overlay.source"
+	    	:bounds="overlay.bounds"
+	    	:opacity="overlay.opacity"
         ></ground-overlay>
+
 		<gmap-marker
 			v-for="(location, index) in markerArray"
 			:key="index"
@@ -57,6 +58,29 @@ export default {
 				opened: false,
 				content: ''
 			},
+
+			overlays: [
+				{
+					source: "./img/giphy.gif",
+					bounds: {
+			            north: 1.502,
+			            south: 1.185,
+			            east: 104.0262,
+			            west: 103.5998,
+					},
+					opacity: 0.5
+				}
+				// {
+				// 	source: "./img/EasternAlgMap.gif",
+				// 	bounds: {
+		  //       		north: 48.82,
+		  //       		south: 34.39,
+		  //       		east: -64.81,
+		  //       		west: -76.80
+				// 	},
+				// 	opacity: 0.5
+				// }
+			],
 
 			markerArray: []
 		};

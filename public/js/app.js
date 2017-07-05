@@ -46625,6 +46625,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -46654,6 +46655,26 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__, {
 				opened: false,
 				content: ''
 			},
+
+			overlays: [{
+				source: "./img/giphy.gif",
+				bounds: {
+					north: 1.502,
+					south: 1.185,
+					east: 104.0262,
+					west: 103.5998
+				},
+				opacity: 0.5
+			}, {
+				source: "./img/EasternAlgMap.gif",
+				bounds: {
+					north: 48.82,
+					south: 34.39,
+					east: -64.81,
+					west: -76.80
+				},
+				opacity: 0.5
+			}],
 
 			markerArray: []
 		};
@@ -124415,17 +124436,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.onRightClick($event)
       }
     }
-  }, [_c('ground-overlay', {
-    attrs: {
-      "source": "./img/giphy.gif",
-      "bounds": {
-        north: 1.502,
-        south: 1.185,
-        east: 104.0262,
-        west: 103.5998,
-      },
-      "opacity": 0.5
-    }
+  }, [_vm._l((_vm.overlays), function(overlay, index) {
+    return _c('ground-overlay', {
+      key: index,
+      attrs: {
+        "source": overlay.source,
+        "bounds": overlay.bounds,
+        "opacity": overlay.opacity
+      }
+    })
   }), _vm._v(" "), _vm._l((_vm.markerArray), function(location, index) {
     return _c('gmap-marker', {
       key: index,

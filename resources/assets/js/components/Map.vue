@@ -199,7 +199,7 @@ export default {
 			let output = "<strong>" + location.name + "</strong>";
 
 			if(location.id > 0) {
-				let link = "<a href=\"languages/" + location.id + "\">View details</a>";
+				let link = "<a href=\"/languages/" + location.id + "\">View details</a>";
 				output += "<br>\n" + link;
 			}
 			

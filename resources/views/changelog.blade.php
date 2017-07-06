@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			05-07-17: Changed display of group/language list on group detail page to an expandable tree
+		</li>
+		<li>
 			05-07-17: Made maps detect their own centers
 		</li>
 		<li>

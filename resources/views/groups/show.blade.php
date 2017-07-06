@@ -6,14 +6,21 @@ function recursiveRender($group) {
 	$data = $group->directDescendants()->sortBy('position');
 
 	foreach($data as $child) {
-		$html .= "<li>{$child->renderLink()}</li>";
 
-		if($child instanceof App\Group && $child->languages->count() > 0) {
-			$html .= '<li>' . recursiveRender($child) . '<li>';
+		if($child instanceof App\Group) {
+			if($child->languages->count() > 0) {
+				$html .= '<li>';
+				$html .= "<input type='checkbox' id='c{$child->id}' />";
+				$html .= "<label for='c{$child->id}' class='label'><a href='/groups/{$child->id}'>{$child->name} languages</a></label>";
+				$html .= recursiveRender($child);
+				$html .= '</li>';
+			}
+		} else {
+			$html .= "<li><a class='label' href='/languages/{$child->id}'>{$child->present()}</a></li>";
 		}
 	}
 
-	return "<ul style='margin-left:2rem'>$html</ul>";
+	return "<ul>$html</ul>";
 }
 
 @endphp
@@ -35,9 +42,12 @@ function recursiveRender($group) {
 					(<a href="/groups/{{ $group->id }}/order/edit">reorder</a>)
 				@endif
 			</label>
-			<ul>
-				<li>{{ $group->name }} languages</li>
-				<li>{!! recursiveRender($group) !!}</li>
+			<ul class="tree">
+				<li>
+					<input type="checkbox" checked="checked" id="c0" />
+					<label class="label" for="c0">{{ $group->name }} languages</label>
+					{!! recursiveRender($group) !!}
+				</li>
 			</ul>
 		</div>
 		<div class="column">

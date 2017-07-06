@@ -96,7 +96,7 @@ class AutocompleteController extends Controller
         $term = $request->term;
         $options = json_decode($request->options, true);
         $language = $options['language'];
-        $type = $options['type'];
+        $type = isset($options['type']) ? $options['type'] : '';
 
         $query = Phoneme::select('algoName', 'ipaName', 'orthoName', 'id', 'language_id')
             ->where(function($query) use ($term) {

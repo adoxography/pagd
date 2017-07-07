@@ -38,7 +38,7 @@
 					</td>
 					<td>{!! condenseString($entry['revision']->oldValue()) !!}</td>
 					<td>
-						{!! $entry['revision']->fieldName() == 'created_at' ? '[Created]' : condenseString($entry['revision']->newValue()) !!}
+						{!! strpos($entry['revision']->fieldName(), 'created') !== false ? '[Created]' : condenseString($entry['revision']->newValue()) !!}
 					</td>
 					<td>
 						{{ Carbon\Carbon::parse($entry['revision']->created_at)->setTimezone('America/Winnipeg')->toDayDateTimeString() }}

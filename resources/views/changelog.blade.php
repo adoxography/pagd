@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			07-07-17: Fixed creations in log
+		</li>
+		<li>
 			07-07-17: Added "home" link in footer
 		</li>
 		<li>

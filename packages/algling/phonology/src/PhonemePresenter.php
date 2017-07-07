@@ -141,15 +141,13 @@ class PhonemePresenter extends AlgPresenter
 				$output .= $parents[$i - 1]->present()->environment;
 			}
 
-			$output .= '&nbsp>&nbsp';
+			$output .= '&nbsp<a href="/reflexes/' . $parents[$i]->pivot->id . '">></a>&nbsp';
 		}
 
 		$output .= $this->model->present()->as('name', 'bold')
 					->before('language');
 
 		$output .= array_last($parents)->present('environment');
-
-		$output .= sprintf('&nbsp(<a href="/reflexes/%d">Details</a>)', array_last($parents)->pivot->id);
 
 		return sprintf('<li>%s</li>', $output);
 	}
@@ -160,13 +158,11 @@ class PhonemePresenter extends AlgPresenter
 					->before('language');
 
 		foreach($children as $child) {
-			$output .= '&nbsp>&nbsp' . $child->present()->as('link', 'reflexes')
+			$output .= '&nbsp<a href="/reflexes/' . $child->pivot->id . '">></a>&nbsp' . $child->present()->as('link', 'reflexes')
 						->before('language');
 
 			$output .= $child->present('environment');
 		}
-
-		$output .= sprintf('&nbsp(<a href="/reflexes/%d">Details</a>)', array_first($children)->pivot->id);
 
 		return sprintf('<li>%s</li>', $output);
 	}

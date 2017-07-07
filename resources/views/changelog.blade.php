@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			07-07-17: Hyperlinked the > in phoneme reflex pages to the relevant reflex detail page
+		</li>
+		<hr />
+		<li>
 			06-07-17: Sorted cluster table
 		</li>
 		<li>

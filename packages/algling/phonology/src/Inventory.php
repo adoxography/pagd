@@ -72,9 +72,24 @@ class Inventory
 		$featureSet = $this->clusters->pluck('phonemeable');
 
 		return collect([
-			'firstSegments' => $featureSet->pluck('firstSegment')->unique(),
-			'secondSegments' => $featureSet->pluck('secondSegment')->unique()
+			'firstSegments' => $this->getClusterFeature($featureSet, 'firstSegment', ['ʔ', 'H', 'h', 'N', 'm', 'n', 'š', 's', 'θ', 'r']),
+			'secondSegments' => $this->getClusterFeature($featureSet, 'secondSegment', ['p', 't', 'k', 'č', 's', 'š', 'θ', 'r', 'm'])
 		]);
+	}
+
+	protected function getClusterFeature($featureSet, string $column, array $dictionary)
+	{
+		$segments = $featureSet->pluck($column)->unique();
+
+		return $segments->sortBy(function($segment) use ($dictionary) {
+			$index = array_search(str_replace('*', '', $segment->name), $dictionary);
+
+			if($index === false) {
+				$index = count($dictionary);
+			}
+
+			return $index;
+		});
 	}
 
 	public function getFeatures($key = '')

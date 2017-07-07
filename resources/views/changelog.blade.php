@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			06-07-17: Sorted cluster table
+		</li>
+		<li>
 			06-07-17: Added reflexes of PA phonemes tables to language phoneme and cluster pages
 		</li>
 		<hr />

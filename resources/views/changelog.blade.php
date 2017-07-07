@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			07-07-17: Added "home" link in footer
+		</li>
+		<li>
 			07-07-17: Hyperlinked the > in phoneme reflex pages to the relevant reflex detail page
 		</li>
 		<hr />

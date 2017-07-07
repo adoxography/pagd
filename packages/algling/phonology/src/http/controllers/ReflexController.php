@@ -55,4 +55,13 @@ class ReflexController extends Controller
 
     	return redirect("reflexes/{$reflex->id}");
     }
+
+    public function destroy(Reflex $reflex)
+    {
+        $reflex->delete();
+
+        flash("{$reflex->name} deleted successfully");
+
+        return redirect("/phonemes/{$reflex->parent_id}/reflexes");
+    }
 }

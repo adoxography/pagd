@@ -6,7 +6,7 @@
 			<span class="label">
 				Parents of {{ $phoneme->present() }}
 				@if(Auth::user() && Auth::user()->permissions->canEdit)
-					(<a href="/phonemes/{{ $phoneme->id }}/addParent">Add another</a>)
+					(<a href="/phonemes/{{ $phoneme->id }}/addChild">Add another</a>)
 				@endif
 			</span>
 			{!! $phoneme->present()->parentReflexes !!}
@@ -18,7 +18,7 @@
 			<span class="label">
 				Daughters of {{ $phoneme->present() }}
 				@if(Auth::user() && Auth::user()->permissions->canEdit)
-					(<a href="/phonemes/{{ $phoneme->id }}/addChild">Add another</a>)
+					(<a href="/phonemes/{{ $phoneme->id }}/addParent">Add another</a>)
 				@endif
 			</span>
 			{!! $phoneme->present()->childReflexes !!}

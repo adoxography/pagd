@@ -46791,7 +46791,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__, {
 			var output = "<strong>" + location.name + "</strong>";
 
 			if (location.id > 0) {
-				var link = "<a href=\"languages/" + location.id + "\">View details</a>";
+				var link = "<a href=\"/languages/" + location.id + "\">View details</a>";
 				output += "<br>\n" + link;
 			}
 

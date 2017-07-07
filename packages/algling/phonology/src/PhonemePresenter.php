@@ -5,7 +5,29 @@ namespace Algling\Phonology;
 use Algling\Phonology\Models\Phoneme;
 use App\AlgPresenter;
 
-class PhonemePresenter extends AlgPresenter {
+class PhonemePresenter extends AlgPresenter
+{
+	public function name(string $format = '')
+	{
+		$name = parent::name($format);
+
+		if($this->model->isMarginal) {
+			$name = "($name)";
+		}
+
+		return $name;
+	}
+
+	public function link(string $addon = '', string $format = '')
+	{
+		$link = parent::link($addon, $format);
+
+		if($this->model->isMarginal) {
+			$link = "($link)";
+		}
+
+		return $link;
+	}
 
 	public function transcription($attribute = '')
 	{

@@ -1,8 +1,3 @@
-@php
-	$firstSegments = $clusters->pluck('phonemeable')->pluck('firstSegment')->unique('id');
-	$secondSegments = $clusters->pluck('phonemeable')->pluck('secondSegment')->unique('id');
-@endphp
-
 @extends('languages/show')
 
 @section('content')
@@ -13,49 +8,44 @@
 			@include('components.model.add-icon', ['uri' => "/languages/{$language->id}/addPhoneme?type=cluster"])
 		</span>
 
-		<table class="table is-narrow is-bordered" style="display: block;">
-			@if($clusters->count() > 0)
-				<thead>
-					<tr>
-						<th></th>
-						@foreach($secondSegments as $segment)
-							<th>{{ $segment->present() }}</th>
-						@endforeach
-					</tr>
-				</thead>
-				<tbody>
-					@foreach ($firstSegments as $firstSegment)
-						<tr>
-							<th>{{ $firstSegment->present() }}</th>
+		@include('languages.show.partials.clusters')
+	</div>
 
-							@foreach ($secondSegments as $secondSegment)
-								@php
-									$phonemes = $clusters->filter(function($value) use ($firstSegment, $secondSegment) {
-										return $value->phonemeable->firstSegment_id == $firstSegment->id && $value->phonemeable->secondSegment_id == $secondSegment->id;
-									})->sortBy(function($cluster) {
-										return strlen($cluster->name);
-									});
-								@endphp
+	@if ($language->id != 1)
+		<div class="field">
+			<span class="label">
+				Reflexes of <a href="/languages/1/clusters">PA</a> clusters
+			</span>
 
-								<td>
-									@foreach ($phonemes as $phoneme)
-										@php
-											$link = $phoneme->present('link');
+			@include('languages.show.partials.clusters', [
+				'localInventory' => $paInventory,
+				'callback' => function($phoneme) use ($language) {
+					$html = '';
+					$link = $phoneme->present('link');
+					$style = '';
+					$different = false;
 
-											if($phoneme->isMarginal) {
-												$link = "($link)";
-											}
-										@endphp
-										{!! $link !!}
-									@endforeach
-								</td>
-							@endforeach
-						</tr>
-					@endforeach
-				</tbody>
-			@else
-				<tbody><tr><td>No data</td></tr></tbody>
-			@endif
-		</table>
-	</div>	
+					$reflexes = $language->phonemes->filter(function($value) use ($phoneme) {
+						return $value->paParents->contains('id', $phoneme->id);
+					});
+
+					if($reflexes->count() > 0) {
+						foreach($reflexes as $reflex) {
+							$html .= '<li>' . $link . '&nbsp>&nbsp' . $reflex->present('link') . '</li>';
+
+							$different = $different || str_replace('*', '', $phoneme->name) != $reflex->name;
+						}
+					} else {
+						$html .= $link . '&nbsp>&nbsp?';
+					}
+
+					if($different) {
+						$style = 'style="background-color: #ffff99;"';
+					}
+
+					return "<ul $style>$html</ul>";
+				}
+			])
+		</div>
+	@endif
 @endsection

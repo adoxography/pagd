@@ -177,7 +177,7 @@ return [
         Algling\Words\WordServiceProvider::class,
         Algling\Verbals\VerbalServiceProvider::class,
         Algling\Nominals\NominalServiceProvider::class,
-        Algling\Phonology\PhonologyServiceProvider::class
+        Algling\Phonology\PhonologyServiceProvider::class,
 
         /*
          * Application Service Providers...

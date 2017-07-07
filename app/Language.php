@@ -3,6 +3,7 @@ namespace App;
 
 use Algling\Morphemes\Models\Morpheme;
 use Algling\Nominals\Traits\HasNominalsTrait;
+use Algling\Phonology\Inventory;
 use Algling\Phonology\Models\Phoneme;
 use Algling\SS\Models\Datapoint;
 use Algling\Verbals\Models\Form;
@@ -210,5 +211,10 @@ class Language extends Model
     public function present()
     {
         return new LanguagePresenter($this);
+    }
+
+    public function phonology()
+    {
+        return new Inventory($this);
     }
 }

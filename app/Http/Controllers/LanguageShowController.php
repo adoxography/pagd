@@ -120,19 +120,12 @@ class LanguageShowController extends Controller
             'phonemes.allophones'
         ]);
 
-        $consonants = $language->phonemes->where('phonemeable_type', 'consonantTypes');
-        $vowels = $language->phonemes->where('phonemeable_type', 'vowelTypes');
-        $clusters = $language->phonemes->where('phonemeable_type', 'clusterTypes');
+        $inventory = $language->phonology();
+        if($language->id != 1) {
+            $paInventory = Language::find(1)->phonology();
+        }
 
-        $features = [
-            'backnesses' => $vowels->pluck('phonemeable')->pluck('backness')->unique()->sortBy('id'),
-            'heights'    => $vowels->pluck('phonemeable')->pluck('height')->unique()->sortBy('id'),
-            'places'     => $consonants->pluck('phonemeable')->pluck('place')->unique()->sortBy('id'),
-            'manners'    => $consonants->pluck('phonemeable')->pluck('manner')->unique()->sortBy('id'),
-            'voicings'   => $consonants->pluck('phonemeable')->pluck('voicing')->unique()->sortBy('id')
-        ];
-
-        return view('languages.show.phonemes', compact('language', 'consonants', 'vowels', 'clusters', 'features'));
+        return view('languages.show.phonemes', compact('language', 'inventory', 'paInventory'));
     }
 
     public function clusters(Language $language)
@@ -143,9 +136,12 @@ class LanguageShowController extends Controller
             'phonemes.allophones'
         ]);
 
-        $clusters = $language->phonemes->where('phonemeable_type', 'clusterTypes');
+        $inventory = $language->phonology();
+        if($language->id != 1) {
+            $paInventory = Language::find(1)->phonology();
+        }
 
-        return view('languages.show.clusters', compact('language', 'clusters'));
+        return view('languages.show.clusters', compact('language', 'inventory', 'paInventory'));
     }
 
     public function rules(Language $language)

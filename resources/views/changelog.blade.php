@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			06-07-17: Added reflexes of PA phonemes tables to language phoneme and cluster pages
+		</li>
+		<hr />
+		<li>
 			05-07-17: Changed display of group/language list on group detail page to an expandable tree
 		</li>
 		<li>

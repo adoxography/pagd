@@ -142,6 +142,11 @@ class Phoneme extends Model
         )->withPivot(['environment', 'id']);
     }
 
+    public function paParents()
+    {
+        return $this->belongsToMany(Phoneme::class, 'Phon_PaParents', 'phoneme_id', 'parent_id');
+    }
+
     public function allParents()
     {
         $model = $this;
@@ -198,5 +203,32 @@ class Phoneme extends Model
     public function present(string $method = 'name')
     {
         return new PhonemePresenter($this, $method);
+    }
+
+    public function syncPaParents()
+    {
+        $parents = $this->findPaParents();
+
+        $this->paParents()->sync($parents->pluck('id'));
+    }
+
+    protected function findPaParents()
+    {
+        $this->load('allParents');
+
+        $parents = $this->parents;
+        $paParents = collect();
+
+        while(!$parents->isEmpty()) {
+            $parent = $parents->pop();
+
+            if($parent->language_id == 1) {
+                $paParents->push($parent);
+            } else {
+                $parents = $parent->parents->concat($parents);
+            }
+        }
+
+        return $paParents;
     }
 }

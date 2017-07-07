@@ -118,7 +118,13 @@ class Group extends Model
 			return $language->hasVariable($variable);
 		});
 
-		return $lookup->count() > 0;
+		$found = $lookup->count() > 0;
+
+		for($i = 0; $i < $this->children->count() && !$found; $i++) {
+			$found = $this->children[$i]->hasVariable($variable);
+		}
+
+		return $found;
 	}
 
 }

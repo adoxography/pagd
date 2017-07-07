@@ -10,4 +10,5 @@ Route::group(['as' => 'variables::'], function() {
 
 	Route::get('variables/{variable}/basic',      'VariableShowController@basicDetails')->name('showBasic');
 	Route::get('variables/{variable}/datapoints', 'VariableShowController@datapoints')->name('showDatapoints');
+	Route::get('variables/{variable}/languages', 'VariableShowController@languages')->name('showLanguages');
 });

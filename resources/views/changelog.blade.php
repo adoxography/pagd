@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			07-07-17: Moved variable tree onto its own tab
+		</li>
+		<li>
 			07-07-17: Added coloured map to variables
 		</li>
 		<li>

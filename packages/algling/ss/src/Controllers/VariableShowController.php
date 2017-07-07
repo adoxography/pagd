@@ -26,14 +26,9 @@ class VariableShowController extends Controller
 
     public function datapoints(Variable $variable)
     {
-        $variable->load('datapoints');
+        $variable->load(['datapoints', 'datapoints.value']);
 
-        $values = $variable->datapoints->pluck('value');
-        $uniqueValues = $values->unique('id');
-
-        $palette = new \App\Palette\Palette('#50e450');
-        $palette->generate($uniqueValues->count());
-        $colorAssignments = $palette->map($values, 'name');
+        $colorAssignments = $this->getPalette($variable);
 
         $languages = Language::with([
             'datapoints' => function($query) use ($variable) {
@@ -50,5 +45,27 @@ class VariableShowController extends Controller
         }
 
         return view('ss::variables.show.datapoints', compact('variable', 'languages', 'colorAssignments'));
+    }
+
+    public function languages(Variable $variable)
+    {
+        $variable->load(['datapoints', 'datapoints.value']);
+
+        $colorAssignments = $this->getPalette($variable);
+
+        $group = Group::first();
+
+        return view('ss::variables.show.languages', compact('variable', 'colorAssignments', 'group'));
+    }
+
+    protected function getPalette(Variable $variable)
+    {
+        $values = $variable->datapoints->pluck('value');
+        $uniqueValues = $values->unique('id');
+
+        $palette = new \App\Palette\Palette('#50e450');
+        $palette->generate($uniqueValues->count());
+
+        return $palette->map($values, 'name');
     }
 }

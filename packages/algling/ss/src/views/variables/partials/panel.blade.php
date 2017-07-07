@@ -4,3 +4,6 @@
 <a href="/variables/{{ $variable->id }}/datapoints" class="panel-block @if(Route::is('variables::showDatapoints')) is-active @endif">
 	Datapoints
 </a>
+<a href="/variables/{{ $variable->id }}/languages" class="panel-block @if(Route::is('variables::showLanguages')) is-active @endif">
+	Languages
+</a>

@@ -46626,6 +46626,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -46739,6 +46741,8 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__, {
 		if (this.marker) {
 			this.openInfoWindow(this.marker);
 		}
+
+		console.log(window.google);
 	},
 
 
@@ -46790,9 +46794,12 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__, {
 		setMarkerContent: function setMarkerContent(location) {
 			var output = "<strong>" + location.name + "</strong>";
 
-			if (location.id > 0) {
-				var link = "<a href=\"/languages/" + location.id + "\">View details</a>";
+			if (location.datapoints) {
+				var link = "<a href=\"/datapoints/" + location.datapoints[0].id + "\" style=\"color: #" + location.color + ";\">" + location.datapoints[0].value.name + "</a>";
 				output += "<br>\n" + link;
+			} else if (location.id > 0) {
+				var _link = "<a href=\"/languages/" + location.id + "\">View details</a>";
+				output += "<br>\n" + _link;
 			}
 
 			return output;
@@ -46846,6 +46853,15 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__, {
 				lat: (top + bottom) / 2 + markerCompensation,
 				lng: (left + right) / 2
 			};
+		},
+		getIcon: function getIcon(location) {
+			var color = 'FE7569';
+
+			if (location.color) {
+				color = location.color;
+			}
+
+			return { url: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + color };
 		}
 	}
 });
@@ -124491,7 +124507,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       key: index,
       attrs: {
         "position": _vm.getLatLng(location),
-        "clickable": true
+        "clickable": true,
+        "icon": _vm.getIcon(location)
       },
       on: {
         "click": function($event) {

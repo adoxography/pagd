@@ -18,8 +18,10 @@
 			:key="index"
 			:position="getLatLng(location)"
 			:clickable="true"
+			:icon="getIcon(location)"
 			@click="onClickMarker(location)"
 		></gmap-marker>
+
 		<gmap-info-window
 			:opened="infoWindow.opened"
 			:content="infoWindow.content"
@@ -143,6 +145,8 @@ export default {
 		if(this.marker) {
 			this.openInfoWindow(this.marker);
 		}
+
+		console.log(window.google);
 	},
 
 	methods: {
@@ -198,7 +202,10 @@ export default {
 		setMarkerContent(location) {
 			let output = "<strong>" + location.name + "</strong>";
 
-			if(location.id > 0) {
+			if(location.datapoints) {
+				let link = "<a href=\"/datapoints/" + location.datapoints[0].id + "\" style=\"color: #" + location.color + ";\">" + location.datapoints[0].value.name + "</a>";
+				output += "<br>\n" + link;
+			} else if(location.id > 0) {
 				let link = "<a href=\"/languages/" + location.id + "\">View details</a>";
 				output += "<br>\n" + link;
 			}
@@ -250,6 +257,16 @@ export default {
 				lat: ((top + bottom) / 2) + markerCompensation,
 				lng: ((left + right) / 2)
 			}
+		},
+
+		getIcon(location) {
+			let color = 'FE7569';
+
+			if(location.color) {
+				color = location.color;
+			}
+
+			return { url: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + color };
 		}
 	}
 }

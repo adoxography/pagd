@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			07-07-17: Added coloured map to variables
+		</li>
+		<li>
 			07-07-17: Converted variable datapoints pages to trees
 		</li>
 		<li>

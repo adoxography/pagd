@@ -226,8 +226,6 @@ class Language extends Model
 
     public function getVariable(Variable $variable)
     {
-        $this->load('datapoints');
-
         $lookup = $this->datapoints->filter(function($datapoint) use ($variable) {
             return $datapoint->variable_id == $variable->id;
         });

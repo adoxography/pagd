@@ -112,7 +112,7 @@ class Group extends Model
 
 	public function hasVariable(Variable $variable)
 	{
-		$this->load(['languages', 'languages.datapoints']);
+		$this->load(['languages']);
 
 		$lookup = $this->languages->filter(function($language) use ($variable) {
 			return $language->hasVariable($variable);

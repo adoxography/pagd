@@ -69,59 +69,12 @@ function recursiveRender($group, $variable, $colorAssignments) {
 				{!! recursiveRender(App\Group::first(), $variable, $colorAssignments) !!}
 			</li>
 		</ul>
+	</div>
 
-{{-- 		<table class="table" style="display: block;">
-			<thead>
-				<tr>
-					<th>Language</th>
-					<th>Value</th>
-					@if($hasNoteColumn)
-						<th>Note</th>
-					@endif
-				</tr>
-			</thead>
-			<tbody>
-				@foreach($languages as $language)
-					@php
-						$index = $variable->datapoints->search(function($val) use ($language) {
-							return $val->language_id == $language->id;
-						});
-					@endphp
-
-					@if($index !== false || (Auth::user() && Auth::user()->permissions->canEdit))
-					<tr>
-						<td>{!! $language->renderHTML() !!}</td>
-						<td>
-							@if($index !== false)
-								<span class="icon is-small">
-									<i class="fa fa-circle" style="color: #{{ $colorAssignments[$variable->datapoints[$index]->value->name] }};"></i>
-								</span>
-								<a href="/datapoints/{{ $variable->datapoints[$index]->id }}">
-									{{ $variable->datapoints[$index]->value->name }}
-								</a>
-							@else
-								<span class="icon is-small">
-									 Placeholder
-								</span>
-								Not entered
-								@if(Auth::user() && Auth::user()->permissions->canEdit)
-									(<a href="/variables/{{ $variable->id }}/languages/{{ $language->id }}/addDatapoint">Add</a>)
-								@endif
-							@endif
-						</td>
-						@if($hasNoteColumn)
-							<td>
-								@if($index !== false)
-									{!! $variable->datapoints[$index]->note !!}
-								@endif
-							</td>
-						@endif
-					</tr>
-					@endif
-				@endforeach
-			</tbody>
-		</table>
-	</div> --}}
+	<div class="field">
+		<span class="label">Map</span>
+		<alg-map :markers="{{ $languages }}"></alg-map>
+	</div>
 
 	<div class="field">
 		<span class="label">Essay</span>

@@ -29,7 +29,7 @@ function recursiveRender($group, $variable, $colorAssignments) {
 			$html .= '<li><span class="label">';
 
 			$html .= '<span class="icon is-small" style="margin-right: .2em;"><i class="fa fa-circle" style="color: #' . $color . '"></i></span>';
-			$html .= $child->present()->as('link') . ':&nbsp';
+			$html .= $child->present()->as('link', 'survey') . ':&nbsp';
 			$html .= '<a style="color: #' . $color . '" href="/datapoints/' . $datapoint->id . '">' . $datapoint->value->name . '</a>';
 
 			if($datapoint->note) {
@@ -39,7 +39,7 @@ function recursiveRender($group, $variable, $colorAssignments) {
 			$html .= '</span></li>';
 		} else if(Auth::user() && Auth::user()->permissions->canEdit) {
 			$html .= '<li><span class="label">';
-			$html .= $child->present()->as('link');
+			$html .= $child->present()->as('link', 'survey');
 			$html .= '&nbsp(<a href="/variables/' . $variable->id . '/languages/' . $child->id . '/addDatapoint">Add</a>)';
 			$html .= '</span></li>';
 		}
@@ -65,7 +65,7 @@ function recursiveRender($group, $variable, $colorAssignments) {
 		<ul class="tree">
 			<li>
 				<input type="checkbox" checked="checked" id="c0" />
-				<label class="label" for="c0">Algonquian languages</label>
+				<label class="label" for="c0"><a href="/groups/1">Algonquian languages</a></label>
 				{!! recursiveRender(App\Group::first(), $variable, $colorAssignments) !!}
 			</li>
 		</ul>

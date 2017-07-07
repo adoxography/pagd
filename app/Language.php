@@ -6,6 +6,7 @@ use Algling\Nominals\Traits\HasNominalsTrait;
 use Algling\Phonology\Inventory;
 use Algling\Phonology\Models\Phoneme;
 use Algling\SS\Models\Datapoint;
+use Algling\SS\Models\Variable;
 use Algling\Verbals\Models\Form;
 use Algling\Verbals\Models\Structure;
 use Algling\Verbals\Traits\HasVerbsTrait;
@@ -216,5 +217,21 @@ class Language extends Model
     public function phonology()
     {
         return new Inventory($this);
+    }
+
+    public function hasVariable(Variable $variable)
+    {
+        return $this->getVariable($variable) != false;
+    }
+
+    public function getVariable(Variable $variable)
+    {
+        $this->load('datapoints');
+
+        $lookup = $this->datapoints->filter(function($datapoint) use ($variable) {
+            return $datapoint->variable_id == $variable->id;
+        });
+
+        return $lookup->first();
     }
 }

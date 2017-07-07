@@ -2,10 +2,11 @@
 
 namespace Algling\SS\Controllers;
 
+use Algling\SS\Models\Variable;
+use App\Group;
+use App\Http\Controllers\Controller;
 use App\Language;
 use MikeAlmond\Color\Color;
-use Algling\SS\Models\Variable;
-use App\Http\Controllers\Controller;
 use MikeAlmond\Color\PaletteGenerator;
 
 class VariableShowController extends Controller

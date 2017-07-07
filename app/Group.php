@@ -2,9 +2,10 @@
 
 namespace App;
 
-use App\SourceableTrait;
-use App\HasChildrenTrait;
+use Algling\SS\Models\Variable;
 use App\BookmarkableTrait;
+use App\HasChildrenTrait;
+use App\SourceableTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
@@ -87,6 +88,8 @@ class Group extends Model
 
 	public function directDescendants()
 	{
+		$this->load(['languages', 'children']);
+
 		return $this->languages->concat($this->children);
 	}
 
@@ -105,6 +108,17 @@ class Group extends Model
 	    }
 
 	    return $languages;
+	}
+
+	public function hasVariable(Variable $variable)
+	{
+		$this->load(['languages', 'languages.datapoints']);
+
+		$lookup = $this->languages->filter(function($language) use ($variable) {
+			return $language->hasVariable($variable);
+		});
+
+		return $lookup->count() > 0;
 	}
 
 }

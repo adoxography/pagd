@@ -42,7 +42,7 @@
 						foreach($reflexes as $reflex) {
 							$html .= '<li>' . $link . '&nbsp>&nbsp' . $reflex->present('link') . '</li>';
 
-							$different = $different || str_replace('*', '', $phoneme->name) != $reflex->name;
+							$different = $different || str_replace('*', '', $phoneme->name) != str_replace('*', '', $reflex->name);
 						}
 					} else {
 						$html .= $link . '&nbsp>&nbsp?';
@@ -78,7 +78,7 @@
 						foreach($reflexes as $reflex) {
 							$html .= '<li>' . $link . '&nbsp>&nbsp' . $reflex->present('link') . '</li>';
 
-							$different = $different || str_replace('*', '', $phoneme->name) != $reflex->name;
+							$different = $different || str_replace('*', '', $phoneme->name) != str_replace('*', '', $reflex->name);
 						}
 					} else {
 						$html .= $link . '&nbsp>&nbsp?';

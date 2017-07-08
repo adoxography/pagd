@@ -7,6 +7,46 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			08-07-17: Added an option to extend datapoints into child languages
+			<ul>
+				<li>
+					Checking "same value in all daughter languages" will cause the datapoint to be copied into all child languages which do not already have a datapoint for the given variable
+					<ul>
+						<li>
+							All data is copied, including sources
+						</li>
+						<li>
+							This process is recursive; datapoints which have been extended will likewise extend to their languages' children
+						</li>
+					</ul>
+				</li>
+				<li>
+					Datapoints that are being extended are marked as such on their detail page, as are datapoints that are being extended from parents
+					<ul>
+						<li>
+							These markers are only visible to contributors
+						</li>
+					</ul>
+				</li>
+				<li>
+					Editing a datapoint that is being extended will update all of the datapoints which it is extending
+				</li>
+				<li>
+					Deleting a datapoint that is being extended or removing its extended value will cause all datapoints extended by it to be deleted
+				</li>
+				<li>
+					Editing a datapoint which has been extended from a parent will cause it to be reclassified as a standalone datapoint and will be unaffected by changes to the parent datapoint
+				</li>
+				<li>
+					When a datapoint is deleted, the database will check to see if the language's parent has an extending datapoint. If so, it will replace the deleted datapoint.
+				</li>
+				<li>
+					New languages will inherit any extending datapoints from their parent
+				</li>
+			</ul>
+		</li>
+		<hr />
+		<li>
 			07-07-17: Moved variable tree onto its own tab
 		</li>
 		<li>

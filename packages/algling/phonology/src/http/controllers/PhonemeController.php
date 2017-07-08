@@ -11,7 +11,7 @@ class PhonemeController extends Controller
 {
 	public function __construct()
 	{
-		$this->middleware('checkbox:isMarginal,isRounded,isNasal,isPalatalized,isGlottalized')->only(['store', 'edit']);
+		$this->middleware('checkbox:isMarginal,isRounded,isNasal,isPalatalized,isGlottalized')->only(['store', 'update']);
 	}
 
 	public function show(Phoneme $phoneme)

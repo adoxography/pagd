@@ -1,3 +1,7 @@
+@php
+	$value = isset($value) ? $value : true;
+@endphp
+
 <div class="field">
 	<p class="control">
 		<label class="checkbox">
@@ -5,7 +9,7 @@
 				type="checkbox"
 				name="{{ $name }}"
 				id="{{ $id or $name }}"
-				value="{{ $value or true }}"
+				value="{{ $value }}"
 
 				@if((old($name, 'not found') !== 'not found' && old($name) == $value) || (isset($checked) && $checked))
 				checked="checked"
@@ -20,9 +24,9 @@
 				@endif
 			/>
 			@if(isset($label))
-				{{ ucwords($label) }}
+				{{ ucfirst($label) }}
 			@else
-				{{ ucwords($name) }}
+				{{ ucfirst($name) }}
 			@endif
 		</label>
 	</p>

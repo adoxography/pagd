@@ -30,6 +30,18 @@
 			@endif
 		</div>
 		<div class="column">
+			@if(Auth::user() && Auth::user()->permissions->canEdit)
+				@if ($datapoint->isExtension)
+					<div class="field">
+						<span class="label">Extended from <a href="/datapoints/{{ $datapoint->language->parent->getVariable($datapoint->variable)->id }}">{{ $datapoint->language->parent->present() }}</a></span>
+					</div>
+				@elseif ($datapoint->isExtended)
+					<div class="field">
+						<span class="label">Extending to child languages</span>
+					</div>
+				@endif
+			@endif
+
 			@if($datapoint->comments)
 				<div class="field">
 					<span class="label">Comments</span>

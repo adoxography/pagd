@@ -69,6 +69,15 @@
 				</div>
 			</div>
 		</div>
+
+		@include('components.form.checkbox', [
+			'name' => 'isExtended',
+			'label' => 'Same value in all daughter languages',
+			'checked' => isset($datapoint) ? $datapoint->isExtended : false
+		])
+
+		<input type="hidden" name="isExtension" value="0" />
+
 		@component('components.form.textarea', [
 			'name' => 'note'
 		])

@@ -13,6 +13,7 @@ class DatapointController extends Controller
 	public function __construct()
 	{
 		$this->middleware('auth')->except('index', 'show');
+		$this->middleware('checkbox:isExtended')->only(['store', 'update']);
 	}
 
 	public function show(Datapoint $datapoint)
@@ -54,7 +55,7 @@ class DatapointController extends Controller
 	{
 		$datapoint->delete();
 
-		return redirect("/variables/{{ $datapoint->variable_id }}");
+		return redirect("/variables/{$datapoint->variable_id}");
 	}
 
 	public function addDatapointToLanguage(Language $language)

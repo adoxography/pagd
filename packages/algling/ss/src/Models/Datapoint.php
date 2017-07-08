@@ -15,7 +15,7 @@ class Datapoint extends Model
     use BookmarkableTrait;
 
     public $table = 'SS_Datapoints';
-    protected $fillable = ['language_id', 'variable_id', 'value_id', 'comments', 'note'];
+    protected $fillable = ['language_id', 'variable_id', 'value_id', 'comments', 'note', 'isExtended', 'isExtension'];
 
     public function language()
     {

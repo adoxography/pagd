@@ -15,7 +15,8 @@ class ObserverServiceProvider extends ServiceProvider
         \Algling\Verbals\Models\Form::class       => \Algling\Words\Models\Observers\FormObserver::class,
         \Algling\Nominals\Models\Form::class      => \Algling\Words\Models\Observers\FormObserver::class,
         \Algling\SS\Models\Variable::class        => \Algling\SS\Models\Observers\VariableObserver::class,
-        \Algling\Phonology\Models\Reflex::class   => \Algling\Phonology\Obervers\ReflexObserver::class
+        \Algling\Phonology\Models\Reflex::class   => \Algling\Phonology\Obervers\ReflexObserver::class,
+        \Algling\SS\Models\Datapoint::class       => \Algling\SS\Observers\DatapointObserver::class
     ];
 
     /**

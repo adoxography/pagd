@@ -34,9 +34,7 @@ function recursiveRender($group) {
 
 @include('components.show-icons', ['model' => $group])
 
-@section('content')
-	<div class="columns">
-		<div class="column is-narrow">
+@section('panel')
 			<label class="label">Languages in this group
 				@if(Auth::user() && Auth::user()->permissions->canEdit)
 					(<a href="/groups/{{ $group->id }}/order/edit">reorder</a>)
@@ -49,50 +47,49 @@ function recursiveRender($group) {
 					{!! recursiveRender($group) !!}
 				</li>
 			</ul>
+@endsection
+
+@section('content')
+	<div class="columns">
+		<div class="column">
+			<div class="field">
+				<span class="is-one-line">
+					<span class="label">Group:</span>
+					{{ $group->name }} languages
+				</span>
+
+				@if($group->parent)
+				<span class="is-one-line">
+					<span class="label">Parent group:</span>
+					{!! $group->parent->renderLink() !!}
+				</span>
+				@endif
+			</div>
 		</div>
 		<div class="column">
-			<div class="columns">
-				<div class="column">
-					<div class="field">
-						<span class="is-one-line">
-							<span class="label">Group:</span>
-							{{ $group->name }} languages
-						</span>
 
-						@if($group->parent)
-						<span class="is-one-line">
-							<span class="label">Parent group:</span>
-							{!! $group->parent->renderLink() !!}
-						</span>
-						@endif
-					</div>
+			@if($group->publicNotes)
+				<div class="field">
+					<span class="label">Public notes</span>
+					{!! replaceTags($group->publicNotes) !!}
 				</div>
-				<div class="column">
+			@endif
 
-					@if($group->publicNotes)
-						<div class="field">
-							<span class="label">Public notes</span>
-							{!! replaceTags($group->publicNotes) !!}
-						</div>
-					@endif
-
-					@if($group->privateNotes)
-						<div class="field">
-							<span class="label">Private notes</span>
-							{!! replaceTags($group->privateNotes) !!}
-						</div>
-					@endif
+			@if($group->privateNotes)
+				<div class="field">
+					<span class="label">Private notes</span>
+					{!! replaceTags($group->privateNotes) !!}
 				</div>
-			</div>
-			<div class="field">
-				<span class="label">Map</span>
-				<alg-map :markers="{{ $group->allLanguages()->toJson() }}"></alg-map>
-			</div>
-
-			<div class="field">
-				<span class="label">Sources</span>
-				@include('components.model.sourcelist', ['sources' => $group->sources])
-			</div>
+			@endif
 		</div>
+	</div>
+	<div class="field">
+		<span class="label">Map</span>
+		<alg-map :markers="{{ $group->allLanguages()->toJson() }}"></alg-map>
+	</div>
+
+	<div class="field">
+		<span class="label">Sources</span>
+		@include('components.model.sourcelist', ['sources' => $group->sources])
 	</div>
 @endsection

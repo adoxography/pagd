@@ -3,8 +3,9 @@
 namespace Algling\Nominals\Models;
 
 use Algling\Nominals\Models\Form;
-use Algling\Words\Models\Feature;
 use Algling\Nominals\Models\Paradigm;
+use Algling\Nominals\StructurePresenter;
+use Algling\Words\Models\Feature;
 use Illuminate\Database\Eloquent\Model;
 
 class Structure extends Model
@@ -55,5 +56,10 @@ class Structure extends Model
         $output .= " <a href='/nominals/paradigms/{$this->paradigm->id}'>{$this->paradigm->name}</a>";
 
         return $output;
+    }
+
+    public function present(string $method = 'summary')
+    {
+        return new StructurePresenter($this, $method);
     }
 }

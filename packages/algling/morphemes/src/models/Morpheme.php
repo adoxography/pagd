@@ -2,19 +2,20 @@
 
 namespace Algling\Morphemes\Models;
 
-use App\Language;
-use App\ChangeType;
-use Laravel\Scout\Searchable;
-use Algling\Words\Models\Form;
-use Algling\Nominals\Models\Form as NominalForm;
-use Algling\Words\Models\Example;
-use Algling\Morphemes\Models\Slot;
 use Algling\Morphemes\Models\Gloss;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Algling\Morphemes\Models\InitialChange;
+use Algling\Morphemes\Models\Slot;
+use Algling\Morphemes\MorphemePresenter;
+use Algling\Nominals\Models\Form as NominalForm;
 use Algling\Verbals\Models\Form as VerbForm;
+use Algling\Words\Models\Example;
+use Algling\Words\Models\Form;
+use App\ChangeType;
+use App\Language;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 class Morpheme extends Model
 {
@@ -133,7 +134,7 @@ class Morpheme extends Model
 
     public function getHtmlAttribute()
     {
-        return $this->renderHTML();
+        return $this->present()->as('unique', 'link')->__toString();
     }
 
     /*
@@ -396,5 +397,10 @@ class Morpheme extends Model
                 $this->glosses()->attach($gloss);
             }
         }
+    }
+
+    public function present(string $method = 'name')
+    {
+        return new MorphemePresenter($this, $method);
     }
 }

@@ -58,9 +58,17 @@
 																<td rowspan={{ $lookup[0]->span or "1" }} style='{{ $loop->parent->parent->parent->parent->first && $loop->parent->parent->parent->first && $loop->parent->first && $loop->parent->parent->first && $loop->first ? "border-left: .2em solid #363636;" : "" }}'>
 																	@if(count($lookup) > 0)
 																		@foreach($lookup as $form)
-
-																			{{-- The form --}}
 																			<p>
+																				{!! $form->present('link') !!}
+
+																				@if (isset($form->diffClass) || isset($form->structure->head))
+																					<span style='margin-left: .25rem;' class='alg-highlight'>
+																						<nobr>({!! $form->structure->present('arguments') !!})</nobr>
+																					</span>
+																				@endif
+																			</p>
+																			{{-- The form --}}
+{{-- 																			<p>
 																				@if($form instanceof Algling\Verbals\Models\Form)
 																					<a href='/forms/{{ $form->id }}'>
 																				@else
@@ -69,7 +77,7 @@
 																					<nobr>{{ $form->surfaceForm or "No form" }}</nobr>
 																				</a>
 																				{!! isset($form->diffClass) || isset($form->structure->head) ? "<span style='margin-left: .25rem;' class='alg-highlight'><nobr>(".$form->structure->renderArguments().")</nobr></span>" : "" !!}
-																			</p>
+																			</p> --}}
 																			<?php $form->placed = true; ?>
 
 																			{{-- The morphology --}}

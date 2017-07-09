@@ -209,9 +209,9 @@ class Language extends Model
         return $this->renderHTML();
     }
 
-    public function present()
+    public function present(string $method = 'name')
     {
-        return new LanguagePresenter($this);
+        return new LanguagePresenter($this, $method);
     }
 
     public function phonology()

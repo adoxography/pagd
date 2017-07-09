@@ -2,11 +2,12 @@
 
 namespace Algling\Words\Models;
 
-use App\HasChildrenTrait;
-use Laravel\Scout\Searchable;
+use Algling\Words\ExamplePresenter;
 use Algling\Words\Models\Form;
+use App\HasChildrenTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 /**
  * An example of a form
@@ -124,6 +125,7 @@ class Example extends Model
 
     public function getHtmlAttribute()
     {
+        return $this->present('link')->then('structure')->as('summary')->__toString();
         return $this->renderHTML();
     }
 
@@ -140,6 +142,11 @@ class Example extends Model
     public function form()
     {
         return $this->belongsTo(Form::class, 'form_id');
+    }
+
+    public function structure()
+    {
+        return $this->form->structure();
     }
 
     /*
@@ -192,5 +199,10 @@ class Example extends Model
         $query->whereHas('form', function($query) use ($type) {
             $query->where('structure_type', $type);
         });
+    }
+
+    public function present(string $method = 'name')
+    {
+        return new ExamplePresenter($this, $method);
     }
 }

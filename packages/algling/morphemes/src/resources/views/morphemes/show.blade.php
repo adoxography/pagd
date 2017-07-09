@@ -2,8 +2,7 @@
 
 @section('title')
 	<label>Morpheme details:</label>
-	{{ $morpheme->name }}<em><sup>{{ $morpheme->disambiguator }}</sup></em>
-	<span style="padding-left: .25em;">({!! $morpheme->language->renderHTML() !!}</a>)</span>
+	{!! $morpheme->present('disambiguatedName')->then('language')->as('link', 'morphemes') !!}
 @endsection
 
 @section('icons')

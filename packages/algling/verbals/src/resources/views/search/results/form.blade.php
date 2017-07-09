@@ -69,12 +69,12 @@
 						<td>
 							@foreach($forms as $form)
 								<p>
-									<a href="/forms/{{ $form->id }}">{{ $form->surfaceForm }}</a>
+									{!! $form->present('link') !!}
 									@if(isset($form->structure->head)
 										|| (!isset($structure['subject']->number) && isset($form->structure->subject->number))
 										|| (!isset($structure['primaryObject']->number) && isset($form->structure->primaryObject) && isset($form->structure->primaryObject->number))
 										|| (!isset($structure['secondaryObject']->number) && isset($form->structure->secondaryObject) && isset($form->structure->secondaryObject->number)))
-										<span class="alg-highlight">({!! $form->structure->renderArguments() !!})</span>
+										<span class="alg-highlight">({!! $form->structure->present('arguments') !!})</span>
 									@endif
 									@if(isset($form->structure->isAbsolute))
 										<span class="alg-highlight">

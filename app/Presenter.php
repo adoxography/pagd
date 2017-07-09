@@ -77,13 +77,15 @@ abstract class Presenter
 			throw new \Exception(sprintf('%s does not respond to "%s".', $this->model, $relation));
 		}
 
-		$relation = $this->model->$relation;
+		$related = $this->model->$relation;
 
-		if(is_string($relation)) {
-			$this->then[] = $relation;
-		} else if(method_exists($relation, 'present')) {
-			$this->then[] = $relation->present()->as($method)
+		if(is_string($related)) {
+			$this->then[] = $related;
+		} else if(method_exists($related, 'present')) {
+			$this->then[] = $related->present()->as($method)
 							->setArguments($arguments);
+		} else {
+			throw new \Exception(sprintf('"%s" is not a string and does not have a present method.', $relation));
 		}
 
 		$this->lastWasBefore = false;
@@ -112,6 +114,13 @@ abstract class Presenter
 			array_last($with)->as($method)
 				->setArguments($arguments);
 		}
+
+		return $this;
+	}
+
+	public function setMethod($method)
+	{
+		$this->method = $method;
 
 		return $this;
 	}
@@ -179,5 +188,10 @@ abstract class Presenter
 		} else {
 			return $this->then;
 		}
+	}
+
+	public function dd()
+	{
+		dd($this);
 	}
 }

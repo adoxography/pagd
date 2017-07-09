@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			08-07-17: Converted all Algonquian language text to italics
+		</li>
+		<li>
 			08-07-17: Added an option to extend datapoints into child languages
 			<ul>
 				<li>

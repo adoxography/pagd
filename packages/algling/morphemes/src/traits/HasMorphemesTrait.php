@@ -228,6 +228,9 @@ trait HasMorphemesTrait {
 
         			// Everything except vStems need to be wrapped in hyperlinks
         			if(!$morpheme->isVStem()) {
+                        if(strpos($morphemeHTML, '∅') === false) {
+                            $morphemeHTML = "<i>$morphemeHTML</i>";
+                        }
         				$morphemeHTML = "<a href='/morphemes/{$morpheme->id}' style='color: $colour;'>$morphemeHTML</a>";
         			}
 

@@ -12,17 +12,17 @@
 						</span>
 					</a>
 				</span>
-				{{ $form->structure->summary }}
+				{!! $form->structure->present() !!}
 				@if($form->structure->hasModifiers())
 					({{ $form->structure->isNegative ? 'Negative' : '' }} {{ $form->structure->isDiminutive ? 'Diminutive' : '' }}			
 					{{ isset($form->structure->isAbsolute) ? ($form->structure->isAbsolute ? 'Absolute' : 'Objective') : '' }})
 				@endif
 				<br />
-				<em><a href="/verbs/search/paradigm/results?languages%5B%5D={{ $form->language->name }}&languages%5B%5D_id={{ $form->language_id }}&classes[]={{ $form->structure->class_id }}&subclasses[]={{ $form->structure->subclass }}&orders[]={{ $form->structure->order_id }}&affirmative={{ $form->structure->isNegative ? '0' : '1' }}&negative={{ $form->structure->isNegative or '0' }}&diminutive={{ $form->structure->isDiminutive or '0' }}&modeSelect=selectModes&modes[]={{ $form->structure->mode_id }}">View paradigm</a></em>
+				<a href="/verbs/search/paradigm/results?languages%5B%5D={{ $form->language->name }}&languages%5B%5D_id={{ $form->language_id }}&classes[]={{ $form->structure->class_id }}&subclasses[]={{ $form->structure->subclass }}&orders[]={{ $form->structure->order_id }}&affirmative={{ $form->structure->isNegative ? '0' : '1' }}&negative={{ $form->structure->isNegative or '0' }}&diminutive={{ $form->structure->isDiminutive or '0' }}&modeSelect=selectModes&modes[]={{ $form->structure->mode_id }}">View paradigm</a>
 			</div>
 			<div class="field">
 				<span class="label">Morphology</span>
-				{{ $form->phonemicForm or $form->name }}
+				{!! $form->present('phonemicForm') !!}
 				{!! $form->printMorphemes() !!}
 			</div>
 		</div>
@@ -32,7 +32,7 @@
 				@if(count($form->examples) > 0)
 					<ul>
 						@foreach($form->examples as $example)
-							<li>{!! $example->renderLink() !!} '{{ $example->translation }}'</li>
+							<li>{!! $example->present('link') !!} '{{ $example->translation }}'</li>
 						@endforeach
 					</ul>
 				@else
@@ -58,7 +58,7 @@
 				<div class="field">
 					<span class="label">Historical notes</span>
 					@if($form->parent)
-						<em>Parent form:</em> {!! $form->parent->renderHTML() !!} ({!! $form->parent->language->renderHTML() !!})
+						<em>Parent form:</em> {!! $form->parent->present()->as('link')->then('language')->as('link', 'verbs') !!}
 					@endif
 					@if($form->historicalNotes)
 						{!! replaceTags($form->historicalNotes, $form->language_id) !!}

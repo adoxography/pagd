@@ -2,7 +2,7 @@
 
 @section('title')
 	<label>Verb form details:</label>
-	{{ $form->name }} ({!! $form->language->renderHTML() !!})
+	{!! $form->present()->then('language')->as('link', 'verbs') !!}
 @endsection
 
 @include('components.show-icons', ['model' => $form])

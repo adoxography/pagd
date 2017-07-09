@@ -39,7 +39,7 @@
 				<div class="field">
 					<span class="label">Historical notes</span>
 					@if($morpheme->parent)
-						<em>Parent: </em>{!! $morpheme->parent->renderHTML() !!} ({!! $morpheme->parent->language->renderHTML() !!})
+						<em>Parent: </em>{!! $morpheme->parent->present()->as('unique', 'link')->then('language')->as('link', 'morphemes') !!}
 					@endif
 
 					@if($morpheme->historicalNotes)

@@ -20,11 +20,11 @@
 		<tbody>
 			@foreach($log as $entry)
 				<tr>
-					<td>{!! $entry['revision']->userResponsible()->renderLink() !!}</td>
-					<td>{!! $entry['model']->renderLink() !!}</td>
+					<td>{!! $entry['revision']->userResponsible()->present('link') !!}</td>
+					<td>{!! method_exists($entry['model'], 'present') ? $entry['model']->present('link') : $entry['model']->renderLink() !!}</td>
 					<td>
 						@if($entry['model']->language)
-							{!! $entry['model']->language->renderLink() !!}
+							{!! $entry['model']->language->present('link') !!}
 						@else
 							N/A
 						@endif

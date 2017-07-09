@@ -2,12 +2,13 @@
 
 namespace Algling\Nominals\Models;
 
+use Algling\Nominals\Models\ParadigmType;
+use Algling\Nominals\Models\Structure;
+use Algling\Nominals\ParadigmPresenter;
+use App\BookmarkableTrait;
 use App\Language;
 use App\SourceableTrait;
-use App\BookmarkableTrait;
-use Algling\Nominals\Models\Structure;
 use Illuminate\Database\Eloquent\Model;
-use Algling\Nominals\Models\ParadigmType;
 
 class Paradigm extends Model
 {
@@ -36,5 +37,10 @@ class Paradigm extends Model
     public function structures()
     {
     	return $this->hasMany(Structure::class);
+    }
+
+    public function present(string $method = 'name')
+    {
+        return new ParadigmPresenter($this, $method);
     }
 }

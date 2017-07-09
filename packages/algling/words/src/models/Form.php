@@ -2,13 +2,14 @@
 
 namespace Algling\Words\Models;
 
-use App\Language;
-use App\ChangeType;
-use Laravel\Scout\Searchable;
+use Algling\Words\FormPresenter;
 use Algling\Words\Models\Example;
-use Illuminate\Support\Facades\Auth;
+use App\ChangeType;
+use App\Language;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Scout\Searchable;
 
 /**
  * A verb form
@@ -153,7 +154,7 @@ class Form extends Model
 
     public function getUniqueNameAttribute()
     {
-        return $this->name;
+        return $this->present('unique');
     }
 
     /**
@@ -163,7 +164,7 @@ class Form extends Model
      */
     public function getUniqueNameWithLanguageAttribute()
     {
-        return "{$this->uniqueName} ({$this->language->name})";
+        return $this->present('unique')->then('language');
     }
 
     public function getDisplayAttribute()
@@ -173,7 +174,7 @@ class Form extends Model
 
     public function getHtmlAttribute()
     {
-        return $this->renderHTML();
+        return $this->present()->as('unique', 'link')->__toString();
     }
 
     /*
@@ -208,18 +209,18 @@ class Form extends Model
 
     public function renderHTML()
     {
-        return "<a href='/forms/{$this->id}'>{$this->name}</a>";
+        return "<a href='/forms/{$this->id}'><em>{$this->name}</em></a>";
     }
 
     public function renderLink()
     {
-        return "<a href='/forms/{$this->id}'>{$this->name}</a>";
+        return "<a href='/forms/{$this->id}'><em>{$this->name}</em></a>";
     }
 
     public function renderInNotes()
     {
         $name = isset($this->phoneticForm) ? $this->phoneticForm : $this->name;
-        return "<blockquote><a href='/forms/{$this->id}'>{$name}</a>".$this->printMorphemes().'</blockquote>';
+        return "<blockquote><a href='/forms/{$this->id}'><em>{$name}</em></a>".$this->printMorphemes().'</blockquote>';
     }
 
     public function isStemless()
@@ -306,5 +307,10 @@ class Form extends Model
     public function structure()
     {
         return $this->morphTo();
+    }
+
+    public function present(string $method = 'name')
+    {
+        return new FormPresenter($this, $method);
     }
 }

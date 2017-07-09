@@ -2,10 +2,11 @@
 
 namespace Algling\Verbals\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Algling\Verbals\GapPresenter;
+use Algling\Verbals\Traits\HasStructureTrait;
 use Algling\Words\Models\Gap as WordGap;
 use Illuminate\Database\Eloquent\Builder;
-use Algling\Verbals\Traits\HasStructureTrait;
+use Illuminate\Database\Eloquent\Model;
 
 class Gap extends WordGap
 {
@@ -19,5 +20,10 @@ class Gap extends WordGap
     	static::addGlobalScope('verb', function(Builder $builder) {
     		$builder->where('structure_type', 'verbStructures');
     	});
+    }
+
+    public function present(string $method = 'name')
+    {
+    	return new GapPresenter($this, $method);
     }
 }

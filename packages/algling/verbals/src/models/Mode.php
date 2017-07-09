@@ -2,6 +2,7 @@
 
 namespace Algling\Verbals\Models;
 
+use App\AlgPresenter;
 use Illuminate\Database\Eloquent\Model;
 
 class Mode extends Model
@@ -11,4 +12,9 @@ class Mode extends Model
             'name',
             'description'
     ];
+
+    public function present(string $method = 'name')
+    {
+    	return new AlgPresenter($this, $method);
+    }
 }

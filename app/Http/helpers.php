@@ -27,6 +27,10 @@ function parseTime($time) {
     return Carbon\Carbon::parse($time)->setTimezone('America/Winnipeg')->toDayDateTimeString();
 }
 
+function replaceTags($text, $id = 0) {
+    return '<div class="content">' . actuallyReplaceTags($text, $id) . '</div>';
+}
+
 /**
  * Replaces all of the rules tags in a block of text
  * 
@@ -36,7 +40,7 @@ function parseTime($time) {
  * @param integer The ID of the language whose rules to look for
  * @return string The text with tags replaced
  */
-function replaceTags($text, $id = 0)
+function actuallyReplaceTags($text, $id = 0)
 {
     $output = $text;
     $start;
@@ -92,11 +96,7 @@ function replaceTags($text, $id = 0)
             }
 
             if(isset($model)) {
-                if(method_exists($model, 'renderInNotes')) {
-                    $replacement = $model->renderInNotes();
-                } else {
-                    $replacement = $model->renderHTML();
-                }
+                $replacement = $model->present('stub');
             } else {
                 $replacement = $tag;
             }

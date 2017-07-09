@@ -2,10 +2,11 @@
 
 namespace Algling\Verbals\Models;
 
+use Algling\Verbals\FormPresenter;
 use Algling\Verbals\Models\Structure;
-use Illuminate\Database\Eloquent\Builder;
-use Algling\Words\Models\Form as WordForm;
 use Algling\Verbals\Traits\HasStructureTrait;
+use Algling\Words\Models\Form as WordForm;
+use Illuminate\Database\Eloquent\Builder;
 
 class Form extends WordForm
 {
@@ -38,5 +39,10 @@ class Form extends WordForm
     public function renderHTML()
     {
         return "<a href='/verbs/forms/{$this->id}'>{$this->name}</a> (".$this->structure->renderArguments().")";
+    }
+
+    public function present(string $method = 'name')
+    {
+        return new FormPresenter($this, $method);
     }
 }

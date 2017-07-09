@@ -2,7 +2,7 @@
 
 @section('title')
 	<label>Example details:</label>
-	{{ $example->name }} ({!! $example->language->present()->as('link') !!})
+	{!! $example->present()->then('language')->as('link', $example->form->structure_type == 'verbStructures' ? 'verbs' : 'nominals') !!}
 @endsection
 
 @include('components.show-icons', ['model' => $example])

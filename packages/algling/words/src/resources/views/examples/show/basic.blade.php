@@ -9,7 +9,7 @@
 			</div>
 			<div class="field">
 				<span class="label">Morphology</span>
-				{{ $example->phonemicForm or $example->name }}
+				{!! $example->present('phonemicForm') !!}
 				{!! $example->printMorphemes() !!}
 			</div>
 			<div class="field">

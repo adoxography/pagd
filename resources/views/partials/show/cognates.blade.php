@@ -1,7 +1,9 @@
 @if(!isset($depth))
 	@if(count($list->children) > 0)
 		<p>
-			Reflexes of {!! $list->id == $current->id ? "<strong>{$list->uniqueName}</strong>" : $list->renderHTML() !!} ({!! $list->language->renderHTML() !!})
+			Reflexes of {!! $list->id == $current->id
+				? $list->present()->as('unique', 'name', 'bold')->then('language')->as('link', $uri)
+				: $list->present()->as('unique', 'link')->then('language')->as('link', $uri) !!}
 		</p>
 
 		@foreach($list->allChildren as $child)
@@ -15,11 +17,10 @@
 		{{ $list->changeType && $list->changeType->name == "Morphological" ? '→' : '>' }}
 
 		@if($list->id == $current->id)
-			<strong>{!! $list->uniqueName() !!}</strong>
+			{!! $list->present()->as('unique', 'name', 'bold')->then('language')->as('link', $uri) !!}
 		@else
-			{!! $list->renderHTML() !!}
+			{!! $list->present()->as('unique', 'link')->then('language')->as('link', $uri) !!}
 		@endif
-		({!! $list->language->renderHTMl() !!})
 	</p>
 
 	@foreach($list->allChildren as $child)

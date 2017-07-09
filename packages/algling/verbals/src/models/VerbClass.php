@@ -2,6 +2,7 @@
 
 namespace Algling\Verbals\Models;
 
+use App\AlgPresenter;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -14,4 +15,9 @@ class VerbClass extends Model
     public $table = 'Verb_Classes';
 
     public $fillable = ['name'];
+
+    public function present(string $method = 'name')
+    {
+    	return new AlgPresenter($this, $method);
+    }
 }

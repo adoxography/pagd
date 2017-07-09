@@ -2,10 +2,11 @@
 
 namespace Algling\Nominals\Models;
 
+use Algling\Nominals\FormPresenter;
 use Algling\Nominals\Models\Structure;
-use Illuminate\Database\Eloquent\Builder;
-use Algling\Words\Models\Form as WordForm;
 use Algling\Nominals\Traits\HasStructureTrait;
+use Algling\Words\Models\Form as WordForm;
+use Illuminate\Database\Eloquent\Builder;
 
 class Form extends WordForm
 {
@@ -23,13 +24,13 @@ class Form extends WordForm
     	});
     }
 
-    // public function getUniqueNameAttribute()
-    // {
-    //     return "{$this->name} ()";
-    // }
-
     public function renderHTML()
     {
         return "<a href='/nominals/forms/{$this->id}'>{$this->name}</a> ({$this->structure->summary})";
+    }
+
+    public function present(string $method = 'name')
+    {
+        return new FormPresenter($this, $method);
     }
 }

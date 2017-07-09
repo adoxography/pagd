@@ -41,7 +41,7 @@ class AlgPresenter extends Presenter
 			$this->getURI(),
 			$this->model->id,
 			$addon,
-			$this->model->name
+			$this->model->present()
 		);
 	}
 
@@ -87,6 +87,10 @@ class AlgPresenter extends Presenter
 	{
 		if(strpos('bold', $format) !== false) {
 			$str = sprintf('<strong>%s</strong>', $str);
+		}
+
+		if(strpos('highlight', $format) !== false) {
+			$str = sprintf('<span style="margin-left: .25rem;" class="alg-highlight">%s</span>', $str);
 		}
 
 		return $str;

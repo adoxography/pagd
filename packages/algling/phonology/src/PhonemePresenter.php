@@ -11,6 +11,8 @@ class PhonemePresenter extends AlgPresenter
 	{
 		$name = parent::name($format);
 
+		$name = sprintf('<em>%s</em>', $name);
+
 		if($this->model->isMarginal) {
 			$name = "($name)";
 		}
@@ -23,7 +25,7 @@ class PhonemePresenter extends AlgPresenter
 		$link = parent::link($addon, $format);
 
 		if($this->model->isMarginal) {
-			$link = "($link)";
+			$link = preg_replace('`^(<a href=".*">)(\()(.*)(\))(</a>)`', '$2$1$3$5$4', $link);
 		}
 
 		return $link;

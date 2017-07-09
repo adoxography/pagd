@@ -26,7 +26,7 @@
 
 			<div class="field">
 				<span class="label">Morphology</span>
-				{{ $form->phonemicForm or $form->name }}
+				{!! $form->present('phonemicForm') !!}
 				{!! $form->printMorphemes() !!}
 			</div>
 
@@ -41,7 +41,7 @@
 					@if(count($form->examples) > 0)
 						<ul>
 							@foreach($form->examples as $example)
-								<li>{!! $example->renderLink() !!} '{{ $example->translation }}'</li>
+								<li>{!! $example->present('link') !!} '{{ $example->translation }}'</li>
 							@endforeach
 						</ul>
 					@else

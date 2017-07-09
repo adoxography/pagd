@@ -3,6 +3,7 @@
 namespace Algling\Verbals\Models;
 
 use Algling\Verbals\Models\Form;
+use Algling\Verbals\StructurePresenter;
 use Illuminate\Database\Eloquent\Model;
 use Venturecraft\Revisionable\RevisionableTrait;
 
@@ -350,5 +351,10 @@ class Structure extends Model
     public function forms()
     {
         return $this->hasMany(Form::class, 'structure_id');
+    }
+
+    public function present(string $method = 'summary')
+    {
+        return new StructurePresenter($this, $method);
     }
 }

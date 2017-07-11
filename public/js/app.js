@@ -17243,7 +17243,6 @@ module.exports = function normalizeComponent (
 			this.$validator.validateAll();
 
 			if (this.errors.any()) {
-				alert("Errors");
 				event.preventDefault();
 			}
 		}
@@ -45372,6 +45371,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -45404,6 +45410,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		var _this = this;
 
 		this.$refs.list.contentEditable = true;
+		console.log(this.initial);
 
 		if (this.initial) {
 			Vue.nextTick(function () {
@@ -45797,7 +45804,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			focused: false
 		};
 	},
-	mounted: function mounted() {
+	created: function created() {
 		if (this.initial) {
 			this.update(this.initial);
 		}
@@ -49134,6 +49141,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		return {
 			language: { text: '', id: '' },
 			form: { text: '', id: '', extra: '' },
+			parent: { text: '', id: '', extra: '' },
 			morphemicForm: '',
 			sources: []
 		};
@@ -125286,6 +125294,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     domProps: {
       "value": _vm.value.id
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": _vm.name + '_extra'
+    },
+    domProps: {
+      "value": _vm.extra
     }
   })])
 },staticRenderFns: []}

@@ -3,6 +3,7 @@
 namespace Algling\Phonology\Models;
 
 use Algling\Phonology\Models\Phoneme;
+use App\AlgPresenter;
 use App\BacksUpTrait;
 use App\BookmarkableTrait;
 use App\SourceableTrait;
@@ -60,5 +61,10 @@ class Reflex extends Model
     public function parent()
     {
     	return $this->belongsTo(Phoneme::class);
+    }
+
+    public function present(string $method = 'name')
+    {
+        return new AlgPresenter($this, $method);
     }
 }

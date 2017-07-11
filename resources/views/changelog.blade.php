@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			11-07-17: Added parents to examples
+		</li>
+		<hr />
+		<li>
 			10-07-17: Added archiphonemes
 			<ul>
 				<li>All features are optional, but they require a brief text description</li>

@@ -162,6 +162,20 @@ class AutocompleteController extends Controller
 
         return json_encode($results);
     }
+
+    public function exampleParents(Request $request)
+    {
+        $term = $request->term;
+        $options = json_decode($request->options, true);
+        $language_id = $options['language'];
+
+        $language = Language::with('parent')
+            ->find($language_id);
+        
+        $results = $this->findParents($language, $term, 'examples', 'Word_Examples.name');
+
+        return json_encode($results);   
+    }
     
     /**
      * Get all of the morphemes in a language's parents that match a particular token

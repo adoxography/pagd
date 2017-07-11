@@ -18,7 +18,6 @@ export default {
 			this.$validator.validateAll();
 
 			if(this.errors.any()) {
-				alert("Errors");
 				event.preventDefault();
 			}
 		}

@@ -79,7 +79,7 @@
 			};
 		},
 
-		mounted() {
+		created() {
 			if(this.initial) {
 				this.update(this.initial);
 			}

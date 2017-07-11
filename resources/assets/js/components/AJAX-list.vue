@@ -34,9 +34,16 @@
 				</span>
 			</div>
 		</div>
-		<input type="hidden"
-			   :name="name + '_id'"
-			   :value="value.id" />
+		<input
+			type="hidden"
+		   :name="name + '_id'"
+		   :value="value.id"
+		/>
+		<input
+			type="hidden"
+		   :name="name + '_extra'"
+		   :value="extra"
+		/>
 	</div>
 </template>
 
@@ -69,6 +76,7 @@
 
 		mounted() {
 			this.$refs.list.contentEditable = true;
+			console.log(this.initial);
 
 			if(this.initial) {
 				Vue.nextTick(() => {

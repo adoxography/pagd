@@ -111,6 +111,23 @@
 					@endslot
 				@endcomponent
 			</div>
+
+			<div class="column is-half">
+				@component('components.form.ajaxlist', [
+					'name' => 'parent',
+					'uri' => '/autocomplete/exampleParents',
+					'with' => '{ language: language.id }',
+					'disabled' => '!language.id',
+					'placeholder' => 'Make sure to select the language first',
+					'rules' => 'datalist_exists'
+				])
+					@slot('value')
+						@if(isset($example) && $example->parent)
+							{{ '{ "text": "'.str_replace('*', '', $example->parent->uniqueNameWithLanguage).'", "id": "'.$example->parent_id.'" }' }}
+						@endif
+					@endslot
+				@endcomponent
+			</div>
 		</div>
 
 		<hr>

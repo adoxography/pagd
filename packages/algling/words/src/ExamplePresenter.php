@@ -29,4 +29,9 @@ class ExamplePresenter extends AlgPresenter
 
         return "<blockquote><a href='/$uri/{$this->model->id}'>$name</a>{$this->model->printMorphemes()}<span>{$this->model->translation}</span></blockquote>";
 	}
+
+	public function unique(string $method = 'name', string $format = '')
+	{
+		return $this->$method . "&nbsp'{$this->model->translation}'";
+	}
 }

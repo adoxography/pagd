@@ -1,5 +1,20 @@
 @extends('components.form.field')
 
+@php
+	$initial = '';
+
+	if(old($name, 'not found') !== 'not found' && strlen(old($name)) > 0) {
+		$text = old($name);
+		$id = old($name . '_id');
+		$extra = '';
+
+		if(old($name . '_extra')) {
+			$extra = ', "extra": "' . old($name . '_extra') . '"';
+		}
+		$initial = "{ \"text\": \"$text\", \"id\": $id $extra }";
+	}
+@endphp
+
 @section("{$name}_control")
 	<alg-ajaxlist
 		v-model="{{ $name }}"
@@ -21,7 +36,9 @@
 		v-validate="'{{ $rules }}'"
 		@endif
 
-		@if(isset($value) && strlen($value) > 0)
+		@if(strlen($initial) > 0)
+		:initial="{{ $initial }}"
+		@elseif(isset($value) && strlen($value) > 0)
 		:initial="{{ $value }}"
 		@endif
 

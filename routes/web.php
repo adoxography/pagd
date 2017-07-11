@@ -51,9 +51,9 @@ Route::get('search/paradigm', 'SearchController@paradigm');
 Route::get('search/form',     'SearchController@form');
 
 // Autocomplete Routes
-Route::get('autocomplete',                 'AutocompleteController@test');
 Route::get('autocomplete/forms',           'AutocompleteController@forms');
 Route::get('autocomplete/formParents',     'AutocompleteController@formParents');
+Route::get('autocomplete/exampleParents',     'AutocompleteController@exampleParents');
 Route::get('autocomplete/morphemes',       'AutocompleteController@morphemes');
 Route::get('autocomplete/morphemeParents', 'AutocompleteController@morphemeParents');
 Route::get('autocomplete/sources',         'AutocompleteController@sources');

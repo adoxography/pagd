@@ -118,6 +118,11 @@ class Example extends Model
         return "{$this->uniqueName} ({$this->language->name})";
     }
 
+    public function getLanguageAttribute()
+    {
+        return $this->form->language;
+    }
+
     public function language()
     {
         return $this->form->language();
@@ -125,8 +130,7 @@ class Example extends Model
 
     public function getHtmlAttribute()
     {
-        return $this->present('link')->then('structure')->as('summary')->__toString();
-        return $this->renderHTML();
+        return $this->present()->as('unique', 'link')->then('structure')->as('summary')->__toString();
     }
 
     /*

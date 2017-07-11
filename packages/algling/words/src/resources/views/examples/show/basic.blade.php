@@ -21,7 +21,7 @@
 			@if($example->parent)
 				<div class="field">
 					<span class="label">Historical notes</span>
-					<em>Parent:</em>{{ $example->parent->renderHTML() }} ({!! $example->parent->language->renderHTML() !!})
+					Parent: {!! $example->parent->present()->as('unique', 'link')->then('language')->as('link') !!}
 				</div>
 			@endif
 			@if($example->publicNotes)

@@ -8,7 +8,8 @@ export default {
 	data() {
 		return {
 			language: { text: '', id: '' },
-			form: { text: '', id: '', extra: '' },
+			form:     { text: '', id: '', extra: '' },
+			parent:   { text: '', id: '', extra: '' },
 			morphemicForm: '',
 			sources: []
 		};

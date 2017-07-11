@@ -7,6 +7,14 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			10-07-17: Added archiphonemes
+			<ul>
+				<li>All features are optional, but they require a brief text description</li>
+				<li>Only phonemes can be archiphonemes. (No archiphoneme clusters)</li>
+			</ul>
+		</li>
+		<hr />
+		<li>
 			08-07-17: Converted all Algonquian language text to italics
 		</li>
 		<li>

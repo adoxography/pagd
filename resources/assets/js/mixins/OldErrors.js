@@ -11,5 +11,16 @@ export default {
 				});
 			});
 		}		
+	},
+
+	methods: {
+		validateBeforeSubmit(event) {
+			this.$validator.validateAll();
+
+			if(this.errors.any()) {
+				alert("Errors");
+				event.preventDefault();
+			}
+		}
 	}
 }

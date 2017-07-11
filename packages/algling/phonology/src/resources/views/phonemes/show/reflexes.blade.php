@@ -4,7 +4,7 @@
 	@if($phoneme->parents->count() > 0)
 		<div class="field">
 			<span class="label">
-				Parents of {{ $phoneme->present() }}
+				Parents of {!! $phoneme->present() !!}
 				@if(Auth::user() && Auth::user()->permissions->canEdit)
 					(<a href="/phonemes/{{ $phoneme->id }}/addChild">Add another</a>)
 				@endif
@@ -16,7 +16,7 @@
 	@if($phoneme->reflexes->count() > 0)
 		<div class="field">
 			<span class="label">
-				Daughters of {{ $phoneme->present() }}
+				Daughters of {!! $phoneme->present() !!}
 				@if(Auth::user() && Auth::user()->permissions->canEdit)
 					(<a href="/phonemes/{{ $phoneme->id }}/addParent">Add another</a>)
 				@endif

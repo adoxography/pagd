@@ -20,6 +20,16 @@
 		@include('languages.show.partials.consonants')
 	</div>
 
+	@if($inventory->hasArchiphonemes())
+		<div class="field">
+			<span class="label">
+				Archiphoneme inventory
+			</span>
+
+			@include('languages.show.partials.archiphonemes')
+		</div>
+	@endif
+
 	@if($language->id != 1)
 		<div class="field">
 			<span class="label">
@@ -92,5 +102,14 @@
 				}
 			])
 		</div>
+
+		<div class="field">
+			<span class="label">
+				Reflexes of <a href="/languages/1/phonemes">PA</a> archiphonemes
+			</span>
+
+			@include('languages.show.partials.archiphonemes', [
+				'localInventory' => $paInventory
+			])
 	@endif
 @endsection

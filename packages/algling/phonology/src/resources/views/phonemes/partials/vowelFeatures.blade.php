@@ -28,7 +28,7 @@
 @component('components.form.datalist', [
 	'name'  => 'length',
 	'list'  => $lengths,
-	'rules' => 'required|exists',
+	'rules' => 'exists',
 	'placeholder' => 'Leave blank if no contrast'
 ])
 	@slot('value')

@@ -5,6 +5,7 @@
 
 	@if(isset($phoneme))
 		old-type="{{ $phoneme->phonemeable_type }}"
+		:old-is-archiphoneme="{{ $phoneme->isArchiphoneme }}"
 	@elseif(isset($type))
 		old-type="{{ $type . 'Types' }}"
 	@endif
@@ -43,7 +44,7 @@
 						])
 							@slot('value')
 								@if(isset($phoneme))
-									{{ str_replace('*', '', $phoneme->ipaName) }}
+									{{ str_replace(['*', '/'], '', $phoneme->ipaName) }}
 								@endif
 							@endslot
 						@endcomponent
@@ -63,11 +64,18 @@
 					</div>
 				</div>
 
-				{{-- Marginal status --}}
+				Marginal status
 				@include('components.form.checkbox', [
 					'name' => 'isMarginal',
 					'label' => 'marginal',
 					'checked' => isset($phoneme) ? $phoneme->isMarginal : false
+				])
+
+				{{-- Archiphoneme status --}}
+				@include('components.form.checkbox', [
+					'name' => 'isArchiphoneme',
+					'label' => 'archiphoneme',
+					'model' => 'isArchiphoneme'
 				])
 
 				{{-- Language --}}
@@ -82,6 +90,23 @@
 						@endif
 					@endslot
 				@endcomponent
+
+				<transition name="fade">
+					<div v-show="isArchiphoneme">
+						@component('components.form.text', [
+							'name' => 'archiphonemeDescription',
+							'label' => 'description',
+							'rules' => '',
+							'placeholder' => 'Enter a description of the archiphoneme'
+						])
+						    @slot('value')
+						        @if (isset($phoneme))
+						        	{{ $phoneme->archiphonemeDescription }}
+						        @endif
+						    @endslot
+						@endcomponent
+					</div>
+				</transition>
 			</div>
 
 			{{-- Features --}}
@@ -94,7 +119,8 @@
 						'Consonant' => 'consonantTypes',
 						'Cluster'   => 'clusterTypes'
 					],
-					'model' => 'type'
+					'model' => 'type',
+					'rules' => 'required'
 				])
 
 				<transition name="fade" mode="out-in">

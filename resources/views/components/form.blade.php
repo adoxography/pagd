@@ -8,7 +8,9 @@
 	@if(isset($class))
 	class="{{ $class }}"
 	@endif
-	>
+
+	@submit="validateBeforeSubmit($event)"
+>
 
 	@if(isset($method) && ($method != 'GET' && $method != 'POST'))
 		{{ method_field($method) }}

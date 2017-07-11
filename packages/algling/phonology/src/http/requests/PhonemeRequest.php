@@ -30,21 +30,15 @@ class PhonemeRequest extends FormRequest
             'algoName'         => ['required'],
             'language'         => ['required', 'exists:Languages,name'],
             'language_id'      => ['required', 'integer', 'exists:Languages,id'],
-            'phonemeable_type' => ['required', Rule::in(['vowelTypes', 'consonantTypes', 'clusterTypes'])],
+            'phonemeable_type' => ['required'],
+            'isArchiphoneme'   => ['boolean'],
+            'archiphonemeDescription' => ['required_with:isArchiphoneme'],
 
             // Vowel rules
-            'height'      => ['required_if:phonemeable_type,vowels', 'exists:Phon_Heights,name'],
-            'height_id'   => ['required_if:phonemeable_type,vowels', 'integer', 'exists:Phon_Heights,id'],
-            'backness'    => ['required_if:phonemeable_type,vowels', 'exists:Phon_Backnesses,name'],
-            'backness_id' => ['required_if:phonemeable_type,vowels', 'integer', 'exists:Phon_Backnesses,id'],
             'length'      => ['nullable', 'exists:Phon_Lengths,name'],
             'length_id'   => ['nullable', 'exists:Phon_Lengths,id'],
 
             // Consonant rules
-            'place'      => ['required_if:phonemeable_type,consonants', 'exists:Phon_Places,name'],
-            'place_id'   => ['required_if:phonemeable_type,consonants', 'integer', 'exists:Phon_Places,id'],
-            'manner'     => ['required_if:phonemeable_type,consonants', 'exists:Phon_Manners,name'],
-            'manner_id'  => ['required_if:phonemeable_type,consonants', 'integer', 'exists:Phon_Manners,id'],
             'voicing'    => ['nullable', 'exists:Phon_Voicings,name'],
             'voicing_id' => ['nullable', 'exists:Phon_Voicings,id'],
 
@@ -52,8 +46,26 @@ class PhonemeRequest extends FormRequest
             'firstSegment'     => ['required_if:phonemeable_type,clusters'],
             'firstSegment_id'  => ['required_if:phonemeable_type,clusters', 'integer', 'exists:Phon_Phonemes,id'],
             'secondSegment'    => ['required_if:phonemeable_type,clusters'],
-            'secondSegment_id' => ['required_if:phonemeable_type,clusters', 'integer', 'exists:Phon_Phonemes,id'],   
+            'secondSegment_id' => ['required_if:phonemeable_type,clusters', 'integer', 'exists:Phon_Phonemes,id'],
         ];
+
+        if(!request()->isArchiphoneme) {
+            $rules = array_merge($rules, [
+                'height'      => ['required_if:phonemeable_type,vowels', 'exists:Phon_Heights,name'],
+                'height_id'   => ['required_if:phonemeable_type,vowels', 'integer', 'exists:Phon_Heights,id'],
+                'backness'    => ['required_if:phonemeable_type,vowels', 'exists:Phon_Backnesses,name'],
+                'backness_id' => ['required_if:phonemeable_type,vowels', 'integer', 'exists:Phon_Backnesses,id'],
+
+                'place'      => ['required_if:phonemeable_type,consonants', 'exists:Phon_Places,name'],
+                'place_id'   => ['required_if:phonemeable_type,consonants', 'integer', 'exists:Phon_Places,id'],
+                'manner'     => ['required_if:phonemeable_type,consonants', 'exists:Phon_Manners,name'],
+                'manner_id'  => ['required_if:phonemeable_type,consonants', 'integer', 'exists:Phon_Manners,id'],
+            ]);
+
+            $rules['phonemeable_type'][] = Rule::in(['vowelTypes', 'consonantTypes', 'clusterTypes']);
+        } else {
+            $rules['phonemeable_type'][] = Rule::in(['vowelTypes', 'consonantTypes']);
+        }
 
         return $rules;
     }

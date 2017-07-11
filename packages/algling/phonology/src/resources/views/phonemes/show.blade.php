@@ -1,7 +1,16 @@
 @extends('layout', ['title' => $phoneme->name])
 
 @section('title')
-	<label>{{ $phoneme->type == 'Cluster' ? 'Cluster' : 'Phoneme' }} details:</label>
+	<label>
+		@if($phoneme->isArchiphoneme)
+			Archiphoneme
+		@elseif($phoneme->type == 'Cluster')
+			Cluster
+		@else
+			Phoneme
+		@endif
+		details:
+	</label>
 	{!! $phoneme->present('link')->with('language')->as('link', $phoneme->type == 'Cluster' ? 'clusters' : 'phonemes') !!}
 @endsection
 

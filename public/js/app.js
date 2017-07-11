@@ -17235,6 +17235,18 @@ module.exports = function normalizeComponent (
 				});
 			});
 		}
+	},
+
+
+	methods: {
+		validateBeforeSubmit: function validateBeforeSubmit(event) {
+			this.$validator.validateAll();
+
+			if (this.errors.any()) {
+				alert("Errors");
+				event.preventDefault();
+			}
+		}
 	}
 });
 
@@ -45438,13 +45450,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			this.showList = false;
 		},
 		determineValue: function determineValue(text) {
+			var found = false;
 			var val = '';
 			this.extra = '';
 
-			for (var i = 0; i < this.options.length && val === ''; i++) {
+			for (var i = 0; i < this.options.length && !found; i++) {
 				if (this.options[i].name.toLowerCase() === text.toLowerCase()) {
 					val = this.options[i].id;
 					this.extra = this.options[i].extra;
+
+					if (this.options[i].name === text) {
+						found = true;
+					}
 				}
 			}
 
@@ -49546,11 +49563,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
 	mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_OldErrors__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_OldSources__["a" /* default */]],
 
-	props: ['oldType'],
+	props: ['oldType', 'oldIsArchiphoneme'],
 
 	data: function data() {
 		return {
 			type: '',
+			isArchiphoneme: false,
+			requiredFields: ['place', 'manner', 'height', 'backness'],
 
 			language: { text: '', id: '' },
 
@@ -49575,6 +49594,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		if (this.oldType) {
 			this.type = this.oldType;
 		}
+
+		if (this.oldIsArchiphoneme) {
+			this.isArchiphoneme = this.oldIsArchiphoneme;
+		}
+
+		var dict = {
+			en: {
+				custom: {
+					phonemeable_type: {
+						not_in: 'Clusters cannot be archiphonemes'
+					}
+				}
+			}
+		};
+
+		this.$validator.updateDictionary(dict);
 	},
 
 
@@ -49582,6 +49617,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		language: function language() {
 			this.firstSegment = { text: '', id: '' };
 			this.secondSegment = { text: '', id: '' };
+		},
+		isArchiphoneme: function isArchiphoneme($value) {
+			var _this = this;
+
+			var validators = $value ? 'datalist_exists' : 'datalist_required|datalist_exists';
+
+			this.requiredFields.forEach(function (field) {
+				_this.$validator.attach(field, validators);
+			});
+
+			this.$validator.attach('archiphonemeDescription', $value ? 'required' : '', { prettyName: 'description' });
+			this.$validator.attach('phonemeable_type', 'required' + ($value ? '|not_in:clusterTypes' : ''), { prettyName: 'type' });
 		}
 	}
 });

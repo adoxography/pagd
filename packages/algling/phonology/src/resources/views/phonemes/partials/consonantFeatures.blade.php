@@ -5,7 +5,7 @@
 	'rules' => 'required|exists'
 ])
 	@slot('value')
-		@if(isset($phoneme) && $phoneme->type == 'Consonant')
+		@if(isset($phoneme) && $phoneme->type == 'Consonant' && $phoneme->features->place)
 			{{ $phoneme->features->place->name }}
 		@endif
 	@endslot
@@ -18,7 +18,7 @@
 	'rules' => 'required|exists'
 ])
 	@slot('value')
-		@if(isset($phoneme) && $phoneme->type == 'Consonant')
+		@if(isset($phoneme) && $phoneme->type == 'Consonant' && $phoneme->features->manner)
 			{{ $phoneme->features->manner->name }}
 		@endif
 	@endslot

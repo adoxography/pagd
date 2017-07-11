@@ -14,6 +14,14 @@
 				@if(isset($model))
 				v-model="{{ $model }}"
 				@endif
+
+				@if (isset($rules))
+					v-validate="'{{ $rules }}'"
+				@endif
+
+				@if (isset($label))
+					data-vv-as="{{ $label }}"
+				@endif
 			>
 
 				@if($options instanceof Illuminate\Database\Eloquent\Collection)

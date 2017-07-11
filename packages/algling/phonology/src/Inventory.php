@@ -20,6 +20,8 @@ class Inventory
 
 	public $clusters;
 
+	public $archiphonemes;
+
 	public $features;
 
 	public function __construct(Language $language)
@@ -32,13 +34,12 @@ class Inventory
 
 	protected function loadPhonemes()
 	{
-		$this->language->load('phonemes');
-
 		$phonemes = $this->language->phonemes;
 
-		$this->consonants = $phonemes->where('phonemeable_type', 'consonantTypes');
-		$this->vowels = $phonemes->where('phonemeable_type', 'vowelTypes');
+		$this->consonants = $phonemes->where('phonemeable_type', 'consonantTypes')->where('isArchiphoneme', false);
+		$this->vowels = $phonemes->where('phonemeable_type', 'vowelTypes')->where('isArchiphoneme', false);
 		$this->clusters = $phonemes->where('phonemeable_type', 'clusterTypes');
+		$this->archiphonemes = $phonemes->where('isArchiphoneme', true);
 	}
 
 	protected function loadFeatures()
@@ -114,6 +115,11 @@ class Inventory
 	public function hasClusters()
 	{
 		return $this->clusters->count() > 0;
+	}
+
+	public function hasArchiphonemes()
+	{
+		return $this->archiphonemes->count() > 0;
 	}
 
 	public function getVowels(Height $height, Backness $backness)

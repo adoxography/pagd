@@ -22,6 +22,10 @@
 				@if(isset($label))
 				data-vv-as="{{ $label }}"
 				@endif
+
+				@if (isset($model))
+					v-model="{{ $model }}"
+				@endif
 			/>
 			@if(isset($label))
 				{{ ucfirst($label) }}

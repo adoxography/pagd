@@ -41,14 +41,16 @@ class Phoneme extends Model
     	'isMarginal',
     	'language_id',
     	'phonemeable_type',
-    	'phonemeable_id'
+    	'phonemeable_id',
+        'isArchiphoneme',
+        'archiphonemeDescription'
     ];
 
     public function toSearchableArray()
     {
         $array = $this->toArray();
 
-        return array_only($array, ['id', 'algoName', 'ipaName', 'orthoName', 'phoneticNotes', 'orthoNotes', 'privateNotes']);
+        return array_only($array, ['id', 'algoName', 'ipaName', 'orthoName', 'phoneticNotes', 'orthoNotes', 'privateNotes', 'archiphonemeDescription']);
     }
 
     protected $revisionCreationsEnabled = true;
@@ -64,7 +66,8 @@ class Phoneme extends Model
         'orthoNotes'       => 'orthography notes',
         'privateNotes'     => 'private notes',
         'isMarginal'       => 'marginal',
-        'phonemeable_type' => 'phoneme type'
+        'phonemeable_type' => 'phoneme type',
+        'archiphonemeDescription' => 'archiphoneme description'
     ];
     protected $dontKeepRevisionOf = [
         'id',

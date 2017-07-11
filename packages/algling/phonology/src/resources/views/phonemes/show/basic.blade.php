@@ -44,6 +44,13 @@
 		</div>
 
 		<div class="column">
+			@if ($phoneme->isArchiphoneme)
+				<div class="field">
+					<span class="label">Description</span>
+					{{ $phoneme->archiphonemeDescription }}
+				</div>
+			@endif
+
 			@if($phoneme->phoneticNotes)
 				<div class="field">
 					<span class="label">Phonetic notes</span>

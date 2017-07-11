@@ -113,13 +113,18 @@
 			},
 
 			determineValue(text) {
+				let found = false;
 				let val = '';
 				this.extra = '';
 
-				for(let i = 0; i < this.options.length && val === ''; i++) {
+				for(let i = 0; i < this.options.length && !found; i++) {
 					if(this.options[i].name.toLowerCase() === text.toLowerCase()) {
 						val = this.options[i].id;
 						this.extra = this.options[i].extra;
+
+						if(this.options[i].name === text) {
+							found = true;
+						}
 					}
 				}
 

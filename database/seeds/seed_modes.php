@@ -29,7 +29,8 @@ class seed_modes extends Seeder
         	['id' => 13, 'name' => 'Subjective'],
         	['id' => 14, 'name' => 'Subjunctive'],
             ['id' => 15, 'name' => 'Unreal'],
-        	['id' => 16, 'name' => 'Participle'],
+            ['id' => 16, 'name' => 'Participle'],
+        	['id' => 17, 'name' => 'Subordinative'],
         );
         
         DB::table('Verb_Modes')->insert($modes);

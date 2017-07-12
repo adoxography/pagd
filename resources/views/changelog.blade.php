@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			12-07-17: Added 'subordinative' to verb modes
+		</li>
+		<hr />
+		<li>
 			11-07-17: Added parents to examples
 		</li>
 		<hr />

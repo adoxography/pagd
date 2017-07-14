@@ -11,9 +11,26 @@ class ParadigmPresenter extends AlgPresenter
 	{
 		$paradigm = new Paradigm($this->model->forms);
 
-		$html = '<table style="display: block"><thead><tr><th>Arguments</th><th>Form</th></thead>';
+		$html = '<div class="paradigm-container"><table class="table is-bordered" style="display: block"><thead><tr><th>Features</th><th>Form</th></thead>';
 
-		$html .= '</table>';
+		foreach($paradigm->rows[$this->model->name] as $arguments => $forms) {
+			$html .= '<tr>';
+			$html .= "<td>$arguments</td>";
+
+			$html .= '<td>';
+			foreach($forms as $form) {
+				$html .= $form->present('link');
+
+				if($form->structure_type == 'nominalStructures') {
+					$html .= $form->printMorphemes();
+				}
+			}
+
+			$html .= '</td>';
+			$html .= '</tr>';
+		}
+
+		$html .= '</table></div>';
 
 		return $html;
 	}	

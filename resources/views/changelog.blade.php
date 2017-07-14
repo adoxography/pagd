@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			14-07-17: Added paradigm tables to all nominal paradigm detail pages
+		</li>
+		<li>
 			14-07-17: Now displaying nominal paradigms in tables (syncretism still forthcoming)
 		</li>
 		<li>

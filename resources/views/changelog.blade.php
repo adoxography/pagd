@@ -361,7 +361,7 @@
 			<ul>
 				<li>This should eliminate most remaining submission errors</li>
 				<li>Will transition other forms to follow a similar structure</li>
-			</li>
+			</ul>
 		</li>
 		<li>
 			21-04-17: Prevented paradigms and detail pages from appearing before JS finishes loading

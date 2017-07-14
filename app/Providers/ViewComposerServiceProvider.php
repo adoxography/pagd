@@ -23,6 +23,7 @@ class ViewComposerServiceProvider extends ServiceProvider
         $this->composeLanguageForm();
         $this->composeGroupForm();
         $this->composeRuleForm();
+        $this->composeAudioForm();
 
         $this->composeSearch();
     }
@@ -53,6 +54,17 @@ class ViewComposerServiceProvider extends ServiceProvider
     private function composeRuleForm()
     {
         view()->composer('rules.partials.form', function($view)
+        {
+            $data = [
+                'languages' => Language::select('id','name')->get()
+            ];
+            $view->with($data);
+        });
+    }
+
+    private function composeAudioForm()
+    {
+        view()->composer('audio.partials.form', function($view)
         {
             $data = [
                 'languages' => Language::select('id','name')->get()

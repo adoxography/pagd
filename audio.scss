@@ -1,0 +1,20 @@
+input[type="file"] {
+	display: none;
+}
+
+audio {
+	height: 2rem;
+
+	// Hide the download button on Chrome
+	&::-internal-media-controls-download-button {
+    	display:none;
+	}
+
+	&::-webkit-media-controls-enclosure {
+    	overflow:hidden;
+	}
+
+	&::-webkit-media-controls-panel {
+    	width: calc(100% + 30px); /* Adjust as needed */
+	}
+}

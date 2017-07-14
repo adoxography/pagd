@@ -21,6 +21,14 @@ class EventServiceProvider extends ServiceProvider
 
         'Illuminate\Auth\Events\Login' => [
             'App\Listeners\LogSuccessfulLogin'
+        ],
+
+        'App\Events\Audio\Deleting' => [
+            'App\Listeners\DeleteFile'
+        ],
+
+        'App\Events\FileOrphaned' => [
+            'App\Listeners\DeleteFile'
         ]
     ];
 

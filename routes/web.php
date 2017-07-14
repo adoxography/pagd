@@ -22,14 +22,13 @@ Route::get('entire-paradigm', 'HomeController@entireParadigm');
 Route::get('changelog', 'HomeController@changelog');
 
 Route::get('sandbox', function() {
-	$language = 23;
-
-	$query = \Algling\Words\Models\Example::whereHas('form', function($subquery) use ($language) {
-		$subquery->where('language_id', $language);
-	});
-
-	return $query->get();
+	return view('sandbox');
 });
+
+Route::post('upload/audio', 'UploadController@audio');
+
+Route::resource('audio', 'AudioController');
+
 Route::get('need-attention',        'HomeController@incompleteForms');
 Route::get('guide', 'HomeController@guide');
 

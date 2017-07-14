@@ -190,7 +190,8 @@ return [
         App\Providers\ViewComposerServiceProvider::class,
         App\Providers\CustomValidationProvider::class,
         App\Providers\MorphMapServiceProvider::class,
-        App\Providers\ObserverServiceProvider::class
+        App\Providers\ObserverServiceProvider::class,
+        App\Providers\DropboxServiceProvider::class,
     ],
 
     /*

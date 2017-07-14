@@ -7,6 +7,18 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			13-07-17: Added capability for uploading and storing audio clips
+			<ul>
+				<li>
+					Clips can be added <a href="/audio/create">here</a> and an index of uploaded audio clips can be viewed <a href="/audio">here</a>, but since audio hasn't been fully integrated into the database, no header links have been added at this point.
+				</li>
+				<li>
+					The purpose of this update is to give the database the <em>capability</em> of dealing with audio clips. Future updates will integrate audio clips into the rest of the database.
+				</li>
+			</ul>
+		</li>
+		<hr />
+		<li>
 			12-07-17: Added 'subordinative' to verb modes
 		</li>
 		<hr />

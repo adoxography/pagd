@@ -190,3 +190,18 @@ function validDatabaseInput($val)
 {
     return !is_null($val) && $val !== '';
 }
+
+function array_toString(array $arr, string $delimiter = ', ') : string
+{
+    $output = '';
+
+    for ($i=0; $i < count($array); $i++) { 
+        if ($i > 0) {
+            $output .= $delimiter;
+        }
+
+        $output .= $array[$i];
+    }
+
+    return $output;
+}

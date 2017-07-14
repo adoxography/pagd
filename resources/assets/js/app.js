@@ -35,6 +35,7 @@ Vue.component('alg-bookmark',        require('./components/Bookmark.vue'));
 Vue.component('alg-modal',           require('./components/Modal.vue'));
 Vue.component('alg-button',          require('./components/Button.vue'));
 Vue.component('alg-map',             require('./components/Map.vue'));
+Vue.component('alg-file-upload',     require('./components/FileUpload.vue'));
 
 Vue.component('alg-language-form',  require('./components/forms/Language.vue'));
 Vue.component('alg-group-form',     require('./components/forms/Group.vue'));
@@ -51,6 +52,7 @@ Vue.component('alg-nominal-form-form',  require('./components/forms/NominalForm.
 Vue.component('alg-phoneme-form',  require('./components/forms/Phoneme.vue'));
 Vue.component('alg-allophone-form',  require('./components/forms/Allophone.vue'));
 Vue.component('alg-reflex-form',  require('./components/forms/Reflex.vue'));
+Vue.component('alg-audio-form',  require('./components/forms/Audio.vue'));
 
 Vue.component('alg-order', require('./components/Order.vue'));
 Vue.component('alg-textarea', require('./components/Textarea.vue'));

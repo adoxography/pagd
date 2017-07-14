@@ -9,6 +9,10 @@
 	class="{{ $class }}"
 	@endif
 
+	@if (isset($files) && $files)
+		enctype="multipart/form-data"
+	@endif
+
 	@submit="validateBeforeSubmit($event)"
 >
 

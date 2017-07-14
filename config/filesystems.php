@@ -62,6 +62,11 @@ return [
             'bucket' => 'your-bucket',
         ],
 
+        'dropbox' => [
+            'driver' => 'dropbox',
+            'authorizationToken' => 'NUgJYUPuXjQAAAAAAAAA_YiZG7Uq91J7_f9d5Q8Yzjep-XSS81Gv3JXFgnrg0NeD'
+        ]
+
     ],
 
 ];

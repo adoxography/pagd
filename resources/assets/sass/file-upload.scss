@@ -1,0 +1,22 @@
+.dropbox {
+	outline: 2px dashed grey;
+	outline-offset: -10px;
+	background: lightcyan;
+	color: dimgray;;
+	padding: 10px;
+	min-height: 200px;
+	position: relative;
+	cursor: pointer;
+
+	&:hover {
+		background: lightblue;
+	}
+}
+
+.input-file {
+	opacity: 0;
+	width: 100%;
+	height: 200px;
+	position: absolute;
+	cursor: pointer;
+}

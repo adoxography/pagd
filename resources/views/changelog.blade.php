@@ -7,7 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
-			14-07-17: Added <a href="/nominals/search/paradigm">nominal paradigm search</a> (paradigm table display still forthcoming)
+			14-07-17: Now displaying nominal paradigms in tables (syncretism still forthcoming)
+		</li>
+		<li>
+			14-07-17: Added <a href="/nominals/search/paradigm">nominal paradigm search</a> <strike>(paradigm table display still forthcoming)</strike>
 		</li>
 		<hr />
 		<li>

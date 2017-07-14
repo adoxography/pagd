@@ -205,3 +205,14 @@ function array_toString(array $arr, string $delimiter = ', ') : string
 
     return $output;
 }
+
+function fixMorphemes()
+{
+    foreach(Algling\Morphemes\Models\Morpheme::all() as $morpheme) {
+        $morpheme->connectGlosses();
+    }
+
+    foreach(Algling\Words\Models\Form::whereHas('language')->get() as $form) {
+        $form->connectMorphemes();
+    }
+}

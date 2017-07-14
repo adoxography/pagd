@@ -4,6 +4,7 @@ namespace Algling\Nominals\Http\Controllers;
 
 use Algling\Nominals\Models\Form;
 use Algling\Nominals\Models\ParadigmType;
+use Algling\Nominals\Paradigm;
 use App\Http\Controllers\Controller;
 use App\Language;
 
@@ -11,7 +12,10 @@ class SearchController extends Controller
 {
     public function paradigm()
     {
-        $languages = Language::select('name', 'id')->orderBy('name')->get();
+        $languages = Language::select('name', 'id')
+            ->whereHas('forms', function ($query) {
+                $query->where('structure_type', 'nominalStructures');
+            })->orderBy('name')->get();
         $types = ParadigmType::select('name', 'id')->orderBy('id')->get();
 
         return view('nom::search.paradigm', compact('languages', 'types'));
@@ -23,7 +27,7 @@ class SearchController extends Controller
         $languageIds = array_filter(request()->languages, function($val) {
             return is_numeric($val);
         });
-        $types = ParadigmType::whereIn('id', $typeIds)->get();
+        $showMorphology = false;
         $languages;
 
         if (count(request()->languages) > 0) {
@@ -32,12 +36,45 @@ class SearchController extends Controller
             $languages = Language::all();
         }
 
-        $forms = Form::whereIn('language_id', $languageIds)->whereHas('structure', function($query) use ($typeIds) {
-            $query->whereHas('paradigm', function($query) use ($typeIds) {
-                $query->whereIn('paradigmType_id', $typeIds);
-            });
-        })->get();
+        $dictionary = [
+            '1', '1s', '2', '2s', '1p', '21', '2p', '3s', '3p', '3\'s', '3\'p', '0s', '0p', 'LOC', ''
+        ];
 
-        return view('nom::search.results.paradigm', compact('languages', 'types', 'forms'));
+        $forms = Form::with([
+                'structure',
+                'structure.nominalFeature',
+                'structure.pronominalFeature',
+                'structure.paradigm',
+                'structure.paradigm.paradigmType',
+                'morphemes',
+                'morphemes.glosses',
+                'morphemes.slot'
+            ])->whereIn('language_id', $languageIds)
+            ->whereHas('structure', function($query) use ($typeIds) {
+                $query->with('paradigm')
+                    ->whereHas('paradigm', function($query) use ($typeIds) {
+                        $query->whereIn('paradigmType_id', $typeIds);
+                    });
+            })->get();
+
+        $thirdPersonForms = $forms->filter(function($form) {
+            return !$form->structure->paradigm->type->hasPronominalFeature;
+        });
+
+        $personalPronouns = $forms->filter(function($form) {
+            return !$form->structure->paradigm->type->hasNominalFeature;
+        });
+
+        $possessedForms = $forms->filter(function($form) {
+            return $form->structure->paradigm->type->hasNominalFeature && $form->structure->paradigm->type->hasPronominalFeature;
+        });
+
+        $paradigms = [
+            'Third person forms' => new Paradigm($thirdPersonForms),
+            'Person pronouns' => new Paradigm($personalPronouns),
+            'Possessed forms' => new Paradigm($possessedForms)
+        ];
+
+        return view('nom::search.results.paradigm', compact('languages', 'paradigms', 'showMorphology'));
     }
 }

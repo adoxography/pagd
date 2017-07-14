@@ -2,6 +2,7 @@
 
 namespace Algling\Nominals\Models;
 
+use Algling\Nominals\Models\Form;
 use Algling\Nominals\Models\ParadigmType;
 use Algling\Nominals\Models\Structure;
 use Algling\Nominals\ParadigmPresenter;
@@ -37,6 +38,25 @@ class Paradigm extends Model
     public function structures()
     {
     	return $this->hasMany(Structure::class);
+    }
+
+    public function getFormsAttribute()
+    {
+        $id = $this->id;
+
+        return Form::with([
+                'structure',
+                'structure.nominalFeature',
+                'structure.pronominalFeature',
+                'structure.paradigm',
+                'structure.paradigm.paradigmType',
+                'morphemes',
+                'morphemes.glosses',
+                'morphemes.slot'
+            ])->where('language_id', $this->language_id)
+            ->whereHas('structure', function($query) use ($id) {
+                $query->where('paradigm_id', $id);
+            })->get();
     }
 
     public function present(string $method = 'name')

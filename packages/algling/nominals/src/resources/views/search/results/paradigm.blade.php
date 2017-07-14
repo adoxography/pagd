@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')	
+	@if($resultsFound)
 	<alg-paradigm-table morphemes-on="{{ $showMorphology }}" inline-template v-cloak>
 		<div class="paradigm-results">
 			<nav class="level">
@@ -22,60 +23,65 @@
 			</nav>
 
 				@foreach ($paradigms as $name => $paradigm)
+					@if (!$paradigm->isEmpty())
 
-					<h5 class="subtitle is-5">{{ $name }}</h5>
+						<h5 class="subtitle is-5">{{ $name }}</h5>
 
-					<div class="paradigm-container">
-						<table class="table is-bordered" style="display: block;">
-							<thead>
-								<tr>
-									<th>Paradigm</th>
-									<th>Arguments</th>
-									@foreach ($languages as $language)
-										<th>{{ $language->name }}</th>
-									@endforeach
-								</tr>
-							</thead>
-							<tbody>
-								@foreach ($paradigm->rows as $paradigm => $features)
+						<div class="paradigm-container">
+							<table class="table is-bordered" style="display: block;">
+								<thead>
 									<tr>
-										<th rowspan="{{ count($features) }}"> {{ $paradigm }}</th>
-										@foreach ($features as $feature => $forms)
-											@if (!$loop->first)
-												</tr><tr>
-											@endif
-
-											<th>{{ $feature }}</th>
-
-											@foreach ($languages as $language)
-												@php
-													$currForms = array_filter($forms, function($form) use ($feature, $language) {
-														return $form->structure->present('features') == (string)$feature && $form->language_id == $language->id;
-													});
-												@endphp
-
-												<td>
-													@foreach ($currForms as $form)
-														{!! $form->present('link') !!}
-
-														@if($form instanceof Algling\Nominals\Models\Form)
-															<div v-show="show">
-																{!! $form->printMorphemes() !!}
-															</div>
-														@endif
-													@endforeach
-												</td>
-											@endforeach
+										<th>Paradigm</th>
+										<th>Arguments</th>
+										@foreach ($languages as $language)
+											<th>{{ $language->name }}</th>
 										@endforeach
 									</tr>
-								@endforeach
-							</tbody>
-						</table>
-					</div>
-					<br />
+								</thead>
+								<tbody>
+									@foreach ($paradigm->rows as $paradigm => $features)
+										<tr>
+											<th rowspan="{{ count($features) }}"> {{ $paradigm }}</th>
+											@foreach ($features as $feature => $forms)
+												@if (!$loop->first)
+													</tr><tr>
+												@endif
+
+												<th>{{ $feature }}</th>
+
+												@foreach ($languages as $language)
+													@php
+														$currForms = array_filter($forms, function($form) use ($feature, $language) {
+															return $form->structure->present('features') == (string)$feature && $form->language_id == $language->id;
+														});
+													@endphp
+
+													<td>
+														@foreach ($currForms as $form)
+															{!! $form->present('link') !!}
+
+															@if($form instanceof Algling\Nominals\Models\Form)
+																<div v-show="show">
+																	{!! $form->printMorphemes() !!}
+																</div>
+															@endif
+														@endforeach
+													</td>
+												@endforeach
+											@endforeach
+										</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+						<br />
+					@endif
 				@endforeach
 
 			</div>
 		</div>
 	</alg-paradigm-table>
+	@else
+		No results
+	@endif
 @endsection

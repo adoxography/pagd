@@ -44,4 +44,9 @@ class Paradigm
 
         $this->rows = $rows;
     }
+
+    public function isEmpty()
+    {
+    	return count($this->forms) == 0;
+    }
 }

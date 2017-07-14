@@ -24,23 +24,77 @@ class SearchController extends Controller
     public function paradigmResults()
     {
         $typeIds = request()->types;
-        $languageIds = array_filter(request()->languages, function($val) {
-            return is_numeric($val);
-        });
-        $showMorphology = false;
-        $languages;
+        $languageIds = $this->getLanguageIds();
 
-        if (count(request()->languages) > 0) {
-            $languages = Language::whereIn('id', $languageIds)->get();
-        } else {
-            $languages = Language::all();
+        $showMorphology = false;
+        $types = $this->queryTypes($typeIds);
+        $languages = $this->queryLanguages($languageIds);
+        $paradigms = [];
+
+        $forms = $this->queryForms($languageIds, $typeIds);
+        $resultsFound = $forms->count() > 0;
+
+        if($resultsFound) {
+            if($types->contains(function ($type) {
+                return !$type->hasPronominalFeature;
+            })) {
+                $thirdPersonForms = $forms->filter(function($form) {
+                    return !$form->structure->paradigm->type->hasPronominalFeature;
+                });
+
+                $paradigms['Third person forms'] = new Paradigm($thirdPersonForms);
+            }
+
+            if($types->contains(function ($type) {
+                return !$type->hasNominalFeature;
+            })) {
+                $personalPronouns = $forms->filter(function($form) {
+                    return !$form->structure->paradigm->type->hasNominalFeature;
+                });
+
+                $paradigms['Personal pronouns'] = new Paradigm($personalPronouns);
+            }
+
+            if($types->contains(function ($type) {
+                return $type->hasNominalFeature && $type->hasPronominalFeature;
+            })) {
+                $personalPronouns = $forms->filter(function($form) {
+                    return $form->structure->paradigm->type->hasNominalFeature && $form->structure->paradigm->type->hasPronominalFeature;
+                });
+
+                $paradigms['Personal pronouns'] = new Paradigm($personalPronouns);
+            }
         }
 
-        $dictionary = [
-            '1', '1s', '2', '2s', '1p', '21', '2p', '3s', '3p', '3\'s', '3\'p', '0s', '0p', 'LOC', ''
-        ];
+        return view('nom::search.results.paradigm', compact('languages', 'paradigms', 'resultsFound', 'showMorphology'));
+    }
 
-        $forms = Form::with([
+    protected function getLanguageIds()
+    {
+        $ids = array_filter(request()->languages, function($val) {
+            return is_numeric($val);
+        });
+
+        if(count($ids) == 0) {
+            $ids = Language::select('id')->get()->pluck('id')->toArray();
+        }
+
+        return $ids;
+    }
+
+    protected function queryLanguages(array $languageIds)
+    {
+        return Language::whereIn('id', $languageIds)->get();
+    }
+
+    protected function queryTypes(array $typeIds)
+    {
+        return ParadigmType::whereIn('id', $typeIds)->get();
+    }
+
+    protected function queryForms(array $languageIds, array $typeIds)
+    {
+        return Form::with([
                 'structure',
                 'structure.nominalFeature',
                 'structure.pronominalFeature',
@@ -55,26 +109,6 @@ class SearchController extends Controller
                     ->whereHas('paradigm', function($query) use ($typeIds) {
                         $query->whereIn('paradigmType_id', $typeIds);
                     });
-            })->get();
-
-        $thirdPersonForms = $forms->filter(function($form) {
-            return !$form->structure->paradigm->type->hasPronominalFeature;
-        });
-
-        $personalPronouns = $forms->filter(function($form) {
-            return !$form->structure->paradigm->type->hasNominalFeature;
-        });
-
-        $possessedForms = $forms->filter(function($form) {
-            return $form->structure->paradigm->type->hasNominalFeature && $form->structure->paradigm->type->hasPronominalFeature;
-        });
-
-        $paradigms = [
-            'Third person forms' => new Paradigm($thirdPersonForms),
-            'Person pronouns' => new Paradigm($personalPronouns),
-            'Possessed forms' => new Paradigm($possessedForms)
-        ];
-
-        return view('nom::search.results.paradigm', compact('languages', 'paradigms', 'showMorphology'));
+            })->get();        
     }
 }

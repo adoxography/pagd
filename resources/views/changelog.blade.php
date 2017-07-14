@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			14-07-17: Limited language options in searches to only languages which have some relevant forms
+		</li>
+		<li>
 			14-07-17: Added paradigm tables to all nominal paradigm detail pages
 		</li>
 		<li>

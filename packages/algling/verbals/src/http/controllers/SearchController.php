@@ -29,7 +29,9 @@ class SearchController extends Controller
     public function paradigm()
     {
         $orders    = Order::all();
-        $languages = Language::all();
+        $languages = Language::select('name', 'id')->orderBy('name')->whereHas('forms', function($query) {
+            $query->where('structure_type', 'verbStructures');
+        })->get();
         $modes     = Mode::all();
 
         if(request()->preset){
@@ -41,7 +43,9 @@ class SearchController extends Controller
 
     public function form()
     {
-        $languages = Language::all();
+        $languages = Language::select('name', 'id')->orderBy('name')->whereHas('forms', function($query) {
+            $query->where('structure_type', 'verbStructures');
+        })->get();
         $arguments = Argument::all();
         $classes   = VerbClass::all();
         $modes     = Mode::all();

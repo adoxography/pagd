@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			14-07-17: Added <a href="/nominals/search/paradigm">nominal paradigm search</a> (paradigm table display still forthcoming)
+		</li>
+		<hr />
+		<li>
 			13-07-17: Added capability for uploading and storing audio clips
 			<ul>
 				<li>

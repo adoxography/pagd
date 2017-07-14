@@ -65,7 +65,7 @@
 										<h5 class="subtitle is-5">Search</h5>
 									</a>
 									<div class="dropdown-options">
-										<a href="#">Noun paradigm</a>
+										<a href="/nominals/search/paradigm">Nominal paradigm</a>
 										<a href="/verbs/search/paradigm">Verb paradigm</a>
 										<a href="/verbs/search/form">Verb form</a>
 										<a href="/search">Text</a>

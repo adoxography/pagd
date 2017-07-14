@@ -13,7 +13,6 @@ class SearchController extends Controller
             $preset = str_replace(' ', '\u0020', json_encode(unserialize(request()->preset)));
         }
 
-        // dd($preset);
         return view('search.index', compact('searchType', 'preset'));
     }
 

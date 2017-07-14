@@ -1,5 +1,8 @@
 <?php
 
+Route::get('nominals/search/paradigm', 'SearchController@paradigm');
+Route::get('nominals/search/paradigm/results', 'SearchController@paradigmResults');
+
 Route::resource('nominals/paradigms', 'ParadigmController');
 // Route::resource('nominals/forms', 'FormController');
 

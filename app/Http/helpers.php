@@ -191,16 +191,39 @@ function validDatabaseInput($val)
     return !is_null($val) && $val !== '';
 }
 
-function array_toString(array $arr, string $delimiter = ', ') : string
+function array_toString($arr, string $delimiter = ', ') : string
 {
     $output = '';
 
-    for ($i=0; $i < count($array); $i++) { 
+    for ($i=0; $i < count($arr); $i++) { 
         if ($i > 0) {
             $output .= $delimiter;
         }
 
-        $output .= $array[$i];
+        $output .= $arr[$i];
+    }
+
+    return $output;
+}
+
+function array_toList($arr) : string
+{
+    $output = '';
+
+    for($i = 0; $i < count($arr); $i++) {
+        if($i > 0) {
+            if(count($arr) > 2) {
+                $output .= ',';
+            }
+
+            $output .= ' ';
+
+            if($i == count($arr) - 1) {
+                $output .= 'and ';
+            }
+        }
+
+        $output .= $arr[$i];
     }
 
     return $output;

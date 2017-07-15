@@ -26,9 +26,9 @@ Route::group(['as' => 'verbForms::'], function() {
 	Route::get('verbs/forms/{verbForm}/basic',    'FormShowController@basicDetails')->name('showBasic');
 	Route::get('verbs/forms/{verbForm}/cognates', 'FormShowController@cognates')->name('showCognates');
 	Route::get('verbs/forms/{verbForm}/log',      'FormShowController@log')->name('showLog');
-});
 
-Route::get('verbs/search/paradigm',         'SearchController@paradigm');
-Route::get('verbs/search/paradigm/results', 'SearchController@paradigmResults');
-Route::get('verbs/search/form',             'SearchController@form');
-Route::get('verbs/search/form/results',      'SearchController@formResults');
+	Route::get('verbs/search/paradigm',         'SearchController@paradigm');
+	Route::get('verbs/search/paradigm/results', 'SearchController@paradigmResults')->name('paradigmResults');
+	Route::get('verbs/search/form',             'SearchController@form');
+	Route::get('verbs/search/form/results',     'SearchController@formResults')->name('formResults');
+});

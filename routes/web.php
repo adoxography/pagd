@@ -48,6 +48,8 @@ Route::get('search',          'SearchController@index');
 Route::get('search/general',  'SearchController@general');
 Route::get('search/paradigm', 'SearchController@paradigm');
 Route::get('search/form',     'SearchController@form');
+Route::get('search/smart',    'SearchController@smart');
+Route::get('search/smart/results', 'SearchController@smartResults');
 
 // Autocomplete Routes
 Route::get('autocomplete/forms',           'AutocompleteController@forms');

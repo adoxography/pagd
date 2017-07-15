@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-	<table class="table">
+	<table class="table" style="display: block;">
 		<thead>
 			<tr>
 				<th>

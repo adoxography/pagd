@@ -23,6 +23,18 @@
 				<div class="tile is-vertical is-parent">
 					<div class="tile is-child" id="user-menu">
 						<ul class="horizontal-list">
+							<li>
+								<form method="GET" action="/search/smart/results">
+									<div class="field">
+										<p class="control has-icons-right">
+											<input name="lookup" type="text" class="input" placeholder="Smart search" />
+											<span class="icon is-small is-right">
+												<i class="fa fa-search"></i>
+											</span>
+										</p>
+									</div>
+								</form>
+							</li>
 							@if(Auth::user())
 								<li>
 									<a href="/profile/bookmarks">

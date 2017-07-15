@@ -31,4 +31,17 @@ class SearchController extends Controller
         return view('search/general-results', compact('table', 'results'));
     }
 
+    public function smart()
+    {
+        return view('search.smart');
+    }
+
+    public function smartResults()
+    {
+        $search = new \App\Modules\SmartSearch\SmartSearch(request()->lookup);
+
+        $search->parse();
+
+        return $search->route();
+    }
 }

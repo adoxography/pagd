@@ -95,9 +95,11 @@ class SearchController extends Controller
                 ->orderBy('Languages.position', 'asc')
                 ->get();
         } else {
-            for($i = 0; $i < count($request->languages); $i+=2) {
-                $languages[] = Language::find($request->languages[$i + 1]);
-            }
+            $languageIds = array_filter($request->languages, function($language) {
+                return is_numeric($language);
+            });
+
+            $languages = Language::whereIn('id', $languageIds)->get();
         }
 
         $structures = $this->generateStructures($subjects, $primaryObjects, $secondaryObjects, $classes, $orders, $modes, $negatives, $diminutives);
@@ -119,9 +121,7 @@ class SearchController extends Controller
         ]);
 
         if(!$searchAll) {
-            foreach($languages as $language) {
-                $query->where('language_id', $language->id);
-            }
+            $query->whereIn('language_id', $languages->pluck('id'));
         }
 
         // Limit the forms by specifying which form types should be displayed
@@ -220,17 +220,9 @@ class SearchController extends Controller
 
     protected function getModel($array, $class)
     {
-        $output = [];
+        $ids = array_filter($array, 'is_numeric');
 
-        foreach($array as $id) {
-            if($id > 0) {
-                $output[] = $class::find($id);
-            } else {
-                $output[] = null;
-            }
-        }
-
-        return $output;
+        return $class::whereIn('id', $ids)->get();
     }
 
     protected function generateStructures($subjects, $primaryObjects, $secondaryObjects, $classes, $orders, $modes, $negatives, $diminutives)
@@ -240,8 +232,8 @@ class SearchController extends Controller
         for($i = 0; $i < count($subjects); $i++) {
             $output[] = [
                 'subject' => $subjects[$i],
-                'primaryObject' => $primaryObjects[$i],
-                'secondaryObject' => $secondaryObjects[$i],
+                'primaryObject' => isset($primaryObjects[$i]) ? $primaryObjects[$i] : null,
+                'secondaryObject' => isset($secondaryObjects[$i]) ? $secondaryObjects[$i] : null,
                 'class' => $classes[$i],
                 'order' => $orders[$i],
                 'mode' => $modes[$i],

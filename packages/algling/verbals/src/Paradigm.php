@@ -473,8 +473,7 @@ class Paradigm
         foreach ($this->headerRows as $row) {
             $rowHTML = '';
 
-            if ($firstTime && $this->numHeaders > 1) {
-                // if($this->numHeaders > )
+            if ($firstTime && $this->numHeaders > 0) {
                 $rowHTML .= '<th rowspan="'. ($this->numHeaders) .'" colspan="2"></th>';
                 $firstTime = false;
             }

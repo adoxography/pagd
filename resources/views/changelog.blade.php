@@ -7,6 +7,53 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			15-07-17: Added smart search
+			<ul>
+				<li>
+					Queries which include a verb class will return a verb search.
+					<ul>
+						<li>If the query includes an argument, the search will be a form search; otherwise, it will be a paradigm search.</li>
+						<li>Unless otherwise specified, searches are assumed to involve:
+							<ul>
+								<li>all languages</li>
+								<li>conjunct and independent orders*</li>
+								<li>indicative and unmarked modes</li>
+								<li>affirmative</li>
+								<li>non-negative</li>
+							</ul>
+						</li>
+						<li>
+							*Form searches assume only conjunct order (see below). Indicative/unmarked is still assumed because the form search treats them as the same.
+						</li>
+					</ul>
+				</li>
+				<li>
+					Queries which include exactly one language or group name will return that language or group's details.
+					<ul>
+						<li>Searchs for languages' 'alternate names' will produce hits.</li>
+					</ul>
+				</li>
+				<li>
+					Known limitations:
+					<ul>
+						<li>
+							TI is not currently recognized, as it is not the name of any class.
+							<ul>
+								<li>Searching for "ti1 ti2 ti3" will return all TI paradigms.</li>
+							</ul>
+						</li>
+						<li>
+							Arguments are relatively inflexible; "1s" is the only way to search for first person singular.
+						</li>
+						<li>
+							Verb form searches can only look for one set of attributes (class/order/mode/arguments).
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<hr />
+		<li>
 			14-07-17: Limited language options in searches to only languages which have some relevant forms
 		</li>
 		<li>

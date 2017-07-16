@@ -10,7 +10,7 @@ class LogController extends Controller
 {
     public function index()
     {
-    	$revisions = Revision::latest()->whereNotNull('user_id')->take(100)->get();
+    	$revisions = Revision::latest()->whereNotNull('user_id')->simplePaginate(100);
     	$log = [];
 
     	foreach($revisions as $revision) {
@@ -25,7 +25,7 @@ class LogController extends Controller
     		}
     	}
     	
-    	return view('log.index', compact('log'));
+    	return view('log.index', compact('revisions', 'log'));
     }
 
     protected function getType($type)

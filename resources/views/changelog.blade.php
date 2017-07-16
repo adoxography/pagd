@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			16-07-17: Paginated the main activity log
+		</li>
+		<li>
 			16-07-17: Added aliases to groups
 			<ul>
 				<li>

@@ -5,9 +5,11 @@
 @endsection
 
 @section('content')
+	{{ $revisions->links() }}
+
 	<table class="table is-striped">
 		<thead>
-			<hr>
+			<tr>
 				<td>Contributor</td>
 				<td>Data item</td>
 				<td>Language</td>
@@ -15,7 +17,7 @@
 				<td>Old value</td>
 				<td>New value</td>
 				<td>Time</td>
-			</hr>
+			</tr>
 		</thead>
 		<tbody>
 			@foreach($log as $entry)
@@ -47,4 +49,6 @@
 			@endforeach
 		</tbody>
 	</table>
+
+	{{ $revisions->links() }}
 @endsection

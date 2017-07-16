@@ -40,6 +40,8 @@ class ModelPatternMaker
         	$pattern = '`(?<=[ ])' . $pattern . '(?=[, ])`i';
         }
 
+        var_dump($pattern);
+
         return $pattern;
 	}
 }

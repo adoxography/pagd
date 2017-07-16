@@ -114,12 +114,12 @@ class SmartSearch
 
     protected function extractFeatures()
     {
-    	$features = \Algling\Words\Models\Feature::select('name', 'id')->get();
+    	$features = \Algling\Words\Models\Feature::all();
     	$dictionary = Dictionary::build($features);
     	$pattern = ModelPatternMaker::generate($features, [], false);
     	$matches;
 
-    	$fullPattern = "`(?<=[ ]){$pattern}(—{$pattern})?(\+{$pattern})?(?=[, ])`";
+    	$fullPattern = "`(?<=[ ]){$pattern}(-{$pattern})?(\+{$pattern})?(?=[, ])`";
 
     	if(preg_match($fullPattern, $this->lookup, $matches) > 0) {
     		$this->firstFeature = $dictionary->lookup($matches[1])[0];

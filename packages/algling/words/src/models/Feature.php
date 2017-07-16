@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Feature extends Model
 {
     public $table = 'Word_Features';
+    protected $aliasesCache;
 
     /**
      * Get the code for the person associated with this argument
@@ -44,5 +45,44 @@ class Feature extends Model
         } else {
             return "0";
         }
+    }
+
+    public function getNumberStringAttribute()
+    {
+        $str = null;
+
+        switch($this->number) {
+            case 1:
+                $str = 's';
+                break;
+            case 2:
+                $str = 'd';
+                break;
+            case 3:
+                $str = 'p';
+                break;
+            default:
+                break;
+        }
+
+        return $str;
+    }
+
+    public function getObviativeStringAttribute()
+    {
+        $str = null;
+
+        switch($this->obviativeCode) {
+            case 1:
+                $str = '\'';
+                break;
+            case 2:
+                $str = '\'\'';
+                break;
+            default:
+                break;
+        }
+
+        return $str;
     }
 }

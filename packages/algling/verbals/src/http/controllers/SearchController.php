@@ -220,7 +220,7 @@ class SearchController extends Controller
 
     protected function getModel($array, $class)
     {
-        $ids = array_filter($array, 'is_numeric');
+        $ids = array_filter(array_wrap($array), 'is_numeric');
 
         return $class::whereIn('id', $ids)->get();
     }

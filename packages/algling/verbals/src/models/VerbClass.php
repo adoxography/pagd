@@ -16,6 +16,17 @@ class VerbClass extends Model
 
     public $fillable = ['name'];
 
+    public function getAliasesAttribute()
+    {
+    	$alias = preg_replace('/(\D+)\d+/', '$1', $this->name);
+
+    	if(strlen($alias) > 0) {
+    		return $alias;
+    	} else {
+    		return null;
+    	}
+    }
+
     public function present(string $method = 'name')
     {
     	return new AlgPresenter($this, $method);

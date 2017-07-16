@@ -37,9 +37,9 @@
 					Known limitations:
 					<ul>
 						<li>
-							TI is not currently recognized, as it is not the name of any class.
+							<strike>TI is not currently recognized, as it is not the name of any class.</strike>
 							<ul>
-								<li>Searching for "ti1 ti2 ti3" will return all TI paradigms.</li>
+								<li><strike>Searching for "ti1 ti2 ti3" will return all TI paradigms.</strike></li>
 							</ul>
 						</li>
 						<li>

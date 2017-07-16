@@ -10,6 +10,10 @@ class ModelPatternMaker
 	{
     	$pattern = '';
 
+        if($collection->first()->getAttribute('aliases')) {
+            $alternates[] = 'aliases';
+        }
+
         foreach($collection as $item) {
             $currPattern = preg_quote(strtolower($item->name));
 

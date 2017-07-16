@@ -12,6 +12,10 @@ class Dictionary
 	{
 		$dictionary = new Dictionary;
 
+		if($collection->first()->getAttribute('aliases')) {
+			$alternates[] = 'aliases';
+		}
+
         foreach($collection as $item) {
         	$value = [
             	'id' => $item->id,

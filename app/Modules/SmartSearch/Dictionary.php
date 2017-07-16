@@ -19,7 +19,7 @@ class Dictionary
         foreach($collection as $item) {
         	$value = [
             	'id' => $item->id,
-            	'class' => get_class($item)
+            	'category' => $item->category ?: get_class($item)
             ];
 
             $dictionary->record($item->name, $value);
@@ -40,7 +40,7 @@ class Dictionary
 
 	public function record($key, $value)
 	{
-		$key = strtolower((string)$key);
+		$key = trim(strtolower((string)$key));
 
 		if (!isset($this->dictionary[$key])) {
 			$this->dictionary[$key] = [];
@@ -54,7 +54,7 @@ class Dictionary
 		return $this->lookup($lookup);
 	}
 
-	public function lookup($lookup, string $class = '')
+	public function lookup($lookup, string $category = '')
 	{
 		$lookup = strtolower((string)($lookup));
 		$values = null;
@@ -62,9 +62,9 @@ class Dictionary
 		if(isset($this->dictionary[$lookup])) {
 			$stored = $this->dictionary[$lookup];
 
-			if (strlen($class) > 0) {
-				$stored = array_where($stored, function($val) use ($class) {
-					return $val['class'] == $class;
+			if (strlen($category) > 0) {
+				$stored = array_where($stored, function($val) use ($category) {
+					return $val['category'] == $category;
 				});
 			}
 

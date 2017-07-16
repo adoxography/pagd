@@ -33,10 +33,10 @@ if(isset($group)) {
 	@endif
 >
 	@component('components.form', ['method' => $method, 'action' => $action, 'visible' => true])
-		<div class="columns">
+		<div class="columns is-multiline">
 
 			{{-- Name --}}
-			<div class="column">
+			<div class="column is-half">
 				@component('components.form.text', [
 					'name'      => 'name',
 					'autofocus' => true, 
@@ -51,7 +51,7 @@ if(isset($group)) {
 			</div>
 
 			{{-- Parent --}}
-			<div class="column">
+			<div class="column is-half">
 				@component('components.form.datalist', [
 					'name'  => 'parent',
 					'list'  => $parents,
@@ -62,6 +62,19 @@ if(isset($group)) {
 							{{ $group->parent->name }}
 						@endif
 					@endslot
+				@endcomponent
+			</div>
+
+			<div class="column is-half">
+				@component('components.form.text', [
+					'name' => 'aliases',
+					'placeholder' => 'Keywords for searching'
+				])
+				    @slot('value')
+				        @if (isset($group))
+				        	{{ $group->aliases }}
+				        @endif
+				    @endslot
 				@endcomponent
 			</div>
 		</div>

@@ -29,6 +29,7 @@ class GroupRequest extends FormRequest
             'name'      => ['required'],
             'parent'    => ['nullable','exists:Groups,name'],
             'parent_id' => ['nullable','integer','exists:Groups,id'],
+            'aliases'   => ['nullable', 'string']
         ];
 
         switch($this->method()){

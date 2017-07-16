@@ -232,4 +232,9 @@ class Language extends Model
 
         return $lookup->first();
     }
+
+    public function getAliasesAttribute()
+    {
+        return $this->alternateNames;
+    }
 }

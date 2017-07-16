@@ -5,6 +5,7 @@ namespace App\Modules\SmartSearch;
 use Algling\Verbals\Models\Mode;
 use Algling\Verbals\Models\Order;
 use Algling\Verbals\Models\VerbClass;
+use App\Group;
 use App\Language;
 use App\Modules\SmartSearch\RouterInterface;
 use App\Modules\SmartSearch\SmartSearch;
@@ -60,7 +61,11 @@ class VerbParadigmRouter implements RouterInterface
 	{
 		if (count($this->results->languages) == 0) {
 			if (count($this->results->groups) > 0) {
-				$this->results->languages = Language::whereIn('group_id', $this->results->groups)->get()->pluck('id')->toArray();
+				$groups = Group::whereIn('id', $this->results->groups)->get();
+
+				foreach($groups as $group) {
+					$this->results->languages = array_merge($this->results->languages, $group->allLanguages()->pluck('id')->toArray());
+				}
 			} else {
 				$this->results->languages = Language::select('id')->get()->pluck('id')->toArray();
 			}

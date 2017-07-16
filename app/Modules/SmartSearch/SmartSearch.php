@@ -45,11 +45,12 @@ class SmartSearch
 
 	public function parse()
 	{
-		$this->extract('languages', Language::class, 'alternateNames');
+        $this->extractLanguages();
+		// $this->extract('languages', Language::class, 'alternateNames');
 		$this->extract('modes', Mode::class);
 		$this->extract('classes', VerbClass::class);
 		$this->extract('orders', Order::class);
-		$this->extract('groups', Group::class);
+		// $this->extract('groups', Group::class, 'aliases');
 		$this->extract('paradigmTypes', ParadigmType::class);
 
 		$this->extractBoolean('negative', 'affirmative');
@@ -110,6 +111,42 @@ class SmartSearch
 
     	$this->{camel_case($positive)} = preg_match(sprintf($template, $positive, $negative), $this->lookup) > 0;
     	$this->{camel_case($negative)} = preg_match(sprintf($template, $negative, $positive), $this->lookup) > 0;
+    }
+
+    protected function extractLanguages()
+    {
+        $groups = Group::select('name', 'aliases', 'id')->get();
+        $languages = Language::select('name', 'alternateNames', 'id')->get();
+
+        foreach($groups as $group) {
+            $group->category = 'groups';
+        }
+        foreach($languages as $language) {
+            $language->category = 'languages';
+        }
+
+        $collection = $languages->concat($groups);
+        $dictionary = Dictionary::build($collection, ['aliases']);
+        $pattern = ModelPatternMaker::generate($collection, ['aliases']);
+        $matches;
+        $output = ['languages' => [], 'groups' => []];
+
+        preg_match_all($pattern, $this->lookup, $matches);
+
+        if(count($matches[0]) > 0) {
+            foreach($matches[0] as $match) {
+                $output['languages'] = array_merge($output['languages'], $dictionary->lookup($match, 'languages'));
+                $output['groups'] = array_merge($output['groups'], $dictionary->lookup($match, 'groups'));
+            }
+
+            foreach($output as $key => $value) {
+                $this->$key = $value;
+
+                if(count($value) > 0) {
+                    $this->matches[] = $key;
+                }
+            }
+        }
     }
 
     protected function extractFeatures()

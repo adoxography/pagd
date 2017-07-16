@@ -7,6 +7,15 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			16-07-17: Added aliases to groups
+			<ul>
+				<li>
+					Similar to the "alternate names" field for languages, except group aliases are only for searching.
+				</li>
+			</ul>
+		</li>
+		<hr>
+		<li>
 			15-07-17: Added smart search
 			<ul>
 				<li>
@@ -37,9 +46,9 @@
 					Known limitations:
 					<ul>
 						<li>
-							<strike>TI is not currently recognized, as it is not the name of any class.</strike>
+							<strike>"TI" is not currently recognized, as it is not the name of any class.</strike> "TI" now runs a search for TI1, TI2, and TI3.
 							<ul>
-								<li><strike>Searching for "ti1 ti2 ti3" will return all TI paradigms.</strike></li>
+								<li>Searching for "ti1 ti2 ti3" will return all TI paradigms.</li>
 							</ul>
 						</li>
 						<li>

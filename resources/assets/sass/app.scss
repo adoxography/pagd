@@ -2,10 +2,10 @@
 @import "_mixins";
 
 // Fonts
-@include font-face("DejaVuSerifCondensed", css/fonts/DejaVuSerifCondensed-webfont, null, null, woff);
-@include font-face("DejaVuSerifCondensed", css/fonts/DejaVuSerifCondensed-Bold-webfont, bold, null, woff);
-@include font-face("DejaVuSerifCondensed", css/fonts/DejaVuSerifCondensed-BoldItalic-webfont, bold, italic, woff);
-@include font-face("DejaVuSerifCondensed", css/fonts/DejaVuSerifCondensed-Italic-webfont, null, italic, woff);
+@include font-face("DejaVuSerifCondensed", fonts/DejaVuSerifCondensed-webfont, null, null, woff);
+@include font-face("DejaVuSerifCondensed", fonts/DejaVuSerifCondensed-Bold-webfont, bold, null, woff);
+@include font-face("DejaVuSerifCondensed", fonts/DejaVuSerifCondensed-BoldItalic-webfont, bold, italic, woff);
+@include font-face("DejaVuSerifCondensed", fonts/DejaVuSerifCondensed-Italic-webfont, null, italic, woff);
 
 // Variables
 @import "_variables";

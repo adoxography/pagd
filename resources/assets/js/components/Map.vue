@@ -145,8 +145,6 @@ export default {
 		if(this.marker) {
 			this.openInfoWindow(this.marker);
 		}
-
-		console.log(window.google);
 	},
 
 	methods: {

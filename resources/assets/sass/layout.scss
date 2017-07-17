@@ -115,6 +115,7 @@ p {
 	#user-menu {
 		display: flex;
 		justify-content: flex-end;
+		flex: inherit!important;
 	}
 
 	#action-menu {

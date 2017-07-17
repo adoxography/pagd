@@ -20,6 +20,7 @@
 		@endif
 	</head>
 	<body>
+		<div id="body-wrapper">
 		@include('layout.header')
 
 		<section class="section" id="main-content">
@@ -49,6 +50,7 @@
 				</div>
 			</div>
 		</section>
+		</div>
 
 		@include('layout.footer')
 

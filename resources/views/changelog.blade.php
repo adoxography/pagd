@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			17-07-17: Fixed webkit display issue
+		</li>
+		<li>
 			17-07-17: Fixed display issue on mobile
 		</li>
 		<hr>

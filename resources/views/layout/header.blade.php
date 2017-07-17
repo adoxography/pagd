@@ -3,11 +3,13 @@
 		<div class="container">
 			<div class="tile is-ancestor">
 				<div class="tile is-parent is-3" id="logo">
-					<a href="/">
-						<div class="tile is-child">
-							<h4 class="title is-4">Database of Algonquian Language Structures</h4>
-						</div>
-					</a>
+					<div id="logo-background">
+						<a href="/">
+							<div class="tile is-child">
+								<h4 class="title is-4">Database of Algonquian Language Structures</h4>
+							</div>
+						</a>
+					</div>
 				</div>
 				<div class="tile is-parent is-3">
 					<div class="tile is-child" id="main-menu">

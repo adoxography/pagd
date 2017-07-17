@@ -13,7 +13,7 @@
 
 		@if(App::environment() == 'local')
 			<style>
-				.hero-body #logo {
+				.hero-body #logo #logo-background {
 					background-color: #00ff00;
 				}
 			</style>

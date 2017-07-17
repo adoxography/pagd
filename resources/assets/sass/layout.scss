@@ -57,7 +57,14 @@ p {
 		width: 180px;
 		margin-right: 5px;
 		padding: 0;
-		background-color: $info;
+		display: flex;
+		align-items: flex-end;
+
+		#logo-background {
+			width: 180px;
+			height: 160px;
+			background-color: $info;
+		}
 
 		.is-child {
 			padding: 1.5rem;

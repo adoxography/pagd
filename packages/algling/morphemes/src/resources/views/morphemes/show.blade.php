@@ -58,7 +58,7 @@
 							<p>
 								<em>Parent Morpheme: </em>
 								@if($morpheme->parent)
-									<a href="/morphemes/{{ $morpheme->parent_id }}">{!! $morpheme->parent->uniqueName() !!}</a> (<a href="/languages/{{ $morpheme->parent->language_id }}">{{ $morpheme->parent->language->name }}</a>)
+									{!! $morpheme->parent->present()->as('unique', 'link')->then('language')->as('link') !!}
 								@else
 									Unknown/Unclear
 								@endif
@@ -77,18 +77,12 @@
 				</div>
 			</model-tab>
 
-{{-- 			@if(count($cognates->allChildren) > 0)
-				<model-tab name="Cognates">
-					@include('components.model.cognates', ['list' => $cognates, 'current' => $morpheme, 'model' => 'morphemes'])
-				</model-tab>
-			@endif --}}
-
 			<model-tab name="Forms">
 				@component('components.model.field', ['width' => 'is-half', 'label' => 'Forms that contain this morpheme'])
 					@if(count($morpheme->forms) > 0)
 						<ul>
 							@foreach($morpheme->forms as $form)
-								<li><a href="/forms/{{ $form->id }}">{!! $form->uniqueName !!}</a></li>
+								<li>{!! $form->present()->as('unique', 'link') !!}</li>
 							@endforeach
 						</ul>
 					@else
@@ -99,7 +93,7 @@
 					@if(count($morpheme->examples) > 0)
 						<ul>
 							@foreach($morpheme->examples as $example)
-								<li><a href="/examples/{{ $example->id }}">{{ $example->uniqueName }}</a></li>
+								<li>{!! $example->present()->as('unique', 'link') !!}</li>
 							@endforeach
 						</ul>
 					@else

@@ -5,7 +5,7 @@
 		<div class="column">
 			<div class="field">
 				<span class="label">Form</span>
-				{!! $example->form->renderHTML() !!}
+				{!! $example->form->present('stub') !!}
 			</div>
 			<div class="field">
 				<span class="label">Morphology</span>

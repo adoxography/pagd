@@ -14,13 +14,13 @@
 			@if($language->parent)
 				<span class="is-one-line">
 					<label class="label">Parent:</label>
-					{!! $language->parent->renderLink() !!}
+					{!! $language->parent->present('link') !!}
 				</span>
 			@endif
 
 			<span class="is-one-line">
 				<label class="label">Group:</label>
-				{!! $language->group->renderLink() !!}
+				{!! $language->group->present('link') !!}
 			</span>
 
 			<span class="is-one-line">
@@ -42,7 +42,7 @@
 
 				<ul>
 					@foreach($language->children as $child)
-						<li>{!! $child->renderHTML() !!}</li>
+						<li>{!! $child->present('link') !!}</li>
 					@endforeach
 				</ul>
 			</div>

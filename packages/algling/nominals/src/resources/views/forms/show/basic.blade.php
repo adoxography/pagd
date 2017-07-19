@@ -68,7 +68,7 @@
 				<div class="field">
 					<span class="label">Historical notes</span>
 					@if($form->parent)
-						<em>Parent form:</em> {!! $form->parent->renderHTML() !!} ({!! $form->parent->language->renderHTML() !!})
+						<em>Parent form:</em> {!! $form->parent->render('link')->then('language')->as('link') !!}
 					@endif
 					@if($form->historicalNotes)
 						{!! replaceTags($form->historicalNotes, $form->language_id) !!}

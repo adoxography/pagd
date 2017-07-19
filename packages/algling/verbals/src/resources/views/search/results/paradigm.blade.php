@@ -111,7 +111,7 @@
 				Sources for forms in this paradigm:
 				@foreach($sources as $source)
 					@php
-						$output = $source->renderLink();
+						$output = $source->present('link');
 
 						if(!$loop->last) {
 							$output .= ';';

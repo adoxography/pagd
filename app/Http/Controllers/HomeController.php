@@ -105,29 +105,27 @@ class HomeController extends PageController
      */
     public function incompleteForms()
     {
-        $languages = Language::with(['forms' => function($query) {
-            $query->where('Word_Forms.complete', 0)
+        $languages = Language::whereNull('hidden_at')->get();
+
+        $languages->load(['verbForms' => function($query) {
+            $query->where('complete', 0)
                 ->with('structure.primaryObject')
                 ->with('structure.secondaryObject')
                 ->with('structure.subject')
                 ->with('morphemes')
                 ->with('morphemes.glosses')
                 ->with('morphemes.slot');
-        }])->with(['examples' => function($query) {
+        }]);
+
+        $languages->load(['examples' => function($query) {
             $query->where('Word_Examples.complete', 0)
-                ->with('form.structure.subject')
-                ->with('form.structure.primaryObject')
-                ->with('form.structure.secondaryObject')
-                ->with('form.structure.formClass')
-                ->with('form.structure.order')
-                ->with('form.structure.mode')
+                ->with('form.structure')
                 ->with('morphemes')
                 ->with('morphemes.glosses')
                 ->with('morphemes.slot');
         }])
-        ->where('Languages.name', '<>', 'Demo')
-        ->get();
+        ->where('Languages.name', '<>', 'Demo');
 
-        return view('forms.need-attention', compact('languages'));
+        return view('word::forms.need-attention', compact('languages'));
     }
 }

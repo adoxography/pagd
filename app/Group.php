@@ -3,6 +3,7 @@
 namespace App;
 
 use Algling\SS\Models\Variable;
+use App\AlgPresenter;
 use App\BookmarkableTrait;
 use App\HasChildrenTrait;
 use App\SourceableTrait;
@@ -38,7 +39,7 @@ class Group extends Model
 
     public function identifiableName()
     {
-        return $this->name;
+        return $this->present('link');
     }
 
     public function getDisplayAttribute()
@@ -81,11 +82,6 @@ class Group extends Model
     	return $this->hasMany(Language::class);
 	}
 
-	public function renderLink()
-	{
-		return "<a href=\"/groups/{$this->id}\">{$this->name} languages</a>";
-	}
-
 	public function directDescendants()
 	{
 		$this->load(['languages', 'children']);
@@ -125,6 +121,11 @@ class Group extends Model
 		}
 
 		return $found;
+	}
+
+	public function present(string $method = 'name')
+	{
+		return new AlgPresenter($this, $method);
 	}
 
 }

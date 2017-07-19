@@ -1,7 +1,7 @@
 @extends('layout', ['title' => $gap->structure->summary])
 
 @section('title')
-	{{ $gap->structure->summary }} ({!! $gap->language->renderHTML() !!})
+	{!! $gap->structure->present() !!} ({!! $gap->language->present('link') !!})
 @endsection
 
 @include('components.show-icons', ['model' => $gap, 'uri' => '/verbs/gaps/'])
@@ -18,7 +18,7 @@
 						</span>
 					</a>
 				</span>
-				{{ $gap->structure->summary }}
+				{!! $gap->structure->present() !!}
 				@if($gap->structure->hasModifiers())
 					({{ $gap->structure->isNegative ? 'Negative' : '' }} {{ $gap->structure->isDiminutive ? 'Diminutive' : '' }}			
 					{{ isset($gap->structure->isAbsolute) ? ($gap->structure->isAbsolute ? 'Absolute' : 'Objective') : '' }})

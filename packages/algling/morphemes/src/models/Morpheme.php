@@ -52,7 +52,6 @@ class Morpheme extends Model
         'privateNotes'
     ];
     protected $appends = [
-        'uniqueNameWithLanguage',
         'uniqueName',
         'html'
     ];
@@ -100,7 +99,7 @@ class Morpheme extends Model
 
     public function identifiableName()
     {
-        return $this->renderLink();
+        return $this->present('link');
     }
 
     /*
@@ -115,13 +114,6 @@ class Morpheme extends Model
         return $this->modifyIfReconstructed($name);
     }
 
-    public function getUniqueNameWithLanguageAttribute()
-    {
-        $language = $this->language;
-
-        return "{$this->uniqueName} ({$language->name})";
-    }
-
     public function getUniqueNameAttribute()
     {
         return "{$this->name} (".$this->renderGloss(false, false).')';
@@ -129,7 +121,7 @@ class Morpheme extends Model
 
     public function getDisplayAttribute()
     {
-        return $this->uniqueNameWithLanguage;
+        return $this->present('unique')->then('language');
     }
 
     public function getHtmlAttribute()
@@ -146,11 +138,6 @@ class Morpheme extends Model
     public function uniqueName()
     {
         return $this->uniqueName;
-    }
-
-    public function uniqueNameWithLanguage()
-    {
-        return $this->uniqueNameWithLanguage;
     }
     
     public function isVStem()
@@ -309,22 +296,6 @@ class Morpheme extends Model
     public function initialChanges()
     {
         return $this->hasMany(InitialChange::class);
-    }
-
-    public function renderHTML()
-    {
-        return "<a href='/morphemes/{$this->id}'>{$this->name}</a> (".$this->renderGloss(true, false).')';
-    }
-
-    public function renderLink()
-    {
-        return "<a href='/morphemes/{$this->id}'>{$this->name}</a>";
-    }
-
-    public function renderInNotes()
-    {
-        $gloss = isset($this->translation) ? "'{$this->translation}'" : '('.$this->renderGloss(false).')';
-        return $this->renderHTML()." $gloss";
     }
 
     public function renderGloss($colour = true, $showAlert = true)

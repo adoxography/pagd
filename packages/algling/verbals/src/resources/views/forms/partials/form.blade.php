@@ -288,7 +288,7 @@
 					@slot('value')
 						@if(isset($form))
 							@if($form->parent)
-								{{ '{ "text": "'.str_replace('*', '', $form->parent->uniqueNameWithLanguage).'", "id": "'.$form->parent_id.'" }' }}
+								{{ '{ "text": "'.str_replace('*', '', $form->parent->present('unique')->then('language')).'", "id": "'.$form->parent_id.'" }' }}
 							@endif
 						@endif
 					@endslot

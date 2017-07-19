@@ -24,9 +24,4 @@ class Gloss extends Closed
     {
     	return $this->belongsToMany(Morpheme::class, 'Morph_Glosses_Morphemes', 'gloss_id', 'morpheme_id');
     }
-
-    public function renderHTMl()
-    {
-        return "<span class='gloss'>{$this->name}</span>";
-    }
 }

@@ -46,11 +46,9 @@ class SmartSearch
 	public function parse()
 	{
         $this->extractLanguages();
-		// $this->extract('languages', Language::class, 'alternateNames');
 		$this->extract('modes', Mode::class);
 		$this->extract('classes', VerbClass::class);
 		$this->extract('orders', Order::class);
-		// $this->extract('groups', Group::class, 'aliases');
 		$this->extract('paradigmTypes', ParadigmType::class);
 
 		$this->extractBoolean('negative', 'affirmative');

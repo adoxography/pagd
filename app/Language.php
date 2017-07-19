@@ -199,16 +199,6 @@ class Language extends Model
         }
     }
 
-    public function renderHTML()
-    {
-        return "<a href='/languages/{$this->id}'>{$this->name}</a>";
-    }
-
-    public function renderLink()
-    {
-        return $this->renderHTML();
-    }
-
     public function present(string $method = 'name')
     {
         return new LanguagePresenter($this, $method);

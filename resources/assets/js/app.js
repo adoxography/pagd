@@ -73,6 +73,8 @@ Vue.component('alg-pagination-full', require('./components/Pagination-Full.vue')
 
 Vue.component('alg-filter', require('./components/Filter.vue'));
 
+Vue.component('sandbox', require('./components/Sandbox.vue'));
+
 Vue.component('alg-paradigm-table', {
 	props: ['morphemesOn'],
 

@@ -19,7 +19,7 @@
 		<div class="column">
 			<div class="field">
 				<span class="label">Language</span>
-				{!! $paradigm->language->renderHTML() !!}
+				{!! $paradigm->language->present('link') !!}
 			</div>
 
 			<div class="field">

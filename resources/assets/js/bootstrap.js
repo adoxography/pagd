@@ -12,6 +12,7 @@ window._ = require('lodash');
 
 window.$ = window.jQuery = require('jquery');
 require('jquery-ui');
+require('jquery-ui-bundle');
 //require('bootstrap-sass');
 
 /**

@@ -37,7 +37,7 @@ class AutocompleteController extends Controller
         }
 
         foreach ($results as $result) {
-            $result->name = str_replace('*', '', $result->uniqueName);
+            $result->name = str_replace('*', '', $result->present('unique'));
         }
 
         return $results->toJson();
@@ -85,7 +85,7 @@ class AutocompleteController extends Controller
                            ->get();
 
         foreach($results as $result) {
-            $result->name = str_replace('*', '', $result->uniqueName);
+            $result->name = str_replace('*', '', $result->present('unique'));
         }
 
         return $results->toJson();
@@ -253,7 +253,7 @@ class AutocompleteController extends Controller
             foreach ($parent->getAttribute($items) as $item) {
                 $results[] = [
                     'id' => $item->id,
-                    'name' => $item->uniqueNameWithLanguage()
+                    'name' => $item->present('unique')->then('language')->__toString()
                 ];
             }
 

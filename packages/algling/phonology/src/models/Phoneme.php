@@ -88,7 +88,6 @@ class Phoneme extends Model
     public function getAlgoNameAttribute($value)
     {
         return $this->modifyIfReconstructed($value);
-        // return '<em>' . $this->modifyIfReconstructed($value) . '</em>';
     }
 
     public function getTypeAttribute()
@@ -168,11 +167,6 @@ class Phoneme extends Model
         }]);
     }
 
-    public function renderLink()
-    {
-    	return "<a href=\"/phonemes/{$this->id}\">{$this->name}</a>";
-    }
-
     public function scopeOfType($query, $type)
     {
         if(is_array($type)) {
@@ -196,11 +190,6 @@ class Phoneme extends Model
 
             $query->where('phonemeable_type', $type);
         }
-    }
-
-    public function uniqueNameWithLanguage()
-    {
-        return "{$this->name} ({$this->language->name})";
     }
 
     public function present(string $method = 'name')

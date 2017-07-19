@@ -58,7 +58,7 @@ class Form extends Model
         'usageNotes'
     ];
 
-    protected $appends = ['uniqueName', 'uniqueNameWithLanguage', 'html'];
+    protected $appends = ['html'];
 
     public function toSearchableArray()
     {
@@ -100,7 +100,7 @@ class Form extends Model
 
     public function identifiableName()
     {
-        return $this->renderLink();
+        return $this->present('link');
     }
 
     /*
@@ -152,24 +152,9 @@ class Form extends Model
         return $this->phonemicForm;
     }
 
-    public function getUniqueNameAttribute()
-    {
-        return $this->present('unique');
-    }
-
-    /**
-     * Fetches the unique name, followed by the language name
-     *
-     * @return string The unique name, followed by the language name
-     */
-    public function getUniqueNameWithLanguageAttribute()
-    {
-        return $this->present('unique')->then('language');
-    }
-
     public function getDisplayAttribute()
     {
-        return $this->uniqueNameWithLanguage;
+        return $this->present('unique')->then('language');
     }
 
     public function getHtmlAttribute()
@@ -182,46 +167,6 @@ class Form extends Model
     | Methods
     |--------------------------------------------------------------------------
     */
-
-    /**
-     * Fetches the name of this example that is unique within its language
-     *
-     * @return string The name followed by the form's arguments
-     * @deprecated
-     * @see Form::getUniqueNameAttribute()
-     */
-    public function uniqueName()
-    {
-        return $this->uniqueName;
-    }
-
-    /**
-     * Fetches the unique name, followed by the language name
-     *
-     * @return string The unique name, followed by the language name
-     * @deprecated
-     * @see Form::getUniqueNameWithLanguageAttribute
-     */
-    public function uniqueNameWithLanguage()
-    {
-        return $this->uniqueNameWithLanguage;
-    }
-
-    public function renderHTML()
-    {
-        return "<a href='/forms/{$this->id}'><em>{$this->name}</em></a>";
-    }
-
-    public function renderLink()
-    {
-        return "<a href='/forms/{$this->id}'><em>{$this->name}</em></a>";
-    }
-
-    public function renderInNotes()
-    {
-        $name = isset($this->phoneticForm) ? $this->phoneticForm : $this->name;
-        return "<blockquote><a href='/forms/{$this->id}'><em>{$name}</em></a>".$this->printMorphemes().'</blockquote>';
-    }
 
     public function isStemless()
     {

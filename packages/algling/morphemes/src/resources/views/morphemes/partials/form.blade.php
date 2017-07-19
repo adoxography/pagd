@@ -98,7 +98,7 @@
 					@slot('value')
 						@if(isset($morpheme))
 							@if($morpheme->parent)
-								{{ '{ "text": "'.str_replace('*', '', $morpheme->parent->uniqueNameWithLanguage).'", "id": "'.$morpheme->parent_id.'" }' }}
+								{{ '{ "text": "'.str_replace('*', '', $morpheme->parent->present()->as('unique')->then('language')).'", "id": "'.$morpheme->parent_id.'" }' }}
 							@endif
 						@endif
 					@endslot

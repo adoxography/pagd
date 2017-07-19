@@ -12,7 +12,7 @@
 		<div class="column">
 			<div class="field">
 				<span class="label">Language</span>
-				{!! $datapoint->language->renderHTML() !!}
+				{!! $datapoint->language->present('link') !!}
 			</div>
 			<div class="field">
 				<span class="label">Variable</span>

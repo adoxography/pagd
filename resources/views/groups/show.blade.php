@@ -61,7 +61,7 @@ function recursiveRender($group) {
 				@if($group->parent)
 				<span class="is-one-line">
 					<span class="label">Parent group:</span>
-					{!! $group->parent->renderLink() !!}
+					{!! $group->parent->present('link') !!}
 				</span>
 				@endif
 			</div>

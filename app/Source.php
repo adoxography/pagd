@@ -2,21 +2,22 @@
 
 namespace App;
 
-use App\Rule;
-use Algling\Words\Models\Gap;
-use Laravel\Scout\Searchable;
-use Algling\Words\Models\Form;
+use Algling\Morphemes\Models\Morpheme;
+use Algling\Nominals\Models\Form as NominalForm;
+use Algling\Nominals\NominalFormRepositoryInterface;
+use Algling\Verbals\Models\Form as VerbForm;
+use Algling\Verbals\VerbFormRepositoryInterface;
 use Algling\Words\FormRepository;
 use Algling\Words\Models\Example;
-use Algling\Morphemes\Models\Morpheme;
-use Illuminate\Database\Eloquent\Model;
+use Algling\Words\Models\Form;
+use Algling\Words\Models\Gap;
+use App\AlgPresenter;
+use App\Rule;
 use Illuminate\Database\Eloquent\Builder;
-use Algling\Verbals\Models\Form as VerbForm;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Algling\Nominals\Models\Form as NominalForm;
-use Algling\Verbals\VerbFormRepositoryInterface;
+use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
-use Algling\Nominals\NominalFormRepositoryInterface;
 
 class Source extends Model implements VerbFormRepositoryInterface, NominalFormRepositoryInterface
 {
@@ -57,7 +58,7 @@ class Source extends Model implements VerbFormRepositoryInterface, NominalFormRe
 
     public function identifiableName()
     {
-        return $this->renderLink();
+        return $this->present('link');
     }
 
     public function __construct(array $attributes = [])
@@ -79,6 +80,11 @@ class Source extends Model implements VerbFormRepositoryInterface, NominalFormRe
     public function getDisplayAttribute()
     {
         return "{$this->author} {$this->year}{$this->letter}";
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->display;
     }
 
     public function getLetterAttribute()
@@ -167,8 +173,8 @@ class Source extends Model implements VerbFormRepositoryInterface, NominalFormRe
         return $this->morphedByMany(Gap::class, 'Sourceable')->withPivot('extraInfo');
     }
 
-    public function renderLink()
+    public function present(string $method = 'name')
     {
-        return "<a href='/sources/{$this->id}'>{$this->display}</a>";
+        return new AlgPresenter($this, $method);
     }
 }

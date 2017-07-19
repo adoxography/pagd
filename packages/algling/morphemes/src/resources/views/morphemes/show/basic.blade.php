@@ -13,7 +13,7 @@
 				<div class="column">
 					<div class="field">
 						<span class="label">Slot</span>
-						{!! $morpheme->slot->renderHTML() !!}
+						{!! $morpheme->slot->present()->as('link', '', 'coloured') !!}
 					</div>
 				</div>
 			</div>

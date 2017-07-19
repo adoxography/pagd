@@ -10,7 +10,7 @@
 		<ul>
 			@foreach($user->bookmarks(App\Language::class) as $language)
 				<li>
-					<a href="/languages/{{ $language->id }}">{{ $language->name }}</a>
+					{!! $language->present('link') !!}
 					@if($language->pivot->comment)
 						<div style="margin-left: 2rem">{!! $language->pivot->comment !!}</div>
 					@endif
@@ -25,7 +25,7 @@
 		<ul>
 			@foreach($user->bookmarks(Algling\Verbals\Models\Form::class) as $form)
 				<li>
-					<a href="/forms/{{ $form->id }}">{!! $form->uniqueNameWithLanguage !!}</a>
+					{!! $form->present()->as('unique', 'link')->then('language') !!}
 					@if($form->pivot->comment)
 						<div style="margin-left: 2rem">{!! $form->pivot->comment !!}</div>
 					@endif
@@ -40,7 +40,7 @@
 		<ul>
 			@foreach($user->bookmarks(Algling\Words\Models\Example::class) as $example)
 				<li>
-					<a href="/examples/{{ $example->id }}">{{ $example->uniqueNameWithLanguage }}</a>
+					{!! $example->present()->as('unique', 'link')->then('language') !!}
 					@if($example->pivot->comment)
 						<div style="margin-left: 2rem">{!! $example->pivot->comment !!}</div>
 					@endif
@@ -55,7 +55,7 @@
 		<ul>
 			@foreach($user->bookmarks(Algling\Morphemes\Models\Morpheme::class) as $morpheme)
 				<li>
-					<a href="/morphemes/{{ $morpheme->id }}">{{ $morpheme->uniqueNameWithLanguage }}</a>
+					{!! $morpheme->present()->as('unique', 'link')->then('language') !!}
 					@if($morpheme->pivot->comment)
 						<div style="margin-left: 2rem">{!! $morpheme->pivot->comment !!}</div>
 					@endif

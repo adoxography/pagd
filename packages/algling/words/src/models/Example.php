@@ -73,7 +73,7 @@ class Example extends Model
 
     public function identifiableName()
     {
-        return $this->renderLink();
+        return $this->present('link');
     }
 
     /*
@@ -106,16 +106,6 @@ class Example extends Model
     public function getNameAttribute($value)
     {
         return $this->modifyIfReconstructed($value);
-    }
-
-    public function getUniqueNameAttribute()
-    {
-        return "{$this->name} ({$this->form->formType->summary})";
-    }
-
-    public function getUniqueNameWithLanguageAttribute()
-    {
-        return "{$this->uniqueName} ({$this->language->name})";
     }
 
     public function getLanguageAttribute()
@@ -158,45 +148,6 @@ class Example extends Model
     | Instance Methods
     |--------------------------------------------------------------------------
     */
-
-    /**
-     * Fetches the name of this example that is unique within its language
-     * 
-     * Only returns the name right now, but will probably be altered in the future.
-     * 
-     * @return string
-     * @deprecated
-     */
-    public function uniqueName()
-    {
-        return $this->uniqueName;
-    }
-
-    /**
-     * Fetches the unique name along with the language
-     * 
-     * @return string
-     * @see Example::uniqueName()
-     */
-    public function uniqueNameWithLanguage()
-    {
-        return "{$this->name} ({$this->language->name})";
-    }
-
-    public function renderHTML()
-    {
-        return "<a href='/examples/{$this->id}'>{$this->name}</a> (".$this->form->structure->renderSummary().")";
-    }
-
-    public function renderLink()
-    {
-        return "<a href='/examples/{$this->id}'>{$this->name}</a>";
-    }
-
-    public function renderInNotes()
-    {
-        return "<blockquote><a href='/examples/{$this->id}'>{$this->name}</a>".$this->printMorphemes()."'{$this->translation}'</blockquote>";
-    }
 
     public function scopeOfType($query, string $type)
     {

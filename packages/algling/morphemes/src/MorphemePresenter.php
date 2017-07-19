@@ -20,7 +20,9 @@ class MorphemePresenter extends AlgPresenter
 
 	public function unique(string $method = 'name', string $format = '')
 	{
-		$output = $this->model->present($method) . '&nbsp(' . $this->gloss(false, false) . ')';
+        $coloured = strpos($format, 'coloured') !== false;
+
+		$output = $this->model->present($method) . '&nbsp(' . $this->gloss($coloured, false) . ')';
 
 		if(strlen($format) > 0) {
 			$output = $this->format($output, $format);
@@ -31,7 +33,7 @@ class MorphemePresenter extends AlgPresenter
 
 	public function stub()
 	{
-		return $this->unique();
+		return $this->unique('name', 'coloured');
 	}
 
 	public function gloss(bool $colour = true, bool $showAlert = true)

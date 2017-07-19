@@ -31,6 +31,6 @@ class FormPresenter extends AlgPresenter {
 	{
         $name = $this->model->present('phonemicForm');
 
-        return "<blockquote><a href='/{$this->uri}/{$this->model->id}'>$name</a>".$this->model->printMorphemes().'</blockquote>';
+        return "<blockquote><a href='/{$this->getURI()}/{$this->model->id}'>$name</a>".$this->model->printMorphemes().'</blockquote>';
 	}
 }

@@ -2,8 +2,9 @@
 
 namespace Algling\Morphemes\Models;
 
-use App\Closed;
 use Algling\Morphemes\Models\Morpheme;
+use Algling\Morphemes\SlotPresenter;
+use App\Closed;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -30,8 +31,8 @@ class Slot extends Closed
     	return $this->hasMany(Morpheme::class);
     }
 
-    public function renderHTML()
+    public function present(string $method = 'abv')
     {
-        return "<a href='/slots/{$this->id}' style='color: {$this->colour};'>{$this->abv}</a>";
+        return new SlotPresenter($this, $method);
     }
 }

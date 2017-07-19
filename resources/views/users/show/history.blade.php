@@ -20,8 +20,8 @@
 
 				@if($model)
 					<tr>
-						<td>{!! $model->renderLink() !!}</td>
-						<td>{!! $model->language ? $model->language->renderLink() : 'N/A' !!}</td>
+						<td>{!! $model->present('link') !!}</td>
+						<td>{!! $model->language ? $model->language->present('link') : 'N/A' !!}</td>
 						<td>{{ $revision->fieldName() == 'created_at' ? 'N/A' : $revision->fieldName() }}</td>
 						<td>{!! condenseString($revision->oldValue()) !!}</td>
 						<td>{!! $revision->fieldName() == 'created_at' ? '[Created]' : condenseString($revision->newValue()) !!}</td>

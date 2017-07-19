@@ -8,12 +8,6 @@
 		<script>
 		    window.Laravel = { csrfToken: '{{ csrf_token() }}' };
 		</script>
-
-		<style>
-			.dropdown .dropdown-options {
-				
-			}
-		</style>
 		
 		@yield('styles')
 

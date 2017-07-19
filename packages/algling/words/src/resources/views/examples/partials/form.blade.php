@@ -59,9 +59,9 @@
 				])
 					@slot('value')
 						@if(isset($example))
-							{{ '{ "text": "'.str_replace('*', '', $example->form->uniqueNameWithLanguage).'", "id": "'.$example->form_id.'", "extra": "'.$example->morphemicForm.'" }' }}
+							{{ '{ "text": "'.str_replace('*', '', $example->form->present('unique')->then('language')).'", "id": "'.$example->form_id.'", "extra": "'.$example->morphemicForm.'" }' }}
 						@elseif(isset($form))
-							{{ '{ "text": "'.str_replace('*', '', $form->uniqueNameWithLanguage).'", "id": "'.$form->id.'", "extra": "'.$form->morphemicForm.'" }' }}
+							{{ '{ "text": "'.str_replace('*', '', $form->present('unique')->then('language')).'", "id": "'.$form->id.'", "extra": "'.$form->morphemicForm.'" }' }}
 						@endif
 					@endslot
 				@endcomponent
@@ -123,7 +123,7 @@
 				])
 					@slot('value')
 						@if(isset($example) && $example->parent)
-							{{ '{ "text": "'.str_replace('*', '', $example->parent->uniqueNameWithLanguage).'", "id": "'.$example->parent_id.'" }' }}
+							{{ '{ "text": "'.str_replace('*', '', $example->parent->present('unique')->then('language')).'", "id": "'.$example->parent_id.'" }' }}
 						@endif
 					@endslot
 				@endcomponent

@@ -24,11 +24,6 @@ class Form extends WordForm
     	});
     }
 
-    public function renderHTML()
-    {
-        return "<a href='/nominals/forms/{$this->id}'>{$this->name}</a> ({$this->structure->summary})";
-    }
-
     public function present(string $method = 'name')
     {
         return new FormPresenter($this, $method);

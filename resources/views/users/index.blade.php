@@ -7,7 +7,7 @@
 @section('content')
 	<ul>
 		@foreach($users as $user)
-			<li>{!! $user->renderLink() !!}</li>
+			<li>{!! $user->present('link') !!}</li>
 		@endforeach
 	</ul>
 @endsection

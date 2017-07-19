@@ -82,11 +82,6 @@ class User extends Authenticatable
         return $this->type();
     }
 
-    public function renderLink()
-    {
-        return "<a href='/users/{$this->id}'>{$this->name}</a>";
-    }
-
     public function present($method = 'name')
     {
         return new AlgPresenter($this, $method);

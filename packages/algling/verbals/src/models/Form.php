@@ -24,23 +24,6 @@ class Form extends WordForm
     	});
     }
 
-    /**
-     * Fetches the name of this example that is unique within its language
-     *
-     * Adds the arguments to the surfaceForm - while this doesn't guarantee that the name will be unique, it does make it very likely.
-     *
-     * @return string The surfaceForm followed by the form's arguments
-     */
-    public function getUniqueNameAttribute()
-    {
-        return "{$this->name} ({$this->structure->renderArguments()})";
-    }
-
-    public function renderHTML()
-    {
-        return "<a href='/verbs/forms/{$this->id}'>{$this->name}</a> (".$this->structure->renderArguments().")";
-    }
-
     public function present(string $method = 'name')
     {
         return new FormPresenter($this, $method);

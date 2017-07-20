@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			20-07-17: Added refine option to paradigm search
+		</li>
+		<li>
 			20-07-17: Added sources to nominal paradigms
 		</li>
 		<hr>

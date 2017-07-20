@@ -13,12 +13,12 @@
 					<div class="level-item">
 						<a class="button" @click="toggleShow">Show/Hide Morphology</a>
 					</div>
-{{-- 					<div class="level-item">
-						<form style="margin: 0;" method="GET" action="/verbs/search/paradigm">
+					<div class="level-item">
+						<form style="margin: 0;" method="GET" action="/nominals/search/paradigm">
 							<input type="hidden" name="preset" value="{{ $params or '' }}">
 							<button class="button" type="submit">Refine</button>
 						</form>
-					</div> --}}
+					</div>
 				</div>
 			</nav>
 

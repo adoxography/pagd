@@ -12,13 +12,15 @@ class SearchController extends Controller
 {
     public function paradigm()
     {
+        $preset = unserialize(request()->preset);
+
         $languages = Language::select('name', 'id')
             ->whereHas('forms', function ($query) {
                 $query->where('structure_type', 'nominalStructures');
             })->orderBy('name')->get();
         $types = ParadigmType::select('name', 'id')->orderBy('id')->get();
 
-        return view('nom::search.paradigm', compact('languages', 'types'));
+        return view('nom::search.paradigm', compact('languages', 'types', 'preset'));
     }
 
     public function paradigmResults()
@@ -66,7 +68,9 @@ class SearchController extends Controller
             }
         }
 
-        return view('nom::search.results.paradigm', compact('languages', 'paradigms', 'resultsFound', 'showMorphology'));
+        $params = serialize(request()->except('_token'));
+
+        return view('nom::search.results.paradigm', compact('languages', 'paradigms', 'resultsFound', 'showMorphology', 'params'));
     }
 
     protected function getLanguageIds()

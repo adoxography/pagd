@@ -13,6 +13,10 @@
 		<alg-nominal-paradigm-search
 			inline-template
 			v-cloak
+
+			@if (isset($preset['languages']))
+				:old-languages="{{ json_encode($preset['languages']) }}"
+			@endif
 		>
 			<div class="columns">
 				<div class="column">
@@ -21,7 +25,8 @@
 						@include('components.form.checkbox', [
 							'name' => 'types[]',
 							'label' => $type->name . 's',
-							'value' => $type->id
+							'value' => $type->id,
+							'checked' => isset($preset['types']) && in_array($type->id, $preset['types'])
 						])
 					@endforeach
 				</div>

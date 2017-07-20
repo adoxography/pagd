@@ -12,7 +12,9 @@ class SearchController extends Controller
 {
     public function paradigm()
     {
-        $preset = unserialize(request()->preset);
+        if(request()->preset) {
+            $preset = unserialize(request()->preset);
+        }
 
         $languages = Language::select('name', 'id')
             ->whereHas('forms', function ($query) {

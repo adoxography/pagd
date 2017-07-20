@@ -51,7 +51,11 @@ class SearchController extends Controller
         $modes     = Mode::all();
         $orders    = Order::all();
 
-        return view('verb::search.form', compact('languages', 'arguments', 'classes', 'modes', 'orders'));
+        if(request()->preset) {
+            $params = unserialize(request()->preset);
+        }
+
+        return view('verb::search.form', compact('languages', 'arguments', 'classes', 'modes', 'orders', 'params'));
     }
 
     public function paradigmResults(Request $request)
@@ -69,7 +73,7 @@ class SearchController extends Controller
         $data = $search->getHeaders();
         $rows = $search->getRows();
 
-        $params = serialize($request->all());
+        $params = serialize($request->except('_token'));
 
         return view('verb::search.results.paradigm', compact('data', 'rows', 'showMorphology', 'search', 'params', 'sources'));
     }
@@ -215,7 +219,9 @@ class SearchController extends Controller
 
         $results = $query->get();
 
-        return view('verb::search.results.form', compact('results', 'languages', 'structures'));
+        $params = serialize($request->except('_token'));
+
+        return view('verb::search.results.form', compact('results', 'languages', 'structures', 'params'));
     }
 
     protected function getModel($array, $class)

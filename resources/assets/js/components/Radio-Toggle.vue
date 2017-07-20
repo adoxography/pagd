@@ -19,17 +19,29 @@
 </template>
 
 <script>
-	export default {
-		props: ['languages'],
+import { Datalist } from '../Datalist.js';
 
-		data() {
-			return {
-				disabled: true,
-				selections: [{
-					text: '',
-					id: ''
-				}]
+export default {
+	props: ['languages', 'oldLanguages'],
+
+	data() {
+		return {
+			disabled: true,
+			selections: [new Datalist()]
+		}
+	},
+
+	created() {
+		if (this.oldLanguages) {
+			let languages = [];
+
+			for (let i = 0; i < this.oldLanguages.length; i += 2) {
+				languages.push(new Datalist(this.oldLanguages[i], this.oldLanguages[i + 1]));
 			}
+
+			this.disabled = false;
+			this.selections = languages;
 		}
 	}
+}
 </script>

@@ -110,21 +110,35 @@
 </template>
 
 <script>
+class Line {
+	constructor(options = {}) {	
+		const defaults = {
+			verbClass: 1,
+			subject: 1,
+			primaryObject: 0,
+			secondaryObject: 0,
+			order: 1,
+			mode: 1,
+			isNegative: false,
+			isDiminutive: false
+		}
+
+		_.forEach(defaults, (value, key) => {
+			if (options[key]) {
+				this[key] = options[key];
+			} else {
+				this[key] = value;
+			}
+		});
+	}
+}
+
 	export default {
-		props: ['args', 'classes', 'modes', 'orders'],
+		props: ['args', 'classes', 'modes', 'orders', 'oldValues'],
 
 		data() {
 			return {
-				lines: [{
-					verbClass: 1,
-					subject: 1,
-					primaryObject: 0,
-					secondaryObject: 0,
-					order: 1,
-					mode: 1,
-					isNegative: false,
-					isDiminutive: false
-				}]
+				lines: [new Line()]
 			};
 		},
 
@@ -137,7 +151,10 @@
 		methods: {
 			addLine() {
 				if(this.numLines < 10) {
+					// Clone the last line
 					let newLine = JSON.parse(JSON.stringify(this.lines[this.lines.length - 1]));
+
+					// Push it onto the list
 					this.lines.push(newLine);
 				}
 			},
@@ -146,18 +163,35 @@
 				if(this.numLines > 1){
 					this.lines.pop();
 				}
-			},
+			}
+		},
 
-			addLanguage(line) {
-				if(line.numLanguages < 5) {
-					line.numLanguages++;
-				}
-			},
+		created() {
+			if(this.oldValues) {
+				let lines = [];
 
-			removeLanguage(line) {
-				if(line.numLanguages > 1) {
-					line.numLanguages--;
+				for(let i = 0; i < this.oldValues.classes.length; i++) {
+					let line = new Line({
+						verbClass: this.oldValues.classes[i],
+						subject: this.oldValues.subjects[i],
+						primaryObject: this.oldValues.primaryObjects[i],
+						secondaryObject: this.oldValues.secondaryObjects[i],
+						order: this.oldValues.orders[i],
+						mode: this.oldValues.modes[i]
+					});
+
+					if(this.oldValues.isNegative) {
+						line.isNegative = this.oldValues.isNegative[i];
+					}
+
+					if(this.oldValues.isDiminutive) {
+						line.isDiminutive = this.oldValues.isDiminutive[i];
+					}
+
+					lines.push(line);
 				}
+
+				this.lines = lines;
 			}
 		}
 	}

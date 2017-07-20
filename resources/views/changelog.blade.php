@@ -7,7 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
-			20-07-17: Added refine option to paradigm search
+			20-07-17: Added refine option to verb form search
+		</li>
+		<li>
+			20-07-17: Added refine option to nominal paradigm search
 		</li>
 		<li>
 			20-07-17: Added sources to nominal paradigms

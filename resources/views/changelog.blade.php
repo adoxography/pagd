@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			20-07-17: Added sources to nominal paradigms
+		</li>
+		<hr>
+		<li>
 			17-07-17: Fixed webkit display issue
 		</li>
 		<li>

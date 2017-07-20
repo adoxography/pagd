@@ -39,9 +39,9 @@
 									</tr>
 								</thead>
 								<tbody>
-									@foreach ($paradigm->rows as $paradigm => $features)
+									@foreach ($paradigm->rows as $paradigmName => $features)
 										<tr>
-											<th rowspan="{{ count($features) }}"> {{ $paradigm }}</th>
+											<th rowspan="{{ count($features) }}"> {{ $paradigmName }}</th>
 											@foreach ($features as $feature => $forms)
 												@if (!$loop->first)
 													</tr><tr>
@@ -75,6 +75,24 @@
 							</table>
 						</div>
 						<br />
+						<p>
+							Sources for forms in this paradigm:
+							@if($paradigm->hasSources())
+								@foreach($paradigm->sources as $source)
+									@php
+										$output = $source->present('link');
+
+										if(!$loop->last) {
+											$output .= ';';
+										}
+									@endphp
+
+									{!! $output !!}
+								@endforeach
+							@else
+								None
+							@endif
+						</p>
 					@endif
 				@endforeach
 

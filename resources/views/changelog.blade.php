@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			20-07-17: Added clear formatting button to text editors
+		</li>
+		<li>
 			20-07-17: Added refine option to verb form search
 		</li>
 		<li>

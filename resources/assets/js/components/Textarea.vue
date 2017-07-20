@@ -31,15 +31,16 @@ export default {
 			target: this.$el.children[0],
 			skin_url: '/css/skins/lightgray',
 			plugins: 'table charmap link lists',
+			content_css: [ '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i' ],
 			link_title: false,
 			charmap: [
 				['643', 'esh'],
 				['353', 's - hacek']
 			],
-			toolbar: 'undo redo | bold italic underline | link | charmap | bullist numlist outdent indent | table',
+			toolbar: 'undo redo | bold italic underline | link | charmap | bullist numlist outdent indent | table | clearformatting',
 			menubar: false,
 			statusbar: false,
-			setup: (editor) => {
+			setup: function(editor) {
 				editor.on('change', (e) => {
 					this.updateValue(editor.getContent());
 				});
@@ -51,6 +52,21 @@ export default {
 				editor.on('click', e => {
 					tinymce.remove(this.$el.children[0]);
 				});
+
+				function clearFormatting() {
+					let text = editor.getContent({format: "raw"});
+
+					text = text.replace(/(?:<|<\/)(?!p|\/p|ul|\/ul|li|\/li|ol|\/ol)(?:.|\n)*?>/gm, '');
+					text = text.replace(/style=['"][^>]*['"]/gm, '');
+
+					editor.setContent(text);
+				}
+
+			    editor.addButton('clearformatting', {
+			      image: 'https://cdn4.iconfinder.com/data/icons/text-editor-3/100/Minio_Text_Editor_Bold-16-512.png',
+			      tooltip: "Clear Formatting",
+			      onclick: clearFormatting
+			    });
 			}
 		};
 

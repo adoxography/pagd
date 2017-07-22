@@ -1,8 +1,29 @@
 <section class="footer">
 	<div class="container">
-		<p><a href="/">Home</a> • <a href="/about">About</a> @if(Auth::user())• <a href="/users">Users</a> • <a href="/guide">Contributor guide</a>@endif • <a href="/resources">Other resources</a></p>
+
+		<nav class="breadcrumb" style="margin-bottom: 0">
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/about">About</a></li>
+
+				@if(Auth::user())
+					<li><a href="/users">Users</a></li>
+					<li><a href="/guide">Contributor guide</a></li>
+				@endif
+
+				<li><a href="/resources">Other resources</a></li>
+			</ul>
+		</nav>
+
 		@if(Auth::user())
-		<p><a href="/changelog">Changelog</a> • <a href="/log">Activity log</a> • <a href="/need-attention">Missing data</a> • <a href="mailto:gstill@uw.edu?Subject=DALS%20Error%20Report" style="color: red;">Submit an error report</a></p>
+			<nav class="breadcrumb">
+				<ul>
+					<li><a href="/changelog">Changelog</a></li>
+					<li><a href="/log">Activity log</a></li>
+					<li><a href="/need-attention">Missing data</a></li>
+					<li><a href="mailto:gstill@uw.edu?Subject=DALS%20Error%20Report" style="color: red;">Submit an error report</a></li>
+				</ul>
+			</nav>
 		@endif
 	</div>
 </section>

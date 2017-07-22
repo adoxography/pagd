@@ -7,7 +7,6 @@
 	</div>
 
 	<div class="field">
-		<span class="label">Essay</span>
 		{!! $variable->essay ? replaceTags($variable->essay) : 'Coming soon' !!}
 	</div>
 @endsection

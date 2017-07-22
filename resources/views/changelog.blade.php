@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			22-07-17: Removed "essay" label from variable map page
+		</li>
+		<li>
 			22-07-17: Fixed nominal paradigm results calling possessed nouns "personal pronouns"
 		</li>
 		<hr>

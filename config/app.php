@@ -171,6 +171,7 @@ return [
         Laravel\Tinker\TinkerServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
         TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
         Algling\SS\StructuralSurveyServiceProvider::class,
         Algling\Morphemes\MorphemeServiceProvider::class,

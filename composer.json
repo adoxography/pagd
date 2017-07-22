@@ -18,7 +18,8 @@
         "h4cc/wkhtmltopdf-i386": "0.12.x",
         "teamtnt/laravel-scout-tntsearch-driver": "^2.0",
         "mikealmond/color": "0.0.4",
-        "spatie/flysystem-dropbox": "^1.0"
+        "spatie/flysystem-dropbox": "^1.0",
+        "rap2hpoutre/laravel-log-viewer": "^0.10.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -34,6 +34,24 @@
 	}
 }
 
+.navbar-dropdown.is-boxed {
+	border-radius: 0;
+}
+
+.navbar-dropdown {
+	font-size: 1rem;
+	left: calc(100%/-2);
+}
+
+@media screen and (min-width: 1000px) {
+	.navbar-dropdown {
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+		font-size: 1rem;
+		left: calc(100%/-2);
+	}
+}
+
 .notification {
 	padding: .75rem 2.5rem .75rem .75rem;
 }

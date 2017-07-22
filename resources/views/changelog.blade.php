@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			22-07-17: Updated dropdown menus
+		</li>
+		<li>
 			22-07-17: Converted footer bullets to squares
 		</li>
 		<li>

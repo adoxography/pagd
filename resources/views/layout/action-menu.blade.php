@@ -1,56 +1,65 @@
-<ul class="horizontal-list">
-	<li>
-		<a href="/languages">
-			<h5 class="subtitle is-5">Languages</h5>
-		</a>
-	</li>
-	<li>
-		<div class="dropdown">
-			<a class="dropdown-button">
-				<h5 class="subtitle is-5">Search</h5>
-			</a>
-			<div class="dropdown-options">
-				<a href="/nominals/search/paradigm">Nominal paradigm</a>
-				<a href="/verbs/search/paradigm">Verb paradigm</a>
-				<a href="/verbs/search/form">Verb form</a>
-				<a href="/search">Text</a>
-			</div>
+<nav class="navbar is-transparent">
+	<div class="navbar-brand">
+		<div class="navbar-burger" data-target="actionMenu">
+			<span></span>
+			<span></span>
+			<span></span>
 		</div>
-	</li>
-	<li>
-		<a href="/glossary">
-			<h5 class="subtitle is-5">Browse</h5>
-		</a>
-	</li>
-	@if(Auth::user() && Auth::user()->permissions->canEdit)
-	<li id="addbutton">
-		<div class="dropdown">
-			<a class="dropdown-button">
-				<h5 class="subtitle is-5">Add</h5>
-			</a>
-			<div class="dropdown-options">
-				<a href="/languages/create">Language</a>
-				<a href="/groups/create">Group</a>
-				<a href="/sources/create">Source</a>
-				<hr>
-				<a href="/verbs/forms/create">Verb form</a>
-				<a href="/nominals/forms/create">Nominal form</a>
-				<a href="/nominals/paradigms/create"><nobr>Nominal paradigm</nobr></a>
-				<a href="/examples/create">Form example</a>
-				<hr>
-				<a href="/morphemes/create">Morpheme</a>
-				<a href="/changes"><nobr>Initial Change</nobr></a>
-				<a href="/glosses/create">Gloss</a>
-				<a href="/slots/create">Slot</a>
-				<hr>
-				<a href="/phonemes/create">Phoneme/Cluster</a>
-				<a href="/reflexes/create">Reflex</a>
-				<a href="/rules/create">Rule</a>
-				<hr>
-				<a href="/variables/create">Variable</a>
-				<a href="/datapoints/create">Datapoint</a>
+	</div>
+	<div class="navbar-menu" id="actionMenu">
+		<div class="navbar-end">
+			<div class="navbar-item">
+				<a href="/languages">
+					<h5 class="subtitle is-5">Languages</h5>
+				</a>
 			</div>
-		</div>	
-	</li>
-	@endif
-</ul>
+			<div class="navbar-item has-dropdown is-hoverable">
+				<a class="navbar-link">
+					<h5 class="subtitle is-5">Search</h5>
+				</a>
+
+				<div class="navbar-dropdown is-boxed">
+					<a class="navbar-item" href="/nominals/search/paradigm">Nominal paradigm</a>
+					<a class="navbar-item" href="/verbs/search/paradigm">Verb paradigm</a>
+					<a class="navbar-item" href="/verbs/search/form">Verb form</a>
+					<a class="navbar-item" href="/search">Text</a>
+				</div>
+			</div>
+			<div class="navbar-item">
+				<a href="/glossary">
+					<h5 class="subtitle is-5">Browse</h5>
+				</a>
+			</div>
+			@if(Auth::user() && Auth::user()->permissions->canEdit)
+				<div class="navbar-item has-dropdown is-hoverable">
+					<a class="navbar-link">
+						<h5 class="subtitle is-5">Add</h5>
+					</a>
+
+					<div class="navbar-dropdown is-boxed">
+						<a class="navbar-item" href="/languages/create">Language</a>
+						<a class="navbar-item" href="/groups/create">Group</a>
+						<a class="navbar-item" href="/sources/create">Source</a>
+						<hr class="navbar-divider">
+						<a class="navbar-item" href="/verbs/forms/create">Verb form</a>
+						<a class="navbar-item" href="/nominals/forms/create">Nominal form</a>
+						<a class="navbar-item" href="/nominals/paradigms/create"><nobr>Nominal paradigm</nobr></a>
+						<a class="navbar-item" href="/examples/create">Form example</a>
+						<hr class="navbar-divider">
+						<a class="navbar-item" href="/morphemes/create">Morpheme</a>
+						<a class="navbar-item" href="/changes"><nobr>Initial Change</nobr></a>
+						<a class="navbar-item" href="/glosses/create">Gloss</a>
+						<a class="navbar-item" href="/slots/create">Slot</a>
+						<hr class="navbar-divider">
+						<a class="navbar-item" href="/phonemes/create">Phoneme/Cluster</a>
+						<a class="navbar-item" href="/reflexes/create">Reflex</a>
+						<a class="navbar-item" href="/rules/create">Rule</a>
+						<hr class="navbar-divider">
+						<a class="navbar-item" href="/variables/create">Variable</a>
+						<a class="navbar-item" href="/datapoints/create">Datapoint</a>
+					</div>
+				</div>
+			@endif
+		</div>
+	</div>
+</nav>

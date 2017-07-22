@@ -7,6 +7,8 @@
 
 require('./bootstrap');
 
+require('./layout');
+
 require('./validation');
 
 /**

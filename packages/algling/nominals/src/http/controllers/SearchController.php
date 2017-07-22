@@ -62,11 +62,11 @@ class SearchController extends Controller
             if($types->contains(function ($type) {
                 return $type->hasNominalFeature && $type->hasPronominalFeature;
             })) {
-                $personalPronouns = $forms->filter(function($form) {
+                $possessedNouns = $forms->filter(function($form) {
                     return $form->structure->paradigm->type->hasNominalFeature && $form->structure->paradigm->type->hasPronominalFeature;
                 });
 
-                $paradigms['Personal pronouns'] = new Paradigm($personalPronouns);
+                $paradigms['Possessed nouns'] = new Paradigm($possessedNouns);
             }
         }
 

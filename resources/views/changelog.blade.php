@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			22-07-17: Fixed nominal paradigm results calling possessed nouns "personal pronouns"
+		</li>
+		<hr>
+		<li>
 			20-07-17: Added clear formatting button to text editors
 		</li>
 		<li>

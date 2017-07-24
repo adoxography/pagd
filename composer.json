@@ -35,7 +35,6 @@
         ],
         "psr-4": {
             "Algling\\SS\\": "packages/algling/ss/src",
-            "Algling\\Morphemes\\": "packages/algling/morphemes/src",
             "Algling\\Words\\": "packages/algling/words/src",
             "Algling\\Verbals\\": "packages/algling/verbals/src",
             "Algling\\Nominals\\": "packages/algling/nominals/src",

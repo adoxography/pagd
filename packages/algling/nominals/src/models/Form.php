@@ -3,7 +3,6 @@
 namespace Algling\Nominals\Models;
 
 use Algling\Nominals\FormPresenter;
-use Algling\Nominals\Models\Structure;
 use Algling\Nominals\Traits\HasStructureTrait;
 use Algling\Words\Models\Form as WordForm;
 use Illuminate\Database\Eloquent\Builder;

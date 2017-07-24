@@ -2,7 +2,7 @@
 
 namespace Algling\Words\Http\Requests;
 
-use Illuminate\Support\Facades\Auth;
+use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ExampleRequest extends FormRequest

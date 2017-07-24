@@ -5,7 +5,6 @@ namespace Algling\Phonology\Http\Controllers;
 use Algling\Phonology\Http\Requests\ReflexRequest;
 use Algling\Phonology\Models\Reflex;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class ReflexController extends Controller
 {

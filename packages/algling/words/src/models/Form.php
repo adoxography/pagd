@@ -3,12 +3,19 @@
 namespace Algling\Words\Models;
 
 use Algling\Words\FormPresenter;
+use App\BacksUpTrait;
+use App\BookmarkableTrait;
 use App\ChangeType;
+use App\HasChildrenTrait;
+use App\HideableTrait;
 use App\Language;
+use App\ReconstructableTrait;
+use App\SourceableTrait;
 use App\Traits\HasMorphemesTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 /**
  * A verb form
@@ -20,16 +27,8 @@ use Laravel\Scout\Searchable;
  */
 class Form extends Model
 {
-    use Searchable;
-    use \Venturecraft\Revisionable\RevisionableTrait;
-    use \App\SourceableTrait;
-    use HasMorphemesTrait;
-    use \App\ReconstructableTrait;
-    use \App\HasChildrenTrait;
-    use \App\BacksUpTrait;
-    use \App\BookmarkableTrait;
-    use SoftDeletes;
-    use \App\HideableTrait;
+    use Searchable, RevisionableTrait, SourceableTrait, HasMorphemesTrait, ReconstructableTrait, HasChildrenTrait,
+        BacksUpTrait, BookmarkableTrait, SoftDeletes, HideableTrait;
 
     /*
     |--------------------------------------------------------------------------
@@ -116,7 +115,6 @@ class Form extends Model
     /**
      * Modifies the name attribute to include an asterisk if the form belongs to a reconstructed language
      *
-     * @param string The original name attribute
      * @return string The modified name attribute
      */
     public function getSurfaceFormAttribute()
@@ -134,8 +132,8 @@ class Form extends Model
     /**
      * Modifies the phoneticForm attribute to include an asterisk if the form belongs to a reconstructed language
      *
-     * @param string The original phoneticForm attribute
-     * @return string|null The modified phoneticForm attribute, or null if it doesn't exist
+     * @param string $value the original phoneticForm attribute
+     * @return string|null the modified phoneticForm attribute, or null if it doesn't exist
      */
     public function getPhonemicFormAttribute($value)
     {

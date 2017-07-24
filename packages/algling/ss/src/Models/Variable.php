@@ -4,9 +4,6 @@ namespace Algling\SS\Models;
 
 use App\SourceableTrait;
 use App\BookmarkableTrait;
-use Algling\SS\Models\Type;
-use Algling\SS\Models\Value;
-use Algling\SS\Models\Datapoint;
 use Illuminate\Database\Eloquent\Model;
 
 class Variable extends Model

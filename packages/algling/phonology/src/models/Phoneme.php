@@ -2,7 +2,6 @@
 
 namespace Algling\Phonology\Models;
 
-use Algling\Phonology\Models\Allophone;
 use Algling\Phonology\PhonemePresenter;
 use Algling\Phonology\Traits\HasAllophonesTrait;
 use Algling\Phonology\Traits\HasTypeTrait;

@@ -2,9 +2,6 @@
 
 namespace Algling\Nominals\Models;
 
-use Algling\Nominals\Models\Form;
-use Algling\Nominals\Models\ParadigmType;
-use Algling\Nominals\Models\Structure;
 use Algling\Nominals\ParadigmPresenter;
 use App\BookmarkableTrait;
 use App\Language;

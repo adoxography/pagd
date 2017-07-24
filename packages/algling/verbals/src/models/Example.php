@@ -2,7 +2,6 @@
 
 namespace Algling\Verbals\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Algling\Words\Models\Example as WordExample;
 
 class Example extends WordExample

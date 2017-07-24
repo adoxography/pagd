@@ -9,7 +9,7 @@ use Algling\Verbals\Models\Gap;
 use Algling\Verbals\Models\Form;
 use Algling\Verbals\Models\Mode;
 use Algling\Verbals\Models\Order;
-use Illuminate\Support\Facades\DB;
+use DB;
 use Algling\Verbals\Models\Argument;
 use App\Http\Controllers\Controller;
 use Algling\Verbals\Models\VerbClass;
@@ -80,7 +80,6 @@ class SearchController extends Controller
 
     public function formResults(Request $request)
     {
-        $languages = [];
         $classes          = $this->getModel($request->classes, VerbClass::class);
         $subclasses       = $request->subclasses;
         $primaryObjects   = $this->getModel($request->primaryObjects, Argument::class);

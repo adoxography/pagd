@@ -77,6 +77,7 @@ class SearchController extends Controller
 
     protected function getLanguageIds()
     {
+        /** @noinspection Annotator */
         $ids = array_filter(request()->languages, function($val) {
             return is_numeric($val);
         });

@@ -2,7 +2,6 @@
 
 namespace Algling\Phonology\Models;
 
-use Algling\Phonology\Models\Phoneme;
 use App\AlgPresenter;
 use App\BacksUpTrait;
 use App\BookmarkableTrait;

@@ -3,10 +3,9 @@
 namespace Algling\Nominals\Traits;
 
 use Algling\Nominals\Models\Form;
-use Algling\Words\Models\Example;
 use Algling\Nominals\Models\Paradigm;
-use Algling\Morphemes\Models\Morpheme;
 use Algling\Words\Traits\HasWordsTrait;
+use App\Models\Morphology\Morpheme;
 
 trait HasNominalsTrait {
 

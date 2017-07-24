@@ -2,10 +2,11 @@
 
 namespace Algling\Nominals;
 
+use Algling\Nominals\Models\Form;
 use App\Language;
 use App\ChangeType;
 use Algling\Nominals\Models\Paradigm;
-use Illuminate\Support\Facades\Route;
+use Route;
 use Illuminate\Support\ServiceProvider;
 use Algling\Nominals\Models\NominalFeature;
 use Algling\Nominals\Models\PronominalFeature;
@@ -13,7 +14,7 @@ use Algling\Nominals\Models\PronominalFeature;
 class NominalServiceProvider extends ServiceProvider
 {
     protected $connections = [
-        \Algling\Nominals\Models\Form::class => 'nominalForm'
+        Form::class => 'nominalForm'
     ];
 
     /**

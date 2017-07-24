@@ -6,7 +6,6 @@ use Algling\Verbals\GapPresenter;
 use Algling\Verbals\Traits\HasStructureTrait;
 use Algling\Words\Models\Gap as WordGap;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 
 class Gap extends WordGap
 {

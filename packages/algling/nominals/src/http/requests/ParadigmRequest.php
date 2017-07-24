@@ -2,7 +2,7 @@
 
 namespace Algling\Nominals\Http\Requests;
 
-use Illuminate\Support\Facades\Auth;
+use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ParadigmRequest extends FormRequest

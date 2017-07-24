@@ -4,7 +4,6 @@ namespace Algling\Verbals\Traits;
 
 use Algling\Verbals\Models\Gap;
 use Algling\Verbals\Models\Form;
-use Algling\Verbals\Models\Example;
 use Algling\Verbals\Models\Structure;
 use Algling\Words\Traits\HasWordsTrait;
 

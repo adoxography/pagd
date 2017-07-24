@@ -2,7 +2,6 @@
 
 namespace Algling\SS\Controllers;
 
-use App\Language;
 use Algling\SS\Models\Type;
 use Algling\SS\Models\Variable;
 use Algling\SS\Requests\VariableRequest;
@@ -20,7 +19,7 @@ class VariableController extends AlgModelController
         $types = Type::with('variables')->get();
 
         if(count($types) > 0) {
-            $types = $types->filter(function($value, $key) {
+            $types = $types->filter(function($value) {
                         return count($value->variables) > 0;
                      });
         }

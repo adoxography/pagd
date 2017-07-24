@@ -2,7 +2,6 @@
 
 namespace Algling\Verbals\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Algling\Verbals\Models\Gap;
 use Algling\Verbals\Http\Requests\FormRequest;
 use App\Http\Controllers\AlgModelController;
@@ -48,8 +47,8 @@ class GapController extends AlgModelController
     /**
      * Update a gap
      *
-     * @param Algling\Words\Http\Requests\FormRequest
-     * @param Algling\Words\Models\Gap The gap
+     * @param \Algling\Verbals\Http\Requests\FormRequest
+     * @param Gap $gap
      * @return \Illuminate\Http\Response
      */
     public function update(FormRequest $request, Gap $gap)

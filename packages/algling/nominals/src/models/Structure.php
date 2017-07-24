@@ -2,9 +2,6 @@
 
 namespace Algling\Nominals\Models;
 
-use Algling\Nominals\Models\Form;
-use Algling\Nominals\Models\Mode;
-use Algling\Nominals\Models\Paradigm;
 use Algling\Nominals\StructurePresenter;
 use Algling\Words\Models\Feature;
 use Illuminate\Database\Eloquent\Model;

@@ -33,8 +33,6 @@ class PhonemePresenter extends AlgPresenter
 
 	public function transcription($attribute = '')
 	{
-		$name = '';
-
 		if(strlen($attribute) == 0) {
 			$name = $this->model->ipaName ?: $this->model->algoName;
 		} else {

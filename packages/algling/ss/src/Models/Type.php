@@ -2,7 +2,6 @@
 
 namespace Algling\SS\Models;
 
-use Algling\SS\Models\Variable;
 use Illuminate\Database\Eloquent\Model;
 
 class Type extends Model

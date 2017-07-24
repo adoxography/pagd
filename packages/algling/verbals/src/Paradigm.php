@@ -2,7 +2,7 @@
 
 namespace Algling\Verbals;
 
-use Illuminate\Support\Facades\Config;
+use Config;
 
 /**
  * Takes a collection of forms and converts them into a format that can be rendered as a paradigm
@@ -17,7 +17,7 @@ class Paradigm
     /**
      * Construct the paradigm
      *
-     * @param Illuminate\Database\Eloquent\Collection The forms to be displayed
+     * @param \Illuminate\Database\Eloquent\Collection The forms to be displayed
      */
     public function __construct($forms)
     {
@@ -42,7 +42,7 @@ class Paradigm
      * Extracts all of the language, order, mode, absolute, negative, and abs/obj information
      * from a collection of forms. Takes advantage of the fact that PHP implements associative arrays as hash tables
      *
-     * @param Illuminate\Database\Eloquent\Collection The forms to be displayed
+     * @param \Illuminate\Database\Eloquent\Collection The forms to be displayed
      * @return void
      */
     private function loadHeaders($forms)
@@ -119,7 +119,6 @@ class Paradigm
     protected function calculateNumHeaders()
     {
         $numHeaders = 0;
-        $found = false;
 
         for ($i = 0; $i < count($this->headerRows); $i++) {
             $found = false;
@@ -170,7 +169,7 @@ class Paradigm
      *
      * Extracts the class and arguments from a collection of forms and saves the form within them.
      *
-     * @param Illuminate\Database\Eloquent\Collection The forms to be displayed
+     * @param \Illuminate\Database\Eloquent\Collection The forms to be displayed
      * @return void
      */
     private function loadRows($forms)
@@ -193,12 +192,6 @@ class Paradigm
      */
     private function filterRows()
     {
-        $keys;
-        $classHasForms;
-        $arguments;
-        $possibleMatches;
-        $consecutive;
-
         // Loop through each class
         foreach ($this->rows as $class => $argumentStructures) {
             $keys = array_keys($argumentStructures);
@@ -268,13 +261,13 @@ class Paradigm
      * Finds the number of rows immediately after a given row that are the same but
      * for the number of one or more of the arguments
      *
-     * @param string The name of the class of the row in question
-     * @param array Possible matches of the argument set in question
-     * @param array An array of arguments present in the database
-     * @param integer The index of the row in question
+     * @param string $class the name of the class of the row in question
+     * @param array $matches possible matches of the argument set in question
+     * @param array $arguments an array of arguments present in the database
+     * @param integer $start the index of the row in question
      * @return integer The number of consecutive matches after the row in question
      */
-    private function findConsecutiveRows($class, $matches, $arguments, $start)
+    private function findConsecutiveRows(string $class, array $matches, array $arguments, int $start)
     {
         $consecutive = 0;
         $i = $start + 1;
@@ -297,13 +290,13 @@ class Paradigm
     /**
      * Move any forms into a row with near identical arguments
      *
-     * @param string The name of the class of the row in question
-     * @param string The arguments of the row in question
-     * @param array Possible matches of the arguments of the row in question
-     * @param integer The number of matches that are consecutive immediately after this row
-     * @return boolean True if at least one form was moved, and false otherwise
+     * @param string $class the name of the class of the row in question
+     * @param string $arguments the arguments of the row in question
+     * @param array $possibleMatches possible matches of the arguments of the row in question
+     * @param integer $consecutive the number of matches that are consecutive immediately after this row
+     * @return boolean true if at least one form was moved, and false otherwise
      */
-    private function moveRows($class, $arguments, $possibleMatches, $consecutive)
+    private function moveRows(string $class, string $arguments, array $possibleMatches, int $consecutive)
     {
         $numMoved = 0;
         $shrunk = [];
@@ -341,10 +334,10 @@ class Paradigm
     /**
      * Determines whether at least one of the arguments in a set has no number
      *
-     * @param string The arguments
+     * @param string $args the arguments
      * @return boolean True if there is at least one numberless argument, and false otherwise
      */
-    public function hasNumberlessArgument($args)
+    public function hasNumberlessArgument(string $args)
     {
         $arguments = preg_split("/[—+]/u", $args);
         $found = false;
@@ -359,10 +352,10 @@ class Paradigm
     /**
      * Determines whether an argument has no number
      *
-     * @param string The argument
+     * @param string $arg
      * @return boolean True if the argument is numberless and false otherwise
      */
-    protected function isNumberless($arg)
+    protected function isNumberless(string $arg)
     {
         // Check to see if the argument is followed by a number marker
         // An exception is made for second person plural inclusive, which has an implicit plural marker
@@ -372,7 +365,7 @@ class Paradigm
     /**
      * Generates a list of possible alternate argument sets for a set of arguments with at least one numberless argument
      *
-     * @param string The arguments
+     * @param string $args
      * @return array A list of possible matches
      */
     protected function generatePossibleMatches(string $args)
@@ -386,7 +379,6 @@ class Paradigm
     {
         $options = [];
         $currSet = [];
-        $option;
 
         if ($currIndex < count($args)) {
             if ($this->isNumberless($args[$currIndex])) {
@@ -435,10 +427,10 @@ class Paradigm
      * Modifications will have to be made to this method once AI + O forms are in the database, since the
      * secondary object appears in the second position
      *
-     * @param array The array of arguments
+     * @param array $tokens  The array of arguments
      * @return string A string version of a set of arguments
      */
-    protected function repair($tokens)
+    protected function repair(array $tokens)
     {
         $output = $tokens[0];
         if (isset($tokens[1])) {
@@ -462,11 +454,8 @@ class Paradigm
     public function renderHeaders()
     {
         $html = '';
-        $style = '';
         $firstTime = true;
         $index = 0;
-        $rowHTML = '';
-        $span = 1;
 
         foreach ($this->headerRows as $row) {
             $rowHTML = '';

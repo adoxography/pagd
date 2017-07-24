@@ -2,7 +2,6 @@
 
 namespace Algling\Phonology\Models;
 
-use Algling\Phonology\Models\Phoneme;
 use Illuminate\Database\Eloquent\Builder;
 
 class Cluster extends Phoneme {

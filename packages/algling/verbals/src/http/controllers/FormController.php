@@ -72,7 +72,7 @@ class FormController extends AlgModelController
      * Update a form
      *
      * @param \App\Http\Requests\LangFormRequest
-     * @param \App\Form The form
+     * @param Form $form
      * @return \Illuminate\Http\Response
      */
     public function update(FormRequest $request, Form $form)

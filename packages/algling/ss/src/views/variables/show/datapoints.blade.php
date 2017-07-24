@@ -1,6 +1,7 @@
 @extends('ss::variables.show')
 
 @section('content')
+	<!--suppress SyntaxError -->
 	<div class="field">
 		<span class="label">{{ $variable->description }}</span>
 		<alg-map :markers="{{ $languages }}"></alg-map>

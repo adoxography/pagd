@@ -38,12 +38,13 @@ trait HasAllophonesTrait {
 		}
 	}
 
-	/**
-	 * Build an array of allophones for the phoneme
-	 * 
-	 * @param $allophones The allophone names
-	 * @param $environments The environments corresponding to the allophones
-	 */
+    /**
+     * Build an array of allophones for the phoneme
+     *
+     * @param mixed $allophones the allophone names
+     * @param mixed $environments the environments corresponding to the allophones
+     * @return array
+     */
 	protected function buildAllophoneArray($allophones, $environments)
 	{
 		$constrained = []; // The allophones with environments

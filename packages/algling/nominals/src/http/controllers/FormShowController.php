@@ -2,10 +2,8 @@
 
 namespace Algling\Nominals\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Algling\Nominals\Models\Form;
 use App\Http\Controllers\Controller;
-use Algling\Nominals\Http\Requests\FormRequest;
 
 class FormShowController extends Controller
 {

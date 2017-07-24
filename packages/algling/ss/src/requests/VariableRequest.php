@@ -3,7 +3,7 @@
 namespace Algling\SS\Requests;
 
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class VariableRequest extends FormRequest

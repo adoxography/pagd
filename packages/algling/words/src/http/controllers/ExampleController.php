@@ -22,7 +22,7 @@ class ExampleController extends AlgModelController
     /**
      * Show the example details.
      *
-     * @param \App\Example The example
+     * @param Example $example the example
      * @return \Illuminate\Http\Response
      */
     public function show(Example $example)
@@ -43,7 +43,7 @@ class ExampleController extends AlgModelController
     /**
      * Show the example edit form
      *
-     * @param \App\Example The example
+     * @param Example $example
      * @return \Illuminate\Http\Response
      */
     public function edit(Example $example)
@@ -56,7 +56,7 @@ class ExampleController extends AlgModelController
     /**
      * Save a new example
      *
-     * @param \App\Http\Requests\ExampleRequest
+     * @param ExampleRequest
      * @return \Illuminate\Http\Response
      */
     public function store(ExampleRequest $request)
@@ -70,8 +70,8 @@ class ExampleController extends AlgModelController
     /**
      * Update an example
      *
-     * @param \App\Http\Requests\ExampleRequest
-     * @param \App\Example The example
+     * @param ExampleRequest
+     * @param Example $example
      * @return \Illuminate\Http\Response
      */
     public function update(ExampleRequest $request, Example $example)
@@ -85,7 +85,7 @@ class ExampleController extends AlgModelController
     /**
      * Destroy an example
      *
-     * @param \App\Example The example
+     * @param Example $example
      * @return \Illuminate\Http\Response
      */
     public function destroy(Example $example)
@@ -99,7 +99,7 @@ class ExampleController extends AlgModelController
     /**
      * Disambiguate a morpheme of an example
      *
-     * @param \App\Example The example
+     * @param Example $example
      * @return \Illuminate\Http\Response
      */
     public function disambiguate(Example $example)

@@ -2,9 +2,7 @@
 
 namespace Algling\Phonology\Models;
 
-use Algling\Phonology\Models\Phoneme;
 use Illuminate\Database\Eloquent\Model;
-use Algling\Phonology\Interfaces\PhonemeTypeInterface;
 
 class ClusterType extends Model
 {

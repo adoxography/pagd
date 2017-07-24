@@ -2,9 +2,6 @@
 
 namespace Algling\Phonology\Models;
 
-use Algling\Phonology\Models\Height;
-use Algling\Phonology\Models\Length;
-use Algling\Phonology\Models\Backness;
 use Illuminate\Database\Eloquent\Model;
 use Algling\Phonology\Interfaces\PhonemeTypeInterface;
 

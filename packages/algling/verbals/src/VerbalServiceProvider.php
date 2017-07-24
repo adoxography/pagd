@@ -2,20 +2,22 @@
 
 namespace Algling\Verbals;
 
+use Algling\Verbals\Models\Form;
+use Algling\Verbals\Models\Gap;
 use App\Language;
 use App\ChangeType;
 use Algling\Verbals\Models\Mode;
 use Algling\Verbals\Models\Order;
 use Algling\Verbals\Models\Argument;
 use Algling\Verbals\Models\VerbClass;
-use Illuminate\Support\Facades\Route;
+use Route;
 use Illuminate\Support\ServiceProvider;
 
 class VerbalServiceProvider extends ServiceProvider
 {
     protected $connections = [
-        \Algling\Verbals\Models\Form::class => 'verbForm',
-        \Algling\Verbals\Models\Gap::class => 'verbGap'
+        Form::class => 'verbForm',
+        Gap::class => 'verbGap'
     ];
 
     /**

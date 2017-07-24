@@ -2,8 +2,6 @@
 
 namespace Algling\Phonology\Models;
 
-use Algling\Phonology\Models\Place;
-use Algling\Phonology\Models\Manner;
 use Illuminate\Database\Eloquent\Model;
 use Algling\Phonology\Interfaces\PhonemeTypeInterface;
 

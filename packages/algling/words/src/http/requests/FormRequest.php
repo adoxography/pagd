@@ -2,9 +2,8 @@
 
 namespace Algling\Words\Http\Requests;
 
-use Illuminate\Support\Facades\Auth;
+use Auth;
 use Illuminate\Foundation\Http\FormRequest as Request;
-use Illuminate\Contracts\Validation\Validator;
 
 class FormRequest extends Request
 {

@@ -2,19 +2,19 @@
 
 namespace Algling\Words;
 
+use Algling\Words\Models\Example;
+use Algling\Words\Models\Gap;
 use App\Language;
 use Algling\Words\Models\Form;
-use Algling\Words\Commands\Transfer;
-use Illuminate\Support\Facades\Route;
+use Route;
 use Illuminate\Support\ServiceProvider;
-use Algling\Words\Models\Observers\FormObserver;
 
 class WordServiceProvider extends ServiceProvider
 {
     protected $connections = [
-        \Algling\Words\Models\Form::class => 'form',
-        \Algling\Words\Models\Example::class => 'example',
-        \Algling\Words\Models\Gap::class => 'emptyform'
+        Form::class => 'form',
+        Example::class => 'example',
+        Gap::class => 'emptyform'
     ];
 
     /**

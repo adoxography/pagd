@@ -2,7 +2,6 @@
 
 namespace Algling\Verbals\Models;
 
-use Algling\Verbals\Models\Form;
 use Algling\Verbals\StructurePresenter;
 use Illuminate\Database\Eloquent\Model;
 use Venturecraft\Revisionable\RevisionableTrait;
@@ -132,7 +131,6 @@ class Structure extends Model
     public function getAbsoluteStatusAttribute()
     {
         $code = $this->isAbsolute;
-        $status;
 
         if($code === null) {
             $status = '';
@@ -175,8 +173,6 @@ class Structure extends Model
 
     public function assignSubclass()
     {
-        $subclass;
-
         if ($this->formClass->name == 'TA') {
             // Only TA verbs have subclasses
 
@@ -235,6 +231,7 @@ class Structure extends Model
      *
      * TA forms have a fair bit of parsing based on their arguments to determine what their subclass is
      *
+     * @param $value
      * @return string The name of the class or subclass
      */
     public function getSubclassAttribute($value)
@@ -271,9 +268,6 @@ class Structure extends Model
 
     public function renderArguments()
     {
-        $currentArgument = '';
-        $output = '';
-
         if(!isset($this->head)) {
             $output = $this->arguments;
         } else {

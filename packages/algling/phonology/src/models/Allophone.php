@@ -3,7 +3,6 @@
 namespace Algling\Phonology\Models;
 
 use App\ReconstructableTrait;
-use Algling\Phonology\Models\Phoneme;
 use Illuminate\Database\Eloquent\Model;
 
 class Allophone extends Model
@@ -11,7 +10,7 @@ class Allophone extends Model
     use ReconstructableTrait;
 
     public $table = 'Phon_Allophones';
-    public $timestampes = false;
+    public $timestamps = false;
 
     protected $fillable = ['name', 'environment', 'phoneme_id'];
 

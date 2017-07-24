@@ -2,7 +2,7 @@
 
 namespace Algling\Nominals\Http\Requests;
 
-use Illuminate\Support\Facades\Auth;
+use Auth;
 use Algling\Words\Http\Requests\FormRequest as WordFormRequest;
 
 class FormRequest extends WordFormRequest

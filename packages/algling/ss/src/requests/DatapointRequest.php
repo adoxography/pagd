@@ -2,7 +2,7 @@
 
 namespace Algling\SS\Requests;
 
-use Illuminate\Support\Facades\Auth;
+use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DatapointRequest extends FormRequest

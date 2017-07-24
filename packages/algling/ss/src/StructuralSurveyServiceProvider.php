@@ -6,9 +6,8 @@ use App\Language;
 use Algling\SS\Models\Type;
 use Algling\SS\Models\Value;
 use Algling\SS\Models\Variable;
-use Illuminate\Support\Facades\Route;
+use Route;
 use Illuminate\Support\ServiceProvider;
-use Algling\SS\Models\Observers\VariableObserver;
 
 class StructuralSurveyServiceProvider extends ServiceProvider
 {

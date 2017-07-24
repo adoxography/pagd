@@ -3,27 +3,25 @@
 namespace Algling\Words\Models;
 
 use Algling\Words\ExamplePresenter;
+use App\BacksUpTrait;
+use App\BookmarkableTrait;
 use App\HasChildrenTrait;
+use App\HideableTrait;
+use App\ReconstructableTrait;
+use App\SourceableTrait;
 use App\Traits\HasMorphemesTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 /**
  * An example of a form
  */
 class Example extends Model
 {
-    use \Venturecraft\Revisionable\RevisionableTrait;
-    use Searchable;
-    use \App\SourceableTrait;
-    use HasMorphemesTrait;
-    use \App\BacksUpTrait;
-    use \App\ReconstructableTrait;
-    use \App\BookmarkableTrait;
-    use SoftDeletes;
-    use \App\HideableTrait;
-    use HasChildrenTrait;
+    use RevisionableTrait, Searchable, SourceableTrait, HasMorphemesTrait, BacksUpTrait, ReconstructableTrait,
+        BookmarkableTrait, SoftDeletes, HideableTrait, HasChildrenTrait;
 
     /*
     |--------------------------------------------------------------------------
@@ -131,7 +129,7 @@ class Example extends Model
     /**
      * An example belongs to exactly one form
      * 
-     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function form()
     {

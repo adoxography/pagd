@@ -2,7 +2,6 @@
 
 namespace Algling\Phonology\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Algling\Phonology\Models\Phoneme;
 use Algling\Phonology\Http\Requests\PhonemeRequest;

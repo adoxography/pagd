@@ -2,11 +2,8 @@
 
 namespace Algling\Words\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Algling\Words\Models\Gap;
 use Algling\Words\Models\Form;
 use App\Http\Controllers\AlgModelController;
-use Algling\Verbals\Http\Requests\FormRequest;
 
 /**
  * HTTP Controller for forms
@@ -24,7 +21,7 @@ class FormController extends AlgModelController
     /**
      * Show the form details.
      *
-     * @param \App\Form The form
+     * @param Form $form the form
      * @return \Illuminate\Http\Response
      */
     public function show(Form $form)
@@ -43,7 +40,7 @@ class FormController extends AlgModelController
     /**
      * Show the form edit form
      *
-     * @param \App\Form The form
+     * @param Form $form the form
      * @return \Illuminate\Http\Response
      */
     public function edit(Form $form)
@@ -58,7 +55,7 @@ class FormController extends AlgModelController
     /**
      * Destroy a form
      *
-     * @param \App\Form The form
+     * @param Form $form the form
      * @return \Illuminate\Http\Response
      */
     public function destroy(Form $form)
@@ -72,7 +69,7 @@ class FormController extends AlgModelController
     /**
      * Disambiguate a morpheme of a form
      *
-     * @param \App\Form The form
+     * @param Form $form
      * @return \Illuminate\Http\Response
      */
     public function disambiguate(Form $form)
@@ -85,7 +82,7 @@ class FormController extends AlgModelController
     /**
      * Show the example creation form with this form's details preloaded
      *
-     * @param \App\Form The form
+     * @param Form $form
      * @return \Illuminate\Http\Response
      */
     public function addExample(Form $form)

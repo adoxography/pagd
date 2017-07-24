@@ -2,7 +2,6 @@
 
 namespace Algling\Nominals;
 
-use Algling\Nominals\Paradigm;
 use App\AlgPresenter;
 
 class ParadigmPresenter extends AlgPresenter

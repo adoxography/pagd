@@ -7,8 +7,12 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+            23-07-17: Merged Plains Cree Absolute/Objective/Neither
+        </li>
+		<li>
             23-07-17: Added legend to variable maps
         </li>
+        <hr>
 		<li>
 			22-07-17: Updated dropdown menus
 		</li>

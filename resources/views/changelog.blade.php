@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+            23-07-17: Added legend to variable maps
+        </li>
+		<li>
 			22-07-17: Updated dropdown menus
 		</li>
 		<li>
@@ -75,7 +78,7 @@
 				<li>
 					Queries which include exactly one language or group name will return that language or group's details.
 					<ul>
-						<li>Searchs for languages' 'alternate names' will produce hits.</li>
+						<li>Searches for languages' 'alternate names' will produce hits.</li>
 					</ul>
 				</li>
 				<li>

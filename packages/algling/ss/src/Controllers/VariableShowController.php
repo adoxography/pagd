@@ -6,8 +6,7 @@ use Algling\SS\Models\Variable;
 use App\Group;
 use App\Http\Controllers\Controller;
 use App\Language;
-use MikeAlmond\Color\Color;
-use MikeAlmond\Color\PaletteGenerator;
+use App\Palette\Palette;
 
 class VariableShowController extends Controller
 {
@@ -63,7 +62,7 @@ class VariableShowController extends Controller
         $values = $variable->datapoints->pluck('value');
         $uniqueValues = $values->unique('id');
 
-        $palette = new \App\Palette\Palette('#50e450');
+        $palette = new Palette('#50e450');
         $palette->generate($uniqueValues->count());
 
         return $palette->map($values, 'name');

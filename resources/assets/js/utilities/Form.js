@@ -50,7 +50,7 @@ class Form {
 					resolve(response.data);
 				})
 				.catch(error => {
-					if(error.response;) {
+					if(error.response) {
 						if(error.response.status == 422) {
 							this.onFail(error.response.data);
 						}

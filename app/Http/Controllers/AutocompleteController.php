@@ -6,7 +6,6 @@ use App\Models\Morphology\Morpheme;
 use Response;
 use App\Source;
 use App\Language;
-use Request;
 use Algling\Phonology\Models\Phoneme;
 use Algling\Verbals\Models\Form as VerbForm;
 use Algling\Nominals\Models\Form as NominalForm;
@@ -16,14 +15,13 @@ class AutocompleteController extends Controller
     /**
      * Get all of the forms of a language that match a particular token
      *
-     * @param  Request  $request
      * @return  string
      */
-    public function forms(Request $request)
+    public function forms()
     {
         // Unpack parameters
-        $term     = $request->term;
-        $options  = json_decode($request->options, true);
+        $term     = request()->term;
+        $options  = json_decode(request()->options, true);
         $language = $options['language'];
         $type     = isset($options['type']) ? $options['type'] : 'all';
 
@@ -71,10 +69,10 @@ class AutocompleteController extends Controller
      * @param  Request  $request
      * @return  string
      */
-    public function morphemes(Request $request)
+    public function morphemes()
     {
-        $term = $request->term;
-        $options  = json_decode($request->options, true);
+        $term = request()->term;
+        $options  = json_decode(request()->options, true);
         $language = $options['language'];
 
         $results = Morpheme::select('name', 'id', 'gloss', 'language_id')
@@ -90,10 +88,10 @@ class AutocompleteController extends Controller
         return $results->toJson();
     }
 
-    public function phonemes(Request $request)
+    public function phonemes()
     {
-        $term = $request->term;
-        $options = json_decode($request->options, true);
+        $term = request()->term;
+        $options = json_decode(request()->options, true);
         $language = $options['language'];
         $type = isset($options['type']) ? $options['type'] : '';
 
@@ -121,12 +119,11 @@ class AutocompleteController extends Controller
     /**
      * Get all of the sources where the short form matches a particular token
      *
-     * @param  Request  $request
      * @return  string
      */
-    public function sources(Request $request)
+    public function sources()
     {
-        $term = $request->term;
+        $term = request()->term;
         
         $sources = Source::search($term)->take(10)->get();
 
@@ -141,14 +138,13 @@ class AutocompleteController extends Controller
     /**
      * Get all of the forms in a language's parents that match a particular token
      *
-     * @param  Request  $request
      * @return  string
      */
-    public function formParents(Request $request)
+    public function formParents()
     {
         // Unpack parameters
-        $term        = $request->term;
-        $options     = json_decode($request->options, true);
+        $term        = request()->term;
+        $options     = json_decode(request()->options, true);
         $language_id = $options['language'];
         $type        = $options['type'];
 
@@ -162,10 +158,10 @@ class AutocompleteController extends Controller
         return json_encode($results);
     }
 
-    public function exampleParents(Request $request)
+    public function exampleParents()
     {
-        $term = $request->term;
-        $options = json_decode($request->options, true);
+        $term = request()->term;
+        $options = json_decode(request()->options, true);
         $language_id = $options['language'];
 
         $language = Language::with('parent')
@@ -179,14 +175,13 @@ class AutocompleteController extends Controller
     /**
      * Get all of the morphemes in a language's parents that match a particular token
      *
-     * @param  Request  $request
      * @return  string
      */
-    public function morphemeParents(Request $request)
+    public function morphemeParents()
     {
         // Unpack parameters
-        $term        = $request->term;
-        $options = json_decode($request->options, true);
+        $term        = request()->term;
+        $options = json_decode(request()->options, true);
         $language_id = $options['language'];
 
         $language = Language::with('parent')
@@ -197,10 +192,10 @@ class AutocompleteController extends Controller
         return Response::json($results);
     }
 
-    public function phonemeParents(Request $request)
+    public function phonemeParents()
     {
-        $term = $request->term;
-        $options = json_decode($request->options, true);
+        $term = request()->term;
+        $options = json_decode(request()->options, true);
         $language_id = $options['language'];
 
         $language = Language::with('parent')

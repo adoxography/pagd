@@ -76,7 +76,6 @@
 
 		mounted() {
 			this.$refs.list.contentEditable = true;
-			console.log(this.initial);
 
 			if(this.initial) {
 				Vue.nextTick(() => {

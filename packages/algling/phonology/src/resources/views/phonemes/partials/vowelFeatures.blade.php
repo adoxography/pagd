@@ -1,3 +1,10 @@
+{{-- Archiphoneme status --}}
+@include('components.form.checkbox', [
+    'name' => 'isArchiphoneme',
+    'label' => 'archiphoneme',
+    'model' => 'isArchiphoneme'
+])
+
 {{-- Height --}}
 @component('components.form.datalist', [
 	'name'  => 'height',
@@ -38,16 +45,18 @@
 	@endslot
 @endcomponent
 
-{{-- Nasal --}}
-@include('components.form.checkbox', [
-	'name' => 'isNasal',
-	'label' => 'nasal',
-	'checked' => isset($phoneme) && $phoneme->type == 'Vowel' ? $phoneme->features->isNasal : false
-])
+<div class="field">
+    {{-- Nasal --}}
+    @include('components.form.checkbox', [
+        'name' => 'isNasal',
+        'label' => 'nasal',
+        'checked' => isset($phoneme) && $phoneme->type == 'Vowel' ? $phoneme->features->isNasal : false
+    ])
 
-{{-- Rounded --}}
-@include('components.form.checkbox', [
-	'name' => 'isRounded',
-	'label' => 'rounded',
-	'checked' => isset($phoneme) && $phoneme->type == 'Vowel' ? $phoneme->features->isRounded : false
-])
+    {{-- Rounded --}}
+    @include('components.form.checkbox', [
+        'name' => 'isRounded',
+        'label' => 'rounded',
+        'checked' => isset($phoneme) && $phoneme->type == 'Vowel' ? $phoneme->features->isRounded : false
+    ])
+</div>

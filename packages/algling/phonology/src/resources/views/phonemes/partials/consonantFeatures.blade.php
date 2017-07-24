@@ -1,3 +1,10 @@
+{{-- Archiphoneme status --}}
+@include('components.form.checkbox', [
+    'name' => 'isArchiphoneme',
+    'label' => 'archiphoneme',
+    'model' => 'isArchiphoneme'
+])
+
 {{-- Place --}}
 @component('components.form.datalist', [
 	'name'  => 'place',

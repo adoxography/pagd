@@ -1,6 +1,7 @@
 <script>
 import oldErrors from '../../mixins/OldErrors';
 import oldSources from '../../mixins/OldSources';
+import { Datalist } from '../../Datalist';
 
 export default {
 	mixins: [oldErrors, oldSources],
@@ -13,21 +14,21 @@ export default {
 			isArchiphoneme: false,
 			requiredFields: ['place', 'manner', 'height', 'backness'],
 
-			language: { text: '', id: '' },
+			language: new Datalist,
 
 			// Consonant features
-			place:   { text: '', id: '' },
-			manner:  { text: '', id: '' },
-			voicing: { text: '', id: '' },
+			place:   new Datalist,
+			manner:  new Datalist,
+			voicing: new Datalist,
 
 			// Vowel features
-			height:   { text: '', id: ''},
-			backness: { text: '', id: ''},
-			length:   { text: '', id: ''},
+			height:   new Datalist,
+			backness: new Datalist,
+			length:   new Datalist,
 
 			// Cluster features
-			firstSegment:  { text: '', id: ''},
-			secondSegment: { text: '', id: ''},
+			firstSegment:  new Datalist,
+			secondSegment: new Datalist,
 
 			sources: []
 		};
@@ -57,20 +58,43 @@ export default {
 
 	watch: {
 		language() {
-			this.firstSegment =  { text: '', id: '' };
-			this.secondSegment = { text: '', id: '' };
+			this.firstSegment =  new Datalist;
+			this.secondSegment = new Datalist;
 		},
 
-		isArchiphoneme($value) {
-			let validators = $value ? 'datalist_exists' : 'datalist_required|datalist_exists';
+		isArchiphoneme(value) {
+            this.setFieldConstraints(value);
 
-			this.requiredFields.forEach(field => {
-				this.$validator.attach(field, validators);
-			});
+		    if (value) {
+                this.$validator.attach('archiphonemeDescription', 'required', { prettyName: 'description'} );
+                this.$validator.attach('phonemeable_type', 'required|not_in:clusterTypes', { prettyName: 'type'} );
+		    } else {
+                this.$validator.attach('archiphonemeDescription', '', { prettyName: 'description'} );
+                this.$validator.attach('phonemeable_type', 'required', { prettyName: 'type'} );
+            }
+		},
 
-			this.$validator.attach('archiphonemeDescription', $value ? 'required' : '', { prettyName: 'description' });
-			this.$validator.attach('phonemeable_type', 'required' + ($value ? '|not_in:clusterTypes' : ''), { prettyName: 'type' });
-		}
-	}
+        type(value) {
+		    if (value == 'clusterTypes') {
+		        this.isArchiphoneme = false;
+            }
+        }
+	},
+
+    methods: {
+	    setFieldConstraints(val) {
+	        let constraint = 'datalist_exists';
+
+	        if (!val) {
+	            constraint = 'datalist_required|' + constraint;
+            }
+
+            console.log(constraint);
+
+            this.requiredFields.forEach(field => {
+                this.$validator.attach(field, constraint);
+            });
+        }
+    }
 };
 </script>

@@ -3,9 +3,12 @@
 	v-cloak
 	:old-errors="{{ json_encode($errors->messages()) }}"
 
+	@if(old('isArchiphoneme') || isset($phoneme) && $phoneme->isArchiphoneme)
+        :old-is-archiphoneme="true"
+    @endif
+
 	@if(isset($phoneme))
 		old-type="{{ $phoneme->phonemeable_type }}"
-		:old-is-archiphoneme="{{ $phoneme->isArchiphoneme }}"
 	@elseif(isset($type))
 		old-type="{{ $type . 'Types' }}"
 	@endif
@@ -64,20 +67,6 @@
 					</div>
 				</div>
 
-				Marginal status
-				@include('components.form.checkbox', [
-					'name' => 'isMarginal',
-					'label' => 'marginal',
-					'checked' => isset($phoneme) ? $phoneme->isMarginal : false
-				])
-
-				{{-- Archiphoneme status --}}
-				@include('components.form.checkbox', [
-					'name' => 'isArchiphoneme',
-					'label' => 'archiphoneme',
-					'model' => 'isArchiphoneme'
-				])
-
 				{{-- Language --}}
 				@component('components.form.datalist', [
 					'name'  => 'language',
@@ -91,22 +80,29 @@
 					@endslot
 				@endcomponent
 
-				<transition name="fade">
-					<div v-show="isArchiphoneme">
-						@component('components.form.text', [
-							'name' => 'archiphonemeDescription',
-							'label' => 'description',
-							'rules' => '',
-							'placeholder' => 'Enter a description of the archiphoneme'
-						])
-						    @slot('value')
-						        @if (isset($phoneme))
-						        	{{ $phoneme->archiphonemeDescription }}
-						        @endif
-						    @endslot
-						@endcomponent
-					</div>
-				</transition>
+                <transition name="fade">
+                    <div v-show="isArchiphoneme">
+                        @component('components.form.text', [
+                            'name' => 'archiphonemeDescription',
+                            'label' => 'description',
+                            'rules' => '',
+                            'placeholder' => 'Enter a description of the archiphoneme'
+                        ])
+                            @slot('value')
+                                @if (isset($phoneme))
+                                    {{ $phoneme->archiphonemeDescription }}
+                                @endif
+                            @endslot
+                        @endcomponent
+                    </div>
+                </transition>
+
+                {{--Marginal status--}}
+                @include('components.form.checkbox', [
+                    'name' => 'isMarginal',
+                    'label' => 'marginal',
+                    'checked' => isset($phoneme) ? $phoneme->isMarginal : false
+                ])
 			</div>
 
 			{{-- Features --}}
@@ -134,7 +130,6 @@
 						@include('phon::phonemes.partials.clusterFeatures')
 					</div>
 				</transition>
-
 			</div>
 		</div>
 

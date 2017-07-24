@@ -377,7 +377,6 @@ class Paradigm
      */
     protected function generatePossibleMatches(string $args)
     {
-        $options = [];
         $arguments = preg_split("/[—+]/u", $args);
 
         return $this->recursivelyBuildPossibleMatches($arguments, $args);
@@ -387,7 +386,6 @@ class Paradigm
     {
         $options = [];
         $currSet = [];
-        $delimiter = '';
         $option;
 
         if ($currIndex < count($args)) {
@@ -485,7 +483,7 @@ class Paradigm
             foreach ($row as $cell) {
                 if ($cell['show']) {
                     if ($cell['bordered']) {
-                        $style = 'style="border-left: .2em solid #363636;"';
+                        $style = 'style="border-left: 2px solid #363636;"';
                     } else {
                         $style = '';
                     }

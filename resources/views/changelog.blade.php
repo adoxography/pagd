@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+            23-07-17: Reduced weight of thicker borders in form paradigms
+        </li>
+		<li>
             23-07-17: Merged Plains Cree Absolute/Objective/Neither
         </li>
 		<li>

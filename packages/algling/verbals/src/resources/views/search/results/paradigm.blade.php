@@ -25,7 +25,7 @@
 					{!! $search->renderHeaders() !!}
 					<tbody>
 						@foreach($rows as $class => $subjects)
-							<tr style="border-top: .2em solid #363636;">
+							<tr style="border-top: 2px solid #363636;">
 								<th rowspan="{{ count($subjects) }}">{{ $class }}</th>
 
 								@foreach($subjects as $subject => $forms)
@@ -55,7 +55,7 @@
 
 															@if(isset($lookup[0]) && $lookup[0]->placed && !$form->distant)
 															@else
-																<td rowspan={{ $lookup[0]->span or "1" }} style='{{ $loop->parent->parent->parent->parent->first && $loop->parent->parent->parent->first && $loop->parent->first && $loop->parent->parent->first && $loop->first ? "border-left: .2em solid #363636;" : "" }}'>
+																<td rowspan={{ $lookup[0]->span or "1" }} style='{{ $loop->parent->parent->parent->parent->first && $loop->parent->parent->parent->first && $loop->parent->first && $loop->parent->parent->first && $loop->first ? "border-left: 2px solid #363636;" : "" }}'>
 																	@if(count($lookup) > 0)
 																		@foreach($lookup as $form)
 																			<p>

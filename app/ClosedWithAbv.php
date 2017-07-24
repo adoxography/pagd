@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 class ClosedWithAbv extends Closed
 {
     public function __construct(){

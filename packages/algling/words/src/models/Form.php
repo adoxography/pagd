@@ -3,12 +3,11 @@
 namespace Algling\Words\Models;
 
 use Algling\Words\FormPresenter;
-use Algling\Words\Models\Example;
 use App\ChangeType;
 use App\Language;
+use App\Traits\HasMorphemesTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
 use Laravel\Scout\Searchable;
 
 /**
@@ -24,7 +23,7 @@ class Form extends Model
     use Searchable;
     use \Venturecraft\Revisionable\RevisionableTrait;
     use \App\SourceableTrait;
-    use \Algling\Morphemes\Traits\HasMorphemesTrait;
+    use HasMorphemesTrait;
     use \App\ReconstructableTrait;
     use \App\HasChildrenTrait;
     use \App\BacksUpTrait;

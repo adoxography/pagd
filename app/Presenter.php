@@ -33,15 +33,17 @@ abstract class Presenter
 		}
 	}
 
-	/**
-	 * Add a relation's presenter before the current one
-	 * 
-	 * @param string The name of the relation
-	 * @param string The presentation method to use with the relation
-	 * @param array The arguments to pass in to the presentation method
-	 * 
-	 * @return App\Presenter
-	 */
+    /**
+     * Add a relation's presenter before the current one
+     *
+     * @param string $relation
+     * @param string $method
+     * @param array ...$arguments the arguments to pass in to the presentation method
+     * @return Presenter
+     * @throws \Exception
+     * @internal param the $string name of the relation
+     * @internal param the $string presentation method to use with the relation
+     */
 	public function before(string $relation, string $method = 'name', ...$arguments)
 	{
 		if(!method_exists($this->model, $relation)) {
@@ -62,15 +64,15 @@ abstract class Presenter
 		return $this;
 	}
 
-	/**
-	 * Add a relation's presenter after the current one
-	 * 
-	 * @param string The name of the relation
-	 * @param string The presentation method to use with the relation
-	 * @param array The arguments to pass in to the presentation method
-	 * 
-	 * @return App\Presenter
-	 */
+    /**
+     * Add a relation's presenter after the current one
+     *
+     * @param string $relation the name of the relation
+     * @param string $method the presentation method to use with the relation
+     * @param array ...$arguments the arguments to pass in to the presentation method
+     * @return Presenter
+     * @throws \Exception
+     */
 	public function then(string $relation, string $method = 'name', ...$arguments)
 	{
 		if(!method_exists($this->model, $relation)) {
@@ -96,10 +98,10 @@ abstract class Presenter
 	/**
 	 * Set the presentation method of the last model added
 	 * 
-	 * @param string The name of the presentation method
-	 * @param array The arguments to use with the presentation method
+	 * @param string $method the name of the presentation method
+	 * @param array ...$arguments the arguments to use with the presentation method
 	 * 
-	 * @return App\Presenter
+	 * @return \App\Presenter
 	 */
 	public function as(string $method, ...$arguments)
 	{
@@ -130,7 +132,7 @@ abstract class Presenter
 	 * 
 	 * @param array|null The arguments
 	 * 
-	 * @return App\Presenter
+	 * @return \App\Presenter
 	 */
 	public function setArguments($arguments)
 	{
@@ -143,13 +145,13 @@ abstract class Presenter
 		return $this;
 	}
 
-	/**
-	 * Allow for Laravel-style method calls
-	 * 
-	 * @param string The name of the property to access
-	 * 
-	 * @return void
-	 */
+    /**
+     * Allow for Laravel-style method calls
+     *
+     * @param string $property the name of the property to access
+     * @return mixed
+     * @throws \Exception
+     */
 	public function __get($property)
 	{
 		if(method_exists($this, $property)) {

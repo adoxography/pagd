@@ -2,8 +2,6 @@
 
 namespace App\Palette;
 
-use App\Palette\Mapper;
-use App\Palette\Generator;
 use MikeAlmond\Color\Color;
 use Illuminate\Support\Collection;
 

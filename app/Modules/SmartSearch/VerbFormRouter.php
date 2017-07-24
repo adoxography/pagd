@@ -8,8 +8,6 @@ use Algling\Verbals\Models\VerbClass;
 use Algling\Words\Models\Feature;
 use App\Group;
 use App\Language;
-use App\Modules\SmartSearch\RouterInterface;
-use App\Modules\SmartSearch\SmartSearch;
 
 class VerbFormRouter implements RouterInterface
 {

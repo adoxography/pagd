@@ -8,9 +8,9 @@ export default {
 
 				errors.forEach(message => {
 					this.errors.add(field, message, 'database');
-				});
-			});
-		}		
+        })
+        })
+        }
 	},
 
 	methods: {

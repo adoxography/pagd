@@ -7,8 +7,6 @@ use Algling\Verbals\Models\Order;
 use Algling\Verbals\Models\VerbClass;
 use App\Group;
 use App\Language;
-use App\Modules\SmartSearch\RouterInterface;
-use App\Modules\SmartSearch\SmartSearch;
 
 class VerbParadigmRouter implements RouterInterface
 {

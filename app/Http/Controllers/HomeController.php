@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Language;
-use Illuminate\Http\Request;
 use Algling\Verbals\Models\Order;
 use Algling\Verbals\Models\VerbClass;
-use Illuminate\Support\Facades\Storage;
-use App\Http\Controllers\PageController;
+use Storage;
 
 class HomeController extends PageController
 {
@@ -34,8 +32,6 @@ class HomeController extends PageController
 
         foreach($files as $file) {
             $uri = str_replace(['pages', '.php'], '', $file);
-            $structure = explode('/', $uri);
-            // $label = str_replace('_', ' ', array_last($structure));
             $label = substr($uri, 1);
 
             $hide = json_decode(Storage::get('pages/hide.json'));

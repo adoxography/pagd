@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Morphology\Morpheme;
 use Response;
 use App\Source;
 use App\Language;
-use App\Http\Requests;
-use Illuminate\Http\Request;
+use Request;
 use Algling\Phonology\Models\Phoneme;
-use Algling\Morphemes\Models\Morpheme;
 use Algling\Verbals\Models\Form as VerbForm;
 use Algling\Nominals\Models\Form as NominalForm;
 
@@ -17,8 +16,8 @@ class AutocompleteController extends Controller
     /**
      * Get all of the forms of a language that match a particular token
      *
-     * @param  App\Http\Request  $request
-     * @return  JSON
+     * @param  Request  $request
+     * @return  string
      */
     public function forms(Request $request)
     {
@@ -69,8 +68,8 @@ class AutocompleteController extends Controller
     /**
      * Get all of the morphemes of a language that match a particular token
      *
-     * @param  App\Http\Request  $request
-     * @return  JSON
+     * @param  Request  $request
+     * @return  string
      */
     public function morphemes(Request $request)
     {
@@ -122,8 +121,8 @@ class AutocompleteController extends Controller
     /**
      * Get all of the sources where the short form matches a particular token
      *
-     * @param  App\Http\Request  $request
-     * @return  JSON
+     * @param  Request  $request
+     * @return  string
      */
     public function sources(Request $request)
     {
@@ -142,8 +141,8 @@ class AutocompleteController extends Controller
     /**
      * Get all of the forms in a language's parents that match a particular token
      *
-     * @param  App\Http\Request  $request
-     * @return  JSON
+     * @param  Request  $request
+     * @return  string
      */
     public function formParents(Request $request)
     {
@@ -180,8 +179,8 @@ class AutocompleteController extends Controller
     /**
      * Get all of the morphemes in a language's parents that match a particular token
      *
-     * @param  App\Http\Request  $request
-     * @return  JSON
+     * @param  Request  $request
+     * @return  string
      */
     public function morphemeParents(Request $request)
     {
@@ -216,7 +215,7 @@ class AutocompleteController extends Controller
      * Recursively find all of the members of a given field that match a given term
      * within all of the parents of a given language
      *
-     * @param  App\Language  $language
+     * @param  Language  $language
      * @param  string  $term
      * @param  string  $items
      * @param  string  $field

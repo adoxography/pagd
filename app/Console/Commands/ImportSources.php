@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Source;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
+use Storage;
 
 class ImportSources extends Command
 {
@@ -23,9 +23,7 @@ class ImportSources extends Command
     protected $description = 'Import sources';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
+     * ImportSources constructor.
      */
     public function __construct()
     {
@@ -55,7 +53,7 @@ class ImportSources extends Command
 
             $this->line("All sources loaded. Inserting to the database...");
 
-            \App\Source::insert($sources);
+            Source::insert($sources);
         }
 
         $this->line("All sources added to the database. Disambiguating...");
@@ -63,11 +61,13 @@ class ImportSources extends Command
         $this->disambiguate();
 
         $this->line("All done!");
+
+        return null;
     }
 
     protected function disambiguate()
     {
-        $sources = \App\Source::whereNull('disambiguator')->get();
+        $sources = Source::whereNull('disambiguator')->get();
 
         foreach($sources as $source) {
             if(!isset($source->disambiguator) && !$this->isFirst($source, $sources)) {

@@ -3,8 +3,7 @@
 namespace App;
 
 use App\Events\Audio\Deleting;
-use App\Language;
-use GuzzleHttp\Exception\ConnectException;
+use App\Events\FileOrphaned;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Storage;
@@ -32,7 +31,7 @@ class Audio extends Model
     	if($audio->saveFile($file)) {
             return $audio;
         } else {
-            throw new Exception('File failed upload.');
+            throw new \Exception('File failed upload.');
         }
     }
 
@@ -41,7 +40,7 @@ class Audio extends Model
     	$language = $this->language;
 
     	if(!$language) {
-    		throw new Exception("Could not find a language with an ID of '$language_id'.");
+    		throw new \Exception("Could not find a language with an ID of '{$language->id}'.");
     	}
 
     	return "{$this->baseFolder}/{$language->name}";
@@ -60,7 +59,7 @@ class Audio extends Model
             $this->save();
 
             if(strlen($oldFile) > 0) {
-                event(new \App\Events\FileOrphaned($oldFile, $this->disk));
+                event(new FileOrphaned($oldFile, $this->disk));
             }
 
             $rc = true;

@@ -2,7 +2,6 @@
 
 namespace App\Modules\SmartSearch;
 
-use Algling\Nominals\Models\Paradigm;
 use Algling\Nominals\Models\ParadigmType;
 use Algling\Verbals\Models\Mode;
 use Algling\Verbals\Models\Order;
@@ -10,12 +9,6 @@ use Algling\Verbals\Models\VerbClass;
 use Algling\Words\Models\Feature;
 use App\Group;
 use App\Language;
-use App\Modules\SmartSearch\Dictionary;
-use App\Modules\SmartSearch\ModelPatternMaker;
-use App\Modules\SmartSearch\SingleRouter;
-use App\Modules\SmartSearch\UnknownRouter;
-use App\Modules\SmartSearch\VerbParadigmRouter;
-use Illuminate\Support\Collection;
 
 class SmartSearch
 {
@@ -57,12 +50,14 @@ class SmartSearch
 		$this->extractFeatures();
 	}
 
-	public function route()
+    /**
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function route()
 	{
-		$router;
+	    $router = new UnknownRouter($this->lookup);
 
 		if (count($this->classes) > 0) {
-
 			if (!$this->hasFeatures) {
 				$router = new VerbParadigmRouter($this);
 			} elseif (count($this->orders) <= 1 && count($this->modes) <= 1) {
@@ -70,8 +65,6 @@ class SmartSearch
 			}
 		} elseif (count($this->matches) == 1 && count($this->{$this->matches[0]}) == 1 && ($this->matches[0] == 'groups' || $this->matches[0] == 'languages')) {
 			$router = new SingleRouter($this->matches[0], $this->{$this->matches[0]}[0]);
-		} else {
-			$router = new UnknownRouter($this->lookup);
 		}
 
 		flash($router->getMessage(), 'is-success');
@@ -88,7 +81,6 @@ class SmartSearch
     	$collection = $this->query($model, $alternates);
     	$dictionary = Dictionary::build($collection, $alternates);
         $pattern = ModelPatternMaker::generate($collection, $alternates);
-        $matches;
         $output = [];
 
         preg_match_all($pattern, $this->lookup, $matches);
@@ -126,7 +118,6 @@ class SmartSearch
         $collection = $languages->concat($groups);
         $dictionary = Dictionary::build($collection, ['aliases']);
         $pattern = ModelPatternMaker::generate($collection, ['aliases']);
-        $matches;
         $output = ['languages' => [], 'groups' => []];
 
         preg_match_all($pattern, $this->lookup, $matches);
@@ -149,10 +140,9 @@ class SmartSearch
 
     protected function extractFeatures()
     {
-    	$features = \Algling\Words\Models\Feature::all();
+    	$features = Feature::all();
     	$dictionary = Dictionary::build($features);
     	$pattern = ModelPatternMaker::generate($features, [], false);
-    	$matches;
 
     	$fullPattern = "`(?<=[ ]){$pattern}(-{$pattern})?(\+{$pattern})?(?=[, ])`";
 

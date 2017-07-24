@@ -174,7 +174,6 @@ return [
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
         Algling\SS\StructuralSurveyServiceProvider::class,
-        Algling\Morphemes\MorphemeServiceProvider::class,
         Algling\Words\WordServiceProvider::class,
         Algling\Verbals\VerbalServiceProvider::class,
         Algling\Nominals\NominalServiceProvider::class,

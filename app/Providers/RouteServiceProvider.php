@@ -2,7 +2,14 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Route;
+use Algling\Phonology\Models\Phoneme;
+use App\Language;
+use App\Models\Morphology\Gloss;
+use App\Models\Morphology\Morpheme;
+use App\Models\Morphology\Slot;
+use App\Rule;
+use App\Source;
+use Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
@@ -17,9 +24,12 @@ class RouteServiceProvider extends ServiceProvider
     protected $namespace = 'App\Http\Controllers';
 
     protected $connections = [
-        \App\Source::class    => 'source',
-        \App\Rule::class      => 'rule',
-        \Algling\Phonology\Models\Phoneme::class => 'phoneme'
+        Source::class    => 'source',
+        Rule::class      => 'rule',
+        Phoneme::class => 'phoneme',
+        Morpheme::class => 'morpheme',
+        Gloss::class => 'gloss',
+        Slot::class => 'slot'
     ];
 
     /**
@@ -33,9 +43,9 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::bind('language', function($value) {
             if(is_numeric($value)) {
-                return \App\Language::find($value);
+                return Language::find($value);
             } else {
-                return \App\Language::where('iso', $value)->first();
+                return Language::where('iso', $value)->first();
             }
         });
 

@@ -44,8 +44,7 @@ window.axios.defaults.timeout = 10000;
 axiosRetry(window.axios, {
 	retries: 5,
 	retryCondition: error => !error.response || error.response.status == 400
-});
-
+})
 window.Form = Form;
 
 // Core
@@ -68,8 +67,7 @@ Vue.http.interceptors.push((request, next) => {
     request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken);
 
     next();
-});
-
+})
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

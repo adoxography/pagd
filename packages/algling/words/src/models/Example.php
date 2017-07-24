@@ -3,8 +3,8 @@
 namespace Algling\Words\Models;
 
 use Algling\Words\ExamplePresenter;
-use Algling\Words\Models\Form;
 use App\HasChildrenTrait;
+use App\Traits\HasMorphemesTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
@@ -17,7 +17,7 @@ class Example extends Model
     use \Venturecraft\Revisionable\RevisionableTrait;
     use Searchable;
     use \App\SourceableTrait;
-    use \Algling\Morphemes\Traits\HasMorphemesTrait;
+    use HasMorphemesTrait;
     use \App\BacksUpTrait;
     use \App\ReconstructableTrait;
     use \App\BookmarkableTrait;

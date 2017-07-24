@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Source;
-
 trait SourceableTrait {
 
     public $isSourceable = true;
@@ -28,7 +26,6 @@ trait SourceableTrait {
     {
         $type = $this->morphCode ? $this->morphCode : $this->getMorphClass();
         $added = [];
-        $options = [];
 
         if($sources) {
             $this->sources()->detach();

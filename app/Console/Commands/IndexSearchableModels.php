@@ -2,10 +2,12 @@
 
 namespace App\Console\Commands;
 
+use App\Language;
+use App\Models\Morphology\Morpheme;
+use App\Source;
 use Illuminate\Console\Command;
 use Algling\Words\Models\Form;
 use Algling\Words\Models\Example;
-use Algling\Morphemes\Models\Morpheme;
 use Artisan;
 
 class IndexSearchableModels extends Command
@@ -30,8 +32,8 @@ class IndexSearchableModels extends Command
      * @var array
      */
     protected $models = [
-        \App\Source::class,
-        \App\Language::class,
+        Source::class,
+        Language::class,
         Morpheme::class,
         Form::class,
         Example::class
@@ -39,8 +41,6 @@ class IndexSearchableModels extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -58,5 +58,7 @@ class IndexSearchableModels extends Command
             Artisan::call("scout:import", ['model' => $model]);
             echo "$model indexed successfully\n";
         }
+
+        return null;
     }
 }

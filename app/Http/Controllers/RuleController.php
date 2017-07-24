@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Rule;
 use App\Http\Requests\RuleRequest;
-use App\Http\Controllers\AlgModelController;
 
 class RuleController extends AlgModelController
 {

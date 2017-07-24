@@ -2,24 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Algling\Nominals\Models\Form as NominalForm;
+use Algling\Phonology\Models\Phoneme;
+use Algling\Verbals\Models\Form as VerbForm;
+use Algling\Words\Models\Example;
+use App\Language;
+use App\Models\Morphology\Morpheme;
+use Storage;
 
 class PageController extends Controller
 {
     public function show($args)
     {
-    	$path = $this->generatePath($args);
-    	$title = ucfirst($this->getTitle($args));
+        $path = $this->generatePath($args);
+        $title = ucfirst($this->getTitle($args));
 
-    	if(Storage::exists($path)) {
-    		$styles = $this->getCSSFiles();
-    		$page = Storage::get($path);
+        if (!Storage::exists($path)) {
+            abort(404);
+        }
 
-    		return view('pages.show', compact('page', 'styles', 'title'));
-    	} else {
-    		abort(404);
-    	}
+        $styles = $this->getCSSFiles();
+        $page = Storage::get($path);
+
+        return view('pages.show', compact('page', 'styles', 'title'));
     }
 
     public function resources()
@@ -30,12 +35,12 @@ class PageController extends Controller
     public function statistics()
     {
         $stats = [
-            'languages' => \App\Language::whereNull('hidden_at')->count(),
-            'verbForms' => \Algling\Verbals\Models\Form::whereNull('hidden_at')->count(),
-            'nominalForms' => \Algling\Nominals\Models\Form::whereNull('hidden_at')->count(),
-            'examples'  => \Algling\Words\Models\Example::whereNull('hidden_at')->count(),
-            'morphemes' => \Algling\Morphemes\Models\Morpheme::whereNull('hidden_at')->count(),
-            'phonemes' => \Algling\Phonology\Models\Phoneme::whereNull('hidden_at')->count()
+            'languages' => Language::whereNull('hidden_at')->count(),
+            'verbForms' => VerbForm::whereNull('hidden_at')->count(),
+            'nominalForms' => NominalForm::whereNull('hidden_at')->count(),
+            'examples'  => Example::whereNull('hidden_at')->count(),
+            'morphemes' => Morpheme::whereNull('hidden_at')->count(),
+            'phonemes' => Phoneme::whereNull('hidden_at')->count()
         ];
 
         return view('resources.statistics', compact('stats'));

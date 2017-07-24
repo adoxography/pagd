@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Audio;
 use App\Http\Requests\AudioRequest;
-use Illuminate\Http\Request;
 
 class AudioController extends Controller
 {

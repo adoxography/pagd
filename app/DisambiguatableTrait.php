@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Illuminate\Support\Facades\Schema;
+use Schema;
 
 trait DisambiguatableTrait {
 
@@ -45,7 +45,7 @@ trait DisambiguatableTrait {
 	protected function markAsNotDuplicated()
 	{
 		if(!$this->getShouldAlwaysAssignDisambiguator()) {
-			$duplicate->disambiguator = null;
+			$this->disambiguator = null;
 		}
 
 		$this->markAsDuplicated(false);

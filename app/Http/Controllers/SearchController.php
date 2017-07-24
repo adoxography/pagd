@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Modules\SmartSearch\SmartSearch;
+
 class SearchController extends Controller
 {
     public function index()
@@ -18,7 +20,6 @@ class SearchController extends Controller
 
     public function general()
     {
-        $search;
         $type = request()->type;
         $lookup = request()->lookup;
 
@@ -38,7 +39,7 @@ class SearchController extends Controller
 
     public function smartResults()
     {
-        $search = new \App\Modules\SmartSearch\SmartSearch(request()->lookup);
+        $search = new SmartSearch(request()->lookup);
 
         $search->parse();
 

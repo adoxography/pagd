@@ -2,10 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Language;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LanguageRequest extends FormRequest

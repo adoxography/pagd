@@ -1,5 +1,11 @@
 <?php
 
+use Algling\Words\Models\Example;
+use Algling\Words\Models\Form;
+use App\Language;
+use App\Models\Morphology\Morpheme;
+use App\Source;
+
 function assessAllForms()
 {
     $forms = \Algling\Words\Models\Form::all();
@@ -10,17 +16,18 @@ function assessAllForms()
 }
 
 function indexAllModels() {
-    \App\Language::clearIndices();
-    \App\Morpheme::clearIndices();
-    \App\Form::clearIndices();
-    \App\Example::clearIndices();
-    \App\Source::clearIndices();
+    $models = [
+        Language::class,
+        Morpheme::class,
+        Form::class,
+        Example::class,
+        Source::class
+    ];
 
-    \App\Language::reindex();
-    \App\Morpheme::reindex();
-    \App\Form::reindex();
-    \App\Example::reindex();
-    \App\Source::reindex();
+    foreach ($models as $model) {
+        $model->clearIndices();
+        $model->reindex();
+    }
 }
 
 function parseTime($time) {
@@ -34,19 +41,15 @@ function replaceTags($text, $id = 0) {
 /**
  * Replaces all of the rules tags in a block of text
  * 
- * Tags are strings preceeded by the $ symbol
+ * Tags are strings preceded by the $ symbol
  * 
- * @param string The text to sort through
- * @param integer The ID of the language whose rules to look for
- * @return string The text with tags replaced
+ * @param string $text  the text to sort through
+ * @param integer $id  the ID of the language whose rules to look for
+ * @return string  the text with tags replaced
  */
-function actuallyReplaceTags($text, $id = 0)
+function actuallyReplaceTags(string $text, $id = 0)
 {
     $output = $text;
-    $start;
-    $end;
-    $replacement;
-    $model;
 
     // Check to see if there are any tags in the text
     $start = strpos($text, '#');
@@ -55,7 +58,6 @@ function actuallyReplaceTags($text, $id = 0)
 
         // Find the end of the tag; that's the first whitespace that occurs after the tag
         // If no whitespace was found, it means that the tag ends the text
-        $end = strpos($text, ' ', $start);
         if (preg_match("/[\s<]/", $text, $matches, PREG_OFFSET_CAPTURE, $start)) {
             $end = $matches[0][1];
         } else {
@@ -69,28 +71,23 @@ function actuallyReplaceTags($text, $id = 0)
         // Get the tag, and look it up
         $tag = substr($text, $start + 1, $end - $start - 1);
 
-        if(is_numeric($tag{0})) { // Special case for hex codes
-            $replacement = "#$tag";
-        } elseif ($tag{0} == ' ') {
-            $replacement = '#';
-        }
-
         if(count(explode('.', $tag)) > 1) {
 
             $parts = explode('.', $tag);
 
             switch($parts[0]) {
                 case 'l':
-                    $model = \App\Language::find($parts[1]);
+                    $model = Language::find($parts[1]);
                     break;
                 case 'f':
-                    $model = \Algling\Verbals\Models\Form::find($parts[1]);
+                    $model = Form::find($parts[1]);
                     break;
                 case 'e':
-                    $model = \Algling\Words\Models\Example::find($parts[1]);
+                    $model = Example::find($parts[1]);
                     break;
                 case 'm':
-                    $model = \Algling\Morphemes\Models\Morpheme::find($parts[1]);
+                    $model = Morpheme::find($parts[1]);
+                    break;
                 default:
                     break;
             }
@@ -120,7 +117,6 @@ function actuallyReplaceTags($text, $id = 0)
 function condenseString($str)
 {
     $stripped = strip_tags($str);
-    $output = '';
 
     if(strlen($stripped) > 50) {
         $output = substr($stripped, 0, 50) . '...';
@@ -132,32 +128,6 @@ function condenseString($str)
 
     return $output;
 }
-
-function binarySearch($item, $list)
-{
-    $hi = count($list)-1;
-    $lo = 0;
-    $mid;
-    $spot = NOT_FOUND;
-    $comparison;
-        
-    while ($hi >= $lo && $spot < 0) {
-        $mid = floor(($hi + $lo)/2);
-        $comparison = $list[$mid]->compareTo($item);
-
-        if ($comparison == 0) {
-            $spot = $mid;
-        }//if
-        elseif ($comparison < 0) {
-            $lo = $mid + 1;
-        }//if
-        else {
-            $hi = $mid - 1;
-        }//else
-    }//while
-
-    return $spot;
-}//binarySearch
 
 function flash($message, $level = 'info')
 {
@@ -231,7 +201,7 @@ function array_toList($arr) : string
 
 function fixMorphemes()
 {
-    foreach(Algling\Morphemes\Models\Morpheme::all() as $morpheme) {
+    foreach(Morpheme::all() as $morpheme) {
         $morpheme->connectGlosses();
     }
 

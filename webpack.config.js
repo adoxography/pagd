@@ -263,7 +263,8 @@ module.exports.plugins = [
     }),
 
     function() {
-        this.plugin('done', stats => Mix.manifest.write(stats));
+        this.plugin('done', stats = > Mix.manifest.write(stats);
+    )
     },
 ];
 
@@ -286,7 +287,7 @@ if (Mix.versioning.enabled) {
         new plugins.WebpackOnBuildPlugin(() => {
             Mix.versioning.prune(Mix.publicPath);
         })
-    );
+)
 }
 
 
@@ -295,7 +296,7 @@ if (Mix.combine || Mix.minify) {
         new plugins.WebpackOnBuildPlugin(() => {
             Mix.concatenateAll().minifyAll();
         })
-    );
+)
 }
 
 
@@ -304,7 +305,7 @@ if (Mix.copy) {
         module.exports.plugins.push(
             new plugins.CopyWebpackPlugin([copy])
         );
-    });
+})
 }
 
 

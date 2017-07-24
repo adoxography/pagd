@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Closed;
-use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Controllers\AlgModelController;
 
 /**
- * Supercontroller for all 'closed' classes: Glosses, Slots, and Groups
+ * Super controller for all 'closed' classes: Glosses, Slots, and Groups
  *
  * Method names differ from standard REST because of the difference in argument structure.
  */
@@ -35,6 +32,7 @@ abstract class ClosedController extends AlgModelController
     /**
      * Show the item detail page
      *
+     * @param Model $item
      * @return \Illuminate\Http\Response
      */
     public function showItem(Model $item)
@@ -52,7 +50,7 @@ abstract class ClosedController extends AlgModelController
     /**
      * Show the item edit page
      *
-     * @param Illuminate\Database\Eloquent\Model
+     * @param Model $item
      * @return \Illuminate\Http\Response
      */
     public function editItem(Model $item)
@@ -71,8 +69,8 @@ abstract class ClosedController extends AlgModelController
     /**
      * Update the item and redirect back to the detail page
      *
-     * @param Illuminate\Http\Request
-     * @param Illuminate\Database\Eloquent\Model
+     * @param Request $request
+     * @param Model $item
      * @return \Illuminate\Http\Response
      */
     public function updateItem(Request $request, Model $item)
@@ -88,7 +86,7 @@ abstract class ClosedController extends AlgModelController
     /**
      * Destroy the item and redirect back to the index
      *
-     * @param Illuminate\Database\Eloquent\Model
+     * @param Model $item
      * @return \Illuminate\Http\Response
      */
     public function destroyItem(Model $item)
@@ -107,7 +105,7 @@ abstract class ClosedController extends AlgModelController
      *
      * Will use the abv if it exists; otherwise, will default back to the name
      *
-     * @param Illuminate\Database\Eloquent\Model
+     * @param Model $item
      * @return string
      */
     protected function getDisplay(Model $item)
@@ -122,7 +120,7 @@ abstract class ClosedController extends AlgModelController
     /**
      * Set the name of the model
      *
-     * @param string The name of the model
+     * @param string
      * @return void
      */
     public function setModel($name)

@@ -4,8 +4,8 @@ namespace App\Console\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Artisan;
+use App;
+use Artisan;
 
 class DatabaseBackup extends Command
 {
@@ -25,8 +25,6 @@ class DatabaseBackup extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -45,5 +43,7 @@ class DatabaseBackup extends Command
 
         Artisan::call('db:backup',['--database' => 'mysql', '--destination' => 'dropbox', '--destinationPath' => "/{$environment}/algling_{$environment}_{$date}", '--compression' => 'gzip']);
         $this->info("Database backed up successfully");
+
+        return null;
     }
 }

@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Group;
 use App\Language;
-use Algling\SS\Models\Type;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LanguageRequest;
-use App\Http\Controllers\AlgModelController;
 
 /**
  * HTTP Controller for languages
@@ -183,7 +180,7 @@ class LanguageController extends AlgModelController
 
     public function order()
     {
-        $groups = \App\Group::with(['languages' => function($query) {
+        $groups = Group::with(['languages' => function($query) {
             $query->orderBy('position');
         }])->orderBy('position')->get();
         // $languages = Language::all();
@@ -194,11 +191,10 @@ class LanguageController extends AlgModelController
     public function storeOrder()
     {
         $groups = request()->all();
-        $model;
 
         foreach($groups as $group) {
             if(isset($group['newPosition']) && $group['newPosition'] != $group['position']) {
-                $model = \App\Group::find($group['id']);
+                $model = Group::find($group['id']);
                 $model->position = $group['newPosition'];
                 $model->save();
             }

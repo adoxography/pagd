@@ -2,8 +2,7 @@
 
 namespace App;
 
-use App\User;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 use Illuminate\Database\QueryException;
 
 trait BookmarkableTrait {

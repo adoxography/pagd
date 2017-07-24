@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
+use Artisan;
 
 /**
  * HTTP Controller for backup downloads

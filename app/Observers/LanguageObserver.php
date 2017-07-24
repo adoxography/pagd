@@ -2,9 +2,9 @@
 
 namespace App\Observers;
 
-use Algling\Morphemes\Models\Morpheme;
 use Algling\SS\Models\Datapoint;
 use App\Language;
+use App\Models\Morphology\Morpheme;
 
 class LanguageObserver {
 

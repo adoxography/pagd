@@ -2,11 +2,9 @@
 
 namespace App\Providers;
 
-use App\Morpheme;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Config;
+use Config;
+use Validator;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Validator;
 
 class CustomValidationProvider extends ServiceProvider
 {
@@ -42,7 +40,7 @@ class CustomValidationProvider extends ServiceProvider
 
             // If there's a hyphen at the end, remove it
             if($str{strlen($str) - 1} == '-') {
-                $str = substr($str, 0, count($str) - 2);
+                $str = substr($str, 0, strlen($str) - 2);
                 $hyphenAtEnd = true;
             }
 

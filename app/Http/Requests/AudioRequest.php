@@ -46,6 +46,7 @@ class AudioRequest extends FormRequest
 
             case 'patch':
                 $rules['clip'][] = 'nullable';
+                break;
             
             default:
                 break;

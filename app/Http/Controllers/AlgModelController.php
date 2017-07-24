@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
 class AlgModelController extends Controller
 {
@@ -15,8 +14,6 @@ class AlgModelController extends Controller
      */
     public function hide($model)
     {
-        $val = false;
-
         $model->toggleVisibility();
 
         if(request()->ajax()) {

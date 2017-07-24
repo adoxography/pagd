@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
 
 class DatabaseRestore extends Command
 {
@@ -23,8 +22,6 @@ class DatabaseRestore extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -39,5 +36,7 @@ class DatabaseRestore extends Command
     public function handle()
     {
         $this->call('db:restore', ['--database' => 'mysql', '--source' => 'dropbox', '--compression' => 'gzip']);
+
+        return null;
     }
 }

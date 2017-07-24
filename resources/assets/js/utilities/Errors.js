@@ -41,8 +41,8 @@ class Errors {
 				}
 
 				this.errors[realKey].push(value);
-			});
-		}
+        })
+        }
 	}
 
 	has(field) {
@@ -51,9 +51,8 @@ class Errors {
 
 			field.forEach(value => {
 				result = result || this.has(value);
-			});
-
-			return result;
+        })
+            return result;
 		}
 		return this.errors.hasOwnProperty(field);
 	}

@@ -5,10 +5,8 @@ namespace App\Events;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class FileOrphaned
 {
@@ -20,7 +18,8 @@ class FileOrphaned
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param $file
+     * @param $disk
      */
     public function __construct($file, $disk)
     {

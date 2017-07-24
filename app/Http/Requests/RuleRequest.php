@@ -2,8 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RuleRequest extends FormRequest

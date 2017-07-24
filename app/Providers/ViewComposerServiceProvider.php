@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\ChangeType;
 use App\Group;
 use App\Language;
-use Netcarver\Textile\Parser;
+use App\Models\Morphology\Gloss;
+use App\Models\Morphology\Slot;
 use Algling\Verbals\Models\Mode;
 use Algling\Verbals\Models\Order;
 use Algling\Verbals\Models\Argument;
@@ -24,17 +26,19 @@ class ViewComposerServiceProvider extends ServiceProvider
         $this->composeGroupForm();
         $this->composeRuleForm();
         $this->composeAudioForm();
+        $this->composeMorphemeForm();
+
+        $this->composeShowMorphemes();
 
         $this->composeSearch();
     }
 
     private function composeLanguageForm()
     {
-        view()->composer(['languages.create', 'languages.edit'], function($view)
-        {
+        view()->composer(['languages.create', 'languages.edit'], function ($view) {
             $data = [
-                'parents' => Language::select('id','name', 'location')->get(),
-                'groups'  => Group::select('id','name')->orderBy('position')->get()
+                'parents' => Language::select('id', 'name', 'location')->get(),
+                'groups' => Group::select('id', 'name')->orderBy('position')->get()
             ];
             $view->with($data);
         });
@@ -42,7 +46,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
     protected function composeGroupForm()
     {
-        view()->composer('groups.partials.form', function($view) {
+        view()->composer('groups.partials.form', function ($view) {
             $data = [
                 'parents' => Group::select('id', 'name')->orderBy('name')->get()
             ];
@@ -53,10 +57,9 @@ class ViewComposerServiceProvider extends ServiceProvider
 
     private function composeRuleForm()
     {
-        view()->composer('rules.partials.form', function($view)
-        {
+        view()->composer('rules.partials.form', function ($view) {
             $data = [
-                'languages' => Language::select('id','name')->get()
+                'languages' => Language::select('id', 'name')->get()
             ];
             $view->with($data);
         });
@@ -64,10 +67,9 @@ class ViewComposerServiceProvider extends ServiceProvider
 
     private function composeAudioForm()
     {
-        view()->composer('audio.partials.form', function($view)
-        {
+        view()->composer('audio.partials.form', function ($view) {
             $data = [
-                'languages' => Language::select('id','name')->get()
+                'languages' => Language::select('id', 'name')->get()
             ];
             $view->with($data);
         });
@@ -75,14 +77,38 @@ class ViewComposerServiceProvider extends ServiceProvider
 
     private function composeSearch()
     {
-        view()->composer('search.index', function($view)
-        {
+        view()->composer('search.index', function ($view) {
             $data = [
-                'arguments' => Argument::select('id','name')->get(),
-                'classes'   => VerbClass::select('id','name')->get(),
-                'languages' => Language::select('id','name')->get(),
-                'modes'     => Mode::select('id','name')->get(),
-                'orders'    => Order::select('id','name')->orderBy('position')->get()
+                'arguments' => Argument::select('id', 'name')->get(),
+                'classes' => VerbClass::select('id', 'name')->get(),
+                'languages' => Language::select('id', 'name')->get(),
+                'modes' => Mode::select('id', 'name')->get(),
+                'orders' => Order::select('id', 'name')->orderBy('position')->get()
+            ];
+            $view->with($data);
+        });
+    }
+
+    protected function composeShowMorphemes()
+    {
+        view()->composer('partials.show.morphemes', function ($view) {
+            $data = [
+                'slots' => Slot::select(['id', 'abv'])->orderBy('abv')->get(),
+                'glosses' => Gloss::select('abv')->orderBy('abv')->get()
+            ];
+
+            $view->with($data);
+        });
+    }
+
+    private function composeMorphemeForm()
+    {
+        view()->composer('morph::morphemes.partials.form', function ($view) {
+            $data = [
+                'languages' => Language::select('id', 'name')->get(),
+                'glosses' => Gloss::select('id', 'abv as name')->get(),
+                'slots' => Slot::select('id', 'abv as name')->get(),
+                'changeTypes' => ChangeType::select('id', 'name')->get()->prepend(['id' => null, 'name' => 'N/A'])
             ];
             $view->with($data);
         });

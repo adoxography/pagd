@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Observers;
 
 use App\Group;
 

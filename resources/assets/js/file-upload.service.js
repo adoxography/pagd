@@ -4,7 +4,8 @@ function upload(formData) {
 	let config = { timeout: 100000 };
 
 	return axios.post(action, formData, config)
-		.then(x => x.data);
+        .then(x = > x.data;
+)
 }
 
 export { upload }

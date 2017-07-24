@@ -6,8 +6,8 @@ trait ReconstructableTrait {
     /**
      * Modifies a string to begin with an asterisk if the form is reconstructed
      *
-     * @param string Any string
-     * @return string The input with an asterisk at the beginning
+     * @param string $value any string
+     * @return string the input with an asterisk at the beginning
      */
     protected function modifyIfReconstructed($value)
     {

@@ -3,11 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Group;
-use App\Language;
-use App\Http\Requests;
 use App\Http\Requests\GroupRequest;
-use Illuminate\Support\Facades\Redirect;
-use App\Http\Controllers\AlgModelController;
 
 class GroupController extends AlgModelController
 {

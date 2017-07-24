@@ -2,21 +2,39 @@
 
 namespace App\Providers;
 
+use Algling\Phonology\Models\Reflex;
+use Algling\Phonology\Obervers\ReflexObserver;
+use Algling\SS\Models\Datapoint;
+use Algling\SS\Models\Observers\VariableObserver;
+use Algling\SS\Models\Variable;
+use Algling\SS\Observers\DatapointObserver;
+use App\Group;
+use App\Language;
+use App\Models\Morphology\Gloss;
+use App\Models\Morphology\Morpheme;
+use App\Observers\GlossObserver;
+use App\Observers\GroupObserver;
+use App\Observers\LanguageObserver;
+use App\Observers\MorphemeObserver;
+use Algling\Words\Models\Form as WordForm;
+use Algling\Nominals\Models\Form as NominalForm;
+use Algling\Verbals\Models\Form as VerbForm;
+use Algling\Words\Models\Observers\FormObserver;
 use Illuminate\Support\ServiceProvider;
 
 class ObserverServiceProvider extends ServiceProvider
 {
     protected $observations = [
-        \App\Language::class                      => \App\Observers\LanguageObserver::class,
-        \App\Group::class                         => \App\GroupObserver::class,
-        \Algling\Morphemes\Models\Gloss::class    => \Algling\Morphemes\Models\Observers\GlossObserver::class,
-        \Algling\Morphemes\Models\Morpheme::class => \Algling\Morphemes\Models\Observers\MorphemeObserver::class,
-        \Algling\Words\Models\Form::class         => \Algling\Words\Models\Observers\FormObserver::class,
-        \Algling\Verbals\Models\Form::class       => \Algling\Words\Models\Observers\FormObserver::class,
-        \Algling\Nominals\Models\Form::class      => \Algling\Words\Models\Observers\FormObserver::class,
-        \Algling\SS\Models\Variable::class        => \Algling\SS\Models\Observers\VariableObserver::class,
-        \Algling\Phonology\Models\Reflex::class   => \Algling\Phonology\Obervers\ReflexObserver::class,
-        \Algling\SS\Models\Datapoint::class       => \Algling\SS\Observers\DatapointObserver::class
+        Language::class    => LanguageObserver::class,
+        Group::class       => GroupObserver::class,
+        Gloss::class       => GlossObserver::class,
+        Morpheme::class    => MorphemeObserver::class,
+        WordForm::class    => FormObserver::class,
+        VerbForm::class    => FormObserver::class,
+        NominalForm::class => FormObserver::class,
+        Variable::class    => VariableObserver::class,
+        Reflex::class      => ReflexObserver::class,
+        Datapoint::class   => DatapointObserver::class
     ];
 
     /**

@@ -70,12 +70,12 @@ trait HasChildrenTrait {
     /**
      * Fetches a complete list of this model's cognates
      *
-     * @return Illuminate\Database\Eloquent\Model The parent model of all of the cognates, with its children pre-loaded
+     * @return \Illuminate\Database\Eloquent\Model The parent model of all of the cognates, with its children pre-loaded
      */
     public function cognates()
     {
         $firstAncestor = $this->firstAncestor()->load(['allChildren', 'allChildren.language']);
-        $scaffolding = \App\Group::orderScaffolding();
+        $scaffolding = Group::orderScaffolding();
 
         $this->assignPosition($firstAncestor, $scaffolding);
 
@@ -85,7 +85,7 @@ trait HasChildrenTrait {
     protected function assignPosition(&$model, $scaffolding)
     {
         $model->position = $scaffolding->search(function($item) use ($model) {
-            $item instanceof \App\Language && $item->id == $model->language_id;
+            $item instanceof Language && $item->id == $model->language_id;
         });
 
         if($model->children->count() > 0) {
@@ -100,7 +100,7 @@ trait HasChildrenTrait {
     /**
      * Recursively finds the earliest ancestor in the database of this model
      *
-     * @return Illuminate\Database\Eloquent\Model
+     * @return mixed
      */
     protected function firstAncestor()
     {

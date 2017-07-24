@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Language;
 use Algling\SS\Models\Type;
-use Illuminate\Http\Request;
-use Algling\Nominals\Models\Paradigm;
 
 class LanguageShowController extends Controller
 {

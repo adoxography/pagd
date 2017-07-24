@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Support\Facades\Auth;
+use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SourceRequest extends FormRequest

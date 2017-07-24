@@ -13,7 +13,7 @@ if(!isset($uri)) {
 			<div class="field-body">
 				<div class="field">
 					<p class="control is-expanded">
-						<input name="name" type="text" class="input" placeholder="By morpheme" @input="onInput($event)" data-operator="like" />
+						<input name="name" class="input" placeholder="By morpheme" @input="onInput($event)" data-operator="like" />
 					</p>
 				</div>
 				<div class="field">
@@ -21,8 +21,8 @@ if(!isset($uri)) {
 						<div class="select is-fullwidth">
 							<select name="slot_id" @input="onInput($event)">
 								<option value="">By slot</option>
-								@foreach(Algling\Morphemes\Models\Slot::select(['id', 'abv'])->orderBy('abv')->get() as $slot)
-								<option value="{{ $slot->id }}">{{ $slot->abv }}</option>
+								@foreach($slots as $slot)
+									<option value="{{ $slot->id }}">{{ $slot->abv }}</option>
 								@endforeach
 							</select>
 						</div>
@@ -33,8 +33,8 @@ if(!isset($uri)) {
 						<div class="select is-fullwidth">
 							<select name="gloss" @input="onInput($event)" data-operator="like">
 								<option value="">By gloss</option>
-								@foreach(Algling\Morphemes\Models\Gloss::select('abv')->orderBy('abv')->get() as $gloss)
-								<option>{{ $gloss->abv }}</option>
+								@foreach($glosses as $gloss)
+									<option>{{ $gloss->abv }}</option>
 								@endforeach
 							</select>
 						</div>

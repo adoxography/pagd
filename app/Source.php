@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Algling\Morphemes\Models\Morpheme;
 use Algling\Nominals\Models\Form as NominalForm;
 use Algling\Nominals\NominalFormRepositoryInterface;
 use Algling\Verbals\Models\Form as VerbForm;
@@ -11,8 +10,7 @@ use Algling\Words\FormRepository;
 use Algling\Words\Models\Example;
 use Algling\Words\Models\Form;
 use Algling\Words\Models\Gap;
-use App\AlgPresenter;
-use App\Rule;
+use App\Models\Morphology\Morpheme;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -21,11 +19,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
 
 class Source extends Model implements VerbFormRepositoryInterface, NominalFormRepositoryInterface
 {
-    use Searchable;
-    use \App\BookmarkableTrait;
-    use \App\DisambiguatableTrait;
-    use SoftDeletes;
-    use RevisionableTrait;
+    use Searchable, BookmarkableTrait, DisambiguatableTrait, SoftDeletes, RevisionableTrait;
 
     public $table = 'Sources';
     protected $fillable = ['author', 'year', 'disambiguator', 'long', 'url', 'summary', 'notes'];

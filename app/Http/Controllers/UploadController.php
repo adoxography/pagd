@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Audio;
-use Illuminate\Http\Request;
 
 class UploadController extends Controller
 {

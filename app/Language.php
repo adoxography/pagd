@@ -1,38 +1,25 @@
 <?php
 namespace App;
 
-use Algling\Morphemes\Models\Morpheme;
 use Algling\Nominals\Traits\HasNominalsTrait;
 use Algling\Phonology\Inventory;
 use Algling\Phonology\Models\Phoneme;
 use Algling\SS\Models\Datapoint;
 use Algling\SS\Models\Variable;
-use Algling\Verbals\Models\Form;
-use Algling\Verbals\Models\Structure;
 use Algling\Verbals\Traits\HasVerbsTrait;
-use Algling\Words\Models\Example;
-use Algling\Words\Models\Gap;
-use Algling\Words\Traits\HasWordsTrait;
-use App\LanguagePresenter;
-use App\LocatableTrait;
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\Morphology\Morpheme;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 /**
  * A natural language
  */
 class Language extends Model
 {
-    use SoftDeletes;
-    use Searchable;
-    use \Venturecraft\Revisionable\RevisionableTrait;
-    use \App\HasChildrenTrait;
-    use \App\BacksUpTrait;
-    use \App\BookmarkableTrait;
-    use \App\HideableTrait;
-    use LocatableTrait;
+    use SoftDeletes, Searchable, RevisionableTrait, HasChildrenTrait, BacksUpTrait, BookmarkableTrait, HideableTrait,
+        LocatableTrait;
     use HasVerbsTrait, HasNominalsTrait {
         HasVerbsTrait::forms    insteadof HasNominalsTrait;
         HasVerbsTrait::examples insteadof HasNominalsTrait;
@@ -146,7 +133,7 @@ class Language extends Model
     /**
      * Loads all of the unique sources found in all of this languages's forms, morphemes, and examples
      * 
-     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function sources()
     {

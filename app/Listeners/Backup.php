@@ -3,14 +3,13 @@
 namespace App\Listeners;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Queue\InteractsWithQueue;
+use App;
+use Config;
+use Artisan;
+use Storage;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class Backup
+class Backup implements ShouldQueue
 {
     protected $fileName;
     protected $changeInterval;
@@ -20,8 +19,6 @@ class Backup
 
     /**
      * Create the event listener.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -38,10 +35,10 @@ class Backup
     /**
      * Handle the event.
      *
-     * @param  Saved  $event
+     * @param  $event
      * @return void
      */
-    public function handle($event)
+    public function handle()
     {
         // Only backup on the website environment.
         if(App::environment() == 'website') {
@@ -66,9 +63,6 @@ class Backup
      */
     protected function readFile()
     {
-        $file;
-        $components;
-
         if(Storage::exists($this->fileName)) {
             $file = Storage::get($this->fileName);
             $components = explode("\n", $file);

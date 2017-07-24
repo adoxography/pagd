@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Mail\Contact;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
+use Mail;
 
 /**
  * Controller for the contact email feature
@@ -25,12 +25,11 @@ class ContactController extends Controller
     /**
      * Send the message
      *
+     * @pram Request $request
      * @return \Illuminate\Http\Response
      */
     public function send(Request $request)
     {
-        $subject = "Contact from algling.net: ".$request->subject;
-
         $from  = $request->from;
         $email = $request->email;
         $body  = $request->body;

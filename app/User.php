@@ -1,7 +1,5 @@
 <?php
 namespace App;
-use App\AlgPresenter;
-use App\UserRole;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -58,18 +56,17 @@ class User extends Authenticatable
 
     public function bookmarks($table = null, $returnRelation = false)
     {
-        if($table) {
-
-            $relation = $this->morphedByMany($table, 'Bookmarkable')->withPivot('comment');
-
-            if($returnRelation) {
-                return $relation;
-            } else {
-                return $relation->get();
-            }
-        } else {
-
+        if(!$table) {
+            throw new \Exception("Table \"$table\" does not exist.");
         }
+
+        $relation = $this->morphedByMany($table, 'Bookmarkable')->withPivot('comment');
+
+        if(!$returnRelation) {
+            $relation = $relation->get();
+        }
+
+        return $relation;
     }
 
     public function type()

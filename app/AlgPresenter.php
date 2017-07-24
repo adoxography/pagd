@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Presenter;
 use Illuminate\Database\Eloquent\Model;
 
 class AlgPresenter extends Presenter
@@ -26,8 +25,8 @@ class AlgPresenter extends Presenter
 	/**
 	 * Get a link to the model's detail page
 	 * 
-	 * @param string More specific URI for the link, such as a specific show page
-	 * 
+	 * @param string $addon more specific URI for the link, such as a specific show page
+     * @param string $format the formatting to apply to the output
 	 * @return string
 	 */
 	public function link(string $addon = '', string $format = '')

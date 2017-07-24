@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Source;
-use Illuminate\Http\Request;
 use App\Http\Requests\SourceRequest;
-use App\Http\Controllers\AlgModelController;
 
 class SourceController extends Controller
 {
@@ -22,7 +20,7 @@ class SourceController extends Controller
         $sources = [];
 
         $alphas = range('A', 'Z');
-        foreach($alphas as $char) {
+        for ($i = 0; $i < count($alphas); $i++) {
             $sources[] = [];
         }
 
@@ -45,7 +43,6 @@ class SourceController extends Controller
     public function show(Source $source)
     {
         return redirect("/sources/{$source->id}/basic");
-        return view('sources.show', compact('source'));
     }
 
     public function store(SourceRequest $request){

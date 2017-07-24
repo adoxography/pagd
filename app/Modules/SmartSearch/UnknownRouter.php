@@ -2,8 +2,6 @@
 
 namespace App\Modules\SmartSearch;
 
-use App\Modules\SmartSearch\RouterInterface;
-
 class UnknownRouter implements RouterInterface
 {
 	protected $lookup;

@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Validator;
 
 abstract class Closed extends Model
 {

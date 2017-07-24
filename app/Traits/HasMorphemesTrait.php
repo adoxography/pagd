@@ -93,7 +93,7 @@ trait HasMorphemesTrait {
         $withoutInitialChange = array_last(explode('|', $morpheme));
         $chunks = explode('.', $withoutInitialChange);
 
-        $output['morpheme'] = $chunks[0];
+        $output['morpheme'] = preg_replace("/^\((.*)\)$/", "$1", $chunks[0]);
 
         if(count($chunks) > 1) {
             $output['disambiguator'] = $chunks[1];
@@ -142,6 +142,7 @@ trait HasMorphemesTrait {
             if($curr < count($savedMorphemes) && $savedMorphemes[$curr]->pivot->position == $index + 1) {
             // If the position of the pre-connected morpheme matches the position we're currently looking for, add it to the output
                 $output[] = $savedMorphemes[$curr++];
+                $output[count($output) - 1]['name'] = explode('.', array_last($initialChangePieces))[0];
 
                 if(count($initialChangePieces) > 1) {
                 // Initial change is at play here

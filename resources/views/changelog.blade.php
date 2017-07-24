@@ -6,6 +6,10 @@
 
 @section('content')
 	<ul class="indented-list">
+        <li>
+            24-07-17: Fixed bug preventing optional morphemes (i.e. morphemes wrapped in parentheses) from being recognized
+        </li>
+        <hr>
 		<li>
             23-07-17: Reduced weight of thicker borders in form paradigms
         </li>

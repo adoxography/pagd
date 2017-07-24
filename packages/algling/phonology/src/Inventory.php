@@ -74,7 +74,7 @@ class Inventory
 
 		return collect([
 			'firstSegments' => $this->getClusterFeature($featureSet, 'firstSegment', ['ʔ', 'H', 'h', 'N', 'm', 'n', 'š', 's', 'θ', 'r']),
-			'secondSegments' => $this->getClusterFeature($featureSet, 'secondSegment', ['p', 't', 'k', 'č', 's', 'š', 'θ', 'r', 'm'])
+			'secondSegments' => $this->getClusterFeature($featureSet, 'secondSegment', ['k', 'p', 't', 'č', 's', 'š', 'θ', 'r', 'm'])
 		]);
 	}
 

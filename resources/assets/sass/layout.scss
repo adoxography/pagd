@@ -25,6 +25,11 @@ strong {
 
 .card-header-icon a {
 	color: $sandbox-dark-grey;
+
+	&:hover {
+		color: $primary;
+		box-shadow: none;
+	}
 }
 
 p {

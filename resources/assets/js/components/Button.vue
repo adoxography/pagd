@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="alg-button">
 		<a @click.prevent="onClick">
 			<slot></slot>
 		</a>

@@ -3,6 +3,7 @@
 <p>This is to let you know that the ticket "{{ $ticket->title }}," which you had asked to be notified about, has been updated.</p>
 
 @if ($ticket->response)
+	<p>The following message was included:</p>
 	{!! $ticket->response !!}
 @endif
 

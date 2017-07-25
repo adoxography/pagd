@@ -64,7 +64,7 @@ return [
 
         'dropbox' => [
             'driver' => 'dropbox',
-            'authorizationToken' => 'NUgJYUPuXjQAAAAAAAAA_YiZG7Uq91J7_f9d5Q8Yzjep-XSS81Gv3JXFgnrg0NeD'
+            'authorizationToken' => 'jhermfkVYnAAAAAAAAAAB0btOj8QBLio4LR0GsExWnKBvC-LNyxD1M-yDRTDCN62'
         ]
 
     ],

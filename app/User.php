@@ -1,5 +1,6 @@
 <?php
 namespace App;
+use App\SubscribeableInterface;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -82,5 +83,12 @@ class User extends Authenticatable
     public function present($method = 'name')
     {
         return new AlgPresenter($this, $method);
+    }
+
+    public function isSubscribedTo(SubscribeableInterface $subscription)
+    {
+        $subscribers = $subscription->subscribers->pluck('id');
+
+        return $subscribers->contains($this->id);
     }
 }

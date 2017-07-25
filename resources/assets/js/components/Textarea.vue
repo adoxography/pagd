@@ -40,7 +40,7 @@ export default {
 			toolbar: 'undo redo | bold italic underline | link | charmap | bullist numlist outdent indent | table | clearformatting',
 			menubar: false,
 			statusbar: false,
-			setup: function(editor) {
+			setup: (editor) => {
 				editor.on('change', (e) => {
 					this.updateValue(editor.getContent());
 				});

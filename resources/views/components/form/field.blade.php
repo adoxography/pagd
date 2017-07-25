@@ -2,9 +2,9 @@
 <div class="field">
 		<label for="{{ $id or $name }}" class="label">
 			@if(isset($label))
-				{{ ucwords($label) }}
+				{{ ucfirst($label) }}
 			@else
-				{{ ucwords($name) }}
+				{{ ucfirst($name) }}
 			@endif
 		</label>
 

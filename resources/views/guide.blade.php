@@ -118,6 +118,17 @@
 		<h4 class="title is-4">Adding translations as glosses</h4>
 		<p>Translation-style glosses need to be handled differently from other kinds of glosses (e.g. they don't appear in small caps). To let the database know that the gloss you've entered is a translation, just surround it with double quotes. Although it is true that translation-style glosses should be interspersed with periods, you should enter your translation with spaces, because otherwise, the database will assume that you're trying to add multiple glosses (see above). The spaces will be converted to periods when the gloss is rendered.</p>
 	</alg-tab>
+
+	<alg-tab name="Tickets">
+		<h4 class="title is-4">What is a ticket?</h4>
+		<p>A ticket is a method for reporting errors and requesting new features.</p>
+		<br />
+		<h4 class="title is-4">What do I need to submit a ticket?</h4>
+		<p>That depends on the kind of ticket you're submitting. A simple request, like "add mode X," just needs a title. Other requests may need more; for example, errors should include as much detail as possible on what you were doing, when you were doing it, and what page it occurred on. Requests for entirely new features may need some justification for how you think the feature will add to the site.</p>
+		<br />
+		<h4 class="title is-4">How will I know when my ticket is closed?</h4>
+		<p>You can opt to receive an email notification (using the email you signed up with) when you open your ticket. You can change this selection at any time by viewing the ticket's page. Additionally, if you are interested in a ticket someone else has opened, you are free to opt in for notifications to that ticket as well.</p>
+	</alg-tab>
 </alg-tabs>
 
 @endsection

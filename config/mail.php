@@ -58,7 +58,7 @@ return [
 
     'from' => [
         'address' => 'gstill92@gmail.com',
-        'name' => 'Algling Administrator',
+        'name' => 'Alglang Contact',
     ],
 
     /*
@@ -85,7 +85,7 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME','gstill92@gmail.com'),
+    'username' => env('MAIL_USERNAME',''),
 
     /*
     |--------------------------------------------------------------------------
@@ -98,7 +98,7 @@ return [
     |
     */
 
-    'password' => env('MAIL_PASSWORD','gsirdftcstpmrdmd'),
+    'password' => env('MAIL_PASSWORD',''),
 
     /*
     |--------------------------------------------------------------------------

@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
         <li>
+            24-07-17: Added tickets
+        </li>
+        <li>
             24-07-17: Reordered cluster onsets k-p-t
         </li>
         <li>

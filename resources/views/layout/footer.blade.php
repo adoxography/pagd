@@ -21,7 +21,7 @@
 					<li><a href="/changelog">Changelog</a></li>
 					<li><a href="/log">Activity log</a></li>
 					<li><a href="/need-attention">Missing data</a></li>
-					<li><a href="mailto:gstill@uw.edu?Subject=DALS%20Error%20Report" style="color: red;">Submit an error report</a></li>
+					<li><a href="/tickets">Tickets</a></li>
 				</ul>
 			</nav>
 		@endif

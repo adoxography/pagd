@@ -13,6 +13,11 @@ use App\Contracts\Search;
 |
 */
 
+Route::resource('tickets', 'TicketController');
+Route::get('tickets/{ticket}/subscribe', 'TicketController@subscribe');
+Route::get('tickets/{ticket}/respond', 'TicketController@respond');
+Route::post('tickets/{ticket}/respond', 'TicketController@updateResponse');
+
 Route::get('',     'HomeController@index');
 Route::get('home', 'HomeController@index');
 Route::get('welcome', 'HomeController@index');

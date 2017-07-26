@@ -47,8 +47,8 @@ Route::get('resources', 'PageController@resources');
 Route::get('resources/statistics', 'PageController@statistics');
 
 // Contact Routes
-Route::get('contact',  'ContactController@index');
-Route::post('contact', 'ContactController@send');
+// Route::get('contact',  'ContactController@index');
+// Route::post('contact', 'ContactController@send');
 
 // Search Routes
 Route::get('search',          'SearchController@index');

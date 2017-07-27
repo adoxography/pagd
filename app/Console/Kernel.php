@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\DatabaseRestore::class,
         \App\Console\Commands\IndexSearchableModels::class,
         \App\Console\Commands\ImportSources::class,
+        \App\Console\Commands\SendTicketNotificationsToAdministrator::class
     ];
 
     /**
@@ -27,6 +28,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('algling:backup')
+                 ->daily();
+
+        $schedule->command('algling:send-ticket-notifications-to-administrator')
+                 ->daily();
     }
 
     /**

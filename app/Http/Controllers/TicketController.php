@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\TicketOpened;
 use App\Ticket;
+use App\TicketType;
 use Auth;
 use Mail;
 
@@ -12,6 +13,7 @@ class TicketController extends Controller
 	public function __construct()
 	{
 		$this->middleware('auth');
+        $this->middleware('checkbox:isUrgent')->only('store');
 	}
 
     public function index()
@@ -33,12 +35,14 @@ class TicketController extends Controller
 
     public function create()
     {
-    	return view('tickets.create');
+        $types = TicketType::all();
+
+    	return view('tickets.create', compact('types'));
     }
 
     public function store()
     {
-    	$ticket = new Ticket(request()->only(['title', 'url', 'current', 'desired', 'comments']));
+    	$ticket = new Ticket(request()->only(['title', 'url', 'current', 'desired', 'comments', 'ticketType_id', 'isUrgent']));
     	$ticket->user_id = Auth::user()->id;
     	$ticket->save();
 
@@ -46,7 +50,9 @@ class TicketController extends Controller
     		$ticket->subscribe(Auth::user());
     	}
 
-        $this->notifyAdministrator($ticket);
+        if(request()->isUrgent) {
+            $this->notifyAdministrator($ticket);
+        }
     	
     	return redirect("/tickets/{$ticket->id}");
     }

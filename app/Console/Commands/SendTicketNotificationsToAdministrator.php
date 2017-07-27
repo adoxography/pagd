@@ -1,0 +1,59 @@
+<?php
+
+namespace App\Console\Commands;
+
+use Mail;
+use App\Mail\TicketSummary;
+use App\Ticket;
+use App\User;
+use Carbon\Carbon;
+use Illuminate\Console\Command;
+
+class SendTicketNotificationsToAdministrator extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'algling:send-ticket-notifications-to-administrator';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Sends an email to the administrator containing all of the recently opened non-urgent tickets';
+
+    protected $tickets;
+
+    protected $user;
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->user = User::find(1);
+
+        $this->tickets = Ticket::where('isUrgent', true)
+            ->orWhere('created_at', '>=', Carbon::now()->subDay())
+            ->get();
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle()
+    {
+        if ($this->tickets->count() > 0) {
+            Mail::to($this->user)->send(new TicketSummary($this->tickets, $this->user));
+        }
+    }
+}

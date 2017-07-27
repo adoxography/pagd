@@ -14,7 +14,7 @@ class Ticket extends Model implements SubscribeableInterface
 
 	public $table = 'Tickets';
 
-    protected $fillable = ['title', 'url', 'current', 'desired', 'comments'];
+    protected $fillable = ['title', 'url', 'current', 'desired', 'comments', 'isUrgent', 'ticketType_id'];
 
     public function getNameAttribute()
     {
@@ -24,6 +24,11 @@ class Ticket extends Model implements SubscribeableInterface
     public function user()
     {
     	return $this->belongsTo(User::class);
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(TicketType::class, 'ticketType_id');
     }
 
     public function present(string $method = 'name')

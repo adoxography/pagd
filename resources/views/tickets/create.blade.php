@@ -10,6 +10,21 @@
 		'action' => '/tickets',
 		'visible' => true
 	])
+        <div class="field">
+            <label class="label">Type</label>
+            <div class="control">
+                <div class="select">
+                    <select name="ticketType_id">
+                        @foreach ($types as $type)
+                            <option value="{{ $type->id }}" @if($type->description) title="{{ $type->description }}" @endif>
+                                {{ $type->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+
     	@component('components.form.text', [
     		'name' => 'title',
     		'placeholder' => 'A brief description of the request',
@@ -66,6 +81,12 @@
     	        @endif
     	    @endslot
     	@endcomponent
+
+        @include('components.form.checkbox', [
+            'name' => 'isUrgent',
+            'label' => 'This ticket is urgent',
+            'checked' => false
+        ])
 
     	@include('components.form.checkbox', [
     		'name' => 'notify',

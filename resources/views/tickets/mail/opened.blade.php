@@ -1,6 +1,6 @@
 <p>Hi {{ $user->firstName }},</p>
 
-<p>{{ $ticket->user->name }} has made the following request on Alglang.net:</p>
+<p>{{ $ticket->user->name }} has made the following urgent request on Alglang.net:</p>
 
 <p>{{ $ticket->title }}</p>
 

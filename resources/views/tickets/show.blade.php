@@ -23,6 +23,11 @@
 				{{ $ticket->user->name }}
 			</div>
 
+			<div class="field is-one-line">
+				<span class="label">Ticket type:</span>
+				{{ $ticket->type->name }}
+			</div>
+
 			@if ($ticket->url)
 				<div class="field is-one-line">
 					<span class="label">URL:</span>
@@ -58,6 +63,15 @@
 				{{ $ticket->isClosed ? 'Closed on ' . $ticket->closedOn() : 'Opened on ' . $ticket->openedOn() }}
 			</div>
 			@if (!$ticket->isClosed)
+				@if ($ticket->isUrgent)
+					<div class="field" style="color: red">
+						<span class="icon">
+							<i class="fa fa-exclamation-circle"></i>
+						</span>
+						Ticket is urgent
+					</div>
+				@endif
+
 				<div class="field">
 					@if (Auth::user()->isSubscribedTo($ticket))
 						You will be notified when the status changes. <a href="/tickets/{{ $ticket->id }}/subscribe">(Unsubscribe)</a>

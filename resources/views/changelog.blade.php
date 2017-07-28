@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			28-07-17: Styled emails
+		</li>
+		<hr />
+		<li>
 			25-07-17: Standardized icons
 		</li>
 		<hr>

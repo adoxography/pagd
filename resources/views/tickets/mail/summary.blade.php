@@ -1,17 +1,17 @@
-<p>Hi {{ $user->firstName }},</p>
+@component('mail::message')
+Hi {{ $user->firstName }},
 
-<p>The following urgent tickets remain open:</p>
+The following urgent tickets remain open:
 
-<ul>
-	@foreach ($urgentTickets as $ticket)
-		<li><a href="http://alglang.net/tickets/{{ $ticket->id }}">{{ $ticket->title }}</a></li>
-	@endforeach
-</ul>
+@foreach ($urgentTickets as $ticket)
+- [{{ $ticket->title }}](http://alglang.net/tickets/{{ $ticket->id }})
+@endforeach
 
-<p>Additionally, the following non-urgent tickets were opened in the last day:</p>
+Additionally, the following non-urgent tickets were opened in the last day:
 
-<ul>
-	@foreach ($nonUrgentTickets as $ticket)
-		<li><a href="http://alglang.net/tickets/{{ $ticket->id }}">{{ $ticket->title }}</a></li>
-	@endforeach
-</ul>
+@if (count($nonUrgentTickets) > 0)
+@foreach ($nonUrgentTickets as $ticket)
+- [{{ $ticket->title }}](http://alglang.net/tickets/{{ $ticket->id }})
+@endforeach
+@endif
+@endcomponent

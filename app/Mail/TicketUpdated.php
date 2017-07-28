@@ -34,6 +34,6 @@ class TicketUpdated extends Mailable
      */
     public function build()
     {
-        return $this->view('tickets.mail.closed');
+        return $this->markdown('tickets.mail.closed');
     }
 }

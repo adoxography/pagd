@@ -36,6 +36,6 @@ class TicketSummary extends Mailable
      */
     public function build()
     {
-        return $this->view('tickets.mail.summary');
+        return $this->markdown('tickets.mail.summary');
     }
 }

@@ -1,7 +1,13 @@
-<p>Hi {{ $user->firstName }},</p>
+@component('mail::message')
+Hi {{ $user->firstName }},
 
-<p>{{ $ticket->user->name }} has made the following urgent request on Alglang.net:</p>
+{{ $ticket->user->name }} has made the following urgent request on alglang.net:
 
-<p>{{ $ticket->title }}</p>
-
-<p><a href="http://alglang.net/tickets/{{ $ticket->id }}">Click here to view the ticket</a>
+@component('mail::panel')
+#{{ $ticket->title }}
+@endcomponent
+&nbsp;
+@component('mail::button', ['url' => "http://alglang.net/tickets/{$ticket->id}"])
+View the ticket
+@endcomponent
+@endcomponent

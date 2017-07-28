@@ -34,6 +34,6 @@ class TicketOpened extends Mailable
      */
     public function build()
     {
-        return $this->view('tickets.mail.opened');
+        return $this->markdown('tickets.mail.opened');
     }
 }

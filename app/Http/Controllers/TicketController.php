@@ -6,6 +6,7 @@ use App\Mail\TicketOpened;
 use App\Ticket;
 use App\TicketType;
 use Auth;
+use Illuminate\Database\Eloquent\Collection;
 use Mail;
 
 class TicketController extends Controller
@@ -18,10 +19,10 @@ class TicketController extends Controller
 
     public function index()
     {
-    	$ticket = Ticket::all();
+    	$ticket = Ticket::with('type')->get();
 
-    	$open = $ticket->where('isClosed', false);
-    	$closed = $ticket->where('isClosed', true)->sortBy('updated_at');
+    	$open = $this->mapTicketsToType($ticket->where('isClosed', false));
+    	$closed = $this->mapTicketsToType($ticket->where('isClosed', true)->sortBy('updated_at'));
 
     	return view('tickets.index', compact('open', 'closed'));
     }
@@ -88,5 +89,16 @@ class TicketController extends Controller
     {
         $admin = Auth::user()->find(1);
         Mail::to($admin)->send(new TicketOpened($ticket, $admin));
+    }
+
+    protected function mapTicketsToType(Collection $tickets)
+    {
+        $map = [];
+        $types = $tickets->pluck('type')->unique()->sortBy('id');
+        foreach($types as $type) {
+            $map[$type->name] = $tickets->where('ticketType_id', $type->id);
+        }
+
+        return $map;
     }
 }

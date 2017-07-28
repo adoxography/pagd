@@ -11,23 +11,35 @@
 
 	<alg-tabs>
 		<alg-tab name="Open" :selected="true">
-			@if ($open->count() > 0)
-				<ul>
-					@foreach ($open as $ticket)
-						<li>{!! $ticket->present('link') !!}</li>
+			@if (count($open) > 0)
+				<alg-tabs>
+					@foreach ($open as $name => $tickets)
+							<alg-tab name="{{ $name }}" @if($loop->first) :selected="true" @endif>
+								<ul>
+									@foreach ($tickets as $ticket)
+										<li>{!! $ticket->present('link') !!}</li>
+									@endforeach
+								</ul>
+							</alg-tab>
 					@endforeach
-				</ul>
+				</alg-tabs>
 			@else
 				No open requests
 			@endif
 		</alg-tab>
 		<alg-tab name="Closed">
-			@if ($closed->count() > 0)
-				<ul>
-					@foreach ($closed as $ticket)
-						<li>{!! $ticket->present('link') !!}</li>
+			@if (count($closed) > 0)
+				<alg-tabs>
+					@foreach ($closed as $name => $tickets)
+							<alg-tab name="{{ $name }}" @if($loop->first) :selected="true" @endif>
+								<ul>
+									@foreach ($tickets as $ticket)
+										<li>{!! $ticket->present('link') !!}</li>
+									@endforeach
+								</ul>
+							</alg-tab>
 					@endforeach
-				</ul>
+				</alg-tabs>
 			@else
 				No closed requests
 			@endif

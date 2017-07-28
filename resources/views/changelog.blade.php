@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			28-07-17: Sorted tickets by type
+		</li>
+		<li>
 			28-07-17: Styled emails
 		</li>
 		<hr />

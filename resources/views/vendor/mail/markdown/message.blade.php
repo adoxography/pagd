@@ -21,7 +21,7 @@
     {{-- Footer --}}
     @slot('footer')
         @component('mail::footer')
-            © 2016 {{ config('app.name') }}. All rights reserved.
+            © 2017 {{ config('app.name') }}. All rights reserved.
         @endcomponent
     @endslot
 @endcomponent

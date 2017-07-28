@@ -17,7 +17,8 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\DatabaseRestore::class,
         \App\Console\Commands\IndexSearchableModels::class,
         \App\Console\Commands\ImportSources::class,
-        \App\Console\Commands\SendTicketNotificationsToAdministrator::class
+        \App\Console\Commands\SendTicketNotificationsToAdministrator::class,
+        \App\Console\Commands\EmailSiteSummary::class
     ];
 
     /**
@@ -33,6 +34,9 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('algling:send-ticket-notifications-to-administrator')
                  ->daily();
+
+        $schedule->command('algling:email-site-summary')
+                 ->weekly();
     }
 
     /**

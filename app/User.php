@@ -25,6 +25,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public static function administrators()
+    {
+        return (static::class)::where('userRoles_id', 1)->get();
+    }
+
     public function getNameAttribute()
     {
         $name = $this->firstName;

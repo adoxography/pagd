@@ -218,7 +218,7 @@ class Structure extends Model
             }
 
             // Catch any exceptions to the rules
-            if ($subclass === 'TA') {
+            if (!isset($subclass)) {
                 $subclass = 'TA Other';
             }
 

@@ -50,10 +50,10 @@
 		<br />
 	@endif
 
-	@if(count($user->bookmarks(Algling\Morphemes\Models\Morpheme::class)) > 0)
+	@if(count($user->bookmarks(App\Models\Morphology\Morpheme::class)) > 0)
 		<h4 class="subtitle is-4">Morphemes</h4>
 		<ul>
-			@foreach($user->bookmarks(Algling\Morphemes\Models\Morpheme::class) as $morpheme)
+			@foreach($user->bookmarks(App\Models\Morphology\Morpheme::class) as $morpheme)
 				<li>
 					{!! $morpheme->present()->as('unique', 'link')->then('language') !!}
 					@if($morpheme->pivot->comment)
@@ -95,10 +95,10 @@
 		<br />
 	@endif
 
-	@if(count($user->bookmarks(Algling\Morphemes\Models\Slot::class)) > 0)
+	@if(count($user->bookmarks(App\Models\Morphology\Slot::class)) > 0)
 		<h4 class="subtitle is-4">Slots</h4>
 		<ul>
-			@foreach($user->bookmarks(Algling\Morphemes\Models\Slot::class) as $slot)
+			@foreach($user->bookmarks(App\Models\Morphology\Slot::class) as $slot)
 				<li>
 					<a href="/slots/{{ $slot->id }}">{{ $slot->abv }}</a>
 					@if($slot->pivot->comment)
@@ -110,10 +110,10 @@
 		<br />
 	@endif
 
-	@if(count($user->bookmarks(Algling\Morphemes\Models\Gloss::class)) > 0)
+	@if(count($user->bookmarks(App\Models\Morphology\Gloss::class)) > 0)
 		<h4 class="subtitle is-4">Glosses</h4>
 		<ul>
-			@foreach($user->bookmarks(Algling\Morphemes\Models\Gloss::class) as $gloss)
+			@foreach($user->bookmarks(App\Models\Morphology\Gloss::class) as $gloss)
 				<li>
 					<a href="/glosses/{{ $gloss->id }}">{{ $gloss->abv }}</a>
 					@if($gloss->pivot->comment)

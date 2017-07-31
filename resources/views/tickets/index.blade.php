@@ -24,7 +24,7 @@
 					@endforeach
 				</alg-tabs>
 			@else
-				No open requests
+				No open tickets
 			@endif
 		</alg-tab>
 		<alg-tab name="Closed">
@@ -41,7 +41,7 @@
 					@endforeach
 				</alg-tabs>
 			@else
-				No closed requests
+				No closed tickets
 			@endif
 		</alg-tab>
 	</alg-tabs>

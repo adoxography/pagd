@@ -1,0 +1,3 @@
+<a href="/nominals/forms/{{ $form->id }}/basic" class="panel-block @if(Route::is('nominalForms::showBasic')) is-active @endif">Basic details</a>
+<a href="/nominals/forms/{{ $form->id }}/cognates" class="panel-block @if(Route::is('nominalForms::showCognates')) is-active @endif">Cognates</a>
+<a href="/nominals/forms/{{ $form->id }}/log" class="panel-block @if(Route::is('nominalForms::showLog')) is-active @endif">Credits</a>

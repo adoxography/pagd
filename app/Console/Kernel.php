@@ -30,13 +30,20 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('algling:backup')
-                 ->daily();
+                 ->everyMinute()
+                 ->timezone('America/Winnipeg')
+                 ->between('00:00', '1:00');
 
         $schedule->command('algling:send-ticket-notifications-to-administrator')
-                 ->daily();
+                 ->everyMinute()
+                 ->timezone('America/Winnipeg')
+                 ->between('18:00', '19:00');
 
         $schedule->command('algling:email-site-summary')
-                 ->weekly();
+                 ->everyMinute()
+                 ->mondays()
+                 ->timezone('America/Winnipeg')
+                 ->between('11:00', '12:00');
     }
 
     /**

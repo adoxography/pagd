@@ -87,4 +87,9 @@ class PhonemeController extends Controller
 
         return view('phon::reflexes.create', compact('child'));
     }
+
+    public function addExample(Phoneme $phoneme)
+    {
+        return view('phon::examples.create', compact('phoneme'));
+    }
 }

@@ -1,5 +1,11 @@
 <?php
 
+Route::group(['as' => 'phonExamples::'], function() {
+	Route::post('phonemes/examples', 'ExampleController@store')->name('store');
+	Route::get('phonemes/examples/create', 'ExampleController@create')->name('create');
+	Route::get('phonemes/examples/{phonExample}', 'ExampleController@show')->name('show');
+});
+
 Route::group(['as' => 'phonemes::'], function() {
 	Route::resource('phonemes', 'PhonemeController');
 
@@ -9,6 +15,7 @@ Route::group(['as' => 'phonemes::'], function() {
 
 	Route::get('phonemes/{phoneme}/addParent', 'PhonemeController@addParent')->name('addParent');
 	Route::get('phonemes/{phoneme}/addChild', 'PhonemeController@addChild')->name('addChild');
+	Route::get('phonemes/{phoneme}/addExample', 'PhonemeController@addExample')->name('addExample');
 });
 
 Route::group(['as' => 'clusters::'], function() {

@@ -5,9 +5,9 @@
 		<div class="field">
 			<span class="label">
 				Parents of {!! $phoneme->present() !!}
-				@if(Auth::user() && Auth::user()->permissions->canEdit)
+				@can('add content')
 					(<a href="/phonemes/{{ $phoneme->id }}/addChild">Add another</a>)
-				@endif
+				@endcan
 			</span>
 			{!! $phoneme->present()->parentReflexes !!}
 		</div>
@@ -17,9 +17,9 @@
 		<div class="field">
 			<span class="label">
 				Daughters of {!! $phoneme->present() !!}
-				@if(Auth::user() && Auth::user()->permissions->canEdit)
+				@can('add content')
 					(<a href="/phonemes/{{ $phoneme->id }}/addParent">Add another</a>)
-				@endif
+				@endcan
 			</span>
 			{!! $phoneme->present()->childReflexes !!}
 		</div>

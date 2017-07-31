@@ -2,18 +2,23 @@
 
 namespace Algling\Phonology;
 
-use Route;
-use App\Language;
-use Algling\Phonology\Models\Place;
+use Algling\Phonology\Models\Backness;
+use Algling\Phonology\Models\Example;
 use Algling\Phonology\Models\Height;
 use Algling\Phonology\Models\Length;
 use Algling\Phonology\Models\Manner;
+use Algling\Phonology\Models\Place;
 use Algling\Phonology\Models\Voicing;
-use Algling\Phonology\Models\Backness;
+use App\Language;
 use Illuminate\Support\ServiceProvider;
+use Route;
 
 class PhonologyServiceProvider extends ServiceProvider
 {
+    protected $connections = [
+        Example::class => 'phonExample',
+    ];
+
     /**
      * Bootstrap the application services.
      *
@@ -23,6 +28,7 @@ class PhonologyServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/migrations');
         $this->loadViewsFrom(__DIR__.'/resources/views', 'phon');
+        $this->bootRouteModelBindings();
         $this->composeViews();
     }
 
@@ -45,6 +51,15 @@ class PhonologyServiceProvider extends ServiceProvider
     {
         $this->composePhonemeForm();
         $this->composeReflexForm();
+    }
+
+    protected function bootRouteModelBindings()
+    {
+        foreach($this->connections as $model => $binding) {
+            Route::bind($binding, function($value) use ($model) {
+                return $model::find($value);
+            });
+        }
     }
 
     protected function composePhonemeForm()

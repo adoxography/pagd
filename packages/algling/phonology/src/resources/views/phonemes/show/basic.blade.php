@@ -65,7 +65,7 @@
 				</div>
 			@endif
 
-			@if($phoneme->privateNotes && Auth::user() && Auth::user()->permissions->canEdit)
+			@if($phoneme->privateNotes && Auth::user() && Auth::user()->hasPermissionTo('add content'))
 				<div class="field">
 					<span class="label">Private notes</span>
 					{!! replaceTags($phoneme->privateNotes, $phoneme->language_id) !!}

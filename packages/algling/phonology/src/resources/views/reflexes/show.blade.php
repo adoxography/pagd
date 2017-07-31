@@ -24,7 +24,7 @@
 				</div>
 			@endif
 
-			@if ($reflex->privateNotes && Auth::user() && Auth::user()->permissions->canEdit)
+			@if ($reflex->privateNotes && Auth::user() && Auth::user()->hasPermissionTo('add content'))
 				<div class="field">
 					<span class="label">Private notes</span>
 					{!! replaceTags($reflex->privateNotes, $reflex->reflex->language_id) !!}

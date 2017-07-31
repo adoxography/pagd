@@ -14,7 +14,7 @@ class FormRequest extends Request
      */
     public function authorize()
     {
-        return Auth::user() && Auth::user()->permissions->canEdit;
+        return Auth::user() && Auth::user()->hasPermissionTo('add content');
     }
 
     /**

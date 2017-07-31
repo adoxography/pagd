@@ -55,14 +55,30 @@ class UserController extends Controller
 
     public function history(User $user)
     {
-        $user->load('revisions');
+        $revisions = $user->revisions()->simplePaginate(100);
 
-        return view('users.show.history', compact('user'));
+        return view('users.show.history', compact('user', 'revisions'));
     }
 
     public function bookmarks()
     {
         $user = Auth::user();
         return view('users.bookmarks', compact('user'));
+    }
+
+    public function unsubscribe(string $subscription)
+    {
+        switch ($subscription) {
+            case 'site-summary':
+                Auth::user()->update(['receiveSiteSummary' => false]);
+                flash("You have been successfully unsubscribed.", 'is-success');
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+
+        return redirect('/');
     }
 }

@@ -5,10 +5,10 @@
 @endsection
 
 @section('content')
-	@if(Auth::user() && Auth::user()->permissions->canEdit)
+	@can('add content')
 		<h3 class="subtitle"><a href="/languages/create">Add another</a></h3>
 		<br />
-	@endif
+	@endcan
 
 	@foreach($groups as $group)
 		@if(count($group->languages) > 0)
@@ -16,8 +16,8 @@
 			@include('components.index', ['items' => $group->languages, 'model' => 'languages'])
 		@endif
 	@endforeach
-	@if(Auth::user() && Auth::user()->permissions->canEdit)
+	@can('add content')
 		<br />
 		<a href="/languages/order" class="button is-primary is-medium">Modify the order</a>
-	@endif
+	@endcan
 @stop

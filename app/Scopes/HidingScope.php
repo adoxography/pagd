@@ -13,7 +13,7 @@ class HidingScope implements Scope {
 	{
 		$user = Auth::user();
 
-		if(!$user || !$user->permissions->canEdit) {
+		if(!$user || !$user->hasPermissionTo('add content')) {
 			$builder->whereNull($model->getQualifiedHiddenAtColumn());
 		}
 	}

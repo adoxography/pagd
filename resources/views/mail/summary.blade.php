@@ -28,4 +28,12 @@ Here is the activity summary for alglang.net over the past week:
 @foreach ($data as $label => $arr)
 - {{ ucfirst($label) }}: {{ $arr['count'] }}
 @endforeach
+
+@slot('footer')
+@component('mail::footer')
+© 2017 {{ config('app.name') }}. All rights reserved.  
+  
+This email was sent because you are registered as a project leader on Alglang.net. If you no longer wish to receive these emails, [click here to unsubscribe](http://www.alglang.net/profile/unsubscribe/site-summary)
+@endcomponent
+@endslot
 @endcomponent

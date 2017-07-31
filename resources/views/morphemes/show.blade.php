@@ -70,9 +70,9 @@
 						@include('components.model.text', ['width' => 'is-12', 'text' => $morpheme->historicalNotes, 'language_id' => $morpheme->language_id])
 
 						{{-- Comments --}}
-						@if(Auth::user())
+						@can('add content')
 							@include('components.model.text', ['width' => 'is-12', 'label' => 'Private Comments', 'text' => $morpheme->comments, 'language_id' => $morpheme->language_id])
-						@endif
+						@endcan
 					</div>
 				</div>
 			</model-tab>

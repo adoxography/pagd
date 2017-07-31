@@ -30,7 +30,7 @@
 					<h5 class="subtitle is-5">Browse</h5>
 				</a>
 			</div>
-			@if(Auth::user() && Auth::user()->permissions->canEdit)
+			@can('add content')
 				<div class="navbar-item has-dropdown is-hoverable">
 					<a class="navbar-link">
 						<h5 class="subtitle is-5">Add</h5>
@@ -59,7 +59,7 @@
 						<a class="navbar-item" href="/datapoints/create">Datapoint</a>
 					</div>
 				</div>
-			@endif
+			@endcan
 		</div>
 	</div>
 </nav>

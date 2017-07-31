@@ -4,7 +4,7 @@ if(!isset($uri)) {
 }
 @endphp
 
-@if(Auth::user() && Auth::user()->permissions->canEdit)
+@can('add content')
 	@section('icons')
 		@if(method_exists($model, 'isHidden'))
 			<alg-hidden-icon uri="{{ $uri }}{{ $model->id }}" hidden="{{ $model->isHidden() }}"></alg-hidden-icon>
@@ -15,12 +15,12 @@ if(!isset($uri)) {
 	        	<i class="fa fa-pencil"></i>
 	      	</span>
 	    </a>
-	    @if(Auth::user()->permissions->canHardDelete)
+	    @can('delete content')
 	    	<alg-button action="{{ $uri }}{{ $model->id }}" method="DELETE" class="card-header-icon" title="Delete">
 	    		<span class="icon">
 	    			<i class="fa fa-trash"></i>
 	    		</span>
 	    	</alg-button>
-	    @endif
+	    @endcan
     @endsection
-@endif
+@endcan

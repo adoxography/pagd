@@ -1,6 +1,7 @@
 @extends('users.show')
 
 @section('content')
+	{{ $revisions->links() }}
 	<table class="table is-striped">
 		<thead>
 			<tr>
@@ -13,7 +14,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach($user->revisions as $revision)
+			@foreach($revisions as $revision)
 				@php
 					$model = $revision->historyOf();
 				@endphp
@@ -31,4 +32,5 @@
 			@endforeach
 		</tbody>
 	</table>
+	{{ $revisions->links() }}
 @endsection

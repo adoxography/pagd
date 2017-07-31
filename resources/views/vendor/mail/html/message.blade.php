@@ -20,8 +20,12 @@
 
     {{-- Footer --}}
     @slot('footer')
+        @isset($footer)
+            {!! $footer !!}
+        @else
         @component('mail::footer')
             &copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
         @endcomponent
+        @endisset
     @endslot
 @endcomponent

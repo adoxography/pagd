@@ -36,7 +36,7 @@
 				</div>
 			@endif
 
-			@if($gap->privateNotes && Auth::user() && Auth::user()->permissions->canEdit)
+			@if($gap->privateNotes && Auth::user() && Auth::user()->hasPermissionTo('add content'))
 				<div class="field">
 					<span class="label">Private notes</span>
 					{!! replaceTags($gap->privateNotes, $gap->language_id) !!}

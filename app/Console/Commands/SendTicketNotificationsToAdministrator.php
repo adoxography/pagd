@@ -27,7 +27,7 @@ class SendTicketNotificationsToAdministrator extends Command
 
     protected $tickets;
 
-    protected $user;
+    protected $users;
 
     /**
      * Create a new command instance.
@@ -38,7 +38,7 @@ class SendTicketNotificationsToAdministrator extends Command
     {
         parent::__construct();
 
-        $this->user = User::find(1);
+        $this->users = User::role('developer')->get();
 
         $this->tickets = Ticket::where('isUrgent', true)
             ->orWhere('created_at', '>=', Carbon::now()->subDay())
@@ -53,7 +53,9 @@ class SendTicketNotificationsToAdministrator extends Command
     public function handle()
     {
         if ($this->tickets->count() > 0) {
-            Mail::to($this->user)->send(new TicketSummary($this->tickets, $this->user));
+            foreach ($this->users as $user) {
+                Mail::to($user)->send(new TicketSummary($this->tickets, $user));
+            }
         }
     }
 }

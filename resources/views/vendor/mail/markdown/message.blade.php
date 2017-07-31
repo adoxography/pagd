@@ -20,8 +20,12 @@
 
     {{-- Footer --}}
     @slot('footer')
-        @component('mail::footer')
-            © 2017 {{ config('app.name') }}. All rights reserved.
-        @endcomponent
+        @isset($footer)
+            {!! $footer !!}
+        @else
+            @component('mail::footer')
+                © 2017 {{ config('app.name') }}. All rights reserved.
+            @endcomponent
+        @endisset
     @endslot
 @endcomponent

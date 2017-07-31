@@ -28,8 +28,6 @@
 <a href="/languages/{{ $language->id }}/sources" class="panel-block @if(Route::is('languages::showSources')) is-active @endif">
 	Sources
 </a>
-@if(Auth::user() && Auth::user()->permissions->canEdit)
-	<a href="/languages/{{ $language->id }}/log" class="panel-block @if(Route::is('languages::showLog')) is-active @endif">
-		Credits
-	</a>
-@endif
+<a href="/languages/{{ $language->id }}/log" class="panel-block @if(Route::is('languages::showLog')) is-active @endif">
+	Credits
+</a>

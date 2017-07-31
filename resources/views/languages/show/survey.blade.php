@@ -19,7 +19,7 @@
 								});
 							@endphp
 
-							@if($index !== false || (Auth::user() && Auth::user()->permissions->canEdit))
+							@if($index !== false || (Auth::user() && Auth::user()->hasPermissionTo('add content')))
 								<tr>
 									<td><a href="/variables/{{ $variable->id }}">{{ $variable->name }}</a></td>
 									<td>
@@ -29,9 +29,9 @@
 											</a>
 										@else
 											Not entered
-											@if(Auth::user() && Auth::user()->permissions->canEdit)
+											@can('add content')
 												(<a href="/variables/{{ $variable->id }}/languages/{{ $language->id }}/addDatapoint">Add</a>)
-											@endif
+											@endcan
 										@endif
 									</td>
 								</tr>

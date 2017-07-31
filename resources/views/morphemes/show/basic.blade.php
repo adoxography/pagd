@@ -47,7 +47,7 @@
 					@endif
 				</div>
 			@endif
-			@if(Auth::user() && Auth::user()->permissions->canEdit && $morpheme->privateNotes)
+			@if(Auth::user() && Auth::user()->hasPermissionTo('add content') && $morpheme->privateNotes)
 				<div class="field">
 					<span class="label">Private notes</span>
 					{!! replaceTags($morpheme->privateNotes, $morpheme->language_id) !!}

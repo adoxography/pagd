@@ -209,3 +209,22 @@ function fixMorphemes()
         $form->connectMorphemes();
     }
 }
+
+function assignRoles()
+{
+    $users = App\User::all();
+
+    foreach ($users as $user) {
+        $roles = ['reader', 'contributor'];
+
+        if ($user->userRoles_id == 1) {
+            if ($user->id == 1) {
+                $roles[] = 'developer';
+            } else {
+                $roles[] = 'leader'; 
+            }  
+        }
+
+        $user->assignRole($roles);
+    }
+}

@@ -11,7 +11,6 @@ use App\Models\Morphology\Morpheme;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Database\Eloquent\Collection;
 use Mail;
 
 class EmailSiteSummary extends Command
@@ -30,7 +29,7 @@ class EmailSiteSummary extends Command
      */
     protected $description = 'Email a summary site activity for the past week';
 
-    protected $admins;
+    protected $leaders;
 
     protected $data = [];
 
@@ -46,14 +45,12 @@ class EmailSiteSummary extends Command
     /**
      * Create a new command instance.
      *
-     * @return void
      */
     public function __construct()
     {
         parent::__construct();
 
-        // $this->admins = User::administrators();
-        $this->admins = User::where('id', 1)->get();
+        $this->leaders = User::where('receiveSiteSummary', true)->get();
 
         foreach ($this->dataTypes as $key => $class)
         {
@@ -104,8 +101,8 @@ class EmailSiteSummary extends Command
      */
     public function handle()
     {
-        foreach($this->admins as $admin) {
-            Mail::to($admin)->send(new SiteSummary($this->data, $admin));
+        foreach($this->leaders as $leader) {
+            Mail::to($leader)->send(new SiteSummary($this->data, $leader));
         }
     }
 }

@@ -108,6 +108,9 @@ class Example extends Model
 
     public function getLanguageAttribute()
     {
+        if (!$this->form) {
+            return '';
+        }
         return $this->form->language;
     }
 

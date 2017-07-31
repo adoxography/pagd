@@ -55,6 +55,7 @@ Vue.component('alg-phoneme-form',  require('./components/forms/Phoneme.vue'));
 Vue.component('alg-allophone-form',  require('./components/forms/Allophone.vue'));
 Vue.component('alg-reflex-form',  require('./components/forms/Reflex.vue'));
 Vue.component('alg-audio-form',  require('./components/forms/Audio.vue'));
+Vue.component('alg-phoneme-example-form',  require('./components/forms/PhonemeExample.vue'));
 
 Vue.component('alg-order', require('./components/Order.vue'));
 Vue.component('alg-textarea', require('./components/Textarea.vue'));

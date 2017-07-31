@@ -17,7 +17,7 @@
 			{!! replaceTags($source->summary) !!}
 		</div>
 	@endif
-	@if($source->notes && Auth::user() && Auth::user()->permissions->canEdit)
+	@if($source->notes && Auth::user() && Auth::user()->hasPermissionTo('add content'))
 		<div class="field">
 			<span class="label">Notes</span>
 			{!! replaceTags($source->notes) !!}

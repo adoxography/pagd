@@ -66,7 +66,7 @@
 				</div>
 			@endif
 
-			@if(Auth::user() && Auth::user()->permissions->canEdit && $form->privateNotes)
+			@if(Auth::user() && Auth::user()->hasPermissionTo('add content') && $form->privateNotes)
 				<div class="field">
 					<span class="label">Private notes</span>
 					{!! replaceTags($form->privateNotes, $form->language_id) !!}

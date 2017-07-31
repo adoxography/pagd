@@ -166,7 +166,6 @@ return [
         /*
          * Package Service Providers...
          */
-        'Laracasts\Utilities\JavaScript\JavaScriptServiceProvider',
         BackupManager\Laravel\Laravel5ServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
@@ -178,6 +177,7 @@ return [
         Algling\Verbals\VerbalServiceProvider::class,
         Algling\Nominals\NominalServiceProvider::class,
         Algling\Phonology\PhonologyServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -191,7 +191,7 @@ return [
         App\Providers\CustomValidationProvider::class,
         App\Providers\MorphMapServiceProvider::class,
         App\Providers\ObserverServiceProvider::class,
-        App\Providers\DropboxServiceProvider::class,
+        App\Providers\DropboxServiceProvider::class
     ],
 
     /*

@@ -26,7 +26,7 @@
 					{!! replaceTags($rule->publicComments, $rule->language_id) !!}
 				</div>
 			@endif
-			@if(Auth::user() && Auth::user()->permissions->canEdit && $rule->privateComments)
+			@if(Auth::user() && Auth::user()->hasPermissionTo('add content') && $rule->privateComments)
 				<div class="field">
 					<span class="label">Notes</span>
 					{!! replaceTags($rule->privateComments, $rule->language_id) !!}

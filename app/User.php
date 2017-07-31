@@ -4,9 +4,10 @@ use App\SubscribeableInterface;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasRoles;
     public $table = 'users';
     /**
      * The attributes that are mass assignable.
@@ -14,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstName', 'lastName', 'email', 'password', 'userRoles_id',
+        'firstName', 'lastName', 'email', 'password', 'receiveSiteSummary',
     ];
     /**
      * The attributes that should be hidden for arrays.
@@ -25,9 +26,15 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public static function administrators()
+    public static function administrators(callable $closure = null)
     {
-        return (static::class)::where('userRoles_id', 1)->get();
+        $query = (static::class)::where('userRoles_id', 1);
+
+        if (isset($closure)) {
+            $closure($query);
+        }
+
+        return $query->get();
     }
 
     public function getNameAttribute()
@@ -73,16 +80,6 @@ class User extends Authenticatable
         }
 
         return $relation;
-    }
-
-    public function type()
-    {
-        return $this->belongsTo(UserRole::class, 'userRoles_id', 'id');
-    }
-
-    public function permissions()
-    {
-        return $this->type();
     }
 
     public function present($method = 'name')

@@ -4,7 +4,7 @@
 	<div class="field">
 		<span class="is-one-line">
 			<span class="label">User type:</span>
-			{{ $user->type->name }}
+			{{ ucfirst($user->roles()->first()->name) }}
 		</span>
 
 		<span class="is-one-line">

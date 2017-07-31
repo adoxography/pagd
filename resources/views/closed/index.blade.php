@@ -5,9 +5,9 @@
 @endsection
 
 @section('content')
-	@if(Auth::user() && Auth::user()->permissions->canEdit)
+	@can('add content')
 		<h3 class="subtitle"><a href="/{{ strtolower($model) }}/create">Add another</a></h3>
-	@endif
+	@endcan
 
 	@include('components.index', ['items' => $items, 'model' => $model])
 

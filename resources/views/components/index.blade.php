@@ -8,7 +8,7 @@
 							<a href="/{{ $model }}/{{ $item->id }}">{{ $item->abv or $item->name }}</a>
 						</div>
 					</div>
-					@if(Auth::user() && Auth::user()->permissions->canEdit)
+					@can('add content')
 						<div class="level-right">
 							@if($item->isHideable)
 								<div class="level-item">
@@ -44,7 +44,7 @@
 							</div>
 							
 						</div>
-					@endif
+					@endcan
 				</li>
 			</td>
 		</tr>

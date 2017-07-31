@@ -36,9 +36,9 @@ function recursiveRender($group) {
 
 @section('panel')
 			<label class="label">Languages in this group
-				@if(Auth::user() && Auth::user()->permissions->canEdit)
+				@can('add content')
 					(<a href="/groups/{{ $group->id }}/order/edit">reorder</a>)
-				@endif
+				@endcan
 			</label>
 			<ul class="tree">
 				<li>

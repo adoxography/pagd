@@ -9,7 +9,7 @@ function recursiveRender($group, $variable, $colorAssignments) {
 	foreach($data as $child) {
 
 		if($child instanceof App\Group) {
-			if($child->languages->count() > 0 && ($child->hasVariable($variable) || Auth::user() && Auth::user()->permissions->canEdit)) {
+			if($child->languages->count() > 0 && ($child->hasVariable($variable) || Auth::user() && Auth::user()->hasPermissionTo('add content'))) {
 				$html .= '<li>';
 				$html .= "<input type='checkbox' ";
 
@@ -37,7 +37,7 @@ function recursiveRender($group, $variable, $colorAssignments) {
 			}
 
 			$html .= '</span></li>';
-		} else if(Auth::user() && Auth::user()->permissions->canEdit) {
+		} else if(Auth::user() && Auth::user()->hasPermissionTo('add content')) {
 			$html .= '<li><span class="label">';
 			$html .= $child->present()->as('link', 'survey');
 			$html .= '&nbsp(<a href="/variables/' . $variable->id . '/languages/' . $child->id . '/addDatapoint">Add</a>)';

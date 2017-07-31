@@ -126,6 +126,8 @@
 		<h4 class="title is-4">What do I need to submit a ticket?</h4>
 		<p>That depends on the kind of ticket you're submitting. A simple request, like "add mode X," just needs a title. Other requests may need more; for example, errors should include as much detail as possible on what you were doing, when you were doing it, and what page it occurred on. Requests for entirely new features may need some justification for how you think the feature will add to the site.</p>
 		<br />
+		<h4 class="title is-4">What does marking a ticket as "urgent" do?</h4>
+		<p>Marking a ticket as "urgent" sends an immediate notification to the developer. Issues such as not being able to add data or security issues should be considered urgent.</p>
 		<h4 class="title is-4">How will I know when my ticket is closed?</h4>
 		<p>You can opt to receive an email notification (using the email you signed up with) when you open your ticket. You can change this selection at any time by viewing the ticket's page. Additionally, if you are interested in a ticket someone else has opened, you are free to opt in for notifications to that ticket as well.</p>
 	</alg-tab>

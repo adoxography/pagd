@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			31-07-17: Updated the ticket guide
+		</li>
+		<hr>
+		<li>
 			30-07-17: Paginated user history logs
 		</li>
 		<hr>

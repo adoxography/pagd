@@ -34,84 +34,49 @@ function parseTime($time) {
     return Carbon\Carbon::parse($time)->setTimezone('America/Winnipeg')->toDayDateTimeString();
 }
 
-function replaceTags($text, $id = 0) {
-    return '<div class="content">' . actuallyReplaceTags($text, $id) . '</div>';
+function replaceTags(string $text, int $languageId = 0) : string
+{
+    return preg_replace_callback('/(#)([a-zA-Z0-9]+)/', function ($matches) {
+        return matchTag($matches[2]);
+    }, $text);
 }
 
-/**
- * Replaces all of the rules tags in a block of text
- * 
- * Tags are strings preceded by the $ symbol
- * 
- * @param string $text  the text to sort through
- * @param integer $id  the ID of the language whose rules to look for
- * @return string  the text with tags replaced
- */
-function actuallyReplaceTags(string $text, $id = 0)
+function matchTag(string $tag)
 {
-    $output = $text;
+    $parts = explode('.', $tag);
+    $replacement = $tag;
 
-    // Check to see if there are any tags in the text
-    $start = strpos($text, '#');
-
-    if ($start) {
-
-        // Find the end of the tag; that's the first whitespace that occurs after the tag
-        // If no whitespace was found, it means that the tag ends the text
-        if (preg_match("/[\s<]/", $text, $matches, PREG_OFFSET_CAPTURE, $start)) {
-            $end = $matches[0][1];
-        } else {
-            $end = strlen($text);
+    if (count($parts) > 0) {
+        switch($parts[0]) {
+            case 'l':
+                $model = Language::find($parts[1]);
+                break;
+            case 'f':
+                $model = Form::find($parts[1]);
+                break;
+            case 'e':
+                $model = Example::find($parts[1]);
+                break;
+            case 'm':
+                $model = Morpheme::find($parts[1]);
+                break;
+            default:
+                break;
         }
 
-        // Get the parts of the text before and after the tag
-        $firstPart = substr($text, 0, $start);
-        $lastPart = substr($text, $end);
-
-        // Get the tag, and look it up
-        $tag = substr($text, $start + 1, $end - $start - 1);
-
-        if(count(explode('.', $tag)) > 1) {
-
-            $parts = explode('.', $tag);
-
-            switch($parts[0]) {
-                case 'l':
-                    $model = Language::find($parts[1]);
-                    break;
-                case 'f':
-                    $model = Form::find($parts[1]);
-                    break;
-                case 'e':
-                    $model = Example::find($parts[1]);
-                    break;
-                case 'm':
-                    $model = Morpheme::find($parts[1]);
-                    break;
-                default:
-                    break;
-            }
-
-            if(isset($model)) {
-                $replacement = $model->present('stub');
-            } else {
-                $replacement = $tag;
-            }
-        } else {
-            $rule = \App\Rule::where('abv', $tag)->where('language_id', $id)->first();
-
-            // If it was found, replace the tag with it
-            if ($rule && !$rule->isHidden()) {
-                $replacement = "<a href='/rules/{$rule->id}'>{$rule->rule}</a>";
-            } else {
-                $replacement = $tag;
-            }
+        if (isset($model)) {
+            $replacement = $model->present('stub');
         }
+    } else {
+        $rule = \App\Rule::where('abv', $tag)->where('language_id', $id)->first();
 
-        $output = $firstPart.$replacement.replaceTags($lastPart, $id);
+        // If it was found, replace the tag with it
+        if ($rule && !$rule->isHidden()) {
+            $replacement = "<a href='/rules/{$rule->id}'>{$rule->rule}</a>";
+        }
     }
 
-    return $output;
+    return $replacement;
 }
 
 function condenseString($str)

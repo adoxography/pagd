@@ -7,3 +7,4 @@ Homestead.yaml
 .env
 /config/algolia.php
 _ide_helper.php
+.todo

@@ -37,6 +37,8 @@ class DatabaseRestore extends Command
     {
         $this->call('db:restore', ['--database' => 'mysql', '--source' => 'dropbox', '--compression' => 'gzip']);
 
+        $this->call('cache:forget', ['key' => 'spatie.permission.cache']);
+
         return null;
     }
 }

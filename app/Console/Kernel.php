@@ -37,7 +37,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('algling:send-ticket-notifications-to-administrator')
                  ->everyMinute()
                  ->timezone('America/Winnipeg')
-                 ->between('18:00', '19:00');
+                 ->between('13:00', '14:00');
 
         $schedule->command('algling:email-site-summary')
                  ->everyMinute()

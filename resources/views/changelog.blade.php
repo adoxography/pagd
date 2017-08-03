@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			03-08-17: Added tooltip with suggestions to smart search
+		</li>
+		<li>
 			03-08-17: Converted group reorder link into an icon
 		</li>
 		<li>

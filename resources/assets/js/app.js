@@ -38,6 +38,7 @@ Vue.component('alg-modal',           require('./components/Modal.vue'));
 Vue.component('alg-button',          require('./components/Button.vue'));
 Vue.component('alg-map',             require('./components/Map.vue'));
 Vue.component('alg-file-upload',     require('./components/FileUpload.vue'));
+Vue.component('alg-tooltip', require('./components/Tooltip.vue'));
 
 Vue.component('alg-language-form',  require('./components/forms/Language.vue'));
 Vue.component('alg-group-form',     require('./components/forms/Group.vue'));
@@ -119,7 +120,7 @@ Vue.component('paradigm-mode-select', {
 window.Event = new Vue();
 
 const app = new Vue({
-    el: '#root',
+    el: '#body-wrapper',
 
     data() {
     	return {

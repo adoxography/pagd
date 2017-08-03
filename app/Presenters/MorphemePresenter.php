@@ -15,7 +15,13 @@ class MorphemePresenter extends AlgPresenter
 
 	public function disambiguatedName(string $format = '')
 	{
-		return $this->name($format) . '<sup>' . $this->model->disambiguator . '</sup>';
+		$name = $this->name() . '<sup>' . $this->model->disambiguator . '</sup>';
+
+        if (strlen($format) > 0) {
+            $name = $this->format($name, $format);
+        }
+
+        return $name;
 	}
 
 	public function unique(string $method = 'name', string $format = '')

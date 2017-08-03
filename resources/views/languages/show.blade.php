@@ -2,7 +2,7 @@
 
 @section('title')
 	<label>Language details:</label>
-	{{ $language->name }}
+	{!! $language->present()->as('name', 'bold') !!}
 @endsection
 
 @include('components.show-icons', ['model' => $language])

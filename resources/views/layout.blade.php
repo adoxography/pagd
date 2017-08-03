@@ -27,7 +27,7 @@
 			<div class="container" id="root">
 				<div class="card">
 					<header class="card-header">
-						<p class="card-header-title">
+						<p class="card-header-title" style="font-weight: normal;">
 							@yield('title')
 						</p>
 						@yield('icons')

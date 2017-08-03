@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-	Welcome{{ Auth::user() ? ', '.Auth::user()->firstName : '' }}
+	<strong>Welcome{{ Auth::user() ? ', '.Auth::user()->firstName : '' }}</strong>
 @endsection
 
 @section('styles')

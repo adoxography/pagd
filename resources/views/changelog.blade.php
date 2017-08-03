@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			03-08-17: Unbolded parentheses in card titles
+		</li>
+		<hr>
+		<li>
 			31-07-17: Updated the ticket guide
 		</li>
 		<hr>

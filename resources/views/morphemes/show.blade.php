@@ -2,7 +2,7 @@
 
 @section('title')
 	<label>Morpheme details:</label>
-	{!! $morpheme->present('disambiguatedName')->then('language')->as('link', 'morphemes') !!}
+	{!! $morpheme->present()->as('disambiguatedName', 'bold')->then('language')->as('link', 'morphemes') !!}
 @endsection
 
 @section('icons')

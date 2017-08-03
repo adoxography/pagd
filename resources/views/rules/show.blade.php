@@ -2,7 +2,7 @@
 
 @section('title')
 	<label>Rule details:</label>
-	{{ $rule->name }} ({!! $rule->language->present('link') !!})
+	{!! $rule->present()->as('name', 'bold')->then('language')->as('link') !!}
 @endsection
 
 @include('components.show-icons', ['model' => $rule])

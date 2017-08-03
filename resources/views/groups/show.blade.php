@@ -29,7 +29,7 @@ function recursiveRender($group) {
 
 @section('title')
 	<label>Group details:</label>
-	{{ $group->name }} languages
+	<strong>{{ $group->name }} languages</strong>
 @endsection
 
 @include('components.show-icons', ['model' => $group])

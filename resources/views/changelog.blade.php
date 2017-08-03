@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			03-08-17: Converted group reorder link into an icon
+		</li>
+		<li>
 			03-08-17: Unbolded parentheses in card titles
 		</li>
 		<hr>

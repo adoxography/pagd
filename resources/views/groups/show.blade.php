@@ -35,18 +35,20 @@ function recursiveRender($group) {
 @include('components.show-icons', ['model' => $group])
 
 @section('panel')
-			<label class="label">Languages in this group
-				@can('add content')
-					(<a href="/groups/{{ $group->id }}/order/edit">reorder</a>)
-				@endcan
-			</label>
-			<ul class="tree">
-				<li>
-					<input type="checkbox" checked="checked" id="c0" />
-					<label class="label" for="c0">{{ $group->name }} languages</label>
-					{!! recursiveRender($group) !!}
-				</li>
-			</ul>
+	<label class="label" style="padding-top: .5em">Languages in this group
+		@can('add content')
+			<a href="/groups/{{ $group->id }}/order/edit" class="icon" title="reorder">
+				<i class="fa fa-sort"></i>
+			</a>
+		@endcan
+	</label>
+	<ul class="tree">
+		<li>
+			<input type="checkbox" checked="checked" id="c0" />
+			<label class="label" for="c0">{{ $group->name }} languages</label>
+			{!! recursiveRender($group) !!}
+		</li>
+	</ul>
 @endsection
 
 @section('content')

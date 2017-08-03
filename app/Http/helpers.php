@@ -36,17 +36,19 @@ function parseTime($time) {
 
 function replaceTags(string $text, int $languageId = 0) : string
 {
-    return preg_replace_callback('/(#)([a-zA-Z0-9]+)/', function ($matches) {
-        return matchTag($matches[2]);
+    $replaced = preg_replace_callback('/(#)([a-zA-Z0-9\.]+)/', function ($matches) use ($languageId) {
+        return matchTag($matches[2], $languageId);
     }, $text);
+
+    return "<div class=\"content\">$replaced</div>";
 }
 
-function matchTag(string $tag)
+function matchTag(string $tag, int $id)
 {
     $parts = explode('.', $tag);
     $replacement = $tag;
 
-    if (count($parts) > 0) {
+    if (count($parts) > 1) {
         switch($parts[0]) {
             case 'l':
                 $model = Language::find($parts[1]);

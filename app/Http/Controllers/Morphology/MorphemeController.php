@@ -47,7 +47,7 @@ class MorphemeController extends AlgModelController
             ]
         ]);
 
-        return view('morph::morphemes.create', compact('prefill'));
+        return view('morphemes.create', compact('prefill'));
     }
 
     /**
@@ -68,7 +68,7 @@ class MorphemeController extends AlgModelController
             'sources'
         ]);
 
-        return view('morph::morphemes.edit', compact('morpheme'));
+        return view('morphemes.edit', compact('morpheme'));
     }
 
     /**

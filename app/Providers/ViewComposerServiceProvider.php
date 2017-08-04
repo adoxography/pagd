@@ -103,7 +103,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
     private function composeMorphemeForm()
     {
-        view()->composer('morph::morphemes.partials.form', function ($view) {
+        view()->composer('morphemes.partials.form', function ($view) {
             $data = [
                 'languages' => Language::select('id', 'name')->get(),
                 'glosses' => Gloss::select('id', 'abv as name')->get(),

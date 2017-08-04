@@ -11,13 +11,13 @@
 		
 		@yield('styles')
 
-		@if(App::environment() == 'local')
+{{-- 		@if(App::environment() == 'local')
 			<style>
 				.hero-body #logo #logo-background {
 					background-color: #00ff00;
 				}
 			</style>
-		@endif
+		@endif --}}
 	</head>
 	<body>
 		<div id="body-wrapper">

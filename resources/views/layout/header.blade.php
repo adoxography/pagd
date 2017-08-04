@@ -1,4 +1,4 @@
-<section class="hero">
+<section class="hero" id="header">
 	<div class="hero-body">
 		<div class="container">
 			<div class="tile is-ancestor">

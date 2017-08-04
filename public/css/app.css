@@ -12723,6 +12723,52 @@ audio::-webkit-media-controls-panel {
   /* Adjust as needed */
 }
 
+#body-wrapper [class*="tooltip--"]:after {
+  text-shadow: 0 -1px 0 white;
+  -webkit-box-shadow: 0 2px 3px rgba(23, 23, 9, 0.1), 0 0 0 1px rgba(23, 23, 9, 0.1);
+          box-shadow: 0 2px 3px rgba(23, 23, 9, 0.1), 0 0 0 1px rgba(23, 23, 9, 0.1);
+  width: initial;
+}
+
+#body-wrapper .tooltip--bottom-left:before,
+#body-wrapper .tooltip--bottom-right:before,
+#body-wrapper .tooltip--bottom:before {
+  border-bottom-color: white;
+}
+
+#body-wrapper .tooltip--top-left:before,
+#body-wrapper .tooltip--top-right:before,
+#body-wrapper .tooltip--top:before {
+  border-top-color: white;
+}
+
+#body-wrapper .tooltip:after {
+  white-space: pre;
+  background-color: white;
+  color: #262626;
+  font-family: "DejaVuSerifCondensed", "serif";
+}
+
+#header [class*="tooltip--"]:after {
+  text-shadow: 0 -1px 0 #41b7d8;
+}
+
+#header .tooltip--bottom-left:before,
+#header .tooltip--bottom-right:before,
+#header .tooltip--bottom:before {
+  border-bottom-color: #41b7d8;
+}
+
+#header .tooltip--top-left:before,
+#header .tooltip--top-right:before,
+#header .tooltip--top:before {
+  border-top-color: #41b7d8;
+}
+
+#header .tooltip:after {
+  background-color: #41b7d8;
+}
+
 .breadcrumb a {
   padding-top: 0;
   padding-bottom: 0;

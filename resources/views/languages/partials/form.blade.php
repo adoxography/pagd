@@ -28,7 +28,7 @@
 
 			<!-- Alternate Names -->
 			<div class="column is-half">
-				@component('components.form.text', ['name' => 'alternateNames'])
+				@component('components.form.text', ['name' => 'alternateNames', 'label' => 'alternate names'])
 					@slot('value')
 						@if(isset($language))
 							{{ $language->alternateNames }}

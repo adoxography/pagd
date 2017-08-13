@@ -104,7 +104,7 @@ Vue.component('alg-paradigm-table', {
 Vue.component('paradigm-language-suggest', {
 	methods: {
 		suggest(data) {
-			Event.$emit('addLanguageGroup', data);
+			EventManager.$emit('addLanguageGroup', data);
 		}
 	}
 });
@@ -117,7 +117,7 @@ Vue.component('paradigm-mode-select', {
 	}
 });
 
-window.Event = new Vue();
+window.EventManager = new Vue();
 
 const app = new Vue({
     el: '#body-wrapper',

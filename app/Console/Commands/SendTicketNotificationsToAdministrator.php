@@ -38,7 +38,7 @@ class SendTicketNotificationsToAdministrator extends Command
     {
         parent::__construct();
 
-        $this->users = User::role('developer')->get();
+        //$this->users = User::role('developer')->get();
 
         $this->tickets = Ticket::where('isClosed', false)
             ->where(function($query) {

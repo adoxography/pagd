@@ -6,7 +6,9 @@
 	@if(old('sources', 'not found') !== 'not found')
 	:old-sources="{{ json_encode(old('sources')) }}"
 	@elseif(isset($example))
+	:old-form="{{ '{ "text": "'.str_replace('*', '', $example->form->present('unique')->then('language')).'", "id": "'.$example->form_id.'", "extra": '.$example->morphemesToJson().' }' }}"
 	:old-sources="{{ $example->sources }}"
+	:old-morphemes="{{ $example->morphemesToJson() }}"
 	@endif
 	>
 	@component('components.form', ['method' => $method, 'action' => $action, 'visible' => true])
@@ -16,7 +18,7 @@
 			<div class="column is-half">
 				@component('components.form.text', [
 					'name'      => 'name',
-					'autofocus' => true, 
+					'autofocus' => true,
 					'rules'     => 'required'
 				])
 					@slot('value')
@@ -33,7 +35,10 @@
 					'name'  => 'language',
 					'list'  => $languages,
 					'rules' => 'exists',
-					'model' => 'language'
+					'model' => 'language',
+					'on' => [
+						'input' => 'onLanguageInput'
+					]
 				])
 					@slot('value')
 						@if(isset($example))
@@ -56,32 +61,16 @@
 					'disabled' => '!language.id',
 					'placeholder' => 'Make sure to select the language first',
 					'rules' => 'datalist_exists',
+					'on' => [
+						'input' => 'onFormInput'
+					]
 				])
 					@slot('value')
-						@if(isset($example))
-							{{ '{ "text": "'.str_replace('*', '', $example->form->present('unique')->then('language')).'", "id": "'.$example->form_id.'", "extra": "'.$example->morphemicForm.'" }' }}
+{{-- 						@if(isset($example))
+							{{ '{ "text": "'.str_replace('*', '', $example->form->present('unique')->then('language')).'", "id": "'.$example->form_id.'", "extra": '.$example->morphemesToJson().' }' }}
 						@elseif(isset($form))
-							{{ '{ "text": "'.str_replace('*', '', $form->present('unique')->then('language')).'", "id": "'.$form->id.'", "extra": "'.$form->morphemicForm.'" }' }}
-						@endif
-					@endslot
-				@endcomponent
-			</div>
-
-			{{-- morphemicForm --}}
-			<div class="column is-half">
-				@component('components.form.text', [
-					'name'      => 'morphemicForm',
-					'label'     => 'morphemes',
-					'rules'     => 'required|notHasMorpheme:V|notHasMorpheme:N',
-					'model'     => 'morphemicForm',
-					'disabled'  => '!form.extra'
-				])
-					@slot('value')
-						@if(isset($example))
-							{{ $example->morphemicForm }}
-						@elseif(isset($form))
-							{{ $form->morphemicForm }}
-						@endif
+							{{ '{ "text": "'.str_replace('*', '', $form->present('unique')->then('language')).'", "id": "'.$form->id.'", "extra": '.$form->morphemesToJson().' }' }}
+						@endif --}}
 					@endslot
 				@endcomponent
 			</div>
@@ -97,6 +86,29 @@
 						@endif
 					@endslot
 				@endcomponent
+			</div>
+
+			<div class="column is-12">
+				<!-- morphemicForm -->
+				<label for="morphemes" class="label">Morphemes</label>
+				<alg-morpheme-tag-input
+					source="/autocomplete/morphemes"
+					name="morphemes"
+					id="morphemes"
+					:allow-duplicates="true"
+					:allow-new="true"
+					:allow-periods="false"
+					:allow-hyphens="false"
+					@input="errors.clear('morphemes')"
+					placeholder="The morphemes (Leave blank if unknown or unclear)"
+					:classes="{'is-danger': errors.has('morphemes')}"
+					:language="language.id"
+					:tags="morphemes"
+				></alg-morpheme-tag-input>
+				<span class="help is-danger"
+					  v-show="errors.has('morphemes')"
+					  v-text="errors.first('morphemes')">
+				</span>
 			</div>
 
 			<div class="column is-half">

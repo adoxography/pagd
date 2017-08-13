@@ -20,7 +20,7 @@ class CreateNomParadigmsTable extends Migration
             $table->unsignedInteger('language_id');
             $table->unsignedInteger('paradigmType_id');
 
-            $table->timestamp('hidden_at');
+            $table->timestamp('hidden_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

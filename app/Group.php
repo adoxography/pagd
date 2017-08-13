@@ -17,7 +17,8 @@ class Group extends Model
 
 	public $table = 'Groups';
 
-	protected $fillable = ['name', 'parent_id', 'publicNotes', 'privateNotes', 'aliases'];
+	protected $fillable = ['name', 'parent_id', 'publicNotes', 'privateNotes', 'aliases', 
+	'description'];
 
     protected $revisionEnabled = true;
     protected $revisionCreationsEnabled = true;

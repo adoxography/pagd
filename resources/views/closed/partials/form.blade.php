@@ -1,4 +1,4 @@
-<alg-generic-form
+<alg-form
 	inline-template
 	v-cloak
 	:old-errors="{{ json_encode($errors->messages()) }}"
@@ -52,4 +52,4 @@
 			@endslot
 		@endcomponent
 	@endcomponent
-</alg-generic-form>
+</alg-form>

@@ -4,15 +4,21 @@
 		<div class="modal-card">
 			<header class="modal-card-head">
 				<p class="modal-card-title">
-					<slot name="title"></slot>
+					<slot name="title">
+						<div v-html="title"></div>
+					</slot>
 				</p>
 				<button class="delete" @click="close"></button>
 			</header>
 			<section class="modal-card-body">
-				<slot></slot>
+				<slot>
+					<div v-html="content"></div>
+				</slot>
 			</section>
 			<footer class="modal-card-foot">
-				<slot name="footer"></slot>
+				<slot name="footer">
+					<div v-html="footer"></div>
+				</slot>
 			</footer>
 		</div>
 	</div>
@@ -20,6 +26,20 @@
 
 <script>
 export default {
+	props: {
+		title: {
+			default: ""
+		},
+
+		content: {
+			default: ""
+		},
+
+		footer: {
+			default: ""
+		}
+	},
+
 	data() {
 		return {
 			active: false

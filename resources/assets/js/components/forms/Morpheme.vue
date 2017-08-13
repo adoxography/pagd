@@ -1,17 +1,16 @@
 <script>
-import oldErrors from '../../mixins/OldErrors';
-import oldSources from '../../mixins/OldSources';
+import Form from './Form';
+import { Datalist } from '../../Datalist.js';
 
 export default {
-	mixins: [oldErrors, oldSources],
+	extends: Form,
 
 	data() {
 		return {
-			language: { text: '', id: '' },
-			slot:     { text: '', id: '' },
-			parent:   { text: '', id: '' },
-			glosses: [],
-			sources: []
+			language: new Datalist,
+			slot:     new Datalist,
+			parent:   new Datalist,
+			glosses: []
 		};
 	}
 };

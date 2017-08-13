@@ -68,5 +68,11 @@
 		@if(isset($placeholder))
 			placeholder="{{ $placeholder }}"
 		@endif
+
+		@if(isset($on))
+			@foreach ($on as $event => $action)
+				{{ '@' . $event }}="{{ $action }}"
+			@endforeach
+		@endif
 	></alg-datalist>
 @endsection

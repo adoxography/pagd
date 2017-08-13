@@ -3,15 +3,17 @@
 use App\Group;
 use App\Source;
 use App\Language;
-use Algling\Verbals\Models\Form;
-use Algling\Morphemes\Models\Morpheme;
+use Algling\Words\Models\Form as WordForm;
+use Algling\Verbals\Models\Form as VerbForm;
+use Algling\Nominals\Models\Form as NominalForm;
+use App\Models\Morphology\Morpheme;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class LanguageTest extends TestCase
 {
 	use DatabaseTransactions;
 
-	protected $connectionsToTransact = ['mysql_testing'];
+	protected $connectionsToTransact = ['sqlite'];
 
 	/** @test */
 	function a_language_has_attributes()
@@ -39,9 +41,18 @@ class LanguageTest extends TestCase
 	function a_language_generates_a_vStem_when_created()
 	{
 		$language = factory(Language::class)->create();
-		$vStem = $language->morphemes[0];
+		$vStem = $language->morphemes->where('name', 'V-');
 
-		$this->assertEquals('V', $vStem->name);
+		$this->assertNotNull($vStem);
+	}
+
+	/** @test */
+	function a_language_generates_a_nStem_when_created()
+	{
+		$language = factory(Language::class)->create();
+		$nStem = $language->morphemes->where('name', 'N-');
+
+		$this->assertNotNull($nStem);
 	}
 
 	/** @test */
@@ -53,7 +64,7 @@ class LanguageTest extends TestCase
 			'language_id' => $language->id
 		]);
 
-		$this->assertCount(6, $language->morphemes); // +1 for the vStem
+		$this->assertCount(7, $language->morphemes); // +2 for the stems
 	}
 
 	/** @test */
@@ -61,7 +72,19 @@ class LanguageTest extends TestCase
 	{
 		$language = factory(Language::class)->create();
 
-		$forms = factory(Form::class, 5)->create([
+		$forms = factory(WordForm::class, 5)->create([
+			'language_id' => $language->id
+		]);
+
+		$this->assertCount(5, $language->forms);
+	}
+
+	/** @test */
+	function a_language_fetches_its_verb_forms()
+	{
+		$language = factory(Language::class)->create();
+
+		$forms = factory(VerbForm::class, 5)->create([
 			'language_id' => $language->id
 		]);
 
@@ -77,7 +100,7 @@ class LanguageTest extends TestCase
 		$source2 = factory(Source::class)->create();
 		$source3 = factory(Source::class)->create();
 
-		$form = factory(Form::class)->create([
+		$form = factory(WordForm::class)->create([
 			'language_id' => $language->id
 		]);
 

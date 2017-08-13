@@ -1,169 +1,227 @@
-<template>
-	<div class="alg-tag-input">
-		<alg-datalist
-			ref="datalist"
-			@keydown="onKeyDown($event)"
-			@select="onInput"
-			v-model="listValue"
-			:list="list"
-			:name="name+'-input'"
-			:id="id"
-			:disabled="disabled"
-			:placeholder="placeholder"
-			:classes="classes"
-			@focus="showTags = true"
-			@blur="showTags = false">
-		</alg-datalist>
-		<transition name="fade">
-			<draggable
-				v-model="currValue"
-				v-show="currValue.length > 0 || showTags"
-				@change="onChange($event, currValue)"
-				class="alg-tag-section">
-				<div v-for="(tag, index) in currValue" class="alg-tag-container">
-					<span class="tag is-primary is-medium">
-						{{ tag.text }}
-						<a
-							class="delete is-small"
-							@click.prevent="removeTag(index)"
-							tabindex="-1"></a>
-					</span>
-				</div>
-			</draggable>
-		</transition>
-		<input type="hidden" :value="gluedValue" :name="name" />
-	</div>
+<template lang="pug">
+	include Tag-Input.pug
 </template>
 
 <script>
+import InputTag from 'vue-input-tag';
 import draggable from 'vuedraggable';
+import VueTypeahead from 'vue-typeahead';
+import { directive as onClickaway } from 'vue-clickaway';
+import { invertColour as fontColour } from '../util/Colour'
 
 export default {
-	props: ['list', 'value', 'name', 'id', 'placeholder', 'classes', 'disabled', 'initial'],
+	extends: InputTag,
+
+	mixins: [VueTypeahead],
+
+	directives: {
+		onClickaway: onClickaway
+	},
+
+	props: {
+		source: {
+			default: []
+		},
+
+		name: {
+			type: String
+		},
+
+		allowHyphens: {
+			type: Boolean,
+			default: true
+		},
+
+		allowPeriods: {
+			type: Boolean,
+			default: true
+		},
+
+		allowDuplicates: {
+			type: Boolean,
+			default: true
+		},
+
+		allowNew: {
+			type: Boolean,
+			default: false
+		}
+	},
+
+	computed: {
+		src() {
+			if (_.isString(this.source) && this.ajaxOptions) {
+				let options = '';
+
+				_.forEach(this.ajaxOptions(), (value, key) => {
+					if (options.length > 0) {
+						options += '&';
+					}
+
+					options += `options[${key}]=${value}`;
+				});
+
+				if (options.length > 0) {
+					options = '?' + options;
+				}
+
+				return this.source + options;
+			}
+
+			return this.source;
+		}
+	},
+
+	data() {
+		return {
+			keyCodes: [13, 188, 9],
+			$http: axios,
+			queryParamName: 'term',
+			defaultColor: "#fff74a"
+		};
+	},
 
 	components: {
 		draggable
 	},
 
-	data() {
-		return {
-			listValue: {
-				id: '',
-				text: ''
-			},
+	created() {
+		if (!this.allowHyphens) {
+			this.keyCodes.push(189);
+		}
 
-			showTags: false
-		};
-	},
-
-	mounted() {
-		if(this.initial) {
-			this.listValue = { id: '', text: this.initial };
-			this.onInput();
+		if (!this.allowPeriods) {
+			this.keyCodes.push(110, 190);
 		}
 	},
 
-	computed: {
-		currValue() {
-			return this.value;
-		},
-
-		gluedValue() {
-			let output = '';
-			let firstTime = true;
-
-			this.value.forEach(item => {
-				if(firstTime) {
-					firstTime = false;
-				} else {
-					output += '.';
-				}
-
-				output += item.text;
-			});
-
-			return output;
+	mounted() {
+		this.query = () => {
+			return this.newTag;
 		}
 	},
 
 	methods: {
-		addTag(tag) {
-			let val = this.currValue;
-			if(!this.inArray(val, tag)) {
-				val.push(tag);
-
-				this.$emit("input", val);
+		triggerUpdate() {
+			if (Array.isArray(this.src)) {
+				this.filter();
+			} else {
+				this.update();
 			}
 		},
 
-		removeTag(index) {
-			let val = this.currValue;
-			val.splice(index, 1);
-
-			this.$emit("input", val);
-		},
-
-		inArray(haystack, needle) {
-			let found = false;
-
-			for(let i = 0; i < haystack.length && !found; i++) {
-				found = haystack[i].text === needle.text;
-			}
-
-			return found;
-		},
-
-		clearList() {
-			this.listValue = {
-				text: '',
-				id: ''
-			}
-		},
-
-		onChange(event, list) {
-			let temp = list.clone();
-
-			if(event.moved) {
-				if(event.moved.newIndex > event.moved.oldIndex) {
-					for(let i = event.moved.oldIndex; i < event.moved.newIndex; i++) {
-						temp[i] = temp[i + 1];
-					}
-				} else {
-					for(let i = event.moved.oldIndex; i > event.moved.newIndex; i--) {
-						temp[i] = temp[i - 1];
-					}
-				}
-
-				temp[event.moved.newIndex] = event.moved.element;
-				this.$emit('input', temp);
-			}
-		},
-
-		onInput() {
-			Vue.nextTick(() => {
-				this.addTag(this.listValue);
-				this.clearList();
+		filter() {
+			this.items = this.source.filter(item => {
+				return item.name.toLowerCase().includes(this.newTag.toLowerCase());
 			});
 		},
 
-		onKeyDown(event) {
-			if(this.listValue.text.length > 0 && (event.keyCode == 9 || event.keyCode == 13)) {
-
-				let glosses = this.listValue.text.split('.');
-
-				glosses.forEach(gloss => {
-					if(gloss.length > 0) {
-						this.addTag({
-							id: 0,
-							text: gloss
-						});
-					}
-				});
-
-				this.$refs.datalist.reset();
-				this.clearList();
+		onHit(item) {
+			if (_.isString(item)) {
+				item = {
+					name: item,
+					color: "#fff74a",
+					id: 0
+				}
 			}
-		}
+
+			this.addNew(item);
+			this.items = [];
+			this.resetActive();
+		},
+
+		toggleList() {
+			if (this.hasItems) {
+				this.items = [];
+			} else {
+				this.triggerUpdate();
+
+				if (!this.hasItems && Array.isArray(this.source)) {
+					this.items = this.source;
+				}
+			}
+		},
+
+		onEnter(event) {
+			if (this.keyCodes.indexOf(event.keyCode) >= 0) {
+				if (this.current >= 0) {
+					event.preventDefault();
+					this.hit();
+				} else if (this.newTag.length > 0 && this.allowNew) {
+					event.preventDefault();
+					this.onHit(this.newTag);
+				}
+			} else if (event.keyCode == 46 || event.keyCode == 8) { // delete or backspace
+				this.removeLastTag();
+			} else if (event.keyCode == 38) { // up
+				this.up();
+			} else if (event.keyCode == 40) { // down
+				if (this.hasItems) {
+					this.down();
+				} else {
+					this.toggleList();
+				}
+			}
+		},
+
+		resetActive() {
+			this.current = -1;
+		},
+
+	    addNew (tag) {
+	        if (tag && (this.tags.indexOf(tag) === -1 || this.allowDuplicates) && this.validateIfNeeded(tag)) {
+	          	this.tags.push(tag)
+	          	this.tagChange()
+	        }
+	        this.newTag = ''
+	    },
+
+	    prepareResponseData(data) {
+	    	for (let i = 0; i < data.length; i++) {
+	    		data[i]['name'] = data[i].name.replace(/<\/?a(?=[ >])[^>]*>/gi, ""); // Get rid of anchor tags
+	    	}
+
+	    	return data;
+	    },
+
+	    closeList() {
+	    	this.items = [];
+	    },
+
+	    onClickTag(tag) {},
+
+	    fontColour: fontColour
 	}
 }
 </script>
+
+<style>
+.vue-input-tag-wrapper {
+	overflow: initial;
+}
+
+.vue-input-tag-wrapper .new-tag {
+	margin: 0;
+	color: initial;
+	font-size: 1rem;
+	width: initial;
+}
+
+.tags-field .tag {
+	font-size: 1rem;
+}
+
+.tags-field .tag span {
+	cursor: default;
+}
+
+.typeahead-dropdown {
+	position: absolute;
+	z-index: 1000;
+	padding: 0;
+}
+
+li.active {
+	background-color: grey;
+}
+</style>

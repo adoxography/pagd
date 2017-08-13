@@ -4,14 +4,14 @@ use App\Source;
 use App\Language;
 use Algling\Verbals\Models\Form;
 use Algling\Verbals\Models\Structure;
-use Algling\Morphemes\Models\Morpheme;
+use App\Models\Morphology\Morpheme;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class FormTest extends TestCase
 {
 	use DatabaseTransactions;
 
-	protected $connectionsToTransact = ['mysql_testing'];
+	protected $connectionsToTransact = ['sqlite'];
 
 	/** @test */
 	function a_form_has_attributes()
@@ -73,7 +73,7 @@ class FormTest extends TestCase
 		]);
 
 		$this->assertCount(3, $form->morphemes); // +1 for the Vstem
-		$this->assertEquals($form->morphemes[0]->name.$form->morphemes[1]->name.$form->morphemes[2]->name, $form->morphemicForm); // 'a-b-V'
+		$this->assertEquals($form->morphemes[0]->name.$form->morphemes[1]->name.$form->morphemes[2]->name, $form->morphemicForm . '-'); // 'a-b-V'
 	}
 
 	/** @test */
@@ -94,7 +94,7 @@ class FormTest extends TestCase
 	}
 
 	/** @test */
-	function a_forme_can_have_sources()
+	function a_form_can_have_sources()
 	{
 		$source = factory(Source::class)->create();
 		$form = factory(Form::class)->create();

@@ -8,7 +8,7 @@ class GroupTest extends TestCase
 {
 	use DatabaseTransactions;
 
-	protected $connectionsToTransact = ['mysql_testing'];
+	protected $connectionsToTransact = ['sqlite'];
 
 	/** @test */
 	function a_group_has_a_name()
@@ -39,14 +39,38 @@ class GroupTest extends TestCase
 		$this->assertGreaterThan(0, $group->id);
 	}
 
-	/** @test */
-	function a_group_fetches_its_languages()
+	function a_group_starts_with_no_languages()
 	{
 		$group = factory(Group::class)->create();
-		factory(Language::class, 5)->create([
-			'group_id' => $group->id
-		]);
 
-		$this->assertCount(5, $group->languages);
+		$this->assertCount(0, $group->languages);
 	}
+
+	function a_group_has_languages()
+	{
+		$group = factory(Group::class)->create();
+		$language = factory(Language::class)->create();
+
+		$language->group_id = $group->id;
+
+		$this->assertCount(1, $group->languages);
+		$this->assertEquals($group->name, $language->group->name);
+		$this->assertEquals($group->languages->first()->name, $language->name);
+	}
+
+	// /** @test */
+	// function a_group_fetches_its_languages()
+	// {
+	// 	$group = factory(Group::class)->create();
+
+	// 	for ($i=0; $i < 5; $i++) { 
+	// 		factory(Language::class)->create(['group_id' => $group->id]);
+	// 		var_dump($group->languages->pluck('name'));
+	// 	}
+	// 	// $languages = factory(Language::class, 5)->create([
+	// 	// 	'group_id' => $group->id
+	// 	// ]);
+
+	// 	$this->assertCount(5, $group->languages);
+	// }
 }

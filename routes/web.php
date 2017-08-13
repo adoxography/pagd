@@ -30,6 +30,10 @@ Route::get('sandbox', function() {
 	return view('sandbox');
 });
 
+Route::post('sandbox', function() {
+	dd(request()->all());
+});
+
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('auth');
 
 Route::post('upload/audio', 'UploadController@audio');

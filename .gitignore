@@ -5,6 +5,9 @@
 Homestead.json
 Homestead.yaml
 .env
+.env.dusk.local
+.php_cs.dist
+.phpstorm.meta.php
 /config/algolia.php
 _ide_helper.php
 .todo

@@ -26,8 +26,8 @@ class FormController extends AlgModelController
      */
     public function show(Form $form)
     {
-        if($this->shouldShow($form)) {
-            if($form->structure_type == 'verbStructures') {
+        if ($this->shouldShow($form)) {
+            if ($form->structure_type == 'verbStructures') {
                 return redirect("/verbs/forms/{$form->id}/basic");
             } else {
                 return redirect("/nominals/forms/{$form->id}/basic");
@@ -45,13 +45,13 @@ class FormController extends AlgModelController
      */
     public function edit(Form $form)
     {
-        if($form->structure_type == 'verbStructures') {
+        if ($form->structure_type == 'verbStructures') {
             return redirect("/verbs/forms/{$form->id}/edit");
         } else {
             return redirect("/nominals/forms/{$form->id}/edit");
         }
     }
-    
+
     /**
      * Destroy a form
      *
@@ -75,7 +75,7 @@ class FormController extends AlgModelController
     public function disambiguate(Form $form)
     {
         $form->disambiguate(request()->index, request()->disambiguator);
-        
+
         return redirect("/forms/{$form->id}");
     }
 

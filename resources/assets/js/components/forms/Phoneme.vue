@@ -1,10 +1,9 @@
 <script>
-import oldErrors from '../../mixins/OldErrors';
-import oldSources from '../../mixins/OldSources';
+import Form from './Form';
 import { Datalist } from '../../Datalist';
 
 export default {
-	mixins: [oldErrors, oldSources],
+	extends: Form,
 
 	props: ['oldType', 'oldIsArchiphoneme'],
 
@@ -28,9 +27,7 @@ export default {
 
 			// Cluster features
 			firstSegment:  new Datalist,
-			secondSegment: new Datalist,
-
-			sources: []
+			secondSegment: new Datalist
 		};
 	},
 

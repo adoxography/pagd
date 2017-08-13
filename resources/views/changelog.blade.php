@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			12-08-17: Overhauled morpheme input (<a href="/guide#morphemes">check the guide</a>)
+		<hr>
+		<li>
 			03-08-17: Added tooltip explaining the verb form description
 		</li>
 		<li>
@@ -734,7 +737,7 @@
 			23-03-17: Stopped tracking id and updated_at time in the log
 		</li>
 		<li>
-			23-03-17: Modified formatting of participles so — and + are not underlined
+			23-03-17: Modified formatting of participles so â€” and + are not underlined
 		</li>
 		<li>
 			23-03-17: Moved changelog off of the welcome page
@@ -906,7 +909,7 @@
 			21-02-17: Fixed bug blocking the enter key from working on the form, morpheme, and example forms
 		</li>
 		<li>
-			21-02-17: Added → and > to cognates tab
+			21-02-17: Added â†’ and > to cognates tab
 		</li>
 		<li>
 			21-02-17: Added a "show morphology" option to paradigm search
@@ -1240,30 +1243,30 @@
 		</li>
 		<li>
 			24-01-17: Styled morpheme creation form
-		</li>	
+		</li>
 		<li>
 			24-01-17: Styled form creation form
-		</li>		
+		</li>
 		<li>
 			24-01-17: Upgraded to Laravel 5.4!
 		</li>
-		<hr>		
+		<hr>
 		<li>
 			22-01-17: <a href="/forms/1#basic-details">Added glosses to morphemes in form detail</a>
-		</li>		
+		</li>
 		<li>
 			22-01-17: <a href="/forms/11">Altered form table such that morphemes are not required to exist prior to form existence</a>
-		</li>		
+		</li>
 		<li>
 			22-01-17: Updated detail styling
-		</li>			
+		</li>
 		<li>
 			22-01-17: Reformatted form details
 		</li>
-		<hr>		
+		<hr>
 		<li>
 			21-01-17: <a href="/search#for-a-form">Pulled language selection out of line in form search and added negative and diminutive options</a>
-		</li>		
+		</li>
 		<li>
 			21-01-17: Merged form syntax details into basic details
 		</li>

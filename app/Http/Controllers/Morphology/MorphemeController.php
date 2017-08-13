@@ -79,7 +79,10 @@ class MorphemeController extends AlgModelController
      */
     public function store(MorphemeRequest $request)
     {
-        $morpheme = Morpheme::create($request->all());
+        $data = $request->all();
+        $data['gloss'] = $this->convertGloss();
+
+        $morpheme = Morpheme::create($data);
 
         flash("{$morpheme->name} created successfully.", 'is-success');
         return redirect("/morphemes/{$morpheme->id}");
@@ -95,7 +98,10 @@ class MorphemeController extends AlgModelController
      */
     public function update(MorphemeRequest $request, Morpheme $morpheme)
     {
-        $morpheme->update($request->all());
+        $data = $request->all();
+        $data['gloss'] = $this->convertGloss();
+
+        $morpheme->update($data);
 
         flash("{$morpheme->name} updated successfully.", 'is-success');
         return redirect("/morphemes/{$morpheme->id}");
@@ -114,5 +120,23 @@ class MorphemeController extends AlgModelController
 
         flash($morpheme->name.' deleted successfully.', 'is-info');
         return redirect("/languages/{$morpheme->language_id}");
+    }
+
+    protected function convertGloss()
+    {
+        $output = '';
+        $firstTime = true;
+
+        foreach (request()->gloss as $gloss) {
+            if ($firstTime) {
+                $firstTime = false;
+            } else {
+                $output .= '.';
+            }
+
+            $output .= $gloss['name'];
+        }
+
+        return $output;
     }
 }

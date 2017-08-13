@@ -1,41 +1,43 @@
 <script>
-import oldErrors from '../../mixins/OldErrors';
-import oldSources from '../../mixins/OldSources';
+import Form from './Form';
+import { Datalist } from '../../Datalist.js';
 
 export default {
-	mixins: [oldErrors, oldSources],
+	extends: Form,
+
+	props: ['oldMorphemes', 'oldForm'],
 
 	data() {
 		return {
-			language: { text: '', id: '' },
-			form:     { text: '', id: '', extra: '' },
-			parent:   { text: '', id: '', extra: '' },
-			morphemicForm: '',
-			sources: []
+			language: new Datalist,
+			form:     new Datalist,
+			parent:   new Datalist,
+			morphemes: []
 		};
 	},
 
-	watch: {
-		language() {
+	methods: {
+		onLanguageInput() {
+			this.form.reset();
+			this.morphemes = [];
 			this.errors.clear('language');
-			this.morphemicForm = '';
-			this.form = { text: '', id: ''};
 		},
 
-		form() {
-			Vue.nextTick(() => {
-				if(this.$refs.form.showCheck) {
-					if(this.form.extra) {
-						this.morphemicForm = this.form.extra;
-						this.$refs.morphemicForm.focus();
-					}
-					else {
-						this.morphemicForm = "None supplied in form";
-					}
-				}
-			});			
+		onFormInput() {
+			if(this.form.extra) {
+				this.morphemes = Array.isArray(this.form.extra) ? this.form.extra : JSON.parse(this.form.extra);
+			}
+		}
+	},
+
+	mounted() {
+		if (this.oldForm) {
+			this.form = new Datalist(this.oldForm.text, this.oldForm.id, this.oldForm.extra);
+		}
+
+		if (this.oldMorphemes) {
+			this.morphemes = this.oldMorphemes;
 		}
 	}
-
 }
 </script>

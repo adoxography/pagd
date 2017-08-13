@@ -16,7 +16,7 @@ class AddTicketTypesToTickets extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::table('Tickets', function(Blueprint $table) {
-            $table->unsignedInteger('ticketType_id');
+            $table->unsignedInteger('ticketType_id')->default(0);
 
             $table->foreign('ticketType_id')->references('id')->on('TicketTypes');
         });

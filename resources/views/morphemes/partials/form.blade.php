@@ -47,16 +47,18 @@
 			<div class="column is-half">
 				<label for="glosses" class="label">Gloss</label>
 				<alg-tag-input
-					v-model="glosses"
-					:list="{{ $glosses }}"
+					:source="{{ $glosses }}"
 					name="gloss"
 					id="gloss"
+					:allow-duplicates="false"
+					:allow-new="true"
+					:allow-periods="false"
 					@input="errors.clear('gloss')"
 					placeholder="Select glosses from the list or type your own and press 'enter'"
 					:classes="{'is-danger': errors.has('gloss')}"
 
 					@if(isset($morpheme))
-					initial="{{ $morpheme->gloss }}"
+					:tags="{{ json_encode($morpheme->getGlossArray()) }}"
 					@endif
 				></alg-tag-input>
 				<span class="help is-danger"

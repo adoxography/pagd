@@ -1,21 +1,20 @@
 <script>
-import oldErrors from '../../mixins/OldErrors';
-import oldSources from '../../mixins/OldSources';
+import Form from './Form';
+import { Datalist } from '../../Datalist.js';
 
 export default {
-	mixins: [oldErrors, oldSources],
+	extends: Form,
 
 	props: ['pronominalFeatures', 'nominalFeatures', 'paradigms', 'oldParadigm', 'oldNominalFeature', 'oldPronominalFeature'],
 
 	data() {
 		return {
-			language:          { id: '', text: '' },
-			pronominalFeature: { id: '', text: '' },
-			nominalFeature:    { id: '', text: '' },
-			paradigm:          { id: '', text: '' },
-			mode:              { id: '', text: '' },
-			parent:            { id: '', text: '' },
-			sources: [],
+			language:          new Datalist,
+			pronominalFeature: new Datalist,
+			nominalFeature:    new Datalist,
+			paradigm:          new Datalist,
+			mode:              new Datalist,
+			parent:            new Datalist,
 			translationRequired: true
 		}
 	},
@@ -30,12 +29,12 @@ export default {
 
 	watch: {
 		language() {
-			this.paradigm = { id: '', text: '' };
+			this.paradigm = new Datalist;
 		},
 
 		paradigm() {
-			this.pronominalFeature = { id: '', text: '' };
-			this.nominalFeature = { id: '', text: '' };
+			this.pronominalFeature = new Datalist;
+			this.nominalFeature = new Datalist;
 
 			if(this.paradigmHasPronominalFeature()) {
 				this.$validator.attach('pronominalFeature', 'datalist_required|datalist_exists', { prettyName: 'pronominal feature' });
@@ -113,7 +112,7 @@ export default {
 		morphemicFormUpdated(text) {
 			if(text.length == 0 || !this.containsStem(text)) {
 				this.translationRequired = true;
-				
+
 				if(text.length == 0) {
 					this.$validator.attach('translation', '');
 				} else {
@@ -127,20 +126,7 @@ export default {
 		},
 
 		containsStem(text) {
-			let rc = false;
-
-			// REPLACE ME WITH REGEX
-			let morphemes = text.split('-');
-
-			morphemes.forEach(morpheme => {
-				let icParts = morpheme.split('|');
-				let noIC = icParts[icParts.length - 1];
-				let realMorpheme = noIC[0];
-
-				rc = rc || (realMorpheme == 'V' || realMorpheme == 'N');
-			});
-
-			return rc;
+			return text.match(/[VN]($|-)/) !== null;
 		}
 	}
 }

@@ -13,15 +13,20 @@ class AlterShortcutsTableToRules extends Migration
      */
     public function up()
     {
-        Schema::rename('Shortcuts', 'Rules');
-        Schema::table('Rules', function(Blueprint $table) {
-            $table->renameColumn('short', 'abv');
-            $table->renameColumn('long', 'rule');
+        Schema::create('Rules', function(Blueprint $table) {
+            $table->increments('id');
+            $table->string('abv');
+            $table->string('rule');
+            $table->string('name');
 
             $table->unsignedInteger('language_id');
             $table->text('privateComments')->nullable();
             $table->text('publicComments')->nullable();
 
+            $table->timestamps();
+
+            $table->unique(['abv', 'language_id']);
+            $table->unique(['name', 'language_id']);
             $table->foreign('language_id')->references('id')->on('Languages');
         });
     }

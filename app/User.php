@@ -5,6 +5,7 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+
 class User extends Authenticatable
 {
     use Notifiable, HasRoles;
@@ -15,8 +16,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstName', 'lastName', 'email', 'password', 'receiveSiteSummary',
+        'firstName', 'lastName', 'email', 'password', 'receiveSiteSummary'
     ];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -25,17 +27,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    public static function administrators(callable $closure = null)
-    {
-        $query = (static::class)::where('userRoles_id', 1);
-
-        if (isset($closure)) {
-            $closure($query);
-        }
-
-        return $query->get();
-    }
 
     public function getNameAttribute()
     {

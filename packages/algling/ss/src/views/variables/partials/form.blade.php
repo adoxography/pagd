@@ -1,4 +1,4 @@
-<alg-variable-form
+<alg-form
 	inline-template
 	v-cloak
 	:old-errors="{{ json_encode($errors->messages()) }}"
@@ -17,7 +17,7 @@
 						<div class="column is-8">
 							@component('components.form.text', [
 								'name'      => 'name',
-								'autofocus' => true, 
+								'autofocus' => true,
 								'rules'     => 'required'
 							])
 								@slot('value')
@@ -72,4 +72,4 @@
 			</alg-tabs>
 		</div>
 	@endcomponent
-</alg-variable-form>
+</alg-form>

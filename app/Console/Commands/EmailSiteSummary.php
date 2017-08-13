@@ -52,8 +52,7 @@ class EmailSiteSummary extends Command
 
         $this->leaders = User::where('receiveSiteSummary', true)->get();
 
-        foreach ($this->dataTypes as $key => $class)
-        {
+        foreach ($this->dataTypes as $key => $class) {
             $this->data[$key] = [
                 'newData' => $this->loadData($class),
                 'count'   => $this->getCount($class)
@@ -66,7 +65,7 @@ class EmailSiteSummary extends Command
         $data = $this->loadData($class);
 
         if (method_exists($class, 'language')) {
-            $data = $data->sortBy(function($item) {
+            $data = $data->sortBy(function ($item) {
                 return $item->language->id;
             });
         }
@@ -101,7 +100,7 @@ class EmailSiteSummary extends Command
      */
     public function handle()
     {
-        foreach($this->leaders as $leader) {
+        foreach ($this->leaders as $leader) {
             Mail::to($leader)->send(new SiteSummary($this->data, $leader));
         }
     }

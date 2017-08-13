@@ -25,15 +25,16 @@ class AutocompleteController extends Controller
         $language = $options['language'];
         $type     = isset($options['type']) ? $options['type'] : 'all';
 
-        if($type == 'verb') {
+        if ($type == 'verb') {
             $results = $this->queryVerbForms($term, $language);
-        } elseif($type == 'nominal') {
-            $results = $this->queryNominalForms($term, $language);           
+        } elseif ($type == 'nominal') {
+            $results = $this->queryNominalForms($term, $language);
         } else {
             $results = $this->queryVerbForms($term, $language)->merge($this->queryNominalForms($term, $language));
         }
 
         foreach ($results as $result) {
+            $result->extra = $result->morphemesToJson();
             $result->name = str_replace('*', '', $result->present('unique'));
         }
 
@@ -42,7 +43,7 @@ class AutocompleteController extends Controller
 
     protected function queryVerbForms($term, $language)
     {
-        return VerbForm::select('id', 'name', 'language_id', 'morphemicForm as extra', 'structure_id', 'structure_type')
+        return VerbForm::select('id', 'name', 'language_id', 'morphemicForm', 'structure_id', 'structure_type')
             ->with('language')
             ->with('structure')
             ->with('structure.subject')
@@ -55,7 +56,14 @@ class AutocompleteController extends Controller
 
     protected function queryNominalForms($term, $language)
     {
-        return NominalForm::select('id', 'name', 'language_id', 'morphemicForm as extra', 'structure_id', 'structure_type')
+        return NominalForm::select(
+            'id',
+            'name',
+            'language_id',
+            'morphemicForm',
+            'structure_id',
+            'structure_type'
+        )
             ->with('language')
             ->with('structure')
             ->where('name', 'LIKE', "%$term%")
@@ -72,17 +80,20 @@ class AutocompleteController extends Controller
     public function morphemes()
     {
         $term = request()->term;
-        $options  = json_decode(request()->options, true);
+        $options  = is_string(request()->options) ? json_decode(request()->options, true) : request()->options;
         $language = $options['language'];
 
-        $results = Morpheme::select('name', 'id', 'gloss', 'language_id')
+        $results = Morpheme::select('name', 'id', 'gloss', 'slot_id', 'language_id', 'disambiguator')
+                            ->with(['slot', 'initialChanges'])
                            ->where('name', 'LIKE', "%$term%")
                            ->where('name', '<>', 'V')
                            ->where('language_id', $language)
                            ->get();
 
-        foreach($results as $result) {
-            $result->name = str_replace('*', '', $result->present('unique'));
+        if (!isset($options['alter']) || $options['alter'] === true) {
+            foreach ($results as $result) {
+                $result->name = str_replace('*', '', $result->present('unique'));
+            }
         }
 
         return $results->toJson();
@@ -96,20 +107,20 @@ class AutocompleteController extends Controller
         $type = isset($options['type']) ? $options['type'] : '';
 
         $query = Phoneme::select('algoName', 'ipaName', 'orthoName', 'id', 'language_id')
-            ->where(function($query) use ($term) {
+            ->where(function ($query) use ($term) {
                 $query->where('algoName', 'LIKE', "%$term%")
                     ->orWhere('ipaName', 'LIKE', "%$term%")
                     ->orWhere('orthoName', 'LIKE', "%$term%");
             })
             ->where('language_id', $language);
 
-        if($type == 'phoneme') {
+        if ($type == 'phoneme') {
             $query->where('phonemeable_type', '<>', 'clusterTypes');
         }
 
         $results = $query->get();
 
-        foreach($results as $result) {
+        foreach ($results as $result) {
             $result->name = "/{$result->algoName}/";
         }
 
@@ -124,10 +135,10 @@ class AutocompleteController extends Controller
     public function sources()
     {
         $term = request()->term;
-        
+
         $sources = Source::search($term)->take(10)->get();
 
-        foreach($sources as $source) {
+        foreach ($sources as $source) {
             $source->name = $source->long;
             $source->extra = $source->display;
         }
@@ -166,12 +177,12 @@ class AutocompleteController extends Controller
 
         $language = Language::with('parent')
             ->find($language_id);
-        
+
         $results = $this->findParents($language, $term, 'examples', 'Word_Examples.name');
 
-        return json_encode($results);   
+        return json_encode($results);
     }
-    
+
     /**
      * Get all of the morphemes in a language's parents that match a particular token
      *
@@ -224,14 +235,15 @@ class AutocompleteController extends Controller
         if ($language->parent) { // Recursive case: the language has a parent
 
             // Find this language's parent and eager load its parent and members of $field
-            $parent = Language::with([
+            $parent = Language::with(
+                [
                 'parent',
                 $items => function ($query) use ($term, $field) {
-                    if(is_array($field)) {
-                        for($i = 0; $i < count($field); $i++) {
+                    if (is_array($field)) {
+                        for ($i = 0; $i < count($field); $i++) {
                             $currField = $field[$i];
 
-                            if($i == 0) {
+                            if ($i == 0) {
                                 $query->where($currField, 'LIKE', "%$term%");
                             } else {
                                 $query->orWhere($currField, 'LIKE', "%$term%");

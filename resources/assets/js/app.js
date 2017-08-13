@@ -39,17 +39,16 @@ Vue.component('alg-button',          require('./components/Button.vue'));
 Vue.component('alg-map',             require('./components/Map.vue'));
 Vue.component('alg-file-upload',     require('./components/FileUpload.vue'));
 Vue.component('alg-tooltip', require('./components/Tooltip.vue'));
+Vue.component('alg-typeahead', require('./components/Typeahead.vue'));
 
+Vue.component('alg-form',           require('./components/forms/Form.vue'));
 Vue.component('alg-language-form',  require('./components/forms/Language.vue'));
 Vue.component('alg-group-form',     require('./components/forms/Group.vue'));
-Vue.component('alg-form-form',      require('./components/forms/Form.vue'));
+Vue.component('alg-form-form',      require('./components/forms/VerbForm.vue'));
 Vue.component('alg-morpheme-form',  require('./components/forms/Morpheme.vue'));
 Vue.component('alg-example-form',   require('./components/forms/Example.vue'));
 Vue.component('alg-rule-form',      require('./components/forms/Rule.vue'));
-Vue.component('alg-source-form',    require('./components/forms/Source.vue'));
-Vue.component('alg-variable-form',  require('./components/forms/Variable.vue'));
 Vue.component('alg-datapoint-form', require('./components/forms/Datapoint.vue'));
-Vue.component('alg-generic-form',   require('./components/forms/Generic.vue'));
 Vue.component('alg-paradigm-form',  require('./components/forms/Paradigm.vue'));
 Vue.component('alg-nominal-form-form',  require('./components/forms/NominalForm.vue'));
 Vue.component('alg-phoneme-form',  require('./components/forms/Phoneme.vue'));
@@ -61,6 +60,7 @@ Vue.component('alg-phoneme-example-form',  require('./components/forms/PhonemeEx
 Vue.component('alg-order', require('./components/Order.vue'));
 Vue.component('alg-textarea', require('./components/Textarea.vue'));
 Vue.component('alg-tag-input', require('./components/Tag-Input.vue'));
+Vue.component('alg-morpheme-tag-input', require('./components/Morpheme-Tag-Input.vue'));
 Vue.component('alg-value-input', require('./components/Value-Input.vue'));
 
 Vue.component('alg-paradigm-search',  require('./components/forms/Paradigm-Search.vue'));
@@ -124,11 +124,7 @@ const app = new Vue({
 
     data() {
     	return {
-    		showFlash: true,
-
-    		object1: {},
-    		object2: {},
-    		object3: {}
+    		showFlash: true
     	};
     }
 });

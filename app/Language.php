@@ -97,7 +97,7 @@ class Language extends Model
     {
         return $this->name;
     }
-    
+
     /*
     |--------------------------------------------------------------------------
     | Relations
@@ -132,7 +132,7 @@ class Language extends Model
 
     /**
      * Loads all of the unique sources found in all of this languages's forms, morphemes, and examples
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function sources()
@@ -143,13 +143,13 @@ class Language extends Model
         $output = null;
 
         $sources = $morphemeSources;
-        if($formSources) {
+        if ($formSources) {
             $sources = $sources->merge($formSources);
         }
-        if($exampleSources) {
+        if ($exampleSources) {
             $sources = $sources->merge($exampleSources);
         }
-        if($sources) {
+        if ($sources) {
             $output = $sources->sortBy('short');
         }
 
@@ -163,7 +163,7 @@ class Language extends Model
     */
     protected function loadSources($model)
     {
-        $this->load(["$model.generalSources" => function ($query) use ( &$sources ) {
+        $this->load(["$model.generalSources" => function ($query) use (&$sources) {
             $sources = $query->get()->unique();
         }]);
 
@@ -172,13 +172,13 @@ class Language extends Model
 
     protected function respondToHiding()
     {
-        foreach($this->assets as $asset) {
-            if($this->isHidden()) {
+        foreach ($this->assets as $asset) {
+            if ($this->isHidden()) {
                 $relation = $this->$asset();
                 $relation->unsearchable();
             } else {
-                foreach($this->$asset as $item) {
-                    if(!$item->isHidden()) {
+                foreach ($this->$asset as $item) {
+                    if (!$item->isHidden()) {
                         $item->searchable();
                     }
                 }
@@ -203,7 +203,7 @@ class Language extends Model
 
     public function getVariable(Variable $variable)
     {
-        $lookup = $this->datapoints->filter(function($datapoint) use ($variable) {
+        $lookup = $this->datapoints->filter(function ($datapoint) use ($variable) {
             return $datapoint->variable_id == $variable->id;
         });
 

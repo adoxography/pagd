@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import Form from './Form';
+
 class Row {
 	constructor(allophone = '', environment = '') {
 		this.allophone = allophone;
@@ -57,6 +59,8 @@ class Row {
 }
 
 export default {
+	extends: Form,
+
 	props: ['old'],
 
 	data() {

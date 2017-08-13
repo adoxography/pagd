@@ -49,7 +49,8 @@ class Morpheme extends Model
     ];
     protected $appends = [
         'uniqueName',
-        'html'
+        'html',
+        'colour'
     ];
     protected $altName;
 
@@ -87,8 +88,7 @@ class Morpheme extends Model
         'changeType_id'   => 'change type',
         'created_at'      => '[created]'
     ];
-    protected /** @noinspection SpellCheckingInspection */
-        $dontKeepRevisionOf = [
+    protected $dontKeepRevisionOf = [
         'id',
         'created_at',
         'updated_at'
@@ -126,6 +126,17 @@ class Morpheme extends Model
         return $this->present()->as('unique', 'link')->__toString();
     }
 
+    public function getColourAttribute()
+    {
+        $colour = '';
+
+        if ($this->slot) {
+            $colour = $this->slot->colour;
+        }
+
+        return $colour;
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Methods
@@ -136,7 +147,7 @@ class Morpheme extends Model
     {
         return $this->uniqueName;
     }
-    
+
     public function isVStem()
     {
         return preg_match('/\*?V/', $this->name);
@@ -152,12 +163,12 @@ class Morpheme extends Model
         $query = InitialChange::where('morpheme_id', $this->id);
 
         $pieces = explode('.', $code);
-        if(count($pieces) > 1) {
+        if (count($pieces) > 1) {
             $query->where('disambiguator', $pieces[1]);
         }
         $results = $query->get();
 
-        if(count($results) == 1) {
+        if (count($results) == 1) {
             $output = $results[0]->change;
         } else {
             $output = "IC.{$this->name}";
@@ -177,7 +188,7 @@ class Morpheme extends Model
         $forms = $this->forms;
         $examples = $this->examples;
 
-        if(count($forms) > 0) {
+        if (count($forms) > 0) {
             $output = $forms->merge($examples);
         } else {
             $output = $examples;
@@ -203,7 +214,7 @@ class Morpheme extends Model
 
     public function getVerbFormsAttribute()
     {
-        if($this->verbFormRepository === null) {
+        if ($this->verbFormRepository === null) {
             $this->verbFormRepository = $this->verbForms()->get();
         }
 
@@ -222,22 +233,22 @@ class Morpheme extends Model
 
     public function getNominalFormsAttribute()
     {
-        if($this->nominalFormRepository === null) {
+        if ($this->nominalFormRepository === null) {
             $this->nominalFormRepository = $this->nominalForms()->get();
         }
-        
+
         return $this->nominalFormRepository;
     }
 
     public function verbForms($with = [])
     {
         $query = VerbForm::select('Word_Forms.*')
-            ->join('Morph_Morphemeables', function($join) {
+            ->join('Morph_Morphemeables', function ($join) {
                 $join->on('Word_Forms.id', '=', 'morphemeable_id')
                     ->where('morphemeable_type', 'forms');
             })->where('morpheme_id', $this->id);
 
-        foreach($with as $eagerLoad) {
+        foreach ($with as $eagerLoad) {
             $query->with($eagerLoad);
         }
 
@@ -247,12 +258,12 @@ class Morpheme extends Model
     public function nominalForms($with = [])
     {
         $query = NominalForm::select('Word_Forms.*')
-            ->join('Morph_Morphemeables', function($join) {
+            ->join('Morph_Morphemeables', function ($join) {
                 $join->on('Word_Forms.id', '=', 'morphemeable_id')
                     ->where('morphemeable_type', 'forms');
             })->where('morpheme_id', $this->id);
 
-        foreach($with as $eagerLoad) {
+        foreach ($with as $eagerLoad) {
             $query->with($eagerLoad);
         }
 
@@ -273,7 +284,7 @@ class Morpheme extends Model
     {
         return $this->examples()->ofType('nominalStructures');
     }
-    
+
     public function glosses()
     {
         return $this->belongsToMany(Gloss::class, 'Morph_Glosses_Morphemes', 'morpheme_id', 'gloss_id');
@@ -283,7 +294,7 @@ class Morpheme extends Model
     {
         return $this->belongsTo(ChangeType::class, 'changeType_id');
     }
-    
+
     public function slot()
     {
         return $this->belongsTo(Slot::class, 'slot_id');
@@ -300,17 +311,17 @@ class Morpheme extends Model
         $glosses = explode('.', $this->gloss);
         $colourHTML = '';
 
-        if($colour) {
-            $colourHTML = 'style="color:inherit;" ';
+        if ($colour) {
+            $colourHTML = 'style="colour:inherit;" ';
         }
 
-        foreach($glosses as $glossText) {
-            if(strlen($output) > 0) {
+        foreach ($glosses as $glossText) {
+            if (strlen($output) > 0) {
                 $output .= '.';
             }
 
-            if(strlen($glossText) > 0) {
-                if($glossText{0} == '"') {
+            if (strlen($glossText) > 0) {
+                if ($glossText{0} == '"') {
                     $currGloss = str_replace('"', '', $glossText);
                     $currGloss = str_replace(' ', '.', $currGloss);
 
@@ -318,9 +329,9 @@ class Morpheme extends Model
                 } else {
                     $lookup = $this->glosses->where('abv', $glossText);
 
-                    if(count($lookup) > 0) {
+                    if (count($lookup) > 0) {
                         $currGloss = "<span class='gloss'><a href='/glosses/" . $lookup->first()->id . "' $colourHTML>" . $lookup->first()->abv . "</a></span>";
-                    } elseif($showAlert) {
+                    } elseif ($showAlert) {
                         $currGloss = "<span class='gloss'>$glossText</span><alg-morpheme-alert title='Gloss missing'><a href='/glosses/create?abv=$glossText'>Add <span class='gloss'>$glossText</span></a></alg-morpheme-alert>";
                     } else {
                         $currGloss = "<span class='gloss'>$glossText</span>";
@@ -339,11 +350,11 @@ class Morpheme extends Model
         $output = $this->renderGloss(false);
         $description = '';
 
-        foreach($this->glosses as $gloss) {
+        foreach ($this->glosses as $gloss) {
             $description .= $gloss->name . ' ';
         }
 
-        if(strlen($description) > 0) {
+        if (strlen($description) > 0) {
             $description = ' ('.trim($description).')';
         }
 
@@ -356,10 +367,10 @@ class Morpheme extends Model
 
         $glosses = explode('.', $this->gloss);
 
-        foreach($glosses as $glossAbv) {
+        foreach ($glosses as $glossAbv) {
             $gloss = Gloss::where('abv', $glossAbv)->first();
 
-            if($gloss) {
+            if ($gloss) {
                 $this->glosses()->attach($gloss);
             }
         }
@@ -368,5 +379,17 @@ class Morpheme extends Model
     public function present(string $method = 'name')
     {
         return new MorphemePresenter($this, $method);
+    }
+
+    public function getGlossArray()
+    {
+        $glosses = explode('.', $this->gloss);
+        $array = [];
+
+        foreach ($glosses as $gloss) {
+            $array[] = ['name' => $gloss, 'id' => 0];
+        }
+
+        return $array;
     }
 }

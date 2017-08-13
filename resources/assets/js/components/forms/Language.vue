@@ -1,15 +1,16 @@
 <script>
-import oldErrors from '../../mixins/OldErrors';
+import Form from './Form';
+import { Datalist } from '../../Datalist.js';
 
 export default {
-	mixins: [oldErrors],
+	extends: Form,
 
 	props: ['oldLocation'],
 
 	data() {
 		return {
-			group: { text: '', id: '' },
-			parent: { text: '', id: '' },
+			group: new Datalist,
+			parent: new Datalist,
 			location: null
 		};
 	},

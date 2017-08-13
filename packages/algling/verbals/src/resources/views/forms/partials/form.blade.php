@@ -234,42 +234,44 @@
 
 		<hr>
 		<h4 class="subtitle is-4">Morphology</h4>
-		<div class="columns">
 
 			<!-- phonemicForm -->
-			<div class="column is-half">
-				@component('components.form.text', [
-					'name'        => 'phonemicForm',
-					'label'       => 'phonemic representation',
-					'placeholder' => 'The Algonquianist phonemic representation (Leave blank if unknown or unclear)',
-					'disabled'    => 'empty'
-				])
-					@slot('value')
-						@if(isset($form) && $form->phonemicForm)
-							{{ str_replace('*', '', $form->phonemicForm) }}
-						@endif
-					@endslot
-				@endcomponent
-			</div>
+			@component('components.form.text', [
+				'name'        => 'phonemicForm',
+				'label'       => 'phonemic representation',
+				'placeholder' => 'The Algonquianist phonemic representation (Leave blank if unknown or unclear)',
+				'disabled'    => 'empty'
+			])
+				@slot('value')
+					@if(isset($form) && $form->phonemicForm)
+						{{ str_replace('*', '', $form->phonemicForm) }}
+					@endif
+				@endslot
+			@endcomponent
 
 			<!-- morphemicForm -->
-			<div class="column is-half">
-				@component('components.form.text', [
-					'name'        => 'morphemicForm',
-					'label'       => 'morphemic form',
-					'disabled'    => 'empty',
-					'placeholder' => 'The morphemes, separated by hyphens (Leave blank if unknown or unclear)',
-					'rules'       => 'hasMorpheme:V',
-					'delay'       => 500
-				])
-					@slot('value')
-						@if(isset($form) && $form->morphemicForm)
-							{{ $form->morphemicForm }}
-						@endif
-					@endslot
-				@endcomponent
-			</div>
-		</div>
+			<label for="morphemes" class="label">Morphemes</label>
+			<alg-morpheme-tag-input
+				source="/autocomplete/morphemes"
+				name="morphemes"
+				id="morphemes"
+				:allow-duplicates="true"
+				:allow-new="true"
+				:allow-periods="false"
+				:allow-hyphens="false"
+				@input="errors.clear('morphemes')"
+				placeholder="The morphemes (Leave blank if unknown or unclear)"
+				:classes="{'is-danger': errors.has('morphemes')}"
+				:language="language.id"
+
+				@if(isset($form))
+				:tags="{{ $form->morphemesToJson() }}"
+				@endif
+			></alg-morpheme-tag-input>
+			<span class="help is-danger"
+				  v-show="errors.has('morphemes')"
+				  v-text="errors.first('morphemes')">
+			</span>
 
 		<hr>
 		<h4 class="subtitle is-4">Lineage</h4>

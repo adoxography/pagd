@@ -1,6 +1,4 @@
-import Form from './utilities/Form';
 import axiosRetry from 'axios-retry';
-import VeeValidate from 'vee-validate';
 
 window._ = require('lodash');
 
@@ -26,7 +24,12 @@ require('vue-resource');
 
 let vueScrollTo = require('vue-scroll-to');
 Vue.use(vueScrollTo);
-Vue.use(VeeValidate);
+
+/**
+ * Import Pug to allow for fully extendable Vue components
+ */
+
+// window.Pug = require('pug');
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -45,7 +48,6 @@ axiosRetry(window.axios, {
 	retries: 5,
 	retryCondition: error => !error.response || error.response.status == 400
 })
-window.Form = Form;
 
 // Core
 import tinymce from 'tinymce/tinymce'

@@ -7,7 +7,7 @@ class SourceTest extends TestCase
 {
 	use DatabaseTransactions;
 
-	protected $connectionsToTransact = ['mysql_testing'];
+	protected $connectionsToTransact = ['sqlite'];
 
 	/** @test */
 	function a_source_has_attributes()

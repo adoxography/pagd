@@ -14,6 +14,10 @@ mix.autoload({
    jquery: ['$', 'window.jQuery']
 });
 
+mix.options({
+    uglify: false
+});
+
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
    .copy('resources/assets/libs/font-awesome/fonts', 'public/build/fonts')

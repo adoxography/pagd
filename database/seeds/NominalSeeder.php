@@ -11,7 +11,6 @@ class NominalSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(seed_nom_modes::class);
         $this->call(seed_nom_paradigm_types::class);
         $this->call(seed_nom_paradigms::class);
     }

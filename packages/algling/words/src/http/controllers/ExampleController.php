@@ -61,12 +61,14 @@ class ExampleController extends AlgModelController
      */
     public function store(ExampleRequest $request)
     {
-        $example = Example::create($request->all());
+        $data = $request->all();
+        $data['morphemicForm'] = $this->convertMorphemes();
+        $example = Example::create($data);
 
         flash("{$example->name} created successfully", 'is-success');
         return redirect("examples/{$example->id}");
     }
-    
+
     /**
      * Update an example
      *
@@ -76,7 +78,9 @@ class ExampleController extends AlgModelController
      */
     public function update(ExampleRequest $request, Example $example)
     {
-        $example->update($request->all());
+        $data = $request->all();
+        $data['morphemicForm'] = $this->convertMorphemes();
+        $example->update($data);
 
         flash("{$example->name} updated successfully", 'is-success');
         return redirect("examples/{$example->id}");
@@ -105,7 +109,38 @@ class ExampleController extends AlgModelController
     public function disambiguate(Example $example)
     {
         $example->disambiguate(request()->index, request()->disambiguator);
-        
+
         return redirect("/examples/{$example->id}");
+    }
+
+    protected function convertMorphemes()
+    {
+        $morphemes = request()->morphemes;
+        $morphemicForm = '';
+        $firstTime = true;
+
+        foreach ($morphemes as $morpheme) {
+            if ($firstTime) {
+                $firstTime = false;
+            } else {
+                $morphemicForm .= '-';
+            }
+
+            if ($morpheme['ic'] != null && $morpheme['ic'] >= 0) {
+                $morphemicForm .= "IC";
+                if ($morpheme['ic'] > 0) {
+                    $morphemicForm .= '.' . $morpheme['ic'];
+                }
+                $morphemicForm .= "|";
+            }
+
+            $morphemicForm .= str_replace(['*', '-'], '', $morpheme['name']);
+
+            if ($morpheme['disambiguator']) {
+                $morphemicForm .= '.' . $morpheme['disambiguator'];
+            }
+        }
+
+        return $morphemicForm;
     }
 }

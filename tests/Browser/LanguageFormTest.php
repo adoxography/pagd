@@ -11,9 +11,9 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class LanguageFormTest extends DuskTestCase
 {
-    use DatabaseMigrations;
+    use DatabaseTransactions;
 
-    // protected $connectionsToTransact = ['mysql'];
+    protected $connectionsToTransact = ['mysql'];
 
     /** @test */
     function a_language_can_be_created()
@@ -23,7 +23,7 @@ class LanguageFormTest extends DuskTestCase
                     ->visit('/languages/create')
 
                     // Make sure we're on the right page
-                    ->assertSee('ADD A LANGUAGE')
+                    ->assertSee('Add language')
 
                     // Enter the info
                     ->type('name', 'Test Language')
@@ -38,7 +38,7 @@ class LanguageFormTest extends DuskTestCase
 
                     // Make sure we got to the right page
                     ->assertSee('Test Language added successfully.')
-                    ->assertSee('LANGUAGE DETAILS')
+                    ->assertSee('Language details')
 
                     // Make sure all the data made it
                     ->assertSee('Test Language')
@@ -134,24 +134,7 @@ class LanguageFormTest extends DuskTestCase
                     ->type('iso', 'tst')
                     ->type('algoCode', 't')
                     ->press('Submit')
-                    ->assertSee('ADD A LANGUAGE'); // Should not have left the page
-        });
-    }
-
-    /** @test */
-    function the_iso_field_is_required()
-    {
-        $this->browse(function ($browser) {
-            $browser->loginAs(User::find(1))
-                    ->visit('/languages/create')
-                    ->type('name', 'New Language')
-                    ->clear('parent')
-                    ->type('parent', 'Proto-Algonquian')
-                    ->clear('group')
-                    ->type('group', 'Plains')
-                    ->type('algoCode', 't')
-                    ->press('Submit')
-                    ->assertSee('ADD A LANGUAGE'); // Should not have left the page
+                    ->assertSee('The name field is required');
         });
     }
 
@@ -168,7 +151,7 @@ class LanguageFormTest extends DuskTestCase
                     ->type('group', 'Plains')
                     ->type('iso', 'tst')
                     ->press('Submit')
-                    ->assertSee('ADD A LANGUAGE'); // Should not have left the page
+                    ->assertSee('The algonquianist code field is required.');
         });
     }
 }

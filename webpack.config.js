@@ -86,7 +86,8 @@ module.exports.module = {
                 loaders: {
                     js: 'babel-loader' + Mix.babelConfig(),
                     scss: 'vue-style-loader!css-loader!sass-loader',
-                    sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+                    sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
+                    pug: 'pug-loader'
                 },
 
                 postcss: [
@@ -130,7 +131,7 @@ module.exports.module = {
             loaders: [
                 'imports?this=>window'
             ]
-        }  
+        }
     ]
 };
 

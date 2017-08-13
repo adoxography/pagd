@@ -9,22 +9,24 @@ use Auth;
 
 /**
  * Assignable trait to classes that need to deal with morphemes.
- * 
+ *
  * Requires that the model has a morphemicForm property and a pivot table to connect the model to the Morphemes table
  */
-trait HasMorphemesTrait {
-
-    public static function bootHasMorphemesTrait() {
-        static::saved(function($model) {
+trait HasMorphemesTrait
+{
+    public static function bootHasMorphemesTrait()
+    {
+        static::saved(function ($model) {
             $model->connectMorphemes();
         });
 
-        static::deleting(function($model) {
+        static::deleting(function ($model) {
             $model->morphemes()->detach();
         });
     }
 
-    public function morphemes() {
+    public function morphemes()
+    {
         $type = $this->morphCode ? $this->morphCode : $this->getMorphClass();
 
         return $this->belongsToMany(
@@ -36,14 +38,14 @@ trait HasMorphemesTrait {
 
     /**
      * Connects morphemes by looking at the morphemicForm
-     * 
+     *
      * Connects all unambiguous matches of each token in the morphemicForm to the name of a morpheme in the database
-     * 
+     *
      * @return void
      */
-	public function connectMorphemes()
-	{
-    	$morphemes = explode('-', $this->morphemicForm);
+    public function connectMorphemes()
+    {
+        $morphemes = explode('-', $this->morphemicForm);
 
         $type = $this->morphCode ? $this->morphCode : $this->getMorphClass();
 
@@ -54,16 +56,10 @@ trait HasMorphemesTrait {
         foreach ($morphemes as $index => $morpheme) {
             $chunks = $this->extractRealMorpheme($morpheme);
 
-            $query = Morpheme::whereIn('name', [
+            $query = $this->queryMorpheme(
                 $chunks->get('morpheme'),
-                "-{$chunks->get('morpheme')}",
-                "-{$chunks->get('morpheme')}-",
-                "{$chunks->get('morpheme')}-",
-            ])->where('language_id', $this->language->id);
-
-            if ($chunks->has('disambiguator')) {
-                $query->where('disambiguator', $chunks->get('disambiguator'));
-            }
+                $chunks->has('disambiguator') ? $chunks->get('disambiguator') : null
+            );
 
             // Execute the query
             $lookup = $query->get();
@@ -79,7 +75,23 @@ trait HasMorphemesTrait {
 
         // Update the complete status, if necessary
         $this->assessIsComplete(count($morphemes), $this->morphemes->count());
-	}
+    }
+
+    protected function queryMorpheme(string $name, $disambiguator = null)
+    {
+        $query = Morpheme::whereIn('name', [
+            $name,
+            "-$name",
+            "-$name-",
+            "$name-",
+        ])->where('language_id', $this->language->id);
+
+        if ($disambiguator) {
+            $query->where('disambiguator', $disambiguator);
+        }
+
+        return $query;
+    }
 
     /**
      * Removes any initial change directives
@@ -95,7 +107,7 @@ trait HasMorphemesTrait {
 
         $output['morpheme'] = preg_replace("/^\((.*)\)$/", "$1", $chunks[0]);
 
-        if(count($chunks) > 1) {
+        if (count($chunks) > 1) {
             $output['disambiguator'] = $chunks[1];
         }
 
@@ -111,13 +123,13 @@ trait HasMorphemesTrait {
      */
     protected function assessIsComplete(int $numExpected, int $numActual)
     {
-        if($numExpected === $numActual) {
-            if(!$this->complete) {
+        if ($numExpected === $numActual) {
+            if (!$this->complete) {
                 $this->complete = true;
                 $this->save();
             }
         } else {
-            if($this->complete) {
+            if ($this->complete) {
                 $this->complete = false;
                 $this->save();
             }
@@ -126,7 +138,7 @@ trait HasMorphemesTrait {
 
     /**
      * Generate a list of morphemes using the morphemicForm to temporarily fill in any missing morphemes
-     * 
+     *
      * @return array
      */
     public function morphemeList()
@@ -136,28 +148,27 @@ trait HasMorphemesTrait {
         $curr = 0; // The number of pre-connected morphemes that have been addressed already
         $slots = explode('-', $this->morphemicForm);
 
-        foreach($slots as $index => $slot) {
+        foreach ($slots as $index => $slot) {
             $initialChangePieces = explode('|', $slot);
 
-            if($curr < count($savedMorphemes) && $savedMorphemes[$curr]->pivot->position == $index + 1) {
-            // If the position of the pre-connected morpheme matches the position we're currently looking for, add it to the output
+            if ($curr < count($savedMorphemes) && $savedMorphemes[$curr]->pivot->position == $index + 1) {
+                // If the position of the pre-connected morpheme matches the position we're currently looking for, add it to the output
                 $output[] = $savedMorphemes[$curr++];
                 $output[count($output) - 1]['name'] = explode('.', array_last($initialChangePieces))[0];
 
-                if(count($initialChangePieces) > 1) {
-                // Initial change is at play here
+                if (count($initialChangePieces) > 1) {
+                    // Initial change is at play here
                     array_last($output)->initialChange($initialChangePieces[0]);
                 }
-            }
-            else {
-            // Otherwise, we don't have the morpheme in the system; deal with the token directly
+            } else {
+                // Otherwise, we don't have the morpheme in the system; deal with the token directly
                 $realSlot = array_last($initialChangePieces);
 
                 // Pull off the disambiguator
                 $temp = ['name' => explode('.', $realSlot)[0]];
 
                 // The initial change table won't have a record for a morpheme that isn't in the database, so record the initial change directly
-                if(count($initialChangePieces) > 1) {
+                if (count($initialChangePieces) > 1) {
                     $temp['name'] = 'IC.'.$temp['name'];
                 }
 
@@ -182,7 +193,7 @@ trait HasMorphemesTrait {
         $output = [];
 
         // Look for all of the morphemes that have a name that matches what we're looking for (hyphens not included)
-        if(Auth::user()) {
+        if (Auth::user()) {
             $search = Morpheme::whereIn('name', [
                 $name,
                 '-'.$name, // There's gotta be a better way of doing this...
@@ -198,74 +209,73 @@ trait HasMorphemesTrait {
 
     /**
      * Convert the morpheme list into HTML
-     * 
+     *
      * @return string An HTML representation of the morpheme list
      */
     public function printMorphemes()
     {
-    	$firstTime = true;
-    	$html = '';
-    	$index = 0;
+        $firstTime = true;
+        $html = '';
+        $index = 0;
 
-    	foreach($this->morphemeList() as $morpheme) {
-    		$morphemeHTML = '';
-    		$glossHTML = '';
+        foreach ($this->morphemeList() as $morpheme) {
+            $morphemeHTML = '';
+            $glossHTML = '';
 
-    		if($firstTime) {
-    			$firstTime = false;
-    		} else {
-    			$html .= "<div class='column is-narrow hyphen'>-</div>";
-    		}
+            if ($firstTime) {
+                $firstTime = false;
+            } else {
+                $html .= "<div class='column is-narrow hyphen'>-</div>";
+            }
 
-    		if($morpheme instanceof Morpheme) {
-    			// Morpheme unambiguously exists in the database
+            if ($morpheme instanceof Morpheme) {
+                // Morpheme unambiguously exists in the database
 
-                if(!$morpheme->isHidden() || Auth::user()) {
-    				$morphemeHTML .= str_replace(['-', '*'], '', $morpheme->name);
+                if (!$morpheme->isHidden() || Auth::user()) {
+                    $morphemeHTML .= str_replace(['-', '*'], '', $morpheme->name);
                     $colour = $morpheme->slot->colour;
 
-        			// Everything except vStems need to be wrapped in hyperlinks
-        			if(!$morpheme->isVStem()) {
-                        if(strpos($morphemeHTML, '∅') === false) {
+                    // Everything except vStems need to be wrapped in hyperlinks
+                    if (!$morpheme->isVStem()) {
+                        if (strpos($morphemeHTML, 'V') === false) {
                             $morphemeHTML = "<i>$morphemeHTML</i>";
                         }
-        				$morphemeHTML = "<a href='/morphemes/{$morpheme->id}' style='color: $colour;'>$morphemeHTML</a>";
-        			}
+                        $morphemeHTML = "<a href='/morphemes/{$morpheme->id}' style='color: $colour;'>$morphemeHTML</a>";
+                    }
 
-                    if($morpheme->isHidden()) {
+                    if ($morpheme->isHidden()) {
                         $morphemeHTML = "<span class='data-hidden'>$morphemeHTML</span>";
                     }
 
-        			// Add the gloss below the morpheme
-        			if($morpheme->initialChanged()) {
-        				$glossHTML .= "IC.";
-        			}
+                    // Add the gloss below the morpheme
+                    if ($morpheme->initialChanged()) {
+                        $glossHTML .= "IC.";
+                    }
 
-    				$glossHTML .= $morpheme->renderGloss();
+                    $glossHTML .= $morpheme->renderGloss();
 
-        			$morphemeHTML .= "<p style='color: $colour;'>$glossHTML</p>";
+                    $morphemeHTML .= "<p style='color: $colour;'>$glossHTML</p>";
                 } else {
                     $morphemeHTML .= str_replace('-', '', $morpheme->name);
                 }
+            } else {
+                // Morpheme either doesn't exist in the database or it's ambiguous
+                $morphemeHTML .= $morpheme['name'];
 
-    		} else {
-    			// Morpheme either doesn't exist in the database or it's ambiguous
-    			$morphemeHTML .= $morpheme['name'];
+                if (Auth::user()) {
+                    // This is fairly database-intensive, so only bother with this when the user is logged in
 
-    			if(Auth::user()) {
-    				// This is fairly database-intensive, so only bother with this when the user is logged in
+                    $morphemeHTML .= $this->createMorphemeAlert($morpheme, $index);
+                }
+            }
 
-    				$morphemeHTML .= $this->createMorphemeAlert($morpheme, $index);
-    			}
-    		}
+            // Wrap the morpheme up in a column
+            $html .= "<div class='column is-narrow'>$morphemeHTML</div>";
 
-    		// Wrap the morpheme up in a column
-    		$html .= "<div class='column is-narrow'>$morphemeHTML</div>";
+            $index++;
+        }
 
-    		$index++;
-    	}
-
-    	return "<div class='columns morpheme-printout'>$html</div>";
+        return "<div class='columns morpheme-printout'>$html</div>";
     }
 
     /**
@@ -277,55 +287,54 @@ trait HasMorphemesTrait {
      */
     protected function createMorphemeAlert($morpheme, $index)
     {
-    	$options = "";
+        $options = "";
 
-		if(count($morpheme['possibilities']) > 0) {
-        // The morphemes needs disambiguation
+        if (count($morpheme['possibilities']) > 0) {
+            // The morphemes needs disambiguation
 
-			$title = "Disambiguation required";
-			$model = "";
+            $title = "Disambiguation required";
+            $model = "";
 
             // Set the model name so the URI can be set correctly
-			if($this instanceof Form || is_subclass_of($this, Form::class)) {
-				$model = "forms";
-			} else if($this instanceof Example || is_subclass_of($this, Example::class)) {
-				$model = "examples";
-			}
+            if ($this instanceof Form || is_subclass_of($this, Form::class)) {
+                $model = "forms";
+            } elseif ($this instanceof Example || is_subclass_of($this, Example::class)) {
+                $model = "examples";
+            }
 
-			foreach($morpheme['possibilities'] as $possibility) {
-
+            foreach ($morpheme['possibilities'] as $possibility) {
                 // Determine what the gloss should be
                 $gloss = $possibility->gloss;
 
                 // Create a button (disguised as a link) that will instruct the website to disambiguate the morpheme
-				$options .= "<li>".
-					"<form method='POST' action='/$model/{$this->id}/disambiguate'>".
-						"<input type='hidden' name='index' value='{$index}' />".
-						csrf_field().
-						method_field("PATCH").
-						"<input type='hidden' name='disambiguator' value='{$possibility->disambiguator}' />".
-						"<button class='button is-link'>".
-							"{$possibility->name}<sup>{$possibility->disambiguator}</sup> ($gloss)".
-						"</button>".
-					"</form>".
-				"</li>";
-			}
+                $options .= "<li>".
+                    "<form method='POST' action='/$model/{$this->id}/disambiguate'>".
+                        "<input type='hidden' name='index' value='{$index}' />".
+                        csrf_field().
+                        method_field("PATCH").
+                        "<input type='hidden' name='disambiguator' value='{$possibility->disambiguator}' />".
+                        "<button class='button is-link'>".
+                            "{$possibility->name}<sup>{$possibility->disambiguator}</sup> ($gloss)".
+                        "</button>".
+                    "</form>".
+                "</li>";
+            }
 
             // Wrap everything in an unordered list
-			$options = "<ul>$options</ul>";
-		} else {
-        // There is no matching morpheme in the database
+            $options = "<ul>$options</ul>";
+        } else {
+            // There is no matching morpheme in the database
 
-            if(count($this->morphemicForm) > 0) {
+            if (count($this->morphemicForm) > 0) {
                 $title = "Morpheme missing";
                 $options = "<a href='/morphemes/create?name={$morpheme['name']}&language={$this->language->name}'>Add (-){$morpheme['name']}(-)</a>";
             } else {
                 $title = "Morphemic form undeclared";
                 $options = "<a href='".strtolower(isset($this->uri) ? $this->uri : $this->table)."/{$this->id}/edit'>Declare a morphemic form</a>";
             }
-		}
+        }
 
-		return "<alg-morpheme-alert title='$title'>$options</alg-morpheme-alert>";
+        return "<alg-morpheme-alert title='$title'>$options</alg-morpheme-alert>";
     }
 
     /**
@@ -339,8 +348,7 @@ trait HasMorphemesTrait {
     {
         $morphemes = explode('-', $this->morphemicForm);
 
-        if(count($morphemes) > $index && count(explode('.', $morphemes[$index]) == 1)) {
-
+        if (count($morphemes) > $index && count(explode('.', $morphemes[$index]) == 1)) {
             // Add the disambiguator at the end of the morpheme at the given index
             $morphemes[$index] = $morphemes[$index].'.'.$disambiguator;
         }
@@ -354,8 +362,8 @@ trait HasMorphemesTrait {
     {
         $found = false;
 
-        if(is_array($morpheme)) {
-            for($i = 0; $i < count($morpheme) && !$found; $i++) {
+        if (is_array($morpheme)) {
+            for ($i = 0; $i < count($morpheme) && !$found; $i++) {
                 $found = $this->containsMorphemeHelper($morpheme[$i]);
             }
         } else {
@@ -367,12 +375,61 @@ trait HasMorphemesTrait {
 
     protected function containsMorphemeHelper($morpheme)
     {
-        if(is_string($morpheme)) {
+        if (is_string($morpheme)) {
             $lookup = $morpheme;
         } else {
             $lookup = $morpheme->name;
         }
 
         return preg_match("/$lookup/", $this->morphemicForm);
+    }
+
+    public function morphemesToJson()
+    {
+        $morphemes = [];
+
+        if ($this->morphemicForm) {
+            foreach (explode('-', $this->morphemicForm) as $morpheme) {
+                preg_match('/(^IC(\.(\d))?\|)?([^\.]+)(.(\d))?/', $morpheme, $matches);
+
+                $name = $matches[4];
+                $disambiguator = count($matches) >= 6 ? $matches[6] : null;
+
+                if ($matches[3]) {
+                    $ic = $matches[3];
+                } elseif ($matches[1]) {
+                    $ic = 0;
+                } else {
+                    $ic = null;
+                }
+
+                if ($disambiguator) {
+                    $morph = $this->queryMorpheme($name, $disambiguator)->with(['initialChanges', 'slot'])->first();
+                    $morph['ic'] = $ic;
+
+                    if ($ic) {
+                        $change = $morph->initialChanges->where('id', $ic)->first();
+
+                        if ($change) {
+                            $morph['tempName'] = $change->change;
+                        }
+                    }
+                } else {
+                    $morph = [
+                        'name' => $name,
+                        'ic' => $ic,
+                        'disambiguator' => $disambiguator
+                    ];
+                }
+
+                if ($ic === 0) {
+                    $morph['tempName'] = 'IC.' . $morph['name'];
+                }
+
+                $morphemes[] = $morph;
+            }
+        }
+
+        return json_encode($morphemes);
     }
 }

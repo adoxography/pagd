@@ -15,12 +15,18 @@ class CreateSourceTbl extends Migration
     {
         Schema::create('Sources', function (Blueprint $table) {
         	$table->engine = 'InnoDB';
-        	
+
             $table->increments('id');
-            $table->string('short',100);
+
+            $table->string('author');
+            $table->smallInteger('year');
+            $table->char('disambiguator', 2)->nullable();
+            $table->string('short',100)->nullable();
+        	
             $table->text('long');
             $table->string('url')->nullable();
             $table->text('notes')->nullable();
+            $table->text('summary')->nullable();
             
             $table->timestamps();
         });

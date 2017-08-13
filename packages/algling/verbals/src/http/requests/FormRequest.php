@@ -17,12 +17,12 @@ class FormRequest extends Request
 
         $rules += [
             'morphemicForm' => ['nullable','has:V'],
-            
+
             'subject'            => ['required'],
-            'subject_id'         => ['required','exists:Word_Features,id'],  
-            'primaryObject'      => ['nullable','exists:Word_Features,name'],         
+            'subject_id'         => ['required','exists:Word_Features,id'],
+            'primaryObject'      => ['nullable','exists:Word_Features,name'],
             'primaryObject_id'   => ['nullable','integer','exists:Word_Features,id'],
-            'secondaryObject'    => ['nullable','exists:Word_Features,name'],  
+            'secondaryObject'    => ['nullable','exists:Word_Features,name'],
             'secondaryObject_id' => ['nullable','integer','exists:Word_Features,id'],
             'verbClass'          => ['required'],
             'verbClass_id'       => ['required','integer','exists:Verb_Classes,id'],
@@ -36,7 +36,8 @@ class FormRequest extends Request
         return $rules;
     }
 
-    public function messages(){
+    public function messages()
+    {
         $messages = parent::messages();
 
         $messages += [
@@ -54,5 +55,4 @@ class FormRequest extends Request
 
         return $messages;
     }
-    
 }

@@ -1,0 +1,41 @@
+div
+    transition(name="fade")
+        div(class="field tags-field" v-show="tags.length > 0" style="margin-bottom: 0;")
+            .control
+                .input
+                    draggable(v-model="tags")
+                        span(
+                            v-for="(tag, index) in tags"
+                            :key="index"
+                            class="tag"
+                            :style="{ 'background-color': tag.colour ? tag.colour : defaultColor, 'color' : fontColour(tag.colour ? tag.colour : defaultColor) }"
+                            @click="onClickTag(tag)"
+                        )
+                            block tags
+                                span(v-html="tag.name")
+                            a(v-if="!readOnly" @click.prevent.stop="remove(index)" class="delete is-small")
+                            block inputs
+                                input(type="hidden" v-model="tag.name" :name="name + '['+index+'][name]'")
+                                input(type="hidden" v-model="tag.id" :name="name + '['+index+'][id]'")
+    div(class="alg-datalist alg-datalist-container" v-on-clickaway="closeList")
+        div(class="field has-addons" style="margin-bottom: 0;")
+            div(:class="{ 'control': true, 'is-expanded': true, 'is-loading': loading }")
+                input(
+                    v-if="!readOnly"
+                    :placeholder="placeholder"
+                    type="text"
+                    v-model="newTag"
+                    @keydown="onEnter($event)"
+                    @input="triggerUpdate"
+                    class="input"
+                )
+            .control
+                a.button(@click="toggleList")
+                    span.icon
+                        i(class="fa fa-angle-down")
+        div(class="box alg-datalist-dropdown" v-show="hasItems" @mouseleave="resetActive")
+            ul
+                li(:class="activeClass($item)" v-for="(item, $item) in items" @mousedown="hit" @mousemove="setActive($item)")
+                    block options
+                        span(v-html="item.name")
+    block etc

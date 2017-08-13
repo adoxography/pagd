@@ -1,9 +1,9 @@
 <script>
-import oldErrors from '../../mixins/OldErrors';
+import Form from './Form';
 import { Datalist } from '../../Datalist';
 
 export default {
-	mixins: [oldErrors],
+	extends: Form,
 
 	data() {
 		return {

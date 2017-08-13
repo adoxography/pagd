@@ -45,5 +45,11 @@
 		@if(isset($label))
 		data-vv-as="{{ $label }}"
 		@endif
+
+		@if(isset($on))
+			@foreach ($on as $event => $action)
+				{{ '@' . $event }}="{{ $action }}"
+			@endforeach
+		@endif
 	></alg-ajaxlist>
-@endsection	
+@endsection

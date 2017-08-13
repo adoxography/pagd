@@ -13,7 +13,7 @@ div
                         )
                             block tags
                                 span(v-html="tag.name")
-                            a(v-if="!readOnly" @click.prevent.stop="remove(index)" class="delete is-small")
+                            a(v-if="!readOnly" @click.prevent.stop="removeTag(index)" class="delete is-small")
                             block inputs
                                 input(type="hidden" v-model="tag.name" :name="name + '['+index+'][name]'")
                                 input(type="hidden" v-model="tag.id" :name="name + '['+index+'][id]'")

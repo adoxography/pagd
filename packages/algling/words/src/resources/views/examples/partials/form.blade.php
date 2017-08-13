@@ -104,6 +104,8 @@
 					:classes="{'is-danger': errors.has('morphemes')}"
 					:language="language.id"
 					:tags="morphemes"
+					data-vv-value-path="tags"
+					v-validate="'notHasTag:N,V'"
 				></alg-morpheme-tag-input>
 				<span class="help is-danger"
 					  v-show="errors.has('morphemes')"

@@ -19,7 +19,15 @@ function hasMorpheme(value, target) {
 }
 
 function hasTag(value, target) {
-	return false;
+	let result = true;
+
+	if (value.length > 0) {
+		result = value.find(item => {
+			return target.includes(item.name.replace(/[-*]/g, ''));
+		});
+	}
+
+	return typeof result !== 'undefined';
 }
 
 Validator.extend('datalist_required', {
@@ -61,5 +69,10 @@ Validator.extend('notHasMorpheme', {
 
 Validator.extend('hasTag', {
 	getMessage: (field, args) => "The "+field+" field must contain a "+args[0]+" morpheme.",
-	validate: (value, args) => { return hasTag(value, args[0]); }
+	validate: (value, args) => { return hasTag(value, args); }
+});
+
+Validator.extend('notHasTag', {
+	getMessage: (field, args) => "The "+field+" field cannot contain an abstract stem.",
+	validate: (value, args) => { return !hasTag(value, args); }
 });

@@ -151,58 +151,59 @@ $changeTypes = App\ChangeType::all();
 
 		<hr>
 		<h4 class="subtitle is-4">Morphology</h4>
-		<div class="columns">
 
 			<!-- phonemicForm -->
-			<div class="column">
-				@component('components.form.text', [
-					'name'        => 'phonemicForm',
-					'label'       => 'phonemic representation',
-					'placeholder' => 'The Algonquianist phonemic representation (Leave blank if unknown or unclear)'
-				])
-					@slot('value')
-						@if(isset($form) && $form->phonemicForm)
-							{{ str_replace('*', '', $form->phonemicForm) }}
-						@endif
-					@endslot
-				@endcomponent
+			@component('components.form.text', [
+				'name'        => 'phonemicForm',
+				'label'       => 'phonemic representation',
+				'placeholder' => 'The Algonquianist phonemic representation (Leave blank if unknown or unclear)'
+			])
+				@slot('value')
+					@if(isset($form) && $form->phonemicForm)
+						{{ str_replace('*', '', $form->phonemicForm) }}
+					@endif
+				@endslot
+			@endcomponent
+
+			<!-- morphemes -->
+			<div class="field">
+				<label for="morphemes" class="label">Morphemes</label>
+				<alg-morpheme-tag-input
+					source="/autocomplete/morphemes"
+					name="morphemes"
+					id="morphemes"
+					:allow-duplicates="true"
+					:allow-new="true"
+					:allow-periods="false"
+					:allow-hyphens="false"
+					@input="morphemesUpdated($event)"
+					placeholder="The morphemes (Leave blank if unknown or unclear)"
+					:classes="{'is-danger': errors.has('morphemes')}"
+					:language="language.id"
+					ref="morphemes"
+
+					@if(isset($form))
+					:tags="{{ $form->morphemesToJson() }}"
+					@endif
+				></alg-morpheme-tag-input>
+				<span class="help is-danger"
+					  v-show="errors.has('morphemes')"
+					  v-text="errors.first('morphemes')">
+				</span>
 			</div>
 
-			<!-- morphemicForm -->
-			<div class="column">
-				@component('components.form.text', [
-					'name'        => 'morphemicForm',
-					'label'       => 'morphemic form',
-					'placeholder' => 'The morphemes, separated by hyphens (Leave blank if unknown or unclear)',
-					'delay'       => 500,
-					'events'      => ['input' => 'morphemicFormUpdated($event.target.value)']
-				])
-					@slot('value')
-						@if(isset($form) && $form->morphemicForm)
-							{{ $form->morphemicForm }}
-						@endif
-					@endslot
-				@endcomponent
-			</div>
-		</div>
-
-		<div class="columns">
-			<div class="column"></div>
-			<div class="column">
-				@component('components.form.text', [
-					'name' => 'translation',
-					'placeholder' => 'Required only for stemless forms',
-					'rules' => '',
-					'disabled' => '!translationRequired'
-				])
-					@slot('value')
-						@if(isset($form) && $form->isStemless() && $form->examples->count() > 0)
-							{{ $form->examples->first()->translation }}
-						@endif
-					@endslot
-					@endcomponent	
-			</div>
-		</div>
+			@component('components.form.text', [
+				'name' => 'translation',
+				'placeholder' => 'Required only for stemless forms',
+				'rules' => '',
+				'disabled' => '!translationRequired'
+			])
+				@slot('value')
+					@if(isset($form) && $form->isStemless() && $form->examples->count() > 0)
+						{{ $form->examples->first()->translation }}
+					@endif
+				@endslot
+			@endcomponent
 
 		<hr>
 		<h4 class="subtitle is-4">Lineage</h4>

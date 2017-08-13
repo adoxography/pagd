@@ -263,6 +263,8 @@
 				placeholder="The morphemes (Leave blank if unknown or unclear)"
 				:classes="{'is-danger': errors.has('morphemes')}"
 				:language="language.id"
+				v-validate="'hasTag:V'"
+				data-vv-value-path="tags"
 
 				@if(isset($form))
 				:tags="{{ $form->morphemesToJson() }}"

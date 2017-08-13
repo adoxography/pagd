@@ -69,7 +69,7 @@ export default {
 		}
 
 		let temp = this.$refs.translation.value;
-		this.morphemicFormUpdated(this.$refs.morphemicForm.value);
+		this.morphemesUpdated(this.$refs.morphemes.tags);
 		this.$refs.translation.value = temp;
 	},
 
@@ -109,24 +109,34 @@ export default {
 			return lookup;
 		},
 
-		morphemicFormUpdated(text) {
-			if(text.length == 0 || !this.containsStem(text)) {
+		morphemesUpdated(tags) {
+			this.errors.clear('morphemes');
+			console.log(tags);
+			if(tags.length == 0 || !this.containsStem(tags)) {
+				console.log('yup');
 				this.translationRequired = true;
 
-				if(text.length == 0) {
+				if(tags.length == 0) {
 					this.$validator.attach('translation', '');
 				} else {
 					this.$validator.attach('translation', 'required');
 				}
 			} else {
+				console.log('nope');
 				this.translationRequired = false;
 				this.$validator.attach('translation', '');
 				this.$refs.translation.value = '';
 			}
 		},
 
-		containsStem(text) {
-			return text.match(/[VN]($|-)/) !== null;
+		containsStem(tags) {
+			let stems = ['V', 'N'];
+
+			let result = tags.find(item => {
+				return stems.includes(item.name.replace(/[-*]/g, ''));
+			});
+
+			return typeof result !== 'undefined';
 		}
 	}
 }

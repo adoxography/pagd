@@ -128,6 +128,12 @@ export default {
 			this.addNew(item);
 			this.items = [];
 			this.resetActive();
+			this.$emit('input', this.tags);
+		},
+
+		removeTag(index) {
+			this.remove(index);
+			this.$emit('input', this.tags);
 		},
 
 		toggleList() {
@@ -188,6 +194,7 @@ export default {
 	    	this.items = [];
 	    },
 
+	    // Override if desired
 	    onClickTag(tag) {},
 
 	    fontColour: fontColour

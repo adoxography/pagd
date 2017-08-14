@@ -14,12 +14,12 @@ class seed_users extends Seeder
         DB::table('users')->delete();
 
         $users = [
-        	[
+            [
                 'firstName'     => 'Joe',
-        		'lastName'     => 'Doe',
-        		'email'    => 'test@gmail.com',
-        		'password' => bcrypt('test')
-        	]
+                'lastName'     => 'Doe',
+                'email'    => 'test@gmail.com',
+                'password' => bcrypt('test')
+            ]
         ];
 
         DB::table('users')->insert($users);

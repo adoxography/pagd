@@ -41,7 +41,15 @@ class DatabaseBackup extends Command
         $date = Carbon::now()->format('Y-m-d-H-i-s');
         $environment = App::environment();
 
-        Artisan::call('db:backup',['--database' => 'mysql', '--destination' => 'dropbox', '--destinationPath' => "/{$environment}/algling_{$environment}_{$date}", '--compression' => 'gzip']);
+        Artisan::call(
+            'db:backup',
+            [
+                '--database' => 'mysql',
+                '--destination' => 'dropbox',
+                '--destinationPath' => "/{$environment}/algling_{$environment}_{$date}",
+                '--compression' => 'gzip'
+            ]
+        );
         $this->info("Database backed up successfully");
 
         return null;

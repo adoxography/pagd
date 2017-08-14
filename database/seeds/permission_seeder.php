@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -14,29 +15,32 @@ class permission_seeder extends Seeder
     public function run()
     {
         $roles = [
-        	'developer' => [
-        		'receive ticket summaries'
-        	],
-        	'leader' => [
-        		'receive site summaries'
-        	],
-        	'contributor' => [
-        		'add content',
+            'developer' => [
+                'receive ticket summaries'
+            ],
+            'leader' => [
+                'receive site summaries'
+            ],
+            'contributor' => [
+                'add content',
                 'delete content'
-        	],
-        	'reader' => [
-        		'bookmark content'
-        	]
+            ],
+            'reader' => [
+                'bookmark content'
+            ]
         ];
 
         foreach ($roles as $name => $permissions) {
-        	$role = Role::create(['name' => $name]);
+            $role = Role::create(['name' => $name]);
 
-        	foreach ($permissions as $name) {
-        		$permission = Permission::create(['name' => $name]);
+            foreach ($permissions as $name) {
+                $permission = Permission::create(['name' => $name]);
 
-        		$role->givePermissionTo($permission);
-        	}
+                $role->givePermissionTo($permission);
+            }
         }
+
+        User::find(1)->assignRole(['developer', 'leader', 'contributor', 'reader']);
+        Artisan::call('cache:forget', ['key' => 'spatie.permission.cache']);
     }
 }

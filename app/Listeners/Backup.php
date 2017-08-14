@@ -41,13 +41,12 @@ class Backup implements ShouldQueue
     public function handle()
     {
         // Only backup on the website environment.
-        if(App::environment() == 'website') {
-
+        if (App::environment() == 'website') {
             // Get the contents from the file, or use the default ones for now
             $this->readFile();
 
             // Backup the database
-            if($this->shouldBackup()) {
+            if ($this->shouldBackup()) {
                 $this->backup();
             }
 
@@ -58,12 +57,13 @@ class Backup implements ShouldQueue
 
     /**
      * Open the file and read the data from it
-     * 
-     * The first line is the datetime of the last backup, and the second line is the number of changes since the last backup.
+     *
+     * The first line is the datetime of the last backup, and the second line is the number of changes since the last
+     * backup.
      */
     protected function readFile()
     {
-        if(Storage::exists($this->fileName)) {
+        if (Storage::exists($this->fileName)) {
             $file = Storage::get($this->fileName);
             $components = explode("\n", $file);
 
@@ -81,7 +81,8 @@ class Backup implements ShouldQueue
     }
 
     /**
-     * @return true if the number of changes have exceeded the cap, and the current time is past the time delay, and false otherwise
+     * @return true if the number of changes have exceeded the cap, and the current time is past the time delay, and
+     *         false otherwise
      */
     protected function shouldBackup()
     {
@@ -113,7 +114,7 @@ class Backup implements ShouldQueue
 
     /**
      * Perform the backup
-     * 
+     *
      * Updates the last backup time and resets the change counter
      */
     protected function backup()

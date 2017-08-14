@@ -38,10 +38,10 @@ class SendTicketNotificationsToAdministrator extends Command
     {
         parent::__construct();
 
-        //$this->users = User::role('developer')->get();
+        $this->users = User::role('developer')->get();
 
         $this->tickets = Ticket::where('isClosed', false)
-            ->where(function($query) {
+            ->where(function ($query) {
                 $query->where('isUrgent', true)
                       ->orWhere('created_at', '>=', Carbon::now()->subDay());
             })->get();

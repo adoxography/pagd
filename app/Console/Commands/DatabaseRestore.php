@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use Storage;
 use Illuminate\Console\Command;
 
 class DatabaseRestore extends Command
@@ -11,7 +12,7 @@ class DatabaseRestore extends Command
      *
      * @var string
      */
-    protected $signature = 'algling:restore';
+    protected $signature = 'algling:restore {--last|l}';
 
     /**
      * The console command description.
@@ -20,12 +21,27 @@ class DatabaseRestore extends Command
      */
     protected $description = 'Restore the database from dropbox';
 
+    protected $options = ['--database' => 'mysql', '--source' => 'dropbox', '--compression' => 'gzip'];
+
     /**
      * Create a new command instance.
      */
     public function __construct()
     {
         parent::__construct();
+
+        // if ($this->option('last')) {
+        $this->options['--sourcePath'] = $this->getLastBackup();
+        // }
+    }
+
+    protected function getLastBackup()
+    {
+        $files = Storage::disk('dropbox')->allFiles('backups/website');
+
+        $file = array_last($files);
+
+        return str_replace('backups', '', $file);
     }
 
     /**
@@ -35,7 +51,7 @@ class DatabaseRestore extends Command
      */
     public function handle()
     {
-        $this->call('db:restore', ['--database' => 'mysql', '--source' => 'dropbox', '--compression' => 'gzip']);
+        $this->call('db:restore', $this->options);
 
         $this->call('cache:forget', ['key' => 'spatie.permission.cache']);
 

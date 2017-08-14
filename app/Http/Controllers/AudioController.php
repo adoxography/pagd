@@ -21,7 +21,7 @@ class AudioController extends Controller
     {
         $audios = Audio::with('language')->get();
 
-        $audios->sortBy(function($audio) {
+        $audios->sortBy(function ($audio) {
             return $audio->language->name . $audio->name;
         });
 
@@ -92,7 +92,7 @@ class AudioController extends Controller
     {
         $audio->update($request->only('name', 'comments', 'language_id'));
 
-        if($request->clip) {
+        if ($request->clip) {
             $audio->saveFile($request->clip);
         }
 

@@ -26,9 +26,9 @@ class Audio extends Model
 
     public static function upload(UploadedFile $file, $options)
     {
-    	$audio = new Audio($options);
+        $audio = new Audio($options);
 
-    	if($audio->saveFile($file)) {
+        if ($audio->saveFile($file)) {
             return $audio;
         } else {
             throw new \Exception('File failed upload.');
@@ -37,13 +37,13 @@ class Audio extends Model
 
     protected function getDirectory()
     {
-    	$language = $this->language;
+        $language = $this->language;
 
-    	if(!$language) {
-    		throw new \Exception("Could not find a language with an ID of '{$language->id}'.");
-    	}
+        if (!$language) {
+            throw new \Exception("Could not find a language with an ID of '{$language->id}'.");
+        }
 
-    	return "{$this->baseFolder}/{$language->name}";
+        return "{$this->baseFolder}/{$language->name}";
     }
 
     public function saveFile(UploadedFile $file)
@@ -51,14 +51,14 @@ class Audio extends Model
         $rc = false;
         $oldFile = $this->fileName;
 
-    	$dir = $this->getDirectory();
+        $dir = $this->getDirectory();
 
-    	$this->fileName = $file->store($dir, $this->disk);
+        $this->fileName = $file->store($dir, $this->disk);
 
-        if($file->isValid()) {
+        if ($file->isValid()) {
             $this->save();
 
-            if(strlen($oldFile) > 0) {
+            if (strlen($oldFile) > 0) {
                 event(new FileOrphaned($oldFile, $this->disk));
             }
 
@@ -70,21 +70,22 @@ class Audio extends Model
 
     public function getLinkAttribute()
     {
-    	return $this->getLink();
+        return $this->getLink();
     }
 
     public function language()
     {
-    	return $this->belongsTo(Language::class);
+        return $this->belongsTo(Language::class);
     }
 
     public function getLink()
     {
         $link = '';
 
-    	try {
+        try {
             $link = Storage::disk($this->disk)->url($this->fileName);
-        } catch (\Exception $e) {}
+        } catch (\Exception $e) {
+        }
 
         return $link;
     }

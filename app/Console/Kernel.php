@@ -41,7 +41,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('algling:email-site-summary')
                  ->everyMinute()
-                 ->mondays()
+                 ->tuesdays()
                  ->timezone('America/Winnipeg')
                  ->between('11:00', '12:00');
     }

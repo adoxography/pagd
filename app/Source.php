@@ -63,7 +63,8 @@ class Source extends Model implements VerbFormRepositoryInterface, NominalFormRe
         $this->nominalFormRepo = new FormRepository(NominalForm::class);
     }
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
 
         static::addGlobalScope('order', function (Builder $builder) {
@@ -83,7 +84,7 @@ class Source extends Model implements VerbFormRepositoryInterface, NominalFormRe
 
     public function getLetterAttribute()
     {
-        if($this->disambiguator) {
+        if ($this->disambiguator) {
             $alphabet = range('a', 'z');
             return $alphabet[$this->disambiguator - 1];
         } else {
@@ -134,17 +135,17 @@ class Source extends Model implements VerbFormRepositoryInterface, NominalFormRe
 
     public function forms()
     {
-    	return $this->morphedByMany(Form::class, 'Sourceable')->withPivot('extraInfo');
+        return $this->morphedByMany(Form::class, 'Sourceable')->withPivot('extraInfo');
     }
 
     public function morphemes()
     {
-    	return $this->morphedByMany(Morpheme::class, 'Sourceable')->withPivot('extraInfo');
+        return $this->morphedByMany(Morpheme::class, 'Sourceable')->withPivot('extraInfo');
     }
 
     public function examples()
     {
-    	return $this->morphedByMany(Example::class, 'Sourceable')->withPivot('extraInfo');
+        return $this->morphedByMany(Example::class, 'Sourceable')->withPivot('extraInfo');
     }
 
     public function verbExamples()

@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			15-08-17: Fixed an issue where morphemes in forms would not disappear immediately after being deleted
+		</li>
+		<hr>
+		<li>
 			12-08-17: Overhauled morpheme input (<a href="/guide#morphemes">check the guide</a>)
 		<hr>
 		<li>

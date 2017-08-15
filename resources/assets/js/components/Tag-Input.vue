@@ -133,6 +133,7 @@ export default {
 
 		removeTag(index) {
 			this.remove(index);
+			this.$forceUpdate();
 			this.$emit('input', this.tags);
 		},
 

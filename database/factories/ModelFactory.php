@@ -1,19 +1,26 @@
 <?php
 
-use App\Group;
-use App\Language;
-use Algling\Words\Models\Form as WordForm;
-use Algling\Verbals\Models\Form as VerbForm;
 use Algling\Nominals\Models\Form as NominalForm;
+use Algling\Nominals\Models\Structure as NominalStructure;
+use Algling\Phonology\Models\Backness;
+use Algling\Phonology\Models\Height;
+use Algling\Phonology\Models\Length;
+use Algling\Phonology\Models\Phoneme;
+use Algling\Phonology\Models\VowelType;
+use Algling\Verbals\Models\Argument;
+use Algling\Verbals\Models\Form as VerbForm;
 use Algling\Verbals\Models\Mode;
 use Algling\Verbals\Models\Order;
-use App\Models\Morphology\Slot;
-use App\Models\Morphology\Gloss;
-use Algling\Verbals\Models\Argument;
 use Algling\Verbals\Models\Structure as VerbStructure;
-use Algling\Nominals\Models\Structure as NominalStructure;
 use Algling\Verbals\Models\VerbClass;
+use Algling\Words\Models\Form as WordForm;
+use App\AbstractPhonemeGenerator;
+use App\Group;
+use App\Language;
+use App\Models\Morphology\Gloss;
 use App\Models\Morphology\Morpheme;
+use App\Models\Morphology\Slot;
+use Faker\Generator;
 
 /*
 |--------------------------------------------------------------------------
@@ -105,22 +112,22 @@ $factory->define(VerbForm::class, function (Faker\Generator $faker) {
 });
 
 // $factory->define(NominalForm::class, function (Faker\Generator $faker) {
-// 	return [
-// 		'name' => $faker->word,
-// 		'language_id' => factory(Language::class)->create()->id,
-// 		'morphemicForm' => function (array $post) use ($faker) {
-// 			$morpheme1 = factory(Morpheme::class)->create([
+//  return [
+//      'name' => $faker->word,
+//      'language_id' => factory(Language::class)->create()->id,
+//      'morphemicForm' => function (array $post) use ($faker) {
+//          $morpheme1 = factory(Morpheme::class)->create([
 //                 'language_id' => $post['language_id']
 //             ]);
-// 			$morpheme2 = factory(Morpheme::class)->create([
+//          $morpheme2 = factory(Morpheme::class)->create([
 //                 'language_id' => $post['language_id']
 //             ]);
 
-// 			return $morpheme1->name . '-N-' . $morpheme2->name;
-// 		},
-// 		'structure_id' => factory(NominalStructure::class)->create()->id,
+//          return $morpheme1->name . '-N-' . $morpheme2->name;
+//      },
+//      'structure_id' => factory(NominalStructure::class)->create()->id,
 //         'structure_type' => 'nominalStructures'
-// 	];
+//  ];
 // });
 
 $factory->define(Group::class, function (Faker\Generator $faker) {
@@ -188,8 +195,8 @@ $factory->define(VerbStructure::class, function (Faker\Generator $faker) {
         'subject_id' => Argument::all()->random()->id,
         'primaryObject_id' => Argument::all()->random()->id,
         'secondaryObject_id' => Argument::all()->random()->id,
-        'isNegative' => $faker->numberBetween(0,1),
-        'isDiminutive' => $faker->numberBetween(0,1)
+        'isNegative' => $faker->numberBetween(0, 1),
+        'isDiminutive' => $faker->numberBetween(0, 1)
     ];
 });
 
@@ -275,5 +282,21 @@ $factory->define(Slot::class, function (Faker\Generator $faker) {
             return $output;
         },
         'description' => $faker->paragraph
+    ];
+});
+
+$factory->define(Phoneme::class, function (Generator $faker) {
+    $generator = new AbstractPhonemeGenerator($faker);
+
+    return $generator->generate();
+});
+
+$factory->define(VowelType::class, function (Generator $faker) {
+    return [
+        'height_id'   => $faker->randomElement(Height::all()->pluck('id')->all()),
+        'backness_id' => $faker->randomElement(Backness::all()->pluck('id')->all()),
+        'length_id'   => $faker->randomElement(Length::all()->pluck('id')->all()),
+        'isNasal'     => $faker->boolean,
+        'isRounded'   => $faker->boolean
     ];
 });

@@ -1,11 +1,11 @@
 <?php
 
-use App\Group;
-use App\Source;
-use App\Language;
-use Algling\Words\Models\Form as WordForm;
 use Algling\Verbals\Models\Form as VerbForm;
+use Algling\Words\Models\Form as WordForm;
+use App\Group;
+use App\Language;
 use App\Models\Morphology\Morpheme;
+use App\Source;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class LanguageTest extends TestCase

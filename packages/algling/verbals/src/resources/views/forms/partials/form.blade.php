@@ -250,30 +250,17 @@
 			@endcomponent
 
 			<!-- morphemicForm -->
-			<label for="morphemes" class="label">Morphemes</label>
-			<alg-morpheme-tag-input
-				source="/autocomplete/morphemes"
-				name="morphemes"
-				id="morphemes"
-				:allow-duplicates="true"
-				:allow-new="true"
-				:allow-periods="false"
-				:allow-hyphens="false"
-				@input="errors.clear('morphemes')"
-				placeholder="The morphemes (Leave blank if unknown or unclear)"
-				:classes="{'is-danger': errors.has('morphemes')}"
-				:language="language.id"
-				v-validate="'hasTag:V'"
-				data-vv-value-path="tags"
-
-				@if(isset($form))
-				:tags="{{ $form->morphemesToJson() }}"
-				@endif
-			></alg-morpheme-tag-input>
-			<span class="help is-danger"
-				  v-show="errors.has('morphemes')"
-				  v-text="errors.first('morphemes')">
-			</span>
+			@component('components.form.morpheme-tags', [
+				'placeholder' => 'Leave blank if unknown or unclear',
+				'language'    => 'language.id',
+				'rules'       => 'hasTag:V'
+			])
+				@slot('value')
+				    @if (isset($form))
+				    	{{ $form->morphemesToJson() }}
+				    @endif
+				@endslot
+			@endcomponent
 
 		<hr>
 		<h4 class="subtitle is-4">Lineage</h4>

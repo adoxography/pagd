@@ -74,5 +74,5 @@ Validator.extend('hasTag', {
 
 Validator.extend('notHasTag', {
 	getMessage: (field, args) => "The "+field+" field cannot contain an abstract stem.",
-	validate: (value, args) => { return !hasTag(value, args); }
+	validate: (value, args) => { return value.length == 0 || !hasTag(value, args); }
 });

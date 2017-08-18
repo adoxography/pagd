@@ -115,32 +115,35 @@ class ExampleController extends AlgModelController
 
     protected function convertMorphemes()
     {
+        $morphemicForm = null;
         $morphemes = request()->morphemes;
-        $morphemicForm = '';
-        $firstTime = true;
 
-        foreach ($morphemes as $morpheme) {
-            if ($firstTime) {
-                $firstTime = false;
-            } else {
-                $morphemicForm .= '-';
-            }
+        if (count($morphemes) > 0) {
+            $firstTime = true;
 
-            if ($morpheme['ic'] != null && $morpheme['ic'] >= 0) {
-                $morphemicForm .= "IC";
-                if ($morpheme['ic'] > 0) {
-                    $morphemicForm .= '.' . $morpheme['ic'];
+            foreach ($morphemes as $morpheme) {
+                if ($firstTime) {
+                    $firstTime = false;
+                } else {
+                    $morphemicForm .= '-';
                 }
-                $morphemicForm .= "|";
+
+                if ($morpheme['ic'] != null && $morpheme['ic'] >= 0) {
+                    $morphemicForm .= "IC";
+                    if ($morpheme['ic'] > 0) {
+                        $morphemicForm .= '.' . $morpheme['ic'];
+                    }
+                    $morphemicForm .= "|";
+                }
+
+                $morphemicForm .= str_replace(['*', '-'], '', $morpheme['name']);
+
+                if ($morpheme['disambiguator']) {
+                    $morphemicForm .= '.' . $morpheme['disambiguator'];
+                }
             }
 
-            $morphemicForm .= str_replace(['*', '-'], '', $morpheme['name']);
-
-            if ($morpheme['disambiguator']) {
-                $morphemicForm .= '.' . $morpheme['disambiguator'];
-            }
+            return $morphemicForm;
         }
-
-        return $morphemicForm;
     }
 }

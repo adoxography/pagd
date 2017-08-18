@@ -7,6 +7,13 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			18-08-17: Fixed an issue preventing examples from being saved without morphemes
+		</li>
+		<li>
+			18-08-17: Fixed an issue preventing data types with morphemes from being saved when no morphemes were specified
+		</li>
+		<hr>
+		<li>
 			15-08-17: Fixed an issue where morphemes in forms would not disappear immediately after being deleted
 		</li>
 		<hr>

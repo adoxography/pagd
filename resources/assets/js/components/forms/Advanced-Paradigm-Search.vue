@@ -88,7 +88,7 @@
 							   name="orders[]">
 						{{ order.name }}
 					</label>
-				</p>				
+				</p>
 			</div>
 
 			<div class="column box is-3">
@@ -193,7 +193,7 @@ export default {
 
 	data() {
 		return {
-			form: new Form({
+			form: {
 				modeSelect: 'indicativeOnly',
 				languages: [{
 					text: 'Proto-Algonquian',
@@ -222,7 +222,7 @@ export default {
 				orders: [],
 				modes: [],
 				showMorphology: false
-			})
+			}
 		};
 	},
 
@@ -337,7 +337,7 @@ export default {
 
 		this.form.modes[indicativeIndex].name = "Indicative/Unmarked";
 
-		if(this.preset) {			
+		if(this.preset) {
 			this.loadCheck(this.preset, ['affirmative', 'negative', 'nonDiminutive', 'diminutive', 'showMorphology']);
 			this.loadSeries(this.preset, ['orders', 'modes', 'subclasses']);
 

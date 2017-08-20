@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			19-08-17: Fixed an issue preventing the advanced verb form search from being displayed
+		</li>
+		<li>
 			18-08-17: Fixed an issue preventing examples from being saved without morphemes
 		</li>
 		<li>

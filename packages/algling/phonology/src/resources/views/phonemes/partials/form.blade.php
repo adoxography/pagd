@@ -28,9 +28,10 @@
 					<div class="column is-one-third">
 						@component('components.form.text', [
 							'name'      => 'algoName',
-							'autofocus' => true, 
+							'autofocus' => true,
 							'rules'     => 'required',
-							'label'     => 'algonquianist phoneme'
+							'label'     => 'algonquianist phoneme',
+							'typewriter' => true
 						])
 							@slot('value')
 								@if(isset($phoneme))
@@ -43,7 +44,8 @@
 					<div class="column is-one-third">
 						@component('components.form.text', [
 							'name'      => 'ipaName',
-							'label'     => 'IPA phoneme'
+							'label'     => 'IPA phoneme',
+							'typewriter' => true
 						])
 							@slot('value')
 								@if(isset($phoneme))
@@ -56,7 +58,8 @@
 					<div class="column is-one-third">
 						@component('components.form.text', [
 							'name'      => 'orthoName',
-							'label'     => 'orthographic phoneme'
+							'label'     => 'orthographic phoneme',
+							'typewriter' => true
 						])
 							@slot('value')
 								@if(isset($phoneme))

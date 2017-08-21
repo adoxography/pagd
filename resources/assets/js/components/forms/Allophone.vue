@@ -2,15 +2,17 @@
 	<div>
 		<div v-for="(row, n) in rows" class="field is-grouped">
 			<p class="control">
-				<input
-					name="allophones[]"
-					type="text"
-					class="input"
-					@input="onInput(n)"
-					v-model="row.allophone"
-					placeholder="allophone"
-					autocomplete="off"
-				/>
+				<alg-typewriter>
+					<input
+						name="allophones[]"
+						type="text"
+						class="input"
+						@input="onInput(n)"
+						v-model="row.allophone"
+						placeholder="allophone"
+						autocomplete="off"
+					/>
+				</alg-typewriter>
 			</p>
 			<p class="control is-expanded">
 				<input

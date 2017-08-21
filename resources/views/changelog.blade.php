@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			21-08-17: Added typewriter to phoneme form
+		</li>
+		<hr>
+		<li>
 			19-08-17: Fixed an issue preventing the advanced verb form search from being displayed
 		</li>
 		<li>

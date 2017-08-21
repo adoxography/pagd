@@ -40,6 +40,7 @@ Vue.component('alg-map',             require('./components/Map.vue'));
 Vue.component('alg-file-upload',     require('./components/FileUpload.vue'));
 Vue.component('alg-tooltip', require('./components/Tooltip.vue'));
 Vue.component('alg-typeahead', require('./components/Typeahead.vue'));
+Vue.component('alg-typewriter', require('./components/Typewriter.vue'));
 
 Vue.component('alg-form',           require('./components/forms/Form.vue'));
 Vue.component('alg-language-form',  require('./components/forms/Language.vue'));
@@ -124,7 +125,8 @@ const app = new Vue({
 
     data() {
     	return {
-    		showFlash: true
+    		showFlash: true,
+    		testVal: {text: '', id: ''}
     	};
     }
 });

@@ -8,6 +8,9 @@
 			@endif
 		</label>
 
+	@isset($typewriter)
+		<alg-typewriter>
+	@endisset
 	<div class="control">
 @endif
 
@@ -15,6 +18,9 @@
 
 @if(!isset($standalone) || !$standalone)
 	</div>
+	@isset($typewriter)
+		</alg-typewriter>
+	@endisset
 	<span
 		class="help is-danger"
 		v-show="errors.has('{{ $name }}')"

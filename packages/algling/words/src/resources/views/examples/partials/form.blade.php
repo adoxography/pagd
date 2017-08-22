@@ -4,11 +4,11 @@
 	:old-errors="{{ json_encode($errors->messages()) }}"
 
 	@if(old('sources', 'not found') !== 'not found')
-	:old-sources="{{ json_encode(old('sources')) }}"
+		:old-sources="{{ json_encode(old('sources')) }}"
 	@elseif(isset($example))
-	:old-form="{{ '{ "text": "'.str_replace('*', '', $example->form->present('unique')->then('language')).'", "id": "'.$example->form_id.'", "extra": '.$example->morphemesToJson().' }' }}"
-	:old-sources="{{ $example->sources }}"
-	:old-morphemes="{{ $example->morphemesToJson() }}"
+		:old-form="{{ '{ "text": "'.str_replace('*', '', $example->form->present('unique')->then('language')).'", "id": "'.$example->form_id.'", "extra": '.$example->morphemesToJson().' }' }}"
+		:old-sources="{{ $example->sources }}"
+		:old-morphemes="{{ $example->morphemesToJson() }}"
 	@endif
 	>
 	@component('components.form', ['method' => $method, 'action' => $action, 'visible' => true])
@@ -66,11 +66,11 @@
 					]
 				])
 					@slot('value')
-{{-- 						@if(isset($example))
+						@if(isset($example))
 							{{ '{ "text": "'.str_replace('*', '', $example->form->present('unique')->then('language')).'", "id": "'.$example->form_id.'", "extra": '.$example->morphemesToJson().' }' }}
 						@elseif(isset($form))
 							{{ '{ "text": "'.str_replace('*', '', $form->present('unique')->then('language')).'", "id": "'.$form->id.'", "extra": '.$form->morphemesToJson().' }' }}
-						@endif --}}
+						@endif
 					@endslot
 				@endcomponent
 			</div>

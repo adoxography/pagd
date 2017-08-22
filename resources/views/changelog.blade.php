@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			22-08-17: Fixed forms not showing up in example form when added to
+		</li>
+		<hr>
+		<li>
 			21-08-17: Added typewriter to phoneme form
 		</li>
 		<hr>

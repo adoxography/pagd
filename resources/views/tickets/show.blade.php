@@ -6,7 +6,7 @@
 @endsection
 
 @section('icons')
-	@if(!$ticket->isClosed && Auth::user() && Auth::user()->id == 1)
+	@if(!$ticket->isClosed() && Auth::user() && Auth::user()->hasRole('developer'))
 		<a href="/tickets/{{ $ticket->id }}/respond" class="card-header-icon">
 			<span class="icon">
 				<i class="fa fa-reply"></i>
@@ -20,7 +20,7 @@
 		<div class="column">
 			<div class="field is-one-line">
 				<span class="label">Opened by:</span>
-				{{ $ticket->user->name }}
+				{{ $ticket->openedBy->name }}
 			</div>
 
 			<div class="field is-one-line">
@@ -58,11 +58,11 @@
 		</div>
 
 		<div class="column">
-			<div class="field is-one-line">	
+			<div class="field is-one-line">
 				<span class="label">Status:</span>
-				{{ $ticket->isClosed ? 'Closed on ' . $ticket->closedOn() : 'Opened on ' . $ticket->openedOn() }}
+				{{ $ticket->isClosed() ? 'Closed on ' . $ticket->closedOn() . ' by ' . $ticket->closedBy->name : 'Opened on ' . $ticket->openedOn() }}
 			</div>
-			@if (!$ticket->isClosed)
+			@if (!$ticket->isClosed())
 				@if ($ticket->isUrgent)
 					<div class="field" style="color: red">
 						<span class="icon">

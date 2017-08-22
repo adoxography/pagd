@@ -25,10 +25,6 @@ class SendTicketNotificationsToAdministrator extends Command
      */
     protected $description = 'Sends an email to the administrator containing all of the recently opened non-urgent tickets';
 
-    protected $tickets;
-
-    protected $users;
-
     /**
      * Create a new command instance.
      *
@@ -37,14 +33,6 @@ class SendTicketNotificationsToAdministrator extends Command
     public function __construct()
     {
         parent::__construct();
-
-        $this->users = User::role('developer')->get();
-
-        $this->tickets = Ticket::where('isClosed', false)
-            ->where(function ($query) {
-                $query->where('isUrgent', true)
-                      ->orWhere('created_at', '>=', Carbon::now()->subDay());
-            })->get();
     }
 
     /**
@@ -54,10 +42,31 @@ class SendTicketNotificationsToAdministrator extends Command
      */
     public function handle()
     {
-        if ($this->tickets->count() > 0) {
-            foreach ($this->users as $user) {
-                Mail::to($user)->send(new TicketSummary($this->tickets, $user));
+        $tickets = $this->loadTickets();
+        $users = $this->loadUsers();
+
+        if ($tickets->count() > 0) {
+            foreach ($users as $user) {
+                Mail::to($user)->send(new TicketSummary($tickets, $user));
             }
         }
+    }
+
+    protected function loadTickets()
+    {
+        $query = Ticket::whereNull('closedBy_id')
+            ->where(function ($query) {
+                $query->where('isUrgent', true)
+                      ->orWhere('created_at', '>=', Carbon::now()->subDay());
+            });
+
+        return $query->get();
+    }
+
+    protected function loadUsers()
+    {
+        $query = User::role('developer');
+
+        return $query->get();
     }
 }

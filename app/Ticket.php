@@ -2,28 +2,31 @@
 
 namespace App;
 
-use App\SubscribeableInterface;
 use App\Traits\SubscribeableTrait;
-use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model implements SubscribeableInterface
 {
-	use SubscribeableTrait;
+    use SubscribeableTrait;
 
-	public $table = 'Tickets';
+    public $table = 'Tickets';
 
     protected $fillable = ['title', 'url', 'current', 'desired', 'comments', 'isUrgent', 'ticketType_id'];
 
     public function getNameAttribute()
     {
-    	return $this->title;
+        return $this->title;
     }
 
-    public function user()
+    public function openedBy()
     {
-    	return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'openedBy_id');
+    }
+
+    public function closedBy()
+    {
+        return $this->belongsTo(User::class, 'closedBy_id');
     }
 
     public function type()
@@ -33,14 +36,14 @@ class Ticket extends Model implements SubscribeableInterface
 
     public function present(string $method = 'name')
     {
-    	return new AlgPresenter($this, $method);
+        return new AlgPresenter($this, $method);
     }
 
     public function openedOn()
     {
         $time = '';
 
-        if (!$this->closed) {
+        if (!$this->isClosed()) {
             $time = $this->getTime($this->created_at);
         }
 
@@ -51,11 +54,24 @@ class Ticket extends Model implements SubscribeableInterface
     {
         $time = '';
 
-        if ($this->isClosed) {
+        if ($this->isClosed()) {
             $time = $this->getTime($this->updated_at);
         }
 
         return $time;
+    }
+
+    public function close(string $response, User $user)
+    {
+        $this->response = $response;
+        $this->closedBy_id = $user->id;
+
+        $this->save();
+    }
+
+    public function isClosed()
+    {
+        return isset($this->closedBy_id);
     }
 
     private function getTime($stamp)

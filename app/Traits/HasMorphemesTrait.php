@@ -74,7 +74,7 @@ trait HasMorphemesTrait
         }
 
         // Update the complete status, if necessary
-        $this->assessIsComplete(count($morphemes), $this->morphemes->count());
+        $this->assessIsComplete(count($morphemes), $this->morphemes()->count());
     }
 
     protected function queryMorpheme(string $name, $disambiguator = null)
@@ -105,6 +105,7 @@ trait HasMorphemesTrait
         $withoutInitialChange = array_last(explode('|', $morpheme));
         $chunks = explode('.', $withoutInitialChange);
 
+        // Strip out any parentheses
         $output['morpheme'] = preg_replace("/^\((.*)\)$/", "$1", $chunks[0]);
 
         if (count($chunks) > 1) {
@@ -123,16 +124,11 @@ trait HasMorphemesTrait
      */
     protected function assessIsComplete(int $numExpected, int $numActual)
     {
-        if ($numExpected === $numActual) {
-            if (!$this->complete) {
-                $this->complete = true;
-                $this->save();
-            }
-        } else {
-            if ($this->complete) {
-                $this->complete = false;
-                $this->save();
-            }
+        $complete = $numExpected === $numActual;
+
+        if (!$this->complete == $complete) {
+            $this->complete = $complete;
+            $this->save();
         }
     }
 
@@ -152,7 +148,8 @@ trait HasMorphemesTrait
             $initialChangePieces = explode('|', $slot);
 
             if ($curr < count($savedMorphemes) && $savedMorphemes[$curr]->pivot->position == $index + 1) {
-                // If the position of the pre-connected morpheme matches the position we're currently looking for, add it to the output
+                // If the position of the pre-connected morpheme matches the position we're currently looking for, add
+                // it to the output
                 $output[] = $savedMorphemes[$curr++];
                 $output[count($output) - 1]['name'] = explode('.', array_last($initialChangePieces))[0];
 
@@ -167,7 +164,8 @@ trait HasMorphemesTrait
                 // Pull off the disambiguator
                 $temp = ['name' => explode('.', $realSlot)[0]];
 
-                // The initial change table won't have a record for a morpheme that isn't in the database, so record the initial change directly
+                // The initial change table won't have a record for a morpheme that isn't in the database, so record
+                // the initial change directly
                 if (count($initialChangePieces) > 1) {
                     $temp['name'] = 'IC.'.$temp['name'];
                 }

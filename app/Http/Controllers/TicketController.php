@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\TicketOpened;
 use App\Ticket;
 use App\TicketType;
+use App\User;
 use Auth;
 use Illuminate\Database\Eloquent\Collection;
 use Mail;
@@ -48,7 +49,9 @@ class TicketController extends Controller
 
     public function store()
     {
-        $ticket = new Ticket(request()->only(['title', 'url', 'current', 'desired', 'comments', 'ticketType_id', 'isUrgent']));
+        $ticket = new Ticket(request()->only(
+            ['title', 'url', 'current', 'desired', 'comments', 'ticketType_id', 'isUrgent']
+        ));
         $ticket->openedBy_id = Auth::user()->id;
         $ticket->save();
 
@@ -57,7 +60,7 @@ class TicketController extends Controller
         }
 
         if (request()->isUrgent) {
-            $this->notifyAdministrator($ticket);
+            $this->notifyDevelopers($ticket);
         }
 
         return redirect("/tickets/{$ticket->id}");
@@ -88,10 +91,13 @@ class TicketController extends Controller
         return redirect("/tickets/{$ticket->id}");
     }
 
-    protected function notifyAdministrator(Ticket $ticket)
+    protected function notifyDevelopers(Ticket $ticket)
     {
-        $admin = Auth::user()->find(1);
-        Mail::to($admin)->send(new TicketOpened($ticket, $admin));
+        $developers = User::role('developer')->get();
+
+        foreach ($developers as $developer) {
+            Mail::to($developer)->send(new TicketOpened($ticket, $developer));
+        }
     }
 
     protected function mapTicketsToType(Collection $tickets)

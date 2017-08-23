@@ -1,7 +1,7 @@
 @component('mail::message')
 Hi {{ $user->firstName }},
 
-{{ $ticket->user->name }} has made the following urgent request on alglang.net:
+{{ $ticket->openedBy->name }} has opened the following urgent ticket on alglang.net:
 
 @component('mail::panel')
 #{{ $ticket->title }}

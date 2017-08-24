@@ -45,36 +45,41 @@ trait HasMorphemesTrait
      */
     public function connectMorphemes()
     {
-        $morphemes = explode('-', $this->morphemicForm);
-
-        $type = $this->morphCode ? $this->morphCode : $this->getMorphClass();
-
-        // Unlink all of the existing morphemes
         $this->morphemes()->detach();
 
-        // Check each morpheme against the database
-        foreach ($morphemes as $index => $morpheme) {
-            $chunks = $this->extractRealMorpheme($morpheme);
+        $type = $this->getMorphType();
+        $morphemes = explode('-', $this->morphemicForm);
 
-            $query = $this->queryMorpheme(
-                $chunks->get('morpheme'),
-                $chunks->has('disambiguator') ? $chunks->get('disambiguator') : null
-            );
-
-            // Execute the query
-            $lookup = $query->get();
-
-            // Connect the morpheme if exactly one result was returned
-            if ($lookup->count() == 1) {
-                $this->morphemes()->attach($lookup->first()->id, [
-                    'position' => $index + 1,
-                    'morphemeable_type' => $type
-                ]);
-            }
+        foreach ($morphemes as $position => $morpheme) {
+            $this->connectMorpheme($morpheme, $position, $type);
         }
 
         // Update the complete status, if necessary
         $this->assessIsComplete(count($morphemes), $this->morphemes()->count());
+    }
+
+    protected function connectMorpheme(string $morpheme, int $position, string $type)
+    {
+        $name = $this->extractRealMorpheme($morpheme);
+        $disambiguator = $this->extractDisambiguator($morpheme);
+
+        $query = $this->queryMorpheme($name, $disambiguator);
+
+        // Execute the query
+        $lookup = $query->get();
+
+        // Connect the morpheme if exactly one result was returned
+        if ($lookup->count() == 1) {
+            $this->morphemes()->attach($lookup->first()->id, [
+                    'position' => $position + 1,
+                    'morphemeable_type' => $type
+                ]);
+        }
+    }
+
+    protected function getMorphType()
+    {
+        return $this->morphCode ? $this->morphCode : $this->getMorphClass();
     }
 
     protected function queryMorpheme(string $name, $disambiguator = null)
@@ -101,18 +106,22 @@ trait HasMorphemesTrait
      */
     protected function extractRealMorpheme(string $morpheme)
     {
-        $output = [];
-        $withoutInitialChange = array_last(explode('|', $morpheme));
-        $chunks = explode('.', $withoutInitialChange);
+        // Find the morpheme
+        preg_match('/^(?:IC(?:\.\d+)?\|)?([^\.]+)(?:\.\d+)?$/', $morpheme, $matches);
 
-        // Strip out any parentheses
-        $output['morpheme'] = preg_replace("/^\((.*)\)$/", "$1", $chunks[0]);
+        // Strip out any hanging parentheses
+        return preg_replace("/^\((.*)\)$/", "$1", $matches[1]);
+    }
 
-        if (count($chunks) > 1) {
-            $output['disambiguator'] = $chunks[1];
+    protected function extractDisambiguator(string $morpheme)
+    {
+        $disambiguator = null;
+
+        if (preg_match('/\d+$/', $morpheme, $matches)) {
+            $disambiguator = $matches[0];
         }
 
-        return collect($output);
+        return $disambiguator;
     }
 
     /**
@@ -346,7 +355,7 @@ trait HasMorphemesTrait
     {
         $morphemes = explode('-', $this->morphemicForm);
 
-        if (count($morphemes) > $index && count(explode('.', $morphemes[$index]) == 1)) {
+        if (count($morphemes) > $index && !$this->morphemeIsDisambiguated($morphemes[$index])) {
             // Add the disambiguator at the end of the morpheme at the given index
             $morphemes[$index] = $morphemes[$index].'.'.$disambiguator;
         }
@@ -354,6 +363,11 @@ trait HasMorphemesTrait
         // Put the morphemicForm back together and save it
         $this->morphemicForm = implode('-', $morphemes);
         $this->save();
+    }
+
+    protected function morphemeIsDisambiguated(string $morpheme)
+    {
+        return strpos($morpheme, '.') !== false;
     }
 
     public function containsMorpheme($morpheme)

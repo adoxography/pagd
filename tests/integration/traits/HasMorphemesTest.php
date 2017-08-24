@@ -87,6 +87,36 @@ class HasMorphemesTest extends TestCase
     }
 
     /** @test */
+    public function an_optional_morpheme_can_be_added()
+    {
+        $morpheme = factory(Morpheme::class)->create([
+            'name' => 'test-'
+        ]);
+
+        $form = factory(Form::class)->create([
+            'language_id' => $morpheme->language_id,
+            'morphemicForm' => '(test)-V'
+        ]);
+
+        $this->assertCount(2, $form->morphemes()->get());
+    }
+
+    /** @test */
+    public function morphemes_with_optional_phonemes_are_recognized_as_different_morphemes()
+    {
+        $morpheme = factory(Morpheme::class)->create([
+            'name' => 'test-'
+        ]);
+
+        $form = factory(Form::class)->create([
+            'language_id' => $morpheme->language_id,
+            'morphemicForm' => '(t)est-V'
+        ]);
+
+        $this->assertCount(1, $form->morphemes()->get());
+    }
+
+    /** @test */
     public function a_morpheme_with_a_hyphen_on_the_left_can_be_linked()
     {
         $morpheme = factory(Morpheme::class)->create([

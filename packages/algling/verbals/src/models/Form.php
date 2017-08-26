@@ -5,22 +5,23 @@ namespace Algling\Verbals\Models;
 use Algling\Verbals\FormPresenter;
 use Algling\Verbals\Traits\HasStructureTrait;
 use Algling\Words\Models\Form as WordForm;
+use App\SourceableTrait;
 use Illuminate\Database\Eloquent\Builder;
 
 class Form extends WordForm
 {
-	use HasStructureTrait;
+    use HasStructureTrait, SourceableTrait;
 
-	public $uri = '/verbs/forms';
+    public $uri = '/verbs/forms';
 
     public static function boot()
     {
-    	parent::boot();
+        parent::boot();
 
-    	// Limit scope to only records that have verb structures
-    	static::addGlobalScope('verb', function(Builder $builder) {
-    		$builder->where('structure_type', 'verbStructures');
-    	});
+        // Limit scope to only records that have verb structures
+        static::addGlobalScope('verb', function (Builder $builder) {
+            $builder->where('structure_type', 'verbStructures');
+        });
     }
 
     public function present(string $method = 'name')

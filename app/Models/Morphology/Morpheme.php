@@ -45,7 +45,8 @@ class Morpheme extends Model
         'allomorphyNotes',
         'historicalNotes',
         'translation',
-        'privateNotes'
+        'privateNotes',
+        'newSources'
     ];
     protected $appends = [
         'uniqueName',

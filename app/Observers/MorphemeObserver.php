@@ -46,11 +46,9 @@ class MorphemeObserver {
 	{
 		if(is_array($data)) {
 			foreach($data as $item) {
-				$item->dontConnectSources();
 				$item->connectMorphemes();
 			}
 		} else {
-			$data->dontConnectSources();
 			$data->connectMorphemes();
 		}
 	}

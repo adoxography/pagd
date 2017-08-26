@@ -93,10 +93,6 @@ trait DisambiguatableTrait
 
         if ($this->isDirty('disambiguator') ||
             (Schema::hasColumn($this->getTable(), 'hasDuplicates') && $this->isDirty('hasDuplicates'))) {
-            if (isset($this->isSourceable)) {
-                $this->dontConnectSources();
-            }
-
             $this->save();
         }
     }

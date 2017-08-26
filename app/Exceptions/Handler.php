@@ -2,11 +2,13 @@
 
 namespace App\Exceptions;
 
+use App;
 use Exception;
-use Log;
-use Request;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Log;
+use Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -50,6 +52,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        // Override the "whoops" page in production
+        if (!App::environment('local') && !$this->isHttpException($exception)) {
+            $exception = new HttpException(500);
+        }
+
         return parent::render($request, $exception);
     }
 

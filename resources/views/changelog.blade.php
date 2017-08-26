@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			25-08-17: Replaced the "whoops" page with a more user-friendly one
+		</li>
+		<hr>
+		<li>
 			22-08-17: Fixed forms not showing up in example form when added to
 		</li>
 		<hr>

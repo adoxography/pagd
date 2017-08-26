@@ -10,6 +10,16 @@ class HasMorphemesTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
+    function morphemes_do_not_have_to_be_added()
+    {
+        $form = factory(Form::class)->create([
+            'morphemicForm' => ''
+        ]);
+
+        $this->assertCount(0, $form->morphemes()->get());
+    }
+
+    /** @test */
     public function an_existing_morpheme_can_be_linked()
     {
         $morpheme = factory(Morpheme::class)->create([

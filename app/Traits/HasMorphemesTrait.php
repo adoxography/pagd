@@ -45,13 +45,16 @@ trait HasMorphemesTrait
      */
     public function connectMorphemes()
     {
+        $morphemes = [];
         $this->morphemes()->detach();
-
         $type = $this->getMorphType();
-        $morphemes = explode('-', $this->morphemicForm);
 
-        foreach ($morphemes as $position => $morpheme) {
-            $this->connectMorpheme($morpheme, $position, $type);
+        if ($this->morphemicForm) {
+            $morphemes = explode('-', $this->morphemicForm);
+
+            foreach ($morphemes as $position => $morpheme) {
+                $this->connectMorpheme($morpheme, $position, $type);
+            }
         }
 
         // Update the complete status, if necessary

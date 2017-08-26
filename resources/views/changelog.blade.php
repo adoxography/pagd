@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			26-08-17: Fixed an issue concerning adding forms with morphemes
+		</li>
+		<hr>
+		<li>
 			25-08-17: Replaced the "whoops" page with a more user-friendly one
 		</li>
 		<hr>

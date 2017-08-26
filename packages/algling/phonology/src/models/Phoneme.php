@@ -17,12 +17,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
 
 class Phoneme extends Model
 {
-    use SoftDeletes;
-    use RevisionableTrait;
-    use BookmarkableTrait;
-    use SourceableTrait;
-    use ReconstructableTrait;
-    use HasTypeTrait;
+    use SoftDeletes, RevisionableTrait, BookmarkableTrait, SourceableTrait, ReconstructableTrait, HasTypeTrait;
     use HasAllophonesTrait;
     use Searchable;
     use BacksUpTrait;
@@ -42,7 +37,8 @@ class Phoneme extends Model
         'phonemeable_type',
         'phonemeable_id',
         'isArchiphoneme',
-        'archiphonemeDescription'
+        'archiphonemeDescription',
+        'allophones'
     ];
 
     public function toSearchableArray()

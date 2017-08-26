@@ -2,17 +2,41 @@
 
 namespace Algling\Phonology\Traits;
 
-use Auth;
 use Algling\Phonology\Models\Allophone;
+use Auth;
+use Illuminate\Support\Collection;
 use Venturecraft\Revisionable\Revision;
 
 trait HasAllophonesTrait
 {
+    protected $newAllophones = null;
+
     public static function bootHasAllophonesTrait()
     {
+        static::saving(function ($model) {
+            $model->extractAllophones();
+        });
+
         static::saved(function ($model) {
             $model->updateAllophones();
         });
+    }
+
+    public function extractAllophones()
+    {
+        $dirty = $this->getDirty();
+
+        if (isset($dirty['allophones'])) {
+            $newAllophones = collect($dirty['allophones'])->filter(function ($allophone) {
+                return isset($allophone['name']);
+            });
+
+            $this->newAllophones = $newAllophones->sortBy(function ($allophone) {
+                return isset($allophone['environment']) ? -1 : 1;
+            });
+
+            unset($this['allophones']);
+        }
     }
 
     /**
@@ -20,13 +44,9 @@ trait HasAllophonesTrait
      */
     public function updateAllophones()
     {
-        $oldAllophones = $this->allophones->toArray();
+        $oldAllophones = $this->allophones;
 
-        // Build an array of the phoneme's allophones
-        $newAllophones = $this->buildAllophoneArray(
-            request()->allophones,
-            request()->environments
-        );
+        $newAllophones = $this->buildAllophoneArray();
 
         if ($this->allophonesChanged($newAllophones, $oldAllophones)) {
             $this->recordAllophoneRevision($newAllophones, $oldAllophones);
@@ -35,47 +55,26 @@ trait HasAllophonesTrait
             $this->allophones()->delete();
 
             // Insert the new allophones
-            $this->allophones()->createMany($newAllophones);
+            $this->allophones()->createMany($newAllophones->toArray());
         }
     }
 
     /**
      * Build an array of allophones for the phoneme
      *
-     * @param mixed $allophones the allophone names
-     * @param mixed $environments the environments corresponding to the allophones
      * @return array
      */
-    protected function buildAllophoneArray($allophones, $environments)
+    protected function buildAllophoneArray()
     {
-        $constrained = []; // The allophones with environments
-        $elsewhere = [];   // The allophones without environments
+        $allophones = $this->newAllophones;
 
-        for ($i = 0; $i < count($allophones); $i++) {
-            $allophone   = $allophones[$i];
-            $environment = $environments[$i];
-
-            if ($allophone) {
-                if ($environment) {
-                    $constrained[] = [
-                        'name' => $allophone,
-                        'environment' => $environment
-                    ];
-                } else {
-                    $elsewhere[] = [
-                        'name' => $allophone
-                    ];
-                }
-            }
+        if (!$allophones) {
+            $allophones = collect([$this->generateDefaultAllophone()]);
         }
 
-        // If no allophones were added, generate a default allophone to add
-        if (count($constrained) + count($elsewhere) == 0) {
-            $elsewhere[] = $this->generateDefaultAllophone();
-        }
+        $this->newAllophones = null;
 
-        // Put the elsewhere allophones after the constrained allophones
-        return array_merge($constrained, $elsewhere);
+        return $allophones;
     }
 
     /**
@@ -90,7 +89,7 @@ trait HasAllophonesTrait
         return ['name' => str_replace(['*', '/', '[', ']'], '', $name)];
     }
 
-    protected function allophonesChanged(array $newAllophones, array $oldAllophones)
+    protected function allophonesChanged(Collection $newAllophones, Collection $oldAllophones)
     {
         $changed = count($newAllophones) != count($oldAllophones);
 
@@ -106,15 +105,15 @@ trait HasAllophonesTrait
         return $changed;
     }
 
-    protected function recordAllophoneRevision(array $newAllophones, array $oldAllophones)
+    protected function recordAllophoneRevision($newAllophones, $oldAllophones)
     {
         Revision::forceCreate([
             'revisionable_type' => $this->getMorphClass(),
-            'revisionable_id' => $this->id,
-            'user_id' => Auth::user() ? Auth::user()->id : 0,
-            'key' => 'allophones',
-            'old_value' => Allophone::translateArray($oldAllophones, $this->id),
-            'new_value' => Allophone::translateArray($newAllophones, $this->id)
+            'revisionable_id'   => $this->id,
+            'user_id'           => Auth::user() ? Auth::user()->id : 0,
+            'key'               => 'allophones',
+            'old_value'         => Allophone::translateArray($oldAllophones, $this->id),
+            'new_value'         => Allophone::translateArray($newAllophones, $this->id)
         ]);
     }
 }

@@ -4,7 +4,7 @@
 			<p class="control">
 				<alg-typewriter>
 					<input
-						name="allophones[]"
+						:name="'allophones[' + n + '][name]'"
 						type="text"
 						class="input"
 						@input="onInput(n)"
@@ -16,7 +16,7 @@
 			</p>
 			<p class="control is-expanded">
 				<input
-					name="environments[]"
+					:name="'allophones[' + n + '][environment]'"
 					type="text"
 					class="input"
 					@input="onInput(n)"

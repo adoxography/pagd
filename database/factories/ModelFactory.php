@@ -2,6 +2,7 @@
 
 use Algling\Nominals\Models\Form as NominalForm;
 use Algling\Nominals\Models\Structure as NominalStructure;
+use Algling\Phonology\Models\Allophone;
 use Algling\Phonology\Models\Backness;
 use Algling\Phonology\Models\Height;
 use Algling\Phonology\Models\Length;
@@ -298,5 +299,13 @@ $factory->define(VowelType::class, function (Generator $faker) {
         'length_id'   => $faker->randomElement(Length::all()->pluck('id')->all()),
         'isNasal'     => $faker->boolean,
         'isRounded'   => $faker->boolean
+    ];
+});
+
+$factory->define(Allophone::class, function (Generator $faker) {
+    return [
+        'name' => $faker->randomLetter,
+        'environment' => $faker->sentence,
+        'phoneme_id' => factory(Phoneme::class)->create()->id
     ];
 });

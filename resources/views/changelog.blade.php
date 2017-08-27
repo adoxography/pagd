@@ -7,6 +7,30 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			27-08-17: Made the smart search smarter by making it recognize multiple argument formats:
+			<ul style="list-style-type: square">
+				<li>
+					"<strong>3sg</strong> ta"
+				</li>
+				<li>
+					"<strong>0 s</strong> ta"
+				</li>
+				<li>
+					"<strong>second plural</strong> ta"
+				</li>
+				<li>
+					"<strong>3rd dual</strong> ta"
+				</li>
+				<li>
+					"<strong>first person singular</strong> ta"
+				</li>
+				<li>
+					"<strong>third person inanimate double obviative</strong> ta"
+				</li>
+			</ul>
+		</li>
+		<hr>
+		<li>
 			26-08-17: Fixed an issue concerning adding forms with morphemes
 		</li>
 		<hr>

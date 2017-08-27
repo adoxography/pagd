@@ -51,7 +51,7 @@ class Feature extends Model
     {
         $str = null;
 
-        switch($this->number) {
+        switch ($this->number) {
             case 1:
                 $str = 's';
                 break;
@@ -72,7 +72,7 @@ class Feature extends Model
     {
         $str = null;
 
-        switch($this->obviativeCode) {
+        switch ($this->obviativeCode) {
             case 1:
                 $str = '\'';
                 break;
@@ -84,5 +84,32 @@ class Feature extends Model
         }
 
         return $str;
+    }
+
+    public static function pattern()
+    {
+        $persons = verEx()->oneOf(['1st', '2nd', '3rd', '21', '1', '2', '3\'\'', '3\'', '3', 'first', 'second', 'third', '0', 'X'], true)
+                          ->maybe(' person');
+
+        $numbers = verEx()->maybe(' ')
+                          ->oneOf([
+                            verEx()->oneOf(['singular', 'dual', 'plural']),
+                            verEx()->oneOf(['sg', 'du', 'pl', 's', 'd', 'p'])
+                          ], true);
+
+        $inclusive = verEx(' ')->then('inclusive', true);
+
+        $animacies = verEx(' ')->oneOf(['inanimate', 'animate'], true);
+
+        $obviatives = verEx(' ')->oneOf(['double obviative', 'obviative', 'obv'], true);
+
+        $feature = verEx($persons)->maybe($numbers)
+                                  ->maybe($inclusive)
+                                  ->maybe($animacies)
+                                  ->maybe($obviatives);
+
+        $structure = verEx($feature)->maybe(verEx('-', true)->then($feature))->maybe(verEx('\+', true)->then($feature));
+
+        return $structure;
     }
 }

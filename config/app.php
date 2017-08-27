@@ -178,6 +178,7 @@ return [
         Algling\Nominals\NominalServiceProvider::class,
         Algling\Phonology\PhonologyServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Adoxography\VerbalExpressions\VerbalExpressionServiceProvider::class,
 
         /*
          * Application Service Providers...

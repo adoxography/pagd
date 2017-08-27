@@ -1,0 +1,11 @@
+{
+    "name": "adoxography/verbal-expressions",
+    "description": "Write regex programmatically. Inspired by VerbalExpressions/JSVerbalExpressions",
+    "authors": [
+        {
+            "name": "Graham Still",
+            "email": "nevermore667@gmail.com"
+        }
+    ],
+    "require": {}
+}

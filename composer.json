@@ -40,6 +40,7 @@
             "Algling\\Verbals\\": "packages/algling/verbals/src",
             "Algling\\Nominals\\": "packages/algling/nominals/src",
             "Algling\\Phonology\\": "packages/algling/phonology/src",
+            "Adoxography\\VerbalExpressions\\": "packages/adoxography/verbal-expressions/src",
             "App\\": "app/"
         },
         "files": [
@@ -52,8 +53,12 @@
         ],
         "psr-4": {
             "Tests\\": "tests/",
-            "Algling\\Log\\": "packages/algling/log/src"
-        }
+            "Algling\\Log\\": "packages/algling/log/src",
+            "Idea\\": ".idea/"
+        },
+        "files": [
+            "tests/helpers/functions.php"
+        ]
     },
     "scripts": {
         "post-root-package-install": [

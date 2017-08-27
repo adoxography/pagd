@@ -1,10 +1,28 @@
 <?php
 
+use Adoxography\VerbalExpressions\Expression;
 use Algling\Words\Models\Example;
 use Algling\Words\Models\Form;
 use App\Language;
 use App\Models\Morphology\Morpheme;
 use App\Source;
+
+function verEx($init = null, $capture = false)
+{
+    $verEx = new Expression;
+
+    if ($init) {
+        $verEx->find($init, $capture);
+    }
+
+    return $verEx;
+}
+
+// From https://stackoverflow.com/questions/4133859/round-up-to-nearest-multiple-of-five-in-php
+function roundUpTo($n, $x)
+{
+    return (round($n)%$x === 0) ? round($n) : round(($n+$x/2)/$x)*$x;
+}
 
 function assessAllForms()
 {
@@ -15,7 +33,8 @@ function assessAllForms()
     return "Operation complete";
 }
 
-function indexAllModels() {
+function indexAllModels()
+{
     $models = [
         Language::class,
         Morpheme::class,
@@ -30,7 +49,8 @@ function indexAllModels() {
     }
 }
 
-function parseTime($time) {
+function parseTime($time)
+{
     return Carbon\Carbon::parse($time)->setTimezone('America/Winnipeg')->toDayDateTimeString();
 }
 
@@ -49,7 +69,7 @@ function matchTag(string $tag, int $id)
     $replacement = $tag;
 
     if (count($parts) > 1) {
-        switch($parts[0]) {
+        switch ($parts[0]) {
             case 'l':
                 $model = Language::find($parts[1]);
                 break;
@@ -85,7 +105,7 @@ function condenseString($str)
 {
     $stripped = strip_tags($str);
 
-    if(strlen($stripped) > 50) {
+    if (strlen($stripped) > 50) {
         $output = substr($stripped, 0, 50) . '...';
         $title = str_replace('"', '\'', $stripped);
         $output = "<span title=\"$title\">$output</span>";
@@ -132,7 +152,7 @@ function array_toString($arr, string $delimiter = ', ') : string
 {
     $output = '';
 
-    for ($i=0; $i < count($arr); $i++) { 
+    for ($i=0; $i < count($arr); $i++) {
         if ($i > 0) {
             $output .= $delimiter;
         }
@@ -147,15 +167,15 @@ function array_toList($arr) : string
 {
     $output = '';
 
-    for($i = 0; $i < count($arr); $i++) {
-        if($i > 0) {
-            if(count($arr) > 2) {
+    for ($i = 0; $i < count($arr); $i++) {
+        if ($i > 0) {
+            if (count($arr) > 2) {
                 $output .= ',';
             }
 
             $output .= ' ';
 
-            if($i == count($arr) - 1) {
+            if ($i == count($arr) - 1) {
                 $output .= 'and ';
             }
         }
@@ -168,11 +188,11 @@ function array_toList($arr) : string
 
 function fixMorphemes()
 {
-    foreach(Morpheme::all() as $morpheme) {
+    foreach (Morpheme::all() as $morpheme) {
         $morpheme->connectGlosses();
     }
 
-    foreach(Algling\Words\Models\Form::whereHas('language')->get() as $form) {
+    foreach (Algling\Words\Models\Form::whereHas('language')->get() as $form) {
         $form->connectMorphemes();
     }
 }
@@ -188,8 +208,8 @@ function assignRoles()
             if ($user->id == 1) {
                 $roles[] = 'developer';
             } else {
-                $roles[] = 'leader'; 
-            }  
+                $roles[] = 'leader';
+            }
         }
 
         $user->assignRole($roles);

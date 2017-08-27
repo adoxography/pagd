@@ -10,7 +10,7 @@ class HasMorphemesTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
-    function morphemes_do_not_have_to_be_added()
+    public function morphemes_do_not_have_to_be_added()
     {
         $form = factory(Form::class)->create([
             'morphemicForm' => ''

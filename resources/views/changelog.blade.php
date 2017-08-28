@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			28-08-17: Fixed an issue viewing examples
+		</li>
+		<li>
 			27-08-17: Made the smart search smarter by making it recognize multiple argument formats:
 			<ul style="list-style-type: square">
 				<li>

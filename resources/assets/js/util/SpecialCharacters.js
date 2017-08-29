@@ -24,6 +24,7 @@ var dictionary = [
         new SpecialCharacter("ɾ", "r"),
         new SpecialCharacter("ð", "d"),
         new SpecialCharacter("ʔ", "?"),
+        new SpecialCharacter("∅", "0"),
     ],
 
     // Vowels
@@ -41,6 +42,7 @@ var dictionary = [
         new SpecialCharacter("\u0300", "`"), // Grave
         new SpecialCharacter("\u0302", "^"), // Circumflex
         new SpecialCharacter("\u0306", "u"), // Breve
+        new SpecialCharacter("\u0304", "-"), // Macron
         new SpecialCharacter("\u0303", "~"), // Tilde
         new SpecialCharacter("ː", ":"),
         new SpecialCharacter("·", ".")

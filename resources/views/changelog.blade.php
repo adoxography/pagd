@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			28-08-17: Added more symbols to the typewriter
+		</li>
+		<li>
 			28-08-17: Fixed an issue viewing examples
 		</li>
 		<li>

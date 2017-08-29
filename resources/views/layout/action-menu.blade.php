@@ -13,6 +13,7 @@
 					<h5 class="subtitle is-5">Languages</h5>
 				</a>
 			</div>
+
 			<div class="navbar-item has-dropdown is-hoverable">
 				<a class="navbar-link">
 					<h5 class="subtitle is-5">Search</h5>
@@ -24,11 +25,6 @@
 					<a class="navbar-item" href="/verbs/search/form">Verb form</a>
 					<a class="navbar-item" href="/search">Text</a>
 				</div>
-			</div>
-			<div class="navbar-item">
-				<a href="/glossary">
-					<h5 class="subtitle is-5">Browse</h5>
-				</a>
 			</div>
 			@can('add content')
 				<div class="navbar-item has-dropdown is-hoverable">

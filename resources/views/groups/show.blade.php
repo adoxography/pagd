@@ -35,7 +35,7 @@ function recursiveRender($group) {
 @include('components.show-icons', ['model' => $group])
 
 @section('panel')
-	<label class="label" style="padding-top: .5em">Languages in this group
+	<label class="label" style="padding-top: .95em">Languages in this group
 		@can('add content')
 			<a href="/groups/{{ $group->id }}/order/edit" class="icon" title="reorder">
 				<i class="fa fa-sort"></i>

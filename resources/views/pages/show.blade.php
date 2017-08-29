@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-	<div class="alg-page">
+	<div class="alg-page content">
 		{!! $page !!}
 	</div>
 @endsection

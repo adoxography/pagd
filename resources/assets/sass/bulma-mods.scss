@@ -1,3 +1,13 @@
 .control.is-loading::after {
 	z-index: 5;
 }
+
+.navbar-dropdown {
+    .navbar-item {
+        padding: 0 1rem;
+    }
+
+    a.navbar-item {
+        padding-right: 1rem;
+    }
+}

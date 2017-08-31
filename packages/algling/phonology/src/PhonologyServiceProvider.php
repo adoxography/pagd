@@ -27,7 +27,7 @@ class PhonologyServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadMigrationsFrom(__DIR__.'/migrations');
-        $this->loadViewsFrom(__DIR__.'/resources/views', 'phon');
+        $this->loadViewsFrom(__DIR__.'/Resources/views', 'phon');
         $this->bootRouteModelBindings();
         $this->composeViews();
     }
@@ -55,8 +55,8 @@ class PhonologyServiceProvider extends ServiceProvider
 
     protected function bootRouteModelBindings()
     {
-        foreach($this->connections as $model => $binding) {
-            Route::bind($binding, function($value) use ($model) {
+        foreach ($this->connections as $model => $binding) {
+            Route::bind($binding, function ($value) use ($model) {
                 return $model::find($value);
             });
         }
@@ -64,7 +64,7 @@ class PhonologyServiceProvider extends ServiceProvider
 
     protected function composePhonemeForm()
     {
-        view()->composer('phon::phonemes.partials.form', function($view) {
+        view()->composer('phon::phonemes.partials.form', function ($view) {
             $data = [
                 'languages' => Language::select('id', 'name')->get(),
 
@@ -83,7 +83,7 @@ class PhonologyServiceProvider extends ServiceProvider
 
     protected function composeReflexForm()
     {
-        view()->composer('phon::reflexes.partials.form', function($view) {
+        view()->composer('phon::reflexes.partials.form', function ($view) {
             $data = [
                 'languages' => Language::select('id', 'name')->get()
             ];

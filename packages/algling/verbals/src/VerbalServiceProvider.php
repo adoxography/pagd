@@ -28,7 +28,7 @@ class VerbalServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadMigrationsFrom(__DIR__.'/migrations');
-        $this->loadViewsFrom(__DIR__.'/resources/views', 'verb');
+        $this->loadViewsFrom(__DIR__.'/Resources/views', 'verb');
         $this->bootRouteModelBindings();
         $this->composeViews();
     }
@@ -50,8 +50,8 @@ class VerbalServiceProvider extends ServiceProvider
 
     protected function bootRouteModelBindings()
     {
-        foreach($this->connections as $model => $binding) {
-            Route::bind($binding, function($value) use ($model) {
+        foreach ($this->connections as $model => $binding) {
+            Route::bind($binding, function ($value) use ($model) {
                 return $model::find($value);
             });
         }
@@ -64,15 +64,14 @@ class VerbalServiceProvider extends ServiceProvider
 
     private function composeFormForm()
     {
-        view()->composer('verb::forms.partials.form', function($view)
-        {
+        view()->composer('verb::forms.partials.form', function ($view) {
             $data = [
-                'arguments'   => Argument::select('id','name')->get(),
-                'classes'     => VerbClass::select('id','name')->get(),
-                'languages'   => Language::select('id','name')->get(),
-                'modes'       => Mode::select('id','name')->get(),
-                'orders'      => Order::select('id','name')->get(),
-                'changeTypes' => ChangeType::select('id','name')->get()->prepend(['id' => null, 'name' => 'N/A'])
+                'arguments'   => Argument::select('id', 'name')->get(),
+                'classes'     => VerbClass::select('id', 'name')->get(),
+                'languages'   => Language::select('id', 'name')->get(),
+                'modes'       => Mode::select('id', 'name')->get(),
+                'orders'      => Order::select('id', 'name')->get(),
+                'changeTypes' => ChangeType::select('id', 'name')->get()->prepend(['id' => null, 'name' => 'N/A'])
             ];
             $view->with($data);
         });

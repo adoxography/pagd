@@ -25,7 +25,7 @@ class WordServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadMigrationsFrom(__DIR__.'/migrations');
-        $this->loadViewsFrom(__DIR__.'/resources/views', 'word');
+        $this->loadViewsFrom(__DIR__.'/Resources/views', 'word');
         $this->bootRouteModelBindings();
         $this->composeViews();
     }
@@ -47,8 +47,8 @@ class WordServiceProvider extends ServiceProvider
 
     protected function bootRouteModelBindings()
     {
-        foreach($this->connections as $model => $binding) {
-            Route::bind($binding, function($value) use ($model) {
+        foreach ($this->connections as $model => $binding) {
+            Route::bind($binding, function ($value) use ($model) {
                 return $model::find($value);
             });
         }
@@ -61,8 +61,7 @@ class WordServiceProvider extends ServiceProvider
 
     private function composeExampleForm()
     {
-        view()->composer(['word::examples.create', 'word::examples.edit'], function($view)
-        {
+        view()->composer(['word::examples.create', 'word::examples.edit'], function ($view) {
             $data = [
                 'languages' => Language::select('id', 'name')->get()
             ];

@@ -25,7 +25,7 @@ class NominalServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadMigrationsFrom(__DIR__.'/migrations');
-        $this->loadViewsFrom(__DIR__.'/resources/views', 'nom');
+        $this->loadViewsFrom(__DIR__.'/Resources/views', 'nom');
         $this->bootRouteModelBindings();
         $this->publishes([
             __DIR__.'/config/nominals.php' => config_path('nominals.php')
@@ -50,8 +50,8 @@ class NominalServiceProvider extends ServiceProvider
 
     protected function bootRouteModelBindings()
     {
-        foreach($this->connections as $model => $binding) {
-            Route::bind($binding, function($value) use ($model) {
+        foreach ($this->connections as $model => $binding) {
+            Route::bind($binding, function ($value) use ($model) {
                 return $model::find($value);
             });
         }
@@ -65,7 +65,7 @@ class NominalServiceProvider extends ServiceProvider
 
     protected function composeFormForm()
     {
-        view()->composer('nom::forms.partials.form', function($view) {
+        view()->composer('nom::forms.partials.form', function ($view) {
             $data = [
                 'languages'          => Language::select(['name', 'id'])->get(),
                 'pronominalFeatures' => PronominalFeature::all(),
@@ -79,7 +79,7 @@ class NominalServiceProvider extends ServiceProvider
 
     protected function composeShowNominals()
     {
-        view()->composer('nom::partials.show.nominals', function($view) {
+        view()->composer('nom::partials.show.nominals', function ($view) {
             $data = [
                 'pronominalFeatures' => PronominalFeature::all(),
                 'nominalFeatures'    => NominalFeature::all()

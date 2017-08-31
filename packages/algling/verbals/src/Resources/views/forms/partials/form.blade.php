@@ -234,42 +234,33 @@
 
 		<hr>
 		<h4 class="subtitle is-4">Morphology</h4>
-		<div class="columns">
 
 			<!-- phonemicForm -->
-			<div class="column is-half">
-				@component('components.form.text', [
-					'name'        => 'phonemicForm',
-					'label'       => 'phonemic representation',
-					'placeholder' => 'The Algonquianist phonemic representation (Leave blank if unknown or unclear)',
-					'disabled'    => 'empty'
-				])
-					@slot('value')
-						@if(isset($form) && $form->phonemicForm)
-							{{ str_replace('*', '', $form->phonemicForm) }}
-						@endif
-					@endslot
-				@endcomponent
-			</div>
+			@component('components.form.text', [
+				'name'        => 'phonemicForm',
+				'label'       => 'phonemic representation',
+				'placeholder' => 'The Algonquianist phonemic representation (Leave blank if unknown or unclear)',
+				'disabled'    => 'empty'
+			])
+				@slot('value')
+					@if(isset($form) && $form->phonemicForm)
+						{{ str_replace('*', '', $form->phonemicForm) }}
+					@endif
+				@endslot
+			@endcomponent
 
 			<!-- morphemicForm -->
-			<div class="column is-half">
-				@component('components.form.text', [
-					'name'        => 'morphemicForm',
-					'label'       => 'morphemic form',
-					'disabled'    => 'empty',
-					'placeholder' => 'The morphemes, separated by hyphens (Leave blank if unknown or unclear)',
-					'rules'       => 'hasMorpheme:V',
-					'delay'       => 500
-				])
-					@slot('value')
-						@if(isset($form) && $form->morphemicForm)
-							{{ $form->morphemicForm }}
-						@endif
-					@endslot
-				@endcomponent
-			</div>
-		</div>
+			@component('components.form.morpheme-tags', [
+				'placeholder' => 'Leave blank if unknown or unclear',
+				'language'    => 'language.id',
+				'rules'       => 'hasTag:V'
+			])
+				@slot('value')
+				    @if (isset($form))
+				    	{{ $form->morphemesToJson() }}
+				    @endif
+				@endslot
+			@endcomponent
 
 		<hr>
 		<h4 class="subtitle is-4">Lineage</h4>

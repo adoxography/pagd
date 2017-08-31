@@ -11,7 +11,13 @@
 		@endif
 		details:
 	</label>
-	{!! $phoneme->present('link')->with('language')->as('link', $phoneme->type == 'Cluster' ? 'clusters' : 'phonemes') !!}
+	{!! $phoneme->present()
+				->as('name', 'bold')
+				->with('language')
+				->as('link',
+					 $phoneme->type == 'Cluster' ? 'clusters' : 'phonemes'
+				)
+	!!}
 @endsection
 
 @include('components.show-icons', ['model' => $phoneme])

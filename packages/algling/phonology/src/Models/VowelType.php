@@ -12,71 +12,71 @@ class VowelType extends Model implements PhonemeTypeInterface
     public $name = 'Vowel';
 
     public $booleans = [
-    	'isNasal',
-    	'isRounded'
+        'isNasal',
+        'isRounded'
     ];
 
     protected $with = [
-    	'height',
-    	'backness',
-    	'length'
+        'height',
+        'backness',
+        'length'
     ];
 
     protected $fillable = [
-    	'height_id',
-    	'backness_id',
-    	'length_id',
-    	'isNasal',
-    	'isRounded'
+        'height_id',
+        'backness_id',
+        'length_id',
+        'isNasal',
+        'isRounded'
     ];
 
     public function getNameAttribute()
     {
-    	return $this->name;
+        return $this->name;
     }
 
     public function height()
     {
-    	return $this->belongsTo(Height::class);
+        return $this->belongsTo(Height::class);
     }
 
     public function backness()
     {
-    	return $this->belongsTo(Backness::class);
+        return $this->belongsTo(Backness::class);
     }
 
     public function length()
     {
-    	return $this->belongsTo(Length::class);
+        return $this->belongsTo(Length::class);
     }
 
     public function hasBooleans()
     {
-    	$found = false;
+        $found = false;
 
-    	for($i = 0; $i < count($this->booleans) && !$found; $i++) {
-    		$boolean = $this->booleans[$i];
+        for ($i = 0; $i < count($this->booleans) && !$found; $i++) {
+            $boolean = $this->booleans[$i];
 
-    		$found = $this->$boolean;
-    	}
+            $found = $this->$boolean;
+        }
 
-    	return $found;
+        return $found;
     }
 
     public function convertBooleansToString()
     {
-    	$str = '';
+        $str = '';
 
-    	foreach($this->booleans as $boolean) {
-    		if($this->$boolean) {
-    			if(strlen($str) > 0) {
-    				$str .= ', ';
-    			}
+        foreach ($this->booleans as $boolean) {
+            if ($this->$boolean) {
+                if (strlen($str) > 0) {
+                    $str .= ', ';
+                }
 
-    			$str .= substr($boolean, 2); // Cut off the "is"
-    		}
-    	}
+                $str .= substr($boolean, 2); // Cut off the "is"
+            }
+        }
 
-    	return $str;
+        return $str;
     }
 }

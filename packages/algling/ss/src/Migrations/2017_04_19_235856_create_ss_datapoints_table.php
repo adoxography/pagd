@@ -20,7 +20,8 @@ class CreateSSDatapointsTable extends Migration
             $table->unsignedInteger('language_id');
             $table->unsignedInteger('value_id');
             $table->unsignedInteger('variable_id');
-            $table->text('notes')->nullable();
+            $table->text('comments')->nullable();
+            $table->text('note');
 
             $table->timestamps();
 

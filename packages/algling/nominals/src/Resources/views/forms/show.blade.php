@@ -2,7 +2,7 @@
 
 @section('title')
 	<label>Nominal form details:</label>
-	{!! $form->present()->then('language')->as('link', 'nominals') !!}
+	{!! $form->present()->as('name', 'bold')->then('language')->as('link', 'nominals') !!}
 @endsection
 
 @include('components.show-icons', ['model' => $form])

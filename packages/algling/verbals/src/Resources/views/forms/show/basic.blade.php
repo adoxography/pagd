@@ -6,11 +6,17 @@
 			<div class="field">
 				<span class="label">
 					Description
-					<a class="icon">
-						<span class="icon is-small" title="?">
-							<i class="fa fa-question-circle-o"></i>
-						</span>
-					</a>
+					<alg-tooltip
+						label="Verb form descriptions are given in the following&#10;order:&#10;&#10;Subject—(Primary object)+(Secondary object)&#10;Class&#10;Order&#10;Mode"
+						size="large"
+						placement="top"
+					>
+						<a class="icon">
+							<span class="icon is-small">
+								<i class="fa fa-question-circle-o"></i>
+							</span>
+						</a>
+					</alg-tooltip>
 				</span>
 				{!! $form->structure->present() !!}
 				@if($form->structure->hasModifiers())

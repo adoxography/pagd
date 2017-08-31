@@ -8,37 +8,38 @@ use Algling\Phonology\Http\Requests\PhonemeRequest;
 
 class PhonemeController extends Controller
 {
-	public function __construct()
-	{
-		$this->middleware('checkbox:isMarginal,isRounded,isNasal,isPalatalized,isGlottalized')->only(['store', 'update']);
-	}
+    public function __construct()
+    {
+        $this->middleware('auth')->except('show');
+        $this->middleware('checkbox:isMarginal,isRounded,isNasal,isPalatalized,isGlottalized')->only(['store', 'update']);
+    }
 
-	public function show(Phoneme $phoneme)
-	{
-        if($phoneme->type == 'Cluster') {
+    public function show(Phoneme $phoneme)
+    {
+        if ($phoneme->type == 'Cluster') {
             return redirect("/clusters/{$phoneme->id}/basic");
         } else {
             return redirect("/phonemes/{$phoneme->id}/basic");
         }
-	}
+    }
 
     public function create()
     {
-    	return view('phon::phonemes.create');
+        return view('phon::phonemes.create');
     }
 
     public function edit(Phoneme $phoneme)
     {
-    	return view('phon::phonemes.edit', compact('phoneme'));
+        return view('phon::phonemes.edit', compact('phoneme'));
     }
 
     public function store(PhonemeRequest $request)
     {
-    	$phoneme = Phoneme::create($request->all());
+        $phoneme = Phoneme::create($request->all());
 
-    	flash("{$phoneme->name} added successfully.", 'is-success');
+        flash("{$phoneme->name} added successfully.", 'is-success');
 
-        if($phoneme->type == 'Cluster') {
+        if ($phoneme->type == 'Cluster') {
             return redirect("/clusters/{$phoneme->id}/basic");
         } else {
             return redirect("/phonemes/{$phoneme->id}/basic");
@@ -47,11 +48,11 @@ class PhonemeController extends Controller
 
     public function update(PhonemeRequest $request, Phoneme $phoneme)
     {
-    	$phoneme->update($request->all());
+        $phoneme->update($request->all());
 
-    	flash("{$phoneme->name} updated successfully.", 'is-success');
+        flash("{$phoneme->name} updated successfully.", 'is-success');
 
-        if($phoneme->type == 'Cluster') {
+        if ($phoneme->type == 'Cluster') {
             return redirect("/clusters/{$phoneme->id}/basic");
         } else {
             return redirect("/phonemes/{$phoneme->id}/basic");
@@ -64,7 +65,7 @@ class PhonemeController extends Controller
 
         flash("{$phoneme->name} deleted successfully");
 
-        if($phoneme->type == 'Cluster') {
+        if ($phoneme->type == 'Cluster') {
             return redirect("/languages/{$phoneme->language_id}/clusters");
         } else {
             return redirect("/languages/{$phoneme->language_id}/phonemes");

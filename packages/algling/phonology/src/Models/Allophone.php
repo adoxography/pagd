@@ -4,6 +4,7 @@ namespace Algling\Phonology\Models;
 
 use App\ReconstructableTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class Allophone extends Model
 {
@@ -14,22 +15,29 @@ class Allophone extends Model
 
     protected $fillable = ['name', 'environment', 'phoneme_id'];
 
-    public static function translateArray(array $array, int $phoneme_id)
+    public static function translateArray($array, int $phoneme_id)
     {
         $output = '';
+        $firstTime = true;
 
-        for($i = 0; $i < count($array); $i++) {
-            $allophone = new Allophone($array[$i]);
-            $allophone->phoneme_id = $phoneme_id;
+        foreach ($array as $allophoneData) {
+            if ($allophoneData instanceof Collection) {
+                $allophoneData = $allophoneData->toArray();
+            }
 
-            if($i > 0) {
+            if ($firstTime) {
+                $firstTime = false;
+            } else {
                 $output .= '; ';
             }
+
+            $allophone = $allophoneData instanceof Allophone ? $allophoneData : new Allophone($allophoneData);
+            $allophone->phoneme_id = $phoneme_id;
 
             $output .= $allophone->rule;
         }
 
-        return "<ul>$output</ul>";
+        return $output;
     }
 
     public function getNameAttribute($value)
@@ -41,7 +49,7 @@ class Allophone extends Model
     {
         $output = $this->name;
 
-        if($this->environment) {
+        if ($this->environment) {
             $output .= " / {$this->environment}";
         }
 
@@ -50,11 +58,11 @@ class Allophone extends Model
 
     public function phoneme()
     {
-    	return $this->belongsTo(Phoneme::class);
+        return $this->belongsTo(Phoneme::class);
     }
 
     public function language()
     {
-    	return $this->phoneme->language();
+        return $this->phoneme->language();
     }
 }

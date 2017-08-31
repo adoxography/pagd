@@ -35,11 +35,11 @@ class FormRequest extends Request
             'parent_id'   => ['nullable','exists:Word_Forms,id']
         ];
 
-        switch($this->method()){
+        switch ($this->method()) {
             case 'POST':
                 break;
             case 'PATCH':
-                if($this->route('verbForm')) {
+                if ($this->route('verbForm')) {
                     $form = $this->route('verbForm');
                 } else {
                     $form = $this->route('nominalForm');
@@ -54,7 +54,8 @@ class FormRequest extends Request
         return $rules;
     }
 
-    public function messages(){
+    public function messages()
+    {
         return [
             'name.required'         => 'Please enter a surface form.',
             'name.required_without' => 'Please enter a surface form.',
@@ -63,5 +64,4 @@ class FormRequest extends Request
             'parent_id.nomatch'     => 'A form cannot be its own parent!'
         ];
     }
-    
 }

@@ -17,12 +17,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
 
 class Phoneme extends Model
 {
-    use SoftDeletes;
-    use RevisionableTrait;
-    use BookmarkableTrait;
-    use SourceableTrait;
-    use ReconstructableTrait;
-    use HasTypeTrait;
+    use SoftDeletes, RevisionableTrait, BookmarkableTrait, SourceableTrait, ReconstructableTrait, HasTypeTrait;
     use HasAllophonesTrait;
     use Searchable;
     use BacksUpTrait;
@@ -31,18 +26,19 @@ class Phoneme extends Model
     public $uri = '/phonemes';
 
     protected $fillable = [
-    	'algoName',
-    	'ipaName',
-    	'orthoName',
-    	'phoneticNotes',
-    	'orthoNotes',
-    	'privateNotes',
-    	'isMarginal',
-    	'language_id',
-    	'phonemeable_type',
-    	'phonemeable_id',
+        'algoName',
+        'ipaName',
+        'orthoName',
+        'phoneticNotes',
+        'orthoNotes',
+        'privateNotes',
+        'isMarginal',
+        'language_id',
+        'phonemeable_type',
+        'phonemeable_id',
         'isArchiphoneme',
-        'archiphonemeDescription'
+        'archiphonemeDescription',
+        'allophones'
     ];
 
     public function toSearchableArray()
@@ -81,7 +77,7 @@ class Phoneme extends Model
 
     public function getNameAttribute()
     {
-    	return $this->algoName;
+        return $this->algoName;
     }
 
     public function getAlgoNameAttribute($value)
@@ -91,26 +87,26 @@ class Phoneme extends Model
 
     public function getTypeAttribute()
     {
-    	return $this->phonemeable->name;
+        return $this->phonemeable->name;
     }
 
     public function getIpaNameAttribute($value)
     {
-        if($value) {
+        if ($value) {
             return preg_replace('`^(/?)([^/\[\]]+)(/?)`', '/$2/', $this->modifyIfReconstructed($value));
         }
 
         return null;
-    }   
+    }
 
     public function language()
     {
-    	return $this->belongsTo(Language::class);
+        return $this->belongsTo(Language::class);
     }
 
     public function features()
     {
-    	return $this->morphTo('phonemeable');
+        return $this->morphTo('phonemeable');
     }
 
     public function phonemeable()
@@ -120,7 +116,7 @@ class Phoneme extends Model
 
     public function allophones()
     {
-    	return $this->hasMany(Allophone::class);
+        return $this->hasMany(Allophone::class);
     }
 
     public function reflexes()
@@ -152,7 +148,7 @@ class Phoneme extends Model
     {
         $model = $this;
 
-        return $this->parents()->with(['parents', 'allParents' => function($query) use ($model) {
+        return $this->parents()->with(['parents', 'allParents' => function ($query) use ($model) {
             $query->select("{$this->table}.*");
         }]);
     }
@@ -161,29 +157,29 @@ class Phoneme extends Model
     {
         $model = $this;
 
-        return $this->reflexes()->with(['reflexes', 'allChildren' => function($query) use ($model) {
+        return $this->reflexes()->with(['reflexes', 'allChildren' => function ($query) use ($model) {
             $query->select("{$this->table}.*");
         }]);
     }
 
     public function scopeOfType($query, $type)
     {
-        if(is_array($type)) {
-            for($i = 0; $i < count($type); $i++) {
+        if (is_array($type)) {
+            for ($i = 0; $i < count($type); $i++) {
                 $currType = $type[$i];
 
-                if(!preg_match('/.Types/', $currType)) {
+                if (!preg_match('/.Types/', $currType)) {
                     $currType .= 'Types';
                 }
 
-                if($i == 0) {
+                if ($i == 0) {
                     $query->where('phonemeable_type', $currType);
                 } else {
                     $query->orWhere('phonemeable_type', $currType);
                 }
             }
         } else {
-            if(!preg_match('/.Types/', $type)) {
+            if (!preg_match('/.Types/', $type)) {
                 $type .= 'Types';
             }
 
@@ -210,10 +206,10 @@ class Phoneme extends Model
         $parents = $this->parents;
         $paParents = collect();
 
-        while(!$parents->isEmpty()) {
+        while (!$parents->isEmpty()) {
             $parent = $parents->pop();
 
-            if($parent->language_id == 1) {
+            if ($parent->language_id == 1) {
                 $paParents->push($parent);
             } else {
                 $parents = $parent->parents->concat($parents);

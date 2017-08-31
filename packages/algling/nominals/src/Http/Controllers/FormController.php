@@ -23,7 +23,7 @@ class FormController extends Controller
 
     public function create()
     {
-    	return view('nom::forms.create');
+        return view('nom::forms.create');
     }
 
     public function edit(Form $nominalForm)
@@ -38,22 +38,27 @@ class FormController extends Controller
             'examples'
         ]);
 
-    	return view('nom::forms.edit', compact('form'));
+        return view('nom::forms.edit', compact('form'));
     }
 
     public function store(FormRequest $request)
     {
-    	$nominalForm = Form::create($request->all());
+        $data = $request->all();
+        $data['morphemicForm'] = $this->convertMorphemes();
+        $nominalForm = Form::create($data);
 
         return redirect("/nominals/forms/{$nominalForm->id}");
     }
 
     public function update(FormRequest $request, Form $nominalForm)
     {
-    	$nominalForm->update($request->all());
+        $data = $request->all();
+        $data['morphemicForm'] = $this->convertMorphemes();
 
-        if($request->translation) {
-            if($nominalForm->examples->count() == 0) {
+        $nominalForm->update($data);
+
+        if ($request->translation) {
+            if ($nominalForm->examples->count() == 0) {
                 $nominalForm->generateExample($request->translation);
             } else {
                 $nominalForm->examples->first()->update(['translation' => $request->translation]);
@@ -65,6 +70,39 @@ class FormController extends Controller
 
     public function destroy(Form $nominalForm)
     {
-    	
+    }
+
+    protected function convertMorphemes()
+    {
+        $morphemicForm = null;
+        $morphemes = request()->morphemes;
+
+        if (count($morphemes) > 0) {
+            $firstTime = true;
+
+            foreach ($morphemes as $morpheme) {
+                if ($firstTime) {
+                    $firstTime = false;
+                } else {
+                    $morphemicForm .= '-';
+                }
+
+                if ($morpheme['ic'] != null && $morpheme['ic'] >= 0) {
+                    $morphemicForm .= "IC";
+                    if ($morpheme['ic'] > 0) {
+                        $morphemicForm .= '.' . $morpheme['ic'];
+                    }
+                    $morphemicForm .= "|";
+                }
+
+                $morphemicForm .= str_replace(['*', '-'], '', $morpheme['name']);
+
+                if ($morpheme['disambiguator']) {
+                    $morphemicForm .= '.' . $morpheme['disambiguator'];
+                }
+            }
+
+            return $morphemicForm;
+        }
     }
 }

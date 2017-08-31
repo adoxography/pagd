@@ -2,7 +2,7 @@
 
 @section('title')
 	<label>Nominal paradigm details:</label>
-	{!! $paradigm->present('name')->then('language')->as('link') !!}
+	{!! $paradigm->present()->as('name', 'bold')->then('language')->as('link') !!}
 @endsection
 
 @include('components.show-icons', ['model' => $paradigm, 'uri' => '/nominals/paradigms/'])

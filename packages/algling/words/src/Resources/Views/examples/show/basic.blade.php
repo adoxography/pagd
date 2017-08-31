@@ -27,13 +27,13 @@
 			@if($example->publicNotes)
 				<div class="field">
 					<span class="label">Notes</span>
-					{!! replaceTags($example->publicNotes, $example->language_id) !!}
+					{!! replaceTags($example->publicNotes, $example->language->id) !!}
 				</div>
 			@endif
 			@if(Auth::user() && Auth::user()->hasPermissionTo('add content') && $example->privateNotes)
 				<div class="field">
 					<span class="label">Private notes</span>
-					{!! replaceTags($example->privateNotes, $example->language_id) !!}
+					{!! replaceTags($example->privateNotes, $example->language->id) !!}
 				</div>
 			@endif
 		</div>

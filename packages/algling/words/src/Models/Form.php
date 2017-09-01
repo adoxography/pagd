@@ -19,7 +19,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
 
 /**
  * A verb form
- * 
+ *
  * @uses \App\SourceableTrait
  * @uses \App\HasMorphemesTrait
  * @uses \App\ReconstructableTrait
@@ -137,7 +137,7 @@ class Form extends Model
      */
     public function getPhonemicFormAttribute($value)
     {
-        if($value) {
+        if ($value) {
             return $this->modifyIfReconstructed($value);
         } else {
             return null;
@@ -167,7 +167,7 @@ class Form extends Model
 
     public function isStemless()
     {
-        if($this->morphemicForm) {
+        if ($this->morphemicForm) {
             return !$this->hasStem();
         } else {
             return $this->hasIdenticalExample();
@@ -179,7 +179,7 @@ class Form extends Model
         $morphemes = $this->morphemes;
         $found = false;
 
-        for($i = 0; $i < $morphemes->count() && !$found; $i++) {
+        for ($i = 0; $i < $morphemes->count() && !$found; $i++) {
             $found = $morphemes[$i]->slot->name == 'stem';
         }
 
@@ -191,7 +191,7 @@ class Form extends Model
         $examples = $this->examples;
         $found = false;
 
-        if($examples->count() == 1) {
+        if ($examples->count() == 1) {
             $found = $this->name == $this->examples->first()->name;
         }
 
@@ -208,7 +208,7 @@ class Form extends Model
             'translation'   => $translation
         ];
 
-        if($this->parent_id && $this->parent->examples()->count() > 0) {
+        if ($this->parent_id && $this->parent->examples()->count() > 0) {
             $exampleData['parent_id'] = $this->parent->examples()->first()->id;
         }
 

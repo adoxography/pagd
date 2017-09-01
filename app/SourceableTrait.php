@@ -86,7 +86,7 @@ trait SourceableTrait
 
     public function syncSources($sources = null)
     {
-        if ($sources === null && isset($this['newSources'])) {
+        if ($sources === null && isset($this->newSources)) {
             $sources = $this->newSources;
             $this->newSources = null;
         }

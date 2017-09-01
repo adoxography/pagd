@@ -64,7 +64,6 @@ class FormController extends AlgModelController
         } else {
             $data = $request->all();
             $data['morphemicForm'] = $this->convertMorphemes();
-
             $form = Form::create($data);
             flash("{$form->name} created successfully.", 'is-success');
             return redirect("/verbs/forms/{$form->id}");

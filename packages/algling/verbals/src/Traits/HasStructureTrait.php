@@ -4,32 +4,33 @@ namespace Algling\Verbals\Traits;
 
 use Algling\Verbals\Models\Structure;
 
-trait HasStructureTrait {
-
-	public static function bootHasStructureTrait() {
-		static::saving(function($model) {
-        	/**
-        	 * Only attempt to assign the form type if the data from a create or edit form
-        	 * is present. (The FormRequest will have guaranteed that it is.) Skip
-        	 * this otherwise - i.e. when the form is being disambiguated. That means that
-        	 * the form already has a type, and it won't be altered anyway.
-        	 */
-			if(request()->subject_id) {
-				$model->assignStructure();
-			}
-		});
-	}
+trait HasStructureTrait
+{
+    public static function bootHasStructureTrait()
+    {
+        static::saving(function ($model) {
+            /**
+             * Only attempt to assign the form type if the data from a create or edit form
+             * is present. (The FormRequest will have guaranteed that it is.) Skip
+             * this otherwise - i.e. when the form is being disambiguated. That means that
+             * the form already has a type, and it won't be altered anyway.
+             */
+            if (request()->subject_id) {
+                $model->assignStructure();
+            }
+        });
+    }
 
     public function structure()
     {
         return $this->belongsTo(Structure::class, 'structure_id');
     }
 
-	protected function assignStructure()
-	{
+    protected function assignStructure()
+    {
         $this->structure_id = $this->getStructure();
         $this->structure_type = 'verbStructures';
-	}
+    }
 
     private function getStructure()
     {
@@ -66,7 +67,7 @@ trait HasStructureTrait {
 
     private function convertToRules($data)
     {
-        $rules = array();
+        $rules = [];
 
         foreach ($data as $key => $value) {
             if ($value === "") {

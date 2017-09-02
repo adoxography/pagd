@@ -15,7 +15,7 @@ class AddClosedByToTickets extends Migration
     {
         Schema::table('Tickets', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
-            $table->dropColumn('isClosed');
+            // $table->dropColumn('isClosed');
 
             $table->renameColumn('user_id', 'openedBy_id');
             $table->foreign('openedBy_id')->references('id')->on('users');

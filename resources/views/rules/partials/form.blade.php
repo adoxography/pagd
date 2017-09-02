@@ -14,7 +14,7 @@
 			<div class="column is-half">
 				@component('components.form.text', [
 					'name'      => 'name',
-					'autofocus' => true, 
+					'autofocus' => true,
 					'rules'     => 'required'
 				])
 					@slot('value')
@@ -42,7 +42,7 @@
 			<div class="column is-half">
 				@component('components.form.text', [
 					'name'  => 'abv',
-					'label' => 'abbreviation', 
+					'label' => 'abbreviation',
 					'rules' => 'required'
 				])
 					@slot('value')
@@ -62,6 +62,19 @@
 						@if(isset($rule))
 							{{ $rule->rule }}
 						@endif
+					@endslot
+				@endcomponent
+			</div>
+			<div class="column is-half">
+				@component('components.form.datalist', [
+					'name'  => 'type',
+					'list'  => $types,
+					'rules' => 'required|exists'
+				])
+					@slot('value')
+						@isset ($rule)
+							{{ $rule->type }}
+						@endisset
 					@endslot
 				@endcomponent
 			</div>

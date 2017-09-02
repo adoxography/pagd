@@ -18,6 +18,10 @@
 				<span class="label">Abbreviation</span>
 				{{ $rule->abv }}
 			</div>
+			<div class="field">
+				<span class="label">Type</span>
+				{{ optional($rule->type)->name }}
+			</div>
 		</div>
 		<div class="column">
 			@if($rule->publicComments)

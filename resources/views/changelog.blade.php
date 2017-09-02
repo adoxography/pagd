@@ -7,8 +7,12 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			2-09-17: Added types to rules
+		</li>
+		<li>
 			2-09-17: Fixed archiphoneme input
 		</li>
+		<hr>
 		<li>
 			28-08-17: Updated the styling
 		</li>
@@ -18,6 +22,7 @@
 		<li>
 			28-08-17: Fixed an issue viewing examples
 		</li>
+		<hr>
 		<li>
 			27-08-17: Made the smart search smarter by making it recognize multiple argument formats:
 			<ul style="list-style-type: square">

@@ -7,7 +7,8 @@ export default {
 
 	data() {
 		return {
-			language: new Datalist
+			language: new Datalist,
+            type: new Datalist
 		};
 	}
 }

@@ -27,7 +27,7 @@ class RuleRequest extends FormRequest
         $id = 'NULL';
         $language_id = request()->get('language_id');
 
-        if($this->method() == 'PATCH') {
+        if ($this->method() == 'PATCH') {
             $id = $this->route('rule')->id;
         }
 
@@ -35,16 +35,21 @@ class RuleRequest extends FormRequest
             'name'        => ['required', "unique:Rules,name,$id,id,language_id,$language_id"],
             'abv'         => ['required', "unique:Rules,abv,$id,id,language_id,$language_id"],
             'language'    => ['required', 'exists:Languages,name'],
-            'language_id' => ['required', 'integer', 'exists:Languages,id']
+            'language_id' => ['required', 'integer', 'exists:Languages,id'],
+            'type'        => ['required', 'exists:RuleTypes,name'],
+            'type_id'     => ['required', 'integer', 'exists:RuleTypes,id']
         ];
 
         return $rules;
     }
 
-    public function messages(){
+    public function messages()
+    {
         return [
             'language.exists' => 'There is no language by that name in the database',
-            'language_id.required' => 'There is no language by that name in the database.'
+            'language_id.required' => 'There is no language by that name in the database.',
+            'type.exists' => 'There is no type by that name in the database',
+            'type_id.required' => 'There is no type by that name in the database.',
         ];
     }
 }

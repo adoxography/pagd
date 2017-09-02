@@ -2,15 +2,16 @@
 
 namespace App\Providers;
 
+use Algling\Verbals\Models\Argument;
+use Algling\Verbals\Models\Mode;
+use Algling\Verbals\Models\Order;
+use Algling\Verbals\Models\VerbClass;
 use App\ChangeType;
 use App\Group;
 use App\Language;
 use App\Models\Morphology\Gloss;
 use App\Models\Morphology\Slot;
-use Algling\Verbals\Models\Mode;
-use Algling\Verbals\Models\Order;
-use Algling\Verbals\Models\Argument;
-use Algling\Verbals\Models\VerbClass;
+use App\RuleType;
 use Illuminate\Support\ServiceProvider;
 
 class ViewComposerServiceProvider extends ServiceProvider
@@ -59,7 +60,8 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         view()->composer('rules.partials.form', function ($view) {
             $data = [
-                'languages' => Language::select('id', 'name')->get()
+                'languages' => Language::select('id', 'name')->get(),
+                'types' => RuleType::all()
             ];
             $view->with($data);
         });

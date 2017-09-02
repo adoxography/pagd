@@ -9,7 +9,7 @@
 @component('components.form.datalist', [
 	'name'  => 'height',
 	'list'  => $heights,
-	'rules' => 'required|exists'
+    'activeRules' => 'fieldConstraints'
 ])
 	@slot('value')
 		@if(isset($phoneme) && $phoneme->type == 'Vowel')
@@ -22,7 +22,7 @@
 @component('components.form.datalist', [
 	'name'  => 'backness',
 	'list'  => $backnesses,
-	'rules' => 'required|exists'
+	'activeRules' => 'fieldConstraints'
 ])
 	@slot('value')
 		@if(isset($phoneme) && $phoneme->type == 'Vowel')

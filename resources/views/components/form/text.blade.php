@@ -25,9 +25,11 @@
 		placeholder="{{ $placeholder }}"
 		@endif
 
-		@if(isset($rules))
-		v-validate="'{{ $rules }}'"
-		@endif
+		@isset ($activeRules)
+			v-validate="{{ $activeRules }}"
+		@elseif(isset($rules))
+			v-validate="'{{ $rules }}'"
+		@endisset
 
 		@if(isset($delay))
 		data-vv-delay="{{ $delay }}"

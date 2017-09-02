@@ -9,7 +9,7 @@
 @component('components.form.datalist', [
 	'name'  => 'place',
 	'list'  => $places,
-	'rules' => 'required|exists'
+	'activeRules' => 'fieldConstraints'
 ])
 	@slot('value')
 		@if(isset($phoneme) && $phoneme->type == 'Consonant' && $phoneme->features->place)
@@ -22,7 +22,7 @@
 @component('components.form.datalist', [
 	'name'  => 'manner',
 	'list'  => $manners,
-	'rules' => 'required|exists'
+	'activeRules' => 'fieldConstraints'
 ])
 	@slot('value')
 		@if(isset($phoneme) && $phoneme->type == 'Consonant' && $phoneme->features->manner)

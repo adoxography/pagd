@@ -15,9 +15,11 @@
 				v-model="{{ $model }}"
 				@endif
 
-				@if (isset($rules))
+				@isset ($activeRules)
+					v-validate="{{ $activeRules }}"
+				@elseif(isset($rules))
 					v-validate="'{{ $rules }}'"
-				@endif
+				@endisset
 
 				@if (isset($label))
 					data-vv-as="{{ $label }}"

@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			2-09-17: Fixed archiphoneme input
+		</li>
+		<li>
 			28-08-17: Updated the styling
 		</li>
 		<li>

@@ -11,7 +11,6 @@ export default {
 		return {
 			type: '',
 			isArchiphoneme: false,
-			requiredFields: ['place', 'manner', 'height', 'backness'],
 
 			language: new Datalist,
 
@@ -30,6 +29,20 @@ export default {
 			secondSegment: new Datalist
 		};
 	},
+
+    computed: {
+        fieldConstraints() {
+            return this.isArchiphoneme ? "datalist_exists" : "datalist_required|datalist_exists";
+        },
+
+        archiphonemeDescriptionConstraints() {
+            return this.isArchiphoneme ? 'required' : '';
+        },
+
+        typeConstraints() {
+            return this.isArchiphoneme ? 'required|not_in:clusterTypes' : 'required';
+        }
+    },
 
 	created() {
 		if(this.oldType) {
@@ -59,39 +72,11 @@ export default {
 			this.secondSegment = new Datalist;
 		},
 
-		isArchiphoneme(value) {
-            this.setFieldConstraints(value);
-
-		    if (value) {
-                this.$validator.attach('archiphonemeDescription', 'required', { prettyName: 'description'} );
-                this.$validator.attach('phonemeable_type', 'required|not_in:clusterTypes', { prettyName: 'type'} );
-		    } else {
-                this.$validator.attach('archiphonemeDescription', '', { prettyName: 'description'} );
-                this.$validator.attach('phonemeable_type', 'required', { prettyName: 'type'} );
-            }
-		},
-
         type(value) {
 		    if (value == 'clusterTypes') {
 		        this.isArchiphoneme = false;
             }
         }
-	},
-
-    methods: {
-	    setFieldConstraints(val) {
-	        let constraint = 'datalist_exists';
-
-	        if (!val) {
-	            constraint = 'datalist_required|' + constraint;
-            }
-
-            console.log(constraint);
-
-            this.requiredFields.forEach(field => {
-                this.$validator.attach(field, constraint);
-            });
-        }
-    }
+	}
 };
 </script>

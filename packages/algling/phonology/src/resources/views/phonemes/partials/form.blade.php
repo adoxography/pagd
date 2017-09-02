@@ -88,7 +88,7 @@
                         @component('components.form.text', [
                             'name' => 'archiphonemeDescription',
                             'label' => 'description',
-                            'rules' => '',
+                            'activeRules' => 'archiphonemeDescriptionConstraints',
                             'placeholder' => 'Enter a description of the archiphoneme'
                         ])
                             @slot('value')
@@ -119,7 +119,7 @@
 						'Cluster'   => 'clusterTypes'
 					],
 					'model' => 'type',
-					'rules' => 'required'
+					'activeRules' => 'typeConstraints'
 				])
 
 				<transition name="fade" mode="out-in">

@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			6-09-17: Removed the requirement that examples must have forms
+		<hr>
+		<li>
 			5-09-17: Altered the placeholder text for morphemes in the form and example forms to be more clear
 		</li>
 		<hr>

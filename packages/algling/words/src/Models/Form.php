@@ -202,6 +202,7 @@ class Form extends Model
     {
         $exampleData = [
             'form_id'       => $this->id,
+            'language_id'   => $this->language_id,
             'name'          => str_replace('*', '', $this->name),
             'phonemicForm'  => str_replace('*', '', $this->phonemicForm),
             'morphemicForm' => $this->morphemicForm,

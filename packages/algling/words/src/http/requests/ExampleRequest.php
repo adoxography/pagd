@@ -27,8 +27,8 @@ class ExampleRequest extends FormRequest
         return [
             'language'      => ['required','exists:Languages,name'],
             'language_id'   => ['required','exists:Languages,id'],
-            'form'          => ['required'],
-            'form_id'       => ['required','exists:Word_Forms,id'],
+            'form'          => ['nullable'],
+            'form_id'       => ['nullable','exists:Word_Forms,id'],
             'name'          => ['required'],
             'translation'   => ['required'],
             'comments'      => ['nullable'],

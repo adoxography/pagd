@@ -92,7 +92,7 @@ trait HasMorphemesTrait
             "-$name",
             "-$name-",
             "$name-",
-        ])->where('language_id', $this->language->id);
+        ])->where('language_id', $this->language_id);
 
         if ($disambiguator) {
             $query->where('disambiguator', $disambiguator);

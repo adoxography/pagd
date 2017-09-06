@@ -197,21 +197,11 @@ function fixMorphemes()
     }
 }
 
-function assignRoles()
+function fixExamples()
 {
-    $users = App\User::all();
+    $examples = Example::whereNotNull('form_id')->with('form')->get();
 
-    foreach ($users as $user) {
-        $roles = ['reader', 'contributor'];
-
-        if ($user->userRoles_id == 1) {
-            if ($user->id == 1) {
-                $roles[] = 'developer';
-            } else {
-                $roles[] = 'leader';
-            }
-        }
-
-        $user->assignRole($roles);
+    foreach ($examples as $example) {
+        $example->update(['language_id' => $example->form->language_id]);
     }
 }

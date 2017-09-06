@@ -6,7 +6,7 @@
 				->as('name', 'bold')
 				->then('language')
 				->as('link',
-					 $example->form->structure_type == 'verbStructures' ? 'verbs' : 'nominals'
+					 optional($example->form)->structure_type == 'nominalStructures' ? 'nominals' : 'verbs'
 				)
 	!!}
 @endsection

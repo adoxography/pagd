@@ -36,7 +36,7 @@ class LanguageRequest extends FormRequest
             'algoCode'      => ['required', 'between:1,5']
         ];
 
-        switch($this->method()){
+        switch ($this->method()) {
             case 'POST':
                     $rules['name'][]     = 'unique:Languages,name';
                     $rules['iso'][]      = 'unique:Languages,iso';
@@ -45,9 +45,9 @@ class LanguageRequest extends FormRequest
             case 'PATCH':
                     $language = $this->route('language');
 
-                    $rules['name'][]      = Rule::unique('Languages','name')->ignore($language->id);
-                    $rules['iso'][]       = Rule::unique('Languages','iso')->ignore($language->id);
-                    $rules['algoCode'][]  = Rule::unique('Languages','algoCode')->ignore($language->id);
+                    $rules['name'][]      = Rule::unique('Languages', 'name')->ignore($language->id);
+                    $rules['iso'][]       = Rule::unique('Languages', 'iso')->ignore($language->id);
+                    $rules['algoCode'][]  = Rule::unique('Languages', 'algoCode')->ignore($language->id);
                     $rules['parent_id'][] = "nomatch:{$language->id}";
                 break;
             default:

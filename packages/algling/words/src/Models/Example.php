@@ -7,6 +7,7 @@ use App\BacksUpTrait;
 use App\BookmarkableTrait;
 use App\HasChildrenTrait;
 use App\HideableTrait;
+use App\Language;
 use App\ReconstructableTrait;
 use App\SourceableTrait;
 use App\Traits\HasMorphemesTrait;
@@ -32,7 +33,7 @@ class Example extends Model
     |
     */
     public $table = 'Word_Examples';
-    protected $fillable = ['id', 'name','translation','form_id','publicNotes','privateNotes','morphemicForm', 'parent_id', 'phonemicForm'];
+    protected $fillable = ['id', 'name','translation','form_id','language_id','publicNotes','privateNotes','morphemicForm', 'parent_id', 'phonemicForm'];
     protected $appends = ['html'];
     public $uri = '/examples';
     protected $morphCode = 'examples';
@@ -91,9 +92,9 @@ class Example extends Model
 
     /**
      * Shortcut for getting the initial change status of the example
-     * 
+     *
      * The initial change status is actually stored in the example's form
-     * 
+     *
      * @return integer|null The initial change status
      */
     public function getInitialChangeAttribute()
@@ -106,22 +107,15 @@ class Example extends Model
         return $this->modifyIfReconstructed($value);
     }
 
-    public function getLanguageAttribute()
-    {
-        if (!$this->form) {
-            return '';
-        }
-        return $this->form->language;
-    }
-
-    public function language()
-    {
-        return $this->form->language();
-    }
-
     public function getHtmlAttribute()
     {
-        return $this->present()->as('unique', 'link')->then('structure')->as('summary')->__toString();
+        $html = $this->present()->as('unique', 'link');
+
+        if ($this->form) {
+            $html->then('structure')->as('summary');
+        }
+
+        return $html->__toString();
     }
 
     /*
@@ -131,7 +125,7 @@ class Example extends Model
     */
     /**
      * An example belongs to exactly one form
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function form()
@@ -139,9 +133,19 @@ class Example extends Model
         return $this->belongsTo(Form::class, 'form_id');
     }
 
+    public function language()
+    {
+        return $this->belongsTo(Language::class);
+    }
+
+    public function getStructureAttribute()
+    {
+        return optional($this->form)->structure;
+    }
+
     public function structure()
     {
-        return $this->form->structure();
+        return optional($this->form)->structure();
     }
 
     /*
@@ -152,7 +156,7 @@ class Example extends Model
 
     public function scopeOfType($query, string $type)
     {
-        $query->whereHas('form', function($query) use ($type) {
+        $query->whereHas('form', function ($query) use ($type) {
             $query->where('structure_type', $type);
         });
     }

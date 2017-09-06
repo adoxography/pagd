@@ -1,18 +1,17 @@
 <?php
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Algling\Words\Models\Example;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ExampleTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testExample()
+    /** @test */
+    public function an_example_has_a_language()
     {
-        $this->assertTrue(true);
+        $example = factory(Example::class)->create();
+
+        $this->assertNotNull($example->language_id);
     }
 }

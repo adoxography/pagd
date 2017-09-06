@@ -3,10 +3,12 @@
 @section('content')
 	<div class="columns">
 		<div class="column">
-			<div class="field">
-				<span class="label">Form</span>
-				{!! $example->form->present('stub') !!}
-			</div>
+			@if ($example->form)
+				<div class="field">
+					<span class="label">Form</span>
+					{!! $example->form->present('stub') !!}
+				</div>
+			@endif
 			<div class="field">
 				<span class="label">Morphology</span>
 				{!! $example->present('phonemicForm') !!}

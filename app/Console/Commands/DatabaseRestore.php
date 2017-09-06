@@ -31,7 +31,11 @@ class DatabaseRestore extends Command
         parent::__construct();
 
         // if ($this->option('last')) {
-        $this->options['--sourcePath'] = $this->getLastBackup();
+        try {
+            $this->options['--sourcePath'] = $this->getLastBackup();
+        } catch (\Exception $e) {
+            var_dump('Could not restore the database.');
+        }
         // }
     }
 

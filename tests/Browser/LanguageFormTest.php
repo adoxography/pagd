@@ -4,12 +4,12 @@ namespace Tests\Browser;
 
 use App\Language;
 use App\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\DuskTestCase;
 
 class LanguageFormTest extends DuskTestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @test */
     public function a_user_must_be_logged_in_to_see_the_language_form()

@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			5-09-17: Altered the placeholder text for morphemes in the form and example forms to be more clear
+		</li>
+		<hr>
+		<li>
 			2-09-17: Added types to rules
 		</li>
 		<li>

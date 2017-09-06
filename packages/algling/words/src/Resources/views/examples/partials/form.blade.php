@@ -100,7 +100,7 @@
 					:allow-periods="false"
 					:allow-hyphens="false"
 					@input="errors.clear('morphemes')"
-					placeholder="The morphemes (Leave blank if unknown or unclear)"
+					placeholder="Look up or insert morphemes to add to the morphemic form"
 					:classes="{'is-danger': errors.has('morphemes')}"
 					:language="language.id"
 					:tags="morphemes"

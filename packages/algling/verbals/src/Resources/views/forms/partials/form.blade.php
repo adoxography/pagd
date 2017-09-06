@@ -251,7 +251,7 @@
 
 			<!-- morphemicForm -->
 			@component('components.form.morpheme-tags', [
-				'placeholder' => 'Leave blank if unknown or unclear',
+				'placeholder' => 'Look up or insert morphemes to add to the morphemic form',
 				'language'    => 'language.id',
 				'rules'       => 'hasTag:V'
 			])

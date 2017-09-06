@@ -9,7 +9,6 @@
         "laravel/framework": "5.5.*",
         "laracasts/utilities": "~2.0",
         "netcarver/textile": "3.6.*",
-        "backup-manager/laravel": "^1.1",
         "league/flysystem-dropbox": "^1.0",
         "doctrine/dbal": "^2.5",
         "venturecraft/revisionable": "1.*",
@@ -20,7 +19,8 @@
         "mikealmond/color": "0.0.4",
         "spatie/flysystem-dropbox": "^1.0",
         "rap2hpoutre/laravel-log-viewer": "^0.10.4",
-        "spatie/laravel-permission": "^2.3.2"
+        "spatie/laravel-permission": "^2.3.2",
+        "backup-manager/laravel": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

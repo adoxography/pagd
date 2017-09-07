@@ -35,6 +35,12 @@
 					{!! replaceTags($morpheme->allomorphyNotes, $morpheme->language_id) !!}
 				</div>
 			@endif
+			@if($morpheme->usageNotes)
+				<div class="field">
+					<span class="label">Usage notes</span>
+					{!! replaceTags($morpheme->usageNotes, $morpheme->language_id) !!}
+				</div>
+			@endif
 			@if($morpheme->parent || $morpheme->historicalNotes)
 				<div class="field">
 					<span class="label">Historical notes</span>

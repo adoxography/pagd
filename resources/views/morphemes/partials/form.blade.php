@@ -16,7 +16,7 @@
 			<div class="column is-half">
 				@component('components.form.text', [
 					'name'      => 'name',
-					'autofocus' => true, 
+					'autofocus' => true,
 					'rules'     => 'required|isHyphenated|noInternalHyphens'
 				])
 					@slot('value')
@@ -64,7 +64,7 @@
 				<span class="help is-danger"
 					  v-show="errors.has('gloss')"
 					  v-text="errors.first('gloss')">
-				</span>				
+				</span>
 			</div>
 
 			<!-- Slot -->
@@ -145,6 +145,18 @@
 					@slot('value')
 						@if(isset($morpheme))
 							{{ $morpheme->historicalNotes }}
+						@endif
+					@endslot
+				@endcomponent
+			</div>
+			<div class="column is-half">
+				@component('components.form.textarea', [
+					'name'        => 'usageNotes',
+					'label'       => 'usage notes'
+				])
+					@slot('value')
+						@if(isset($morpheme))
+							{{ $morpheme->usageNotes }}
 						@endif
 					@endslot
 				@endcomponent

@@ -7,21 +7,25 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
-			6-09-17: Added usage notes to morphemes
-		</li>
-		<li>
-			6-09-17: Removed the requirement that examples must have forms
+			07-09-17: Fixed ajax calls for reflexes
 		</li>
 		<hr>
 		<li>
-			5-09-17: Altered the placeholder text for morphemes in the form and example forms to be more clear
+			06-09-17: Added usage notes to morphemes
+		</li>
+		<li>
+			06-09-17: Removed the requirement that examples must have forms
 		</li>
 		<hr>
 		<li>
-			2-09-17: Added types to rules
+			05-09-17: Altered the placeholder text for morphemes in the form and example forms to be more clear
+		</li>
+		<hr>
+		<li>
+			02-09-17: Added types to rules
 		</li>
 		<li>
-			2-09-17: Fixed archiphoneme input
+			02-09-17: Fixed archiphoneme input
 		</li>
 		<hr>
 		<li>

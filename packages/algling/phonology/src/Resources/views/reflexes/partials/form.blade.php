@@ -31,7 +31,7 @@
 	@endif
 >
 	@component('components.form', ['method' => $method, 'action' => $action, 'visible' => true])
-		
+
 		<div class="columns">
 			<div class="column">
 
@@ -62,7 +62,8 @@
 							'uri' => '/autocomplete/phonemeParents',
 							'with' => '{ language: language.id }',
 							'rules' => 'datalist_exists',
-							'disabled' => '!language.id'
+							'disabled' => '!language.id',
+							'typewriter' => true
 						])
 							@slot('value')
 								@if(isset($reflex))
@@ -81,7 +82,8 @@
 							'uri' => '/autocomplete/phonemes',
 							'with' => '{ language: language.id }',
 							'disabled' => '!language.id',
-							'rules' => 'datalist_exists'
+							'rules' => 'datalist_exists',
+							'typewriter' => true
 						])
 							@slot('value')
 								@if(isset($reflex))

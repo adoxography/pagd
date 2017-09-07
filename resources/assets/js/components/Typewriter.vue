@@ -61,7 +61,12 @@ export default {
                 'cancelable': true
             });
 
-            this.inputField.value += char.symbol;
+            if (this.inputField.contentEditable) {
+                this.inputField.innerHTML += char.symbol;
+            } else {
+                this.inputField.value += char.symbol;
+            }
+
             this.inputField.dispatchEvent(event);
         },
 

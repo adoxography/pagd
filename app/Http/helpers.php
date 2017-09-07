@@ -185,23 +185,3 @@ function array_toList($arr) : string
 
     return $output;
 }
-
-function fixMorphemes()
-{
-    foreach (Morpheme::all() as $morpheme) {
-        $morpheme->connectGlosses();
-    }
-
-    foreach (Algling\Words\Models\Form::whereHas('language')->get() as $form) {
-        $form->connectMorphemes();
-    }
-}
-
-function fixExamples()
-{
-    $examples = Example::whereNotNull('form_id')->with('form')->get();
-
-    foreach ($examples as $example) {
-        $example->update(['language_id' => $example->form->language_id]);
-    }
-}

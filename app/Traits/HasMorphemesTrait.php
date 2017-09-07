@@ -359,8 +359,13 @@ trait HasMorphemesTrait
         $morphemes = explode('-', $this->morphemicForm);
 
         if (count($morphemes) > $index && !$this->morphemeIsDisambiguated($morphemes[$index])) {
+            $morpheme = $morphemes[$index];
+
+            // Remove any existing disambiguator
+            $morpheme = preg_replace('/\.\d+$/', '', $morpheme);
+
             // Add the disambiguator at the end of the morpheme at the given index
-            $morphemes[$index] = $morphemes[$index].'.'.$disambiguator;
+            $morphemes[$index] = $morpheme.'.'.$disambiguator;
         }
 
         // Put the morphemicForm back together and save it

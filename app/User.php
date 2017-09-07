@@ -1,6 +1,6 @@
 <?php
 namespace App;
-use App\SubscribeableInterface;
+
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstName', 'lastName', 'email', 'password', 'receiveSiteSummary'
+        'firstName', 'lastName', 'email', 'password', 'receiveSiteSummary', 'verificationCode'
     ];
 
     /**
@@ -32,7 +32,7 @@ class User extends Authenticatable
     {
         $name = $this->firstName;
 
-        if($this->lastName) {
+        if ($this->lastName) {
             $name .= ' ' . $this->lastName;
         }
 
@@ -41,7 +41,7 @@ class User extends Authenticatable
 
     public function getLastLoginAttribute($value)
     {
-        if($value) {
+        if ($value) {
             return Carbon::parse($value, 'UTC')->setTimezone('America/Winnipeg')->toDayDateTimeString();
         } else {
             return 'Never';
@@ -60,13 +60,13 @@ class User extends Authenticatable
 
     public function bookmarks($table = null, $returnRelation = false)
     {
-        if(!$table) {
+        if (!$table) {
             throw new \Exception("Table \"$table\" does not exist.");
         }
 
         $relation = $this->morphedByMany($table, 'Bookmarkable')->withPivot('comment');
 
-        if(!$returnRelation) {
+        if (!$returnRelation) {
             $relation = $relation->get();
         }
 

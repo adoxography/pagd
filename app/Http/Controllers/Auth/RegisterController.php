@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
-use Validator;
 use App\Http\Controllers\Controller;
+use App\Rules\VerifiedUser;
+use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Validator;
 
 class RegisterController extends Controller
 {
@@ -50,7 +51,7 @@ class RegisterController extends Controller
             'lastName' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
-            'verification' => 'required|verified'
+            'verification' => ['required', new VerifiedUser]
         ]);
     }
 
@@ -66,8 +67,8 @@ class RegisterController extends Controller
             'firstName' => $data['firstName'],
             'lastName' => $data['lastName'],
             'email' => $data['email'],
-            'userRoles_id' => 2,
             'password' => bcrypt($data['password']),
+            'verificationCode' => $data['verification']
         ]);
 
         $user->assignRole(['contributor', 'reader']);

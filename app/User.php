@@ -5,6 +5,7 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Venturecraft\Revisionable\Revision;
 
 class User extends Authenticatable
 {
@@ -50,7 +51,7 @@ class User extends Authenticatable
 
     public function revisions()
     {
-        return $this->hasMany('Venturecraft\Revisionable\Revision')->latest();
+        return $this->hasMany(Revision::class)->latest();
     }
 
     public function creations()

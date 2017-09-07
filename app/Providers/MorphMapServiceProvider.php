@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use App\Models\Morphology\Morpheme;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\ServiceProvider;
 
 class MorphMapServiceProvider extends ServiceProvider
 {
@@ -18,7 +19,7 @@ class MorphMapServiceProvider extends ServiceProvider
             'verbForms'  => 'Algling\Verbals\Models\Form',
             'forms'      => 'Algling\Words\Models\Form',
             'examples'   => 'Algling\Words\Models\Example',
-            'morphemes'  => 'Algling\Morphemes\Models\Morpheme',
+            'morphemes'  => Morpheme::class,
             'gaps'       => 'Algling\Words\Models\Gap',
             'datapoints' => 'Algling\SS\Models\Datapoint',
             'rules'      => 'App\Rule',

@@ -68,7 +68,7 @@ trait HasAllophonesTrait
     {
         $allophones = $this->newAllophones;
 
-        if (!$allophones) {
+        if (!$allophones || count($allophones) == 0) {
             $allophones = collect([$this->generateDefaultAllophone()]);
         }
 
@@ -80,7 +80,8 @@ trait HasAllophonesTrait
     /**
      * Generate a default allophone for the phoneme
      *
-     * Uses the IPA transcription, followed by the algonquianist transcription if there was no IPA transcription provided.
+     * Uses the IPA transcription, followed by the algonquianist transcription if there was no IPA transcription
+     * provided.
      */
     protected function generateDefaultAllophone()
     {

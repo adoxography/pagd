@@ -61,7 +61,7 @@ export default {
                 'cancelable': true
             });
 
-            if (this.inputField.contentEditable) {
+            if (this.inputField.tagName == 'DIV') {
                 this.inputField.innerHTML += char.symbol;
             } else {
                 this.inputField.value += char.symbol;

@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			08-09-17: Prevented extraneous data from being logged on form creation
+		</li>
+		<hr>
+		<li>
 			07-09-17: Added ability to add existing examples to phonemes
 		</li>
 		<li>

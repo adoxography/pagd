@@ -140,7 +140,12 @@ trait HasMorphemesTrait
 
         if (!$this->complete == $complete) {
             $this->complete = $complete;
+
+            $this->revisionEnabled = false;
+
             $this->save();
+
+            $this->revisionEnabled = true;
         }
     }
 

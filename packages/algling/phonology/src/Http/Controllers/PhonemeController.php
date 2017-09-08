@@ -37,6 +37,8 @@ class PhonemeController extends Controller
     {
         $phoneme = Phoneme::create($request->all());
 
+        $phoneme->syncExamples($request->examples);
+
         flash("{$phoneme->name} added successfully.", 'is-success');
 
         if ($phoneme->type == 'Cluster') {
@@ -49,6 +51,8 @@ class PhonemeController extends Controller
     public function update(PhonemeRequest $request, Phoneme $phoneme)
     {
         $phoneme->update($request->all());
+
+        $phoneme->syncExamples($request->examples);
 
         flash("{$phoneme->name} updated successfully.", 'is-success');
 

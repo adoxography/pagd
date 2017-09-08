@@ -145,6 +145,15 @@
 		></alg-allophone-form>
 
 		<hr>
+		<h4 class="subtitle is-4">Examples</h4>
+		<alg-phoneme-examples
+			:language="language"
+			@isset($phoneme)
+				:old="{{ $phoneme->examples }}"
+			@endisset
+		></alg-phoneme-examples>
+
+		<hr>
 		<alg-sources v-model="sources"></alg-sources>
 
 		<hr>

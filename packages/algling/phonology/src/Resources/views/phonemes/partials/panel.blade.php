@@ -6,7 +6,10 @@
 	Basic details
 </a>
 <a href="/{{ $uri }}/{{ $phoneme->id }}/reflexes" class="panel-block @if(Route::is($uri . '::showReflexes')) is-active @endif">
-	Reflexes
+    Reflexes
+</a>
+<a href="/{{ $uri }}/{{ $phoneme->id }}/examples" class="panel-block @if(Route::is($uri . '::showExamples')) is-active @endif">
+	Examples <span class="tag">{{ $phoneme->examples()->count() }}</span>
 </a>
 <a href="/{{ $uri }}/{{ $phoneme->id }}/log" class="panel-block @if(Route::is($uri . '::showLog')) is-active @endif">
 	Credits

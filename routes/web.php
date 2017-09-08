@@ -67,6 +67,7 @@ Route::get('search/smart/results', 'SearchController@smartResults');
 // Autocomplete Routes
 Route::get('autocomplete/forms', 'AutocompleteController@forms');
 Route::get('autocomplete/formParents', 'AutocompleteController@formParents');
+Route::get('autocomplete/examples', 'AutocompleteController@examples');
 Route::get('autocomplete/exampleParents', 'AutocompleteController@exampleParents');
 Route::get('autocomplete/morphemes', 'AutocompleteController@morphemes');
 Route::get('autocomplete/morphemeParents', 'AutocompleteController@morphemeParents');

@@ -10,7 +10,7 @@
 					v-html="value.text"
 					@keyup="onKeyUp($event.keyCode)"
 					@keydown.enter="onEnter($event)"
-					autocomplete="off" 
+					autocomplete="off"
 					rows="1"
 					ref="list"
 					:placeholder="placeholder"
@@ -106,7 +106,7 @@
 			        selection.addRange(range);//make the range you have just created the visible selection
 			    }
 			    else if(document.selection)//IE 8 and lower
-			    { 
+			    {
 			        range = document.body.createTextRange();//Create a range (a range is a like the selection but invisible)
 			        range.moveToElementText(contentEditableElement);//Select the entire contents of the element with the range
 			        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
@@ -201,7 +201,7 @@
 					});
 				}
 
-				this.update(newText);			
+				this.update(newText);
 			}, 500),
 
 			formatString(str) {
@@ -244,8 +244,12 @@
 				if(this.curr > 0){
 					this.update(this.options[this.curr - 1].name);
 				}
+			},
+
+			reset() {
+				this.update('');
 			}
 		}
 
 	}
-</script>	
+</script>

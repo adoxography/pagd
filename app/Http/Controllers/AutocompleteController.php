@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Morphology\Morpheme;
-use Response;
-use App\Source;
-use App\Language;
+use Algling\Nominals\Models\Form as NominalForm;
 use Algling\Phonology\Models\Phoneme;
 use Algling\Verbals\Models\Form as VerbForm;
-use Algling\Nominals\Models\Form as NominalForm;
+use Algling\Words\Models\Example;
+use App\Language;
+use App\Models\Morphology\Morpheme;
+use App\Source;
+use Response;
 
 class AutocompleteController extends Controller
 {
@@ -123,6 +124,20 @@ class AutocompleteController extends Controller
         foreach ($results as $result) {
             $result->name = "/{$result->algoName}/";
         }
+
+        return $results->toJson();
+    }
+
+    public function examples()
+    {
+        $term = request()->term;
+        $options = json_decode(request()->options, true);
+        $language = $options['language'];
+
+        $query = Example::where('language_id', $language)
+                    ->where('name', 'LIKE', "%$term%");
+
+        $results = $query->get();
 
         return $results->toJson();
     }

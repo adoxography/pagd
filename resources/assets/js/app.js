@@ -63,6 +63,7 @@ Vue.component('alg-textarea', require('./components/Textarea.vue'));
 Vue.component('alg-tag-input', require('./components/Tag-Input.vue'));
 Vue.component('alg-morpheme-tag-input', require('./components/Morpheme-Tag-Input.vue'));
 Vue.component('alg-value-input', require('./components/Value-Input.vue'));
+Vue.component('alg-phoneme-examples', require('./components/Phoneme-Examples.vue'));
 
 Vue.component('alg-paradigm-search',  require('./components/forms/Paradigm-Search.vue'));
 Vue.component('alg-basic-paradigm-search', require('./components/forms/Basic-Paradigm-Search.vue'));

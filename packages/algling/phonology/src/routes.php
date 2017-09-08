@@ -1,38 +1,33 @@
 <?php
+Route::group(['as' => 'phonemes::'], function () {
+    Route::resource('phonemes', 'PhonemeController');
 
-Route::group(['as' => 'phonExamples::'], function() {
-	Route::post('phonemes/examples', 'ExampleController@store')->name('store');
-	Route::get('phonemes/examples/create', 'ExampleController@create')->name('create');
-	Route::get('phonemes/examples/{phonExample}', 'ExampleController@show')->name('show');
+    Route::get('phonemes/{phoneme}/basic', 'PhonemeShowController@basicDetails')->name('showBasic');
+    Route::get('phonemes/{phoneme}/reflexes', 'PhonemeShowController@reflexes')->name('showReflexes');
+    Route::get('phonemes/{phoneme}/examples', 'PhonemeShowController@examples')->name('showExamples');
+    Route::get('phonemes/{phoneme}/log', 'PhonemeShowController@log')->name('showLog');
+
+    Route::get('phonemes/{phoneme}/addParent', 'PhonemeController@addParent')->name('addParent');
+    Route::get('phonemes/{phoneme}/addChild', 'PhonemeController@addChild')->name('addChild');
+    Route::get('phonemes/{phoneme}/addExample', 'PhonemeController@addExample')->name('addExample');
 });
 
-Route::group(['as' => 'phonemes::'], function() {
-	Route::resource('phonemes', 'PhonemeController');
+Route::group(['as' => 'clusters::'], function () {
+    Route::get('clusters/create', 'PhonemeController@create');
+    Route::get('clusters/{phoneme}', 'PhonemeController@show');
+    Route::delete('clusters/{phoneme}', 'PhonemeController@destroy');
+    Route::patch('clusters/{phoneme}', 'PhonemeController@update');
+    Route::patch('clusters/{phoneme}/edit', 'PhonemeController@edit');
 
-	Route::get('phonemes/{phoneme}/basic', 'PhonemeShowController@basicDetails')->name('showBasic');
-	Route::get('phonemes/{phoneme}/reflexes', 'PhonemeShowController@reflexes')->name('showReflexes');
-	Route::get('phonemes/{phoneme}/log',   'PhonemeShowController@log')->name('showLog');
+    Route::get('clusters/{phoneme}/basic', 'PhonemeShowController@basicDetails')->name('showBasic');
+    Route::get('clusters/{phoneme}/reflexes', 'PhonemeShowController@reflexes')->name('showReflexes');
+    Route::get('clusters/{phoneme}/examples', 'PhonemeShowController@examples')->name('showExamples');
+    Route::get('clusters/{phoneme}/log', 'PhonemeShowController@log')->name('showLog');
 
-	Route::get('phonemes/{phoneme}/addParent', 'PhonemeController@addParent')->name('addParent');
-	Route::get('phonemes/{phoneme}/addChild', 'PhonemeController@addChild')->name('addChild');
-	Route::get('phonemes/{phoneme}/addExample', 'PhonemeController@addExample')->name('addExample');
+    Route::get('clusters/{phoneme}/addParent', 'PhonemeController@addParent')->name('addParent');
+    Route::get('clusters/{phoneme}/addChild', 'PhonemeController@addChild')->name('addChild');
 });
 
-Route::group(['as' => 'clusters::'], function() {
-	Route::get('clusters/create', 'PhonemeController@create');
-	Route::get('clusters/{phoneme}', 'PhonemeController@show');
-	Route::delete('clusters/{phoneme}', 'PhonemeController@destroy');
-	Route::patch('clusters/{phoneme}', 'PhonemeController@update');
-	Route::patch('clusters/{phoneme}/edit', 'PhonemeController@edit');
-
-	Route::get('clusters/{phoneme}/basic', 'PhonemeShowController@basicDetails')->name('showBasic');
-	Route::get('clusters/{phoneme}/reflexes', 'PhonemeShowController@reflexes')->name('showReflexes');
-	Route::get('clusters/{phoneme}/log',   'PhonemeShowController@log')->name('showLog');
-
-	Route::get('clusters/{phoneme}/addParent', 'PhonemeController@addParent')->name('addParent');
-	Route::get('clusters/{phoneme}/addChild', 'PhonemeController@addChild')->name('addChild');
-});
-
-Route::group(['as' => 'reflexes::'], function() {
-	Route::resource('reflexes', 'ReflexController');
+Route::group(['as' => 'reflexes::'], function () {
+    Route::resource('reflexes', 'ReflexController');
 });

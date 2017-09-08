@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			07-09-17: Added ability to add existing examples to phonemes
+		</li>
+		<li>
 			07-09-17: Fixed ajax calls for reflexes
 		</li>
 		<hr>

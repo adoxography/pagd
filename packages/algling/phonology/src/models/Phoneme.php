@@ -5,6 +5,7 @@ namespace Algling\Phonology\Models;
 use Algling\Phonology\PhonemePresenter;
 use Algling\Phonology\Traits\HasAllophonesTrait;
 use Algling\Phonology\Traits\HasTypeTrait;
+use Algling\Words\Models\Example;
 use App\BacksUpTrait;
 use App\BookmarkableTrait;
 use App\Language;
@@ -119,6 +120,11 @@ class Phoneme extends Model
         return $this->hasMany(Allophone::class);
     }
 
+    public function examples()
+    {
+        return $this->belongsToMany(Example::class, 'example_phoneme')->withPivot('comments');
+    }
+
     public function reflexes()
     {
         return $this->belongsToMany(
@@ -217,5 +223,16 @@ class Phoneme extends Model
         }
 
         return $paParents;
+    }
+
+    public function syncExamples(array $arr)
+    {
+        $examples = [];
+
+        foreach ($arr as $example) {
+            $examples[$example['id']] = ['comments' => $example['comments']];
+        }
+
+        $this->examples()->sync($examples);
     }
 }

@@ -38,7 +38,7 @@ class ConnectData extends Command
 
         $this->morphemes = Morpheme::all();
         $this->forms = Form::whereHas('language')->get();
-        $this->examples = Example::whereHas('language')->whereNotNull('morphemicForm');
+        $this->examples = Example::whereHas('language')->whereNotNull('morphemicForm')->get();
     }
 
     /**

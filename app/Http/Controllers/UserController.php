@@ -24,16 +24,14 @@ class UserController extends Controller
 
     public function show(User $user = null)
     {
-        if(!$user->id) {
-            $user = Auth::user();
-        }
+        $user = $user ?: Auth::user();
 
-    	return view('users.show.basic', compact('user'));
+        return view('users.show.basic', compact('user'));
     }
 
     public function edit(User $user)
     {
-        if($user->id != Auth::user()->id) {
+        if ($user->id != Auth::user()->id) {
             throw new \Exception('You are not allowed to modify someone else\s profile!');
         }
 
@@ -73,7 +71,7 @@ class UserController extends Controller
                 Auth::user()->update(['receiveSiteSummary' => false]);
                 flash("You have been successfully unsubscribed.", 'is-success');
                 break;
-            
+
             default:
                 # code...
                 break;

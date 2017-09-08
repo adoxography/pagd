@@ -225,12 +225,14 @@ class Phoneme extends Model
         return $paParents;
     }
 
-    public function syncExamples(array $arr)
+    public function syncExamples($arr)
     {
         $examples = [];
 
-        foreach ($arr as $example) {
-            $examples[$example['id']] = ['comments' => $example['comments']];
+        if (is_array($arr)) {
+            foreach ($arr as $example) {
+                $examples[$example['id']] = ['comments' => $example['comments']];
+            }
         }
 
         $this->examples()->sync($examples);

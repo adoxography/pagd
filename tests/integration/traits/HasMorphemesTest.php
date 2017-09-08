@@ -1,6 +1,7 @@
 <?php
 
 use Algling\Verbals\Models\Form;
+use Algling\Words\Models\Example;
 use App\Language;
 use App\Models\Morphology\Morpheme;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -346,5 +347,30 @@ class HasMorphemesTest extends TestCase
         $form->disambiguate(0, 1);
 
         $this->assertEquals(1, Form::find($form->id)->complete);
+    }
+
+    /** @test */
+    public function morphemes_are_retained_without_crosstalk()
+    {
+        $morpheme = factory(Morpheme::class)->create([
+            'name' => 'test-'
+        ]);
+
+        $formData = factory(Form::class)->raw([
+            'id' => 1000,
+            'morphemicForm' => 'test-V',
+            'language_id' => $morpheme->language_id
+        ]);
+
+        $exampleData = factory(Example::class)->raw([
+            'id' => 1000,
+            'morphemicForm' => 'test-V',
+            'language_id' => $morpheme->language_id
+        ]);
+
+        $form = Form::forceCreate($formData);
+        $example = Example::forceCreate($exampleData);
+
+        $this->assertCount(2, $form->morphemes()->get());
     }
 }

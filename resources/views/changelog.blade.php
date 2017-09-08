@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			08-09-17: Resolved the mystery of the magically unlinking morphemes
+		</li>
+		<li>
 			08-09-17: Matched gloss colour to slots
 		</li>
 		<li>

@@ -2,10 +2,11 @@
 
 namespace App\Traits;
 
+use DB;
+use Auth;
 use Algling\Words\Models\Form;
 use Algling\Words\Models\Example;
 use App\Models\Morphology\Morpheme;
-use Auth;
 
 /**
  * Assignable trait to classes that need to deal with morphemes.
@@ -46,7 +47,7 @@ trait HasMorphemesTrait
     public function connectMorphemes()
     {
         $morphemes = [];
-        $this->morphemes()->detach();
+        $this->detachMorphemes();
         $type = $this->getMorphType();
 
         if ($this->morphemicForm) {
@@ -59,6 +60,14 @@ trait HasMorphemesTrait
 
         // Update the complete status, if necessary
         $this->assessIsComplete(count($morphemes), $this->morphemes()->count());
+    }
+
+    protected function detachMorphemes()
+    {
+        $type = $this->getMorphType();
+        $id = $this->id;
+
+        DB::table('Morph_Morphemeables')->where('morphemeable_type', $type)->where('morphemeable_id', $id)->delete();
     }
 
     protected function connectMorpheme(string $morpheme, int $position, string $type)

@@ -143,6 +143,10 @@ a.nav-item, .footer a {
 
 .gloss {
 	font-variant: small-caps;
+
+	a {
+		color: inherit;
+	}
 }
 
 .add-icon {

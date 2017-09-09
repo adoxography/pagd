@@ -6,7 +6,6 @@ use Algling\Words\Models\Form;
 use App\Language;
 use App\Models\Morphology\Morpheme;
 use App\Source;
-use App\User;
 
 function verEx($init = null, $capture = false)
 {
@@ -185,14 +184,4 @@ function array_toList($arr) : string
     }
 
     return $output;
-}
-
-function setUserSlugs()
-{
-    $users = User::all();
-
-    foreach ($users as $user) {
-        $user->generateSlug();
-        $user->save();
-    }
 }

@@ -5,11 +5,13 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Venturecraft\Revisionable\Revision;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles;
+    use Notifiable, HasRoles, HasSlug;
     public $table = 'users';
     /**
      * The attributes that are mass assignable.
@@ -38,6 +40,11 @@ class User extends Authenticatable
         }
 
         return $name;
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 
     public function getLastLoginAttribute($value)
@@ -84,5 +91,12 @@ class User extends Authenticatable
         $subscribers = $subscription->subscribers->pluck('id');
 
         return $subscribers->contains($this->id);
+    }
+
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom(['firstName', 'lastName'])
+            ->saveSlugsTo('slug');
     }
 }

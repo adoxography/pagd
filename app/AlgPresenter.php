@@ -40,10 +40,12 @@ class AlgPresenter extends Presenter implements PresenterInterface
             $addon = '/' . $addon;
         }
 
+        $key = $this->model->getRouteKeyName();
+
         return sprintf(
-            '<a href="/%s/%d%s">%s</a>',
+            '<a href="/%s/%s%s">%s</a>',
             $this->getURI(),
-            $this->model->id,
+            $this->model->$key,
             $addon,
             $this->model->present()
         );

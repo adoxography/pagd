@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			08-09-17: Updated user profile addresses to be tied to user names
+		</li>
+		<li>
 			08-09-17: Resolved the mystery of the magically unlinking morphemes
 		</li>
 		<li>

@@ -54,9 +54,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if (strpos($exception->getMessage(), 'Could not register permissions') !== false) {
-            return $this->rescueFromPermissionBug($request);
-        }
+        // if (strpos($exception->getMessage(), 'Could not register permissions') !== false) {
+        //     return $this->rescueFromPermissionBug($request);
+        // }
 
         // Override the "whoops" page in production
         if (!App::environment('local') && !$this->isHttpException($exception)) {

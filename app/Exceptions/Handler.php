@@ -56,7 +56,7 @@ class Handler extends ExceptionHandler
     {
         if (strpos($exception->getMessage(), 'Could not register permissions') !== false) {
             \Artisan::call('cache:forget', ['key' => 'spatie.permission.cache']);
-            Log::alert('Permissions flushed')
+            Log::alert('Permissions flushed');
 
             return redirect($request->url());
         }

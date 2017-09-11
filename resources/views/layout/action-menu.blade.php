@@ -1,17 +1,37 @@
-<nav class="navbar is-transparent">
-	<div class="navbar-brand">
-		<div class="navbar-burger" data-target="actionMenu">
-			<span></span>
-			<span></span>
-			<span></span>
-		</div>
-	</div>
+<div class="is-hidden-desktop horizontal-menu">
+	<a href="/languages" style="display: inline-block; margin-right: 1em">
+		<h5 class="subtitle is-5">Languages</h5>
+	</a>
+	<a href="/search" style="display: inline-block; margin-right: 1em">
+		<h5 class="subtitle is-5">Search</h5>
+	</a>
+	@can('add content')
+		<a href="/create" style="display: inline-block; margin-right: 1em">
+			<h5 class="subtitle is-5">Add</h5>
+		</a>
+	@endcan
+</div>
+<nav class="navbar is-transparent is-hidden-touch">
 	<div class="navbar-menu" id="actionMenu">
 		<div class="navbar-end">
-			<div class="navbar-item">
-				<a href="/languages">
+			<div class="navbar-item has-dropdown is-hoverable">
+				<a class="navbar-link" href="/languages">
 					<h5 class="subtitle is-5">Languages</h5>
 				</a>
+
+				<div class="navbar-dropdown is-right is-boxed" style="right: -12em">
+					<div class="columns is-desktop">
+						<div class="column">
+							@foreach (App\Language::orderBy('name')->get() as $language)
+								@if ($loop->index % 12 == 0 && !$loop->first)
+									</div><div class="column">
+								@endif
+
+								<a class="navbar-item" href="/languages/{{ $language->id }}">{{ $language->name }}</a>
+							@endforeach
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<div class="navbar-item has-dropdown is-hoverable">
@@ -23,7 +43,7 @@
 					<a class="navbar-item" href="/nominals/search/paradigm">Nominal paradigm</a>
 					<a class="navbar-item" href="/verbs/search/paradigm">Verb paradigm</a>
 					<a class="navbar-item" href="/verbs/search/form">Verb form</a>
-					<a class="navbar-item" href="/search">Text</a>
+					<a class="navbar-item" href="/search/text">Text</a>
 				</div>
 			</div>
 			@can('add content')
@@ -32,7 +52,7 @@
 						<h5 class="subtitle is-5">Add</h5>
 					</a>
 
-					<div class="navbar-dropdown is-boxed">
+					<div class="navbar-dropdown is-right is-boxed">
 						<a class="navbar-item" href="/languages/create">Language</a>
 						<a class="navbar-item" href="/groups/create">Group</a>
 						<a class="navbar-item" href="/sources/create">Source</a>

@@ -7,6 +7,14 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			10-09-17: Style update
+			<ul>
+				<li>Converted the "languages" link into a dropdown with all languages</li>
+				<li>Updated header styling to look better on mobile</li>
+			</ul>
+		</li>
+		<hr>
+		<li>
 			08-09-17: Updated user profile addresses to be tied to user names
 		</li>
 		<li>

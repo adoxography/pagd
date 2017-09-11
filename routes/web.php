@@ -18,6 +18,9 @@ Route::get('tickets/{ticket}/subscribe', 'TicketController@subscribe');
 Route::get('tickets/{ticket}/respond', 'TicketController@respond');
 Route::post('tickets/{ticket}/respond', 'TicketController@updateResponse');
 
+Route::view('create', 'create');
+Route::view('search', 'search');
+
 Route::get('', 'HomeController@index');
 Route::get('home', 'HomeController@index');
 Route::get('welcome', 'HomeController@index');
@@ -57,7 +60,7 @@ Route::get('profile/unsubscribe/{subscription}', 'UserController@unsubscribe');
 // Route::post('contact', 'ContactController@send');
 
 // Search Routes
-Route::get('search', 'SearchController@index');
+Route::get('search/text', 'SearchController@index');
 Route::get('search/general', 'SearchController@general');
 Route::get('search/paradigm', 'SearchController@paradigm');
 Route::get('search/form', 'SearchController@form');

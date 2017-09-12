@@ -16,6 +16,7 @@
         "league/flysystem-dropbox": "^1.0",
         "mikealmond/color": "0.0.4",
         "netcarver/textile": "3.6.*",
+        "predis/predis": "^1.1",
         "rap2hpoutre/laravel-log-viewer": "^0.10.4",
         "spatie/flysystem-dropbox": "^1.0",
         "spatie/laravel-permission": "^2.3.2",

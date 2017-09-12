@@ -2,12 +2,18 @@
 
 namespace App\Providers;
 
+use Algling\Nominals\Models\Form as NominalForm;
+use Algling\Phonology\Models\Phoneme;
 use Algling\Phonology\Models\Reflex;
 use Algling\Phonology\Obervers\ReflexObserver;
+use Algling\Phonology\Observers\PhonemeObserver;
 use Algling\SS\Models\Datapoint;
 use Algling\SS\Models\Observers\VariableObserver;
 use Algling\SS\Models\Variable;
 use Algling\SS\Observers\DatapointObserver;
+use Algling\Verbals\Models\Form as VerbForm;
+use Algling\Words\Models\Form as WordForm;
+use Algling\Words\Models\Observers\FormObserver;
 use App\Group;
 use App\Language;
 use App\Models\Morphology\Gloss;
@@ -16,10 +22,6 @@ use App\Observers\GlossObserver;
 use App\Observers\GroupObserver;
 use App\Observers\LanguageObserver;
 use App\Observers\MorphemeObserver;
-use Algling\Words\Models\Form as WordForm;
-use Algling\Nominals\Models\Form as NominalForm;
-use Algling\Verbals\Models\Form as VerbForm;
-use Algling\Words\Models\Observers\FormObserver;
 use Illuminate\Support\ServiceProvider;
 
 class ObserverServiceProvider extends ServiceProvider
@@ -34,7 +36,8 @@ class ObserverServiceProvider extends ServiceProvider
         NominalForm::class => FormObserver::class,
         Variable::class    => VariableObserver::class,
         Reflex::class      => ReflexObserver::class,
-        Datapoint::class   => DatapointObserver::class
+        Datapoint::class   => DatapointObserver::class,
+        Phoneme::class     => PhonemeObserver::class
     ];
 
     /**
@@ -44,7 +47,7 @@ class ObserverServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        foreach($this->observations as $model => $observer) {
+        foreach ($this->observations as $model => $observer) {
             $model::observe($observer);
         }
     }

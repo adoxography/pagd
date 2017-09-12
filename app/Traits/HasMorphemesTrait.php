@@ -89,7 +89,7 @@ trait HasMorphemesTrait
         }
     }
 
-    protected function getMorphType()
+    public function getMorphType()
     {
         return $this->morphCode ? $this->morphCode : $this->getMorphClass();
     }

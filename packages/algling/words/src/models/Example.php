@@ -11,6 +11,7 @@ use App\Language;
 use App\ReconstructableTrait;
 use App\SourceableTrait;
 use App\Traits\HasMorphemesTrait;
+use App\Traits\Phonemeable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
@@ -22,7 +23,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
 class Example extends Model
 {
     use RevisionableTrait, Searchable, SourceableTrait, HasMorphemesTrait, BacksUpTrait, ReconstructableTrait,
-        BookmarkableTrait, SoftDeletes, HideableTrait, HasChildrenTrait;
+        BookmarkableTrait, SoftDeletes, HideableTrait, HasChildrenTrait, Phonemeable;
 
     /*
     |--------------------------------------------------------------------------

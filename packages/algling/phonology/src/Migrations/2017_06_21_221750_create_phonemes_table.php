@@ -13,7 +13,7 @@ class CreatePhonemesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Phon_Phonemes', function(Blueprint $table) {
+        Schema::create('Phon_Phonemes', function (Blueprint $table) {
             // Primary key
             $table->increments('id');
 
@@ -32,7 +32,7 @@ class CreatePhonemesTable extends Migration
 
             // Foreign keys
             $table->unsignedInteger('language_id');
-            $table->morphs('phonemeable');
+            $table->morphs('featurable');
 
             // Timestamps
             $table->timestamps();

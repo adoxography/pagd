@@ -116,7 +116,7 @@ class AutocompleteController extends Controller
             ->where('language_id', $language);
 
         if ($type == 'phoneme') {
-            $query->where('phonemeable_type', '<>', 'clusterTypes');
+            $query->where('featurable_type', '<>', 'clusterTypes');
         }
 
         $results = $query->get();

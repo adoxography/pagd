@@ -35,8 +35,8 @@ class Phoneme extends Model
         'privateNotes',
         'isMarginal',
         'language_id',
-        'phonemeable_type',
-        'phonemeable_id',
+        'featurable_type',
+        'featurable_id',
         'isArchiphoneme',
         'archiphonemeDescription',
         'allophones'
@@ -107,7 +107,7 @@ class Phoneme extends Model
 
     public function features()
     {
-        return $this->morphTo('phonemeable');
+        return $this->morphTo('featurable');
     }
 
     public function phonemeable()

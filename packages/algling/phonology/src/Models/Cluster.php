@@ -4,16 +4,15 @@ namespace Algling\Phonology\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 
-class Cluster extends Phoneme {
-
+class Cluster extends Phoneme
+{
     public static function boot()
     {
-    	parent::boot();
+        parent::boot();
 
-    	// Limit scope to only records that have cluster structures
-    	static::addGlobalScope('cluster', function(Builder $builder) {
-    		$builder->where('phonemeable_type', 'clusters');
-    	});
+        // Limit scope to only records that have cluster structures
+        static::addGlobalScope('cluster', function (Builder $builder) {
+            $builder->where('featurable_type', 'clusters');
+        });
     }
-
 }

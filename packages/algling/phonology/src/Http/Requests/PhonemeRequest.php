@@ -30,7 +30,7 @@ class PhonemeRequest extends FormRequest
             'algoName'         => ['required'],
             'language'         => ['required', 'exists:Languages,name'],
             'language_id'      => ['required', 'integer', 'exists:Languages,id'],
-            'phonemeable_type' => ['required'],
+            'featurable_type' => ['required'],
             'isArchiphoneme'   => ['boolean'],
             'archiphonemeDescription' => ['required_with:isArchiphoneme'],
 
@@ -43,28 +43,28 @@ class PhonemeRequest extends FormRequest
             'voicing_id' => ['nullable', 'exists:Phon_Voicings,id'],
 
             // Cluster rules
-            'firstSegment'     => ['required_if:phonemeable_type,clusters'],
-            'firstSegment_id'  => ['required_if:phonemeable_type,clusters', 'integer', 'exists:Phon_Phonemes,id'],
-            'secondSegment'    => ['required_if:phonemeable_type,clusters'],
-            'secondSegment_id' => ['required_if:phonemeable_type,clusters', 'integer', 'exists:Phon_Phonemes,id'],
+            'firstSegment'     => ['required_if:featurable_type,clusters'],
+            'firstSegment_id'  => ['required_if:featurable_type,clusters', 'integer', 'exists:Phon_Phonemes,id'],
+            'secondSegment'    => ['required_if:featurable_type,clusters'],
+            'secondSegment_id' => ['required_if:featurable_type,clusters', 'integer', 'exists:Phon_Phonemes,id'],
         ];
 
-        if(!request()->isArchiphoneme) {
+        if (!request()->isArchiphoneme) {
             $rules = array_merge($rules, [
-                'height'      => ['required_if:phonemeable_type,vowels', 'exists:Phon_Heights,name'],
-                'height_id'   => ['required_if:phonemeable_type,vowels', 'integer', 'exists:Phon_Heights,id'],
-                'backness'    => ['required_if:phonemeable_type,vowels', 'exists:Phon_Backnesses,name'],
-                'backness_id' => ['required_if:phonemeable_type,vowels', 'integer', 'exists:Phon_Backnesses,id'],
+                'height'      => ['required_if:featurable_type,vowels', 'exists:Phon_Heights,name'],
+                'height_id'   => ['required_if:featurable_type,vowels', 'integer', 'exists:Phon_Heights,id'],
+                'backness'    => ['required_if:featurable_type,vowels', 'exists:Phon_Backnesses,name'],
+                'backness_id' => ['required_if:featurable_type,vowels', 'integer', 'exists:Phon_Backnesses,id'],
 
-                'place'      => ['required_if:phonemeable_type,consonants', 'exists:Phon_Places,name'],
-                'place_id'   => ['required_if:phonemeable_type,consonants', 'integer', 'exists:Phon_Places,id'],
-                'manner'     => ['required_if:phonemeable_type,consonants', 'exists:Phon_Manners,name'],
-                'manner_id'  => ['required_if:phonemeable_type,consonants', 'integer', 'exists:Phon_Manners,id'],
+                'place'      => ['required_if:featurable_type,consonants', 'exists:Phon_Places,name'],
+                'place_id'   => ['required_if:featurable_type,consonants', 'integer', 'exists:Phon_Places,id'],
+                'manner'     => ['required_if:featurable_type,consonants', 'exists:Phon_Manners,name'],
+                'manner_id'  => ['required_if:featurable_type,consonants', 'integer', 'exists:Phon_Manners,id'],
             ]);
 
-            $rules['phonemeable_type'][] = Rule::in(['vowelTypes', 'consonantTypes', 'clusterTypes']);
+            $rules['featurable_type'][] = Rule::in(['vowelTypes', 'consonantTypes', 'clusterTypes']);
         } else {
-            $rules['phonemeable_type'][] = Rule::in(['vowelTypes', 'consonantTypes']);
+            $rules['featurable_type'][] = Rule::in(['vowelTypes', 'consonantTypes']);
         }
 
         return $rules;

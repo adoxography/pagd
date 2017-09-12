@@ -56,7 +56,7 @@ export default {
 		let dict = {
 			en: {
 				custom: {
-					phonemeable_type: {
+					featurable_type: {
 						not_in: 'Clusters cannot be archiphonemes'
 					}
 				}

@@ -32,14 +32,14 @@ class AbstractPhonemeGenerator
             'privateNotes'   => $this->faker->paragraph,
             'isMarginal'     => $this->faker->boolean,
             'isArchiphoneme' => $this->faker->boolean,
-            'phonemeable_type' => isset($type)
+            'featurable_type' => isset($type)
                                     ? $type
                                     : $this->faker->randomElement(['vowelTypes', 'consonantTypes', 'clusterTypes'])
         ];
 
-        switch ($data['phonemeable_type']) {
+        switch ($data['featurable_type']) {
             case 'vowelTypes':
-                $data['phonemeable_id'] = factory(VowelType::class)->create()->id;
+                $data['featurable_id'] = factory(VowelType::class)->create()->id;
                 break;
         }
 

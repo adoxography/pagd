@@ -19,6 +19,7 @@ class Backup implements ShouldQueue
     public function __construct()
     {
         // Load in the constants
+        $this->key            = Config::get('constants.backup_cache_key');
         $this->changeInterval = Config::get('constants.backup_change_interval');
         $this->timeInterval   = Config::get('constants.backup_time_interval');
     }
@@ -31,22 +32,25 @@ class Backup implements ShouldQueue
      */
     public function handle()
     {
-        if (App::environment() == 'website') {
-            $numBackups = Cache::get('num_backups');
-
-            if ($this->shouldBackup()) {
-                Artisan::call('algling:backup');
-                Cache::put('num_backups', 1, $this->timeInterval);
-            } else {
-                Cache::increment('num_backups');
-            }
+        if ($this->shouldBackup()) {
+            $this->backup();
+            Cache::put($this->key, 1, $this->timeInterval);
+        } else {
+            Cache::increment($this->key);
         }
     }
 
     protected function shouldBackup()
     {
-        $numBackups = Cache::get('num_backups');
+        $numBackups = cache($this->key);
 
-        return !$numBackups || $numBackups > $this->changeInterval;
+        return !$numBackups || $numBackups >= $this->changeInterval;
+    }
+
+    protected function backup()
+    {
+        if (App::environment() == 'website') {
+            Artisan::call('algling:backup');
+        }
     }
 }

@@ -134,7 +134,8 @@ $factory->define(VerbForm::class, function (Faker\Generator $faker) {
 $factory->define(Group::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
-        'description' => $faker->paragraph
+        'publicNotes' => $faker->paragraph,
+        'privateNotes' => $faker->paragraph
     ];
 });
 

@@ -5,12 +5,22 @@ use App\Group;
 
 class BackupTest extends TestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->key = Config::get('constants.backup_cache_key');
+        $this->store = 'database';
+
+        Cache::forget($this->key);
+    }
+
     /** @test */
     public function save_number_is_set_to_1_on_initial_save()
     {
         factory(Group::class)->create();
 
-        $this->assertEquals(1, Cache::get('num_backups'));
+        $this->assertEquals(1, Cache::get($this->key));
     }
 
     /** @test */
@@ -34,6 +44,6 @@ class BackupTest extends TestCase
     {
         factory(Group::class, 6)->create();
 
-        $this->assertEquals(1, Cache::get('num_backups'));
+        $this->assertEquals(1, Cache::get($this->key));
     }
 }

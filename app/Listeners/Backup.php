@@ -32,12 +32,21 @@ class Backup implements ShouldQueue
     public function handle()
     {
         if (App::environment() == 'website') {
-            if (!Cache::has('num_backups') || Cache::get('num_backups') > $this->changeInterval) {
+            $numBackups = Cache::get('num_backups');
+
+            if ($this->shouldBackup()) {
                 Artisan::call('algling:backup');
                 Cache::put('num_backups', 1, $this->timeInterval);
             } else {
                 Cache::increment('num_backups');
             }
         }
+    }
+
+    protected function shouldBackup()
+    {
+        $numBackups = Cache::get('num_backups');
+
+        return !$numBackups || $numBackups > $this->changeInterval;
     }
 }

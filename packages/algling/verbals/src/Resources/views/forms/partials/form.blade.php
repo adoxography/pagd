@@ -41,7 +41,8 @@
 					'label'       => 'surface form',
 					'autofocus'   => true,
 					'placeholder' => 'The form as written in a text',
-					'disabled'    => 'empty'
+					'disabled'    => 'empty',
+					'typewriter'  => true
 				])
 					@slot('value')
 						@if(isset($form) && $form->name)
@@ -240,7 +241,8 @@
 				'name'        => 'phonemicForm',
 				'label'       => 'phonemic representation',
 				'placeholder' => 'The Algonquianist phonemic representation (Leave blank if unknown or unclear)',
-				'disabled'    => 'empty'
+				'disabled'    => 'empty',
+				'typewriter'  => true
 			])
 				@slot('value')
 					@if(isset($form) && $form->phonemicForm)

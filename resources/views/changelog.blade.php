@@ -7,6 +7,14 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			15-09-17: Added special character typewriter to relevant fields in morphemes, forms, and examples, and to the symbol tool in textareas
+			<ul>
+				<li>The symbol tool layout is not ideal; a customized solution is forthcoming</li>
+				<li>Typewriter for morpheme inputs in forms and examples is forthcoming</li>
+			</ul>
+		</li>
+		<hr>
+		<li>
 			14-09-17: Added timestamps to tickets
 			<ul>
 				<li>"Date closed" times are inaccurate pre-August 23rd</li>

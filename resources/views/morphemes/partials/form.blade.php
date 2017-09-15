@@ -17,7 +17,8 @@
 				@component('components.form.text', [
 					'name'      => 'name',
 					'autofocus' => true,
-					'rules'     => 'required|isHyphenated|noInternalHyphens'
+					'rules'     => 'required|isHyphenated|noInternalHyphens',
+					'typewriter' => true
 				])
 					@slot('value')
 						@if(isset($morpheme))
@@ -90,12 +91,13 @@
 			<!-- Parent -->
 			<div class="column">
 				@component('components.form.ajaxlist', [
-					'name' => 'parent',
-					'uri' => '/autocomplete/morphemeParents',
-					'with' => '{ language: language.id }',
-					'disabled' => '!language.id',
+					'name'        => 'parent',
+					'uri'         => '/autocomplete/morphemeParents',
+					'with'        => '{ language: language.id }',
+					'disabled'    => '!language.id',
 					'placeholder' => 'Make sure to select the language first',
-					'rules' => 'exists',
+					'rules'       => 'exists',
+					'typewriter'  => true
 				])
 					@slot('value')
 						@if(isset($morpheme))

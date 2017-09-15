@@ -41,13 +41,7 @@ class Ticket extends Model implements SubscribeableInterface
 
     public function openedOn()
     {
-        $time = '';
-
-        if (!$this->isClosed()) {
-            $time = $this->getTime($this->created_at);
-        }
-
-        return $time;
+        return $this->getTime($this->created_at);
     }
 
     public function closedOn()
@@ -55,7 +49,7 @@ class Ticket extends Model implements SubscribeableInterface
         $time = '';
 
         if ($this->isClosed()) {
-            $time = $this->getTime($this->updated_at);
+            $time = $this->getTime($this->closed_at);
         }
 
         return $time;
@@ -64,6 +58,7 @@ class Ticket extends Model implements SubscribeableInterface
     public function close(string $response, User $user)
     {
         $this->response = $response;
+        $this->closed_at = Carbon::now();
         $this->closedBy_id = $user->id;
 
         $this->save();
@@ -71,7 +66,7 @@ class Ticket extends Model implements SubscribeableInterface
 
     public function isClosed()
     {
-        return isset($this->closedBy_id);
+        return isset($this->closed_at);
     }
 
     private function getTime($stamp)

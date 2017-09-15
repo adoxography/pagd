@@ -7,6 +7,12 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			14-09-17: Added timestamps to tickets
+			<ul>
+				<li>"Date closed" times are inaccurate pre-August 23rd</li>
+			</ul>
+		</li>
+		<li>
 			14-09-17: Removed "Coming soon" from variables with no essay
 		</li>
 		<hr>

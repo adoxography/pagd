@@ -14,13 +14,24 @@
 			@if (count($open) > 0)
 				<alg-tabs>
 					@foreach ($open as $name => $tickets)
-							<alg-tab name="{{ $name }}" @if($loop->first) :selected="true" @endif>
-								<ul>
+						<alg-tab name="{{ $name }}" @if($loop->first) :selected="true" @endif>
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Ticket</th>
+										<th>Date opened</th>
+									</tr>
+								</thead>
+								<tbody>
 									@foreach ($tickets as $ticket)
-										<li>{!! $ticket->present('link') !!}</li>
+										<tr>
+											<td>{!! $ticket->present('link') !!}</td>
+											<td>{!! $ticket->openedOn() !!}</td>
+										</tr>
 									@endforeach
-								</ul>
-							</alg-tab>
+								</tbody>
+							</table>
+						</alg-tab>
 					@endforeach
 				</alg-tabs>
 			@else
@@ -31,13 +42,26 @@
 			@if (count($closed) > 0)
 				<alg-tabs>
 					@foreach ($closed as $name => $tickets)
-							<alg-tab name="{{ $name }}" @if($loop->first) :selected="true" @endif>
-								<ul>
+						<alg-tab name="{{ $name }}" @if($loop->first) :selected="true" @endif>
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Ticket</th>
+										<th>Date opened</th>
+										<th>Date closed</th>
+									</tr>
+								</thead>
+								<tbody>
 									@foreach ($tickets as $ticket)
-										<li>{!! $ticket->present('link') !!}</li>
+										<tr>
+											<td>{!! $ticket->present('link') !!}</td>
+											<td>{{ $ticket->openedOn() }}</td>
+											<td>{{ $ticket->closedOn() }}</td>
+										</tr>
 									@endforeach
-								</ul>
-							</alg-tab>
+								</tbody>
+							</table>
+						</alg-tab>
 					@endforeach
 				</alg-tabs>
 			@else

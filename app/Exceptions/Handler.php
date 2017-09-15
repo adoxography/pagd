@@ -54,10 +54,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if (strpos($exception->getMessage(), 'Could not register permissions') !== false) {
-            return $this->rescueFromPermissionBug($request);
-        }
-
         // Override the "whoops" page in production
         if (!App::environment('local') && !$this->isHttpException($exception)) {
             $exception = new HttpException(500);
@@ -92,20 +88,5 @@ class Handler extends ExceptionHandler
     protected function invalidJson($request, ValidationException $exception)
     {
         return response()->json($exception->errors(), $exception->status);
-    }
-
-    /**
-     * For some reason, the web server randomly denies access to the permission file.
-     * When this happens, clear the permission cache and try again.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    protected function rescueFromPermissionBug($request)
-    {
-        \Artisan::call('cache:forget', ['key' => 'spatie.permission.cache']);
-        Log::alert('Permissions flushed');
-
-        return redirect($request->url());
     }
 }

@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			14-09-17: Removed "Coming soon" from variables with no essay
+		</li>
+		<hr>
+		<li>
 			10-09-17: Style update
 			<ul>
 				<li>Converted the "languages" link into a dropdown with all languages</li>

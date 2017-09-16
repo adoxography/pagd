@@ -2,7 +2,10 @@
 
 @section('content')
     <div class="field">
-        <span class="label">Examples</span>
+        <span class="label">
+            Examples
+            @include('components.model.add-icon', ['uri' => "/phonemes/{$phoneme->id}/examples/create"])
+        </span>
         @if ($phoneme->examples->count() > 0)
             <ul>
                 @foreach ($phoneme->examples as $example)

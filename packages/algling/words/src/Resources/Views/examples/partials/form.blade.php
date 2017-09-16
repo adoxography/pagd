@@ -50,6 +50,8 @@
 							{{ $language->name }}
 						@elseif(isset($form))
 							{{ $form->language->name }}
+						@elseif(isset($phoneme))
+							{{ $phoneme->language->name }}
 						@endif
 					@endslot
 				@endcomponent

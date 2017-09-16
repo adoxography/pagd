@@ -61,7 +61,7 @@ class WordServiceProvider extends ServiceProvider
 
     private function composeExampleForm()
     {
-        view()->composer(['word::examples.create', 'word::examples.edit'], function ($view) {
+        view()->composer('word::examples.partials.form', function ($view) {
             $data = [
                 'languages' => Language::select('id', 'name')->get()
             ];

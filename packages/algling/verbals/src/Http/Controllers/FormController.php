@@ -2,9 +2,10 @@
 
 namespace Algling\Verbals\Http\Controllers;
 
-use Algling\Verbals\Models\Gap;
-use Algling\Verbals\Models\Form;
 use Algling\Verbals\Http\Requests\FormRequest;
+use Algling\Verbals\Models\Form;
+use Algling\Verbals\Models\Gap;
+use Algling\Words\Traits\ConvertsMorphemes;
 use App\Http\Controllers\AlgModelController;
 
 /**
@@ -12,6 +13,8 @@ use App\Http\Controllers\AlgModelController;
  */
 class FormController extends AlgModelController
 {
+    use ConvertsMorphemes;
+
     /**
      * Initialize middleware
      */
@@ -86,39 +89,5 @@ class FormController extends AlgModelController
 
         flash("{$form->surfaceForm} updated successfully", 'is-success');
         return redirect("/verbs/forms/{$form->id}");
-    }
-
-    protected function convertMorphemes()
-    {
-        $morphemicForm = null;
-        $morphemes = request()->morphemes;
-
-        if (count($morphemes) > 0) {
-            $firstTime = true;
-
-            foreach ($morphemes as $morpheme) {
-                if ($firstTime) {
-                    $firstTime = false;
-                } else {
-                    $morphemicForm .= '-';
-                }
-
-                if ($morpheme['ic'] != null && $morpheme['ic'] >= 0) {
-                    $morphemicForm .= "IC";
-                    if ($morpheme['ic'] > 0) {
-                        $morphemicForm .= '.' . $morpheme['ic'];
-                    }
-                    $morphemicForm .= "|";
-                }
-
-                $morphemicForm .= str_replace(['*', '-'], '', $morpheme['name']);
-
-                if ($morpheme['disambiguator']) {
-                    $morphemicForm .= '.' . $morpheme['disambiguator'];
-                }
-            }
-
-            return $morphemicForm;
-        }
     }
 }

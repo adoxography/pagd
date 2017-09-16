@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			16-09-17: Added "add another" button to phoneme examples
+		</li>
+		<li>
 			16-09-17: Ordered open tickets by creation date and closed tickets by closed date
 		</li>
 		<li>

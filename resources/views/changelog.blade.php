@@ -6,10 +6,13 @@
 
 @section('content')
 	<ul class="indented-list">
-		<hr>
+		<li>
+			16-09-17: Ordered open tickets by creation date and closed tickets by closed date
+		</li>
 		<li>
 			16-09-17: Fixed bad links in user profiles
 		</li>
+		<hr>
 		<li>
 			15-09-17: Added special character typewriter to relevant fields in morphemes, forms, and examples, and to the symbol tool in textareas
 			<ul>

@@ -20,15 +20,11 @@ class TicketController extends Controller
 
     public function index()
     {
-        $ticket = Ticket::with('type')->get();
+        $tickets = Ticket::with('type')->get();
 
-        $open = $this->mapTicketsToType($ticket->filter(function ($ticket) {
-            return !$ticket->isClosed();
-        }));
+        $open = $this->mapTicketsToType($tickets->where('closed_at', null)->sortByDesc('created_at'));
 
-        $closed = $this->mapTicketsToType($ticket->filter(function ($ticket) {
-            return $ticket->isClosed();
-        })->sortBy('updated_at'));
+        $closed = $this->mapTicketsToType($tickets->whereNotIn('closed_at', [null])->sortByDesc('closed_at'));
 
         return view('tickets.index', compact('open', 'closed'));
     }

@@ -81,7 +81,11 @@ abstract class Presenter
                             ->setArguments($arguments);
         } else {
             throw new PresenterException(
-                sprintf('"%s" is not a string and does not have a present method.', $relation),
+                sprintf(
+                    '"%s" is not a string and does not have a present method. It is a %s.',
+                    $relation,
+                    get_class($relation)
+                ),
                 $this
             );
         }

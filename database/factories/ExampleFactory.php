@@ -8,9 +8,9 @@ $factory->define(Example::class, function (Faker $faker) {
     return [
         'name'         => $faker->word,
         'translation'  => $faker->sentence,
-        'publicNotes'  => $faker->paragraph,
-        'privateNotes' => $faker->paragraph,
-        'phonemicForm' => $faker->word,
+        'publicNotes'  => $faker->optional()->paragraph,
+        'privateNotes' => $faker->optional()->paragraph,
+        'phonemicForm' => $faker->optional()->word,
         'language_id'  => factory(Language::class)->create()->id
     ];
 });

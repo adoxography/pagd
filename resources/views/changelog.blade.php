@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			19-09-17: Added registration email for new users
+		</li>
+		<hr>
+		<li>
 			16-09-17: Added "add another" button to phoneme examples
 		</li>
 		<li>

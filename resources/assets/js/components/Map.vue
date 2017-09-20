@@ -24,10 +24,11 @@
 
 		<gmap-info-window
 			:opened="infoWindow.opened"
-			:content="infoWindow.content"
 			:position="infoWindow.position"
 			@closeclick="infoWindow.opened = !infoWindow.opened"
-		></gmap-info-window>
+		>
+			<span v-html="infoWindow.content"></span>
+		</gmap-info-window>
 	</gmap-map>
 </template>
 
@@ -207,7 +208,7 @@ export default {
 				let link = "<a href=\"/languages/" + location.id + "\">View details</a>";
 				output += "<br>\n" + link;
 			}
-			
+
 			return output;
 		},
 

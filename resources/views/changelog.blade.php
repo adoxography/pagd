@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			19-09-17: Fixed map display
+		</li>
+		<li>
 			19-09-17: Added registration email for new users
 		</li>
 		<hr>

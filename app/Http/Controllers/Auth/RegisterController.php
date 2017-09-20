@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\RegistrationContact;
 use App\Rules\VerifiedUser;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -72,6 +73,8 @@ class RegisterController extends Controller
         ]);
 
         $user->assignRole(['contributor', 'reader']);
+
+        $user->send(new RegistrationContact($user));
 
         return $user;
     }

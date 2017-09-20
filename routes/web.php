@@ -12,7 +12,10 @@ use App\Contracts\Search;
 | application.
 |
 */
-
+Route::get('/mailable', function () {
+    $user = App\User::first();
+    return new App\Mail\RegistrationContact($user);
+});
 Route::resource('tickets', 'TicketController');
 Route::get('tickets/{ticket}/subscribe', 'TicketController@subscribe');
 Route::get('tickets/{ticket}/respond', 'TicketController@respond');

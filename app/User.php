@@ -3,6 +3,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Mail\Mailable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Sluggable\HasSlug;
@@ -98,5 +99,10 @@ class User extends Authenticatable
         return SlugOptions::create()
             ->generateSlugsFrom(['firstName', 'lastName'])
             ->saveSlugsTo('slug');
+    }
+
+    public function send(Mailable $mail)
+    {
+        \Mail::to($this)->send($mail);
     }
 }

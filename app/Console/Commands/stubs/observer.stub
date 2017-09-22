@@ -1,0 +1,28 @@
+<?php
+
+namespace DummyNamespace;
+
+use DummyModelClass;
+
+class DummyClass
+{
+    public function saving(DummyModelClass $model)
+    {
+        //
+    }
+
+    public function saved(DummyModelClass $model)
+    {
+        //
+    }
+
+    public function deleting(DummyModelClass $model)
+    {
+        //
+    }
+
+    public function deleted(DummyModelClass $model)
+    {
+        //
+    }
+}

@@ -45,8 +45,8 @@ class DatabaseRestore extends Command
 
     protected function restore($backup)
     {
-        $username = env('DB_USERNAME');
-        $database = env('DB_DATABASE');
+        $username = config('database.connections.mysql.username');
+        $database = config('database.connections.mysql.password');
 
         exec("mysql -u $username $database < $backup");
     }

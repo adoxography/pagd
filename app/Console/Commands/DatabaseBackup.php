@@ -50,9 +50,9 @@ class DatabaseBackup extends Command
     {
         $name = $this->createFileName();
         $path = storage_path("app/$name");
-        $database = env('DB_DATABASE');
-        $username = env('DB_USERNAME');
-        $password = env('DB_PASSWORD');
+        $database = config('database.connections.mysql.database');
+        $username = config('database.connections.mysql.username');
+        $password = config('database.connections.mysql.password');
 
         exec("mysqldump -u $username $database | gzip > $path");
 

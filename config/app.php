@@ -166,7 +166,6 @@ return [
         /*
          * Package Service Providers...
          */
-        BackupManager\Laravel\Laravel55ServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
         TeamTNT\Scout\TNTSearchScoutServiceProvider::class,

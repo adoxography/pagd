@@ -39,9 +39,9 @@ class DatabaseBackup extends Command
      */
     public function handle()
     {
-        $fileName = $this->save();
+        // $fileName = $this->save();
 
-        $this->transfer($fileName);
+        // $this->transfer($fileName);
 
         return null;
     }

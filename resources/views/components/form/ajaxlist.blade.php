@@ -46,6 +46,12 @@
 		data-vv-as="{{ $label }}"
 		@endif
 
+		@isset ($delay)
+			data-vv-delay="{{ $delay }}"
+		@else
+			data-vv-delay="1000"
+		@endif
+
 		@if(isset($on))
 			@foreach ($on as $event => $action)
 				{{ '@' . $event }}="{{ $action }}"

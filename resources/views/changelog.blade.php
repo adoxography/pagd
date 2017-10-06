@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			06-09-17: Added debounce to cluster selection
+		</li>
+		<li>
 			06-09-17: Fixed bug in rule edits
 		</li>
 		<li>

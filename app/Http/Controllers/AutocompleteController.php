@@ -151,14 +151,18 @@ class AutocompleteController extends Controller
     {
         $term = request()->term;
 
-        $sources = Source::search($term)->take(10)->get();
+        $sources = Source::search($term, function ($query) {
+            // $query->select('long', 'display', 'id');
+        })->take(10)->get();
 
-        foreach ($sources as $source) {
-            $source->name = $source->long;
-            $source->extra = $source->display;
+        $sources = $sources->toArray();
+
+        foreach ($sources as &$source) {
+            $source['name'] = $source['long'];
+            $source['extra'] = $source['display'];
         }
 
-        return $sources->toJson();
+        return json_encode($sources);
     }
 
     /**

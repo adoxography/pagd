@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			06-09-17: Fixed source source suggestions
+		</li>
+		<hr>
+		<li>
 			19-09-17: Fixed map display
 		</li>
 		<li>

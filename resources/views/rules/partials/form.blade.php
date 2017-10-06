@@ -73,7 +73,7 @@
 				])
 					@slot('value')
 						@isset ($rule)
-							{{ $rule->type }}
+							{{ $rule->type->name }}
 						@endisset
 					@endslot
 				@endcomponent

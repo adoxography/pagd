@@ -92,7 +92,7 @@ trait SourceableTrait
         }
 
         if ($sources !== null) {
-            $this->sources()->detach();
+            $this->detachOldSources();
             $this->connectSources($sources);
         }
     }
@@ -109,6 +109,15 @@ trait SourceableTrait
         }
 
         return $output;
+    }
+
+    protected function detachOldSources()
+    {
+        $type = $this->morphCode ? $this->morphCode : $this->getMorphClass();
+
+        \DB::table('Sourceables')->where('sourceable_type', $type)
+                                 ->where('sourceable_id', $this->id)
+                                 ->delete();
     }
 
     public function generalSources()

@@ -39,9 +39,9 @@ class DatabaseBackup extends Command
      */
     public function handle()
     {
-        // $fileName = $this->save();
+        $fileName = $this->save();
 
-        // $this->transfer($fileName);
+        $this->transfer($fileName);
 
         return null;
     }
@@ -53,8 +53,9 @@ class DatabaseBackup extends Command
         $database = config('database.connections.mysql.database');
         $username = config('database.connections.mysql.username');
         $password = config('database.connections.mysql.password');
+        $host     = config('database.connections.mysql.host');
 
-        exec("mysqldump -u $username $database | gzip > $path");
+        exec("mysqldump --user=\"$username\" --password=\"$password\" --host=\"$host\" $database 2>/dev/null | gzip > $path");
 
         return $name;
     }

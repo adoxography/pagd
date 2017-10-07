@@ -46,9 +46,11 @@ class DatabaseRestore extends Command
     protected function restore($backup)
     {
         $username = config('database.connections.mysql.username');
-        $database = config('database.connections.mysql.password');
+        $password = config('database.connections.mysql.password');
+        $database = config('database.connections.mysql.database');
+        $host     = config('database.connections.mysql.host');
 
-        exec("mysql -u $username $database < $backup");
+        exec("mysql --user=\"$username\" --password=\"$password\" --host=\"$host\" $database < $backup 2>/dev/null");
     }
 
     protected function getLastBackup()

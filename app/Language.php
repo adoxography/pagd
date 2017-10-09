@@ -46,11 +46,12 @@ class Language extends Model
         'reconstructed',
         'location'
     ];
-    protected $assets = [
+    public $assets = [
         'forms',
         'examples',
         'morphemes',
-        'phonemes'
+        'phonemes',
+        'nominalParadigms'
     ];
 
     public function toSearchableArray()

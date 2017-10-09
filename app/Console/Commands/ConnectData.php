@@ -23,28 +23,6 @@ class ConnectData extends Command
      */
     protected $description = 'Connect all the morphemes and glosses';
 
-    protected $morphemes;
-    protected $forms;
-    protected $examples;
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->morphemes = Morpheme::all();
-        $this->forms = Form::whereNotNull('language_id')
-                           ->whereNotNull('morphemicForm')
-                           ->get();
-        $this->examples = Example::whereNotNull('language_id')
-                                 ->whereNotNull('morphemicForm')
-                                 ->get();
-    }
-
     /**
      * Execute the console command.
      *
@@ -52,15 +30,23 @@ class ConnectData extends Command
      */
     public function handle()
     {
-        $this->morphemes->each(function ($morpheme) {
+        $morphemes = Morpheme::all();
+        $forms = Form::whereNotNull('language_id')
+                           ->whereNotNull('morphemicForm')
+                           ->get();
+        $examples = Example::whereNotNull('language_id')
+                                 ->whereNotNull('morphemicForm')
+                                 ->get();
+
+        $morphemes->each(function ($morpheme) {
             $morpheme->connectGlosses();
         });
 
-        $this->forms->each(function ($form) {
+        $forms->each(function ($form) {
             $form->connectMorphemes();
         });
 
-        $this->examples->each(function ($example) {
+        $examples->each(function ($example) {
             $example->connectMorphemes();
         });
     }

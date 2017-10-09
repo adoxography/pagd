@@ -49,15 +49,6 @@ class EmailSiteSummary extends Command
     public function __construct()
     {
         parent::__construct();
-
-        $this->leaders = User::where('receiveSiteSummary', true)->get();
-
-        foreach ($this->dataTypes as $key => $class) {
-            $this->data[$key] = [
-                'newData' => $this->loadData($class),
-                'count'   => $this->getCount($class)
-            ];
-        }
     }
 
     protected function loadSortedData(string $class)
@@ -100,6 +91,15 @@ class EmailSiteSummary extends Command
      */
     public function handle()
     {
+        $this->leaders = User::where('receiveSiteSummary', true)->get();
+
+        foreach ($this->dataTypes as $key => $class) {
+            $this->data[$key] = [
+                'newData' => $this->loadData($class),
+                'count'   => $this->getCount($class)
+            ];
+        }
+
         foreach ($this->leaders as $leader) {
             Mail::to($leader)->send(new SiteSummary($this->data, $leader));
         }

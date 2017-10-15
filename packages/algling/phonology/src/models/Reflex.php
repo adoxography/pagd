@@ -7,17 +7,15 @@ use App\BacksUpTrait;
 use App\BookmarkableTrait;
 use App\SourceableTrait;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 class Reflex extends Model
 {
-	use SourceableTrait;
-	use RevisionableTrait;
-	use BookmarkableTrait;
-	use SoftDeletes;
-	use Searchable;
+    use SourceableTrait;
+    use RevisionableTrait;
+    use BookmarkableTrait;
+    use Searchable;
     use BacksUpTrait;
 
     public $table = 'Phon_Reflexes';
@@ -40,11 +38,11 @@ class Reflex extends Model
     {
         $output = $this->name;
 
-    	if($this->environment) {
-    		$output .= " / {$this->environment}";
-    	}
+        if ($this->environment) {
+            $output .= " / {$this->environment}";
+        }
 
-    	return $output;
+        return $output;
     }
 
     public function getFullRuleAttribute()
@@ -54,12 +52,12 @@ class Reflex extends Model
 
     public function reflex()
     {
-    	return $this->belongsTo(Phoneme::class);
+        return $this->belongsTo(Phoneme::class);
     }
 
     public function parent()
     {
-    	return $this->belongsTo(Phoneme::class);
+        return $this->belongsTo(Phoneme::class);
     }
 
     public function present(string $method = 'name')

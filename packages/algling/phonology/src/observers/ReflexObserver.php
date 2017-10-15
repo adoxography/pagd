@@ -6,10 +6,15 @@ use Algling\Phonology\Models\Reflex;
 
 class ReflexObserver
 {
-	public function saved(Reflex $reflex)
-	{
-		$reflex->load('parent', 'reflex');
+    public function saved(Reflex $reflex)
+    {
+        $reflex->load('parent', 'reflex');
 
-		$reflex->reflex->syncPaParents();
-	}
+        $reflex->reflex->syncPaParents();
+    }
+
+    public function deleting(Reflex $reflex)
+    {
+        // $reflex->
+    }
 }

@@ -3,6 +3,7 @@
 use Algling\Phonology\Models\ClusterType;
 use Algling\Phonology\Models\ConsonantType;
 use Algling\Phonology\Models\Phoneme;
+use Algling\Phonology\Models\Reflex;
 use Algling\Phonology\Models\VowelType;
 use App\Language;
 use Faker\Generator as Faker;
@@ -101,4 +102,20 @@ $factory->defineAs(Phoneme::class, 'cluster', function (Faker $faker) {
     }
 
     return $data;
+});
+
+$factory->define(Reflex::class, function (Faker $faker) {
+    $language = factory(Language::class)->create();
+
+    return [
+        'parent_id' => factory(Phoneme::class)->create([
+            'language_id' => $language->id
+        ]),
+        'reflex_id' => factory(Phoneme::class)->create([
+            'language_id' => $language->id
+        ]),
+        'environment' => $faker->randomLetter(),
+        'publicNotes' => $faker->paragraph(),
+        'privateNotes' => $faker->paragraph()
+    ];
 });

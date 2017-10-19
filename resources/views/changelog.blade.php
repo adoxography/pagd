@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			18-10-17: Added typewriter to cluster input
+		</li>
+		<li>
 			18-10-17: Fixed sorting of obviative nominal forms
 		</li>
 		<li>

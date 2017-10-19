@@ -6,7 +6,8 @@
 	'disabled' => '!language.id',
 	'placeholder' => 'Make sure to select the language first',
 	'rules' => 'datalist_exists',
-	'delay' => 2000
+	'delay' => 2000,
+	'typewriter' => true
 ])
 	@slot('value')
 		@if(isset($phoneme) && $phoneme->type == 'Cluster')
@@ -23,7 +24,8 @@
 	'disabled' => '!language.id',
 	'placeholder' => 'Make sure to select the language first',
 	'rules' => 'datalist_exists',
-	'delay' => 2000
+	'delay' => 2000,
+	'typewriter' => true
 ])
 	@slot('value')
 		@if(isset($phoneme) && $phoneme->type == 'Cluster')

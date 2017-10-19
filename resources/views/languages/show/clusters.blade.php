@@ -4,7 +4,7 @@
 
 	<div class="field">
 		<span class="label">
-			Clusters
+			{{ $language->id == 1 ? 'Clusters' : 'Primary clusters' }}
 			@include('components.model.add-icon', ['uri' => "/languages/{$language->id}/addPhoneme?type=cluster"])
 		</span>
 

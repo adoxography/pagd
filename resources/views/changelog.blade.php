@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			18-10-17: Changed the name of the clusters table to 'Primary clusters,' except for PA
+		</li>
+		<li>
 			18-10-17: Fixed bookmarking for phonology module
 		</li>
 		<li>

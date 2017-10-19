@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			18-10-17: Fixed bug in nominals with parents
+		</li>
+		<hr>
+		<li>
 			14-10-17: Fixed bug where reflexes wouldn't delete
 		</li>
 		<hr>

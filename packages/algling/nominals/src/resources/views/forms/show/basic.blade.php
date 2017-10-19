@@ -15,7 +15,7 @@
 						{{ $form->structure->pronominalFeature->name }}
 					</span>
 				@endif
-				
+
 				@if($form->structure->nominalFeature)
 					<span class="is-one-line">
 						<span class="label">Nominal feature:</span>
@@ -68,7 +68,7 @@
 				<div class="field">
 					<span class="label">Historical notes</span>
 					@if($form->parent)
-						<em>Parent form:</em> {!! $form->parent->render('link')->then('language')->as('link') !!}
+						<em>Parent form:</em> {!! $form->parent->present('link')->then('language')->as('link') !!}
 					@endif
 					@if($form->historicalNotes)
 						{!! replaceTags($form->historicalNotes, $form->language_id) !!}

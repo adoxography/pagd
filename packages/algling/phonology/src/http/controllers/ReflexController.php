@@ -4,55 +4,55 @@ namespace Algling\Phonology\Http\Controllers;
 
 use Algling\Phonology\Http\Requests\ReflexRequest;
 use Algling\Phonology\Models\Reflex;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AlgModelController;
 
-class ReflexController extends Controller
+class ReflexController extends AlgModelController
 {
-	public function show(Reflex $reflex)
-	{
-		$reflex->load([
-			'parent',
-			'parent.language',
-			'reflex',
-			'reflex.language'
-		]);
+    public function show(Reflex $reflex)
+    {
+        $reflex->load([
+            'parent',
+            'parent.language',
+            'reflex',
+            'reflex.language'
+        ]);
 
-		return view('phon::reflexes.show', compact('reflex'));
-	}
+        return view('phon::reflexes.show', compact('reflex'));
+    }
 
     public function create()
     {
-    	return view('phon::reflexes.create');
+        return view('phon::reflexes.create');
     }
 
     public function edit(Reflex $reflex)
     {
-    	$reflex->load([
-    		'parent',
-    		'parent.language',
-    		'reflex',
-    		'reflex.language'
-    	]);
+        $reflex->load([
+            'parent',
+            'parent.language',
+            'reflex',
+            'reflex.language'
+        ]);
 
-    	return view('phon::reflexes.edit', compact('reflex'));
+        return view('phon::reflexes.edit', compact('reflex'));
     }
 
     public function store(ReflexRequest $request)
     {
-    	$reflex = Reflex::create($request->all());
+        $reflex = Reflex::create($request->all());
 
-    	flash("{$reflex->name} created successfully", 'is-success');
+        flash("{$reflex->name} created successfully", 'is-success');
 
-    	return redirect("reflexes/{$reflex->id}");
+        return redirect("reflexes/{$reflex->id}");
     }
 
     public function update(ReflexRequest $request, Reflex $reflex)
     {
-    	$reflex->update($request->all());
+        $reflex->update($request->all());
 
-    	flash("{$reflex->name} updated successfully", 'is-success');
+        flash("{$reflex->name} updated successfully", 'is-success');
 
-    	return redirect("reflexes/{$reflex->id}");
+        return redirect("reflexes/{$reflex->id}");
     }
 
     public function destroy(Reflex $reflex)

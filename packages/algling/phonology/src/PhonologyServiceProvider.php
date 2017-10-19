@@ -3,11 +3,11 @@
 namespace Algling\Phonology;
 
 use Algling\Phonology\Models\Backness;
-use Algling\Phonology\Models\Example;
 use Algling\Phonology\Models\Height;
 use Algling\Phonology\Models\Length;
 use Algling\Phonology\Models\Manner;
 use Algling\Phonology\Models\Place;
+use Algling\Phonology\Models\Reflex;
 use Algling\Phonology\Models\Voicing;
 use App\Language;
 use Illuminate\Support\ServiceProvider;
@@ -16,7 +16,7 @@ use Route;
 class PhonologyServiceProvider extends ServiceProvider
 {
     protected $connections = [
-        Example::class => 'phonExample',
+        Reflex::class => 'reflex'
     ];
 
     /**

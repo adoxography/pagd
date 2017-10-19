@@ -4,9 +4,9 @@ namespace Algling\Phonology\Http\Controllers;
 
 use Algling\Phonology\Http\Requests\PhonemeRequest;
 use Algling\Phonology\Models\Phoneme;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AlgModelController;
 
-class PhonemeController extends Controller
+class PhonemeController extends AlgModelController
 {
     public function __construct()
     {

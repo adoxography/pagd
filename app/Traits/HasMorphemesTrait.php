@@ -424,6 +424,7 @@ trait HasMorphemesTrait
 
         if ($this->morphemicForm) {
             foreach (explode('-', $this->morphemicForm) as $morpheme) {
+                $morph = null;
                 preg_match('/(^IC(\.(\d))?\|)?([^\.]+)(.(\d))?/', $morpheme, $matches);
 
                 $name = $matches[4];

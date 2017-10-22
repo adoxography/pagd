@@ -439,22 +439,25 @@ trait HasMorphemesTrait
 
                 if ($disambiguator) {
                     $morph = $this->queryMorpheme($name, $disambiguator)->with(['initialChanges', 'slot'])->first();
-                    $morph['ic'] = $ic;
 
-                    if ($ic) {
-                        $change = $morph->initialChanges->where('id', $ic)->first();
+                    if ($morph) {
+                        $morph['ic'] = $ic;
 
-                        if ($change) {
-                            $morph['tempName'] = $change->change;
+                        if ($ic) {
+                            $change = $morph->initialChanges->where('id', $ic)->first();
+
+                            if ($change) {
+                                $morph['tempName'] = $change->change;
+                            }
                         }
                     }
-                } else {
-                    $morph = [
-                        'name' => $name,
-                        'ic' => $ic,
-                        'disambiguator' => $disambiguator
-                    ];
                 }
+
+                $morph = $morph ?: [
+                    'name' => $name,
+                    'ic' => $ic,
+                    'disambiguator' => $disambiguator
+                ];
 
                 if ($ic === 0) {
                     $morph['tempName'] = 'IC.' . $morph['name'];

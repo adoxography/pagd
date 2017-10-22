@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			21-10-17: Fixed issue with morpheme input not appearing
+		</li>
+		<li>
 			21-10-17: Fixed broken nominal paradigm links
 		</li>
 		<li>

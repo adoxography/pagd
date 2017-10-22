@@ -7,6 +7,13 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			21-10-17: Added "affirmative" and "non-affirmative" to modes
+		</li>
+		<li>
+			21-10-17: Added "lexicon" to variable types
+		</li>
+		<hr>
+		<li>
 			18-10-17: Added typewriter to cluster input
 		</li>
 		<li>

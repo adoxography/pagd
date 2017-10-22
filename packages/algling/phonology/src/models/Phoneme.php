@@ -9,6 +9,7 @@ use Algling\Words\Models\Example;
 use App\BacksUpTrait;
 use App\BookmarkableTrait;
 use App\Language;
+use App\PAParentRelation;
 use App\ReconstructableTrait;
 use App\SourceableTrait;
 use Illuminate\Database\Eloquent\Model;
@@ -147,7 +148,9 @@ class Phoneme extends Model
 
     public function paParents()
     {
-        return $this->belongsToMany(Phoneme::class, 'Phon_PaParents', 'phoneme_id', 'parent_id');
+        return $this->belongsToMany(Phoneme::class, 'Phon_PaParents', 'phoneme_id', 'parent_id')
+                    ->withPivot('language_id')
+                    ->using(PAParentRelation::class);
     }
 
     public function allParents()
@@ -202,7 +205,13 @@ class Phoneme extends Model
     {
         $parents = $this->findPaParents();
 
-        $this->paParents()->sync($parents->pluck('id'));
+        $newArray = [];
+
+        foreach ($parents->pluck('id') as $id) {
+            $newArray[$id] = ['language_id' => $this->language_id];
+        }
+
+        $this->paParents()->sync($newArray);
     }
 
     protected function findPaParents()

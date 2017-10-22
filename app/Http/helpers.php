@@ -186,12 +186,17 @@ function array_toList($arr) : string
     return $output;
 }
 
-function initClosedAt()
+function addPaParentLanguages()
 {
-    $tickets = App\Ticket::all();
+    $records = \DB::table('Phon_PaParents')->get();
 
-    foreach ($tickets as $ticket) {
-        $ticket->closed_at = $ticket->updated_at;
-        $ticket->save();
+    foreach ($records as $record) {
+        $phoneme = \Algling\Phonology\Models\Phoneme::find($record->phoneme_id);
+
+        if ($phoneme) {
+            \DB::table('Phon_PaParents')
+                ->where('id', $record->id)
+                ->update(['language_id' => $phoneme->language_id]);
+        }
     }
 }

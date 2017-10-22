@@ -20,7 +20,7 @@ class Reflex extends Model
 
     public $table = 'Phon_Reflexes';
 
-    protected $fillable = ['environment', 'reflex_id', 'parent_id', 'publicNotes', 'privateNotes'];
+    protected $fillable = ['environment', 'reflex_id', 'parent_id', 'publicNotes', 'privateNotes', 'deleted', 'language_id'];
 
     public function getNameAttribute()
     {

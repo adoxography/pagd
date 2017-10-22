@@ -114,6 +114,7 @@ $factory->define(Reflex::class, function (Faker $faker) {
         'reflex_id' => factory(Phoneme::class)->create([
             'language_id' => $language->id
         ]),
+        'language_id' => $language->id,
         'environment' => $faker->randomLetter(),
         'publicNotes' => $faker->paragraph(),
         'privateNotes' => $faker->paragraph()

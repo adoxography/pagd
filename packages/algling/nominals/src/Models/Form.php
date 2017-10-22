@@ -9,18 +9,18 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Form extends WordForm
 {
-	use HasStructureTrait;
+    use HasStructureTrait;
 
-	public $uri = '/nominals/forms';
+    public $uri = 'nominals/forms';
 
     public static function boot()
     {
-    	parent::boot();
+        parent::boot();
 
-    	// Limit scope to only records that have nominal structures
-    	static::addGlobalScope('nominal', function(Builder $builder) {
-    		$builder->where('structure_type', 'nominalStructures');
-    	});
+        // Limit scope to only records that have nominal structures
+        static::addGlobalScope('nominal', function (Builder $builder) {
+            $builder->where('structure_type', 'nominalStructures');
+        });
     }
 
     public function present(string $method = 'name')

@@ -11,7 +11,7 @@ class Form extends WordForm
 {
     use HasStructureTrait;
 
-    public $uri = '/verbs/forms';
+    public $uri = 'verbs/forms';
 
     public static function boot()
     {

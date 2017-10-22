@@ -61,8 +61,6 @@ class Language extends Model
         return array_only($array, ['id', 'alternateNames', 'name', 'iso', 'algoCode', 'notes']);
     }
 
-    public $uri = '/languages';
-
     /*
     |--------------------------------------------------------------------------
     | Revision variables

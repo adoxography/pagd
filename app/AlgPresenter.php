@@ -68,11 +68,7 @@ class AlgPresenter extends Presenter implements PresenterInterface
      */
     protected function getURI()
     {
-        if (isset($this->uri)) {
-            return $this->uri;
-        }
-
-        return $this->generateURIFromModel();
+        return $this->model->uri ?: $this->generateURIFromModel();
     }
 
     /**

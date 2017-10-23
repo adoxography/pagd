@@ -237,4 +237,9 @@ class Phoneme extends Model
 
         $this->examples()->sync($examples);
     }
+
+    public function isNull()
+    {
+        return $this->phonemeable_type === null;
+    }
 }

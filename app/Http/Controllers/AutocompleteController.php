@@ -249,7 +249,7 @@ class AutocompleteController extends Controller
 
     private function findParents(Language $language, $term, $items, $field)
     {
-        $results = [];
+        $results = collect();
 
         if ($language->parent) { // Recursive case: the language has a parent
 
@@ -274,19 +274,19 @@ class AutocompleteController extends Controller
                 }]
             )->find($language->parent->id);
 
-            // Store the members in the $results array as id and name sets
+            // Store the members in the results array as id and name sets
             foreach ($parent->getAttribute($items) as $item) {
-                $results[] = [
+                $results->push([
                     'id' => $item->id,
                     'name' => $item->present('unique')->then('language')->__toString()
-                ];
+                ]);
             }
 
             // Recursively find members in this language's parent
-            $results += $this->findParents($parent, $term, $items, $field);
+            $results = $results->concat($this->findParents($parent, $term, $items, $field));
         }
         // Base case: the language has no parent
 
-        return $results;
+        return $results->sortBy('name');
     }
 }

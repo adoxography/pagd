@@ -213,4 +213,12 @@ class Language extends Model
     {
         return $this->alternateNames;
     }
+
+    public function getNullPhoneme()
+    {
+        return Phoneme::firstOrCreate([
+            'language_id' => $this->id,
+            'algoName' => 'Ø'
+        ]);
+    }
 }

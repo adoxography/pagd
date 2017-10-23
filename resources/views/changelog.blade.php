@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			22-10-17: Added ability to mark a phoneme has having been deleted, instead of having a reflex
+		</li>
+		<hr>
+		<li>
 			21-10-17: Fixed issue with morpheme input not appearing
 		</li>
 		<li>

@@ -14,7 +14,8 @@ class AddDeletedToPhonemes extends Migration
     public function up()
     {
         Schema::table('Phon_Phonemes', function (Blueprint $table) {
-            $table->boolean('deleted')->default(false);
+            $table->string('phonemeable_type')->nullable()->change();
+            $table->unsignedInteger('phonemeable_id')->nullable()->change();
         });
     }
 

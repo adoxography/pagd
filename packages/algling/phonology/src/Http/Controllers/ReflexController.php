@@ -5,6 +5,7 @@ namespace Algling\Phonology\Http\Controllers;
 use Algling\Phonology\Http\Requests\ReflexRequest;
 use Algling\Phonology\Models\Reflex;
 use App\Http\Controllers\AlgModelController;
+use App\Language;
 
 class ReflexController extends AlgModelController
 {
@@ -39,6 +40,11 @@ class ReflexController extends AlgModelController
 
     public function store(ReflexRequest $request)
     {
+        if (!$request->reflex) {
+            $child = Language::find($request->language_id)->getNullPhoneme()->id;
+            $request['reflex_id'] = $child;
+        }
+
         $reflex = Reflex::create($request->all());
 
         flash("{$reflex->name} created successfully", 'is-success');

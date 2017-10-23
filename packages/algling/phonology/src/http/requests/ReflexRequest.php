@@ -28,8 +28,6 @@ class ReflexRequest extends FormRequest
             'environment' => ['nullable'],
             'publicNotes' => ['nullable'],
             'privateNotes' => ['nullable'],
-            'language' => ['required', 'exists:Languages,name'],
-            'language_id' => ['required', 'integer', 'exists:Languages,id'],
             'parent' => ['required'],
             'parent_id' => ['required', 'integer', 'exists:Phon_Phonemes,id'],
             'reflex' => ['nullable', 'required_without:deleted'],

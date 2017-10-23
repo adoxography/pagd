@@ -185,18 +185,3 @@ function array_toList($arr) : string
 
     return $output;
 }
-
-function addPaParentLanguages()
-{
-    $records = \DB::table('Phon_PaParents')->get();
-
-    foreach ($records as $record) {
-        $phoneme = \Algling\Phonology\Models\Phoneme::find($record->phoneme_id);
-
-        if ($phoneme) {
-            \DB::table('Phon_PaParents')
-                ->where('id', $record->id)
-                ->update(['language_id' => $phoneme->language_id]);
-        }
-    }
-}

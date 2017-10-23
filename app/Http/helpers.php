@@ -185,13 +185,3 @@ function array_toList($arr) : string
 
     return $output;
 }
-
-function initClosedAt()
-{
-    $tickets = App\Ticket::all();
-
-    foreach ($tickets as $ticket) {
-        $ticket->closed_at = $ticket->updated_at;
-        $ticket->save();
-    }
-}

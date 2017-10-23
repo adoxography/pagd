@@ -81,7 +81,7 @@
 							'name' => 'reflex',
 							'uri' => '/autocomplete/phonemes',
 							'with' => '{ language: language.id }',
-							'disabled' => '!language.id',
+							'disabled' => '!language.id || deleted',
 							'rules' => 'datalist_exists',
 							'typewriter' => true
 						])
@@ -93,6 +93,11 @@
 								@endif
 							@endslot
 						@endcomponent
+
+						@include('components.form.checkbox', [
+							'name' => 'deleted',
+							'model' => 'deleted'
+						])
 					</div>
 				</div>
 			</div>

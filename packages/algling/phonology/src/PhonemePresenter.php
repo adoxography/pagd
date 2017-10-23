@@ -9,6 +9,10 @@ class PhonemePresenter extends AlgPresenter
 {
     public function name(string $format = '')
     {
+        if ($this->model->isNull()) {
+            return $this->model->algoName;
+        }
+
         $name = parent::name($format);
 
         $name = sprintf('<em>%s</em>', $name);

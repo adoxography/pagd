@@ -218,7 +218,7 @@ class Language extends Model
     {
         return Phoneme::firstOrCreate([
             'language_id' => $this->id,
-            'algoName' => 'Ø'
+            'algoName' => '∅'
         ]);
     }
 }

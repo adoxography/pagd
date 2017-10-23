@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			23-10-17: Updated presentation of null phoneme
+		</li>
+		<hr>
+		<li>
 			22-10-17: Added ability to mark a phoneme has having been deleted, instead of having a reflex
 		</li>
 		<hr>

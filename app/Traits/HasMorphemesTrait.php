@@ -337,7 +337,7 @@ trait HasMorphemesTrait
                         csrf_field().
                         method_field("PATCH").
                         "<input type='hidden' name='disambiguator' value='{$possibility->disambiguator}' />".
-                        "<button class='button is-link'>".
+                        "<button class='button is-text'>".
                             "{$possibility->name}<sup>{$possibility->disambiguator}</sup> ($gloss)".
                         "</button>".
                     "</form>".

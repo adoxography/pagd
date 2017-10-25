@@ -38,10 +38,38 @@ class Inventory implements Jsonable
         $phonemes = $this->language->phonemes;
 
         $this->consonants = $phonemes->where('phonemeable_type', 'consonantTypes')
-                                    ->where('isArchiphoneme', false);
+                                    ->where('isArchiphoneme', false)
+                                    ->sortBy(function ($phoneme) {
+                                        return array_search(
+                                            str_replace('*', '', $phoneme->algoName),
+                                            ['p', 't', 'k', 'ʔ', 'θ', 's', 'š', 'h', 'č', 'm', 'n', 'r', 'w', 'y']
+                                        );
+                                    });
         $this->vowels = $phonemes->where('phonemeable_type', 'vowelTypes')
-                                ->where('isArchiphoneme', false);
-        $this->clusters = $phonemes->where('phonemeable_type', 'clusterTypes');
+                                ->where('isArchiphoneme', false)
+                                ->sortBy(function ($phoneme) {
+                                    return [
+                                        array_search(
+                                            str_replace('*', '', $phoneme->algoName)[0],
+                                            ['i', 'o', 'e', 'a']
+                                        ),
+                                        strlen($phoneme->algoName)];
+                                });
+        $this->clusters = $phonemes->where('phonemeable_type', 'clusterTypes')
+                                ->sortBy(function ($phoneme) {
+                                    $name = str_replace('*', '', $phoneme->algoName);
+
+                                    return [
+                                        array_search(
+                                            $name[0],
+                                            ['ʔ', 'H', 'h', 'N', 'm', 'n', 's', 'š', 'θ', 'x', 'ç', 'r']
+                                        ),
+                                        array_search(
+                                            $name[1],
+                                            ['k', 'p', 't', 'č', 's', 'š', 'x', 'θ', 'r', 'm']
+                                        )
+                                    ];
+                                });
         $this->archiphonemes = $phonemes->where('isArchiphoneme', true);
 
         if ($includeNull) {

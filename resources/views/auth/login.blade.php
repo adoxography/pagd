@@ -31,7 +31,7 @@
         <div class="field">
             <p class="control">
                 <button class="button is-primary" type="submit">Login</button>
-                <a href="{{ url('/password/email') }}" class="button is-link">Forgot Your Password?</a>
+                <a href="{{ url('/password/email') }}" class="button is-text">Forgot Your Password?</a>
             </p>
         </div>
     </form>

@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			24-10-17: Added phoneme search
+		</li>
+		<hr>
+		<li>
 			23-10-17: Updated presentation of null phoneme
 		</li>
 		<hr>

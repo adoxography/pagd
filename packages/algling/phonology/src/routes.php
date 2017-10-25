@@ -1,5 +1,8 @@
 <?php
 Route::group(['as' => 'phonemes::'], function () {
+    Route::get('phonemes/search', 'SearchController@show')->name('search');
+    Route::get('phonemes/search/results', 'SearchController@results')->name('searchResults');
+
     Route::resource('phonemes', 'PhonemeController');
 
     Route::get('phonemes/{phoneme}/basic', 'PhonemeShowController@basicDetails')->name('showBasic');

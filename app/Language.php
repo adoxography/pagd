@@ -54,6 +54,8 @@ class Language extends Model
         'nominalParadigms'
     ];
 
+    public $inventory;
+
     public function toSearchableArray()
     {
         $array = $this->toArray();
@@ -190,9 +192,19 @@ class Language extends Model
         return new LanguagePresenter($this, $method);
     }
 
-    public function phonology()
+    public function phonology($includeNull = false)
     {
-        return new Inventory($this);
+        if (!isset($this->inventory)) {
+            return $this->loadPhonology($includeNull);
+        }
+
+        return $this->inventory;
+    }
+
+    public function loadPhonology($includeNull = false)
+    {
+        $this->inventory = new Inventory($this, $includeNull);
+        return $this->inventory;
     }
 
     public function hasVariable(Variable $variable)

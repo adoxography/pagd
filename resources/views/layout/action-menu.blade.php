@@ -43,6 +43,7 @@
 					<a class="navbar-item" href="/nominals/search/paradigm">Nominal paradigm</a>
 					<a class="navbar-item" href="/verbs/search/paradigm">Verb paradigm</a>
 					<a class="navbar-item" href="/verbs/search/form">Verb form</a>
+					<a class="navbar-item" href="/phonemes/search">Phonology</a>
 					<a class="navbar-item" href="/search/text">Text</a>
 				</div>
 			</div>

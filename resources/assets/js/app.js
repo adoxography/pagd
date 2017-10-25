@@ -71,6 +71,8 @@ Vue.component('alg-advanced-paradigm-search', require('./components/forms/Advanc
 
 Vue.component('alg-nominal-paradigm-search', require('./components/forms/search/Nominal-Paradigm.vue'));
 
+Vue.component('alg-phoneme-search', require('./components/forms/search/Phoneme.vue'));
+
 Vue.component('alg-delete-button', require('./components/Delete-Button.vue'));
 Vue.component('alg-hidden-icon', require('./components/Hidden-Icon.vue'));
 Vue.component('alg-source-index', require('./components/Source-Index.vue'));

@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			26-10-17: Fixed broken links in languages' nominals page
+		</li>
+		<hr>
+		<li>
 			24-10-17: Added phoneme search
 		</li>
 		<hr>

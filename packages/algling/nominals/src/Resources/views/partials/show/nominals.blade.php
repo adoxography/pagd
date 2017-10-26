@@ -6,6 +6,10 @@ if(method_exists($model, 'nominalParadigms')) {
 } else {
 	$paradigms = Algling\Nominals\Models\Paradigm::all();
 }
+
+if(!isset($uri)) {
+	$uri = '/'.strtolower(array_last(explode('_', $model->table)));
+}
 @endphp
 
 <alg-filter
@@ -76,7 +80,7 @@ if(method_exists($model, 'nominalParadigms')) {
 				<label class="label">
 					Forms
 					@if(!isset($showAddButtons) || $showAddButtons)
-						@include('components.model.add-icon', ['uri' => "{$model->uri}/{$model->id}/addNominalForm"])
+						@include('components.model.add-icon', ['uri' => "{$uri}/{$model->id}/addNominalForm"])
 					@endif
 				</label>
 				<ul>
@@ -88,7 +92,7 @@ if(method_exists($model, 'nominalParadigms')) {
 				<label class="label">
 					Examples
 					@if(!isset($showAddButtons) || $showAddButtons)
-						@include('components.model.add-icon', ['uri' => "{$model->uri}/{$model->id}/addExample"])
+						@include('components.model.add-icon', ['uri' => "{$uri}/{$model->id}/addExample"])
 					@endif
 				</label>
 				<ul>

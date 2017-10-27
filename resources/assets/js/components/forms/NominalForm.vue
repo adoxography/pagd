@@ -15,7 +15,11 @@ export default {
 			paradigm:          new Datalist,
 			mode:              new Datalist,
 			parent:            new Datalist,
-			translationRequired: true
+			translationRequired: true,
+			validations: {
+				nominalFeature: 'datalist_required|datalist_exists',
+				pronominalFeature: 'datalist_required|datalist_exists'
+			}
 		}
 	},
 
@@ -37,15 +41,15 @@ export default {
 			this.nominalFeature = new Datalist;
 
 			if(this.paradigmHasPronominalFeature()) {
-				this.$validator.attach('pronominalFeature', 'datalist_required|datalist_exists', { prettyName: 'pronominal feature' });
+				this.validations.pronominalFeature = 'datalist_required|datalist_exists';
 			} else {
-				this.$validator.attach('pronominalFeature', '');
+				this.validations.pronominalFeature = '';
 			}
 
 			if(this.paradigmHasNominalFeature()) {
-				this.$validator.attach('nominalFeature', 'datalist_required|datalist_exists', { prettyName: 'nominal feature' });
+				this.validations.nominalFeature = 'datalist_required|datalist_exists';
 			} else {
-				this.$validator.attach('nominalFeature', '');
+				this.validations.nominalFeature = '';
 			}
 		}
 	},

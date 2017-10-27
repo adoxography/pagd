@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			27-10-17: Fixed validation in nominal form
+		</li>
+		<hr>
+		<li>
 			26-10-17: Fixed broken links in languages' nominals page
 		</li>
 		<hr>

@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			30-10-17: Added 0, 0s, 0d, and 0p to possible pronominal features
+		</li>
+		<hr>
+		<li>
 			27-10-17: Fixed validation in nominal form
 		</li>
 		<hr>

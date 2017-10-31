@@ -12,15 +12,15 @@
 		<div class="column">
 			<div class="field">
 				<span class="label">Rule</span>
-				{{ $rule->rule }}
+				{!! $rule->rule !!}
 			</div>
 			<div class="field">
 				<span class="label">Abbreviation</span>
-				{{ $rule->abv }}
+				{!! $rule->abv !!}
 			</div>
 			<div class="field">
 				<span class="label">Type</span>
-				{{ optional($rule->type)->name }}
+				{!! optional($rule->type)->name !!}
 			</div>
 		</div>
 		<div class="column">

@@ -9,7 +9,7 @@
 	@if(count($language->rules) > 0)
 		<ul>
 			@foreach($language->rules as $rule)
-				<li><a href="/rules/{{ $rule->id }}">{{ $rule->name }}</a></li>
+				<li>{!! $rule->present('link') !!}</li>
 			@endforeach
 		</ul>
 	@else

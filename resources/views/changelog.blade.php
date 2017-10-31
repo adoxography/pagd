@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			31-10-17: Added subscripts for rules
+		</li>
+		<li>
 			31-10-17: Made superfluous PA parent/child links delete when reflexes are deleted
 		</li>
 		<li>

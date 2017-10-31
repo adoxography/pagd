@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			31-10-17: Made superfluous PA parent/child links delete when reflexes are deleted
+		</li>
+		<li>
 			30-10-17: Added 0, 0s, 0d, and 0p to possible pronominal features
 		</li>
 		<hr>

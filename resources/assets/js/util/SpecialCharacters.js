@@ -1,5 +1,5 @@
 class SpecialCharacter {
-    constructor(symbol, code) {
+    constructor(symbol, code = null) {
         this.symbol = symbol;
         this.code = code;
     }
@@ -45,7 +45,8 @@ var dictionary = [
         new SpecialCharacter("\u0304", "-"), // Macron
         new SpecialCharacter("\u0303", "~"), // Tilde
         new SpecialCharacter("ː", ":"),
-        new SpecialCharacter("·", ".")
+        new SpecialCharacter("·", "."),
+        new SpecialCharacter("\u0325") // Voiceless
     ]
 ];
 

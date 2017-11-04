@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			03-11-17: Added voiceless diacritic to typewriter
+		</li>
+		<hr>
+		<li>
 			31-10-17: Added subscripts for rules
 		</li>
 		<li>

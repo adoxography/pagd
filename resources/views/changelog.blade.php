@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			05-11-17: Fixed gap links
+		</li>
+		<hr>
+		<li>
 			03-11-17: Added voiceless diacritic to typewriter
 		</li>
 		<hr>

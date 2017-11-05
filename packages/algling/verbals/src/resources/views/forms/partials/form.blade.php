@@ -312,8 +312,7 @@
 				@component('components.form.textarea', [
 					'name'        => 'usageNotes',
 					'label'       => 'usage notes',
-					'placeholder' => 'Enter notes about the usage of this form',
-					'disabled'    => 'empty'
+					'placeholder' => 'Enter notes about the usage of this form'
 				])
 					@slot('value')
 						@if(isset($form) && $form->usageNotes)

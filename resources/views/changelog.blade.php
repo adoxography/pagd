@@ -7,6 +7,12 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			05-11-17: Added "Miscellaneous generalization" to rule types
+		</li>
+		<li>
+			05-11-17: Enabled usage notes for form gaps
+		</li>
+		<li>
 			05-11-17: Removed stray space from some verb forms
 		</li>
 		<li>

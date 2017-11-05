@@ -202,10 +202,14 @@ abstract class Presenter
 
     protected function getRelated(string $relation)
     {
-        if (!method_exists($this->model, $relation)) {
+        $attributeName = 'get' . ucfirst($relation) . 'Attribute';
+
+        if (method_exists($this->model, $relation)) {
+            return $this->model->$relation;
+        } elseif (method_exists($this->model, $attributeName)) {
+            return $this->model->$attributeName();
+        } else {
             throw new PresenterException(sprintf('%s does not respond to "%s".', $this->model, $relation), $this);
         }
-
-        return $this->model->$relation;
     }
 }

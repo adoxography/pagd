@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			11-11-11: Added names to the slot index
+		</li>
+		<li>
 			11-11-11: Removed empty parentheses
 		</li>
 		<li>

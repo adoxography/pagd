@@ -2,41 +2,46 @@
 
 namespace Algling\Phonology\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class ClusterType extends Model
+class ClusterType extends PhonemeType
 {
     public $table = 'Phon_Clusters';
     public $timestamps = false;
     public $name = 'Cluster';
 
     protected $fillable = [
-    	'firstSegment_id',
-    	'secondSegment_id'
+        'firstSegment_id',
+        'secondSegment_id'
     ];
 
     protected $with = [
-    	'firstSegment',
-    	'secondSegment'
+        'firstSegment',
+        'secondSegment'
     ];
+
+    public function identifiableName()
+    {
+        $this->load($this->with);
+
+        return $this->firstSegment->name . $this->secondSegment->name;
+    }
 
     public function getNameAttribute()
     {
-    	return $this->name;
+        return $this->name;
     }
 
     public function firstSegment()
     {
-    	return $this->segment('firstSegment_id');
+        return $this->segment('firstSegment_id');
     }
 
     public function secondSegment()
     {
-    	return $this->segment('secondSegment_id');
+        return $this->segment('secondSegment_id');
     }
 
     protected function segment($foreign)
     {
-    	return $this->belongsTo(Phoneme::class, $foreign);
+        return $this->belongsTo(Phoneme::class, $foreign);
     }
 }

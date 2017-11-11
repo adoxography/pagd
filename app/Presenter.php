@@ -180,7 +180,9 @@ abstract class Presenter
         $output .= call_user_func_array([$this, $this->method], $this->arguments);
 
         foreach ($this->then as $item) {
-            $output .= sprintf('&nbsp(%s)', $item);
+            if (strlen($item) > 0) {
+                $output .= sprintf('&nbsp(%s)', $item);
+            }
         }
 
         return $output;

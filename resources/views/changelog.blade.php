@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			11-11-11: Removed empty parentheses
+		</li>
+		<li>
 			11-11-11: Resolved phoneme feature rendering issue
 		</li>
 		<hr>

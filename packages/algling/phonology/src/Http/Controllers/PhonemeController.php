@@ -2,11 +2,11 @@
 
 namespace Algling\Phonology\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Algling\Phonology\Models\Phoneme;
 use Algling\Phonology\Http\Requests\PhonemeRequest;
+use Algling\Phonology\Models\Phoneme;
+use App\Http\Controllers\AlgModelController;
 
-class PhonemeController extends Controller
+class PhonemeController extends AlgModelController
 {
     public function __construct()
     {
@@ -91,10 +91,5 @@ class PhonemeController extends Controller
         $child = $phoneme->load('language');
 
         return view('phon::reflexes.create', compact('child'));
-    }
-
-    public function addExample(Phoneme $phoneme)
-    {
-        return view('phon::examples.create', compact('phoneme'));
     }
 }

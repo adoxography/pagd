@@ -337,7 +337,7 @@ trait HasMorphemesTrait
                         csrf_field().
                         method_field("PATCH").
                         "<input type='hidden' name='disambiguator' value='{$possibility->disambiguator}' />".
-                        "<button class='button is-link'>".
+                        "<button class='button is-text'>".
                             "{$possibility->name}<sup>{$possibility->disambiguator}</sup> ($gloss)".
                         "</button>".
                     "</form>".
@@ -424,6 +424,7 @@ trait HasMorphemesTrait
 
         if ($this->morphemicForm) {
             foreach (explode('-', $this->morphemicForm) as $morpheme) {
+                $morph = null;
                 preg_match('/(^IC(\.(\d))?\|)?([^\.]+)(.(\d))?/', $morpheme, $matches);
 
                 $name = $matches[4];
@@ -439,22 +440,25 @@ trait HasMorphemesTrait
 
                 if ($disambiguator) {
                     $morph = $this->queryMorpheme($name, $disambiguator)->with(['initialChanges', 'slot'])->first();
-                    $morph['ic'] = $ic;
 
-                    if ($ic) {
-                        $change = $morph->initialChanges->where('id', $ic)->first();
+                    if ($morph) {
+                        $morph['ic'] = $ic;
 
-                        if ($change) {
-                            $morph['tempName'] = $change->change;
+                        if ($ic) {
+                            $change = $morph->initialChanges->where('id', $ic)->first();
+
+                            if ($change) {
+                                $morph['tempName'] = $change->change;
+                            }
                         }
                     }
-                } else {
-                    $morph = [
-                        'name' => $name,
-                        'ic' => $ic,
-                        'disambiguator' => $disambiguator
-                    ];
                 }
+
+                $morph = $morph ?: [
+                    'name' => $name,
+                    'ic' => $ic,
+                    'disambiguator' => $disambiguator
+                ];
 
                 if ($ic === 0) {
                     $morph['tempName'] = 'IC.' . $morph['name'];

@@ -18,11 +18,7 @@
 						</a>
 					</alg-tooltip>
 				</span>
-				{!! $form->structure->present() !!}
-				@if($form->structure->hasModifiers())
-					({{ $form->structure->isNegative ? 'Negative' : '' }} {{ $form->structure->isDiminutive ? 'Diminutive' : '' }}			
-					{{ isset($form->structure->isAbsolute) ? ($form->structure->isAbsolute ? 'Absolute' : 'Objective') : '' }})
-				@endif
+				{!! $form->structure->present()->then('modifiers') !!}
 				<br />
 				<a href="/verbs/search/paradigm/results?languages%5B%5D={{ $form->language->name }}&languages%5B%5D_id={{ $form->language_id }}&classes[]={{ $form->structure->class_id }}&subclasses[]={{ $form->structure->subclass }}&orders[]={{ $form->structure->order_id }}&affirmative={{ $form->structure->isNegative ? '0' : '1' }}&negative={{ $form->structure->isNegative or '0' }}&diminutive={{ $form->structure->isDiminutive or '0' }}&modeSelect=selectModes&modes[]={{ $form->structure->mode_id }}">View paradigm</a>
 			</div>

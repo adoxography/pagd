@@ -9,8 +9,9 @@ use Algling\Phonology\Models\Phoneme;
 use Algling\Phonology\Models\Place;
 use Algling\Phonology\Models\Voicing;
 use App\Language;
+use Illuminate\Contracts\Support\Jsonable;
 
-class Inventory
+class Inventory implements Jsonable
 {
     protected $language;
 
@@ -24,22 +25,63 @@ class Inventory
 
     public $features;
 
-    public function __construct(Language $language)
+    public function __construct(Language $language, $includeNull = false)
     {
         $this->language = $language;
 
-        $this->loadPhonemes();
+        $this->loadPhonemes($includeNull);
         $this->loadFeatures();
     }
 
-    protected function loadPhonemes()
+    protected function loadPhonemes($includeNull = false)
     {
         $phonemes = $this->language->phonemes;
 
-        $this->consonants = $phonemes->where('featurable_type', 'consonantTypes')->where('isArchiphoneme', false);
-        $this->vowels = $phonemes->where('featurable_type', 'vowelTypes')->where('isArchiphoneme', false);
-        $this->clusters = $phonemes->where('featurable_type', 'clusterTypes');
+        $this->consonants = $phonemes->where('featurable_type', 'consonantTypes')
+                                    ->where('isArchiphoneme', false)
+                                    ->sortBy(function ($phoneme) {
+                                        return array_search(
+                                            str_replace('*', '', $phoneme->algoName),
+                                            ['p', 't', 'k', 'ʔ', 'θ', 's', 'š', 'h', 'č', 'm', 'n', 'r', 'w', 'y']
+                                        );
+                                    });
+        $this->vowels = $phonemes->where('featurable_type', 'vowelTypes')
+                                ->where('isArchiphoneme', false)
+                                ->sortBy(function ($phoneme) {
+                                    return [
+                                        array_search(
+                                            str_replace('*', '', $phoneme->algoName)[0],
+                                            ['i', 'o', 'e', 'a']
+                                        ),
+                                        strlen($phoneme->algoName)];
+                                });
+        $this->clusters = $phonemes->where('featurable_type', 'clusterTypes')
+                                ->sortBy(function ($phoneme) {
+                                    $name = str_replace('*', '', $phoneme->algoName);
+
+                                    return [
+                                        array_search(
+                                            $name[0],
+                                            ['ʔ', 'H', 'h', 'N', 'm', 'n', 's', 'š', 'θ', 'x', 'ç', 'r']
+                                        ),
+                                        array_search(
+                                            $name[1],
+                                            ['k', 'p', 't', 'č', 's', 'š', 'x', 'θ', 'r', 'm']
+                                        )
+                                    ];
+                                });
         $this->archiphonemes = $phonemes->where('isArchiphoneme', true);
+
+        if ($includeNull) {
+            $nullPhoneme = $phonemes->where('featurable_type', null)->first();
+
+            if ($nullPhoneme) {
+                $this->consonants->push($nullPhoneme);
+                $this->vowels->push($nullPhoneme);
+                $this->clusters->push($nullPhoneme);
+                $this->archiphonemes->push($nullPhoneme);
+            }
+        }
     }
 
     protected function loadFeatures()
@@ -49,7 +91,9 @@ class Inventory
 
     protected function loadVowelFeatures()
     {
-        $featureSet = $this->vowels->pluck('featurable');
+        $featureSet = $this->vowels->filter(function ($phoneme) {
+            return !$phoneme->isNull();
+        })->pluck('featurable');
 
         return collect([
             'backnesses' => $featureSet->pluck('backness')->unique()->sortBy('id'),
@@ -59,7 +103,9 @@ class Inventory
 
     protected function loadConsonantFeatures()
     {
-        $featureSet = $this->consonants->pluck('featurable');
+        $featureSet = $this->consonants->filter(function ($phoneme) {
+            return !$phoneme->isNull();
+        })->pluck('featurable');
 
         return collect([
             'places'     => $featureSet->pluck('place')->unique()->sortBy('id'),
@@ -70,11 +116,13 @@ class Inventory
 
     protected function loadClusterFeatures()
     {
-        $featureSet = $this->clusters->pluck('featurable');
+        $featureSet = $this->clusters->filter(function ($phoneme) {
+            return !$phoneme->isNull();
+        })->pluck('featurable');
 
         return collect([
-            'firstSegments' => $this->getClusterFeature($featureSet, 'firstSegment', ['ʔ', 'H', 'h', 'N', 'm', 'n', 'š', 's', 'θ', 'r']),
-            'secondSegments' => $this->getClusterFeature($featureSet, 'secondSegment', ['k', 'p', 't', 'č', 's', 'š', 'θ', 'r', 'm'])
+            'firstSegments' => $this->getClusterFeature($featureSet, 'firstSegment', ['ʔ', 'H', 'h', 'N', 'm', 'n', 's', 'š', 'θ', 'x', 'ç', 'r']),
+            'secondSegments' => $this->getClusterFeature($featureSet, 'secondSegment', ['k', 'p', 't', 'č', 's', 'š', 'x', 'θ', 'r', 'm'])
         ]);
     }
 
@@ -161,5 +209,14 @@ class Inventory
         })->sortBy(function ($cluster) {
             return strlen($cluster->name);
         });
+    }
+
+    public function toJson($options = 0)
+    {
+        return json_encode([
+            'consonants' => $this->consonants->values(),
+            'vowels'     => $this->vowels->values(),
+            'clusters'   => $this->clusters->values()
+        ]);
     }
 }

@@ -7,7 +7,7 @@
 				  :placeholder="placeholder"
 				  :disabled="disabled">
 		</textarea>
-	</div>	
+	</div>
 </template>
 
 <script>
@@ -34,8 +34,30 @@ export default {
 			content_css: [ '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i' ],
 			link_title: false,
 			charmap: [
-				['643', 'esh'],
-				['353', 's - hacek']
+				[643, 'esh'],
+				[353, 's (hacek)'],
+				[269, 'c (hacek)'],
+				[952, 'theta'],
+				[331, 'eng'],
+				[638, 'alveolar tap'],
+				[240, 'eth'],
+				[660, 'glottal stop'],
+				[8709, 'null'],
+
+				[593, 'script a'],
+				[230, 'ash'],
+				[596, 'open o'],
+				[603, 'epsilon'],
+				[601, 'schwa'],
+
+				[0x301, 'acute accent'],
+				[0x300, 'grave accent'],
+				[0x302, 'circumflex'],
+				[0x306, 'breve'],
+				[0x304, 'macron'],
+				[0x303, 'tilde'],
+				[720, 'IPA length symbol'],
+				[183, 'Algonquianist length symbol'],
 			],
 			toolbar: 'undo redo | bold italic underline | link | charmap | bullist numlist outdent indent | table | clearformatting',
 			menubar: false,

@@ -11,8 +11,6 @@ class FormTest extends TestCase
 {
     use DatabaseTransactions;
 
-    protected $connectionsToTransact = ['sqlite'];
-
     /** @test */
     public function a_form_has_attributes()
     {

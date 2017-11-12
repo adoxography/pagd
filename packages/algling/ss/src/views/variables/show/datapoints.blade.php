@@ -10,7 +10,9 @@
         @endforeach
 	</div>
 
-	<div class="field">
-		{!! $variable->essay ? replaceTags($variable->essay) : 'Coming soon' !!}
-	</div>
+    @isset ($variable->essay)
+    	<div class="field">
+    		{!! replaceTags($variable->essay) !!}
+    	</div>
+    @endisset
 @endsection

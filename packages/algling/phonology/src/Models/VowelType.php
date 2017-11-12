@@ -2,13 +2,9 @@
 
 namespace Algling\Phonology\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Algling\Phonology\Interfaces\PhonemeTypeInterface;
-
-class VowelType extends Model implements PhonemeTypeInterface
+class VowelType extends PhonemeType
 {
     public $table = 'Phon_Vowels';
-    public $timestamps = false;
     public $name = 'Vowel';
 
     public $booleans = [
@@ -30,11 +26,6 @@ class VowelType extends Model implements PhonemeTypeInterface
         'isRounded'
     ];
 
-    public function getNameAttribute()
-    {
-        return $this->name;
-    }
-
     public function height()
     {
         return $this->belongsTo(Height::class);
@@ -48,35 +39,5 @@ class VowelType extends Model implements PhonemeTypeInterface
     public function length()
     {
         return $this->belongsTo(Length::class);
-    }
-
-    public function hasBooleans()
-    {
-        $found = false;
-
-        for ($i = 0; $i < count($this->booleans) && !$found; $i++) {
-            $boolean = $this->booleans[$i];
-
-            $found = $this->$boolean;
-        }
-
-        return $found;
-    }
-
-    public function convertBooleansToString()
-    {
-        $str = '';
-
-        foreach ($this->booleans as $boolean) {
-            if ($this->$boolean) {
-                if (strlen($str) > 0) {
-                    $str .= ', ';
-                }
-
-                $str .= substr($boolean, 2); // Cut off the "is"
-            }
-        }
-
-        return $str;
     }
 }

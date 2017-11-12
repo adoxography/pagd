@@ -1,4 +1,4 @@
-@extends('layout', ['title' => 'Add phoneme']);
+@extends('layout', ['title' => 'Add phoneme'])
 
 @section('title')
 	Add phoneme

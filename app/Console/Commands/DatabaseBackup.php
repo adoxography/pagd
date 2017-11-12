@@ -2,13 +2,14 @@
 
 namespace App\Console\Commands;
 
+use App\InteractsAcrossFilesystems;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use App;
-use Artisan;
 
 class DatabaseBackup extends Command
 {
+    use InteractsAcrossFilesystems;
+
     /**
      * The name and signature of the console command.
      *
@@ -38,20 +39,40 @@ class DatabaseBackup extends Command
      */
     public function handle()
     {
-        $date = Carbon::now()->format('Y-m-d-H-i-s');
-        $environment = App::environment();
+        $fileName = $this->save();
 
-        Artisan::call(
-            'db:backup',
-            [
-                '--database' => 'mysql',
-                '--destination' => 'dropbox',
-                '--destinationPath' => "/{$environment}/algling_{$environment}_{$date}",
-                '--compression' => 'gzip'
-            ]
-        );
-        $this->info("Database backed up successfully");
+        $this->transfer($fileName);
 
         return null;
+    }
+
+    protected function save()
+    {
+        $name = $this->createFileName();
+        $path = storage_path("app/$name");
+        $database = config('database.connections.mysql.database');
+        $username = config('database.connections.mysql.username');
+        $password = config('database.connections.mysql.password');
+        $host     = config('database.connections.mysql.host');
+
+        exec("mysqldump --user=\"$username\" --password=\"$password\" --host=\"$host\" $database 2>/dev/null | gzip > $path");
+
+        return $name;
+    }
+
+    protected function transfer(string $fileName)
+    {
+        $environment = app()->environment();
+        $path = "backups/$environment/$fileName";
+
+        $this->move($fileName, 'local', 'dropbox', $path);
+    }
+
+    protected function createFileName()
+    {
+        $date = Carbon::now()->format('Y-m-d-H-i-s');
+        $environment = app()->environment();
+
+        return "algling_{$environment}_{$date}.gz";
     }
 }

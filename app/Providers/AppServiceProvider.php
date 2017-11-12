@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Schema;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Laravel\Dusk\DuskServiceProvider;
 use Illuminate\Support\ServiceProvider;
@@ -14,8 +15,8 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {  
-        //
+    {
+        Schema::defaultStringLength(191);
     }
 
     /**

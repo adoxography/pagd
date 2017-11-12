@@ -12,13 +12,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Gap extends Model
 {
     public $table = 'Word_Gaps';
-    protected $fillable = ['structure_id', 'language_id', 'privateNotes', 'historicalNotes'];
+    protected $fillable = ['structure_id', 'language_id', 'privateNotes', 'historicalNotes', 'usageNotes'];
 
     use SourceableTrait, SoftDeletes, HideableTrait, BookmarkableTrait;
 
     public function language()
     {
-    	return $this->belongsTo(Language::class);
+        return $this->belongsTo(Language::class);
     }
 
     public function structure()

@@ -12,7 +12,9 @@ trait HasTypeTrait
     public static function bootHasTypeTrait()
     {
         static::saving(function ($model) {
-            $model->assignType();
+            if (!$model->isNull()) {
+                $model->assignType();
+            }
         });
     }
 

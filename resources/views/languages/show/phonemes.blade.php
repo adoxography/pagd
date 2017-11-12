@@ -71,7 +71,7 @@
 			<span class="label">
 				Reflexes of <a href="/languages/1/phonemes">PA</a> consonants
 			</span>
-	
+
 			@include('languages.show.partials.consonants', [
 				'localInventory' => $paInventory,
 				'callback' => function($phoneme) use ($language) {

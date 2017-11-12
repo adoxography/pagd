@@ -7,174 +7,181 @@ use App\AlgPresenter;
 
 class PhonemePresenter extends AlgPresenter
 {
-	public function name(string $format = '')
-	{
-		$name = parent::name($format);
+    public function name(string $format = '')
+    {
+        if ($this->model->isNull()) {
+            return $this->model->algoName;
+        }
 
-		$name = sprintf('<em>%s</em>', $name);
+        $name = parent::name($format);
 
-		if($this->model->isMarginal) {
-			$name = "($name)";
-		}
+        $name = sprintf('<em>%s</em>', $name);
 
-		return $name;
-	}
+        if ($this->model->isMarginal) {
+            $name = "($name)";
+        }
 
-	public function link(string $addon = '', string $format = '')
-	{
-		$link = parent::link($addon, $format);
+        return $name;
+    }
 
-		if($this->model->isMarginal) {
-			$link = preg_replace('`^(<a href=".*">)(\()(.*)(\))(</a>)`', '$2$1$3$5$4', $link);
-		}
+    public function link(string $addon = '', string $format = '')
+    {
+        if ($this->model->isNull()) {
+            return $this->name;
+        }
 
-		return $link;
-	}
+        $link = parent::link($addon, $format);
 
-	public function transcription($attribute = '')
-	{
-		if(strlen($attribute) == 0) {
-			$name = $this->model->ipaName ?: $this->model->algoName;
-		} else {
-			$name = $this->model->$attribute;
-		}
+        if ($this->model->isMarginal) {
+            $link = preg_replace('`^(<a href=".*">)(\()(.*)(\))(</a>)`', '$2$1$3$5$4', $link);
+        }
 
-		return preg_replace('`^(/?)(\*?)(/?)([^/\[\]]+)(/?)`', '$2/$4/', $name);
-	}
+        return $link;
+    }
 
-	public function parentReflexes()
-	{
-		$output = '';
+    public function transcription($attribute = '')
+    {
+        if (strlen($attribute) == 0) {
+            $name = $this->model->ipaName ?: $this->model->algoName;
+        } else {
+            $name = $this->model->$attribute;
+        }
 
-		// Make sure all of the relevant parents have been loaded
-		$this->model->load('allParents');
+        return preg_replace('`^(/?)(\*?)(/?)([^/\[\]]+)(/?)`', '$2/$4/', $name);
+    }
 
-		$lines = $this->generateParentLines($this->model);
+    public function parentReflexes()
+    {
+        $output = '';
 
-		foreach($lines as $parents) {
-			$output .= $this->printParentReflexLine($parents);
-		}
+        // Make sure all of the relevant parents have been loaded
+        $this->model->load('allParents');
 
-		return sprintf('<ul>%s</ul>', $output);
-	}
+        $lines = $this->generateParentLines($this->model);
 
-	public function childReflexes()
-	{
-		$output = '';
+        foreach ($lines as $parents) {
+            $output .= $this->printParentReflexLine($parents);
+        }
 
-		$this->model->load('allChildren');
+        return sprintf('<ul>%s</ul>', $output);
+    }
 
-		$lines = $this->generateChildrenLines($this->model);
+    public function childReflexes()
+    {
+        $output = '';
 
-		foreach($lines as $children) {
-			$output .= $this->printChildReflexLine($children);
-		}
+        $this->model->load('allChildren');
 
-		return sprintf('<ul>%s</ul>', $output);
-	}
+        $lines = $this->generateChildrenLines($this->model);
 
-	public function environment()
-	{
-		$output = '';
+        foreach ($lines as $children) {
+            $output .= $this->printChildReflexLine($children);
+        }
 
-		if($this->model->pivot && $this->model->pivot->environment) {
-			$output = '&nbsp/&nbsp' . $this->model->pivot->environment;
-		}
+        return sprintf('<ul>%s</ul>', $output);
+    }
 
-		return $output;
-	}
+    public function environment()
+    {
+        $output = '';
 
-	protected function generateParentLines(Phoneme $phoneme)
-	{
-		$lines = [];
+        if ($this->model->pivot && $this->model->pivot->environment) {
+            $output = '&nbsp/&nbsp' . $this->model->pivot->environment;
+        }
 
-		if($phoneme->parents->count() > 0) {
-			foreach($phoneme->parents as $parent) {
-				$parentLines = $this->generateParentLines($parent);
+        return $output;
+    }
 
-				if(count($parentLines) > 0) {
-					foreach($parentLines as $line) {
-						$lines[] = array_merge($line, [$parent]);
-					}
-				} else {
-					$lines[] = [$parent];
-				}
-			}
-		}
+    protected function generateParentLines(Phoneme $phoneme)
+    {
+        $lines = [];
 
-		return $lines;
-	}
+        if ($phoneme->parents->count() > 0) {
+            foreach ($phoneme->parents as $parent) {
+                $parentLines = $this->generateParentLines($parent);
 
-	protected function generateChildrenLines(Phoneme $phoneme)
-	{
-		$lines = [];
+                if (count($parentLines) > 0) {
+                    foreach ($parentLines as $line) {
+                        $lines[] = array_merge($line, [$parent]);
+                    }
+                } else {
+                    $lines[] = [$parent];
+                }
+            }
+        }
 
-		if($phoneme->reflexes->count() > 0) {
-			foreach($phoneme->reflexes as $reflex) {
-				$childrenLines = $this->generateChildrenLines($reflex);
+        return $lines;
+    }
 
-				if(count($childrenLines) > 0) {
-					foreach($childrenLines as $line) {
-						$lines[] = array_merge([$reflex], $line);
-					}
-				} else {
-					$lines[] = [$reflex];
-				}
-			}
-		}
+    protected function generateChildrenLines(Phoneme $phoneme)
+    {
+        $lines = [];
 
-		return $lines;
-	}
+        if ($phoneme->reflexes->count() > 0) {
+            foreach ($phoneme->reflexes as $reflex) {
+                $childrenLines = $this->generateChildrenLines($reflex);
 
-	protected function printParentReflexLine(array $parents)
-	{
+                if (count($childrenLines) > 0) {
+                    foreach ($childrenLines as $line) {
+                        $lines[] = array_merge([$reflex], $line);
+                    }
+                } else {
+                    $lines[] = [$reflex];
+                }
+            }
+        }
 
-		$output = '';
+        return $lines;
+    }
 
-		for($i = 0; $i < count($parents); $i++) {
-			$parent = $parents[$i];
+    protected function printParentReflexLine(array $parents)
+    {
+        $output = '';
 
-			$output .= $parent->present()->as('link', 'reflexes')
-						->before('language');
+        for ($i = 0; $i < count($parents); $i++) {
+            $parent = $parents[$i];
 
-			if($i > 0) {
-				$output .= $parents[$i - 1]->present()->environment;
-			}
+            $output .= $parent->present()->as('link', 'reflexes')
+                        ->before('language');
 
-			$output .= '&nbsp<a href="/reflexes/' . $parents[$i]->pivot->id . '">></a>&nbsp';
-		}
+            if ($i > 0) {
+                $output .= $parents[$i - 1]->present()->environment;
+            }
 
-		$output .= $this->model->present()->as('name', 'bold')
-					->before('language');
+            $output .= '&nbsp<a href="/reflexes/' . $parents[$i]->pivot->id . '">></a>&nbsp';
+        }
 
-		$output .= array_last($parents)->present('environment');
+        $output .= $this->model->present()->as('name', 'bold')
+                    ->before('language');
 
-		return sprintf('<li>%s</li>', $output);
-	}
+        $output .= array_last($parents)->present('environment');
 
-	protected function printChildReflexLine(array $children)
-	{
-		$output = $this->model->present()->as('name', 'bold')
-					->before('language');
+        return sprintf('<li>%s</li>', $output);
+    }
 
-		foreach($children as $child) {
-			$output .= '&nbsp<a href="/reflexes/' . $child->pivot->id . '">></a>&nbsp' . $child->present()->as('link', 'reflexes')
-						->before('language');
+    protected function printChildReflexLine(array $children)
+    {
+        $output = $this->model->present()->as('name', 'bold')
+                    ->before('language');
 
-			$output .= $child->present('environment');
-		}
+        foreach ($children as $child) {
+            $output .= '&nbsp<a href="/reflexes/' . $child->pivot->id . '">></a>&nbsp' . $child->present()->as('link', 'reflexes')
+                        ->before('language');
 
-		return sprintf('<li>%s</li>', $output);
-	}
+            $output .= $child->present('environment');
+        }
 
-	protected function getURI()
-	{
-		$this->model->load('features');
+        return sprintf('<li>%s</li>', $output);
+    }
 
-		if($this->model->type == 'Cluster') {
-			return 'clusters';
-		} else {
-			return 'phonemes';
-		}
-	}
+    protected function getURI()
+    {
+        $this->model->load('features');
+
+        if ($this->model->type == 'Cluster') {
+            return 'clusters';
+        } else {
+            return 'phonemes';
+        }
+    }
 }

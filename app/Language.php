@@ -46,12 +46,15 @@ class Language extends Model
         'reconstructed',
         'location'
     ];
-    protected $assets = [
+    public $assets = [
         'forms',
         'examples',
         'morphemes',
-        'phonemes'
+        'phonemes',
+        'nominalParadigms'
     ];
+
+    public $inventory;
 
     public function toSearchableArray()
     {
@@ -59,8 +62,6 @@ class Language extends Model
 
         return array_only($array, ['id', 'alternateNames', 'name', 'iso', 'algoCode', 'notes']);
     }
-
-    public $uri = '/languages';
 
     /*
     |--------------------------------------------------------------------------
@@ -191,9 +192,19 @@ class Language extends Model
         return new LanguagePresenter($this, $method);
     }
 
-    public function phonology()
+    public function phonology($includeNull = false)
     {
-        return new Inventory($this);
+        if (!isset($this->inventory)) {
+            return $this->loadPhonology($includeNull);
+        }
+
+        return $this->inventory;
+    }
+
+    public function loadPhonology($includeNull = false)
+    {
+        $this->inventory = new Inventory($this, $includeNull);
+        return $this->inventory;
     }
 
     public function hasVariable(Variable $variable)
@@ -213,5 +224,13 @@ class Language extends Model
     public function getAliasesAttribute()
     {
         return $this->alternateNames;
+    }
+
+    public function getNullPhoneme()
+    {
+        return Phoneme::firstOrCreate([
+            'language_id' => $this->id,
+            'algoName' => '∅'
+        ]);
     }
 }

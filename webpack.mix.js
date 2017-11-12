@@ -1,4 +1,8 @@
 let mix = require('laravel-mix');
+const MinifyPlugin = require("babel-minify-webpack-plugin");
+const webpackConfig = {
+    plugins: []
+}
 
 /*
  |--------------------------------------------------------------------------
@@ -14,9 +18,15 @@ mix.autoload({
    jquery: ['$', 'window.jQuery']
 });
 
-mix.options({
-    uglify: false
-});
+if (mix.inProduction()) {
+    webpackConfig.plugins.push(new MinifyPlugin);
+
+    mix.options({
+        uglify: false
+    });
+}
+
+mix.webpackConfig(webpackConfig)
 
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')

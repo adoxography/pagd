@@ -21,7 +21,8 @@
 				@component('components.form.text', [
 					'name'      => 'name',
 					'autofocus' => true,
-					'rules'     => 'required'
+					'rules'     => 'required',
+					'typewriter' => true
 				])
 					@slot('value')
 						@if(isset($example))
@@ -49,6 +50,8 @@
 							{{ $language->name }}
 						@elseif(isset($form))
 							{{ $form->language->name }}
+						@elseif(isset($phoneme))
+							{{ $phoneme->language->name }}
 						@endif
 					@endslot
 				@endcomponent
@@ -57,12 +60,13 @@
 			{{-- form --}}
 			<div class="column is-half">
 				@component('components.form.ajaxlist', [
-					'name' => 'form',
-					'uri' => '/autocomplete/forms',
-					'with' => '{ language: language.id }',
-					'disabled' => '!language.id',
+					'name'        => 'form',
+					'uri'         => '/autocomplete/forms',
+					'with'        => '{ language: language.id }',
+					'disabled'    => '!language.id',
 					'placeholder' => 'Make sure to select the language first',
-					'rules' => 'datalist_exists',
+					'rules'       => 'datalist_exists',
+					'typewriter'  => true,
 					'on' => [
 						'input' => 'onFormInput'
 					]
@@ -118,7 +122,8 @@
 			<div class="column is-half">
 				@component('components.form.text', [
 					'name'  => 'phonemicForm',
-					'label' => 'phonemic representation'
+					'label' => 'phonemic representation',
+					'typewriter' => true
 				])
 					@slot('value')
 						@if(isset($example))
@@ -130,12 +135,13 @@
 
 			<div class="column is-half">
 				@component('components.form.ajaxlist', [
-					'name' => 'parent',
-					'uri' => '/autocomplete/exampleParents',
-					'with' => '{ language: language.id }',
-					'disabled' => '!language.id',
+					'name'        => 'parent',
+					'uri'         => '/autocomplete/exampleParents',
+					'with'        => '{ language: language.id }',
+					'disabled'    => '!language.id',
 					'placeholder' => 'Make sure to select the language first',
-					'rules' => 'datalist_exists'
+					'rules'       => 'datalist_exists',
+					'typewriter'  => true
 				])
 					@slot('value')
 						@if(isset($example) && $example->parent)

@@ -7,6 +7,147 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			11-11-11: Added names to the slot index
+		</li>
+		<li>
+			11-11-11: Removed empty parentheses
+		</li>
+		<li>
+			11-11-11: Resolved phoneme feature rendering issue
+		</li>
+		<hr>
+		<li>
+			05-11-17: Added "Miscellaneous generalization" to rule types
+		</li>
+		<li>
+			05-11-17: Enabled usage notes for form gaps
+		</li>
+		<li>
+			05-11-17: Removed stray space from some verb forms
+		</li>
+		<li>
+			05-11-17: Fixed gap links
+		</li>
+		<hr>
+		<li>
+			03-11-17: Added voiceless diacritic to typewriter
+		</li>
+		<hr>
+		<li>
+			31-10-17: Added subscripts for rules
+		</li>
+		<li>
+			31-10-17: Made superfluous PA parent/child links delete when reflexes are deleted
+		</li>
+		<li>
+			30-10-17: Added 0, 0s, 0d, and 0p to possible pronominal features
+		</li>
+		<hr>
+		<li>
+			27-10-17: Fixed validation in nominal form
+		</li>
+		<hr>
+		<li>
+			26-10-17: Fixed broken links in languages' nominals page
+		</li>
+		<hr>
+		<li>
+			24-10-17: Added phoneme search
+		</li>
+		<hr>
+		<li>
+			23-10-17: Updated presentation of null phoneme
+		</li>
+		<hr>
+		<li>
+			22-10-17: Added ability to mark a phoneme has having been deleted, instead of having a reflex
+		</li>
+		<hr>
+		<li>
+			21-10-17: Fixed issue with morpheme input not appearing
+		</li>
+		<li>
+			21-10-17: Fixed broken nominal paradigm links
+		</li>
+		<li>
+			21-10-17: Added "affirmative" and "non-affirmative" to modes
+		</li>
+		<li>
+			21-10-17: Added "lexicon" to variable types
+		</li>
+		<hr>
+		<li>
+			18-10-17: Added typewriter to cluster input
+		</li>
+		<li>
+			18-10-17: Fixed sorting of obviative nominal forms
+		</li>
+		<li>
+			18-10-17: Updated ordering of cluster tables
+		</li>
+		<li>
+			18-10-17: Changed the name of the clusters table to 'Primary clusters,' except for PA
+		</li>
+		<li>
+			18-10-17: Fixed bookmarking for phonology module
+		</li>
+		<li>
+			18-10-17: Fixed bug in nominals with parents
+		</li>
+		<hr>
+		<li>
+			14-10-17: Fixed bug where reflexes wouldn't delete
+		</li>
+		<hr>
+		<li>
+			06-10-17: Stopped sources from disappearing
+		</li>
+		<li>
+			06-10-17: Added debounce to cluster selection
+		</li>
+		<li>
+			06-10-17: Fixed bug in rule edits
+		</li>
+		<li>
+			06-10-17: Fixed source source suggestions
+		</li>
+		<hr>
+		<li>
+			19-09-17: Fixed map display
+		</li>
+		<li>
+			19-09-17: Added registration email for new users
+		</li>
+		<hr>
+		<li>
+			16-09-17: Added "add another" button to phoneme examples
+		</li>
+		<li>
+			16-09-17: Ordered open tickets by creation date and closed tickets by closed date
+		</li>
+		<li>
+			16-09-17: Fixed bad links in user profiles
+		</li>
+		<hr>
+		<li>
+			15-09-17: Added special character typewriter to relevant fields in morphemes, forms, and examples, and to the symbol tool in textareas
+			<ul>
+				<li>The symbol tool layout is not ideal; a customized solution is forthcoming</li>
+				<li>Typewriter for morpheme inputs in forms and examples is forthcoming</li>
+			</ul>
+		</li>
+		<hr>
+		<li>
+			14-09-17: Added timestamps to tickets
+			<ul>
+				<li>"Date closed" times are inaccurate pre-August 23rd</li>
+			</ul>
+		</li>
+		<li>
+			14-09-17: Removed "Coming soon" from variables with no essay
+		</li>
+		<hr>
+		<li>
 			10-09-17: Style update
 			<ul>
 				<li>Converted the "languages" link into a dropdown with all languages</li>

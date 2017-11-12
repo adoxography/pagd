@@ -63,6 +63,7 @@ class Phoneme extends Model
         'privateNotes'     => 'private notes',
         'isMarginal'       => 'marginal',
         'phonemeable_type' => 'phoneme type',
+        'phonemeable_id'   => 'features',
         'archiphonemeDescription' => 'archiphoneme description'
     ];
     protected $dontKeepRevisionOf = [
@@ -83,6 +84,10 @@ class Phoneme extends Model
 
     public function getAlgoNameAttribute($value)
     {
+        if ($this->isNull()) {
+            return $value;
+        }
+
         return $this->modifyIfReconstructed($value);
     }
 
@@ -112,7 +117,7 @@ class Phoneme extends Model
 
     public function phonemeable()
     {
-        return $this->features();
+        return $this->morphTo();
     }
 
     public function allophones()
@@ -236,5 +241,10 @@ class Phoneme extends Model
         }
 
         $this->examples()->sync($examples);
+    }
+
+    public function isNull()
+    {
+        return $this->phonemeable_type === null;
     }
 }

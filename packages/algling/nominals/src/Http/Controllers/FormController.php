@@ -2,12 +2,15 @@
 
 namespace Algling\Nominals\Http\Controllers;
 
-use Algling\Nominals\Models\Form;
-use App\Http\Controllers\Controller;
 use Algling\Nominals\Http\Requests\FormRequest;
+use Algling\Nominals\Models\Form;
+use Algling\Words\Traits\ConvertsMorphemes;
+use App\Http\Controllers\Controller;
 
 class FormController extends Controller
 {
+    use ConvertsMorphemes;
+
     /**
      * Initialize middleware
      */
@@ -70,39 +73,5 @@ class FormController extends Controller
 
     public function destroy(Form $nominalForm)
     {
-    }
-
-    protected function convertMorphemes()
-    {
-        $morphemicForm = null;
-        $morphemes = request()->morphemes;
-
-        if (count($morphemes) > 0) {
-            $firstTime = true;
-
-            foreach ($morphemes as $morpheme) {
-                if ($firstTime) {
-                    $firstTime = false;
-                } else {
-                    $morphemicForm .= '-';
-                }
-
-                if ($morpheme['ic'] != null && $morpheme['ic'] >= 0) {
-                    $morphemicForm .= "IC";
-                    if ($morpheme['ic'] > 0) {
-                        $morphemicForm .= '.' . $morpheme['ic'];
-                    }
-                    $morphemicForm .= "|";
-                }
-
-                $morphemicForm .= str_replace(['*', '-'], '', $morpheme['name']);
-
-                if ($morpheme['disambiguator']) {
-                    $morphemicForm .= '.' . $morpheme['disambiguator'];
-                }
-            }
-
-            return $morphemicForm;
-        }
     }
 }

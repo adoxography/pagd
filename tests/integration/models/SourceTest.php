@@ -1,13 +1,13 @@
 <?php
 
+use Algling\Phonology\Models\Phoneme;
+use App\Models\Morphology\Morpheme;
 use App\Source;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class SourceTest extends TestCase
 {
     use DatabaseTransactions;
-
-    protected $connectionsToTransact = ['sqlite'];
 
     /** @test */
     public function a_source_has_attributes()
@@ -82,5 +82,34 @@ class SourceTest extends TestCase
         ]);
 
         $this->assertEquals('Fred 2017c', $sources->last()->name);
+    }
+
+    /** @test */
+    public function old_sources_are_removed_before_adding_new_ones()
+    {
+        $sources = [
+            ['id' => factory(Source::class)->create()->id]
+        ];
+
+        $phoneme = factory(Phoneme::class)->create(['sources' => $sources]);
+        $phoneme->syncSources($sources);
+
+        $this->assertCount(1, $phoneme->sources()->get());
+    }
+
+    /** @test */
+    public function sources_do_not_crosstalk()
+    {
+        $sources = [
+            ['id' => factory(Source::class)->create()->id]
+        ];
+
+        $phonemeData = factory(Phoneme::class)->raw(['id' => 1000]);
+        $morphemeData  = factory(Morpheme::class)->raw(['id' => 1000]);
+
+        $phoneme = Phoneme::forceCreate($phonemeData + ['sources' => $sources]);
+        $morpheme  = Morpheme::forceCreate($morphemeData + ['sources' => $sources]);
+
+        $this->assertCount(1, $phoneme->sources()->get());
     }
 }

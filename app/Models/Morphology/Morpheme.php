@@ -45,7 +45,6 @@ class Morpheme extends Model
         'allomorphyNotes',
         'historicalNotes',
         'usageNotes',
-        'translation',
         'privateNotes',
         'newSources'
     ];
@@ -60,7 +59,7 @@ class Morpheme extends Model
     {
         $array = $this->toArray();
 
-        return array_only($array, ['id', 'name', 'allomorphyNotes', 'historicalNotes', 'usageNotes', 'translation', 'comments']);
+        return array_only($array, ['id', 'name', 'allomorphyNotes', 'historicalNotes', 'usageNotes', 'comments']);
     }
 
     protected $disambiguatableFields = ['name', 'language_id'];

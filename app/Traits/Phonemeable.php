@@ -7,6 +7,8 @@ use Algling\Phonology\Models\Phoneme;
 
 trait Phonemeable
 {
+    public $specialCharacters = ["\u0301", "\u0300", "\u0302", "\u0306", "\u0304", "\u0303", "ː", "·"];
+
     /**
      * Boot the phonemeable trait
      */
@@ -14,6 +16,10 @@ trait Phonemeable
     {
         static::saved(function ($model) {
             $model->connectPhonemes();
+        });
+
+        static::deleting(function ($model) {
+            $model->dropPhonemes();
         });
     }
 
@@ -41,57 +47,43 @@ trait Phonemeable
         $added = [];
         $i = 0;
 
-        DB::table('phonemeables')
-          ->where('phonemeable_type', $this->getMorphType())
-          ->where('phonemeable_id', $this->id)
-          ->delete();
+        $this->dropPhonemes();
 
-        while ($i < strlen($this->phonemicForm)) {
-            $phoneme = $this->lookupPhoneme($i);
+        preg_match_all("/.{$this->specialCharacterPattern()}/", $this->phonemicForm, $phonemes);
+
+        foreach ($phonemes as $phoneme) {
+            $phoneme = $this->lookupPhoneme($phoneme);
 
             if ($phoneme && !in_array($phoneme->id, $added)) {
                 $this->phonemes()->attach($phoneme->id, ['phonemeable_type' => $this->getMorphType()]);
                 $added[] = $phoneme->id;
             }
-
-            // Advance the index the length of the found phoneme, or 1 if none was found
-            $i += $phoneme ? strlen($phoneme->algoName) : 1;
         }
     }
 
     /**
      * Look up the phoneme at the given index
      *
-     * @param  int $index
+     * @param  string $phoneme
      * @return Algling\Phonology\Models\Phoneme|null
      */
-    public function lookupPhoneme(int $index)
+    public function lookupPhoneme(string $phoneme)
     {
-        $phoneme = $this->lookupPhonemeWithDiacritic($index);
-
-        if (!$phoneme) {
-            $phoneme = Phoneme::where('algoName', $this->phonemicForm{$index})
-                              ->first();
-        }
-
-        return $phoneme;
+        return Phoneme::where('language_id', $this->language_id)->where('algoName', $phoneme)->first();
     }
 
-    /**
-     * Look up the phoneme at the given index, assuming the next character is a diacritic
-     *
-     * @param  int $index
-     * @return Algling\Phonology\Models\Phoneme|null
-     */
-    protected function lookupPhonemeWithDiacritic(int $index)
+    public function dropPhonemes()
     {
-        $lookup = null;
+        DB::table('phonemeables')
+          ->where('phonemeable_type', $this->getMorphType())
+          ->where('phonemeable_id', $this->id)
+          ->delete();
+    }
 
-        if ($index < strlen($this->phonemicForm) - 1) {
-            $lookup = Phoneme::where('algoName', mb_substr($this->phonemicForm, $index, 2))
-                             ->first();
-        }
+    protected function specialCharacterPattern()
+    {
+        $characters = implode($this->specialCharacters);
 
-        return $lookup;
+        return '[' . json_decode('"'.$characters.'"') . ']';
     }
 }

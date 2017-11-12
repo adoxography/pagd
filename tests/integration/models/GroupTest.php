@@ -6,71 +6,47 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class GroupTest extends TestCase
 {
-	use DatabaseTransactions;
+    use DatabaseTransactions;
 
-	protected $connectionsToTransact = ['sqlite'];
+    protected $connectionsToTransact = ['sqlite'];
 
-	/** @test */
-	function a_group_has_a_name()
-	{
-		$group = new Group(['name' => 'TestGroup']);
+    /** @test */
+    public function a_group_has_a_name()
+    {
+        $group = new Group(['name' => 'TestGroup']);
 
-		$this->assertEquals('TestGroup', $group->name);
-	}
+        $this->assertEquals('TestGroup', $group->name);
+    }
 
-	/** @test */
-	function a_group_has_a_description()
-	{
-		$group = new Group(['description' => 'This is the description']);
+    /** @test */
+    public function a_group_saves()
+    {
+        $group = new Group([
+            'name' => 'TestGroup',
+            'description' => 'This is the description'
+        ]);
 
-		$this->assertEquals('This is the description', $group->description);
-	}
+        $group->save();
 
-	/** @test */
-	function a_group_saves()
-	{
-		$group = new Group([
-			'name' => 'TestGroup',
-			'description' => 'This is the description'
-		]);
+        $this->assertGreaterThan(0, $group->id);
+    }
 
-		$group->save();
+    public function a_group_starts_with_no_languages()
+    {
+        $group = factory(Group::class)->create();
 
-		$this->assertGreaterThan(0, $group->id);
-	}
+        $this->assertCount(0, $group->languages);
+    }
 
-	function a_group_starts_with_no_languages()
-	{
-		$group = factory(Group::class)->create();
+    public function a_group_has_languages()
+    {
+        $group = factory(Group::class)->create();
+        $language = factory(Language::class)->create();
 
-		$this->assertCount(0, $group->languages);
-	}
+        $language->group_id = $group->id;
 
-	function a_group_has_languages()
-	{
-		$group = factory(Group::class)->create();
-		$language = factory(Language::class)->create();
-
-		$language->group_id = $group->id;
-
-		$this->assertCount(1, $group->languages);
-		$this->assertEquals($group->name, $language->group->name);
-		$this->assertEquals($group->languages->first()->name, $language->name);
-	}
-
-	// /** @test */
-	// function a_group_fetches_its_languages()
-	// {
-	// 	$group = factory(Group::class)->create();
-
-	// 	for ($i=0; $i < 5; $i++) { 
-	// 		factory(Language::class)->create(['group_id' => $group->id]);
-	// 		var_dump($group->languages->pluck('name'));
-	// 	}
-	// 	// $languages = factory(Language::class, 5)->create([
-	// 	// 	'group_id' => $group->id
-	// 	// ]);
-
-	// 	$this->assertCount(5, $group->languages);
-	// }
+        $this->assertCount(1, $group->languages);
+        $this->assertEquals($group->name, $language->group->name);
+        $this->assertEquals($group->languages->first()->name, $language->name);
+    }
 }

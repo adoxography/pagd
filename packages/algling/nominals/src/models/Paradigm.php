@@ -10,31 +10,33 @@ use Illuminate\Database\Eloquent\Model;
 
 class Paradigm extends Model
 {
-	use SourceableTrait;
-	use BookmarkableTrait;
+    use SourceableTrait;
+    use BookmarkableTrait;
 
     public $table = 'Nom_Paradigms';
 
     protected $fillable = ['name', 'language_id', 'paradigmType_id'];
 
+    public $uri = 'nominals/paradigms';
+
     public function paradigmType()
     {
-    	return $this->belongsTo(ParadigmType::class, 'paradigmType_id');
+        return $this->belongsTo(ParadigmType::class, 'paradigmType_id');
     }
 
     public function type()
     {
-    	return $this->paradigmType();
+        return $this->paradigmType();
     }
 
     public function language()
     {
-    	return $this->belongsTo(Language::class);
+        return $this->belongsTo(Language::class);
     }
 
     public function structures()
     {
-    	return $this->hasMany(Structure::class);
+        return $this->hasMany(Structure::class);
     }
 
     public function getFormsAttribute()
@@ -51,7 +53,7 @@ class Paradigm extends Model
                 'morphemes.glosses',
                 'morphemes.slot'
             ])->where('language_id', $this->language_id)
-            ->whereHas('structure', function($query) use ($id) {
+            ->whereHas('structure', function ($query) use ($id) {
                 $query->where('paradigm_id', $id);
             })->get();
     }

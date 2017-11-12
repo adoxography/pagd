@@ -29,10 +29,11 @@ class Structure extends Model
     ];
     protected $appends = ['summary'];
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
 
-        static::saving(function($model) {
+        static::saving(function ($model) {
             $model->assignSubclass();
         });
     }
@@ -132,11 +133,11 @@ class Structure extends Model
     {
         $code = $this->isAbsolute;
 
-        if($code === null) {
+        if ($code === null) {
             $status = '';
-        } elseif($code === 0) {
+        } elseif ($code === 0) {
             $status = 'Objective';
-        } elseif($code === 1) {
+        } elseif ($code === 1) {
             $status = 'Absolute';
         }
 
@@ -223,7 +224,7 @@ class Structure extends Model
             }
 
             $this->subclass = $subclass;
-        }     
+        }
     }
 
     /**
@@ -236,7 +237,7 @@ class Structure extends Model
      */
     public function getSubclassAttribute($value)
     {
-        if($value) {
+        if ($value) {
             return $value;
         } else {
             return $this->formClass->name;
@@ -248,7 +249,7 @@ class Structure extends Model
     | Methods
     |--------------------------------------------------------------------------
     */
-    
+
     /**
      * Determines if the type has any extra modifiers associated with it
      *
@@ -268,7 +269,7 @@ class Structure extends Model
 
     public function renderArguments()
     {
-        if(!isset($this->head)) {
+        if (!isset($this->head)) {
             $output = $this->arguments;
         } else {
             $output = $this->renderArgument('subject')
@@ -283,10 +284,10 @@ class Structure extends Model
     {
         $arg = '';
 
-        if($this->$field) {
+        if ($this->$field) {
             $arg = $this->$field->name;
 
-            if($this->head == $field) {
+            if ($this->head == $field) {
                 $arg = "<span class='head-argument'>$arg</span>";
             }
 
@@ -331,12 +332,12 @@ class Structure extends Model
     {
         return $this->belongsTo(Argument::class, 'subject_id');
     }
-    
+
     public function primaryObject()
     {
         return $this->belongsTo(Argument::class, 'primaryObject_id');
     }
-    
+
     public function secondaryObject()
     {
         return $this->belongsTo(Argument::class, 'secondaryObject_id');
@@ -350,5 +351,28 @@ class Structure extends Model
     public function present(string $method = 'summary')
     {
         return new StructurePresenter($this, $method);
+    }
+
+    public function getModifiersAttribute()
+    {
+        $output = '';
+
+        if ($this->isNegative) {
+            $output .= 'Negative ';
+        }
+
+        if ($this->isDiminutive) {
+            $output .= 'Diminutive ';
+        }
+
+        if (isset($this->isAbsolute)) {
+            if ($this->isAbsolute) {
+                $output .= 'Absolute';
+            } else {
+                $output .= 'Objective';
+            }
+        }
+
+        return trim($output);
     }
 }

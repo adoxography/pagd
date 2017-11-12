@@ -9,15 +9,11 @@ use Venturecraft\Revisionable\RevisionableTrait;
 
 class Group extends Model
 {
-    use SoftDeletes;
-    use HasChildrenTrait;
-    use BookmarkableTrait;
-    use SourceableTrait;
-    use RevisionableTrait;
+    use SoftDeletes, HasChildrenTrait, BookmarkableTrait, SourceableTrait, RevisionableTrait, BacksUpTrait;
 
     public $table = 'Groups';
 
-    protected $fillable = ['name', 'parent_id', 'publicNotes', 'privateNotes', 'aliases', 'description'];
+    protected $fillable = ['name', 'parent_id', 'publicNotes', 'privateNotes', 'aliases'];
 
     protected $revisionEnabled = true;
     protected $revisionCreationsEnabled = true;

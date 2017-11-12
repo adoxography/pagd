@@ -1,6 +1,6 @@
 <?php
 
-use Algling\Verbals\Models\Form;
+use Algling\Words\Models\Form;
 use App\Group;
 use App\Models\Morphology\Morpheme;
 use App\Source;

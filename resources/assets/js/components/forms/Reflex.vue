@@ -9,9 +9,13 @@ export default {
 		return {
 			language: new Datalist,
 			parent:   new Datalist,
-			reflex:   new Datalist
+			reflex:   new Datalist,
+            deleted: false
 		};
-	}
+	},
 
+    created() {
+        this.deleted = this.oldDeleted == true
+    }
 };
 </script>

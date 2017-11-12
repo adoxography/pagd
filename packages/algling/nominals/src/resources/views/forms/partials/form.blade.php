@@ -50,7 +50,8 @@ $changeTypes = App\ChangeType::all();
 					'label'       => 'surface form',
 					'autofocus'   => true,
 					'placeholder' => 'The form as written in a text',
-					'rules'       => 'required'
+					'rules'       => 'required',
+					'typewriter'  => true
 				])
 					@slot('value')
 						@if(isset($form) && $form->name)
@@ -105,7 +106,7 @@ $changeTypes = App\ChangeType::all();
 							name="pronominalFeature"
 							id="pronominalFeature"
 							:has-errors="errors.has('pronominalFeature')"
-							v-validate="'datalist_exists'"
+							v-validate="validations.pronominalFeature"
 							data-vv-as="pronominal feature"
 							:disabled="!paradigmHasPronominalFeature()"
 							ref="pronominalFeature"
@@ -133,7 +134,7 @@ $changeTypes = App\ChangeType::all();
 							name="nominalFeature"
 							id="nominalFeature"
 							:has-errors="errors.has('nominalFeature')"
-							v-validate="'datalist_exists'"
+							v-validate="validations.nominalFeature"
 							data-vv-as="nominal feature"
 							:disabled="!paradigmHasNominalFeature()"
 							ref="nominalFeature"
@@ -156,7 +157,8 @@ $changeTypes = App\ChangeType::all();
 			@component('components.form.text', [
 				'name'        => 'phonemicForm',
 				'label'       => 'phonemic representation',
-				'placeholder' => 'The Algonquianist phonemic representation (Leave blank if unknown or unclear)'
+				'placeholder' => 'The Algonquianist phonemic representation (Leave blank if unknown or unclear)',
+				'typewriter'  => true
 			])
 				@slot('value')
 					@if(isset($form) && $form->phonemicForm)
@@ -212,12 +214,13 @@ $changeTypes = App\ChangeType::all();
 			<!-- Parent -->
 			<div class="column">
 				@component('components.form.ajaxlist', [
-					'name' => 'parent',
-					'uri' => '/autocomplete/formParents',
-					'with' => '{ language: language.id, type: "nominal" }',
-					'disabled' => '!language.id',
+					'name'        => 'parent',
+					'uri'         => '/autocomplete/formParents',
+					'with'        => '{ language: language.id, type: "nominal" }',
+					'disabled'    => '!language.id',
 					'placeholder' => 'Make sure to select the language first',
-					'rules' => 'datalist_exists',
+					'rules'       => 'datalist_exists',
+					'typewriter'  => true
 				])
 					@slot('value')
 						@if(isset($form))

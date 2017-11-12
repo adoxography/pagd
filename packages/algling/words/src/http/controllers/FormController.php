@@ -3,6 +3,8 @@
 namespace Algling\Words\Http\Controllers;
 
 use Algling\Words\Models\Form;
+use Algling\Verbals\Models\Form as VerbForm;
+use Algling\Nominals\Models\Form as NominalForm;
 use App\Http\Controllers\AlgModelController;
 
 /**
@@ -60,6 +62,12 @@ class FormController extends AlgModelController
      */
     public function destroy(Form $form)
     {
+        if ($form->structure_type == 'verbStructures') {
+            $form = VerbForm::find($form->id);
+        } else {
+            $form = NominalForm::find($form->id);
+        }
+
         $form->delete();
 
         flash("{$form->surfaceForm} deleted successfully.", 'is-success');

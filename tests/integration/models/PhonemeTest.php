@@ -1,6 +1,7 @@
 <?php
 
 use Algling\Phonology\Models\Phoneme;
+use Algling\Phonology\Models\Reflex;
 use App\Language;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
@@ -20,15 +21,37 @@ class PhonemeTest extends TestCase
     }
 
     /** @test */
-    public function a_phoneme_cascades_when_its_language_is_deleted()
+    // public function a_phoneme_cascades_when_its_language_is_deleted()
+    // {
+    //     $language = factory(Language::class)->create();
+    //     $phoneme = factory(Phoneme::class)->create([
+    //         'language_id' => $language->id
+    //     ]);
+
+    //     $language->forceDelete();
+
+    //     $this->assertCount(0, Phoneme::where('id', $phoneme->id)->get());
+    // }
+
+    /** @test */
+    public function associated_reflexes_are_deleted_on_delete()
     {
         $language = factory(Language::class)->create();
-        $phoneme = factory(Phoneme::class)->create([
+
+        $phoneme1 = factory(Phoneme::class)->create([
+            'language_id' => $language->id
+        ]);
+        $phoneme2 = factory(Phoneme::class)->create([
             'language_id' => $language->id
         ]);
 
-        $language->forceDelete();
+        $reflex = factory(Reflex::class)->create([
+            'parent_id' => $phoneme1->id,
+            'reflex_id' => $phoneme2->id
+        ]);
 
-        $this->assertCount(0, Phoneme::where('id', $phoneme->id)->get());
+        $phoneme2->delete();
+
+        $this->assertCount(0, $phoneme1->reflexes()->get());
     }
 }

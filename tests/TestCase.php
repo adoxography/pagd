@@ -9,6 +9,13 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
      */
     protected $baseUrl = 'http://localhost';
 
+    public function setUp()
+    {
+        parent::setUp();
+
+        factory('reset');
+    }
+
     /**
      * Creates the application.
      *

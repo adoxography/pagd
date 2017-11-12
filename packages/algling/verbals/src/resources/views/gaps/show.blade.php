@@ -20,7 +20,7 @@
 				</span>
 				{!! $gap->structure->present() !!}
 				@if($gap->structure->hasModifiers())
-					({{ $gap->structure->isNegative ? 'Negative' : '' }} {{ $gap->structure->isDiminutive ? 'Diminutive' : '' }}			
+					({{ $gap->structure->isNegative ? 'Negative' : '' }} {{ $gap->structure->isDiminutive ? 'Diminutive' : '' }}
 					{{ isset($gap->structure->isAbsolute) ? ($gap->structure->isAbsolute ? 'Absolute' : 'Objective') : '' }})
 				@endif
 				<br />
@@ -29,6 +29,13 @@
 			</div>
 		</div>
 		<div class="column">
+			@if($gap->usageNotes)
+				<div class="field">
+					<span class="label">Usage notes</span>
+					{!! replaceTags($gap->usageNotes, $gap->language_id) !!}
+				</div>
+			@endif
+
 			@if($gap->historicalNotes)
 				<div class="field">
 					<span class="label">Historical notes</span>

@@ -32,8 +32,8 @@ class ReflexRequest extends FormRequest
             'language_id' => ['required', 'integer', 'exists:Languages,id'],
             'parent' => ['required'],
             'parent_id' => ['required', 'integer', 'exists:Phon_Phonemes,id'],
-            'reflex' => ['required'],
-            'reflex_id' => ['required', 'integer', 'exists:Phon_Phonemes,id'],
+            'reflex' => ['nullable', 'required_without:deleted'],
+            'reflex_id' => ['nullable', 'required_without:deleted', 'integer', 'exists:Phon_Phonemes,id']
         ];
     }
 }

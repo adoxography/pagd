@@ -30,7 +30,7 @@
 							'name'      => 'algoName',
 							'autofocus' => true,
 							'rules'     => 'required',
-							'label'     => 'algonquianist phoneme',
+							'label'     => 'algonquianist transcription',
 							'typewriter' => true
 						])
 							@slot('value')
@@ -44,7 +44,7 @@
 					<div class="column is-one-third">
 						@component('components.form.text', [
 							'name'      => 'ipaName',
-							'label'     => 'IPA phoneme',
+							'label'     => 'IPA transcription',
 							'typewriter' => true
 						])
 							@slot('value')
@@ -58,7 +58,7 @@
 					<div class="column is-one-third">
 						@component('components.form.text', [
 							'name'      => 'orthoName',
-							'label'     => 'orthographic phoneme',
+							'label'     => 'community orthography',
 							'typewriter' => true
 						])
 							@slot('value')

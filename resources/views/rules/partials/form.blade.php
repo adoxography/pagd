@@ -72,9 +72,9 @@
 					'rules' => 'required|exists'
 				])
 					@slot('value')
-						@isset ($rule)
-							{{ $rule->type }}
-						@endisset
+						@if (isset($rule) && $rule->type)
+							{{ $rule->type->name }}
+						@endif
 					@endslot
 				@endcomponent
 			</div>

@@ -196,7 +196,12 @@ class Phoneme extends Model
                 $links->push(['sid' => $parent->id, 'tid' => $curr->id, 'reflex' => $parent->pivot]);
             }
             $curr->name = $curr->name;
-            $phonemes->push($curr);
+
+            if (!$phonemes->contains(function ($phoneme) use ($curr) {
+                return $phoneme->id == $curr->id;
+            })) {
+                $phonemes->push($curr);
+            }
         }
 
         $stack->push($this);
@@ -210,7 +215,9 @@ class Phoneme extends Model
             }
             $curr->name = $curr->name;
 
-            if ($curr->id != $this->id) {
+            if (!$phonemes->contains(function ($phoneme) use ($curr) {
+                return $phoneme->id == $curr->id;
+            })) {
                 $phonemes->push($curr);
             }
         }

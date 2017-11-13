@@ -4,19 +4,28 @@ namespace App\Palette;
 
 use Illuminate\Support\Collection;
 
-class Mapper {
+class Mapper
+{
+    public function map(Collection $collection, array $palette, string $key)
+    {
+        $map = [];
 
-	public function map(Collection $collection, array $palette, string $key)
-	{
-		$map = [];
+        foreach ($collection as $item) {
+            $index = $this->getKey($item, $key);
+            if (!isset($map[$index])) {
+                $map[$index] = $palette[count($map)];
+            }
+        }
 
-		foreach($collection as $item) {
-			if(!isset($map[$item->$key])) {
-				$map[$item->$key] = $palette[count($map)];
-			}
-		}
+        return $map;
+    }
 
-		return $map;
-	}
+    protected function getKey($item, $key)
+    {
+        if (strlen($key) > 0) {
+            return $item->$key;
+        }
 
+        return $item;
+    }
 }

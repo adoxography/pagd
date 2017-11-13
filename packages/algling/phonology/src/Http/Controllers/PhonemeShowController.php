@@ -21,12 +21,14 @@ class PhonemeShowController extends Controller
     public function reflexes(Phoneme $phoneme)
     {
         $phoneme->load([
-            'language',
-            'reflexes',
-            'parents'
+            'language'
         ]);
 
-        return view('phon::phonemes.show.reflexes', compact('phoneme'));
+        $graphData = $phoneme->getReflexGraph();
+        $languages = $graphData['languages'];
+        $graphData = $graphData['graphData'];
+
+        return view('phon::phonemes.show.reflexes', compact('phoneme', 'graphData', 'languages'));
     }
 
     public function examples(Phoneme $phoneme)

@@ -154,18 +154,18 @@ class Phoneme extends Model
         )->withPivot(['environment', 'id']);
     }
 
-    public function paParents()
-    {
-        return $this->belongsToMany(Phoneme::class, 'Phon_PaParents', 'phoneme_id', 'parent_id');
-    }
-
     public function allParents()
     {
         $model = $this;
 
         return $this->parents()->with(['parents', 'allParents' => function ($query) use ($model) {
-            $query->select("{$this->table}.*");
+            $query->select("{$model->table}.*");
         }]);
+    }
+
+    public function paParents()
+    {
+        return $this->belongsToMany(Phoneme::class, 'Phon_PaParents', 'phoneme_id', 'parent_id');
     }
 
     public function allChildren()
@@ -175,6 +175,59 @@ class Phoneme extends Model
         return $this->reflexes()->with(['reflexes', 'allChildren' => function ($query) use ($model) {
             $query->select("{$this->table}.*");
         }]);
+    }
+
+    public function getReflexGraph()
+    {
+        $this->load('allParents', 'allChildren');
+        $phonemes = collect();
+        $reflexes = collect();
+        $links = collect();
+        $stack = collect();
+
+        $this->_cssClass = 'focus';
+        $stack->push($this);
+
+        while (!$stack->isEmpty()) {
+            $curr = $stack->pop();
+
+            foreach ($curr->allParents as $parent) {
+                $stack->push($parent);
+                $links->push(['sid' => $parent->id, 'tid' => $curr->id, 'reflex' => $parent->pivot]);
+            }
+            $curr->name = $curr->name;
+            $phonemes->push($curr);
+        }
+
+        $stack->push($this);
+
+        while (!$stack->isEmpty()) {
+            $curr = $stack->pop();
+
+            foreach ($curr->allChildren as $child) {
+                $stack->push($child);
+                $links->push(['sid' => $curr->id, 'tid' => $child->id, 'reflex' => $child->pivot]);
+            }
+            $curr->name = $curr->name;
+
+            if ($curr->id != $this->id) {
+                $phonemes->push($curr);
+            }
+        }
+
+        $languages = $phonemes->pluck('language')->unique();
+        $palette = new \App\Palette\Palette;
+        $map = $palette->map($languages);
+
+        foreach ($phonemes as $phoneme) {
+            $phoneme->_color = $map[$phoneme->language_id]->getHex();
+        }
+
+        foreach ($languages as $language) {
+            $language->color = $map[$language->id]->getHex();
+        }
+
+        return ['graphData' => json_encode(['nodes' => $phonemes, 'links' => $links]), 'languages' => $languages, ''];
     }
 
     public function scopeOfType($query, $type)

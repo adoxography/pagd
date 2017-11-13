@@ -1,27 +1,8 @@
 @extends('phon::phonemes.show')
 
 @section('content')
-	@if($phoneme->parents->count() > 0)
-		<div class="field">
-			<span class="label">
-				Parents of {!! $phoneme->present() !!}
-				@can('add content')
-					(<a href="/phonemes/{{ $phoneme->id }}/addChild">Add another</a>)
-				@endcan
-			</span>
-			{!! $phoneme->present()->parentReflexes !!}
-		</div>
-	@endif
-
-	@if($phoneme->reflexes->count() > 0)
-		<div class="field">
-			<span class="label">
-				Daughters of {!! $phoneme->present() !!}
-				@can('add content')
-					(<a href="/phonemes/{{ $phoneme->id }}/addParent">Add another</a>)
-				@endcan
-			</span>
-			{!! $phoneme->present()->childReflexes !!}
-		</div>
-	@endif
+	@foreach ($languages as $language)
+		<span style="color: #{{ $language->color }}; @if(!$loop->first) margin-left: .5rem; @endif">&#9679</span> {!! $language->present('link') !!}
+	@endforeach
+	<sandbox :graph-data="{{ $graphData }}"></sandbox>
 @endsection

@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			12-11-11: Switched reflexes to using directed graphs
+		</li>
+		<li>
 			12-11-11: Linked known phonemes in phonemic representations of forms and examples to their respective pages
 		</li>
 		<hr>

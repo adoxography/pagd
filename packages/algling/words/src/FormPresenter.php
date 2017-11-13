@@ -34,8 +34,9 @@ class FormPresenter extends AlgPresenter
                 $pattern .= str_replace('*', '', $phoneme->algoName);
             });
 
-            $output = preg_replace('/[^A-Z]+/', '<i>$0</i>', $this->model->phonemicForm);
-            return preg_replace_callback("/(?<!<)$pattern(?!>)/", function ($symbol) use ($phonemes) {
+            $output = preg_replace('/[^A-Z*-]+/', '<i>$0</i>', $this->model->phonemicForm);
+
+            return preg_replace_callback("/(?<!<)(?:$pattern)(?!>)/", function ($symbol) use ($phonemes) {
                 $phoneme = $phonemes->filter(function ($phoneme) use ($symbol) {
                     return str_replace('*', '', $phoneme->algoName) == $symbol[0];
                 })->first();

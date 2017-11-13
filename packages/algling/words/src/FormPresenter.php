@@ -24,29 +24,23 @@ class FormPresenter extends AlgPresenter
             return $this->name();
         } else {
             $phonemes = $this->model->phonemes;
-            $output = '';
-            $i = 0;
+            $pattern = '';
 
-            while ($i < strlen($this->model->phonemicForm)) {
-                $phoneme = $this->model->lookupPhoneme($i);
-
-                if ($phoneme) {
-                    $output .= "<i><a href=\"/phonemes/{$phoneme->id}\">{$phoneme->algoName}</a></i>";
-                    $i += strlen($phoneme->algoName);
-                } else {
-                    $glyph = $this->model->phonemicForm{$i};
-
-                    if (!preg_match('/[A-Z]/', $glyph)) {
-                        $glyph = "<i>$glyph</i>";
-                    }
-
-                    $output .= $glyph;
-
-                    $i += 1;
+            $phonemes->each(function ($phoneme) use (&$pattern) {
+                if (strlen($pattern) > 0) {
+                    $pattern .= '|';
                 }
-            }
 
-            return $output;
+                $pattern .= str_replace('*', '', $phoneme->algoName);
+            });
+
+            $output = preg_replace('/[^A-Z]+/', '<i>$0</i>', $this->model->phonemicForm);
+            return preg_replace_callback("/(?<!<)$pattern(?!>)/", function ($symbol) use ($phonemes) {
+                $phoneme = $phonemes->filter(function ($phoneme) use ($symbol) {
+                    return str_replace('*', '', $phoneme->algoName) == $symbol[0];
+                })->first();
+                return str_replace('*', '', $phoneme->present('link'));
+            }, $output);
         }
     }
 

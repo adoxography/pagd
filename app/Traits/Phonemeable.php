@@ -15,7 +15,9 @@ trait Phonemeable
     public static function bootPhonemeable()
     {
         static::saved(function ($model) {
-            $model->connectPhonemes();
+            if ($model->phonemicForm) {
+                $model->connectPhonemes();
+            }
         });
 
         static::deleting(function ($model) {
@@ -49,9 +51,9 @@ trait Phonemeable
 
         $this->dropPhonemes();
 
-        preg_match_all("/.{$this->specialCharacterPattern()}/", $this->phonemicForm, $phonemes);
+        preg_match_all("/.{$this->specialCharacterPattern()}*/", $this->phonemicForm, $phonemes);
 
-        foreach ($phonemes as $phoneme) {
+        foreach ($phonemes[0] as $phoneme) {
             $phoneme = $this->lookupPhoneme($phoneme);
 
             if ($phoneme && !in_array($phoneme->id, $added)) {

@@ -185,3 +185,17 @@ function array_toList($arr) : string
 
     return $output;
 }
+
+function syncPhonemeables()
+{
+    $data = [
+        Algling\Words\Models\Form::whereNotNull('phonemicForm')->get(),
+        Algling\Words\Models\Example::whereNotNull('phonemicForm')->get()
+    ];
+
+    foreach ($data as $items) {
+        foreach ($items as $item) {
+            $item->connectPhonemes();
+        }
+    }
+}

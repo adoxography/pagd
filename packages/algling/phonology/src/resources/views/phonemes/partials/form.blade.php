@@ -8,7 +8,7 @@
     @endif
 
 	@if(isset($phoneme))
-		old-type="{{ $phoneme->featurable_type }}"
+		old-type="{{ $phoneme->featureable_type }}"
 	@elseif(isset($type))
 		old-type="{{ $type . 'Types' }}"
 	@endif
@@ -111,7 +111,7 @@
 			{{-- Features --}}
 			<div class="column">
 				@include('components.form.select', [
-					'name' => 'featurable_type',
+					'name' => 'featureable_type',
 					'label' => 'type',
 					'options' => [
 						'Vowel'     => 'vowelTypes',

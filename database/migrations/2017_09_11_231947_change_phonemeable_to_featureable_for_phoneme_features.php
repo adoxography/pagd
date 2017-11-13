@@ -14,8 +14,8 @@ class ChangePhonemeableToFeatureableForPhonemeFeatures extends Migration
     public function up()
     {
         Schema::table('Phon_Phonemes', function (Blueprint $table) {
-            $table->renameColumn('phonemeable_type', 'featurable_type');
-            $table->renameColumn('phonemeable_id', 'featurable_id');
+            $table->renameColumn('phonemeable_type', 'featureable_type');
+            $table->renameColumn('phonemeable_id', 'featureable_id');
         });
     }
 
@@ -27,8 +27,8 @@ class ChangePhonemeableToFeatureableForPhonemeFeatures extends Migration
     public function down()
     {
         Schema::table('Phon_Phonemes', function (Blueprint $table) {
-            $table->renameColumn('featurable_type', 'phonemeable_type');
-            $table->renameColumn('featurable_id', 'phonemeable_id');
+            $table->renameColumn('featureable_type', 'phonemeable_type');
+            $table->renameColumn('featureable_id', 'phonemeable_id');
         });
     }
 }

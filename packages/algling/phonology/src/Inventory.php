@@ -35,9 +35,9 @@ class Inventory implements Jsonable
 
     protected function loadPhonemes($includeNull = false)
     {
-        $phonemes = $this->language->phonemes;
+        $phonemes = $this->language->phonemes()->with('features')->get();
 
-        $this->consonants = $phonemes->where('featurable_type', 'consonantTypes')
+        $this->consonants = $phonemes->where('featureable_type', 'consonantTypes')
                                     ->where('isArchiphoneme', false)
                                     ->sortBy(function ($phoneme) {
                                         return array_search(
@@ -45,7 +45,7 @@ class Inventory implements Jsonable
                                             ['p', 't', 'k', 'ʔ', 'θ', 's', 'š', 'h', 'č', 'm', 'n', 'r', 'w', 'y']
                                         );
                                     });
-        $this->vowels = $phonemes->where('featurable_type', 'vowelTypes')
+        $this->vowels = $phonemes->where('featureable_type', 'vowelTypes')
                                 ->where('isArchiphoneme', false)
                                 ->sortBy(function ($phoneme) {
                                     return [
@@ -55,7 +55,7 @@ class Inventory implements Jsonable
                                         ),
                                         strlen($phoneme->algoName)];
                                 });
-        $this->clusters = $phonemes->where('featurable_type', 'clusterTypes')
+        $this->clusters = $phonemes->where('featureable_type', 'clusterTypes')
                                 ->sortBy(function ($phoneme) {
                                     $name = str_replace('*', '', $phoneme->algoName);
 
@@ -73,7 +73,7 @@ class Inventory implements Jsonable
         $this->archiphonemes = $phonemes->where('isArchiphoneme', true);
 
         if ($includeNull) {
-            $nullPhoneme = $phonemes->where('featurable_type', null)->first();
+            $nullPhoneme = $phonemes->where('featureable_type', null)->first();
 
             if ($nullPhoneme) {
                 $this->consonants->push($nullPhoneme);
@@ -93,7 +93,7 @@ class Inventory implements Jsonable
     {
         $featureSet = $this->vowels->filter(function ($phoneme) {
             return !$phoneme->isNull();
-        })->pluck('featurable');
+        })->pluck('featureable');
 
         return collect([
             'backnesses' => $featureSet->pluck('backness')->unique()->sortBy('id'),
@@ -105,12 +105,12 @@ class Inventory implements Jsonable
     {
         $featureSet = $this->consonants->filter(function ($phoneme) {
             return !$phoneme->isNull();
-        })->pluck('featurable');
+        })->pluck('featureable');
 
         return collect([
-            'places'     => $featureSet->pluck('place')->unique()->sortBy('id'),
-            'manners'    => $featureSet->pluck('manner')->unique()->sortBy('id'),
-            'voicings'   => $featureSet->pluck('voicing')->unique()->sortBy('id')
+            'places'   => $featureSet->pluck('place')->unique()->sortBy('id'),
+            'manners'  => $featureSet->pluck('manner')->unique()->sortBy('id'),
+            'voicings' => $featureSet->pluck('voicing')->unique()->sortBy('id')
         ]);
     }
 
@@ -118,10 +118,10 @@ class Inventory implements Jsonable
     {
         $featureSet = $this->clusters->filter(function ($phoneme) {
             return !$phoneme->isNull();
-        })->pluck('featurable');
+        })->pluck('featureable');
 
         return collect([
-            'firstSegments' => $this->getClusterFeature($featureSet, 'firstSegment', ['ʔ', 'H', 'h', 'N', 'm', 'n', 's', 'š', 'θ', 'x', 'ç', 'r']),
+            'firstSegments'  => $this->getClusterFeature($featureSet, 'firstSegment', ['ʔ', 'H', 'h', 'N', 'm', 'n', 's', 'š', 'θ', 'x', 'ç', 'r']),
             'secondSegments' => $this->getClusterFeature($featureSet, 'secondSegment', ['k', 'p', 't', 'č', 's', 'š', 'x', 'θ', 'r', 'm'])
         ]);
     }
@@ -173,7 +173,7 @@ class Inventory implements Jsonable
     public function getVowels(Height $height, Backness $backness)
     {
         return $this->vowels->filter(function ($value) use ($backness, $height) {
-            return $value->featurable->backness_id == $backness->id && $value->featurable->height_id == $height->id;
+            return $value->featureable->backness_id == $backness->id && $value->featureable->height_id == $height->id;
         })->sortBy(function ($value) {
             return strlen($value->name);
         });
@@ -185,15 +185,15 @@ class Inventory implements Jsonable
             $rc = true;
 
             if (isset($place)) {
-                $rc = $value->featurable->place_id == $place->id;
+                $rc = $value->featureable->place_id == $place->id;
             }
 
             if (isset($manner)) {
-                $rc = $rc && $value->featurable->manner_id == $manner->id;
+                $rc = $rc && $value->featureable->manner_id == $manner->id;
             }
 
             if (isset($voicing)) {
-                $rc = $rc && $value->featurable->voicing_id == $voicing->id;
+                $rc = $rc && $value->featureable->voicing_id == $voicing->id;
             }
 
             return $rc;
@@ -205,7 +205,7 @@ class Inventory implements Jsonable
     public function getClusters(Phoneme $firstSegment, Phoneme $secondSegment)
     {
         return $this->clusters->filter(function ($value) use ($firstSegment, $secondSegment) {
-            return $value->featurable->firstSegment_id == $firstSegment->id && $value->featurable->secondSegment_id == $secondSegment->id;
+            return $value->featureable->firstSegment_id == $firstSegment->id && $value->featureable->secondSegment_id == $secondSegment->id;
         })->sortBy(function ($cluster) {
             return strlen($cluster->name);
         });

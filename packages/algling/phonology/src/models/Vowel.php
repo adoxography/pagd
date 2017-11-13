@@ -12,7 +12,7 @@ class Vowel extends Phoneme
 
         // Limit scope to only records that have vowel structures
         static::addGlobalScope('vowel', function (Builder $builder) {
-            $builder->where('featurable_type', 'vowels');
+            $builder->where('featureable_type', 'vowels');
         });
     }
 }

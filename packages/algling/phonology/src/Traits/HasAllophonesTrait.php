@@ -94,13 +94,11 @@ trait HasAllophonesTrait
     {
         $changed = count($newAllophones) != count($oldAllophones);
 
-        if (!$changed) {
-            for ($i = 0; $i < count($newAllophones) && !$changed; $i++) {
-                $newAllophone = $newAllophones[$i];
-                $oldAllophone = $oldAllophones[$i];
+        for ($i = 0; $i < count($newAllophones) && !$changed; $i++) {
+            $newAllophone = $newAllophones[$i];
+            $oldAllophone = $oldAllophones[$i];
 
-                $changed = $newAllophone['name'] != $oldAllophone['name'] || $newAllophone['environment'] != $oldAllophone['environment'];
-            }
+            $changed = $newAllophone['name'] != str_replace(['*', '[', ']'], '', $oldAllophone['name']) || $newAllophone['environment'] != $oldAllophone['environment'];
         }
 
         return $changed;

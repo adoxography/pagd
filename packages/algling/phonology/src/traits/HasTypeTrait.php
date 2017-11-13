@@ -20,7 +20,7 @@ trait HasTypeTrait
 
     public function assignType()
     {
-        $typeName = Phoneme::getActualClassNameForMorph($this->featurable_type);
+        $typeName = Phoneme::getActualClassNameForMorph($this->featureable_type);
 
         $rules = $this->parseTypeData(request()->all(), $typeName);
 
@@ -30,7 +30,7 @@ trait HasTypeTrait
             $type = $typeName::create(array_filter($rules, 'strlen'));
         }
 
-        $this->featurable_id = $type->id;
+        $this->featureable_id = $type->id;
     }
 
     protected function parseTypeData($data, string $type)

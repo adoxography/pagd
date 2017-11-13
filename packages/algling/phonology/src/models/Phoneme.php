@@ -18,10 +18,8 @@ use Venturecraft\Revisionable\RevisionableTrait;
 
 class Phoneme extends Model
 {
-    use SoftDeletes, RevisionableTrait, BookmarkableTrait, SourceableTrait, ReconstructableTrait, HasTypeTrait;
-    use HasAllophonesTrait;
-    use Searchable;
-    use BacksUpTrait;
+    use SoftDeletes, HasTypeTrait, RevisionableTrait, BookmarkableTrait, SourceableTrait, ReconstructableTrait,
+    HasAllophonesTrait, Searchable, BacksUpTrait;
 
     public $table = 'Phon_Phonemes';
     public $uri = '/phonemes';
@@ -35,8 +33,8 @@ class Phoneme extends Model
         'privateNotes',
         'isMarginal',
         'language_id',
-        'featurable_type',
-        'featurable_id',
+        'featureable_type',
+        'featureable_id',
         'isArchiphoneme',
         'archiphonemeDescription',
         'allophones'
@@ -64,6 +62,7 @@ class Phoneme extends Model
         'isMarginal'       => 'marginal',
         'phonemeable_type' => 'phoneme type',
         'phonemeable_id'   => 'features',
+        'featureable_id'   => 'features',
         'archiphonemeDescription' => 'archiphoneme description'
     ];
     protected $dontKeepRevisionOf = [
@@ -112,12 +111,17 @@ class Phoneme extends Model
 
     public function features()
     {
-        return $this->morphTo('featurable');
+        return $this->morphTo('featureable');
     }
 
     public function phonemeable()
     {
-        return $this->morphTo();
+        return $this->morphTo('featureable');
+    }
+
+    public function featureable()
+    {
+        return $this->features();
     }
 
     public function allophones()
@@ -184,9 +188,9 @@ class Phoneme extends Model
                 }
 
                 if ($i == 0) {
-                    $query->where('phonemeable_type', $currType);
+                    $query->where('featureable_type', $currType);
                 } else {
-                    $query->orWhere('phonemeable_type', $currType);
+                    $query->orWhere('featureable_type', $currType);
                 }
             }
         } else {
@@ -194,7 +198,7 @@ class Phoneme extends Model
                 $type .= 'Types';
             }
 
-            $query->where('phonemeable_type', $type);
+            $query->where('featureable_type', $type);
         }
     }
 
@@ -245,6 +249,6 @@ class Phoneme extends Model
 
     public function isNull()
     {
-        return $this->phonemeable_type === null;
+        return $this->featureable_type === null;
     }
 }

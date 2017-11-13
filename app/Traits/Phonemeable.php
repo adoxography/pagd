@@ -51,7 +51,7 @@ trait Phonemeable
 
         $this->dropPhonemes();
 
-        preg_match_all("/.{$this->specialCharacterPattern()}*/", $this->phonemicForm, $phonemes);
+        preg_match_all("/.{$this->specialCharacterPattern()}*/u", $this->phonemicForm, $phonemes);
 
         foreach ($phonemes[0] as $phoneme) {
             $phoneme = $this->lookupPhoneme($phoneme);

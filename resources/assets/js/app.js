@@ -37,6 +37,7 @@ Vue.component('alg-bookmark',        require('./components/Bookmark.vue'));
 Vue.component('alg-modal',           require('./components/Modal.vue'));
 Vue.component('alg-button',          require('./components/Button.vue'));
 Vue.component('alg-map',             require('./components/Map.vue'));
+Vue.component('alg-reflex-network',  require('./components/Reflex-Network.vue'));
 Vue.component('alg-file-upload',     require('./components/FileUpload.vue'));
 Vue.component('alg-tooltip', require('./components/Tooltip.vue'));
 Vue.component('alg-typeahead', require('./components/Typeahead.vue'));
@@ -80,8 +81,6 @@ Vue.component('alg-pagination-limited', require('./components/Pagination-Limited
 Vue.component('alg-pagination-full', require('./components/Pagination-Full.vue'));
 
 Vue.component('alg-filter', require('./components/Filter.vue'));
-
-Vue.component('sandbox', require('./components/Sandbox.vue'));
 
 Vue.component('alg-paradigm-table', {
 	props: ['morphemesOn'],

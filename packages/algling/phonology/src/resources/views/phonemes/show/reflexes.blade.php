@@ -4,5 +4,5 @@
 	@foreach ($languages as $language)
 		<span style="color: #{{ $language->color }}; @if(!$loop->first) margin-left: .5rem; @endif">&#9679</span> {!! $language->present('link') !!}
 	@endforeach
-	<sandbox :graph-data="{{ $graphData }}"></sandbox>
+	<alg-reflex-network :graph-data="{{ $graphData }}"></alg-reflex-network>
 @endsection

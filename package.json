@@ -10,7 +10,6 @@
   "devDependencies": {
     "axios": "^0.17.0",
     "axios-retry": "^3.0.1",
-    "babel-minify-webpack-plugin": "^0.2.0",
     "bootstrap-sass": "^3.3.7",
     "cross-env": "^5.0.1",
     "exports-loader": "^0.6.4",

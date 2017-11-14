@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			13-11-11: Hovering over nodes and links in reflex graphs now brings up extra information; clicking brings up their respective pages
+		</li>
+		<hr>
+		<li>
 			12-11-11: Switched reflexes to using directed graphs
 		</li>
 		<li>

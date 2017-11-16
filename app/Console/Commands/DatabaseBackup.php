@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use Artisan;
 use App\InteractsAcrossFilesystems;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -39,10 +40,18 @@ class DatabaseBackup extends Command
      */
     public function handle()
     {
-        $fileName = $this->save();
-
-        $this->transfer($fileName);
-
+        $date = Carbon::now()->format('Y-m-d-H-i-s');
+        $environment = app()->environment();
+        Artisan::call(
+            'db:backup',
+            [
+                '--database' => 'mysql',
+                '--destination' => 'dropbox',
+                '--destinationPath' => "/{$environment}/algling_{$environment}_{$date}",
+                '--compression' => 'gzip'
+            ]
+        );
+        $this->info("Database backed up successfully");
         return null;
     }
 

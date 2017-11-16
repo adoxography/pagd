@@ -24,22 +24,40 @@ class DatabaseRestore extends Command
      */
     protected $description = 'Restore the database from dropbox';
 
+    protected $options = ['--database' => 'mysql', '--source' => 'dropbox', '--compression' => 'gzip'];
+
+    public function __construct()
+    {
+        parent::__construct();
+        try {
+            $this->options['--sourcePath'] = $this->getLastBackup();
+        } catch (\Exception $e) {
+            var_dump('Could not restore the database.');
+        }
+    }
+
     /**
      * Execute the console command.
      *
      * @return mixed
      */
+    // public function handle()
+    // {
+    //     $backup = $this->getLastBackup();
+
+    //     $this->restore($backup);
+
+    //     $file = array_last(explode('/', $backup));
+
+    //     $this->delete($file, 'local');
+    //     $this->flush();
+
+    //     return null;
+    // }
     public function handle()
     {
-        $backup = $this->getLastBackup();
-
-        $this->restore($backup);
-
-        $file = array_last(explode('/', $backup));
-
-        $this->delete($file, 'local');
-        $this->flush();
-
+        $this->call('db:restore', $this->options);
+        $this->call('cache:forget', ['key' => 'spatie.permission.cache']);
         return null;
     }
 
@@ -56,19 +74,26 @@ class DatabaseRestore extends Command
     protected function getLastBackup()
     {
         $files = Storage::disk('dropbox')->allFiles('backups/website');
-
-        $path = array_last($files);
-
-        $file = array_last(explode('/', $path));
-
-        $this->copy($path, 'dropbox', 'local', $file);
-
-        $path = storage_path('app/' . $file);
-
-        exec("gzip -d $path");
-
-        return str_replace('.gz', '', $path);
+        $file = array_last($files);
+        return str_replace('backups', '', $file);
     }
+
+    // protected function getLastBackup()
+    // {
+    //     $files = Storage::disk('dropbox')->allFiles('backups/website');
+
+    //     $path = array_last($files);
+
+    //     $file = array_last(explode('/', $path));
+
+    //     $this->copy($path, 'dropbox', 'local', $file);
+
+    //     $path = storage_path('app/' . $file);
+
+    //     exec("gzip -d $path");
+
+    //     return str_replace('.gz', '', $path);
+    // }
 
     protected function flush()
     {

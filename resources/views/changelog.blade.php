@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			16-11-11: Fixed a bug causing changes to the morphemes fields to be undone in certain circumstances
+		</li>
+		<hr>
+		<li>
 			13-11-11: Hovering over nodes and links in reflex graphs now brings up extra information; clicking brings up their respective pages
 		</li>
 		<hr>

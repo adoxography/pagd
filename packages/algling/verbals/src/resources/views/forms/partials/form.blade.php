@@ -3,9 +3,13 @@
 	v-cloak
 	:old-errors="{{ json_encode($errors->messages()) }}"
 
-	@if(isset($form) && !$form->name)
-	:is-empty="true"
-	@endif
+	@isset($form)
+		@if ($form->name)
+			:init-morphemes="{{ $form->morphemesToJson() }}"
+		@else
+			:is-empty="true"
+		@endif
+	@endisset
 
 	@if(isset($form))
 	:old-sources="{{ $form->sources }}"
@@ -252,17 +256,11 @@
 			@endcomponent
 
 			<!-- morphemicForm -->
-			@component('components.form.morpheme-tags', [
+			@include('components.form.morpheme-tags', [
 				'placeholder' => 'Look up or insert morphemes to add to the morphemic form',
 				'language'    => 'language.id',
 				'rules'       => 'hasTag:V'
 			])
-				@slot('value')
-				    @if (isset($form))
-				    	{{ $form->morphemesToJson() }}
-				    @endif
-				@endslot
-			@endcomponent
 
 		<hr>
 		<h4 class="subtitle is-4">Lineage</h4>

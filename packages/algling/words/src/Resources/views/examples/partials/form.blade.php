@@ -11,6 +11,7 @@
 		@endisset
 		:old-sources="{{ $example->sources }}"
 		:old-morphemes="{{ $example->morphemesToJson() }}"
+		:init-morphemes="{{ $example->morphemesToJson() }}"
 	@endif
 	>
 	@component('components.form', ['method' => $method, 'action' => $action, 'visible' => true])
@@ -95,28 +96,13 @@
 			</div>
 
 			<div class="column is-12">
+
 				<!-- morphemicForm -->
-				<label for="morphemes" class="label">Morphemes</label>
-				<alg-morpheme-tag-input
-					source="/autocomplete/morphemes"
-					name="morphemes"
-					id="morphemes"
-					:allow-duplicates="true"
-					:allow-new="true"
-					:allow-periods="false"
-					:allow-hyphens="false"
-					@input="errors.clear('morphemes')"
-					placeholder="Look up or insert morphemes to add to the morphemic form"
-					:classes="{'is-danger': errors.has('morphemes')}"
-					:language="language.id"
-					:tags="morphemes"
-					data-vv-value-path="tags"
-					v-validate="'notHasTag:N,V'"
-				></alg-morpheme-tag-input>
-				<span class="help is-danger"
-					  v-show="errors.has('morphemes')"
-					  v-text="errors.first('morphemes')">
-				</span>
+				@include('components.form.morpheme-tags', [
+					'placeholder' => 'Look up or insert morphemes to add to the morphemic form',
+					'language'    => 'language.id',
+					'rules'       => 'hasTag:V'
+				])
 			</div>
 
 			<div class="column is-half">

@@ -27,8 +27,6 @@
 
         data-vv-value-path="tags"
 
-        @if (strlen($value) > 0)
-            :tags="{{ $value }}"
-        @endif
+        :tags="morphemes"
     ></alg-morpheme-tag-input>
 @endsection

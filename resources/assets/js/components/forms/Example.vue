@@ -1,11 +1,14 @@
 <script>
 import Form from './Form';
+import HasMorphemes from '../../mixins/HasMorphemes';
 import { Datalist } from '../../Datalist.js';
 
 export default {
 	extends: Form,
 
 	props: ['oldMorphemes', 'oldForm'],
+
+	mixins: [ HasMorphemes ],
 
 	data() {
 		return {

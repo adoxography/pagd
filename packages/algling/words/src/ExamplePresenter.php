@@ -30,6 +30,11 @@ class ExamplePresenter extends AlgPresenter
             });
 
             $output = preg_replace('/[^A-Z]+/', '<i>$0</i>', $this->model->phonemicForm);
+
+            if ($phonemes->count() == 0) {
+                return $output;
+            }
+
             return preg_replace_callback("/(?<!<)$pattern(?!>)/", function ($symbol) use ($phonemes) {
                 $phoneme = $phonemes->filter(function ($phoneme) use ($symbol) {
                     return str_replace('*', '', $phoneme->algoName) == $symbol[0];

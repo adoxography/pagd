@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			17-11-11: Fixed issue in rendering forms from languages with no phonemes
+		</li>
+		<li>
 			17-11-11: Added a link to the phonology search on the search page
 		</li>
 		<hr>

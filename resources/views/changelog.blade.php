@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			17-11-11: Added a link to the phonology search on the search page
+		</li>
+		<hr>
+		<li>
 			16-11-11: Fixed a bug causing changes to the morphemes fields to be undone in certain circumstances
 		</li>
 		<hr>

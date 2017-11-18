@@ -16,6 +16,9 @@
             <a href="/verbs/search/form">Verb form</a>
         </li>
         <li>
+            <a href="/phonemes/search">Phonology</a>
+        </li>
+        <li>
             <a href="/search/text">Text</a>
         </li>
     </li>

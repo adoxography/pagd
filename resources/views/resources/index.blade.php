@@ -5,5 +5,9 @@
 @endsection
 
 @section('content')
-	<a href="/resources/statistics">Site statistics</a>
+    <ul>
+        <li><a href="/glosses">Glosses</a></li>
+        <li><a href="/slots">Slots</a></li>
+	    <li><a href="/resources/statistics">Site statistics</a></li>
+    </ul>
 @endsection

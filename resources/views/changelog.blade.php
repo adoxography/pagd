@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			18-11-11: Added links to glosses and slots on the resources page
+		</li>
+		<hr>
+		<li>
 			17-11-11: Updated the form detail pages
 		</li>
 		<li>

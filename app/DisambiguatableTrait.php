@@ -50,10 +50,6 @@ trait DisambiguatableTrait
 
         $this->markAsDuplicated(false);
 
-        if (isset($this->isSourceable)) {
-            $this->dontConnectSources();
-        }
-
         $this->save();
     }
 

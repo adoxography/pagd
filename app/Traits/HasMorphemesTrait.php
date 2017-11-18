@@ -354,7 +354,7 @@ trait HasMorphemesTrait
                 $options = "<a href='/morphemes/create?name={$morpheme['name']}&language={$this->language->name}'>Add (-){$morpheme['name']}(-)</a>";
             } else {
                 $title = "Morphemic form undeclared";
-                $options = "<a href='".strtolower(isset($this->uri) ? $this->uri : $this->table)."/{$this->id}/edit'>Declare a morphemic form</a>";
+                $options = "<a href='/".strtolower(isset($this->uri) ? $this->uri : $this->table)."/{$this->id}/edit'>Declare a morphemic form</a>";
             }
         }
 

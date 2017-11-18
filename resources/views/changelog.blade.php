@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			17-11-11: Fixed "add morphemic form" link
+		</li>
+		<li>
 			17-11-11: Fixed issue in rendering forms from languages with no phonemes
 		</li>
 		<li>

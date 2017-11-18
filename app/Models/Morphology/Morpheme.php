@@ -13,18 +13,20 @@ use App\DisambiguatableTrait;
 use App\HasChildrenTrait;
 use App\HideableTrait;
 use App\Language;
+use App\PhonemeableInterface;
 use App\Presenters\MorphemePresenter;
 use App\ReconstructableTrait;
 use App\SourceableTrait;
+use App\Traits\Phonemeable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
 
-class Morpheme extends Model
+class Morpheme extends Model implements PhonemeableInterface
 {
     use Searchable, RevisionableTrait, SourceableTrait, ReconstructableTrait, HasChildrenTrait, BacksUpTrait,
-        BookmarkableTrait, SoftDeletes, HideableTrait, DisambiguatableTrait;
+        BookmarkableTrait, SoftDeletes, HideableTrait, DisambiguatableTrait, Phonemeable;
 
     /*
     |--------------------------------------------------------------------------
@@ -111,6 +113,11 @@ class Morpheme extends Model
     {
         $name = isset($this->altName) ? $this->altName : $value;
         return $this->modifyIfReconstructed($name);
+    }
+
+    public function getPhonemicFormAttribute()
+    {
+        return $this->name;
     }
 
     public function getUniqueNameAttribute()
@@ -393,5 +400,10 @@ class Morpheme extends Model
         }
 
         return $array;
+    }
+
+    public function getMorphType()
+    {
+        return $this->morphCode ? $this->morphCode : $this->getMorphClass();
     }
 }

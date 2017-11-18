@@ -17,6 +17,10 @@
 					</div>
 				</div>
 			</div>
+			<div class="field">
+				<span class="label">Phonemic representation</span>
+				{!! $morpheme->present('phonemicForm') !!}
+			</div>
 			@if($morpheme->initialChanges->count() > 0)
 				<div class="field">
 					<span class="label">Initial change form{{ $morpheme->initialChanges->count() > 1 ? 's' : '' }}</span>

@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			18-11-11: Added phonemic representation to morphemes
+		</li>
+		<li>
 			18-11-11: Added links to glosses and slots on the resources page
 		</li>
 		<hr>

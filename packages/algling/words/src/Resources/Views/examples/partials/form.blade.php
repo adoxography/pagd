@@ -101,7 +101,7 @@
 				@include('components.form.morpheme-tags', [
 					'placeholder' => 'Look up or insert morphemes to add to the morphemic form',
 					'language'    => 'language.id',
-					'rules'       => 'hasTag:V'
+					'rules'       => 'notHasTag:V,N'
 				])
 			</div>
 

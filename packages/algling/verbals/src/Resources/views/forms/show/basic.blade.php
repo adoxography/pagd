@@ -27,6 +27,21 @@
 				{!! $form->present('phonemicForm') !!}
 				{!! $form->printMorphemes() !!}
 			</div>
+
+			@if($form->parent)
+				<div class="field">
+					<span class="label">Historical parent form</span>
+					{!! $form->parent->present()->as('link')->then('language')->as('link', 'verbs') !!}
+					{!! $form->parent->printMorphemes() !!}
+				</div>
+			@endif
+
+			@if($form->historicalNotes)
+				<div class="field">
+					<span class="label">Historical notes</span>
+					{!! replaceTags($form->historicalNotes, $form->language_id) !!}
+				</div>
+			@endif
 		</div>
 		<div class="column is-half">
 			<div class="field">
@@ -42,13 +57,6 @@
 				@endif
 			</div>
 
-			@if($form->usageNotes)
-				<div class="field">
-					<span class="label">Usage notes</span>
-					{!! replaceTags($form->usageNotes, $form->language_id) !!}
-				</div>
-			@endif
-
 			@if($form->allomorphyNotes)
 				<div class="field">
 					<span class="label">Allomorphy</span>
@@ -56,15 +64,10 @@
 				</div>
 			@endif
 
-			@if($form->parent || $form->historicalNotes)
+			@if($form->usageNotes)
 				<div class="field">
-					<span class="label">Historical notes</span>
-					@if($form->parent)
-						<em>Parent form:</em> {!! $form->parent->present()->as('link')->then('language')->as('link', 'verbs') !!}
-					@endif
-					@if($form->historicalNotes)
-						{!! replaceTags($form->historicalNotes, $form->language_id) !!}
-					@endif
+					<span class="label">Usage notes</span>
+					{!! replaceTags($form->usageNotes, $form->language_id) !!}
 				</div>
 			@endif
 
@@ -74,10 +77,11 @@
 					{!! replaceTags($form->privateNotes, $form->language_id) !!}
 				</div>
 			@endif
+
+			<div class="field">
+				<span class="label">Sources</span>
+				@include('components.model.sourcelist', ['sources' => $form->sources])
+			</div>
 		</div>
-	</div>
-	<div class="field">
-		<span class="label">Sources</span>
-		@include('components.model.sourcelist', ['sources' => $form->sources])
 	</div>
 @endsection

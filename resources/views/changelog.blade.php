@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			17-11-11: Updated the form detail pages
+		</li>
+		<li>
 			17-11-11: Fixed bug in morpheme deletion routine
 		</li>
 		<li>

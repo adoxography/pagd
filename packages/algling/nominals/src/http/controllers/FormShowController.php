@@ -10,10 +10,16 @@ class FormShowController extends Controller
     public function basicDetails(Form $nominalForm)
     {
         $form = $nominalForm->load([
-        	'language',
-        	'structure.paradigm',
-        	'structure.nominalFeature',
-        	'structure.pronominalFeature'
+            'language',
+            'structure.paradigm',
+            'structure.nominalFeature',
+            'structure.pronominalFeature',
+            'sources',
+            'morphemes',
+            'examples',
+            'parent',
+            'parent.language',
+            'parent.morphemes'
         ]);
 
         return view('nom::forms.show.basic', compact('form'));
@@ -21,15 +27,15 @@ class FormShowController extends Controller
 
     public function cognates(Form $nominalForm)
     {
-    	$form = $nominalForm->load([
-    		'language',
-    		'parent',
-    		'parent.language',
-    		'children',
-    		'children.language'
-    	]);
+        $form = $nominalForm->load([
+            'language',
+            'parent',
+            'parent.language',
+            'children',
+            'children.language'
+        ]);
 
-    	return view('nom::forms.show.cognates', compact('form'));
+        return view('nom::forms.show.cognates', compact('form'));
     }
 
     public function log(Form $nominalForm)

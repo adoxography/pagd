@@ -20,7 +20,10 @@ class FormShowController extends AlgModelController
             'structure.verbClass',
             'morphemes',
             'sources',
-            'examples'
+            'examples',
+            'parent',
+            'parent.language',
+            'parent.morphemes'
         ]);
 
         return view('verb::forms.show.basic', compact('form'));

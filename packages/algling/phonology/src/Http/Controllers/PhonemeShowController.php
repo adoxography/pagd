@@ -25,8 +25,8 @@ class PhonemeShowController extends Controller
         ]);
 
         $graphData = $phoneme->getReflexGraph();
-        $languages = $graphData['languages'];
-        $graphData = $graphData['graphData'];
+        $languages = $graphData->languages;
+        $graphData = json_encode($graphData->getData());
 
         return view('phon::phonemes.show.reflexes', compact('phoneme', 'graphData', 'languages'));
     }

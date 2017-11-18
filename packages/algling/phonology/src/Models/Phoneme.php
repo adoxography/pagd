@@ -2,6 +2,7 @@
 
 namespace Algling\Phonology\Models;
 
+use Algling\Phonology\ReflexGraph;
 use Algling\Phonology\PhonemePresenter;
 use Algling\Phonology\Traits\HasAllophonesTrait;
 use Algling\Phonology\Traits\HasTypeTrait;
@@ -179,62 +180,7 @@ class Phoneme extends Model
 
     public function getReflexGraph()
     {
-        $this->load('allParents', 'allChildren');
-        $phonemes = collect();
-        $reflexes = collect();
-        $links = collect();
-        $stack = collect();
-
-        $this->_cssClass = 'focus';
-        $stack->push($this);
-
-        while (!$stack->isEmpty()) {
-            $curr = $stack->pop();
-
-            foreach ($curr->allParents as $parent) {
-                $stack->push($parent);
-                $links->push(['sid' => $parent->id, 'tid' => $curr->id, 'reflex' => $parent->pivot]);
-            }
-            $curr->name = $curr->name;
-
-            if (!$phonemes->contains(function ($phoneme) use ($curr) {
-                return $phoneme->id == $curr->id;
-            })) {
-                $phonemes->push($curr);
-            }
-        }
-
-        $stack->push($this);
-
-        while (!$stack->isEmpty()) {
-            $curr = $stack->pop();
-
-            foreach ($curr->allChildren as $child) {
-                $stack->push($child);
-                $links->push(['sid' => $curr->id, 'tid' => $child->id, 'reflex' => $child->pivot]);
-            }
-            $curr->name = $curr->name;
-
-            if (!$phonemes->contains(function ($phoneme) use ($curr) {
-                return $phoneme->id == $curr->id;
-            })) {
-                $phonemes->push($curr);
-            }
-        }
-
-        $languages = $phonemes->pluck('language')->unique();
-        $palette = new \App\Palette\Palette;
-        $map = $palette->map($languages);
-
-        foreach ($phonemes as $phoneme) {
-            $phoneme->_color = $map[$phoneme->language_id]->getHex();
-        }
-
-        foreach ($languages as $language) {
-            $language->color = $map[$language->id]->getHex();
-        }
-
-        return ['graphData' => json_encode(['nodes' => $phonemes, 'links' => $links]), 'languages' => $languages, ''];
+        return new ReflexGraph($this);
     }
 
     public function scopeOfType($query, $type)

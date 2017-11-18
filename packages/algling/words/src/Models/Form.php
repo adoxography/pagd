@@ -9,6 +9,7 @@ use App\ChangeType;
 use App\HasChildrenTrait;
 use App\HideableTrait;
 use App\Language;
+use App\PhonemeableInterface;
 use App\ReconstructableTrait;
 use App\SourceableTrait;
 use App\Traits\HasMorphemesTrait;
@@ -26,7 +27,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @uses \App\ReconstructableTrait
  * @uses \App\CognatableTrait
  */
-class Form extends Model
+class Form extends Model implements PhonemeableInterface
 {
     use Searchable, RevisionableTrait, SourceableTrait, HasMorphemesTrait, ReconstructableTrait, HasChildrenTrait,
         BacksUpTrait, BookmarkableTrait, SoftDeletes, HideableTrait, Phonemeable;

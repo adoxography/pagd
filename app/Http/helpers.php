@@ -189,8 +189,8 @@ function array_toList($arr) : string
 function syncPhonemeables()
 {
     $data = [
-        Algling\Words\Models\Form::where('phonemicForm', 'LIKE', '%š%')->orWhere('phonemicForm', 'LIKE', '%č%')->orWhere('phonemicForm', 'LIKE', '%θ%')->orWhere('phonemicForm', 'LIKE', '%ə%')->get(),
-        Algling\Words\Models\Example::where('phonemicForm', 'LIKE', '%š%')->orWhere('phonemicForm', 'LIKE', '%č%')->orWhere('phonemicForm', 'LIKE', '%θ%')->orWhere('phonemicForm', 'LIKE', '%ə%')->get(),
+        Algling\Words\Models\Form::where('phonemicForm', 'LIKE', '%·%')->whereIn('language_id', [1, 29])->get(),
+        Algling\Words\Models\Example::where('phonemicForm', 'LIKE', '%·%')->whereIn('language_id', [1, 29])->get()
     ];
 
     foreach ($data as $items) {

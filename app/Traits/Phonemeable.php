@@ -88,4 +88,22 @@ trait Phonemeable
 
         return '[' . json_decode('"'.$characters.'"') . ']';
     }
+
+    public function getPhonemePattern()
+    {
+        $pattern = '';
+
+        $this->phonemes->pluck('algoName')
+            ->sortByDesc(function ($phoneme) {
+                return strlen($phoneme);
+            })
+            ->each(function ($phoneme) use (&$pattern) {
+                if (strlen($pattern) > 0) {
+                    $pattern .= '|';
+                }
+                $pattern .= str_replace(['*', '/', '\\', '[', ']'], '', $phoneme);
+            });
+
+        return $pattern;
+    }
 }

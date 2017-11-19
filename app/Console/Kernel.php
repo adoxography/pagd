@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('algling:backup')
+        $schedule->command('algling:backup', ['folder' => 'daily'])
                  ->everyMinute()
                  ->timezone('America/Winnipeg')
                  ->between('00:00', '1:00');

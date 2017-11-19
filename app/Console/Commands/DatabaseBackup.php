@@ -2,21 +2,17 @@
 
 namespace App\Console\Commands;
 
-use Artisan;
-use App\InteractsAcrossFilesystems;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class DatabaseBackup extends Command
 {
-    use InteractsAcrossFilesystems;
-
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'algling:backup';
+    protected $signature = 'algling:backup {--folder=special}';
 
     /**
      * The console command description.
@@ -40,14 +36,15 @@ class DatabaseBackup extends Command
      */
     public function handle()
     {
-        $date = Carbon::now()->format('Y-m-d-H-i-s');
+        $folder = $this->option('folder');
         $environment = app()->environment();
-        Artisan::call(
+
+        $this->call(
             'db:backup',
             [
                 '--database' => 'mysql',
                 '--destination' => 'dropbox',
-                '--destinationPath' => "/{$environment}/algling_{$environment}_{$date}",
+                '--destinationPath' => "/{$environment}/{$folder}/{$this->createFileName()}",
                 '--compression' => 'gzip'
             ]
         );
@@ -55,33 +52,16 @@ class DatabaseBackup extends Command
         return null;
     }
 
-    protected function save()
-    {
-        $name = $this->createFileName();
-        $path = storage_path("app/$name");
-        $database = config('database.connections.mysql.database');
-        $username = config('database.connections.mysql.username');
-        $password = config('database.connections.mysql.password');
-        $host     = config('database.connections.mysql.host');
-
-        exec("mysqldump --user=\"$username\" --password=\"$password\" --host=\"$host\" $database 2>/dev/null | gzip > $path");
-
-        return $name;
-    }
-
-    protected function transfer(string $fileName)
-    {
-        $environment = app()->environment();
-        $path = "backups/$environment/$fileName";
-
-        $this->move($fileName, 'local', 'dropbox', $path);
-    }
-
+    /**
+     * Generates an appropriate file name for the backup file
+     *
+     * @return string
+     */
     protected function createFileName()
     {
         $date = Carbon::now()->format('Y-m-d-H-i-s');
         $environment = app()->environment();
 
-        return "algling_{$environment}_{$date}.gz";
+        return "algling_{$environment}_{$date}";
     }
 }

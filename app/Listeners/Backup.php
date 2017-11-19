@@ -42,15 +42,18 @@ class Backup implements ShouldQueue
 
     protected function shouldBackup()
     {
-        $numBackups = cache($this->key);
+        $rc = false;
 
-        return !$numBackups || $numBackups >= $this->changeInterval;
+        if (app()->environment() == 'website') {
+            $numBackups = cache($this->key);
+            $rc = !$numBackups || $numBackups >= $this->changeInterval;
+        }
+
+        return $rc;
     }
 
     protected function backup()
     {
-        if (App::environment() == 'website') {
-            Artisan::call('algling:backup');
-        }
+        Artisan::call('algling:backup', ['--folder' => 'incremental']);
     }
 }

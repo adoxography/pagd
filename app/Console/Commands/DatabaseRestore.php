@@ -2,20 +2,17 @@
 
 namespace App\Console\Commands;
 
-use App\InteractsAcrossFilesystems;
 use Illuminate\Console\Command;
 use Storage;
 
 class DatabaseRestore extends Command
 {
-    use InteractsAcrossFilesystems;
-
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'algling:restore {--last|l}';
+    protected $signature = 'algling:restore {--last|l} {--environment=website}';
 
     /**
      * The console command description.
@@ -26,14 +23,12 @@ class DatabaseRestore extends Command
 
     protected $options = ['--database' => 'mysql', '--source' => 'dropbox', '--compression' => 'gzip'];
 
+    /**
+     * Create a new command instance.
+     */
     public function __construct()
     {
         parent::__construct();
-        try {
-            $this->options['--sourcePath'] = $this->getLastBackup();
-        } catch (\Exception $e) {
-            var_dump('Could not restore the database.');
-        }
     }
 
     /**
@@ -41,60 +36,38 @@ class DatabaseRestore extends Command
      *
      * @return mixed
      */
-    // public function handle()
-    // {
-    //     $backup = $this->getLastBackup();
-
-    //     $this->restore($backup);
-
-    //     $file = array_last(explode('/', $backup));
-
-    //     $this->delete($file, 'local');
-    //     $this->flush();
-
-    //     return null;
-    // }
     public function handle()
     {
-        $this->call('db:restore', $this->options);
-        $this->call('cache:forget', ['key' => 'spatie.permission.cache']);
+        try {
+            $this->options['--sourcePath'] = $this->getLastBackup();
+            $this->call('db:restore', $this->options);
+            $this->flush();
+        } catch (\Exception $e) {
+            var_dump('Could not restore the database.');
+        }
+
         return null;
     }
 
-    protected function restore($backup)
-    {
-        $username = config('database.connections.mysql.username');
-        $password = config('database.connections.mysql.password');
-        $database = config('database.connections.mysql.database');
-        $host     = config('database.connections.mysql.host');
-
-        exec("mysql --user=\"$username\" --password=\"$password\" --host=\"$host\" $database < $backup 2>/dev/null");
-    }
-
+    /**
+     * Retrieves the last backup from the filesystem
+     *
+     * @return string
+     */
     protected function getLastBackup()
     {
-        $files = Storage::disk('dropbox')->allFiles('backups/website');
-        $file = array_last($files);
-        return str_replace('backups', '', $file);
+        $environment = $this->option('environment');
+        $files = collect(Storage::disk('dropbox')->allFiles("backups/$environment"))
+                ->sortByDesc(function ($file) {
+                    return array_last(explode('_', $file));
+                });
+
+        return str_replace('backups', '', $files->first());
     }
 
-    // protected function getLastBackup()
-    // {
-    //     $files = Storage::disk('dropbox')->allFiles('backups/website');
-
-    //     $path = array_last($files);
-
-    //     $file = array_last(explode('/', $path));
-
-    //     $this->copy($path, 'dropbox', 'local', $file);
-
-    //     $path = storage_path('app/' . $file);
-
-    //     exec("gzip -d $path");
-
-    //     return str_replace('.gz', '', $path);
-    // }
-
+    /**
+     * Flushes the permission cache
+     */
     protected function flush()
     {
         $this->call('cache:forget', ['key' => 'spatie.permission.cache']);

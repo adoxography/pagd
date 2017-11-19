@@ -44,6 +44,12 @@ class Kernel extends ConsoleKernel
                  ->tuesdays()
                  ->timezone('America/Winnipeg')
                  ->between('11:00', '12:00');
+
+        $schedule->command('algling:prune')
+                 ->everyMinute()
+                 ->sundays()
+                 ->timezone('America/Winnipeg')
+                 ->between('00:00', '1:00');
     }
 
     /**

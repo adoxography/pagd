@@ -15,7 +15,7 @@ class PhonemePresenter extends AlgPresenter
 
         $name = parent::name($format);
 
-        $name = sprintf('<em>%s</em>', $name);
+        $name = sprintf('<i>%s</i>', $name);
 
         if ($this->model->isMarginal) {
             $name = "($name)";

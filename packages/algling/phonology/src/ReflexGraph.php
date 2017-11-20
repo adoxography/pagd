@@ -14,11 +14,14 @@ class ReflexGraph
 
     public $languages;
 
+    protected $dictionary;
+
     public function __construct(Phoneme $phoneme)
     {
         $this->focus = $phoneme;
         $this->phonemes = collect();
         $this->links = collect();
+        $this->dictionary = [];
 
         $this->prepareFocus();
         $this->processParents();
@@ -36,7 +39,7 @@ class ReflexGraph
     protected function prepareFocus()
     {
         $this->focus->load('allParents', 'allChildren');
-        $this->focus->_cssClass = 'focus';
+        $this->focus->font = ['size' => 20];
     }
 
     protected function processParents()
@@ -46,8 +49,8 @@ class ReflexGraph
         while (!$stack->isEmpty()) {
             $curr = $stack->pop();
 
-            foreach ($curr->allParents as $parent) {
-                $stack->push($parent);
+            foreach ($curr->allParents->sortBy('language_id') as $parent) {
+                $stack->prepend($parent);
                 $this->storeLink($parent, $curr, true);
             }
 
@@ -62,8 +65,8 @@ class ReflexGraph
         while (!$stack->isEmpty()) {
             $curr = $stack->pop();
 
-            foreach ($curr->allChildren as $child) {
-                $stack->push($child);
+            foreach ($curr->allChildren->sortBy('language_id') as $child) {
+                $stack->prepend($child);
                 $this->storeLink($curr, $child, false);
             }
 
@@ -78,11 +81,11 @@ class ReflexGraph
 
     protected function colorize()
     {
-        $palette = new \App\Palette\Palette;
+        $palette = new \App\Palette\Palette('#FF8080');
         $map = $palette->map($this->languages);
 
         foreach ($this->phonemes as &$phoneme) {
-            $phoneme['_color'] = $map[$phoneme['language_id']]->getHex();
+            $phoneme['color'] = ['background' => '#' . $map[$phoneme['language_id']]->getHex()];
         }
 
         foreach ($this->languages as &$language) {
@@ -101,9 +104,15 @@ class ReflexGraph
 
     protected function formatPhoneme(Phoneme $phoneme)
     {
+        $name = $phoneme->present();
+
         $collection = collect($phoneme->toArray());
-        $collection['name'] = "{$phoneme->language->algoCode} {$phoneme->name}";
+        $collection['label']    = "{$phoneme->language->algoCode} $name";
         $collection['language'] = $phoneme->language;
+        $collection['level']    = $phoneme->language->getDepth();
+        $collection['id']       = $this->getNodeID($phoneme->id);
+        $collection['title']    = "{$phoneme->language->name} $name";
+        $collection['href']     = "/phonemes/{$phoneme->id}";
 
         return $collection;
     }
@@ -123,6 +132,21 @@ class ReflexGraph
             $reflex = $end->pivot;
         }
 
-        $this->links->push(['sid' => $start->id, 'tid' => $end->id, 'reflex' => $reflex]);
+        $this->links->push([
+            'id' => $reflex->id,
+            'from' => $this->getNodeID($start->id),
+            'to' => $this->getNodeID($end->id),
+            'title' => "{$start->language->algoCode} {$start->present()} > {$end->language->algoCode} {$end->present()} / " . ($reflex->environment ?: 'elsewhere'),
+            'href' => "/reflexes/{$reflex->id}"
+        ]);
+    }
+
+    protected function getNodeID(int $phonemeID)
+    {
+        if (!isset($this->dictionary[$phonemeID])) {
+            $this->dictionary[$phonemeID] = count($this->dictionary);
+        }
+
+        return $this->dictionary[$phonemeID];
     }
 }

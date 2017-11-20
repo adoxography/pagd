@@ -2,25 +2,27 @@
 
 namespace App;
 
-trait HasChildrenTrait {
-	
+trait HasChildrenTrait
+{
+
     /*
     |--------------------------------------------------------------------------
     | Static Methods
     |--------------------------------------------------------------------------
     */
-	/**
-	 * Attach event listeners to the model
-	 * 
-	 * Called automatically by Laravel 5
-	 * 
-	 * @return void
-	 */
-	public static function bootHasChildrenTrait() {
-		static::deleting(function($model) {
-			$model->disconnectChildren();
-		});
-	}
+    /**
+     * Attach event listeners to the model
+     *
+     * Called automatically by Laravel 5
+     *
+     * @return void
+     */
+    public static function bootHasChildrenTrait()
+    {
+        static::deleting(function ($model) {
+            $model->disconnectChildren();
+        });
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -42,7 +44,7 @@ trait HasChildrenTrait {
     {
         $model = $this;
 
-        return $this->parent()->with(['parent', 'allParents' => function($query) use ($model) {
+        return $this->parent()->with(['parent', 'allParents' => function ($query) use ($model) {
             $query->select("{$this->table}.*");
         }]);
     }
@@ -51,7 +53,7 @@ trait HasChildrenTrait {
     {
         $model = $this;
 
-        return $this->children()->with(['children', 'allChildren' => function($query) use ($model) {
+        return $this->children()->with(['children', 'allChildren' => function ($query) use ($model) {
             $query->select("{$this->table}.*");
         }]);
     }
@@ -84,12 +86,12 @@ trait HasChildrenTrait {
 
     protected function assignPosition(&$model, $scaffolding)
     {
-        $model->position = $scaffolding->search(function($item) use ($model) {
+        $model->position = $scaffolding->search(function ($item) use ($model) {
             $item instanceof Language && $item->id == $model->language_id;
         });
 
-        if($model->children->count() > 0) {
-            foreach($model->children as $child) {
+        if ($model->children->count() > 0) {
+            foreach ($model->children as $child) {
                 $this->assignPosition($child, $scaffolding);
             }
 
@@ -113,23 +115,42 @@ trait HasChildrenTrait {
         }
     }
 
-	/**
-	 * Disconnects any children this model may have
-	 * 
-	 * If this model has a parent, then that is assigned as the new parent of the children.
-	 * If not, the children are set as having no parent.
-	 * 
-	 * @return void
-	 */
-	protected function disconnectChildren()
-	{
+    /**
+     * Disconnects any children this model may have
+     *
+     * If this model has a parent, then that is assigned as the new parent of the children.
+     * If not, the children are set as having no parent.
+     *
+     * @return void
+     */
+    protected function disconnectChildren()
+    {
         $children = $this->children;
 
-        if(count($children) > 0) {
+        if (count($children) > 0) {
             foreach ($children as $child) {
                 $child->parent_id = $this->parent_id;
                 $child->save();
             }
         }
-	}
+    }
+
+    public function isRoot()
+    {
+        return $this->parent == null;
+    }
+
+    public function isLeaf()
+    {
+        return $this->children->count() == 0;
+    }
+
+    public function getDepth()
+    {
+        if (!$this->parent) {
+            return 0;
+        } else {
+            return $this->parent->getDepth() + 1;
+        }
+    }
 }

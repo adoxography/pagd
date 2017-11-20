@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			20-11-11: Reformatted the reflex pages to use a hierarchical graph
+		</li>
+		<hr>
+		<li>
 			18-11-11: Added phonemic representation to morphemes
 		</li>
 		<li>

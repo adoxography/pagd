@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			21-11-11: Stopped deleted morphemes from blocking new ones
+		</li>
+		<hr>
+		<li>
 			20-11-11: Reformatted the reflex pages to use a hierarchical graph
 		</li>
 		<hr>

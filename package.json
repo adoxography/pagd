@@ -23,7 +23,7 @@
     "pug-loader": "^2.3.0",
     "vee-validate": "^2.0.0-rc.14",
     "vis": "^4.21.0",
-    "vue": "2.5.3",
+    "vue": "^2.5.*",
     "vue-bulma-tooltip": "^1.0.4",
     "vue-directive-tooltip": "^1.4.1",
     "vue-input-tag": "0.0.16",

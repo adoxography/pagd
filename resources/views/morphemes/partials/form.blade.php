@@ -8,6 +8,10 @@
 	@elseif(isset($morpheme))
 	:old-sources="{{ $morpheme->sources }}"
 	@endif
+
+	@if(isset($morpheme))
+	:init-glosses="{{ json_encode($morpheme->getGlossArray()) }}"
+	@endif
 >
 	@component('components.form', ['method' => $method, 'action' => $action, 'visible' => true])
 		<div class="columns is-multiline">
@@ -57,10 +61,6 @@
 					@input="errors.clear('gloss')"
 					placeholder="Select glosses from the list or type your own and press 'enter'"
 					:classes="{'is-danger': errors.has('gloss')}"
-
-					@if(isset($morpheme))
-					:tags="{{ json_encode($morpheme->getGlossArray()) }}"
-					@endif
 				></alg-tag-input>
 				<span class="help is-danger"
 					  v-show="errors.has('gloss')"

@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			22-11-11: Fixed issue with glosses not being rendered on the morpheme form
+		</li>
+		<hr>
+		<li>
 			21-11-11: Fixed issue with glosses being reset while entering a morpheme
 		</li>
 		<li>

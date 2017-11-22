@@ -23,6 +23,10 @@ export default {
 			default: []
 		},
 
+		tags: {
+			default: []
+		},
+
 		name: {
 			type: String
 		},

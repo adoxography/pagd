@@ -61,6 +61,7 @@
 					@input="errors.clear('gloss')"
 					placeholder="Select glosses from the list or type your own and press 'enter'"
 					:classes="{'is-danger': errors.has('gloss')}"
+					:tags="glosses"
 				></alg-tag-input>
 				<span class="help is-danger"
 					  v-show="errors.has('gloss')"

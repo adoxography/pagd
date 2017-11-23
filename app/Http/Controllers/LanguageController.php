@@ -143,7 +143,7 @@ class LanguageController extends AlgModelController
     {
         return view('nom::forms.create')->with('language', $language);
     }
-   
+
     /**
      * Show the morpheme creation form with this language's details preloaded
      *
@@ -152,8 +152,8 @@ class LanguageController extends AlgModelController
      */
     public function addMorpheme(Language $language)
     {
-        return view('morph::morphemes.create')->with('language', $language);
-    }   
+        return view('morphemes.create')->with('language', $language);
+    }
 
     /**
      * Show the rule creation form with this language's details preloaded
@@ -180,7 +180,7 @@ class LanguageController extends AlgModelController
 
     public function order()
     {
-        $groups = Group::with(['languages' => function($query) {
+        $groups = Group::with(['languages' => function ($query) {
             $query->orderBy('position');
         }])->orderBy('position')->get();
         // $languages = Language::all();
@@ -192,15 +192,15 @@ class LanguageController extends AlgModelController
     {
         $groups = request()->all();
 
-        foreach($groups as $group) {
-            if(isset($group['newPosition']) && $group['newPosition'] != $group['position']) {
+        foreach ($groups as $group) {
+            if (isset($group['newPosition']) && $group['newPosition'] != $group['position']) {
                 $model = Group::find($group['id']);
                 $model->position = $group['newPosition'];
                 $model->save();
             }
 
-            foreach($group['languages'] as $language) {
-                if(isset($language['newPosition']) && $language['newPosition'] != $language['position']) {
+            foreach ($group['languages'] as $language) {
+                if (isset($language['newPosition']) && $language['newPosition'] != $language['position']) {
                     $model = Language::find($language['id']);
                     $model->position = $language['newPosition'];
                     $model->save();

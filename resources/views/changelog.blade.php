@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			22-11-11: Fixed broken link to add morphemes from a language
+		</li>
+		<li>
 			22-11-11: Added typewriter to parent and morpheme fields
 		</li>
 		<li>

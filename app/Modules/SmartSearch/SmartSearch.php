@@ -80,7 +80,7 @@ class SmartSearch
 
         $collection = $this->query($model, $alternates);
         $dictionary = Dictionary::build($collection, $alternates);
-        $pattern = ModelPatternMaker::generate($collection, $alternates);
+        $pattern = ModelPattern::generate($collection, $alternates);
         $output = [];
 
         preg_match_all($pattern, $this->lookup, $matches);
@@ -106,7 +106,7 @@ class SmartSearch
     protected function extractLanguages()
     {
         $groups = Group::select('name', 'aliases', 'id')->get();
-        $languages = Language::select('name', 'alternateNames', 'id')->get();
+        $languages = Language::select('name', 'alternateNames', 'algoCode', 'id')->get();
 
         foreach ($groups as $group) {
             $group->category = 'groups';
@@ -116,8 +116,8 @@ class SmartSearch
         }
 
         $collection = $languages->concat($groups);
-        $dictionary = Dictionary::build($collection, ['aliases']);
-        $pattern = ModelPatternMaker::generate($collection, ['aliases']);
+        $dictionary = Dictionary::build($collection, ['aliases', 'algoCode']);
+        $pattern = ModelPattern::generate($collection, ['aliases', 'algoCode']);
         $output = ['languages' => [], 'groups' => []];
 
         preg_match_all($pattern, $this->lookup, $matches);

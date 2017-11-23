@@ -28,5 +28,6 @@
         data-vv-value-path="tags"
 
         :tags="morphemes"
+        ref="morphemes"
     ></alg-morpheme-tag-input>
 @endsection

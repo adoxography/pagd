@@ -6,7 +6,7 @@
         @keydown="onKeyDown($event)"
     >
         <transition name="fade">
-            <ul class="box alg-typewriter" v-show="show">
+            <ul class="box alg-typewriter" v-show="show && !disabled" :style="{bottom: options.size + 'rem'}">
                 <li v-for="charset in chars">
                     <a
                         v-for="char in charset"
@@ -28,6 +28,18 @@
 import { dictionary } from '../util/SpecialCharacters'
 
 export default {
+    props: {
+        disabled: {
+            default: false
+        },
+
+        options: {
+            default() {
+                return { size: 1 };
+            }
+        }
+    },
+
     data() {
         return {
             show: false,
@@ -96,7 +108,6 @@ export default {
 
     .alg-typewriter {
         position: absolute;
-        bottom: 1rem;
         z-index: 1000;
         padding: .5rem;
 

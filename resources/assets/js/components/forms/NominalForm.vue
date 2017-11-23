@@ -118,9 +118,7 @@ export default {
 
 		morphemesUpdated(tags) {
 			this.errors.clear('morphemes');
-			console.log(tags);
 			if(tags.length == 0 || !this.containsStem(tags)) {
-				console.log('yup');
 				this.translationRequired = true;
 
 				if(tags.length == 0) {
@@ -129,7 +127,6 @@ export default {
 					this.$validator.attach('translation', 'required');
 				}
 			} else {
-				console.log('nope');
 				this.translationRequired = false;
 				this.$validator.attach('translation', '');
 				this.$refs.translation.value = '';

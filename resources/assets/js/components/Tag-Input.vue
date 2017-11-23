@@ -49,6 +49,10 @@ export default {
 		allowNew: {
 			type: Boolean,
 			default: false
+		},
+
+		typewriter: {
+			default: false
 		}
 	},
 
@@ -73,6 +77,16 @@ export default {
 			}
 
 			return this.source;
+		},
+
+		typewriterBottom() {
+			let pos = 1;
+
+			if (this.tags.length > 0) {
+				pos += 2;
+			}
+
+			return pos;
 		}
 	},
 

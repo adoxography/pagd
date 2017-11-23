@@ -27,6 +27,10 @@
 		props: {
 			language: {
 				default: null
+			},
+
+			typewriter: {
+				default: true
 			}
 		},
 

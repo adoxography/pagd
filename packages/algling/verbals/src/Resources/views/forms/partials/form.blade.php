@@ -275,6 +275,7 @@
 					'disabled' => '!language.id || empty',
 					'placeholder' => 'Make sure to select the language first',
 					'rules' => 'datalist_exists',
+					'typewriter' => true
 				])
 					@slot('value')
 						@if(isset($form))

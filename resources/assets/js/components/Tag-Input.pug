@@ -20,15 +20,16 @@ div
     div(class="alg-datalist alg-datalist-container" v-on-clickaway="closeList")
         div(class="field has-addons" style="margin-bottom: 0;")
             div(:class="{ 'control': true, 'is-expanded': true, 'is-loading': loading }")
-                input(
-                    v-if="!readOnly"
-                    :placeholder="placeholder"
-                    type="text"
-                    v-model="newTag"
-                    @keydown="onEnter($event)"
-                    @input="triggerUpdate"
-                    class="input"
-                )
+                alg-typewriter(:options="{size: typewriterBottom}" :disabled="!typewriter")
+                    input(
+                        v-if="!readOnly"
+                        :placeholder="placeholder"
+                        type="text"
+                        v-model="newTag"
+                        @keydown="onEnter($event)"
+                        @input="triggerUpdate"
+                        class="input"
+                    )
             .control
                 a.button(@click="toggleList")
                     span.icon

@@ -123,6 +123,20 @@ p {
 		justify-content: flex-end;
 		flex-direction: column;
 
+		li.subtitle {
+	        font-size: 1.2rem;
+	        margin: 0;
+	        color: #4a4a4a;
+	        line-height: 1.25;
+	        -webkit-margin-before: 1.67em;
+	        -webkit-margin-after: 1.67em;
+	        -webkit-margin-start: 0px;
+	        -webkit-margin-end: 0px;
+	        display: block;
+	        word-break: break-word;
+	        font-weight: 400;
+		}
+
 		a:hover {
 			color: $primary;
 			box-shadow: none;

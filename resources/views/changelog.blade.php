@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			24-11-11: Converted the menu in the header from a list of header elements to just a list
+		</li>
+		<hr>
+		<li>
 			22-11-11: Added algonquianist codes to things that can be searched with in the smart search
 		</li>
 		<li>

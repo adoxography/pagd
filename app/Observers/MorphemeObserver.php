@@ -23,6 +23,11 @@ class MorphemeObserver
         $morpheme->connectGlosses();
     }
 
+    public function deleting(Morpheme $morpheme)
+    {
+        $this->unlink($morpheme);
+    }
+
     public function deleted(Morpheme $morpheme)
     {
         $this->reconnectData($morpheme);
@@ -39,6 +44,34 @@ class MorphemeObserver
             if ($morphemeable->containsMorpheme($morphemeNames)) {
                 $this->reconnect($morphemeable);
             }
+        }
+    }
+
+    protected function unlink(Morpheme $morpheme)
+    {
+        $morpheme->load(['forms', 'examples']);
+        $name = str_replace(['*', '-'], '', $morpheme->name);
+        $id = $morpheme->id;
+
+        $data = $morpheme->forms->concat($morpheme->examples);
+
+        foreach ($data as $item) {
+            $morphemes = explode('-', $item->morphemicForm);
+
+            for ($i = 0; $i < count($morphemes); $i++) {
+                preg_match('/(?<morpheme>[^.]+)(?:\.(?<ic>\d+))?/', $morphemes[$i], $matches);
+                if ($matches['morpheme'] == $id) {
+                    $morphemes[$i] = $name;
+
+                    // All specified initial changes are now invalid, so just use the default one
+                    if (isset($matches['ic'])) {
+                        $morphemes[$i] .= '.' . 0;
+                    }
+                }
+            }
+
+            $item->morphemicForm = implode('-', $morphemes);
+            $item->save();
         }
     }
 

@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			27-11-11: Linked morphemes to forms in a way such that changes to a morpheme will be reflected on the form
+		</li>
+		<hr>
+		<li>
 			24-11-11: Converted the menu in the header from a list of header elements to just a list
 		</li>
 		<hr>

@@ -1,14 +1,14 @@
 @extends('layout')
 
 @section('title')
-    Connect
+    Identify forms with&nbsp{!! $morpheme->present() !!}
 @endsection
 
 @section('content')
     @component('components.form', ['method' => 'PATCH', 'action' => "/morphemes/{$morpheme->id}/connect", 'visible' => true])
         <ul class="field">
             @foreach ($matches as $match)
-                <li>
+                <li class="field">
                     <label class="checkbox">
                         <input type="checkbox" name="matches[{{ $match->id }}]" value="{{ get_class($match) }}" />
                         {!! $match->present('link') !!}

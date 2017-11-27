@@ -15,6 +15,8 @@ class ModelPattern
      */
     public function __construct(array $elements = [])
     {
+        $this->elements = [];
+
         foreach ($elements as $element) {
             $this->store($element);
         }

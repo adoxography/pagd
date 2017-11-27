@@ -3,11 +3,12 @@
 namespace Algling\Words;
 
 use App\AlgPresenter;
+use App\Presenters\MorphemeablePresentation;
 use App\Presenters\PhonemeablePresentation;
 
 class ExamplePresenter extends AlgPresenter
 {
-    use PhonemeablePresentation;
+    use PhonemeablePresentation, MorphemeablePresentation;
 
     public function name(string $format = '')
     {

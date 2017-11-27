@@ -1,13 +1,13 @@
 <form
 	method="{{ isset($method) && $method == 'GET' ? 'GET' : 'POST' }}"
 
-	@if(isset($action))
+	@isset($action)
 	action="{{ $action }}"
-	@endif
+	@endisset
 
-	@if(isset($class))
+	@isset($class)
 	class="{{ $class }}"
-	@endif
+	@endisset
 
 	@if (isset($files) && $files)
 		enctype="multipart/form-data"

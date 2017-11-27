@@ -2,19 +2,21 @@
 
 namespace App\Presenters;
 
+use Algling\Words\Models\Example;
+use Algling\Words\Models\Form;
 use App\Models\Morphology\Morpheme;
 use Auth;
 
 trait MorphemeablePresentation
 {
-    public function morphemes(string $format = '')
+    public function morphemes(bool $alerts = true, string $format = '')
     {
         $morphemes = $this->model->morphemeList();
         $morphemeHTML = [];
         $index = 0;
 
         foreach ($morphemes as $morpheme) {
-            $morphemeHTML[] = $this->getMorphemeHTML($morpheme, $index);
+            $morphemeHTML[] = $this->getMorphemeHTML($morpheme, $index, $alerts);
             $index++;
         }
 
@@ -22,18 +24,18 @@ trait MorphemeablePresentation
         return "<div class='columns morpheme-printout'>$html</div>";
     }
 
-    protected function getMorphemeHTML($morpheme, int $index)
+    protected function getMorphemeHTML($morpheme, int $index, bool $alerts)
     {
         if ($morpheme instanceof Morpheme) {
-            $html = $this->getKnownMorphemeHTML($morpheme, $index);
+            $html = $this->getKnownMorphemeHTML($morpheme, $index, $alerts);
         } else {
-            $html = $this->getUnknownMorphemeHTML($morpheme, $index);
+            $html = $this->getUnknownMorphemeHTML($morpheme, $index, $alerts);
         }
 
         return "<div class='column is-narrow'>$html</div>";
     }
 
-    protected function getKnownMorphemeHTML($morpheme, int $index)
+    protected function getKnownMorphemeHTML($morpheme, int $index, bool $alerts)
     {
         $morphemeHTML = str_replace(['-', '*'], '', $morpheme->name);
         $morphemeHTML = $this->formatMorpheme($morphemeHTML);
@@ -52,19 +54,20 @@ trait MorphemeablePresentation
 
         $morphemeHTML .= "<p style='color: $colour;'>$glossHTML</p>";
 
-        if ($morpheme['assumed']) {
-            $morphemeHTML .= $this->createMorphemeAssumptionAlert($morpheme, $index);
+        if ($morpheme['assumed'] && $alerts) {
+            [$title, $options] = $this->createMorphemeAssumptionAlert($morpheme, $index, $alerts);
+            $morphemeHTML .= "<alg-morpheme-alert title='$title'>$options</alg-morpheme-alert>";
         }
 
         return $morphemeHTML;
     }
 
-    protected function getUnknownMorphemeHTML($morpheme, int $index)
+    protected function getUnknownMorphemeHTML($morpheme, int $index, bool $alerts)
     {
         $morphemeHTML = $this->formatMorpheme($morpheme['name']);
 
-        if (auth()->user()) {
-            $morphemeHTML .= $this->createUnknownMorphemeAlert($morpheme, $index);
+        if (auth()->user() && $alerts) {
+            $morphemeHTML .= $this->createUnknownMorphemeAlert($morpheme, $index, $alerts);
         }
 
         return $morphemeHTML;
@@ -149,9 +152,9 @@ trait MorphemeablePresentation
     {
         $model = '';
 
-        if ($this instanceof Form || is_subclass_of($this, Form::class)) {
+        if ($this->model instanceof Form || is_subclass_of($this->model, Form::class)) {
             $model = "forms";
-        } elseif ($this instanceof Example || is_subclass_of($this, Example::class)) {
+        } elseif ($this->model instanceof Example || is_subclass_of($this->model, Example::class)) {
             $model = "examples";
         }
 

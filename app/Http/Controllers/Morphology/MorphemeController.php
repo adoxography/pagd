@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Morphology;
 
+use DB;
+use Algling\Words\Models\Example;
+use Algling\Words\Models\Form;
 use App\Http\Controllers\AlgModelController;
 use App\Http\Requests\MorphemeRequest;
 use App\Models\Morphology\Morpheme;
@@ -84,8 +87,26 @@ class MorphemeController extends AlgModelController
 
         $morpheme = Morpheme::create($data);
 
-        flash("{$morpheme->name} created successfully.", 'is-success');
-        return redirect("/morphemes/{$morpheme->id}");
+        // Check if the morpheme might exist in forms or examples already
+        $name = str_replace(['*', '-'], '', $morpheme->name);
+        $formQuery = DB::table('Word_Forms')
+            ->select('id')
+            ->where('language_id', $morpheme->language->id)
+            ->where('morphemicForm', 'LIKE', "%$name%");
+        $matches = DB::table('Word_Examples')
+            ->select('id')
+            ->where('language_id', $morpheme->language->id)
+            ->where('morphemicForm', 'LIKE', "%$name%")
+            ->union($formQuery)
+            ->count();
+
+        if ($matches == 0) {
+            flash("{$morpheme->name} created successfully.", 'is-success');
+            return redirect("/morphemes/{$morpheme->id}");
+        } else {
+            flash("The following forms and/or examples currently exist in {$morpheme->language->name} that might contain {$morpheme->name}.");
+            return redirect("/morphemes/{$morpheme->id}/possible-connections");
+        }
     }
 
     /**
@@ -120,6 +141,37 @@ class MorphemeController extends AlgModelController
 
         flash($morpheme->name.' deleted successfully.', 'is-info');
         return redirect("/languages/{$morpheme->language_id}");
+    }
+
+    public function showConnections(Morpheme $morpheme)
+    {
+        $morpheme->load('language');
+        $name = str_replace(['*', '-'], '', $morpheme->name);
+
+        $matches = collect();
+        $types = [Form::class, Example::class];
+        foreach ($types as $type) {
+            $results = $type::where('language_id', $morpheme->language_id)->where('morphemicForm', 'LIKE', "%$name%")->get();
+            $matches = $matches->concat($results);
+        }
+
+        return view('morphemes.connect', compact('morpheme', 'matches'));
+    }
+
+    public function connect(Morpheme $morpheme)
+    {
+        $matches = request()->matches;
+        $name = str_replace(['*', '-'], '', $morpheme->name);
+        $pattern = "/(?<=^|-)$name(?=$|-)/";
+
+        foreach ($matches as $key => $type) {
+            $model = $type::find($key);
+            $model->morphemicForm = preg_replace($pattern, $morpheme->id, $model->morphemicForm);
+            $model->save();
+        }
+
+        flash("{$morpheme->name} saved successfully.", 'is-success');
+        return redirect("/morphemes/{$morpheme->id}");
     }
 
     protected function convertGloss()

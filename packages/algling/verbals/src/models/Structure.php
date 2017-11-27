@@ -180,7 +180,7 @@ class Structure extends Model
             if ($this->subject->person == '0') {
                 // All TA forms with an inanimate subject are TA Inanimate
                 $subclass = 'TA Inanimate';
-            } elseif ($this->subject->person == 'X') {
+            } elseif ($this->subject->name == 'X') {
                 // All TA forms with an impersonal subject are TA Impersonal
                 $subclass = 'TA Impersonal';
             } elseif (($this->subject->person == '3' && $this->subject->obviativeCode == '2') || ($this->primaryObject->person == '3' && $this->primaryObject->obviativeCode == '2')) {

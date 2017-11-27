@@ -111,7 +111,7 @@ class ExampleController extends AlgModelController
      */
     public function disambiguate(Example $example)
     {
-        $example->disambiguate(request()->index, request()->disambiguator);
+        $example->disambiguate(request()->index, request()->id);
 
         return redirect("/examples/{$example->id}");
     }

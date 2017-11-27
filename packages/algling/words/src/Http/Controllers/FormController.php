@@ -82,7 +82,7 @@ class FormController extends AlgModelController
      */
     public function disambiguate(Form $form)
     {
-        $form->disambiguate(request()->index, request()->disambiguator);
+        $form->disambiguate(request()->index, request()->id);
 
         return redirect("/forms/{$form->id}");
     }

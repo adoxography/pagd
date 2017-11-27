@@ -3,11 +3,12 @@
 namespace Algling\Words;
 
 use App\AlgPresenter;
+use App\Presenters\MorphemeablePresentation;
 use App\Presenters\PhonemeablePresentation;
 
 class FormPresenter extends AlgPresenter
 {
-    use PhonemeablePresentation;
+    use PhonemeablePresentation, MorphemeablePresentation;
 
     public function unique()
     {

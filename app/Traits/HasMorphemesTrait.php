@@ -67,26 +67,40 @@ trait HasMorphemesTrait
         $type = $this->getMorphType();
         $id = $this->id;
 
-        DB::table('Morph_Morphemeables')->where('morphemeable_type', $type)->where('morphemeable_id', $id)->delete();
+        DB::table('Morph_Morphemeables')
+            ->where('morphemeable_type', $type)
+            ->where('morphemeable_id', $id)
+            ->delete();
     }
 
     protected function connectMorpheme(string $morpheme, int $position, string $type)
     {
-        $name = $this->extractRealMorpheme($morpheme);
-        $disambiguator = $this->extractDisambiguator($morpheme);
+        $identifier = explode('.', $morpheme)[0];
 
-        $query = $this->queryMorpheme($name, $disambiguator);
-
-        // Execute the query
-        $lookup = $query->get();
-
-        // Connect the morpheme if exactly one result was returned
-        if ($lookup->count() == 1) {
-            $this->morphemes()->attach($lookup->first()->id, [
-                    'position' => $position + 1,
-                    'morphemeable_type' => $type
-                ]);
+        $morpheme = $this->fetchMorpheme($identifier);
+        if ($morpheme) {
+            $this->morphemes()->attach($morpheme->id, [
+                'position' => $position + 1,
+                'morphemeable_type' => $type
+            ]);
         }
+    }
+
+    protected function fetchMorpheme($identifier)
+    {
+        $morpheme = null;
+
+        if (is_numeric($identifier)) {
+            $morpheme = Morpheme::find($identifier);
+        } else {
+            $lookup = $this->queryMorpheme($identifier);
+
+            if ($lookup->count() == 1) {
+                $morpheme = $lookup->first();
+            }
+        }
+
+        return $morpheme;
     }
 
     public function getMorphType()
@@ -94,7 +108,7 @@ trait HasMorphemesTrait
         return $this->morphCode ? $this->morphCode : $this->getMorphClass();
     }
 
-    protected function queryMorpheme(string $name, $disambiguator = null)
+    protected function queryMorpheme(string $name)
     {
         $query = Morpheme::whereIn('name', [
             $name,
@@ -103,37 +117,7 @@ trait HasMorphemesTrait
             "$name-",
         ])->where('language_id', $this->language_id);
 
-        if ($disambiguator) {
-            $query->where('disambiguator', $disambiguator);
-        }
-
         return $query;
-    }
-
-    /**
-     * Removes any initial change directives
-     *
-     * @param string $morpheme the string containing the morpheme to be extracted
-     * @return string the morpheme
-     */
-    protected function extractRealMorpheme(string $morpheme)
-    {
-        // Find the morpheme
-        preg_match('/^(?:IC(?:\.\d+)?\|)?([^\.]+)(?:\.\d+)?$/', $morpheme, $matches);
-
-        // Strip out any hanging parentheses
-        return preg_replace("/^\((.*)\)$/", "$1", $matches[1]);
-    }
-
-    protected function extractDisambiguator(string $morpheme)
-    {
-        $disambiguator = null;
-
-        if (preg_match('/\d+$/', $morpheme, $matches)) {
-            $disambiguator = $matches[0];
-        }
-
-        return $disambiguator;
     }
 
     /**
@@ -171,28 +155,29 @@ trait HasMorphemesTrait
         $slots = explode('-', $this->morphemicForm);
 
         foreach ($slots as $index => $slot) {
-            $initialChangePieces = explode('|', $slot);
+            $tokens = explode('.', $slot);
 
             if ($curr < count($savedMorphemes) && $savedMorphemes[$curr]->pivot->position == $index + 1) {
                 // If the position of the pre-connected morpheme matches the position we're currently looking for, add
                 // it to the output
-                $output[] = $savedMorphemes[$curr++];
-                $output[count($output) - 1]['name'] = explode('.', array_last($initialChangePieces))[0];
+                $output[] = $savedMorphemes[$curr];
+                $output[count($output) - 1]['name'] = $savedMorphemes[$curr]->name;
+                $curr++;
 
-                if (count($initialChangePieces) > 1) {
+                if (count($tokens) > 1) {
                     // Initial change is at play here
-                    array_last($output)->initialChange($initialChangePieces[0]);
+                    array_last($output)->initialChange($tokens[1]);
                 }
+
+                array_last($output)['assumed'] = !is_numeric($tokens[0]);
             } else {
                 // Otherwise, we don't have the morpheme in the system; deal with the token directly
-                $realSlot = array_last($initialChangePieces);
-
-                // Pull off the disambiguator
-                $temp = ['name' => explode('.', $realSlot)[0]];
+                $realSlot = array_first($tokens);
+                $temp = ['name' => $realSlot];
 
                 // The initial change table won't have a record for a morpheme that isn't in the database, so record
                 // the initial change directly
-                if (count($initialChangePieces) > 1) {
+                if (count($tokens) > 1) {
                     $temp['name'] = 'IC.'.$temp['name'];
                 }
 
@@ -238,6 +223,8 @@ trait HasMorphemesTrait
      */
     public function printMorphemes()
     {
+        return $this->present('morphemes');
+
         $firstTime = true;
         $html = '';
         $index = 0;
@@ -279,6 +266,10 @@ trait HasMorphemesTrait
                     $glossHTML .= $morpheme->renderGloss();
 
                     $morphemeHTML .= "<p style='color: $colour;'>$glossHTML</p>";
+
+                    if ($morpheme['assumed']) {
+                        $morphemeHTML .= $this->createMorphemeAlert($morpheme, $index);
+                    }
                 } else {
                     $morphemeHTML .= str_replace('-', '', $morpheme->name);
                 }
@@ -336,7 +327,7 @@ trait HasMorphemesTrait
                         "<input type='hidden' name='index' value='{$index}' />".
                         csrf_field().
                         method_field("PATCH").
-                        "<input type='hidden' name='disambiguator' value='{$possibility->disambiguator}' />".
+                        "<input type='hidden' name='id' value='{$possibility->id}' />".
                         "<button class='button is-text'>".
                             "{$possibility->name}<sup>{$possibility->disambiguator}</sup> ($gloss)".
                         "</button>".
@@ -346,6 +337,20 @@ trait HasMorphemesTrait
 
             // Wrap everything in an unordered list
             $options = "<ul>$options</ul>";
+        } elseif ($morpheme instanceof Morpheme) {
+            if ($this instanceof Form || is_subclass_of($this, Form::class)) {
+                $model = "forms";
+            } elseif ($this instanceof Example || is_subclass_of($this, Example::class)) {
+                $model = "examples";
+            }
+            $title = 'Morpheme assumed';
+            $options = "<form method='POST' action='/$model/{$this->id}/disambiguate'>".
+                        "<input type='hidden' name='index' value='$index' />".
+                        csrf_field().
+                        method_field('PATCH').
+                        "<input type='hidden' name='id' value='{$morpheme->id}' />".
+                        "<button class='button is-text'>Confirm</button>".
+                        "</form>";
         } else {
             // There is no matching morpheme in the database
 
@@ -362,34 +367,34 @@ trait HasMorphemesTrait
     }
 
     /**
-     * Disambiguate a morpheme by adding a disambiguator to the appropriate segment of the morphemicForm
+     * Disambiguate a morpheme by replacing the appropriate segment of the morphemicForm with an ID
      *
      * @param $index
-     * @param $disambiguator
+     * @param $id
      * @return void
      */
-    public function disambiguate($index, $disambiguator)
+    public function disambiguate(int $index, int $id)
     {
         $morphemes = explode('-', $this->morphemicForm);
 
         if (count($morphemes) > $index && !$this->morphemeIsDisambiguated($morphemes[$index])) {
+
+            // Replace the identifier with the ID
             $morpheme = $morphemes[$index];
+            $tokens = explode('.', $morpheme);
+            $tokens[0] = $id;
 
-            // Remove any existing disambiguator
-            $morpheme = preg_replace('/\.\d+$/', '', $morpheme);
+            $morphemes[$index] = implode('.', $tokens);
 
-            // Add the disambiguator at the end of the morpheme at the given index
-            $morphemes[$index] = $morpheme.'.'.$disambiguator;
+            // Put the morphemicForm back together and save it
+            $this->morphemicForm = implode('-', $morphemes);
+            $this->save();
         }
-
-        // Put the morphemicForm back together and save it
-        $this->morphemicForm = implode('-', $morphemes);
-        $this->save();
     }
 
     protected function morphemeIsDisambiguated(string $morpheme)
     {
-        return strpos($morpheme, '.') !== false;
+        return is_numeric(explode('.', $morpheme)[0]);
     }
 
     public function containsMorpheme($morpheme)
@@ -420,54 +425,50 @@ trait HasMorphemesTrait
 
     public function morphemesToJson()
     {
-        $morphemes = [];
+        $arr = [];
 
         if ($this->morphemicForm) {
+            $this->morphemes;
+
             foreach (explode('-', $this->morphemicForm) as $morpheme) {
                 $morph = null;
-                preg_match('/(^IC(\.(\d))?\|)?([^\.]+)(.(\d))?/', $morpheme, $matches);
 
-                $name = $matches[4];
-                $disambiguator = count($matches) >= 6 ? $matches[6] : null;
+                $tokens = explode('.', $morpheme);
+                $identifier = $tokens[0];
+                $ic = isset($tokens[1]) ? $tokens[1] : null;
 
-                if ($matches[3]) {
-                    $ic = $matches[3];
-                } elseif ($matches[1]) {
-                    $ic = 0;
-                } else {
-                    $ic = null;
-                }
-
-                if ($disambiguator) {
-                    $morph = $this->queryMorpheme($name, $disambiguator)->with(['initialChanges', 'slot'])->first();
-
-                    if ($morph) {
-                        $morph['ic'] = $ic;
-
-                        if ($ic) {
-                            $change = $morph->initialChanges->where('id', $ic)->first();
-
-                            if ($change) {
-                                $morph['tempName'] = $change->change;
-                            }
-                        }
-                    }
-                }
-
-                $morph = $morph ?: [
-                    'name' => $name,
-                    'ic' => $ic,
-                    'disambiguator' => $disambiguator
-                ];
-
-                if ($ic === 0) {
-                    $morph['tempName'] = 'IC.' . $morph['name'];
-                }
-
-                $morphemes[] = $morph;
+                $arr[] = $this->assembleMorphemeForJson($identifier, $ic);
             }
         }
 
-        return json_encode($morphemes);
+        return json_encode($arr);
+    }
+
+    protected function assembleMorphemeForJson($identifier, $ic)
+    {
+        if (is_numeric($identifier)) {
+            $morpheme = $this->morphemes->where('id', $identifier)->first();
+            $morpheme['ic'] = $ic;
+
+            if ($ic) {
+                $change = $morpheme->initialChanges->where('id', $ic)->first();
+
+                if ($change) {
+                    $morpheme['tempName'] = $change->change;
+                }
+            }
+        } else {
+            $morpheme = [
+                'name' => $identifier,
+                'ic' => $ic,
+                'id' => 0
+            ];
+        }
+
+        if ($ic === '0') {
+            $morpheme['tempName'] = 'IC.' . $morpheme['name'];
+        }
+
+        return $morpheme;
     }
 }

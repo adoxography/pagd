@@ -162,6 +162,11 @@ class Morpheme extends Model implements PhonemeableInterface
         return preg_match('/\*?V/', $this->name);
     }
 
+    public function isStem()
+    {
+        return preg_match('/\*?[VN]/', $this->name);
+    }
+
     public function initialChange($code)
     {
         $this->altName = $this->determineAltName($code);

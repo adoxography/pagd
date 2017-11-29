@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			29-11-11: Users are now prompted to connect morphemes when a morpheme's name is edited
+		</li>
+		<li>
 			29-11-11: Added "select all" and "select none" to the connection page for new morphemes
 		</li>
 		<hr>

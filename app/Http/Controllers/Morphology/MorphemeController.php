@@ -87,25 +87,12 @@ class MorphemeController extends AlgModelController
 
         $morpheme = Morpheme::create($data);
 
-        // Check if the morpheme might exist in forms or examples already
-        $name = str_replace(['*', '-'], '', $morpheme->name);
-        $formQuery = DB::table('Word_Forms')
-            ->select('id')
-            ->where('language_id', $morpheme->language->id)
-            ->where('morphemicForm', 'LIKE', "%$name%");
-        $matches = DB::table('Word_Examples')
-            ->select('id')
-            ->where('language_id', $morpheme->language->id)
-            ->where('morphemicForm', 'LIKE', "%$name%")
-            ->union($formQuery)
-            ->get();
-
-        if ($matches->count() == 0) {
-            flash("{$morpheme->name} created successfully.", 'is-success');
-            return redirect("/morphemes/{$morpheme->id}");
-        } else {
+        if ($this->mightHaveConnections($morpheme)) {
             flash("The following forms and/or examples currently exist in {$morpheme->language->name} that might contain {$morpheme->present()}.");
             return redirect("/morphemes/{$morpheme->id}/possible-connections");
+        } else {
+            flash("{$morpheme->name} created successfully.", 'is-success');
+            return redirect("/morphemes/{$morpheme->id}");
         }
     }
 
@@ -124,8 +111,13 @@ class MorphemeController extends AlgModelController
 
         $morpheme->update($data);
 
-        flash("{$morpheme->name} updated successfully.", 'is-success');
-        return redirect("/morphemes/{$morpheme->id}");
+        if ($morpheme->isDirty('name') && $this->mightHaveConnections($morpheme)) {
+            flash("The following forms and/or examples currently exist in {$morpheme->language->name} that might contain {$morpheme->present()}.");
+            return redirect("/morphemes/{$morpheme->id}/possible-connections");
+        } else {
+            flash("{$morpheme->name} updated successfully.", 'is-success');
+            return redirect("/morphemes/{$morpheme->id}");
+        }
     }
 
     /**
@@ -175,6 +167,23 @@ class MorphemeController extends AlgModelController
         }
 
         return redirect("/morphemes/{$morpheme->id}");
+    }
+
+    protected function mightHaveConnections(Morpheme $morpheme)
+    {
+        $name = str_replace(['*', '-'], '', $morpheme->name);
+        $formQuery = DB::table('Word_Forms')
+            ->select('id')
+            ->where('language_id', $morpheme->language->id)
+            ->where('morphemicForm', 'LIKE', "%$name%");
+        $matches = DB::table('Word_Examples')
+            ->select('id')
+            ->where('language_id', $morpheme->language->id)
+            ->where('morphemicForm', 'LIKE', "%$name%")
+            ->union($formQuery)
+            ->get();
+
+        return $matches->count() > 0;
     }
 
     protected function convertGloss()

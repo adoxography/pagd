@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			29-11-11: Added "select all" and "select none" to the connection page for new morphemes
+		</li>
+		<hr>
+		<li>
 			27-11-11: Linked morphemes to forms in a way such that changes to a morpheme will be reflected on the form
 		</li>
 		<hr>

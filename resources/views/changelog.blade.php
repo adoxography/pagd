@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			29-11-11: Fixed requirements on morphemes in nominal forms
+		</li>
+		<li>
 			29-11-11: Users are now prompted to connect morphemes when a morpheme's name is edited
 		</li>
 		<li>

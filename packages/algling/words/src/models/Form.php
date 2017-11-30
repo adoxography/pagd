@@ -182,7 +182,8 @@ class Form extends Model implements PhonemeableInterface
         $found = false;
 
         for ($i = 0; $i < $morphemes->count() && !$found; $i++) {
-            $found = $morphemes[$i]->slot->name == 'stem';
+            $morpheme = $morphemes[$i];
+            $found = $morpheme->name == 'N' || $morpheme->name == 'V';
         }
 
         return $found;

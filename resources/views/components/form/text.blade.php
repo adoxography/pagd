@@ -17,13 +17,13 @@
 		:class="{'is-danger': errors.has('{{ $name }}')}"
 		ref="{{ $name }}"
 
-		@if(isset($autofocus) && !old($name) && strlen($value) == 0)
+		@if (isset($autofocus) && !old($name) && strlen($value) == 0)
 		autofocus="autofocus"
 		@endif
 
-		@if(isset($placeholder))
+		@isset ($placeholder)
 		placeholder="{{ $placeholder }}"
-		@endif
+		@endisset
 
 		@isset ($activeRules)
 			v-validate="{{ $activeRules }}"

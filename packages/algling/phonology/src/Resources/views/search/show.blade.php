@@ -11,6 +11,9 @@
             v-cloak
             :old-errors="{{ json_encode($errors->messages()) }}"
             :inventory="{{ $inventory->toJson() }}"
+            @isset ($params)
+                :preset="{{ $params }}"
+            @endisset
         >
             <div>
                 <div class="field">

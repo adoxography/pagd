@@ -5,6 +5,12 @@
 @endsection
 
 @section('content')
+    @component('components.form', ['method' => 'GET', 'action' => '/phonemes/search'])
+        <input type="hidden" name="params" value="{{ $params or '' }}">
+        <button class="button" type="submit">Refine</button>
+    @endcomponent
+    <br />
+
     <table class="table">
         <thead>
             <tr>

@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			02-12-17: Added refine to phoneme seach
+		</li>
+		<li>
 			02-12-17: Removed phone filter option from inventory search mode
 		</li>
 		<li>

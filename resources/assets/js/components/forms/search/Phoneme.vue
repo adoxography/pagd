@@ -5,7 +5,7 @@ import { Datalist } from '../../../Datalist.js';
 export default {
     extends: Form,
 
-    props: ['inventory'],
+    props: ['inventory', 'preset'],
 
     data() {
         return {
@@ -35,8 +35,37 @@ export default {
         }
     },
 
+    created() {
+        if (this.preset) {
+            this.mode = this.preset.mode;
+
+            let languages = [];
+
+            for (let i = 0; i < this.preset.languages.length; i += 2) {
+                let name = this.preset.languages[i];
+                let id = this.preset.languages[i + 1];
+
+                if (name) {
+                    languages.push(new Datalist(name, id));
+                }
+            }
+
+            languages.push(this.languages[0]);
+            this.languages = languages;
+        }
+    },
+
     mounted() {
-        this.type = 'consonants';
+        if (this.preset) {
+            this.type = this.preset.type;
+            Vue.nextTick(() => {
+                _.each(this.phonemes, (_, key) => {
+                    this.phonemes[key] = this.preset.phonemes.includes(key);
+                });
+            });
+        } else {
+            this.type = 'consonants';
+        }
     },
 
     methods: {

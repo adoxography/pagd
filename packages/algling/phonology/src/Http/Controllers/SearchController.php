@@ -15,10 +15,14 @@ class SearchController extends Controller
             'clusters'
         ];
 
+        if (request()->params) {
+            $params = json_encode(unserialize(request()->params));
+        }
+
         $languages = Language::where('id', '<>', 1)->orderBy('name')->get();
         $inventory = Language::find(1)->phonology();
 
-        return view('phon::search.show', compact('types', 'languages', 'inventory'));
+        return view('phon::search.show', compact('types', 'languages', 'inventory', 'params'));
     }
 
     public function results()
@@ -31,7 +35,9 @@ class SearchController extends Controller
         $pa = $this->getPa($phonemes, $filter);
         $languages = $this->getLanguages($phonemes, $filter);
 
-        return view($view, compact('languages', 'type', 'pa'));
+        $params = serialize(request()->except('_token'));
+
+        return view($view, compact('languages', 'type', 'pa', 'params'));
     }
 
     protected function getView()

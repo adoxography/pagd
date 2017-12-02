@@ -14,6 +14,20 @@
         >
             <div>
                 <div class="field">
+                    <label class="label">Search mode:</label>
+                    <div class="control">
+                        <label class="radio">
+                            <input type="radio" name="mode" value="inventory" checked="checked" />
+                            Inventory
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="mode" value="reflex" />
+                            Reflex
+                        </label>
+                    </div>
+                </div>
+
+                <div class="field">
                     <label class="label">Phone type:</label>
                     <div class="control">
                         @foreach ($types as $type)
@@ -29,12 +43,16 @@
                     <label class="label">Phones:</label>
                     <em v-if="type == ''">Select a phone type first</em>
                     <div v-else>
-                        <span class="control" v-for="phone, in phones" style="margin-right: 1rem">
-                            <label class="checkbox">
-                                <input type="checkbox" :value="phone.id" v-model="phonemes[phone.id]" name="phonemes[]">
-                                @{{ phoneName(phone) }}
-                            </label>
-                        </span>
+                        <div>
+                            <span class="control" v-for="phone, in phones" style="margin-right: 1rem">
+                                <label class="checkbox">
+                                    <input type="checkbox" :value="phone.id" v-model="phonemes[phone.id]" name="phonemes[]">
+                                    @{{ phoneName(phone) }}
+                                </label>
+                            </span>
+                        </div>
+                        <a class="button" @click="selectAll">Select all</a>
+                        <a class="button" @click="selectNone">Select none</a>
                     </div>
                 </div>
 
@@ -48,6 +66,7 @@
                         ></alg-datalist>
                     </div>
                 </div>
+
                 <div class="field" v-for="language, i in languages">
                     <div class="control">
                         <alg-datalist
@@ -58,6 +77,7 @@
                         ></alg-datalist>
                     </div>
                 </div>
+
                 <div class="field">
                     <div class="control">
                         <button type="submit" class="button is-success">Search</button>

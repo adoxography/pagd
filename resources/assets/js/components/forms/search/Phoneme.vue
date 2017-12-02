@@ -34,6 +34,10 @@ export default {
         }
     },
 
+    mounted() {
+        this.type = 'consonants';
+    },
+
     methods: {
         onInput(text, index) {
             if (text == '') {
@@ -47,6 +51,20 @@ export default {
 
         phoneName(phoneme) {
             return phoneme.algoName;
+        },
+
+        selectAll() {
+            this.toggle(true);
+        },
+
+        selectNone() {
+            this.toggle(false);
+        },
+
+        toggle(setting) {
+            _.each(this.phonemes, (_, key) => {
+                this.phonemes[key] = setting;
+            });
         }
     }
 }

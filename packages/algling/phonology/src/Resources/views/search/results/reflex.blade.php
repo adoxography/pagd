@@ -1,7 +1,7 @@
-@extends('layout', ['Phoneme search results'])
+@extends('layout', ['Reflex search results'])
 
 @section('title')
-    Phoneme search results
+    Reflex search results
 @endsection
 
 @section('content')

@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			02-12-17: Removed phone filter option from inventory search mode
+		</li>
+		<li>
 			02-12-17: Added inventory mode to phonology search
 		</li>
 		<hr>

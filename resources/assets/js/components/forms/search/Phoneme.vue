@@ -11,6 +11,7 @@ export default {
         return {
             languages: [new Datalist],
             type: '',
+            mode: 'inventory',
             phonemes: {},
             pa: {'text': 'Proto-Algonquian'}
         }

@@ -17,11 +17,11 @@
                     <label class="label">Search mode:</label>
                     <div class="control">
                         <label class="radio">
-                            <input type="radio" name="mode" value="inventory" checked="checked" />
+                            <input type="radio" name="mode" value="inventory" v-model="mode" />
                             Inventory
                         </label>
                         <label class="radio">
-                            <input type="radio" name="mode" value="reflex" />
+                            <input type="radio" name="mode" value="reflex" v-model="mode" />
                             Reflex
                         </label>
                     </div>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
 
-                <div class="field">
+                <div class="field" v-show="mode == 'reflex'">
                     <label class="label">Phones:</label>
                     <em v-if="type == ''">Select a phone type first</em>
                     <div v-else>

@@ -1,10 +1,16 @@
-@extends('layout', ['Phoneme search results'])
+@extends('layout', ['Reflex search results'])
 
 @section('title')
-    Phoneme search results
+    Reflex search results
 @endsection
 
 @section('content')
+    @component('components.form', ['method' => 'GET', 'action' => '/phonemes/search'])
+        <input type="hidden" name="params" value="{{ $params or '' }}">
+        <button class="button" type="submit">Refine</button>
+    @endcomponent
+    <br />
+
     <table class="table">
         <thead>
             <tr>

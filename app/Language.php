@@ -192,18 +192,18 @@ class Language extends Model
         return new LanguagePresenter($this, $method);
     }
 
-    public function phonology($includeNull = false)
+    public function phonology($includeNull = false, $constraint = null)
     {
         if (!isset($this->inventory)) {
-            return $this->loadPhonology($includeNull);
+            return $this->loadPhonology($includeNull, $constraint);
         }
 
         return $this->inventory;
     }
 
-    public function loadPhonology($includeNull = false)
+    public function loadPhonology($includeNull = false, $constraint = null)
     {
-        $this->inventory = new Inventory($this, $includeNull);
+        $this->inventory = new Inventory($this, $includeNull, $constraint);
         return $this->inventory;
     }
 

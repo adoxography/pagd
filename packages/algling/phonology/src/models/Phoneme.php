@@ -224,7 +224,7 @@ class Phoneme extends Model
     {
         $this->load('allParents');
 
-        $parents = $this->parents;
+        $parents = $this->allParents;
         $paParents = collect();
 
         while (!$parents->isEmpty()) {

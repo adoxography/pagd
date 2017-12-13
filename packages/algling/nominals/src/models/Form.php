@@ -23,6 +23,16 @@ class Form extends WordForm
         });
     }
 
+    public function getTranslationAttribute()
+    {
+        // dd($this->isStemless());
+        if ($this->isStemless()) {
+            return $this->examples->first()->translation;
+        }
+
+        return null;
+    }
+
     public function present(string $method = 'name')
     {
         return new FormPresenter($this, $method);

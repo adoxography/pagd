@@ -25,17 +25,22 @@ class Inventory implements Jsonable
 
     public $features;
 
-    public function __construct(Language $language, $includeNull = false)
+    public function __construct(Language $language, $includeNull = false, $constraint = null)
     {
         $this->language = $language;
 
-        $this->loadPhonemes($includeNull);
+        $this->loadPhonemes($includeNull, $constraint);
         $this->loadFeatures();
     }
 
-    protected function loadPhonemes($includeNull = false)
+    protected function loadPhonemes($includeNull = false, $constraint)
     {
-        $phonemes = $this->language->phonemes()->with('features')->get();
+        $query = $this->language->phonemes();
+        if (isset($constraint)) {
+            $query->where($constraint);
+        }
+
+        $phonemes = $query->with('features')->get();
 
         $this->consonants = $phonemes->where('featureable_type', 'consonantTypes')
                                     ->where('isArchiphoneme', false)

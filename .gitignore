@@ -9,6 +9,9 @@ Homestead.yaml
 .env.backup
 .php_cs.dist
 .phpstorm.meta.php
+.notes
 /config/algolia.php
 _ide_helper.php
 .todo
+nohup.out
+/public/.htaccess

@@ -105,7 +105,7 @@ trait SourceableTrait
             ->where('sourceable_type', $type);
 
         if ($includeExtraInfo) {
-            $output->withPivot('extraInfo');
+            $output->withPivot('extraInfo', 'id');
         }
 
         return $output;

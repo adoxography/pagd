@@ -12,10 +12,6 @@ use App\Contracts\Search;
 | application.
 |
 */
-Route::get('/mailable', function () {
-    $user = App\User::first();
-    return new App\Mail\RegistrationContact($user);
-});
 Route::resource('tickets', 'TicketController');
 Route::get('tickets/{ticket}/subscribe', 'TicketController@subscribe');
 Route::get('tickets/{ticket}/respond', 'TicketController@respond');
@@ -31,6 +27,9 @@ Route::get('welcome', 'HomeController@index');
 Route::get('glossary', 'HomeController@glossary');
 Route::get('entire-paradigm', 'HomeController@entireParadigm');
 Route::get('changelog', 'HomeController@changelog');
+
+Route::get('/missing/page-numbers', 'MissingController@editPageNumbers');
+Route::patch('/missing/page-numbers', 'MissingController@updatePageNumbers');
 
 Route::get('sandbox', function () {
     return view('sandbox');

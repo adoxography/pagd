@@ -41,7 +41,7 @@
 									@yield('panel')
 								</nav>
 							</div>
-							<div class="column">
+							<div class="column" style="width: 100%">
 								<div class="card-content">
 									@yield('content')
 								</div>

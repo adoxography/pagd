@@ -37,7 +37,6 @@
   "dependencies": {
     "bulma": "^0.6.0",
     "font-awesome": "^4.7.0",
-    "jquery-ui": "^1.12.1",
     "jquery-ui-bundle": "^1.12.1",
     "tinymce": "^4.5.5",
     "vue-clickaway": "^2.1.0",

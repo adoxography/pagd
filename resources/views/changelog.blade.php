@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			03-01-18: Added a utility for fixing missing page numbers
+		</li>
+		<hr>
+		<li>
 			27-11-11: Linked morphemes to forms in a way such that changes to a morpheme will be reflected on the form
 		</li>
 		<hr>

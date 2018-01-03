@@ -21,6 +21,7 @@
 					<li><a href="/changelog">Changelog</a></li>
 					<li><a href="/log">Activity log</a></li>
 					<li><a href="/need-attention">Missing data</a></li>
+					<li><a href="/missing/page-numbers">Missing page numbers</a></li>
 					<li><a href="/tickets">Tickets</a></li>
 				</ul>
 			</nav>

@@ -71,7 +71,20 @@ trait Phonemeable
      */
     public function lookupPhoneme(string $phoneme)
     {
-        return Phoneme::where('language_id', $this->language_id)->where('algoName', $phoneme)->first();
+        $lookup = Phoneme::where('language_id', $this->language_id)
+            ->where('algoName', $phoneme)
+            ->get();
+
+        if ($lookup->count() > 1) {
+            $encoding = mb_internal_encoding();
+            $phoneme = mb_strtolower($phoneme);
+
+            $lookup = $lookup->filter(function ($result) use ($phoneme, $encoding) {
+                return strcmp(mb_strtolower($result->algoName, $encoding), $phoneme) == 0;
+            });
+        }
+
+        return $lookup->first();
     }
 
     public function dropPhonemes()

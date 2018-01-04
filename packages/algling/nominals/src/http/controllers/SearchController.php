@@ -12,7 +12,7 @@ class SearchController extends Controller
 {
     public function paradigm()
     {
-        if(request()->preset) {
+        if (request()->preset) {
             $preset = unserialize(request()->preset);
         }
 
@@ -38,31 +38,31 @@ class SearchController extends Controller
         $forms = $this->queryForms($languageIds, $typeIds);
         $resultsFound = $forms->count() > 0;
 
-        if($resultsFound) {
-            if($types->contains(function ($type) {
+        if ($resultsFound) {
+            if ($types->contains(function ($type) {
                 return !$type->hasPronominalFeature;
             })) {
-                $thirdPersonForms = $forms->filter(function($form) {
+                $thirdPersonForms = $forms->filter(function ($form) {
                     return !$form->structure->paradigm->type->hasPronominalFeature;
                 });
 
                 $paradigms['Third person forms'] = new Paradigm($thirdPersonForms);
             }
 
-            if($types->contains(function ($type) {
+            if ($types->contains(function ($type) {
                 return !$type->hasNominalFeature;
             })) {
-                $personalPronouns = $forms->filter(function($form) {
+                $personalPronouns = $forms->filter(function ($form) {
                     return !$form->structure->paradigm->type->hasNominalFeature;
                 });
 
                 $paradigms['Personal pronouns'] = new Paradigm($personalPronouns);
             }
 
-            if($types->contains(function ($type) {
+            if ($types->contains(function ($type) {
                 return $type->hasNominalFeature && $type->hasPronominalFeature;
             })) {
-                $possessedNouns = $forms->filter(function($form) {
+                $possessedNouns = $forms->filter(function ($form) {
                     return $form->structure->paradigm->type->hasNominalFeature && $form->structure->paradigm->type->hasPronominalFeature;
                 });
 
@@ -78,11 +78,11 @@ class SearchController extends Controller
     protected function getLanguageIds()
     {
         /** @noinspection Annotator */
-        $ids = array_filter(request()->languages, function($val) {
+        $ids = array_filter(request()->languages, function ($val) {
             return is_numeric($val);
         });
 
-        if(count($ids) == 0) {
+        if (count($ids) == 0) {
             $ids = Language::select('id')->get()->pluck('id')->toArray();
         }
 
@@ -111,11 +111,11 @@ class SearchController extends Controller
                 'morphemes.glosses',
                 'morphemes.slot'
             ])->whereIn('language_id', $languageIds)
-            ->whereHas('structure', function($query) use ($typeIds) {
+            ->whereHas('structure', function ($query) use ($typeIds) {
                 $query->with('paradigm')
-                    ->whereHas('paradigm', function($query) use ($typeIds) {
+                    ->whereHas('paradigm', function ($query) use ($typeIds) {
                         $query->whereIn('paradigmType_id', $typeIds);
                     });
-            })->get();        
+            })->get();
     }
 }

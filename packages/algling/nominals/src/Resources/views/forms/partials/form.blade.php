@@ -20,6 +20,7 @@ $changeTypes = App\ChangeType::all();
 	@isset($form)
 		:old-sources="{{ $form->sources }}"
 		:init-morphemes="{{ $form->morphemesToJson() }}"
+		old-translation="{{ $form->translation ?: '' }}"
 	@endisset
 
 	@if(old('paradigm', 'not found') !== 'not found')
@@ -109,7 +110,7 @@ $changeTypes = App\ChangeType::all();
 							:has-errors="errors.has('pronominalFeature')"
 							v-validate="validations.pronominalFeature"
 							data-vv-as="pronominal feature"
-							:disabled="!paradigmHasPronominalFeature()"
+							:disabled="!paradigmHasPronominalFeature"
 							ref="pronominalFeature"
 							initial="{{ old('pronominalFeature', 'not found') !== 'not found' ? old('pronominalFeature') : (isset($form) && $form->structure->pronominalFeature ? $form->structure->pronominalFeature->name : '') }}"
 						></alg-datalist>
@@ -137,7 +138,7 @@ $changeTypes = App\ChangeType::all();
 							:has-errors="errors.has('nominalFeature')"
 							v-validate="validations.nominalFeature"
 							data-vv-as="nominal feature"
-							:disabled="!paradigmHasNominalFeature()"
+							:disabled="!paradigmHasNominalFeature"
 							ref="nominalFeature"
 							initial="{{ old('nominalFeature', 'not found') !== 'not found' ? old('nominalFeature') : (isset($form) && $form->structure->nominalFeature ? $form->structure->nominalFeature->name : '') }}"
 						></alg-datalist>
@@ -171,15 +172,15 @@ $changeTypes = App\ChangeType::all();
 			<!-- morphemes -->
 			@include('components.form.morpheme-tags', [
 				'placeholder' => 'Look up or insert morphemes to add to the morphemic form',
-				'language'    => 'language.id',
-				'rules'       => 'hasTag:V'
+				'language'    => 'language.id'
 			])
 
 			@component('components.form.text', [
 				'name' => 'translation',
+				'model' => 'translation',
 				'placeholder' => 'Required only for stemless forms',
-				'rules' => '',
-				'disabled' => '!translationRequired'
+				'disabled' => '!translationRequired',
+				'activeRules' => 'translationRules'
 			])
 				@slot('value')
 					@if(isset($form) && $form->isStemless() && $form->examples->count() > 0)

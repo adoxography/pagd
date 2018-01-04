@@ -12,82 +12,106 @@
 		<hr>
 		<li>
 			27-11-11: Linked morphemes to forms in a way such that changes to a morpheme will be reflected on the form
+        </li>
+        <hr>
+        <li>
+			02-12-17: Added refine to phoneme seach
+		</li>
+		<li>
+			02-12-17: Removed phone filter option from inventory search mode
+		</li>
+		<li>
+			02-12-17: Added inventory mode to phonology search
 		</li>
 		<hr>
 		<li>
-			24-11-11: Converted the menu in the header from a list of header elements to just a list
+			29-11-17: Fixed requirements on morphemes in nominal forms
+		</li>
+		<li>
+			29-11-17: Users are now prompted to connect morphemes when a morpheme's name is edited
+		</li>
+		<li>
+			29-11-17: Added "select all" and "select none" to the connection page for new morphemes
 		</li>
 		<hr>
 		<li>
-			22-11-11: Added algonquianist codes to things that can be searched with in the smart search
-		</li>
-		<li>
-			22-11-11: Fixed broken link to add morphemes from a language
-		</li>
-		<li>
-			22-11-11: Added typewriter to parent and morpheme fields
-		</li>
-		<li>
-			22-11-11: Fixed issue with glosses not being rendered on the morpheme form
+			27-11-17: Linked morphemes to forms in a way such that changes to a morpheme will be reflected on the form
 		</li>
 		<hr>
 		<li>
-			21-11-11: Fixed issue with glosses being reset while entering a morpheme
-		</li>
-		<li>
-			21-11-11: Stopped deleted morphemes from blocking new ones
+			24-11-17: Converted the menu in the header from a list of header elements to just a list
 		</li>
 		<hr>
 		<li>
-			20-11-11: Reformatted the reflex pages to use a hierarchical graph
+			22-11-17: Added algonquianist codes to things that can be searched with in the smart search
+		</li>
+		<li>
+			22-11-17: Fixed broken link to add morphemes from a language
+		</li>
+		<li>
+			22-11-17: Added typewriter to parent and morpheme fields
+		</li>
+		<li>
+			22-11-17: Fixed issue with glosses not being rendered on the morpheme form
 		</li>
 		<hr>
 		<li>
-			18-11-11: Added phonemic representation to morphemes
+			21-11-17: Fixed issue with glosses being reset while entering a morpheme
 		</li>
 		<li>
-			18-11-11: Added links to glosses and slots on the resources page
-		</li>
-		<hr>
-		<li>
-			17-11-11: Updated the form detail pages
-		</li>
-		<li>
-			17-11-11: Fixed bug in morpheme deletion routine
-		</li>
-		<li>
-			17-11-11: Fixed "add morphemic form" link
-		</li>
-		<li>
-			17-11-11: Fixed issue in rendering forms from languages with no phonemes
-		</li>
-		<li>
-			17-11-11: Added a link to the phonology search on the search page
+			21-11-17: Stopped deleted morphemes from blocking new ones
 		</li>
 		<hr>
 		<li>
-			16-11-11: Fixed a bug causing changes to the morphemes fields to be undone in certain circumstances
+			20-11-17: Reformatted the reflex pages to use a hierarchical graph
 		</li>
 		<hr>
 		<li>
-			13-11-11: Hovering over nodes and links in reflex graphs now brings up extra information; clicking brings up their respective pages
+			18-11-17: Added phonemic representation to morphemes
+		</li>
+		<li>
+			18-11-17: Added links to glosses and slots on the resources page
 		</li>
 		<hr>
 		<li>
-			12-11-11: Switched reflexes to using directed graphs
+			17-11-17: Updated the form detail pages
 		</li>
 		<li>
-			12-11-11: Linked known phonemes in phonemic representations of forms and examples to their respective pages
+			17-11-17: Fixed bug in morpheme deletion routine
+		</li>
+		<li>
+			17-11-17: Fixed "add morphemic form" link
+		</li>
+		<li>
+			17-11-17: Fixed issue in rendering forms from languages with no phonemes
+		</li>
+		<li>
+			17-11-17: Added a link to the phonology search on the search page
 		</li>
 		<hr>
 		<li>
-			11-11-11: Added names to the slot index
+			16-11-17: Fixed a bug causing changes to the morphemes fields to be undone in certain circumstances
+		</li>
+		<hr>
+		<li>
+			13-11-17: Hovering over nodes and links in reflex graphs now brings up extra information; clicking brings up their respective pages
+		</li>
+		<hr>
+		<li>
+			12-11-17: Switched reflexes to using directed graphs
 		</li>
 		<li>
-			11-11-11: Removed empty parentheses
+			12-11-17: Linked known phonemes in phonemic representations of forms and examples to their respective pages
+		</li>
+		<hr>
+		<li>
+			11-11-17: Added names to the slot index
 		</li>
 		<li>
-			11-11-11: Resolved phoneme feature rendering issue
+			11-11-17: Removed empty parentheses
+		</li>
+		<li>
+			11-11-17: Resolved phoneme feature rendering issue
 		</li>
 		<hr>
 		<li>

@@ -32,8 +32,8 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $exception
-     * @return void
+     * @param  \Exception $exception
+     * @return mixed
      */
     public function report(Exception $exception)
     {
@@ -55,7 +55,7 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         // Override the "whoops" page in production
-        if (!App::environment('local') && !$this->isHttpException($exception)) {
+        if (!app()->environment('local') && !$this->isHttpException($exception)) {
             $exception = new HttpException(500);
         }
 

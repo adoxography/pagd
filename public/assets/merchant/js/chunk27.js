@@ -1,212 +1,555 @@
-webpackJsonp([27,40],{
+webpackJsonp([27],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0&bustCache!./resources/assets/js/components/forms/Form.vue":
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0&bustCache!./resources/assets/js/components/AJAX-List.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vee_validate__ = __webpack_require__("./node_modules/vee-validate/dist/vee-validate.esm.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_OldErrors__ = __webpack_require__("./resources/assets/js/mixins/OldErrors.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_OldSources__ = __webpack_require__("./resources/assets/js/mixins/OldSources.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_clickaway__ = __webpack_require__("./node_modules/vue-clickaway/dist/vue-clickaway.common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_clickaway___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_clickaway__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
-
-
-
-Vue.use(__WEBPACK_IMPORTED_MODULE_0_vee_validate__["b" /* default */]);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_OldErrors__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__mixins_OldSources__["a" /* default */]],
 
-    data: function data() {
-        return {
-            sources: []
-        };
-    }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0&bustCache!./resources/assets/js/components/forms/Rule.vue":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form__ = __webpack_require__("./resources/assets/js/components/forms/Form.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Form__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Datalist_js__ = __webpack_require__("./resources/assets/js/Datalist.js");
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-	extends: __WEBPACK_IMPORTED_MODULE_0__Form___default.a,
+	props: ['name', 'id', 'value', 'with', 'uri', 'placeholder', 'disabled', 'initial'],
 
 	data: function data() {
 		return {
-			language: new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */](),
-			type: new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */]()
+			showList: false,
+			options: [],
+			loading: false,
+			curr: 0,
+			extra: ''
 		};
-	}
-});
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/forms/Form.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
-/* script */
-var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0&bustCache!./resources/assets/js/components/forms/Form.vue")
-/* template */
-var __vue_template__ = null
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/forms/Form.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-68350a1b", Component.options)
-  } else {
-    hotAPI.reload("data-v-68350a1b", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
+	},
 
 
-/***/ }),
+	directives: {
+		onClickaway: __WEBPACK_IMPORTED_MODULE_0_vue_clickaway__["directive"]
+	},
 
-/***/ "./resources/assets/js/components/forms/Rule.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
-/* script */
-var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0&bustCache!./resources/assets/js/components/forms/Rule.vue")
-/* template */
-var __vue_template__ = null
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/forms/Rule.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-797ab853", Component.options)
-  } else {
-    hotAPI.reload("data-v-797ab853", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/mixins/OldErrors.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['oldErrors'],
+	computed: {
+		showCheck: function showCheck() {
+			return !this.loading && this.value.id > 0 && !this.showList;
+		}
+	},
 
 	mounted: function mounted() {
 		var _this = this;
 
-		if (this.oldErrors) {
-			Vue.nextTick(function () {
-				_.forEach(_this.oldErrors, function (errors, field) {
-					field = field.split('_')[0];
+		this.$refs.list.contentEditable = true;
 
-					errors.forEach(function (message) {
-						_this.errors.add(field, message, 'database');
-					});
-				});
+		if (this.initial) {
+			Vue.nextTick(function () {
+				_this.$emit('input', _this.initial);
 			});
 		}
 	},
 
 
 	methods: {
-		validateBeforeSubmit: function validateBeforeSubmit(event) {
-			this.$validator.validateAll();
-
-			if (this.errors.any()) {
+		onEnter: function onEnter(event) {
+			if (this.showList) {
+				// The list is open
 				event.preventDefault();
+				this.selectItem(this.options[this.curr - 1].name);
 			}
+		},
+
+
+		//===========================================================================================================//
+		// From http://stackoverflow.com/questions/1125292/how-to-move-cursor-to-end-of-contenteditable-entity
+		setEndOfContenteditable: function setEndOfContenteditable(contentEditableElement) {
+			var range, selection;
+			if (document.createRange) //Firefox, Chrome, Opera, Safari, IE 9+
+				{
+					range = document.createRange(); //Create a range (a range is a like the selection but invisible)
+					range.selectNodeContents(contentEditableElement); //Select the entire contents of the element with the range
+					range.collapse(false); //collapse the range to the end point. false means collapse to end rather than the start
+					selection = window.getSelection(); //get the selection object (allows you to change selection)
+					selection.removeAllRanges(); //remove any selections already made
+					selection.addRange(range); //make the range you have just created the visible selection
+				} else if (document.selection) //IE 8 and lower
+				{
+					range = document.body.createTextRange(); //Create a range (a range is a like the selection but invisible)
+					range.moveToElementText(contentEditableElement); //Select the entire contents of the element with the range
+					range.collapse(false); //collapse the range to the end point. false means collapse to end rather than the start
+					range.select(); //Select the range (make it the visible selection
+				}
+		},
+
+		//===========================================================================================================//
+
+		closeList: function closeList() {
+			this.showList = false;
+		},
+		determineValue: function determineValue(text) {
+			var found = false;
+			var val = '';
+			this.extra = '';
+
+			for (var i = 0; i < this.options.length && !found; i++) {
+				if (this.options[i].name.toLowerCase() === text.toLowerCase()) {
+					val = this.options[i].id;
+					this.extra = this.options[i].extra;
+
+					if (this.options[i].name === text) {
+						found = true;
+					}
+				}
+			}
+
+			return val;
+		},
+		selectItem: function selectItem(newText) {
+			// Hide the list
+			this.closeList();
+
+			// Reset the current element
+			this.curr = 0;
+
+			this.update(newText);
+		},
+		activeItem: function activeItem(n) {
+			return n + 1 == this.curr;
+		},
+		onHover: function onHover(item) {
+			for (var i = 0; i < this.options.length; i++) {
+				if (this.options[i].name == item) {
+					this.curr = i + 1;
+				}
+			}
+		},
+		update: function update(newText) {
+			var _this2 = this;
+
+			var id = this.determineValue(newText);
+
+			this.$emit('input', {
+				text: newText,
+				id: id,
+				extra: this.extra
+			});
+
+			Vue.nextTick(function () {
+				var list = _this2.$refs.list;
+				_this2.setEndOfContenteditable(list);
+			});
+		},
+
+
+		onInput: _.debounce(function (newText) {
+			var _this3 = this;
+
+			if (newText.length > 0) {
+				this.closeList();
+				this.loading = true;
+
+				axios.get(this.uri, {
+					params: {
+						term: newText,
+						options: this.with
+					}
+				}).then(function (response) {
+					_this3.options = [];
+
+					_.forEach(response.data, function (item) {
+						item.name = _this3.formatString(item.name);
+						_this3.options.push(item);
+					});
+
+					if (_this3.options.length > 0) {
+						_this3.showList = true;
+					}
+
+					_this3.loading = false;
+				});
+			}
+
+			this.update(newText);
+		}, 500),
+
+		formatString: function formatString(str) {
+			var tempString = str.replace(/<(?:.|\n)*?>/gm, '');
+
+			if (tempString.length > 60) {
+				tempString = tempString.substring(0, 60);
+				tempString += "...";
+			}
+
+			return tempString;
+		},
+		onKeyUp: function onKeyUp(keyCode) {
+			if (keyCode == 40) {
+				// Down arrow
+				this.handleDownKey();
+			} else if (keyCode == 38) {
+				// Up arrow
+				this.handleUpKey();
+			}
+		},
+		handleDownKey: function handleDownKey() {
+			if (this.showList) {
+				// The list is open
+
+				// Increment the current selection, making sure to wrap it around the list
+				this.curr++;
+				this.curr %= this.options.length + 1;
+
+				// If the current selection isn't the textbox itself, set the textbox to the current selection
+				if (this.curr > 0) {
+					this.update(this.options[this.curr - 1].name);
+				}
+			}
+		},
+		handleUpKey: function handleUpKey() {
+			this.curr += this.options.length;
+			this.curr %= this.options.length + 1;
+			if (this.curr > 0) {
+				this.update(this.options[this.curr - 1].name);
+			}
+		},
+		reset: function reset() {
+			this.update('');
 		}
 	}
+
 });
 
 /***/ }),
 
-/***/ "./resources/assets/js/mixins/OldSources.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./node_modules/vue-clickaway/dist/vue-clickaway.common.js":
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['oldSources'],
 
-	created: function created() {
-		var _this = this;
 
-		if (this.oldSources) {
-			this.oldSources.forEach(function (source) {
-				_this.sources.push({
-					short: source.display ? source.display : source.short,
-					id: source.id,
-					long: source.long,
-					extraInfo: source.pivot ? source.pivot.extraInfo : source.extraInfo
-				});
-			});
-		}
-	}
-});
+var Vue = __webpack_require__("./node_modules/vue/dist/vue.common.js");
+Vue = 'default' in Vue ? Vue['default'] : Vue;
+
+var version = '2.1.0';
+
+var compatible = (/^2\./).test(Vue.version);
+if (!compatible) {
+  Vue.util.warn('VueClickaway ' + version + ' only supports Vue 2.x, and does not support Vue ' + Vue.version);
+}
+
+
+
+// @SECTION: implementation
+
+var HANDLER = '_vue_clickaway_handler';
+
+function bind(el, binding) {
+  unbind(el);
+
+  var callback = binding.value;
+  if (typeof callback !== 'function') {
+    if (true) {
+      Vue.util.warn(
+        'v-' + binding.name + '="' +
+        binding.expression + '" expects a function value, ' +
+        'got ' + callback
+      );
+    }
+    return;
+  }
+
+  // @NOTE: Vue binds directives in microtasks, while UI events are dispatched
+  //        in macrotasks. This causes the listener to be set up before
+  //        the "origin" click event (the event that lead to the binding of
+  //        the directive) arrives at the document root. To work around that,
+  //        we ignore events until the end of the "initial" macrotask.
+  // @REFERENCE: https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
+  // @REFERENCE: https://github.com/simplesmiler/vue-clickaway/issues/8
+  var initialMacrotaskEnded = false;
+  setTimeout(function() {
+    initialMacrotaskEnded = true;
+  }, 0);
+
+  el[HANDLER] = function(ev) {
+    // @NOTE: IE 5.0+
+    // @REFERENCE: https://developer.mozilla.org/en/docs/Web/API/Node/contains
+    if (initialMacrotaskEnded && !el.contains(ev.target)) {
+      return callback(ev);
+    }
+  };
+
+  document.documentElement.addEventListener('click', el[HANDLER], false);
+}
+
+function unbind(el) {
+  document.documentElement.removeEventListener('click', el[HANDLER], false);
+  delete el[HANDLER];
+}
+
+var directive = {
+  bind: bind,
+  update: function(el, binding) {
+    if (binding.value === binding.oldValue) return;
+    bind(el, binding);
+  },
+  unbind: unbind,
+};
+
+var mixin = {
+  directives: { onClickaway: directive },
+};
+
+exports.version = version;
+exports.directive = directive;
+exports.mixin = mixin;
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-0d7862c4\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0&bustCache!./resources/assets/js/components/AJAX-List.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      directives: [
+        {
+          name: "on-clickaway",
+          rawName: "v-on-clickaway",
+          value: _vm.closeList,
+          expression: "closeList"
+        }
+      ],
+      staticClass: "alg-ajax-list"
+    },
+    [
+      _c("div", { staticClass: "control has-icon has-icon-right" }, [
+        _c("div", { staticClass: "alg-datalist-container" }, [
+          _c("div", {
+            ref: "list",
+            staticClass: "input single-line",
+            attrs: {
+              id: _vm.id,
+              type: "text",
+              autocomplete: "off",
+              rows: "1",
+              placeholder: _vm.placeholder,
+              disabled: _vm.disabled
+            },
+            domProps: { innerHTML: _vm._s(_vm.value.text) },
+            on: {
+              input: function($event) {
+                _vm.onInput($event.target.textContent)
+              },
+              keyup: function($event) {
+                _vm.onKeyUp($event.keyCode)
+              },
+              keydown: function($event) {
+                if (
+                  !("button" in $event) &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key)
+                ) {
+                  return null
+                }
+                _vm.onEnter($event)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("input", {
+            attrs: { type: "hidden", name: _vm.name },
+            domProps: { value: _vm.value.text }
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value:
+                    _vm.showList &&
+                    _vm.options.length > 0 &&
+                    _vm.value.text.length > 0,
+                  expression:
+                    "showList && options.length > 0 && value.text.length > 0"
+                }
+              ],
+              staticClass: "box alg-datalist-dropdown"
+            },
+            [
+              _c(
+                "ul",
+                { staticStyle: { "white-space": "nowrap" } },
+                _vm._l(_vm.options, function(option, index) {
+                  return _c("li", [
+                    _c("a", {
+                      class: { "is-highlighted": _vm.activeItem(index) },
+                      domProps: { innerHTML: _vm._s(option.name) },
+                      on: {
+                        click: function($event) {
+                          _vm.selectItem(option.name)
+                        },
+                        mouseover: function($event) {
+                          _vm.onHover(option.name)
+                        }
+                      }
+                    })
+                  ])
+                })
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("span", { staticClass: "icon is-small" }, [
+            _c("i", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.loading,
+                  expression: "loading"
+                }
+              ],
+              staticClass: "fa fa-spinner fa-pulse fa-3x fa-fw"
+            }),
+            _vm._v(" "),
+            _c("i", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.showCheck,
+                  expression: "showCheck"
+                }
+              ],
+              staticClass: "fa fa-check",
+              staticStyle: { color: "green" }
+            })
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        attrs: { type: "hidden", name: _vm.name + "_id" },
+        domProps: { value: _vm.value.id }
+      }),
+      _vm._v(" "),
+      _c("input", {
+        attrs: { type: "hidden", name: _vm.name + "_extra" },
+        domProps: { value: _vm.extra }
+      })
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0d7862c4", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/AJAX-List.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0&bustCache!./resources/assets/js/components/AJAX-List.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-0d7862c4\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0&bustCache!./resources/assets/js/components/AJAX-List.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/AJAX-List.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0d7862c4", Component.options)
+  } else {
+    hotAPI.reload("data-v-0d7862c4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
 
 /***/ })
 

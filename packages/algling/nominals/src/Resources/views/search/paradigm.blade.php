@@ -5,19 +5,19 @@
 @endsection
 
 @section('content')
-	@component('components.form', [
-		'method' => 'GET',
-		'action' => '/nominals/search/paradigm/results',
-		'visible' => true
-	])
-		<alg-nominal-paradigm-search
-			inline-template
-			v-cloak
+	<alg-nominal-paradigm-search
+		inline-template
+		v-cloak
 
-			@if (isset($preset['languages']))
-				:old-languages="{{ json_encode($preset['languages']) }}"
-			@endif
-		>
+		@if (isset($preset['languages']))
+			:old-languages="{{ json_encode($preset['languages']) }}"
+		@endif
+	>
+		@component('components.form', [
+			'method' => 'GET',
+			'action' => '/nominals/search/paradigm/results',
+			'visible' => true
+		])
 			<div class="columns">
 				<div class="column">
 					<label class="label">Show me...</label>
@@ -39,6 +39,6 @@
 					></alg-multi-datalist>
 				</div>
 			</div>
-		</alg-nominal-paradigm-search>
-	@endcomponent
+		@endcomponent
+	</alg-nominal-paradigm-search>
 @endsection

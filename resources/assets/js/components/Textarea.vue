@@ -11,6 +11,16 @@
 </template>
 
 <script>
+// Core
+import tinymce from 'tinymce/tinymce'
+import 'tinymce/themes/modern/theme'
+
+// Plugins
+import 'tinymce/plugins/table/plugin'
+import 'tinymce/plugins/charmap/plugin'
+import 'tinymce/plugins/link/plugin'
+import 'tinymce/plugins/lists/plugin'
+
 export default {
 	props: ['value', 'disabled', 'placeholder', 'name', 'height'],
 

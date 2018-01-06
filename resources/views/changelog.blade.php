@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			05-01-18: Split the main JavaScript file into chunks that can be loaded on demand so that the entire website's JavaScript doesn't need to be downloaded at once
+		</li>
+		<hr>
+		<li>
 			03-01-18: Added a utility for fixing missing page numbers
 		</li>
 		<hr>

@@ -264,10 +264,14 @@ module.exports.plugins = [
     }),
 
     function() {
-        this.plugin('done', stats = > Mix.manifest.write(stats);
-    )
+        this.plugin('done', stats = > Mix.manifest.write(stats);)
     },
 ];
+
+if (Mix.inProduction) {
+    module.exports.plugins.push(new webpack.optimize.DedupePlugin());
+    module.exports.plugins.push(new webpack.optimize.AggressiveMergingPlugin());
+}
 
 
 if (Mix.notifications) {

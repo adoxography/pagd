@@ -8,9 +8,9 @@ window._ = require('lodash');
  * code may be modified to fit the specific needs of your application.
  */
 
-window.$ = window.jQuery = require('jquery');
-require('jquery-ui');
-require('jquery-ui-bundle');
+// window.$ = window.jQuery = require('jquery');
+// require('jquery-ui');
+// require('jquery-ui-bundle');
 //require('bootstrap-sass');
 
 /**
@@ -48,16 +48,6 @@ axiosRetry(window.axios, {
 	retries: 5,
 	retryCondition: error => !error.response || error.response.status == 400
 })
-
-// Core
-import tinymce from 'tinymce/tinymce'
-import 'tinymce/themes/modern/theme'
-
-// Plugins
-import 'tinymce/plugins/table/plugin'
-import 'tinymce/plugins/charmap/plugin'
-import 'tinymce/plugins/link/plugin'
-import 'tinymce/plugins/lists/plugin'
 
 /**
  * We'll register a HTTP interceptor to attach the "CSRF" header to each of

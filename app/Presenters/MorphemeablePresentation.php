@@ -14,6 +14,7 @@ trait MorphemeablePresentation
         $morphemes = $this->model->morphemeList();
         $morphemeHTML = [];
         $index = 0;
+        $alerts = $alerts && auth()->user();
 
         foreach ($morphemes as $morpheme) {
             $morphemeHTML[] = $this->getMorphemeHTML($morpheme, $index, $alerts);

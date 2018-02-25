@@ -30,16 +30,17 @@ Vue.component('alg-old-source',     resolve => { require(['./components/Old-Sour
 Vue.component('alg-sources',        resolve => { require(['./components/Sources.vue'], resolve); });
 Vue.component('alg-paginated-list', resolve => { require(['./components/Paginated-List.vue'], resolve); });
 Vue.component('alg-filter-list',    resolve => { require(['./components/Filter-List.vue'], resolve); });
-Vue.component('alg-notification',   require('./components/Notification.vue'));
+Vue.component('alg-notification',   require('./components/Notification.vue').default);
 Vue.component('alg-morpheme-alert', resolve => { require(['./components/Morpheme-Alert.vue'], resolve); });
 Vue.component('alg-initial-changes', resolve => { require(['./components/Initial-Changes.vue'], resolve); });
-Vue.component('alg-bookmark',        resolve => { require(['./components/Bookmark.vue'], resolve); });
+Vue.component('alg-bookmark',        require('./components/Bookmark.vue').default);
+// Vue.component('alg-bookmark',        resolve => { require(['./components/Bookmark.vue'], resolve); });
 Vue.component('alg-modal',           resolve => { require(['./components/Modal.vue'], resolve); });
-Vue.component('alg-button',          require('./components/Button.vue'));
-Vue.component('alg-map',             require('./components/Map.vue'));
+Vue.component('alg-button',          require('./components/Button.vue').default);
+Vue.component('alg-map',             require('./components/Map.vue').default);
 Vue.component('alg-network',         resolve => { require(['./components/Network.vue'], resolve); });
 Vue.component('alg-file-upload',     resolve => { require(['./components/FileUpload.vue'], resolve); });
-Vue.component('alg-tooltip', require('./components/Tooltip.vue'));
+Vue.component('alg-tooltip', require('./components/Tooltip.vue').default);
 Vue.component('alg-typeahead', resolve => { require(['./components/Typeahead.vue'], resolve ); });
 Vue.component('alg-typewriter', resolve => { require(['./components/Typewriter.vue'], resolve); });
 

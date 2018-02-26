@@ -29,5 +29,10 @@
 			Morphemes created:
 			{{ $user->creations()->ofType('morphemes')->count() }}
 		</span>
+
+		<span class="is-one-line">
+			Phonemes created:
+			{{ $user->creations()->ofType('phonemes')->count() }}
+		</span>
 	</div>
 @endsection

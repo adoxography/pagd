@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Morphology\Morpheme;
 use Algling\Nominals\Models\Form as NominalForm;
+use Algling\Phonology\Models\Phoneme;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,9 +28,7 @@ class MorphMapServiceProvider extends ServiceProvider
             'rules'      => 'App\Rule',
             'verbStructures' => 'Algling\Verbals\Models\Structure',
             'nominalStructures' => 'Algling\Nominals\Models\Structure',
-            'consonants' => 'Algling\Phonology\Models\Consonant',
-            'vowels'     => 'Algling\Phonology\Models\Vowel',
-            'clusters'   => 'Algling\Phonology\Models\Cluster',
+            'phonemes' => Phoneme::class,
             'consonantTypes' => 'Algling\Phonology\Models\ConsonantType',
             'vowelTypes' => 'Algling\Phonology\Models\VowelType',
             'clusterTypes' => 'Algling\Phonology\Models\ClusterType',

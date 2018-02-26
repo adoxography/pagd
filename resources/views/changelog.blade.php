@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			25-02-18: Added phonemes to statistics on user profile
+		</li>
+		<hr>
+		<li>
 			05-01-18: Split the main JavaScript file into chunks that can be loaded on demand so that the entire website's JavaScript doesn't need to be downloaded at once
 		</li>
 		<hr>

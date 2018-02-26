@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Morphology\Morpheme;
+use Algling\Nominals\Models\Form as NominalForm;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,6 +18,7 @@ class MorphMapServiceProvider extends ServiceProvider
     {
         Relation::morphMap([
             'verbForms'  => 'Algling\Verbals\Models\Form',
+            'nominalForms' => NominalForm::class,
             'forms'      => 'Algling\Words\Models\Form',
             'examples'   => 'Algling\Words\Models\Example',
             'morphemes'  => Morpheme::class,

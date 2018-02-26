@@ -55,7 +55,7 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         // Override the "whoops" page in production
-        if (!app()->environment('local') && !$this->isHttpException($exception)) {
+        if (!app()->environment('local') && !$this->isHttpException($exception) && !is_a($exception, AuthenticationException::class)) {
             $exception = new HttpException(500);
         }
 

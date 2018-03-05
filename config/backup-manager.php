@@ -30,7 +30,7 @@ return [
         'root' => '',
     ],
     'dropbox' => [
-        'type' => 'Dropbox',
+        'type' => 'DropboxV2',
         'token' => 'jhermfkVYnAAAAAAAAAAB0btOj8QBLio4LR0GsExWnKBvC-LNyxD1M-yDRTDCN62',
         'key' => '',
         'secret' => '',

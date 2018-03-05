@@ -18,6 +18,10 @@ mix.webpackConfig({
   output: {
     publicPath: "/",
     chunkFilename: `assets/merchant/js/chunk[name].${ mix.inProduction() ? '[chunkhash].' : '' }js`
+  },
+
+  externals: {
+    tinymce: 'tinymce'
   }
 });
 

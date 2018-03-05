@@ -56,6 +56,7 @@
 
 		@yield('scripts')
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.9/tinymce.min.js"></script>
 		<script src="{{ mix("/js/manifest.js") }}"></script>
 		<script src="{{ mix("/js/vendor.js") }}"></script>
 		<script src="{{ mix("/js/app.js") }}"></script>

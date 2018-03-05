@@ -4,8 +4,8 @@ webpackJsonp([3],{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tinymce_tinymce__ = __webpack_require__("./node_modules/tinymce/tinymce.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tinymce_tinymce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_tinymce_tinymce__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tinymce__ = __webpack_require__("tinymce");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tinymce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_tinymce__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_tinymce_themes_modern_theme__ = __webpack_require__("./node_modules/tinymce/themes/modern/theme.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_tinymce_themes_modern_theme___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_tinymce_themes_modern_theme__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_tinymce_plugins_table_plugin__ = __webpack_require__("./node_modules/tinymce/plugins/table/plugin.js");
@@ -78,7 +78,7 @@ webpackJsonp([3],{
 				});
 
 				editor.on('click', function (e) {
-					__WEBPACK_IMPORTED_MODULE_0_tinymce_tinymce___default.a.remove(_this.$el.children[0]);
+					__WEBPACK_IMPORTED_MODULE_0_tinymce___default.a.remove(_this.$el.children[0]);
 				});
 
 				function clearFormatting() {
@@ -102,7 +102,7 @@ webpackJsonp([3],{
 			options.height = this.height;
 		}
 
-		__WEBPACK_IMPORTED_MODULE_0_tinymce_tinymce___default.a.init(options).then(function (response) {
+		__WEBPACK_IMPORTED_MODULE_0_tinymce___default.a.init(options).then(function (response) {
 			// Save a reference to the editor for later
 			_this.editor = response[0];
 		});

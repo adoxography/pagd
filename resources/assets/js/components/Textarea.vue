@@ -12,7 +12,7 @@
 
 <script>
 // Core
-import tinymce from 'tinymce/tinymce'
+import tinymce from 'tinymce'
 import 'tinymce/themes/modern/theme'
 
 // Plugins

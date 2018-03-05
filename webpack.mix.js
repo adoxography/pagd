@@ -24,6 +24,7 @@ mix.webpackConfig({
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
    .copy('resources/assets/libs/font-awesome/fonts', 'public/build/fonts')
+   .extract(['vue', 'axios', 'axios-retry', 'lodash', 'vee-validate', 'vue-scroll-to', 'tinymce'])
    .version();
 
 // mix.browserSync('algling.dev');

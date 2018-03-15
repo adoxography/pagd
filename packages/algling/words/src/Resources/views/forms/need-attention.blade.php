@@ -1,12 +1,10 @@
 @extends('layout', ['title' => 'Data that need attention'])
 
+@section('title')
+    Data that need attention
+@endsection
+
 @section('content')
-
-<div class="heading">
-	<h1 class="title">Data that need attention</h1>
-</div>
-<br />
-
 <alg-tabs class="box">
 	@foreach($languages as $language)
 		@if(count($language->verbForms) > 0 || count($language->examples) > 0)

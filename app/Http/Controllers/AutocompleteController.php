@@ -151,9 +151,7 @@ class AutocompleteController extends Controller
     {
         $term = request()->term;
 
-        $sources = Source::search($term, function ($query) {
-            // $query->select('long', 'display', 'id');
-        })->take(10)->get();
+        $sources = Source::search($term)->take(15)->orderBy('author')->get();
 
         $sources = $sources->toArray();
 

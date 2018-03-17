@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			17-03-18: Fixed source searching
+		</li>
+		<hr>
+		<li>
 			25-02-18: Added phonemes to statistics on user profile
 		</li>
 		<hr>

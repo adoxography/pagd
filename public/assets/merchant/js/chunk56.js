@@ -1,4 +1,133 @@
-webpackJsonp([56],{
+webpackJsonp([56,57],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Morpheme-Tag-Input.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Tag_Input__ = __webpack_require__("./resources/assets/js/components/Tag-Input.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+	extends: __WEBPACK_IMPORTED_MODULE_0__Tag_Input__["default"],
+
+	props: {
+		language: {
+			default: null
+		},
+
+		typewriter: {
+			default: true
+		}
+	},
+
+	data: function data() {
+		return {
+			morpheme: null,
+			modal: {
+				title: "Choose an initial change"
+			}
+		};
+	},
+
+
+	computed: {
+		changes: function changes() {
+			if (this.morpheme) {
+				var temp = this.morpheme.initial_changes.clone();
+
+				temp.unshift({
+					change: this.morpheme.name,
+					id: -1
+				});
+
+				return temp;
+			}
+
+			return [];
+		}
+	},
+
+	methods: {
+		ajaxOptions: function ajaxOptions() {
+			return {
+				language: this.language,
+				alter: false
+			};
+		},
+		onClickTag: function onClickTag(tag) {
+			if (Array.isArray(tag.initial_changes) && tag.initial_changes.length > 0) {
+				if (tag.initial_changes.length == 1) {
+					if (typeof tag.id !== 'undefined' && tag.ic >= 0) {
+						tag.tempName = null;
+						tag.ic = -1;
+					} else {
+						tag.tempName = tag.initial_changes[0].change;
+						tag.ic = tag.initial_changes[0].id;
+					}
+				} else {
+					this.morpheme = tag;
+
+					this.$refs.modal.open();
+				}
+			} else if (!tag.slot || tag.slot.abv == 'STM') {
+				if (typeof tag.ic !== 'undefined' && tag.ic >= 0) {
+					tag.tempName = null;
+					tag.ic = -1;
+				} else {
+					tag.tempName = "IC." + tag.name;
+					tag.ic = 0;
+				}
+			}
+		},
+		onSelectChange: function onSelectChange(change) {
+			this.morpheme.tempName = change.change;
+			this.morpheme.ic = change.id;
+			this.$refs.modal.close();
+		},
+		getName: function getName(morpheme) {
+			var output = morpheme.tempName ? morpheme.tempName : morpheme.name;
+			output = output.replace("*", "");
+
+			if (morpheme.gloss) {
+				output += ' ' + this.getGloss(morpheme.gloss);
+			}
+
+			return output;
+		},
+		getGloss: function getGloss(gloss) {
+			if (gloss.match(/^".+"$/)) {
+				// Gloss is a translation
+				return gloss.replace(/"/g, "'");
+			} else {
+				// Gloss is a real gloss
+				return '(<span class="gloss">' + gloss + '</span>)';
+			}
+		}
+	}
+});
+
+/***/ }),
 
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Tag-Input.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -14017,90 +14146,6 @@ return jQuery;
 
 /***/ }),
 
-/***/ "./node_modules/vue-clickaway/dist/vue-clickaway.common.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var Vue = __webpack_require__("./node_modules/vue/dist/vue.common.js");
-Vue = 'default' in Vue ? Vue['default'] : Vue;
-
-var version = '2.1.0';
-
-var compatible = (/^2\./).test(Vue.version);
-if (!compatible) {
-  Vue.util.warn('VueClickaway ' + version + ' only supports Vue 2.x, and does not support Vue ' + Vue.version);
-}
-
-
-
-// @SECTION: implementation
-
-var HANDLER = '_vue_clickaway_handler';
-
-function bind(el, binding) {
-  unbind(el);
-
-  var callback = binding.value;
-  if (typeof callback !== 'function') {
-    if (true) {
-      Vue.util.warn(
-        'v-' + binding.name + '="' +
-        binding.expression + '" expects a function value, ' +
-        'got ' + callback
-      );
-    }
-    return;
-  }
-
-  // @NOTE: Vue binds directives in microtasks, while UI events are dispatched
-  //        in macrotasks. This causes the listener to be set up before
-  //        the "origin" click event (the event that lead to the binding of
-  //        the directive) arrives at the document root. To work around that,
-  //        we ignore events until the end of the "initial" macrotask.
-  // @REFERENCE: https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
-  // @REFERENCE: https://github.com/simplesmiler/vue-clickaway/issues/8
-  var initialMacrotaskEnded = false;
-  setTimeout(function() {
-    initialMacrotaskEnded = true;
-  }, 0);
-
-  el[HANDLER] = function(ev) {
-    // @NOTE: IE 5.0+
-    // @REFERENCE: https://developer.mozilla.org/en/docs/Web/API/Node/contains
-    if (initialMacrotaskEnded && !el.contains(ev.target)) {
-      return callback(ev);
-    }
-  };
-
-  document.documentElement.addEventListener('click', el[HANDLER], false);
-}
-
-function unbind(el) {
-  document.documentElement.removeEventListener('click', el[HANDLER], false);
-  delete el[HANDLER];
-}
-
-var directive = {
-  bind: bind,
-  update: function(el, binding) {
-    if (binding.value === binding.oldValue) return;
-    bind(el, binding);
-  },
-  unbind: unbind,
-};
-
-var mixin = {
-  directives: { onClickaway: directive },
-};
-
-exports.version = version;
-exports.directive = directive;
-exports.mixin = mixin;
-
-/***/ }),
-
 /***/ "./node_modules/vue-input-tag/dist/vue-input-tag.min.js":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14390,6 +14435,371 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-0644a7e0", { render: render, staticRenderFns: staticRenderFns })
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-9c68f514\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/template-compiler/preprocessor.js?engine=pug!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Morpheme-Tag-Input.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("transition", { attrs: { name: "fade" } }, [
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.tags.length > 0,
+                expression: "tags.length > 0"
+              }
+            ],
+            staticClass: "field tags-field",
+            staticStyle: { "margin-bottom": "0" }
+          },
+          [
+            _c("div", { staticClass: "control" }, [
+              _c(
+                "div",
+                { staticClass: "input" },
+                [
+                  _c(
+                    "draggable",
+                    {
+                      model: {
+                        value: _vm.tags,
+                        callback: function($$v) {
+                          _vm.tags = $$v
+                        },
+                        expression: "tags"
+                      }
+                    },
+                    _vm._l(_vm.tags, function(tag, index) {
+                      return _c(
+                        "span",
+                        {
+                          key: index,
+                          staticClass: "tag",
+                          style: {
+                            "background-color": tag.colour
+                              ? tag.colour
+                              : _vm.defaultColor,
+                            color: _vm.fontColour(
+                              tag.colour ? tag.colour : _vm.defaultColor
+                            )
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.onClickTag(tag)
+                            }
+                          }
+                        },
+                        [
+                          _c("span", {
+                            domProps: { innerHTML: _vm._s(_vm.getName(tag)) }
+                          }),
+                          !_vm.readOnly
+                            ? _c("a", {
+                                staticClass: "delete is-small",
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    $event.stopPropagation()
+                                    _vm.removeTag(index)
+                                  }
+                                }
+                              })
+                            : _vm._e(),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: tag.ic,
+                                expression: "tag.ic"
+                              }
+                            ],
+                            attrs: {
+                              type: "hidden",
+                              name: _vm.name + "[" + index + "][ic]"
+                            },
+                            domProps: { value: tag.ic },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(tag, "ic", $event.target.value)
+                              }
+                            }
+                          }),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: tag.id,
+                                expression: "tag.id"
+                              }
+                            ],
+                            attrs: {
+                              type: "hidden",
+                              name: _vm.name + "[" + index + "][id]"
+                            },
+                            domProps: { value: tag.id },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(tag, "id", $event.target.value)
+                              }
+                            }
+                          }),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: tag.name,
+                                expression: "tag.name"
+                              }
+                            ],
+                            attrs: {
+                              type: "hidden",
+                              name: _vm.name + "[" + index + "][name]"
+                            },
+                            domProps: { value: tag.name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(tag, "name", $event.target.value)
+                              }
+                            }
+                          }),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: tag.disambiguator,
+                                expression: "tag.disambiguator"
+                              }
+                            ],
+                            attrs: {
+                              type: "hidden",
+                              name: _vm.name + "[" + index + "][disambiguator]"
+                            },
+                            domProps: { value: tag.disambiguator },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  tag,
+                                  "disambiguator",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]
+                      )
+                    })
+                  )
+                ],
+                1
+              )
+            ])
+          ]
+        )
+      ]),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "on-clickaway",
+              rawName: "v-on-clickaway",
+              value: _vm.closeList,
+              expression: "closeList"
+            }
+          ],
+          staticClass: "alg-datalist alg-datalist-container"
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "field has-addons",
+              staticStyle: { "margin-bottom": "0" }
+            },
+            [
+              _c(
+                "div",
+                {
+                  class: {
+                    control: true,
+                    "is-expanded": true,
+                    "is-loading": _vm.loading
+                  }
+                },
+                [
+                  _c(
+                    "alg-typewriter",
+                    {
+                      attrs: {
+                        options: { size: _vm.typewriterBottom },
+                        disabled: !_vm.typewriter
+                      }
+                    },
+                    [
+                      !_vm.readOnly
+                        ? _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.newTag,
+                                expression: "newTag"
+                              }
+                            ],
+                            staticClass: "input",
+                            attrs: {
+                              placeholder: _vm.placeholder,
+                              type: "text"
+                            },
+                            domProps: { value: _vm.newTag },
+                            on: {
+                              keydown: function($event) {
+                                _vm.onEnter($event)
+                              },
+                              input: [
+                                function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.newTag = $event.target.value
+                                },
+                                _vm.triggerUpdate
+                              ]
+                            }
+                          })
+                        : _vm._e()
+                    ]
+                  )
+                ],
+                1
+              ),
+              _c("div", { staticClass: "control" }, [
+                _c(
+                  "a",
+                  { staticClass: "button", on: { click: _vm.toggleList } },
+                  [_vm._m(0)]
+                )
+              ])
+            ]
+          ),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.hasItems,
+                  expression: "hasItems"
+                }
+              ],
+              staticClass: "box alg-datalist-dropdown",
+              on: { mouseleave: _vm.resetActive }
+            },
+            [
+              _c(
+                "ul",
+                _vm._l(_vm.items, function(item, $item) {
+                  return _c(
+                    "li",
+                    {
+                      class: _vm.activeClass($item),
+                      on: {
+                        mousedown: _vm.hit,
+                        mousemove: function($event) {
+                          _vm.setActive($item)
+                        }
+                      }
+                    },
+                    [
+                      _c("span", {
+                        domProps: { innerHTML: _vm._s(_vm.getName(item)) }
+                      })
+                    ]
+                  )
+                })
+              )
+            ]
+          )
+        ]
+      ),
+      _c("alg-modal", { ref: "modal" }, [
+        _c("div", {
+          attrs: { slot: "title" },
+          domProps: { textContent: _vm._s(_vm.modal.title) },
+          slot: "title"
+        }),
+        _c("div", [
+          _c(
+            "ul",
+            _vm._l(_vm.changes, function(change) {
+              return _c("li", [
+                _c("a", {
+                  staticClass: "button",
+                  domProps: { innerHTML: _vm._s(change.change) },
+                  on: {
+                    click: function($event) {
+                      _vm.onSelectChange(change)
+                    }
+                  }
+                })
+              ])
+            })
+          )
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon" }, [
+      _c("i", { staticClass: "fa fa-angle-down" })
+    ])
+  }
+]
+render._withStripped = true
+
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-9c68f514", { render: render, staticRenderFns: staticRenderFns })
   }
 }
 
@@ -14981,6 +15391,62 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     Vue.component('draggable', draggable);
   }
 })();
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Morpheme-Tag-Input.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_Morpheme_Tag_Input_vue__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Morpheme-Tag-Input.vue");
+/* empty harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_9c68f514_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_template_compiler_preprocessor_engine_pug_node_modules_vue_loader_lib_selector_type_template_index_0_Morpheme_Tag_Input_vue__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-9c68f514\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/template-compiler/preprocessor.js?engine=pug!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Morpheme-Tag-Input.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/component-normalizer.js");
+var disposed = false
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+
+var Component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_Morpheme_Tag_Input_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_9c68f514_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_template_compiler_preprocessor_engine_pug_node_modules_vue_loader_lib_selector_type_template_index_0_Morpheme_Tag_Input_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_9c68f514_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_template_compiler_preprocessor_engine_pug_node_modules_vue_loader_lib_selector_type_template_index_0_Morpheme_Tag_Input_vue__["b" /* staticRenderFns */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Morpheme-Tag-Input.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-9c68f514", Component.options)
+  } else {
+    hotAPI.reload("data-v-9c68f514", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
 
 /***/ }),
 

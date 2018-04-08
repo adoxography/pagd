@@ -1,31 +1,9 @@
 webpackJsonp([89],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/Basic-Paradigm-Search.vue":
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Tabs.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -44,87 +22,48 @@ webpackJsonp([89],{
 //
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['languages'],
+	props: ['active'],
 
 	data: function data() {
 		return {
-			values: {
-				class: '',
-				orders: [],
-				language: {
-					text: 'Proto-Algonquian',
-					id: '1'
-				},
-				orderValue: ''
-			}
+			tabs: []
 		};
+	},
+	created: function created() {
+		this.tabs = this.$children;
+	},
+	mounted: function mounted() {
+		if (!this.active) {
+			var hash = location.hash;
+
+			if (hash != '') {
+				this.tabs.forEach(function (tab) {
+					tab.isActive = tab.href == location.hash;
+				});
+			}
+		} else {
+			this.selectTabByName(this.active);
+		}
 	},
 
 
 	methods: {
-		onOrderChange: function onOrderChange(value) {
-			var tokens = value.split(',');
-			var temp = [];
+		selectTab: function selectTab(targetTab) {
+			this.selectTabByName(targetTab.name);
 
-			tokens.forEach(function (token) {
-				temp.push(token);
-			});
-
-			this.values.orders = temp;
+			this.$emit('tabChanged', targetTab.name);
 		},
-		getData: function getData() {
-			return this.values;
-		},
-		importData: function importData(data) {
-			var _this = this;
-
-			var found = false;
-			_.forEach(data.classes, function (theClass) {
-				if (theClass.checked && theClass.id <= 4) {
-					_this.values.class = theClass.id;
-					found = true;
-					return false;
-				}
+		selectTabByName: function selectTabByName(name) {
+			this.tabs.forEach(function (tab) {
+				tab.isActive = tab.name === name;
 			});
-			if (!found) {
-				this.values.class = '';
-			}
-
-			this.values.orders = [];
-			this.values.orderValue = '';
-			found = false;
-			for (var i = 0; i < data.orders.length && !found; i++) {
-				found = false;
-				if (data.orders[i].checked) {
-					if (data.orders[i].id != 1) {
-						found = true;
-					}
-
-					if (data.orders[i].id != 3 || this.values.orders.length == 0) {
-						this.values.orders = [data.orders[i].id];
-						this.values.orderValue = data.orders[i].id;
-					} else {
-						this.values.orders = [1, 3];
-						this.values.orderValue = '1,3';
-					}
-				}
-			}
-
-			if (data.languages.length > 0) {
-				this.values.language = data.languages[0];
-			} else {
-				this.values.language = {
-					text: '',
-					id: ''
-				};
-			}
 		}
 	}
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-6fdd8f78\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/forms/Basic-Paradigm-Search.vue":
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-971a3596\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Tabs.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -134,208 +73,59 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "form",
-    { attrs: { action: "/verbs/search/paradigm/results", method: "GET" } },
-    [
-      _c("input", {
-        attrs: { type: "hidden", name: "affirmative", value: "on" }
-      }),
-      _vm._v(" "),
-      _c("input", {
-        attrs: { type: "hidden", name: "modeSelect", value: "indicativeOnly" }
-      }),
-      _vm._v(" "),
+  return _c("div", [
+    _c("div", { class: { tabs: _vm.tabs.length > 0 } }, [
       _c(
-        "div",
-        { staticClass: "field is-grouped" },
-        [
-          _c("p", { staticClass: "control" }, [
-            _c("span", { staticClass: "select" }, [
+        "ul",
+        _vm._l(_vm.tabs, function(tab) {
+          return _c(
+            "li",
+            {
+              class: { "is-active": tab.isActive },
+              staticStyle: { "margin-top": "0" }
+            },
+            [
               _c(
-                "select",
+                "a",
                 {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.values.class,
-                      expression: "values.class"
-                    }
-                  ],
-                  attrs: { name: "classes[]", required: "required" },
+                  attrs: { href: tab.href },
                   on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.$set(
-                        _vm.values,
-                        "class",
-                        $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      )
+                    click: function($event) {
+                      _vm.selectTab(tab)
                     }
                   }
                 },
-                [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "1" } }, [_vm._v("AI")]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "2" } }, [_vm._v("II")]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "3" } }, [_vm._v("TA")]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "4" } }, [_vm._v("TI")])
-                ]
+                [_vm._v(_vm._s(tab.name))]
               )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "control" }, [
-            _c(
-              "span",
-              { staticClass: "select" },
-              [
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.values.orderValue,
-                        expression: "values.orderValue"
-                      }
-                    ],
-                    attrs: { required: "required" },
-                    on: {
-                      change: [
-                        function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.values,
-                            "orderValue",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        },
-                        function($event) {
-                          _vm.onOrderChange($event.target.value)
-                        }
-                      ]
-                    }
-                  },
-                  [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "1,3" } }, [
-                      _vm._v("Conjunct and Independent")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "1" } }, [
-                      _vm._v("Conjunct")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "2" } }, [
-                      _vm._v("Imperative")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "3" } }, [
-                      _vm._v("Independent")
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _vm._l(_vm.values.orders, function(order) {
-                  return _c("input", {
-                    attrs: { type: "hidden", name: "orders[]" },
-                    domProps: { value: order }
-                  })
-                })
-              ],
-              2
-            )
-          ]),
-          _vm._v(" "),
-          _c("alg-datalist", {
-            attrs: {
-              list: _vm.languages,
-              name: "languages[]",
-              required: "required"
-            },
-            model: {
-              value: _vm.values.language,
-              callback: function($$v) {
-                _vm.$set(_vm.values, "language", $$v)
-              },
-              expression: "values.language"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "button is-success", attrs: { type: "submit" } },
-        [_vm._v("Search")]
+            ]
+          )
+        })
       )
-    ]
-  )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "tabs-details" }, [_vm._t("default")], 2)
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("option", { attrs: { value: "", selected: "selected" } }, [
-      _c("span", { staticClass: "placeholder" }, [_vm._v("Select a class...")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("option", { attrs: { value: "", selected: "selected" } }, [
-      _c("span", { staticClass: "placeholder" }, [_vm._v("Select an order...")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-6fdd8f78", { render: render, staticRenderFns: staticRenderFns })
+    require("vue-hot-reload-api")      .rerender("data-v-971a3596", { render: render, staticRenderFns: staticRenderFns })
   }
 }
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/forms/Basic-Paradigm-Search.vue":
+/***/ "./resources/assets/js/components/Tabs.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_Basic_Paradigm_Search_vue__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/Basic-Paradigm-Search.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_Tabs_vue__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Tabs.vue");
 /* empty harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6fdd8f78_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Basic_Paradigm_Search_vue__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-6fdd8f78\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/forms/Basic-Paradigm-Search.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_971a3596_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Tabs_vue__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-971a3596\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Tabs.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/component-normalizer.js");
 var disposed = false
 /* script */
@@ -353,15 +143,15 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 
 var Component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
-  __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_Basic_Paradigm_Search_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6fdd8f78_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Basic_Paradigm_Search_vue__["a" /* render */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6fdd8f78_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Basic_Paradigm_Search_vue__["b" /* staticRenderFns */],
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_Tabs_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_971a3596_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Tabs_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_971a3596_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Tabs_vue__["b" /* staticRenderFns */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/forms/Basic-Paradigm-Search.vue"
+Component.options.__file = "resources/assets/js/components/Tabs.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -370,9 +160,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6fdd8f78", Component.options)
+    hotAPI.createRecord("data-v-971a3596", Component.options)
   } else {
-    hotAPI.reload("data-v-6fdd8f78", Component.options)
+    hotAPI.reload("data-v-971a3596", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

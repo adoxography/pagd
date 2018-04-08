@@ -140,17 +140,17 @@ webpackJsonp([5,29],{
 		if (this.oldParadigm) {
 			Vue.nextTick(function () {
 				_this2.$refs.paradigm.update(_this2.oldParadigm);
-				if (_this2.oldPronominalFeature) {
-					Vue.nextTick(function () {
-						_this2.$refs.pronominalFeature.update(_this2.oldPronominalFeature);
-					});
-				}
+				// if(this.oldPronominalFeature) {
+				// 	Vue.nextTick(() => {
+				// 		this.$refs.pronominalFeature.update(this.oldPronominalFeature);
+				// 	});
+				// }
 
-				if (_this2.oldNominalFeature) {
-					Vue.nextTick(function () {
-						_this2.$refs.nominalFeature.update(_this2.oldNominalFeature);
-					});
-				}
+				// if(this.oldNominalFeature) {
+				// 	Vue.nextTick(() => {
+				// 		this.$refs.nominalFeature.update(this.oldNominalFeature);
+				// 	});
+				// }
 			});
 		}
 	},

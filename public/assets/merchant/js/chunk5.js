@@ -1,4 +1,4 @@
-webpackJsonp([5,29],{
+webpackJsonp([5,25],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/Form.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -140,17 +140,17 @@ webpackJsonp([5,29],{
 		if (this.oldParadigm) {
 			Vue.nextTick(function () {
 				_this2.$refs.paradigm.update(_this2.oldParadigm);
-				// if(this.oldPronominalFeature) {
-				// 	Vue.nextTick(() => {
-				// 		this.$refs.pronominalFeature.update(this.oldPronominalFeature);
-				// 	});
-				// }
+				if (_this2.oldPronominalFeature) {
+					Vue.nextTick(function () {
+						_this2.$refs.pronominalFeature.update(_this2.oldPronominalFeature);
+					});
+				}
 
-				// if(this.oldNominalFeature) {
-				// 	Vue.nextTick(() => {
-				// 		this.$refs.nominalFeature.update(this.oldNominalFeature);
-				// 	});
-				// }
+				if (_this2.oldNominalFeature) {
+					Vue.nextTick(function () {
+						_this2.$refs.nominalFeature.update(_this2.oldNominalFeature);
+					});
+				}
 			});
 		}
 	},

@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			09-04-18: Made phoneme connection algorithm case-sensitive
+		</li>
+		<hr>
+		<li>
 			08-04-18: Fixed delayed loading of modules, which were preventing some form fields from being populated correctly
 		</li>
 		<hr>

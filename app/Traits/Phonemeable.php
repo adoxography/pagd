@@ -47,14 +47,13 @@ trait Phonemeable
     public function connectPhonemes()
     {
         $added = [];
-        $i = 0;
 
         $this->dropPhonemes();
 
         preg_match_all("/.{$this->specialCharacterPattern()}*/u", $this->phonemicForm, $phonemes);
 
-        foreach ($phonemes[0] as $phoneme) {
-            $phoneme = $this->lookupPhoneme($phoneme);
+        foreach ($phonemes[0] as $symbol) {
+            $phoneme = $this->lookupPhoneme($symbol);
 
             if ($phoneme && !in_array($phoneme->id, $added)) {
                 $this->phonemes()->attach($phoneme->id, ['phonemeable_type' => $this->getMorphType()]);
@@ -72,7 +71,7 @@ trait Phonemeable
     public function lookupPhoneme(string $phoneme)
     {
         $lookup = Phoneme::where('language_id', $this->language_id)
-            ->where('algoName', $phoneme)
+            ->whereRaw('BINARY algoName = ?', [$phoneme])
             ->get();
 
         if ($lookup->count() > 1) {

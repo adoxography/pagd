@@ -19,7 +19,8 @@
 			<!-- Name -->
 			<div class="column is-half">
 				@component('components.form.text', [
-					'name'      => 'shape',
+					'name'      => 'name',
+					'label'     => 'shape',
 					'autofocus' => true,
 					'rules'     => 'required|isHyphenated|noInternalHyphens',
 					'typewriter' => true

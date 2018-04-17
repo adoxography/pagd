@@ -29,7 +29,7 @@ class ExampleRequest extends FormRequest
             'language_id'   => ['required','exists:Languages,id'],
             'form'          => ['nullable'],
             'form_id'       => ['nullable','exists:Word_Forms,id'],
-            'shape'         => ['required'],
+            'name'          => ['required'],
             'translation'   => ['required'],
             'comments'      => ['nullable'],
             'notes'         => ['nullable'],

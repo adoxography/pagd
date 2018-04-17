@@ -47,13 +47,20 @@ class Paradigm
      */
     private function loadHeaders($forms)
     {
-        $this->headers = [];
+        $this->headers = collect();
         foreach ($forms as $form) {
             // Extract the structure for more efficient reference
             $structure = $form->structure;
+            $fields = [$form->language->name, $structure->order->name, $structure->mode->name, $structure->absoluteStatus, $structure->negativeStatus, $structure->diminutiveStatus];
 
-            // What we're really worried about here is the keys, so no data actually needs to be assigned to the end of the array
-            $this->headers[$form->language->name][$structure->order->name][$structure->mode->name][$structure->absoluteStatus][$structure->negativeStatus][$structure->diminutiveStatus] = null;
+            $pos = $this->headers;
+            foreach ($fields as $field) {
+                if (!$pos->has($field)) {
+                   $pos[$field] = collect();
+                }
+
+                $pos = &$pos[$field];
+            }
         }
 
         $this->headers = $this->mergeHeaders();
@@ -61,7 +68,7 @@ class Paradigm
 
     private function mergeHeaders($headers = null, $span = 1, $bordered = true, $firstRow = true)
     {
-        $output = [];
+        $output = collect();
         $rowspan = 1;
         $colspan = 1;
         $show = true;
@@ -72,34 +79,45 @@ class Paradigm
             $headers = $this->headers;
         }
 
-        if ($headers !== null) {
-            foreach ($headers as $header => $subheaders) {
-                if ($firstTime) {
-                    $firstTime = false;
-                } elseif (!$firstRow) {
-                    $bordered = false;
-                }
+        foreach ($headers as $header => $subheaders) {
 
-                if (array_first($headers) !== null) {
-                    $colspan = count(array_flatten($subheaders));
-                    $rowspan = $this->calculateHeaderColspan($subheaders);
-                    $subs = $this->mergeHeaders($subheaders, $rowspan, $bordered, false);
-                }
-
-                if ($span > 1) {
-                    $show = false;
-                    $rowspan = $span - 1;
-                }
-
-                $output[$header] = [
-                    'rowspan'    => $rowspan,
-                    'colspan'    => $colspan,
-                    'subheaders' => $subs,
-                    'show'       => $show,
-                    'name'       => $header,
-                    'bordered'   => $bordered
-                ];
+            // Make sure objective comes first
+            if ($subheaders->has('Objective')) {
+                $subheaders = $subheaders->sortBy(function ($a, $b) {
+                    if (strcmp($a, 'Objective') === 0) {
+                        return 1;
+                    } elseif (strcmp($b, 'Objective') === 0) {
+                        return -1;
+                    }
+                    return 0;
+                });
             }
+
+            if ($firstTime) {
+                $firstTime = false;
+            } elseif (!$firstRow) {
+                $bordered = false;
+            }
+
+            if (array_first($headers) !== null) {
+                $colspan = $this->calculateHeaderColspan($subheaders);
+                $rowspan = $this->calculateHeaderRowspan($subheaders);
+                $subs = $this->mergeHeaders($subheaders, $rowspan, $bordered, false);
+            }
+
+            if ($span > 1) {
+                $show = false;
+                $rowspan = $span - 1;
+            }
+
+            $output[$header] = [
+                'rowspan'    => $rowspan,
+                'colspan'    => $colspan,
+                'subheaders' => $subs,
+                'show'       => $show,
+                'name'       => $header,
+                'bordered'   => $bordered
+            ];
         }
 
         return $output;
@@ -108,7 +126,6 @@ class Paradigm
     protected function splitHeaders($numHeaders)
     {
         $output = [];
-
         for ($i = 0; $i < $numHeaders; $i++) {
             $output[] = $this->splitHeaderRow($this->headers, $i);
         }
@@ -153,12 +170,23 @@ class Paradigm
         return $output;
     }
 
-    private function calculateHeaderColspan($header)
+    private function calculateHeaderColspan($header) {
+        $max = 0;
+
+        while ($header->count() > 0) {
+            $max = $header->count();
+            $header = $header->flatten(1);
+        }
+
+        return $max;
+    }
+
+    private function calculateHeaderRowspan($header)
     {
         $span = 1;
 
         if ($header != null && count($header) == 1) {
-            $span += $this->calculateHeaderColspan(array_first($header));
+            $span += $this->calculateHeaderRowspan(array_first($header));
         }
 
         return $span;

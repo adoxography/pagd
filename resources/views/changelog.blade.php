@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			17-04-18: Ordered 'objective' before 'absolute' in verb paradigms
+		</li>
+		<li>
 			17-04-18: Renamed 'name' to 'shape' in morphemes and examples
 		</li>
 		<hr>

@@ -20,7 +20,7 @@
 			{{-- name --}}
 			<div class="column is-half">
 				@component('components.form.text', [
-					'name'      => 'name',
+					'name'      => 'shape',
 					'autofocus' => true,
 					'rules'     => 'required',
 					'typewriter' => true

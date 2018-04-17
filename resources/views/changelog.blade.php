@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			17-04-18: Renamed 'name' to 'shape' in morphemes and examples
+		</li>
+		<hr>
+		<li>
 			09-04-18: Made phoneme connection algorithm case-sensitive
 		</li>
 		<hr>

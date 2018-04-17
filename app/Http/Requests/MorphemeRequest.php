@@ -25,7 +25,7 @@ class MorphemeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'            => ['required','isMorpheme'],
+            'shape'           => ['required','isMorpheme'],
             'gloss'           => ['required'],
             'slot'            => ['required'],
             'slot_id'         => ['required','integer','exists:Morph_Slots,id'],
@@ -42,7 +42,7 @@ class MorphemeRequest extends FormRequest
         return [
             'gloss.required'       => 'Please enter a gloss.',
             'slot.required'        => 'Please enter a slot.',
-            'slot_id.required'     => 'There is no slot by that name in the database.',            
+            'slot_id.required'     => 'There is no slot by that name in the database.',
             'language.required'    => 'Please enter a language.',
             'language_id.required' => 'There is no language by that name in the database.',
         ];

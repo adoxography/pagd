@@ -10,14 +10,14 @@ if(!isset($uri)) {
 			<alg-hidden-icon uri="{{ $uri }}{{ $model->id }}" hidden="{{ $model->isHidden() }}"></alg-hidden-icon>
 		@endif --}}
 		<alg-bookmark uri="{{ $uri }}{{ $model->id }}" bookmarked="{{ $model->isBookmarkedBy() }}"></alg-bookmark>
-	    <a href="{{ $uri }}{{ $model->id }}/edit" class="card-header-icon" title="Edit">
-	      	<span class="icon">
-	        	<i class="fa fa-pencil"></i>
-	      	</span>
-	    </a>
 	    <a href="{{ $uri }}{{ $model->id }}/clone" class="card-header-icon" title="Clone">
 	      	<span class="icon">
 	        	<i class="fa fa-clone"></i>
+	      	</span>
+	    </a>
+	    <a href="{{ $uri }}{{ $model->id }}/edit" class="card-header-icon" title="Edit">
+	      	<span class="icon">
+	        	<i class="fa fa-pencil"></i>
 	      	</span>
 	    </a>
 	    @can('delete content')

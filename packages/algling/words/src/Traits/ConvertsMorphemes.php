@@ -15,7 +15,7 @@ trait ConvertsMorphemes
         $morphemeData = request()->morphemes;
         $morphemes = [];
 
-        if (count($morphemeData) > 0) {
+        if ($morphemeData && count($morphemeData) > 0) {
             foreach ($morphemeData as $data) {
                 if ($data['id'] > 0) {
                     $morphemes[] = $this->convertOldMorpheme($data);

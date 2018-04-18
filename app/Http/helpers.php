@@ -33,6 +33,14 @@ function assessAllForms()
     return "Operation complete";
 }
 
+function tagAIOStructures() {
+    $structures = \Algling\Verbals\Models\Structure::where('class_id', 7)->get();
+    foreach ($structures as $structure) {
+        $structure->assignSubclass();
+        $structure->save();
+    }
+}
+
 function indexAllModels()
 {
     $models = [

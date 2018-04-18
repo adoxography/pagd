@@ -174,9 +174,15 @@ class Structure extends Model
 
     public function assignSubclass()
     {
-        if ($this->formClass->name == 'TA') {
-            // Only TA verbs have subclasses
+        if ($this->formClass->name == 'AI+O') {
+            if ($this->secondaryObject->person == '3') {
+                $subclass = 'AI+O (+3)';
+            } else {
+                $subclass = 'AI+O (+0)';
+            }
 
+            $this->subclass = $subclass;
+        } elseif ($this->formClass->name == 'TA') {
             if ($this->subject->person == '0') {
                 // All TA forms with an inanimate subject are TA Inanimate
                 $subclass = 'TA Inanimate';

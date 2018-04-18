@@ -36,6 +36,8 @@ class FormController extends AlgModelController
     public function clone(Form $verbForm)
     {
         $verbForm->name = '';
+            // Only TA verbs have subclasses
+
 
         $form = $verbForm->load([
             'language',

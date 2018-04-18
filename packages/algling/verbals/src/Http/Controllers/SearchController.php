@@ -339,7 +339,7 @@ class SearchController extends Controller
         ->orderBy('Orders.position', 'asc')
         ->orderByRaw('-Structures.isAbsolute ASC')
         ->orderBy('Structures.isNegative', 'asc')
-        ->orderBy('Structures.isDiminutive', 'asc');     
+        ->orderBy('Structures.isDiminutive', 'asc');
     }
 
     protected function filter(&$query)

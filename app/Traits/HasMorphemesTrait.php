@@ -152,7 +152,7 @@ trait HasMorphemesTrait
         $output = [];
         $savedMorphemes = $this->morphemes; // The morphemes that are already connected
         $curr = 0; // The number of pre-connected morphemes that have been addressed already
-        $slots = explode('-', $this->morphemicForm);
+        $slots = $this->morphemicForm ? explode('-', $this->morphemicForm) : [];
 
         foreach ($slots as $index => $slot) {
             $tokens = explode('.', $slot);

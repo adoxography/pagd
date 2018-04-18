@@ -175,7 +175,9 @@ class Structure extends Model
     public function assignSubclass()
     {
         if ($this->formClass->name == 'AI+O') {
-            if ($this->secondaryObject->person == '3') {
+            $object = $this->primaryObject ?: $this->secondaryObject;
+
+            if ($object->person == '3') {
                 $subclass = 'AI+O (+3)';
             } else {
                 $subclass = 'AI+O (+0)';

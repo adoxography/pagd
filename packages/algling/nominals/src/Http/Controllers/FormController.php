@@ -29,6 +29,23 @@ class FormController extends Controller
         return view('nom::forms.create');
     }
 
+    public function clone(Form $nominalForm)
+    {
+        $nominalForm->name = '';
+
+        $form = $nominalForm->load([
+            'language',
+            'structure.paradigm',
+            'structure.nominalFeature',
+            'structure.pronominalFeature',
+            'sources',
+            'parent',
+            'examples'
+        ]);
+
+        return view('nom::forms.create', compact('form'));
+    }
+
     public function edit(Form $nominalForm)
     {
         $form = $nominalForm->load([

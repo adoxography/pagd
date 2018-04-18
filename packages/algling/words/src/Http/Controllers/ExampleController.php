@@ -44,6 +44,20 @@ class ExampleController extends AlgModelController
     }
 
     /**
+     * Show the example clone form
+     *
+     * @param Example $example
+     * @return \Illuminate\Http\Response
+     */
+    public function clone(Example $example)
+    {
+        $example->name = '';
+        $example->load(['form', 'form.language', 'sources']);
+
+        return view('word::examples.create', compact('example'));
+    }
+
+    /**
      * Show the example edit form
      *
      * @param Example $example

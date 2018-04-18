@@ -33,6 +33,27 @@ class FormController extends AlgModelController
         return view('verb::forms.create');
     }
 
+    public function clone(Form $verbForm)
+    {
+        $verbForm->name = '';
+
+        $form = $verbForm->load([
+            'language',
+            'parent',
+            'parent.language',
+            'structure',
+            'structure.subject',
+            'structure.primaryObject',
+            'structure.secondaryObject',
+            'structure.mode',
+            'structure.verbClass',
+            'structure.order',
+            'sources'
+        ]);
+
+        return view('verb::forms.create', compact('form'));
+    }
+
     public function edit(Form $verbForm)
     {
         $form = $verbForm->load([

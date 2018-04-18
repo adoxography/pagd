@@ -53,6 +53,22 @@ class MorphemeController extends AlgModelController
         return view('morphemes.create', compact('prefill'));
     }
 
+    public function clone(Morpheme $morpheme)
+    {
+        $morpheme->name = '';
+
+        $morpheme->load([
+            'language',
+            'glosses',
+            'slot',
+            'parent',
+            'parent.language',
+            'sources'
+        ]);
+
+        return view('morphemes.create', compact('morpheme'));
+    }
+
     /**
      * Show the morpheme edit form
      *

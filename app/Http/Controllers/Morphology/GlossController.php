@@ -43,6 +43,11 @@ class GlossController extends ClosedController
         return parent::createItem(new Gloss());
     }
 
+    public function clone(Gloss $gloss)
+    {
+        return parent::createItem($gloss);
+    }
+
     /**
      * Show the gloss edit form
      *

@@ -2,6 +2,7 @@
 Route::get('verbs/gaps/{verbGap}', 'GapController@show');
 Route::delete('verbs/gaps/{verbGap}', 'GapController@destroy');
 Route::patch('verbs/gaps/{verbGap}', 'GapController@update');
+Route::get('verbs/gaps/{verbGap}/clone', 'GapController@clone');
 Route::get('verbs/gaps/{verbGap}/edit', 'GapController@edit');
 Route::patch('verbs/gaps/{verbGap}/hide', 'GapController@hide');
 Route::post('verbs/gaps/{verbGap}/bookmark', 'GapController@bookmark');
@@ -13,6 +14,7 @@ Route::get('verbs/forms/create', 'FormController@create');
 Route::get('verbs/forms/{verbForm}', 'FormController@show');
 Route::patch('verbs/forms/{verbForm}', 'FormController@update');
 Route::delete('verbs/forms/{verbForm}', 'FormController@destroy');
+Route::get('verbs/forms/{verbForm}/clone', 'FormController@clone');
 Route::get('verbs/forms/{verbForm}/edit', 'FormController@edit');
 Route::get('verbs/forms/{verbForm}/addExample', 'FormController@addExample');
 Route::patch('verbs/forms/{verbForm}/disambiguate', 'FormController@disambiguate');

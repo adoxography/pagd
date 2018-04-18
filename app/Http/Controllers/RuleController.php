@@ -31,6 +31,15 @@ class RuleController extends AlgModelController
     	return view('rules.create');
     }
 
+    public function clone(Rule $rule)
+    {
+        $rule->name = '';
+        $rule->abv = '';
+        $rule->load('language', 'sources');
+
+        return view('rules.create', compact('rule'));
+    }
+
     public function edit(Rule $rule)
     {
     	$rule->load('language', 'sources');

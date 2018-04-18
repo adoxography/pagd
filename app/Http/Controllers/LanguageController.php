@@ -50,6 +50,17 @@ class LanguageController extends AlgModelController
         return view('languages.create');
     }
 
+    public function clone(Language $language)
+    {
+        $language->name = '';
+        $language->alternateNames = '';
+        $language->iso = '';
+        $language->algoCode = '';
+
+        $language->load('parent', 'group');
+        return view('languages.create', compact('language'));
+    }
+
     /**
      * Show the language edit form
      *

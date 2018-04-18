@@ -28,6 +28,22 @@ class GapController extends AlgModelController
         }
     }
 
+    public function clone(Gap $gap)
+    {
+        $form = $gap->load([
+            'language',
+            'structure',
+            'structure.mode',
+            'structure.verbClass',
+            'structure.order',
+            'structure.subject',
+            'structure.primaryObject',
+            'structure.secondaryObject'
+        ]);
+
+        return view('verb::gaps.create', compact('form'));
+    }
+
     public function edit(Gap $gap)
     {
     	$form = $gap->load([

@@ -4,6 +4,7 @@ Route::group(['as' => 'phonemes::'], function () {
     Route::get('phonemes/search/results', 'SearchController@results')->name('searchResults');
 
     Route::resource('phonemes', 'PhonemeController');
+    Route::get('phonemes/{phoneme}/clone', 'PhonemeController@clone');
 
     Route::get('phonemes/{phoneme}/basic', 'PhonemeShowController@basicDetails')->name('showBasic');
     Route::get('phonemes/{phoneme}/reflexes', 'PhonemeShowController@reflexes')->name('showReflexes');
@@ -25,6 +26,7 @@ Route::group(['as' => 'clusters::'], function () {
     Route::delete('clusters/{phoneme}', 'PhonemeController@destroy');
     Route::patch('clusters/{phoneme}', 'PhonemeController@update');
     Route::patch('clusters/{phoneme}/edit', 'PhonemeController@edit');
+    Route::get('clusters/{phoneme}/clone', 'PhonemeController@clone');
 
     Route::get('clusters/{phoneme}/basic', 'PhonemeShowController@basicDetails')->name('showBasic');
     Route::get('clusters/{phoneme}/reflexes', 'PhonemeShowController@reflexes')->name('showReflexes');
@@ -42,6 +44,7 @@ Route::group(['as' => 'clusters::'], function () {
 
 Route::group(['as' => 'reflexes::'], function () {
     Route::resource('reflexes', 'ReflexController');
+    Route::get('reflexes/{reflex}/clone', 'ReflexController@clone');
     Route::post('reflexes/{reflex}/bookmark', 'ReflexController@bookmark');
     Route::delete('reflexes/{reflex}/bookmark', 'ReflexController@unbookmark');
 });

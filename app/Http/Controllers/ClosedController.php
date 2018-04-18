@@ -94,7 +94,7 @@ abstract class ClosedController extends AlgModelController
         $item->delete();
 
         $display = $this->getDisplay($item);
-        
+
         flash("$display deleted successfully.", 'is-info');
 
         return redirect('/'.strtolower($item->plural));

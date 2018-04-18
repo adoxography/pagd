@@ -14,7 +14,7 @@ class SourceController extends Controller
     {
         $this->middleware('auth')->except('index', 'show');
     }
-    
+
     public function index(){
     	$lookup = Source::all();
         $sources = [];
@@ -33,6 +33,11 @@ class SourceController extends Controller
 
     public function create(){
         return view('sources.create');
+    }
+
+    public function clone(Source $source)
+    {
+        return view('sources.create', compact('source'));
     }
 
     public function edit(Source $source)

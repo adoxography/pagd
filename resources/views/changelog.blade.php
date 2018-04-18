@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			17-04-18: Added clone option to all data types
+		</li>
+		<li>
 			17-04-18: Ordered 'objective' before 'absolute' in verb paradigms
 		</li>
 		<li>

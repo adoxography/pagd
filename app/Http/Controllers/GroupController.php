@@ -23,6 +23,19 @@ class GroupController extends AlgModelController
     	return view('groups.create');
     }
 
+    public function clone(Group $group)
+    {
+        $group->name = '';
+
+        $group->load([
+            'parent',
+            'allChildren',
+            'allChildren.languages'
+        ]);
+
+        return view('groups.create', compact('group'));
+    }
+
 	public function edit(Group $group)
 	{
 		$group->load([

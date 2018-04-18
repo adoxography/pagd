@@ -39,6 +39,11 @@ class SlotController extends ClosedController
         return parent::createItem(new Slot());
     }
 
+    public function clone(Slot $slot)
+    {
+        return parent::createItem($slot);
+    }
+
     /**
      * Show the slot edit form
      *

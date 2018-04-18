@@ -32,6 +32,23 @@ class VariableController extends AlgModelController
     	return view('ss::variables.create');
     }
 
+    public function clone(Variable $variable)
+    {
+        $variable->name = '';
+        $variable->load(['values', 'sources', 'datapoints']);
+
+        $used = $variable->datapoints->pluck('value')->unique();
+        for($i = 0; $i < count($variable->values); $i++) {
+            $value = $variable->values[$i];
+
+            $variable->values[$i]->setUsed($used->contains(function($item) use ($value) {
+                return $item->id == $value->id;
+            }));
+        }
+
+        return view('ss::variables.create', compact('variable'));
+    }
+
     public function store(VariableRequest $request)
     {
     	$variable = Variable::create($request->all());

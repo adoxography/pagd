@@ -1,10 +1,12 @@
 <?php
 
 Route::resource('datapoints', 'DatapointController');
+Route::get('datapoints/{datapoint}/clone', 'DatapointController@clone');
 Route::get('variables/{variable}/languages/{language}/addDatapoint', 'DatapointController@addDatapoint');
 
 Route::group(['as' => 'variables::'], function() {
 	Route::resource('variables', 'VariableController');
+    Route::get('variables/{variable}/clone', 'VariableController@clone');
 
 	Route::post('variables/{variable}/bookmark', 'VariableController@bookmark');
 

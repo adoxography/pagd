@@ -26,6 +26,18 @@ class ReflexController extends AlgModelController
         return view('phon::reflexes.create');
     }
 
+    public function clone(Reflex $reflex)
+    {
+        $reflex->load([
+            'parent',
+            'parent.language',
+            'reflex',
+            'reflex.language'
+        ]);
+
+        return view('phon::reflexes.create', compact('reflex'));
+    }
+
     public function edit(Reflex $reflex)
     {
         $reflex->load([

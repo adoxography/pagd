@@ -86,6 +86,7 @@ Route::post('sources/ajax', 'SourceController@store');
 // Group Routes
 Route::patch('groups/{group}/order', 'GroupOrderController@update');
 Route::resource('groups', 'GroupController');
+Route::get('groups/{group}/clone', 'GroupController@clone');
 Route::patch('groups/{group}/hide', 'GroupController@hide');
 Route::get('groups/{group}/order/edit', 'GroupOrderController@edit');
 
@@ -94,6 +95,7 @@ Route::group(['as' => 'languages::'], function () {
     Route::get('languages/order', 'LanguageController@order');
     Route::post('languages/order', 'LanguageController@storeOrder');
     Route::resource('languages', 'LanguageController');
+    Route::get('languages/{language}/clone', 'LanguageController@clone');
     Route::get('languages/{language}/addChild', 'LanguageController@addChild');
     Route::get('languages/{language}/addExample', 'LanguageController@addExample');
     Route::get('languages/{language}/addVerbForm', 'LanguageController@addVerbForm');
@@ -119,11 +121,13 @@ Route::group(['as' => 'languages::'], function () {
 
 // Rule routes
 Route::resource('rules', 'RuleController');
+Route::get('rules/{rule}/clone', 'RuleController@clone');
 Route::patch('rules/{rule}/hide', 'RuleController@hide');
 Route::post('rules/{rule}/bookmark', 'RuleController@bookmark');
 
 Route::group(['as' => 'sources::'], function () {
     Route::resource('sources', 'SourceController');
+    Route::get('sources/{source}/clone', 'SourceController@clone');
 
     Route::get('sources/{source}/basic', 'SourceShowController@basicDetails')->name('showBasic');
     Route::get('sources/{source}/forms', 'SourceShowController@forms')->name('showForms');
@@ -144,8 +148,11 @@ Route::group(['as' => 'users::'], function () {
  * Morphology
  */
 Route::resource('morphemes', 'Morphology\MorphemeController');
+Route::get('morphemes/{morpheme}/clone', 'Morphology\MorphemeController@clone');
 Route::resource('glosses', 'Morphology\GlossController');
+Route::get('glosses/{gloss}/clone', 'Morphology\GlossController@clone');
 Route::resource('slots', 'Morphology\SlotController');
+Route::get('slots/{slot}/clone', 'Morphology\SlotController@clone');
 
 Route::patch('morphemes/{morpheme}/hide', 'Morphology\MorphemeController@hide');
 Route::patch('glosses/{gloss}/hide', 'Morphology\GlossController@hide');

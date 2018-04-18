@@ -28,6 +28,13 @@ class DatapointController extends Controller
 		return view('ss::datapoints.create');
 	}
 
+    public function clone(Datapoint $datapoint)
+    {
+        $datapoint->load(['variable', 'value', 'sources']);
+
+        return view('ss::datapoints.create', compact('datapoint'));
+    }
+
 	public function store(DatapointRequest $request)
 	{
 		$datapoint = Datapoint::create($request->all());

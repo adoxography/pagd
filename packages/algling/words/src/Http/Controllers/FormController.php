@@ -39,6 +39,15 @@ class FormController extends AlgModelController
         }
     }
 
+    public function clone(Form $form)
+    {
+        if ($form->structure_type == 'verbStructures') {
+            return redirect("/verbs/forms/{$form->id}/clone");
+        } else {
+            return redirect("/nominals/forms/{$form->id}/clone");
+        }
+    }
+
     /**
      * Show the form edit form
      *

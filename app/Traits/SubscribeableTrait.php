@@ -59,8 +59,13 @@ trait SubscribeableTrait
 
     public function notifySubscribers()
     {
+        $this->load('comments', 'comments.author');
+        $currentUser = auth()->user();
+
     	foreach ($this->subscribers as $subscriber) {
-    		Mail::to($subscriber)->send(new TicketUpdated($this, $subscriber));
+            if ($currentUser->id != $subscriber->id) {
+                Mail::to($subscriber)->send(new TicketUpdated($this, $subscriber));
+            }
     	}
     }
 }

@@ -20,18 +20,17 @@ class TicketController extends Controller
 
     public function index()
     {
-        $tickets = Ticket::with('type')->get();
+        $tickets = Ticket::with('type')
+                        ->orderByRaw('ISNULL(closed_at) DESC')
+                        ->orderByDesc('updated_at')
+                        ->simplePaginate(20);
 
-        $open = $this->mapTicketsToType($tickets->where('closed_at', null)->sortByDesc('created_at'));
-
-        $closed = $this->mapTicketsToType($tickets->whereNotIn('closed_at', [null])->sortByDesc('closed_at'));
-
-        return view('tickets.index', compact('open', 'closed'));
+        return view('tickets.index', compact('tickets'));
     }
 
     public function show(Ticket $ticket)
     {
-        $ticket->load(['openedBy', 'closedBy']);
+        $ticket->load(['openedBy', 'closedBy', 'comments', 'comments.author']);
 
         return view('tickets.show', compact('ticket'));
     }
@@ -46,7 +45,7 @@ class TicketController extends Controller
     public function store()
     {
         $ticket = new Ticket(request()->only(
-            ['title', 'url', 'current', 'desired', 'comments', 'ticketType_id', 'isUrgent']
+            ['title', 'url', 'current', 'desired', 'etc', 'ticketType_id', 'isUrgent']
         ));
         $ticket->openedBy_id = Auth::user()->id;
         $ticket->save();

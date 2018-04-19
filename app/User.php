@@ -1,6 +1,7 @@
 <?php
 namespace App;
 
+use App\Comment;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Mail\Mailable;
@@ -80,6 +81,11 @@ class User extends Authenticatable
         }
 
         return $relation;
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
     public function present($method = 'name')

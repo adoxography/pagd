@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\SubscribeableTrait;
+use App\Comment;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,7 +13,7 @@ class Ticket extends Model implements SubscribeableInterface
 
     public $table = 'Tickets';
 
-    protected $fillable = ['title', 'url', 'current', 'desired', 'comments', 'isUrgent', 'ticketType_id'];
+    protected $fillable = ['title', 'url', 'current', 'desired', 'etc', 'isUrgent', 'ticketType_id'];
 
     public function getNameAttribute()
     {
@@ -62,6 +63,11 @@ class Ticket extends Model implements SubscribeableInterface
         $this->closedBy_id = $user->id;
 
         $this->save();
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
     public function isClosed()

@@ -49,10 +49,10 @@
 				</div>
 			@endif
 
-			@if ($ticket->comments)
+			@if ($ticket->etc)
 				<div class="field">
 					<span class="label">Other comments</span>
-					{!! replaceTags($ticket->comments) !!}
+					{!! replaceTags($ticket->etc) !!}
 				</div>
 			@endif
 		</div>
@@ -74,9 +74,9 @@
 
 				<div class="field">
 					@if (Auth::user()->isSubscribedTo($ticket))
-						You will be notified when the status changes. <a href="/tickets/{{ $ticket->id }}/subscribe">(Unsubscribe)</a>
+						You will be notified when updates are made to this ticket. <a href="/tickets/{{ $ticket->id }}/subscribe">(Unsubscribe)</a>
 					@else
-						<a href="/tickets/{{ $ticket->id }}/subscribe">Subscribe</a> to be notified when the status changes.
+						<a href="/tickets/{{ $ticket->id }}/subscribe">Subscribe</a> to be notified when updates are made to this ticket.
 					@endif
 				</div>
 			@endif
@@ -89,4 +89,34 @@
 			@endif
 		</div>
 	</div>
+
+	@if ($ticket->comments->count() > 0 || !$ticket->isClosed())
+		<hr>
+	@endif
+	<div class="ticket-comments">
+		@foreach ($ticket->comments as $comment)
+			<article class="message is-primary">
+				<header class="message-header">
+					<p>
+						{!! $comment->author->present() !!} said...
+					</p>
+					<p class="is-pulled-right">{{ $comment->created_at->diffForHumans() }}</p>
+				</header>
+				<div class="message-body">
+					{!! $comment->comment !!}
+				</div>
+			</article>
+		@endforeach
+	</div>
+	@if (!$ticket->isClosed())
+		@component('components.form', ['action' => "/tickets/{$ticket->id}/comment", 'visible' => 'true'])
+			@component('components.form.textarea', ['name' => 'comment', 'label' => 'Add a comment'])
+				@slot('value')
+					@if(isset($language))
+						{{ $language->notes }}
+					@endif
+				@endslot
+			@endcomponent
+		@endcomponent
+	@endif
 @endsection

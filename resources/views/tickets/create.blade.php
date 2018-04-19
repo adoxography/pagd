@@ -72,7 +72,7 @@
     	@endcomponent
 
     	@component('components.form.textarea', [
-    		'name' => 'comments',
+    		'name' => 'etc',
     		'label' => 'Add any additional comments here'
     	])
     	    @slot('value')
@@ -90,7 +90,7 @@
 
     	@include('components.form.checkbox', [
     		'name' => 'notify',
-    		'label' => 'Notify me when the status of this request changes',
+    		'label' => 'Notify me when updates are made to this ticket',
     		'checked' => true
     	])
 

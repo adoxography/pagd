@@ -31,8 +31,6 @@ class FormController extends Controller
 
     public function clone(Form $nominalForm)
     {
-        $nominalForm->name = '';
-
         $form = $nominalForm->load([
             'language',
             'structure.paradigm',

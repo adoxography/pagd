@@ -51,7 +51,6 @@ class ExampleController extends AlgModelController
      */
     public function clone(Example $example)
     {
-        $example->name = '';
         $example->load(['form', 'form.language', 'sources']);
 
         return view('word::examples.create', compact('example'));

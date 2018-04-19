@@ -27,6 +27,9 @@
 				</td>
 				<td>
 					{!! $ticket->present('link') !!}
+					@if ($ticket->isUrgent && !$ticket->isClosed())
+						<span class="tag is-danger">Urgent</span>
+					@endif
 				</td>
 				<td>
 					{{ $ticket->isClosed() ? 'Closed' : 'Open' }}

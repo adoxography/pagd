@@ -26,6 +26,10 @@
 			<div class="field is-one-line">
 				<span class="label">Ticket type:</span>
 				{{ $ticket->type->name }}
+				@if ($ticket->isUrgent)
+					&nbsp;
+					<span class="tag is-danger">Urgent</span>
+				@endif
 			</div>
 
 			@if ($ticket->url)
@@ -90,9 +94,10 @@
 		</div>
 	</div>
 
-	@if ($ticket->comments->count() > 0 || !$ticket->isClosed())
+	@if ($ticket->comments && $ticket->comments->count() > 0 || !$ticket->isClosed())
 		<hr>
 	@endif
+	@if ($ticket->comments)
 	<div class="ticket-comments">
 		@foreach ($ticket->comments as $comment)
 			<article class="message is-primary">
@@ -108,6 +113,7 @@
 			</article>
 		@endforeach
 	</div>
+	@endif
 	@if (!$ticket->isClosed())
 		@component('components.form', ['action' => "/tickets/{$ticket->id}/comment", 'visible' => 'true'])
 			@component('components.form.textarea', ['name' => 'comment', 'label' => 'Add a comment'])

@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			19-04-18: Added AI+O ordering
+		</li>
+		<hr>
+		<li>
 			17-04-18: Added clone option to all data types
 		</li>
 		<li>

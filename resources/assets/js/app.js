@@ -43,6 +43,7 @@ Vue.component('alg-file-upload',     resolve => { require(['./components/FileUpl
 Vue.component('alg-tooltip', require('./components/Tooltip.vue').default);
 Vue.component('alg-typeahead', resolve => { require(['./components/Typeahead.vue'], resolve ); });
 Vue.component('alg-typewriter', resolve => { require(['./components/Typewriter.vue'], resolve); });
+Vue.component('alg-preview', resolve => { require(['./components/Preview.vue'], resolve); });
 
 Vue.component('alg-form',           resolve => { require(['./components/forms/Form.vue'], resolve); });
 Vue.component('alg-language-form',  resolve => { require(['./components/forms/Language.vue'], resolve); });

@@ -1,4 +1,4 @@
-webpackJsonp([5,25],{
+webpackJsonp([5,21],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/Form.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -22,159 +22,112 @@ webpackJsonp([5,25],{
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/NominalForm.vue":
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/search/Phoneme.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form__ = __webpack_require__("./resources/assets/js/components/forms/Form.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_HasMorphemes__ = __webpack_require__("./resources/assets/js/mixins/HasMorphemes.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Datalist_js__ = __webpack_require__("./resources/assets/js/Datalist.js");
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Datalist_js__ = __webpack_require__("./resources/assets/js/Datalist.js");
 
 
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-	extends: __WEBPACK_IMPORTED_MODULE_0__Form__["default"],
+    extends: __WEBPACK_IMPORTED_MODULE_0__Form__["default"],
 
-	props: ['pronominalFeatures', 'nominalFeatures', 'paradigms', 'oldParadigm', 'oldNominalFeature', 'oldPronominalFeature', 'oldTranslation'],
+    props: ['inventory', 'preset'],
 
-	mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_HasMorphemes__["a" /* default */]],
-
-	data: function data() {
-		return {
-			language: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
-			pronominalFeature: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
-			nominalFeature: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
-			paradigm: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
-			mode: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
-			parent: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
-			translation: '',
-			validations: {
-				nominalFeature: 'datalist_required|datalist_exists',
-				pronominalFeature: 'datalist_required|datalist_exists'
-			}
-		};
-	},
+    data: function data() {
+        return {
+            languages: [new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */]()],
+            type: '',
+            mode: 'inventory',
+            phonemes: {},
+            pa: { 'text': 'Proto-Algonquian' }
+        };
+    },
 
 
-	computed: {
-		filteredParadigms: function filteredParadigms() {
-			var _this = this;
+    computed: {
+        phones: function phones() {
+            return this.inventory[this.type];
+        }
+    },
 
-			return this.paradigms.filter(function (paradigm) {
-				return paradigm.language_id == _this.language.id;
-			});
-		},
-		translationRequired: function translationRequired() {
-			return this.morphemes.length == 0 || !this.morphemesContainStem;
-		},
-		translationRules: function translationRules() {
-			if (this.morphemes.length == 0 || this.morphemesContainStem) {
-				return '';
-			}
+    watch: {
+        type: function type() {
+            var phonemes = {};
 
-			return 'required';
-		},
-		paradigmHasPronominalFeature: function paradigmHasPronominalFeature() {
-			var paradigm = this.getParadigm();
-			var result = false;
+            _.each(this.phones, function (phone) {
+                phonemes[phone.id] = true;
+            });
 
-			if (paradigm) {
-				result = paradigm.type.hasPronominalFeature;
-			}
+            this.phonemes = phonemes;
+        }
+    },
 
-			return result;
-		},
-		paradigmHasNominalFeature: function paradigmHasNominalFeature() {
-			var paradigm = this.getParadigm();
-			var result = false;
+    created: function created() {
+        if (this.preset) {
+            this.mode = this.preset.mode;
 
-			if (paradigm) {
-				result = paradigm.type.hasNominalFeature;
-			}
+            var languages = [];
 
-			return result;
-		},
-		morphemesContainStem: function morphemesContainStem() {
-			var stems = ['V', 'N'];
+            for (var i = 0; i < this.preset.languages.length; i += 2) {
+                var name = this.preset.languages[i];
+                var id = this.preset.languages[i + 1];
 
-			var result = this.morphemes.find(function (item) {
-				return stems.includes(item.name.replace(/[-*]/g, ''));
-			});
+                if (name) {
+                    languages.push(new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */](name, id));
+                }
+            }
 
-			return typeof result !== 'undefined';
-		}
-	},
+            languages.push(this.languages[0]);
+            this.languages = languages;
+        }
+    },
+    mounted: function mounted() {
+        var _this = this;
 
-	watch: {
-		language: function language() {
-			this.paradigm = new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */]();
-		},
-		paradigm: function paradigm() {
-			this.pronominalFeature = new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */]();
-			this.nominalFeature = new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */]();
-
-			if (this.paradigmHasPronominalFeature) {
-				this.validations.pronominalFeature = 'datalist_required|datalist_exists';
-			} else {
-				this.validations.pronominalFeature = '';
-			}
-
-			if (this.paradigmHasNominalFeature) {
-				this.validations.nominalFeature = 'datalist_required|datalist_exists';
-			} else {
-				this.validations.nominalFeature = '';
-			}
-		},
-		translationRequired: function translationRequired(value) {
-			if (!value) {
-				this.translation = '';
-			}
-		}
-	},
-
-	mounted: function mounted() {
-		var _this2 = this;
-
-		if (this.oldParadigm) {
-			Vue.nextTick(function () {
-				_this2.$refs.paradigm.update(_this2.oldParadigm);
-				if (_this2.oldPronominalFeature) {
-					Vue.nextTick(function () {
-						_this2.$refs.pronominalFeature.update(_this2.oldPronominalFeature);
-					});
-				}
-
-				if (_this2.oldNominalFeature) {
-					Vue.nextTick(function () {
-						_this2.$refs.nominalFeature.update(_this2.oldNominalFeature);
-					});
-				}
-			});
-		}
-	},
-	created: function created() {
-		if (this.oldTranslation) {
-			this.translation = this.oldTranslation;
-		}
-	},
+        if (this.preset) {
+            this.type = this.preset.type;
+            Vue.nextTick(function () {
+                _.each(_this.phonemes, function (_, key) {
+                    _this.phonemes[key] = _this.preset.phonemes.includes(key);
+                });
+            });
+        } else {
+            this.type = 'consonants';
+        }
+    },
 
 
-	methods: {
-		getParadigm: function getParadigm() {
-			var id = this.paradigm.id;
-			var lookup = null;
+    methods: {
+        onInput: function onInput(text, index) {
+            if (text == '') {
+                if (this.languages.length > 1) {
+                    this.languages.splice(index, 1);
+                }
+            } else if (index == this.languages.length - 1) {
+                this.languages.push(new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */]());
+            }
+        },
+        phoneName: function phoneName(phoneme) {
+            return phoneme.algoName;
+        },
+        selectAll: function selectAll() {
+            this.toggle(true);
+        },
+        selectNone: function selectNone() {
+            this.toggle(false);
+        },
+        toggle: function toggle(setting) {
+            var _this2 = this;
 
-			if (id) {
-				lookup = this.paradigms.find(function (paradigm) {
-					return paradigm.id == id;
-				});
-			}
-
-			return lookup;
-		}
-	}
+            _.each(this.phonemes, function (_, key) {
+                _this2.phonemes[key] = setting;
+            });
+        }
+    }
 });
 
 /***/ }),
@@ -272,12 +225,12 @@ if (false) {(function () {
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/forms/NominalForm.vue":
+/***/ "./resources/assets/js/components/forms/search/Phoneme.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_NominalForm_vue__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/NominalForm.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_Phoneme_vue__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/search/Phoneme.vue");
 /* empty harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/component-normalizer.js");
 var disposed = false
@@ -296,7 +249,7 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 
 var Component = Object(__WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
-  __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_NominalForm_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_Phoneme_vue__["a" /* default */],
   __vue_render__,
   __vue_static_render_fns__,
   __vue_template_functional__,
@@ -304,7 +257,7 @@ var Component = Object(__WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/forms/NominalForm.vue"
+Component.options.__file = "resources/assets/js/components/forms/search/Phoneme.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -313,9 +266,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-71c4068e", Component.options)
+    hotAPI.createRecord("data-v-69d442f6", Component.options)
   } else {
-    hotAPI.reload("data-v-71c4068e", Component.options)
+    hotAPI.reload("data-v-69d442f6", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -324,28 +277,6 @@ if (false) {(function () {
 
 /* harmony default export */ __webpack_exports__["default"] = (Component.exports);
 
-
-/***/ }),
-
-/***/ "./resources/assets/js/mixins/HasMorphemes.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    props: ['init-morphemes'],
-
-    data: function data() {
-        return {
-            morphemes: []
-        };
-    },
-    created: function created() {
-        if (this.initMorphemes) {
-            this.morphemes = this.initMorphemes;
-        }
-    }
-});
 
 /***/ }),
 

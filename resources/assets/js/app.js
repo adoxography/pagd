@@ -84,7 +84,7 @@ Vue.component('alg-filter', resolve => { require(['./components/Filter.vue'], re
 Vue.component('alg-select-all', resolve => { require(['./components/SelectAll.vue'], resolve); });
 
 Vue.component('alg-paradigm-table', {
-	props: ['morphemesOn'],
+	props: ['morphemesOn', 'hasMorphemes'],
 
 	data() {
 		return {
@@ -100,7 +100,7 @@ Vue.component('alg-paradigm-table', {
 
 	created() {
 		if(this.morphemesOn) {
-			this.show = this.morphemesOn;
+			this.show = this.hasMorphemes && this.morphemesOn;
 		}
 	}
 });

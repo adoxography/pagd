@@ -68,6 +68,9 @@ class SearchController extends Controller
             ->sortByDesc('year')
             ->sortBy('name');
         $showMorphology = $request->showMorphology;
+        $hasMorphemes = !!$forms->first(function ($form) {
+            return $form->morphemes->count() > 0;
+        });
 
         $search = new Paradigm($forms);
         $data = $search->getHeaders();
@@ -75,7 +78,7 @@ class SearchController extends Controller
 
         $params = serialize($request->except('_token'));
 
-        return view('verb::search.results.paradigm', compact('data', 'rows', 'showMorphology', 'search', 'params', 'sources'));
+        return view('verb::search.results.paradigm', compact('data', 'rows', 'showMorphology', 'hasMorphemes', 'search', 'params', 'sources'));
     }
 
     public function formResults(Request $request)

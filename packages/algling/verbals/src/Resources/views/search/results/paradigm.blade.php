@@ -5,12 +5,12 @@
 @endsection
 
 @section('content')
-	<alg-paradigm-table morphemes-on="{{ $showMorphology }}" inline-template v-cloak>
+	<alg-paradigm-table morphemes-on="{{ $showMorphology }}" has-morphemes="{{ $hasMorphemes }}" inline-template v-cloak>
 		<div class="paradigm-results">
 			<nav class="level">
 				<div class="level-left">
 					<div class="level-item">
-						<a class="button" @click="toggleShow">Show/Hide Morphology</a>
+						<a class="button" @click="toggleShow" :disabled="!hasMorphemes">Show/Hide Morphology</a>
 					</div>
 					<div class="level-item">
 						<form style="margin: 0;" method="GET" action="/verbs/search/paradigm">
@@ -37,7 +37,7 @@
 												@foreach($mode['subheaders'] as $absobj)
 													@foreach($absobj['subheaders'] as $negative)
 														@foreach($negative['subheaders'] as $diminutive)
-															<?php 
+															<?php
 																$lookup = [];
 
 																foreach($forms as $form) {
@@ -124,4 +124,4 @@
 		</div>
 	</alg-paradigm-table>
 
-@endsection 
+@endsection

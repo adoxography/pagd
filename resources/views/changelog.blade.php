@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			29-04-18: Added TI2 and TI3 ordering
+		</li>
+		<hr>
+		<li>
 			19-04-18: Added AI+O ordering
 		</li>
 		<hr>

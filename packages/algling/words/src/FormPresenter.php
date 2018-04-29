@@ -33,7 +33,7 @@ class FormPresenter extends AlgPresenter
 
     public function stub()
     {
-        $name = $this->model->present('phonemicForm');
+        $name = $this->model->phonemicForm ?: $this->name();
 
         return "<blockquote><a href='/{$this->getURI()}/{$this->model->id}'>$name</a>".$this->model->printMorphemes().'</blockquote>';
     }

@@ -7,6 +7,12 @@
 @section('content')
 	<ul class="indented-list">
 		<li>
+			29-04-18: Fixed example forms erroneously linking to phonemes
+		</li>
+		<li>
+			29-04-18: Fixed bug in proto nominals
+		</li>
+		<li>
 			29-04-18: Added TI2 and TI3 ordering
 		</li>
 		<hr>

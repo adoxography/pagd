@@ -160,6 +160,10 @@ class MorphemeController extends AlgModelController
         $types = [Form::class, Example::class];
         foreach ($types as $type) {
             $results = $type::where('language_id', $morpheme->language_id)->where('morphemicForm', 'LIKE', "%$name%")->get();
+            $results = $results->filter(function ($result) use ($name) {
+                $morphemes = explode('-', $result->morphemicForm);
+                return in_array($name, $morphemes);
+            });
             $matches = $matches->concat($results);
         }
 

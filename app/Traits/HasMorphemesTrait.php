@@ -143,9 +143,38 @@ trait HasMorphemesTrait
     }
 
     /**
+     * Generates a series of Morphemes used by this data structure.
+     *
+     * Tokens that do not have corresponding morphemes are loaded into dummy Morpheme objects.
+     *
+     * @return Collection
+     */
+    public function morphemeSequence()
+    {
+        $data = $this->morphemes;
+        $tokens = collect(explode('-', str_replace('*', '', $this->morphemicForm)));
+
+        return $tokens->map(function ($token) use ($data) {
+            $morpheme = $data->first(function ($morpheme) use ($token) {
+                return $morpheme->id == $token || str_replace(['*', '-'], '', $morpheme->name) == $token;
+            });
+
+            if ($morpheme) {
+                return $morpheme;
+            }
+
+            return new Morpheme([
+                'name' => "-$token-",
+                'language_id' => $this->language_id
+            ]);
+        });
+    }
+
+    /**
      * Generate a list of morphemes using the morphemicForm to temporarily fill in any missing morphemes
      *
      * @return array
+     * @deprecated
      */
     public function morphemeList()
     {

@@ -14,10 +14,16 @@ class Form extends JsonResource
      */
     public function toArray($request)
     {
+        $morphemes = $this->morphemeSequence();
+        $morphemeList = implode('-', $morphemes->map(function ($morpheme) {
+            return str_replace(['*', '-'], '', $morpheme->name);
+        })->toArray());
+
         return [
             'id' => $this->id,
             'shape' => str_replace('*', '', $this->name),
-            'phonemic_form' => $this->phonemicForm,
+            'phonemic_form' => str_replace('*', '', $this->phonemicForm),
+            'morphemes' => $morphemeList,
             'reconstructed' => !!$this->language->reconstructed,
             'notes' => [
                 'historical' => $this->historicalNotes,
@@ -27,7 +33,7 @@ class Form extends JsonResource
             'complete' => !!$this->complete,
             'language' => new Language($this->language),
             'parent' => new Form($this->whenLoaded('parent')),
-            'morphemes' => new MorphemeCollection($this->whenLoaded('morphemes'))
+            'morpheme_data' => new MorphemeCollection($morphemes)
         ];
     }
 

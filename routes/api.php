@@ -14,5 +14,6 @@ use Illuminate\Http\Request;
 */
 
 Route::resource('examples', 'Api\\ExampleController');
+Route::resource('forms', 'Api\\FormController');
 
 // ->middleware('auth:api')

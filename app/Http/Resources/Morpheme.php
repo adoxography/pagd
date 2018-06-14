@@ -17,8 +17,9 @@ class Morpheme extends JsonResource
         return [
             'id' => $this->id,
             'shape' => str_replace('*', '', $this->name),
-            'gloss' => $this->gloss,
             'reconstructed' => !!$this->language->reconstructed,
+            'gloss' => $this->gloss,
+            'reconstructed' => !!optional($this->language)->reconstructed,
             'notes' => [
                 'historical' => $this->historicalNotes,
                 'allomorphy' => $this->allomorphyNotes,

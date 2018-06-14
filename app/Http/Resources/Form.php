@@ -35,8 +35,8 @@ class Form extends JsonResource
             'language' => new Language($this->language),
             'parent' => new Form($this->whenLoaded('parent')),
             $this->mergeWhen(isset($morphemes), [
-                'morphemes' => $morphemeList,
-                'morpheme_data' => new MorphemeCollection($morphemes)
+                'morphemes' => $morphemeList ?? null,
+                'morpheme_data' => isset($morphemes) ? new MorphemeCollection($morphemes) : null
             ])
         ];
     }

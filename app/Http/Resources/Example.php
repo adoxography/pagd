@@ -14,19 +14,28 @@ class Example extends JsonResource
      */
     public function toArray($request)
     {
+        if ($this->relationLoaded('morphemes')) {
+            $morphemes = $this->morphemeSequence();
+            $morphemeList = implode('-', $morphemes->map(function ($morpheme) {
+                return str_replace(['*', '-'], '', $morpheme->name);
+            })->toArray());
+        }
+
         return [
             'id' => $this->id,
             'shape' => str_replace('*', '', $this->name),
             'translation' => $this->translation,
             'reconstructed' => !!$this->language->reconstructed,
-            'morphemes' => explode('-', $this->morphemicForm),
             'phonemic_form' => $this->phonemicForm,
             'notes' => $this->publicNotes,
             'complete' => !!$this->complete,
             'language' => new Language($this->language),
             'form' => new Form($this->whenLoaded('form')),
             'parent' => new Example($this->whenLoaded('parent')),
-            'morpheme_data' => new MorphemeCollection($this->whenLoaded('morphemes'))
+            $this->mergeWhen(isset($morphemes), [
+                'morphemes' => $morphemeList,
+                'morpheme_data' => new MorphemeCollection($morphemes)
+            ])
         ];
     }
 

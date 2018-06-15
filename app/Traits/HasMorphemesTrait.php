@@ -151,6 +151,10 @@ trait HasMorphemesTrait
      */
     public function morphemeSequence()
     {
+        if (!$this->morphemicForm) {
+            return null;
+        }
+
         $data = $this->morphemes;
         $tokens = collect(explode('-', str_replace('*', '', $this->morphemicForm)));
 

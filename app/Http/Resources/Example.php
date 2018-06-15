@@ -16,9 +16,14 @@ class Example extends JsonResource
     {
         if ($this->relationLoaded('morphemes')) {
             $morphemes = $this->morphemeSequence();
-            $morphemeList = implode('-', $morphemes->map(function ($morpheme) {
-                return str_replace(['*', '-'], '', $morpheme->name);
-            })->toArray());
+
+            if ($morphemes) {
+                $morphemeList = implode('-', $morphemes->map(function ($morpheme) {
+                    return str_replace(['*', '-'], '', $morpheme->name);
+                })->toArray());
+            } else {
+                $morphemeList = null;
+            }
         }
 
         return [
@@ -32,7 +37,7 @@ class Example extends JsonResource
             'language' => new Language($this->language),
             'form' => new Form($this->whenLoaded('form')),
             'parent' => new Example($this->whenLoaded('parent')),
-            $this->mergeWhen(isset($morphemes), [
+            $this->mergeWhen($this->relationLoaded('morphemes'), [
                 'morphemes' => $morphemeList ?? null,
                 'morpheme_data' => isset($morphemes) ? Morpheme::collection($morphemes) : null
             ])

@@ -19,6 +19,8 @@ class Paradigm extends Model
 
     public $uri = 'nominals/paradigms';
 
+    public $with = ['type'];
+
     public function paradigmType()
     {
         return $this->belongsTo(ParadigmType::class, 'paradigmType_id');

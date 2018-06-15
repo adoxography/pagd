@@ -12,6 +12,8 @@ class Structure extends Model
 
     protected $fillable = ['pronominalFeature_id', 'nominalFeature_id', 'paradigm_id'];
 
+    public $with = ['pronominalFeature', 'nominalFeature', 'paradigm'];
+
     public function getSummaryAttribute()
     {
         return $this->renderSummary();

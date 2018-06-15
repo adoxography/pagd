@@ -28,6 +28,7 @@ class Structure extends Model
         'isDiminutive'
     ];
     protected $appends = ['summary'];
+    public $with = ['mode', 'order', 'subject', 'primaryObject', 'secondaryObject'];
 
     public static function boot()
     {

@@ -34,7 +34,7 @@ class Example extends JsonResource
             'parent' => new Example($this->whenLoaded('parent')),
             $this->mergeWhen(isset($morphemes), [
                 'morphemes' => $morphemeList ?? null,
-                'morpheme_data' => isset($morphemes) ? new MorphemeCollection($morphemes) : null
+                'morpheme_data' => isset($morphemes) ? Morpheme::collection($morphemes) : null
             ])
         ];
     }

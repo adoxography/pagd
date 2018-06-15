@@ -23,7 +23,6 @@ class Form extends JsonResource
 
         // return $this->resource->toArray();
         return [
-            'structure' => new Structure($this->structure),
             'id' => $this->id,
             'shape' => str_replace('*', '', $this->name),
             'type' => $this->structure_type == 'verbStructures' ? 'verb' : 'nominal',
@@ -37,6 +36,7 @@ class Form extends JsonResource
             ],
             'language' => new Language($this->language),
             'parent' => new Form($this->whenLoaded('parent')),
+            'structure' => new Structure($this->structure),
             $this->mergeWhen(isset($morphemes), [
                 'morphemes' => $morphemeList ?? null,
                 'morpheme_data' => isset($morphemes) ? new MorphemeCollection($morphemes) : null

@@ -24,6 +24,7 @@ class ExampleController extends Controller
             'parent.language',
             'form',
             'form.language',
+            'form.structure',
             'morphemes',
             'morphemes.language',
             'morphemes.slot'

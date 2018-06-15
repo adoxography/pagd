@@ -21,17 +21,20 @@ class Form extends JsonResource
             })->toArray());
         }
 
+        // return $this->resource->toArray();
         return [
+            'structure' => new Structure($this->structure),
             'id' => $this->id,
             'shape' => str_replace('*', '', $this->name),
+            'type' => $this->structure_type == 'verbStructures' ? 'verb' : 'nominal',
             'phonemic_form' => str_replace('*', '', $this->phonemicForm),
             'reconstructed' => !!$this->language->reconstructed,
+            'complete' => !!$this->complete,
             'notes' => [
                 'historical' => $this->historicalNotes,
                 'allomorphy' => $this->allomorphyNotes,
                 'usage' => $this->usageNotes,
             ],
-            'complete' => !!$this->complete,
             'language' => new Language($this->language),
             'parent' => new Form($this->whenLoaded('parent')),
             $this->mergeWhen(isset($morphemes), [

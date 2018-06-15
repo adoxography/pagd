@@ -24,7 +24,8 @@ class FormController extends Controller
             'parent.language',
             'morphemes',
             'morphemes.language',
-            'morphemes.slot'
+            'morphemes.slot',
+            'structure'
         ])->paginate(20);
         return new FormCollection($forms);
     }

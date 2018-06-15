@@ -55,8 +55,10 @@ class ExampleController extends Controller
             'language',
             'language.group',
             'parent',
+            'parent.language',
             'form',
             'form.language',
+            'form.structure',
             'morphemes',
             'morphemes.language',
             'morphemes.slot'

@@ -56,7 +56,9 @@ class FormController extends Controller
             'parent.language',
             'morphemes',
             'morphemes.language',
-            'morphemes.slot'
+            'morphemes.slot',
+            'structure',
+            'examples'
         ]);
         return new FormResource($form);
     }

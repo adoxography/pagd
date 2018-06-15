@@ -39,8 +39,9 @@ class Form extends JsonResource
             'structure' => new Structure($this->structure),
             $this->mergeWhen(isset($morphemes), [
                 'morphemes' => $morphemeList ?? null,
-                'morpheme_data' => isset($morphemes) ? new MorphemeCollection($morphemes) : null
-            ])
+                'morpheme_data' => isset($morphemes) ? Morpheme::collection($morphemes) : null
+            ]),
+            'examples' => Example::collection($this->whenLoaded('examples'))
         ];
     }
 

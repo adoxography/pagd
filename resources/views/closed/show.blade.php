@@ -2,7 +2,7 @@
 
 @section('title')
 	<label>{{ $item->singular }} details:</label>
-	{{ $item->abv or $item->name }}
+	{{ $item->abv ?? $item->name }}
 @endsection
 
 @include('components.show-icons', ['model' => $item])
@@ -17,6 +17,6 @@
 
 	<div class="field">
 		<span class="label">Description</span>
-		{!! $item->description or 'None provided' !!}
+		{!! $item->description ?? 'None provided' !!}
 	</div>
 @endsection

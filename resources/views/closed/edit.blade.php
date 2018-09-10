@@ -2,7 +2,7 @@
 
 @section('title')
 	<label>Editing </label>
-	{{ $item->abv or $item->name }}
+	{{ $item->abv ?? $item->name }}
 @endsection
 
 @section('content')

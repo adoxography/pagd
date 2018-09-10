@@ -21,7 +21,7 @@
 		uri="{{ $uri }}"
 		:with="{{ $with }}"
 		name="{{ $name }}"
-		id="{{ $id or $name }}"
+		id="{{ $id ?? $name }}"
 		ref="{{ $name }}"
 
 		@if(isset($disabled))

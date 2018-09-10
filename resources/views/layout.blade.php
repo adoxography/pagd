@@ -2,7 +2,7 @@
 <html style="background-color: white;">
 	<head>
 		<meta charset="UTF-8" />
-		<title>{{ $title or "Database of Algonquian Language Structures" }}</title>
+		<title>{{ $title ?? "Database of Algonquian Language Structures" }}</title>
 
 		<link rel="stylesheet" type="text/css" href="{{ mix("/css/app.css") }}" />
 		<script>

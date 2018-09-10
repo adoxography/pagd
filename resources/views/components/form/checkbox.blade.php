@@ -8,7 +8,7 @@
 			<input
 				type="checkbox"
 				name="{{ $name }}"
-				id="{{ $id or $name }}"
+				id="{{ $id ?? $name }}"
 				value="{{ $value }}"
 
 				@if((old($name, 'not found') !== 'not found' && old($name) == $value) || (isset($checked) && $checked))

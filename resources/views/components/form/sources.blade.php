@@ -1,1 +1,1 @@
-<alg-sources value="{{ $value or '' }}"></alg-sources>
+<alg-sources value="{{ $value ?? '' }}"></alg-sources>

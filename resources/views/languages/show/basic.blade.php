@@ -30,7 +30,7 @@
 
 			<span class="is-one-line">
 				<label class="label">ISO:</label>
-				{{ $language->iso or 'none' }}
+				{{ $language->iso ?? 'none' }}
 			</span>
 			</div>
 

@@ -1,9 +1,9 @@
 @component('mail::message')
 # From
-{{ $senderName or "--" }}
+{{ $senderName ?? "--" }}
 
 # Email
-{{ $email or "--" }}
+{{ $email ?? "--" }}
 
 # Message
 

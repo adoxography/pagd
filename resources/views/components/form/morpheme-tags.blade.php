@@ -8,7 +8,7 @@
     <alg-morpheme-tag-input
         source="/autocomplete/morphemes"
         name="{{ $name }}"
-        id="{{ $id or $name }}"
+        id="{{ $id ?? $name }}"
         :classes="{'is-danger': errors.has('{{ $name }}')}"
         :language="{{ $language }}"
         :allow-duplicates="true"

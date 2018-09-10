@@ -5,7 +5,7 @@
 		<span class="select">
 			<select
 				name="{{ $name }}"
-				id="{{ $id or $name }}"
+				id="{{ $id ?? $name }}"
 
 				@if(isset($disabled))
 				:disabled="{{ $disabled }}"

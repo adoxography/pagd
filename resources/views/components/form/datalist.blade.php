@@ -40,7 +40,7 @@
 		v-model="{{ $name }}"
 		:list="{{ $list }}"
 		name="{{ $name }}"
-		id="{{ $id or $name }}"
+		id="{{ $id ?? $name }}"
 		initial="{{ $initial }}"
 		:has-errors="errors.has('{{ $name }}')"
 		ref="{{ $name }}"

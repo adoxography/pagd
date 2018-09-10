@@ -2,7 +2,7 @@
 	@foreach($items as $item)
 		<tr>
 			<td>
-				<a href="/{{ $model }}/{{ $item->id }}">{{ $item->abv or $item->name }}</a>
+				<a href="/{{ $model }}/{{ $item->id }}">{{ $item->abv ?? $item->name }}</a>
 			</td>
 			@if ($item->name)
 				<td>

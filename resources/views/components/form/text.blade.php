@@ -13,7 +13,7 @@
 		value="{{ old($name, 'not found') !== 'not found' ? old($name) : ((request()->$name && (!isset($loadRequest) || $loadRequest)) ? request()->$name : $value) }}"
 		autocomplete="off"
 		name="{{ $name }}"
-		id="{{ $id or $name }}"
+		id="{{ $id ?? $name }}"
 		:class="{'is-danger': errors.has('{{ $name }}')}"
 		ref="{{ $name }}"
 

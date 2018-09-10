@@ -1,6 +1,6 @@
 @if(!isset($standalone) || !$standalone)
 <div class="field">
-		<label for="{{ $id or $name }}" class="label">
+		<label for="{{ $id ?? $name }}" class="label">
 			@if(isset($label))
 				{{ ucfirst($label) }}
 			@else

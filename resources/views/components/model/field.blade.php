@@ -1,4 +1,4 @@
-<div class="column {{ $width or "" }}">
+<div class="column {{ $width ?? "" }}">
 	<div class="card" style="box-shadow:none;">
 		@if(isset($label))
 			<div class="card-header" style="box-shadow:none;">

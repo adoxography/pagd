@@ -6,6 +6,7 @@
 @include font-face("DejaVuSerifCondensed", fonts/DejaVuSerifCondensed-Bold-webfont, bold, null, woff);
 @include font-face("DejaVuSerifCondensed", fonts/DejaVuSerifCondensed-BoldItalic-webfont, bold, italic, woff);
 @include font-face("DejaVuSerifCondensed", fonts/DejaVuSerifCondensed-Italic-webfont, null, italic, woff);
+@include font-face("DejaVuSansMono", fonts/DejaVuSansMono-webfont, null, null, woff);
 
 // Variables
 @import "_variables";
@@ -23,6 +24,10 @@
 @import "file-upload";
 @import "audio";
 @import "tooltip";
+
+.is-monospace {
+    font-family: "DejaVueSansMono", "monospace";
+}
 
 .breadcrumb {
 	a {

@@ -84,6 +84,9 @@ Route::get('autocomplete/phonemeParents', 'AutocompleteController@phonemeParents
 Route::get('log', 'LogController@index');
 Route::post('sources/ajax', 'SourceController@store');
 
+// IGT Routes
+Route::resource('igt', 'IGTController');
+
 // Group Routes
 Route::patch('groups/{group}/order', 'GroupOrderController@update');
 Route::resource('groups', 'GroupController');

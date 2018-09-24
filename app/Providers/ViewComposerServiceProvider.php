@@ -28,6 +28,7 @@ class ViewComposerServiceProvider extends ServiceProvider
         $this->composeRuleForm();
         $this->composeAudioForm();
         $this->composeMorphemeForm();
+        $this->composeIGTForm();
 
         $this->composeShowMorphemes();
 
@@ -40,6 +41,16 @@ class ViewComposerServiceProvider extends ServiceProvider
             $data = [
                 'parents' => Language::select('id', 'name', 'location')->get(),
                 'groups' => Group::select('id', 'name')->orderBy('position')->get()
+            ];
+            $view->with($data);
+        });
+    }
+
+    protected function composeIGTForm()
+    {
+        view()->composer(['igt.create', 'igt.edit'], function ($view) {
+            $data = [
+                'languages' => Language::select('id', 'name')->get()
             ];
             $view->with($data);
         });

@@ -9,6 +9,14 @@ use App\Http\Requests\IGTRequest as Request;
 class IGTController extends Controller
 {
     /**
+     * Initialize middleware
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

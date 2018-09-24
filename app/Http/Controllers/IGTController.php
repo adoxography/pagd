@@ -37,7 +37,6 @@ class IGTController extends Controller
     public function store(Request $request)
     {
         $igt = IGT::create($request->all());
-        dd($igt);
 
         flash("IGT added successfully.", 'is-success');
         return redirect("/igt/{$igt->id}/basic");
@@ -51,12 +50,7 @@ class IGTController extends Controller
      */
     public function show(IGT $igt)
     {
-        $igt->load([
-            'language',
-            'lines',
-            'lines.type'
-        ]);
-        dd($igt);
+        return redirect("/igt/{$igt->id}/basic");
     }
 
     /**

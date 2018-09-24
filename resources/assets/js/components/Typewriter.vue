@@ -54,7 +54,11 @@ export default {
         inputField() {
             let defaultSlot = this.$slots.default[0].elm;
 
-            return defaultSlot.className == "input" ? defaultSlot : defaultSlot.getElementsByClassName("input")[0];
+            if (defaultSlot.className.includes("input")) {
+                return defaultSlot;
+            }
+
+            return defaultSlot.getElementsByClassName("input")[0];
         }
     },
 

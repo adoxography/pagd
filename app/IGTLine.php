@@ -14,4 +14,18 @@ class IGTLine extends Model
     {
         return $this->belongsTo(IGTLineType::class, 'type_id');
     }
+
+    public function isAligning()
+    {
+        return $this->type->align;
+    }
+
+    public function tokens()
+    {
+        if ($this->isAligning()) {
+            return preg_split('/\s+/', $this->text);
+        }
+
+        return [$this->text];
+    }
 }

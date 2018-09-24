@@ -32,15 +32,17 @@
                         </div>
                     </div>
                     <div class="control is-expanded">
-                        <input class="input"
-                               :class="{'is-monospace': line.type.align}"
-                               type="text"
-                               :name="'lines['+i+'][text]'"
-                               v-model="line.text"
-                               @keydown.enter.shift.prevent="addLine(i)"
-                               @keydown.backspace.shift="removeLine(i)"
-                               :ref="'line-'+i"
-                        />
+                        <alg-typewriter :disabled="!line.type.align">
+                            <input class="input"
+                                   :class="{'is-monospace': line.type.align}"
+                                   type="text"
+                                   :name="'lines['+i+'][text]'"
+                                   v-model="line.text"
+                                   @keydown.enter.shift.prevent="addLine(i)"
+                                   @keydown.backspace.shift="removeLine(i)"
+                                   :ref="'line-'+i"
+                            />
+                        </alg-typwriter>
                     </div>
                     <p class="control">
                         <a class="button is-success"

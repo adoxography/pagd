@@ -85,7 +85,10 @@ Route::get('log', 'LogController@index');
 Route::post('sources/ajax', 'SourceController@store');
 
 // IGT Routes
-Route::resource('igt', 'IGTController');
+Route::group(['as' => 'igt::'], function () {
+    Route::resource('igt', 'IGTController');
+    Route::get('igt/{igt}/basic', 'IGTShowController@basic')->name('showBasic');
+});
 
 // Group Routes
 Route::patch('groups/{group}/order', 'GroupOrderController@update');

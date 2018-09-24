@@ -32,13 +32,13 @@ Route::get('changelog', 'HomeController@changelog');
 Route::get('/missing/page-numbers', 'MissingController@editPageNumbers');
 Route::patch('/missing/page-numbers', 'MissingController@updatePageNumbers');
 
-Route::get('sandbox', function () {
-    return view('sandbox');
-});
+//Route::get('sandbox', function () {
+    //return view('sandbox');
+//});
 
-Route::post('sandbox', function () {
-    dd(request()->all());
-});
+//Route::post('sandbox', function () {
+    //dd(request()->all());
+//});
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('auth');
 

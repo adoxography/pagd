@@ -12,20 +12,14 @@ class XIGTLine {
 export default {
   extends: Form,
 
+  props: [
+    'lineTypes'
+  ],
+
   data() {
     return {
       language: new Datalist,
-
-      lines: [new XIGTLine],
-      lineTypes: [
-        { name: 'Morphemes',             align: true  },
-        { name: 'Glosses',                align: true  },
-        { name: 'Slots',                 align: true  },
-        { name: 'Partial translations',  align: true  },
-        { name: 'Full translation',     align: false },
-        { name: 'Other (aligning)',     align: true  },
-        { name: 'Other (non-aligning)', align: false }
-      ]
+      lines: [new XIGTLine]
     };
   },
 

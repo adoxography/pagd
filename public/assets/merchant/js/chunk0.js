@@ -46,12 +46,22 @@ var XIGTLine = function XIGTLine() {
 /* harmony default export */ __webpack_exports__["a"] = ({
   extends: __WEBPACK_IMPORTED_MODULE_0__Form__["default"],
 
+  props: ['lineTypes'],
+
   data: function data() {
     return {
       language: new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */](),
 
-      lines: [new XIGTLine()],
-      lineTypes: [{ name: 'Morphemes', align: true }, { name: 'Glosses', align: true }, { name: 'Slots', align: true }, { name: 'Partial translations', align: true }, { name: 'Full translation', align: false }, { name: 'Other (aligning)', align: true }, { name: 'Other (non-aligning)', align: false }]
+      lines: [new XIGTLine()]
+      //lineTypes: [
+      //{ id: 1, name: 'Morphemes',            align: true  },
+      //{ id: 2, name: 'Glosses',              align: true  },
+      //{ id: 3, name: 'Slots',                align: true  },
+      //{ id: 4, name: 'Partial translations', align: true  },
+      //{ id: 5, name: 'Full translation',     align: false },
+      //{ id: 6, name: 'Other (aligning)',     align: true  },
+      //{ id: 7, name: 'Other (non-aligning)', align: false }
+      //]
     };
   },
   created: function created() {

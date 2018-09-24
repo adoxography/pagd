@@ -1,6 +1,7 @@
-<alg-sandbox inline-template
-             v-cloak
-             :old-errors="{{ json_encode($errors->messages()) }}"
+<alg-igt-form inline-template
+              v-cloak
+              :old-errors="{{ json_encode($errors->messages()) }}"
+              :line-types="{{ $lineTypes->toJson() }}"
 >
     @component('components.form', ['method' => $method, 'action' => $action, 'visible' => true])
         {{--Language--}}
@@ -27,7 +28,7 @@
                             <select v-model="line.type">
                                 <option v-for="lineType in lineTypes" :value="lineType" v-text="lineType.name"></option>
                             </select>
-                            <input type="hidden" v-model="line.type.name" :name="'lines['+i+'][type]'" />
+                            <input type="hidden" v-model="line.type.id" :name="'lines['+i+'][type_id]'" />
                         </div>
                     </div>
                     <div class="control is-expanded">
@@ -97,4 +98,4 @@
             </div>
         </div>
     @endcomponent
-</alg-sandbox>
+</alg-igt-form>

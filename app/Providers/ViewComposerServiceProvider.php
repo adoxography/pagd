@@ -12,6 +12,7 @@ use App\Language;
 use App\Models\Morphology\Gloss;
 use App\Models\Morphology\Slot;
 use App\RuleType;
+use App\IGTLineType;
 use Illuminate\Support\ServiceProvider;
 
 class ViewComposerServiceProvider extends ServiceProvider
@@ -50,7 +51,8 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         view()->composer(['igt.create', 'igt.edit'], function ($view) {
             $data = [
-                'languages' => Language::select('id', 'name')->get()
+                'languages' => Language::select('id', 'name')->get(),
+                'lineTypes' => IGTLineType::select('id', 'name', 'align')->get()
             ];
             $view->with($data);
         });

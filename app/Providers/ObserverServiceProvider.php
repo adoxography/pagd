@@ -15,6 +15,7 @@ use Algling\Verbals\Models\Form as VerbForm;
 use Algling\Words\Models\Form as WordForm;
 use Algling\Words\Models\Observers\FormObserver;
 use App\Group;
+use App\IGT;
 use App\Language;
 use App\Models\Morphology\Gloss;
 use App\Models\Morphology\Morpheme;
@@ -22,7 +23,9 @@ use App\Observers\GlossObserver;
 use App\Observers\GroupObserver;
 use App\Observers\LanguageObserver;
 use App\Observers\MorphemeObserver;
+use App\Observers\IGTObserver;
 use Illuminate\Support\ServiceProvider;
+
 
 class ObserverServiceProvider extends ServiceProvider
 {
@@ -37,7 +40,8 @@ class ObserverServiceProvider extends ServiceProvider
         Variable::class    => VariableObserver::class,
         Reflex::class      => ReflexObserver::class,
         Datapoint::class   => DatapointObserver::class,
-        Phoneme::class     => PhonemeObserver::class
+        Phoneme::class     => PhonemeObserver::class,
+        IGT::class         => IGTObserver::class
     ];
 
     /**

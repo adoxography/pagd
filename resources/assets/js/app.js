@@ -17,10 +17,6 @@ require('./validation');
  * the application, or feel free to tweak this setup for your needs.
  */
 
-
-Vue.component('alg-sandbox', resolve => { require(['./components/forms/Sandbox.vue'], resolve); });
-
-
 Vue.component('alg-datalist',       require('./components/DataList.vue').default);
 Vue.component('alg-multi-datalist', resolve => { require(['./components/Multi-DataList.vue'], resolve); });
 Vue.component('alg-tabs',           resolve => { require(['./components/Tabs.vue'], resolve); });
@@ -64,6 +60,7 @@ Vue.component('alg-allophone-form',  resolve => { require(['./components/forms/A
 Vue.component('alg-reflex-form',  resolve => { require(['./components/forms/Reflex.vue'], resolve); });
 Vue.component('alg-audio-form',  resolve => { require(['./components/forms/Audio.vue'], resolve); });
 Vue.component('alg-phoneme-example-form',  resolve => { require(['./components/forms/PhonemeExample.vue'], resolve); });
+Vue.component('alg-igt-form', resolve => { require(['./components/forms/IGT.vue'], resolve); });
 
 Vue.component('alg-order', resolve => { require(['./components/Order.vue'], resolve); });
 Vue.component('alg-textarea', resolve => { require(['./components/Textarea.vue'], resolve); });

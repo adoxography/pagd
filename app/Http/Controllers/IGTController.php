@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\IGT;
 use App\Language;
-use Illuminate\Http\Request;
+use App\Http\Requests\IGTRequest as Request;
 
 class IGTController extends Controller
 {
@@ -31,32 +31,41 @@ class IGTController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\IGTRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $igt = IGT::create($request->all());
+        dd($igt);
+
+        flash("IGT added successfully.", 'is-success');
+        return redirect("/igt/{$igt->id}/basic");
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\IGT  $iGT
+     * @param  \App\IGT  $igt
      * @return \Illuminate\Http\Response
      */
-    public function show(IGT $iGT)
+    public function show(IGT $igt)
     {
-        //
+        $igt->load([
+            'language',
+            'lines',
+            'lines.type'
+        ]);
+        dd($igt);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\IGT  $iGT
+     * @param  \App\IGT  $igt
      * @return \Illuminate\Http\Response
      */
-    public function edit(IGT $iGT)
+    public function edit(IGT $igt)
     {
         //
     }
@@ -64,11 +73,11 @@ class IGTController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\IGT  $iGT
+     * @param  \App\Http\Requests\IGTRequest  $request
+     * @param  \App\IGT  $igt
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, IGT $iGT)
+    public function update(Request $request, IGT $igt)
     {
         //
     }
@@ -76,10 +85,10 @@ class IGTController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\IGT  $iGT
+     * @param  \App\IGT  $igt
      * @return \Illuminate\Http\Response
      */
-    public function destroy(IGT $iGT)
+    public function destroy(IGT $igt)
     {
         //
     }

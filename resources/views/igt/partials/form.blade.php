@@ -27,12 +27,14 @@
                             <select v-model="line.type">
                                 <option v-for="lineType in lineTypes" :value="lineType" v-text="lineType.name"></option>
                             </select>
+                            <input type="hidden" v-model="line.type.name" :name="'lines['+i+'][type]'" />
                         </div>
                     </div>
                     <div class="control is-expanded">
                         <input class="input"
                                :class="{'is-monospace': line.type.align}"
                                type="text"
+                               :name="'lines['+i+'][text]'"
                                v-model="line.text"
                                @keydown.enter.shift.prevent="addLine(i)"
                                @keydown.backspace.shift="removeLine(i)"

@@ -30,9 +30,20 @@ class IGTObserver
 
     protected function syncLines(IGT $model)
     {
-        foreach ($model->newLines as $line) {
-            IGTLine::create($line + ['igt_id' => $model->id]);
+        $oldLines = $model->lines;
+        $newLines = $model->newLines;
+        $numLines = max(count($newLines), $oldLines->count());
+
+        for ($i = 0; $i < $numLines; $i++) {
+            if ($i >= count($newLines)) {
+                $oldLines[$i]->delete();
+            } elseif ($i >= $oldLines->count()) {
+                IGTLine::create($newLines[$i] + ['igt_id' => $model->id]);
+            } else {
+                $oldLines[$i]->update($newLines[$i]);
+            }
         }
+
         $model->newLines = null;
     }
 

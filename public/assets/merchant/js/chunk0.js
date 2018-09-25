@@ -33,11 +33,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 
-var XIGTLine = function XIGTLine() {
+var IGTLine = function IGTLine() {
   var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
   var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
-  _classCallCheck(this, XIGTLine);
+  _classCallCheck(this, IGTLine);
 
   this.text = text;
   this.type = type;
@@ -46,22 +46,33 @@ var XIGTLine = function XIGTLine() {
 /* harmony default export */ __webpack_exports__["a"] = ({
   extends: __WEBPACK_IMPORTED_MODULE_0__Form__["default"],
 
-  props: ['lineTypes'],
+  props: ['lineTypes', 'oldLines'],
 
   data: function data() {
     return {
       language: new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */](),
-      lines: [new XIGTLine()]
+      lines: [new IGTLine()]
     };
   },
   created: function created() {
     var _this = this;
+
+    if (this.oldLines) {
+      this.lines = this.oldLines.map(function (line) {
+        var type = _this.lineTypes.find(function (type) {
+          return type.id == line.type_id;
+        });
+        return new IGTLine(line.text, type);
+      });
+    }
 
     this.lines.forEach(function (line) {
       if (!line.type) {
         line.type = _this.lineTypes[0];
       }
     });
+
+    this.align();
   },
 
 
@@ -70,7 +81,7 @@ var XIGTLine = function XIGTLine() {
       var _this2 = this;
 
       var newIndex = index + 1;
-      this.lines.splice(newIndex, 0, new XIGTLine('', this.lineTypes[0]));
+      this.lines.splice(newIndex, 0, new IGTLine('', this.lineTypes[0]));
 
       // Wait for the page to re-render before focusing the new element
       Vue.nextTick(function () {

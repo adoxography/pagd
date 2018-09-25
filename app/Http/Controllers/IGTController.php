@@ -17,16 +17,6 @@ class IGTController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -69,7 +59,8 @@ class IGTController extends Controller
      */
     public function edit(IGT $igt)
     {
-        //
+        $igt->load(['language', 'lines']);
+        return view('igt.edit', compact('igt'));
     }
 
     /**
@@ -81,7 +72,10 @@ class IGTController extends Controller
      */
     public function update(Request $request, IGT $igt)
     {
-        //
+        $igt->update($request->all());
+
+        flash("IGT updated successfully.", 'is-success');
+        return redirect("/igt/{$igt->id}/basic");
     }
 
     /**

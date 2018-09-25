@@ -2,6 +2,10 @@
               v-cloak
               :old-errors="{{ json_encode($errors->messages()) }}"
               :line-types="{{ $lineTypes->toJson() }}"
+
+              @isset($igt)
+              :old-lines="{{ $igt->lines->toJson() }}"
+              @endisset
 >
     @component('components.form', ['method' => $method, 'action' => $action, 'visible' => true])
         {{--Language--}}

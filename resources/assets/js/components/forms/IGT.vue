@@ -2,7 +2,7 @@
 import Form from './Form';
 import { Datalist } from '../../Datalist.js';
 
-class XIGTLine {
+class IGTLine {
   constructor(text='', type=null) {
     this.text = text;
     this.type = type;
@@ -13,28 +13,38 @@ export default {
   extends: Form,
 
   props: [
-    'lineTypes'
+    'lineTypes',
+    'oldLines'
   ],
 
   data() {
     return {
       language: new Datalist,
-      lines: [new XIGTLine]
+      lines: [new IGTLine]
     };
   },
 
   created() {
+    if (this.oldLines) {
+      this.lines = this.oldLines.map(line => {
+        let type = this.lineTypes.find(type => type.id == line.type_id);
+        return new IGTLine(line.text, type);
+      });
+    }
+
     this.lines.forEach(line => {
       if (!line.type) {
         line.type = this.lineTypes[0];
       }
     });
+
+    this.align();
   },
 
   methods: {
     addLine(index) {
       let newIndex = index + 1;
-      this.lines.splice(newIndex, 0, new XIGTLine('', this.lineTypes[0]));
+      this.lines.splice(newIndex, 0, new IGTLine('', this.lineTypes[0]));
 
       // Wait for the page to re-render before focusing the new element
       Vue.nextTick(() => this.$refs["line-"+newIndex][0].focus());
@@ -56,8 +66,6 @@ export default {
       let exclude = [];
 
       for (let i = 0; i < this.lines.length; i++) {
-        //let type = this.lines[i].type;
-        //if (!this.lineTypes[type].align) {
         if (!this.lines[i].type.align) {
           exclude.push(i);
         }

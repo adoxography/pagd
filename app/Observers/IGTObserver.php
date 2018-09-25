@@ -38,7 +38,7 @@ class IGTObserver
             if ($i >= count($newLines)) {
                 $oldLines[$i]->delete();
             } elseif ($i >= $oldLines->count()) {
-                IGTLine::create($newLines[$i] + ['igt_id' => $model->id]);
+                $model->lines()->create($newLines[$i]);
             } else {
                 $oldLines[$i]->update($newLines[$i]);
             }

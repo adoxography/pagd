@@ -18,8 +18,8 @@ class CreateIgtTable extends Migration
 
             $table->increments('id');
             $table->unsignedInteger('language_id');
-            $table->text('publicNotes');
-            $table->text('privateNotes');
+            $table->text('publicNotes')->nullable();
+            $table->text('privateNotes')->nullable();
             $table->timestamps();
 
             $table->foreign('language_id')->references('id')->on('Languages');

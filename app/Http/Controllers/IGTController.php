@@ -86,6 +86,8 @@ class IGTController extends Controller
      */
     public function destroy(IGT $igt)
     {
-        //
+        $igt->delete();
+        flash("IGT deleted successfully.", 'is-success');
+        return redirect("/languages/{$igt->language_id}");
     }
 }

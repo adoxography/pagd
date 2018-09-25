@@ -49,6 +49,8 @@ class IGTObserver
 
     protected function destroyLines(IGT $model)
     {
-        //
+        foreach ($model->lines as $line) {
+            $line->delete();
+        }
     }
 }

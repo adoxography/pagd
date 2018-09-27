@@ -25,6 +25,9 @@ Route::get('', 'HomeController@index');
 Route::get('home', 'HomeController@index');
 Route::get('welcome', 'HomeController@index');
 
+// Admin routes
+Route::get('admin', 'AdminController@index');
+
 Route::get('glossary', 'HomeController@glossary');
 Route::get('entire-paradigm', 'HomeController@entireParadigm');
 Route::get('changelog', 'HomeController@changelog');

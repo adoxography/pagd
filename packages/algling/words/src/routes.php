@@ -15,6 +15,9 @@ Route::patch('examples/{example}/hide',         'ExampleController@hide');
 Route::post('examples/{example}/bookmark',      'ExampleController@bookmark');
 Route::delete('examples/{example}/bookmark',    'ExampleController@unbookmark');
 
+Route::post('features',             'FeatureController@store');
+Route::delete('features/{feature}', 'FeatureController@destroy');
+
 Route::group(['as' => 'examples::'], function() {
 	Route::get('examples/{example}/basic', 'ExampleShowController@basicDetails')->name('showBasic');
 	Route::get('examples/{example}/cognates', 'ExampleShowController@cognates')->name('showCognates');

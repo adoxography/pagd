@@ -11,6 +11,9 @@ class Feature extends Model
     public $table = 'Word_Features';
     protected $aliasesCache;
 
+    protected $fillable = ['name', 'person', 'number', 'obviativeCode'];
+    public $timestamps = false;
+
     /**
      * Get the code for the person associated with this argument
      *

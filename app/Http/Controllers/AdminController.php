@@ -7,7 +7,13 @@ use App\RegistrationCode;
 use App\User;
 use App\Source;
 use Algling\Nominals\Models\Form as NominalForm;
+use Algling\Phonology\Models\Length;
+use Algling\Phonology\Models\Height;
+use Algling\Phonology\Models\Backness;
 use Algling\Phonology\Models\Phoneme;
+use Algling\Phonology\Models\Place;
+use Algling\Phonology\Models\Voicing;
+use Algling\Phonology\Models\Manner;
 use Algling\Words\Models\Example;
 use Algling\Verbals\Models\Form as VerbForm;
 use Algling\Verbals\Models\Mode;
@@ -48,7 +54,7 @@ class AdminController extends Controller
 
     public function verbs()
     {
-        $disableTest = function($item) { return $item->structures_count > 0; };
+        $disableTest = function ($item) { return $item->structures_count > 0; };
 
         $data = [
             'classes' => [
@@ -90,7 +96,24 @@ class AdminController extends Controller
 
     public function phonemes()
     {
-        $data = [];
+        $types = collect([
+            'lengths'    => Length::class,
+            'heights'    => Height::class,
+            'backnesses' => Backness::class,
+            'places'     => Place::class,
+            'manners'    => Manner::class,
+            'voicings'   => Voicing::class
+        ]);
+
+        $data = $types->mapWithKeys(function ($class, $name) {
+            return [$name => [
+                'data' => $class::withCount('featureSets')->get(),
+                'fields' => ['name'],
+                'uri' => "/phonemes/$name",
+                'disableTest' => function ($item) { return $item->feature_sets_count > 0; }
+            ]];
+        });
+
         return view('admin.phonemes', $data);
     }
 }

@@ -31,6 +31,11 @@ Route::group(['as' => 'admin::'], function () {
     Route::get('admin/users', 'AdminController@users')->name('users');
 });
 
+Route::post('/reg-codes/create', 'RegistrationCodeController@create');
+Route::patch('/reg-codes/{code}/enable', 'RegistrationCodeController@enable');
+Route::patch('/reg-codes/{code}/disable', 'RegistrationCodeController@disable');
+Route::delete('/reg-codes/{code}', 'RegistrationCodeController@destroy');
+
 Route::get('glossary', 'HomeController@glossary');
 Route::get('entire-paradigm', 'HomeController@entireParadigm');
 Route::get('changelog', 'HomeController@changelog');

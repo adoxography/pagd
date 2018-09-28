@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Morphology\Morpheme;
+use App\RegistrationCode;
 use App\User;
 use App\Source;
 use Algling\Nominals\Models\Form as NominalForm;
@@ -14,6 +15,11 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:developer|leader']);
+    }
+
     public function index()
     {
         $data = [
@@ -33,6 +39,7 @@ class AdminController extends Controller
 
     public function users()
     {
-        return view('admin.users');
+        $codes = RegistrationCode::with('users')->get();
+        return view('admin.users', compact('codes'));
     }
 }

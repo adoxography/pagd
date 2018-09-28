@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use Config;
+use App\RegistrationCode;
 use Illuminate\Contracts\Validation\Rule;
 
 class VerifiedUser implements Rule
@@ -16,7 +16,10 @@ class VerifiedUser implements Rule
      */
     public function __construct()
     {
-        $this->codes = Config::get('constants.verification');
+        $this->codes = RegistrationCode::select(['code', 'valid'])
+                                       ->where('valid', 1)
+                                       ->get()
+                                       ->pluck('code');
     }
 
     /**
@@ -28,7 +31,7 @@ class VerifiedUser implements Rule
      */
     public function passes($attribute, $value)
     {
-        return array_search($value, $this->codes) !== false;
+        return $this->codes->contains($value);
     }
 
     /**

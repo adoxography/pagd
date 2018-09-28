@@ -6,19 +6,15 @@
     <p class="menu-label">Add</p>
     <ul class="menu-list">
         <li>
-            <p class="menu-sublabel">Users</p>
-            <ul>
-                <li><a href="/admin/users" class="@if(Route::is('admin::users')) is-active @endif">Add code</a></li>
-            </ul>
-        </li>
+            <a href="/admin/users"
+               class="@if(Route::is('admin::users')) is-active @endif"
+            >User data</a></li>
         <li>
-            <p class="menu-sublabel">Verbs</p>
-            <ul>
-                <li><a>Class</a></li>
-                <li><a>Mode</a></li>
-                <li><a>Order</a></li>
-                <li><a>Argument</a></li>
-            </ul>
+        <li>
+            <a href="/admin/verbs"
+               class="@if(Route::is('admin::verbs')) is-active @endif"
+            >Verb data</a>
+        </li>
         </li>
         <li>
             <p class="menu-sublabel">Nominals</p>

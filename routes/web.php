@@ -29,6 +29,7 @@ Route::get('welcome', 'HomeController@index');
 Route::group(['as' => 'admin::'], function () {
     Route::get('admin', 'AdminController@index')->name('index');
     Route::get('admin/users', 'AdminController@users')->name('users');
+    Route::get('admin/verbs', 'AdminController@verbs')->name('verbs');
 });
 
 Route::post('/reg-codes/create', 'RegistrationCodeController@create');

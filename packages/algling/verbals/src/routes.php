@@ -22,6 +22,15 @@ Route::patch('verbs/forms/{verbForm}/hide', 'FormController@hide');
 Route::post('verbs/forms/{verbForm}/bookmark', 'FormController@bookmark');
 Route::delete('verbs/forms/{verbForm}/bookmark', 'FormController@unbookmark');
 
+Route::post('verbs/classes', 'ClassController@store');
+Route::delete('verbs/classes/{class}', 'ClassController@destroy');
+
+Route::post('verbs/modes', 'ModeController@store');
+Route::delete('verbs/modes/{mode}', 'ModeController@destroy');
+
+Route::post('verbs/orders', 'OrderController@store');
+Route::delete('verbs/orders/{order}', 'OrderController@destroy');
+
 Route::group(['as' => 'verbForms::'], function () {
     Route::post('verbs/forms', 'FormController@store')->name('store');
     Route::patch('verbs/forms/{verbForm}', 'FormController@update')->name('update');

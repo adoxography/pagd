@@ -3,48 +3,15 @@
     <ul class="menu-list">
         <li><a href="/admin" class="@if(Route::is('admin::index')) is-active @endif">Dashboard</a></li>
     </ul>
-    <p class="menu-label">Add</p>
+    <p class="menu-label">Edit data</p>
     <ul class="menu-list">
-        <li>
-            <a href="/admin/users"
-               class="@if(Route::is('admin::users')) is-active @endif"
-            >User data</a></li>
-        <li>
-        <li>
-            <a href="/admin/verbs"
-               class="@if(Route::is('admin::verbs')) is-active @endif"
-            >Verb data</a>
-        </li>
-        </li>
-        <li>
-            <p class="menu-sublabel">Nominals</p>
-            <ul>
-                <li><a>Feature</a></li>
-            </ul>
-        </li>
-        <li>
-            <p class="menu-sublabel">Morphemes</p>
-            <ul>
-                <li><a>Slot</a></li>
-            </ul>
-        </li>
-        <li>
-            <p class="menu-sublabel">Phonemes</p>
-            <ul>
-                <li><a>Height</a></li>
-                <li><a>Backness</a></li>
-                <li><a>Length</a></li>
-                <li><a>Place</a></li>
-                <li><a>Manner</a></li>
-                <li><a>Voicing</a></li>
-            </ul>
-        </li>
-        <li>
-            <p class="menu-sublabel">Rules</p>
-            <ul>
-                <li><a>Type</a></li>
-            </ul>
-        </li>
+        @foreach(['user', 'verb', 'nominal', 'morpheme', 'phoneme'] as $item)
+            <li>
+                <a href="/admin/{{ $item }}s"
+                   class="@if(Route::is("admin::{$item}s")) is-active @endif"
+                >{{ ucfirst($item) }} data</a>
+            </li>
+        @endforeach
     </ul>
     <p class="menu-label"><a href="/">Back</a></p>
 </aside>

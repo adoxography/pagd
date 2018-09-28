@@ -13,6 +13,10 @@
 
 				<li><a href="/resources">Other resources</a></li>
 			</ul>
+
+            @hasanyrole('developer|leader')
+                <a href="/admin">Admin panel</a>
+            @endhasanyrole
 		</nav>
 
 		@can('add content')

@@ -10,6 +10,7 @@ use Algling\Words\FormRepository;
 use Algling\Words\Models\Example;
 use Algling\Words\Models\Form;
 use Algling\Words\Models\Gap;
+use Algling\Phonology\Models\Phoneme;
 use App\Models\Morphology\Morpheme;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -168,8 +169,23 @@ class Source extends Model implements VerbFormRepositoryInterface, NominalFormRe
         return $this->morphedByMany(Gap::class, 'Sourceable')->withPivot('extraInfo');
     }
 
+    public function phonemes()
+    {
+        return $this->morphedByMany(Phoneme::class, 'Sourceable')->withPivot('extraInfo');
+    }
+
     public function present(string $method = 'name')
     {
         return new AlgPresenter($this, $method);
+    }
+
+    public function scopeInUse($query)
+    {
+        return $query->has('forms')
+                     ->orHas('morphemes')
+                     ->orHas('rules')
+                     ->orHas('gaps')
+                     ->orHas('phonemes')
+                     ->orHas('examples');
     }
 }

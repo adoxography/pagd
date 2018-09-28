@@ -26,7 +26,10 @@ Route::get('home', 'HomeController@index');
 Route::get('welcome', 'HomeController@index');
 
 // Admin routes
-Route::get('admin', 'AdminController@index');
+Route::group(['as' => 'admin::'], function () {
+    Route::get('admin', 'AdminController@index')->name('index');
+    Route::get('admin/users', 'AdminController@users')->name('users');
+});
 
 Route::get('glossary', 'HomeController@glossary');
 Route::get('entire-paradigm', 'HomeController@entireParadigm');

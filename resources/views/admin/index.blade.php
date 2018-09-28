@@ -1,64 +1,14 @@
-<!doctype html>
-<html>
-	<head>
-		<meta charset="UTF-8" />
-		<title>{{ $title ?? "DALS Admin Panel" }}</title>
+@extends('admin.layout', ['title' => 'Dashboard'])
 
-		<link rel="stylesheet" type="text/css" href="{{ mix("/css/app.css") }}" />
-		<script>
-		    window.Laravel = { csrfToken: '{{ csrf_token() }}' };
-		</script>
-
-		@yield('styles')
-
-        <style>
-            .admin-menu {
-                {{--background-color: red;--}}
-            }
-
-            .admin-content {
-                {{--background-color: blue;--}}
-            }
-
-            .has-background-primary {
-                background-color: #FFFF00;
-            }
-        </style>
-	</head>
-	<body>
-        <section class="section">
-            <aside class="menu admin-menu is-pulled-left">
-                <p class="menu-label">General</p>
-                <ul class="menu-list">
-                    <li><a class="is-active">Dashboard</a></li>
-                </ul>
-                <p class="menu-label">Add</p>
-                <ul class="menu-list">
-                    <li>
-                        <a>Users</a>
-                        <ul>
-                            <li><a>Add code</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a>Verbs</a>
-                        <ul>
-                            <li><a>Class</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </aside>
-            <div class="container admin-content">
-                <h1 class="title is-1 has-background-primary">Dashboard</h1>
-                <h2 class="title is-2">Statistics</h2>
-                <p># of registerd users: ___</p>
-                <p># of verb forms: ___</p>
-                <p># of nominal forms: ___</p>
-                <p># of morphemes: ___</p>
-                <p># of phonemes: ___</p>
-                <p># of sources: ___</p>
-                <p># of sources in use: ___</p>
-            </div>
-        </section>
-    </body>
-</html>
+@section('content')
+    <h2 class="title is-2">Statistics</h2>
+    <p># of registered users: <strong>{{ $numUsers }}</strong></p>
+    <p># of verb forms: <strong>{{ $numVerbForms }}</strong></p>
+    <p># of verb examples: <strong>{{ $numVerbExamples }}</strong></p>
+    <p># of nominal forms: <strong>{{ $numNominalForms }}</strong></p>
+    <p># of nominal examples: <strong>{{ $numNominalExamples }}</strong></p>
+    <p># of morphemes: <strong>{{ $numMorphemes }}</strong></p>
+    <p># of phonemes: <strong>{{ $numPhonemes }}</strong></p>
+    <p># of sources: <strong>{{ $numSources }}</strong></p>
+    <p># of sources in use: <strong>{{ $numInUseSources }}</strong></p>
+@endsection

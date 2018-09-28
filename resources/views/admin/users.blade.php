@@ -1,6 +1,7 @@
 @extends('admin.layout', ['title' => 'Users'])
 
 @section('content')
+    <h2 class="title is-2">Add codes</h2>
     <table class="table is-narrow">
         <thead>
             <tr>
@@ -22,7 +23,7 @@
                                 'method' => 'PATCH',
                                 'action' => "/reg-codes/{$code->id}/disable"
                             ])
-                                <button type="submit" class="button is-danger is-small">
+                                <button type="submit" class="button is-danger">
                                    Disable
                                 </button>
                             @endcomponent
@@ -31,7 +32,7 @@
                                 'method' => 'PATCH',
                                 'action' => "/reg-codes/{$code->id}/enable"
                             ])
-                                <button type="submit" class="button is-primary is-small">
+                                <button type="submit" class="button is-primary">
                                     Enable
                                 </button>
                             @endcomponent
@@ -44,7 +45,7 @@
                             'action' => "/reg-codes/{$code->id}"
                         ])
                             <button type="submit"
-                                    class="button is-danger is-small"
+                                    class="button is-danger"
                                     @if($code->users->count() > 0)
                                         disabled
                                     @endif
@@ -59,7 +60,7 @@
                         <input type="input" name="code" class="input" />
                     </td>
                     <td>
-                        <button type="submit" class="button is-small is-success">Add</button>
+                        <button type="submit" class="button is-success">Add</button>
                     </td>
                 </form>
                 @endcomponent

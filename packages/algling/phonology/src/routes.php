@@ -18,6 +18,9 @@ Route::group(['as' => 'phonemes::'], function () {
     Route::get('phonemes/{phoneme}/addChild', 'PhonemeController@addChild')->name('addChild');
     Route::get('phonemes/{phoneme}/examples/create', 'PhonemeExampleController@create')->name('addExample');
     Route::post('phonemes/{phoneme}/examples', 'PhonemeExampleController@store');
+
+    Route::post('phonemes/data/{type}', 'PhonemeDataController@store');
+    Route::delete('phonemes/data/{type}/{id}', 'PhonemeDataController@destroy');
 });
 
 Route::group(['as' => 'clusters::'], function () {

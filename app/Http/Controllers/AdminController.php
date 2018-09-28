@@ -109,7 +109,7 @@ class AdminController extends Controller
             return [$name => [
                 'data' => $class::withCount('featureSets')->get(),
                 'fields' => ['name'],
-                'uri' => "/phonemes/$name",
+                'uri' => "/phonemes/data/$name",
                 'disableTest' => function ($item) { return $item->feature_sets_count > 0; }
             ]];
         });

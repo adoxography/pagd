@@ -11,6 +11,8 @@ class Height extends Model
 
     protected $fillable = ['name'];
 
+    public $timestamps = false;
+
     public function featureSets()
     {
         return $this->hasMany(VowelType::class, 'height_id');

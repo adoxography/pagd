@@ -2,7 +2,7 @@
     <thead>
         <tr>
             @foreach($fields as $field)
-                <th>{{ $field }}</th>
+                <th>{{ ucfirst($field) }}</th>
             @endforeach
             <th>Action</th>
         </tr>

@@ -30,8 +30,7 @@ Route::group(['as' => 'admin::'], function () {
     Route::get('admin', 'AdminController@index')->name('index');
     Route::get('admin/users', 'AdminController@users')->name('users');
     Route::get('admin/verbs', 'AdminController@verbs')->name('verbs');
-    Route::get('admin/nominals', 'AdminController@nominals')->name('nominals');
-    Route::get('admin/morphemes', 'AdminController@morphemes')->name('morphemes');
+    Route::get('admin/features', 'AdminController@features')->name('features');
     Route::get('admin/phonemes', 'AdminController@phonemes')->name('phonemes');
 });
 

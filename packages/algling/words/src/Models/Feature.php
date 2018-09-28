@@ -2,6 +2,8 @@
 
 namespace Algling\Words\Models;
 
+use Algling\Verbals\Models\Structure as VerbStructure;
+use Algling\Nominals\Models\Structure as NominalStructure;
 use Illuminate\Database\Eloquent\Model;
 
 class Feature extends Model
@@ -86,6 +88,18 @@ class Feature extends Model
         return $str;
     }
 
+    public function getObviativeNameAttribute()
+    {
+        switch ($this->obviativeCode) {
+        case 1:
+            return 'Obviative';
+        case 2:
+            return 'Double obviative';
+        default:
+            return '';
+        }
+    }
+
     public static function pattern()
     {
         $persons = verEx()->oneOf(['1st', '2nd', '3rd', '21', '1', '2', '3\'\'', '3\'', '3', 'first', 'second', 'third', '0', 'X'], true)
@@ -111,5 +125,30 @@ class Feature extends Model
         $structure = verEx($feature)->maybe(verEx('-', true)->then($feature))->maybe(verEx('\+', true)->then($feature));
 
         return $structure;
+    }
+
+    public function subjectStructures()
+    {
+        return $this->hasMany(VerbStructure::class, 'subject_id');
+    }
+
+    public function primaryObjectStructures()
+    {
+        return $this->hasMany(VerbStructure::class, 'primaryObject_id');
+    }
+
+    public function secondaryObjectStructures()
+    {
+        return $this->hasMany(VerbStructure::class, 'secondaryObject_id');
+    }
+
+    public function nominalStructures()
+    {
+        return $this->hasMany(NominalStructure::class, 'nominalFeature_id');
+    }
+
+    public function pronominalStructures()
+    {
+        return $this->hasMany(NominalStructure::class, 'pronominalFeature_id');
     }
 }

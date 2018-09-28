@@ -5,7 +5,7 @@
     </ul>
     <p class="menu-label">Edit data</p>
     <ul class="menu-list">
-        @foreach(['user', 'verb', 'nominal', 'phoneme'] as $item)
+        @foreach(['user', 'verb', 'feature', 'phoneme'] as $item)
             <li>
                 <a href="/admin/{{ $item }}s"
                    class="@if(Route::is("admin::{$item}s")) is-active @endif"

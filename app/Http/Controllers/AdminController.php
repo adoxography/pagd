@@ -15,6 +15,7 @@ use Algling\Phonology\Models\Place;
 use Algling\Phonology\Models\Voicing;
 use Algling\Phonology\Models\Manner;
 use Algling\Words\Models\Example;
+use Algling\Words\Models\Feature;
 use Algling\Verbals\Models\Form as VerbForm;
 use Algling\Verbals\Models\Mode;
 use Algling\Verbals\Models\Order;
@@ -82,10 +83,30 @@ class AdminController extends Controller
         return view('admin.verbs', $data);
     }
 
-    public function nominals()
+    public function features()
     {
-        $data = [];
-        return view('admin.nominals', $data);
+        $featureData = Feature::withCount([
+            'subjectStructures',
+            'primaryObjectStructures',
+            'secondaryObjectStructures',
+            'nominalStructures',
+            'pronominalStructures'
+        ])->get();
+
+        $disableTest = function ($item) {
+            return $item->subject_structures_count +
+                   $item->primary_object_structures_count +
+                   $item->secondary_object_structures_count +
+                   $item->nominal_structures_count +
+                   $item->pronominal_structures_count > 0;
+        };
+
+        $features = [
+            'data' => $featureData,
+            'disableTest' => $disableTest
+        ];
+
+        return view('admin.features', compact('features'));
     }
 
     public function phonemes()

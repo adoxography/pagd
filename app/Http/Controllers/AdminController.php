@@ -75,4 +75,22 @@ class AdminController extends Controller
 
         return view('admin.verbs', $data);
     }
+
+    public function nominals()
+    {
+        $data = [];
+        return view('admin.nominals', $data);
+    }
+
+    public function morphemes()
+    {
+        $data = [];
+        return view('admin.morphemes', $data);
+    }
+
+    public function phonemes()
+    {
+        $data = [];
+        return view('admin.phonemes', $data);
+    }
 }

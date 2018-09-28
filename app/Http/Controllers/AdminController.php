@@ -88,12 +88,6 @@ class AdminController extends Controller
         return view('admin.nominals', $data);
     }
 
-    public function morphemes()
-    {
-        $data = [];
-        return view('admin.morphemes', $data);
-    }
-
     public function phonemes()
     {
         $types = collect([

@@ -3,6 +3,7 @@
 namespace Algling\Verbals\Models;
 
 use App\AlgPresenter;
+use Algling\Verbals\Models\Structure;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -25,6 +26,11 @@ class VerbClass extends Model
     	} else {
     		return null;
     	}
+    }
+
+    public function structures()
+    {
+        return $this->hasMany(Structure::class, 'class_id');
     }
 
     public function present(string $method = 'name')

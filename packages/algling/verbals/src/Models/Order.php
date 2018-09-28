@@ -15,4 +15,9 @@ class Order extends Model
     {
     	return new AlgPresenter($this, $method);
     }
+
+    public function structures()
+    {
+        return $this->hasMany(Structure::class, 'order_id');
+    }
 }

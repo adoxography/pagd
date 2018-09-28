@@ -17,4 +17,9 @@ class Mode extends Model
     {
     	return new AlgPresenter($this, $method);
     }
+
+    public function structures()
+    {
+        return $this->hasMany(Structure::class, 'mode_id');
+    }
 }

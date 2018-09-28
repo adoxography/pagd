@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8" />
-		<title>DALS Admin Panel{{ $title ? ": $title" : '' }}</title>
+		<title>DALS Admin Panel: {{ $title }}</title>
 
 		<link rel="stylesheet" type="text/css" href="{{ mix("/css/app.css") }}" />
 		<script>

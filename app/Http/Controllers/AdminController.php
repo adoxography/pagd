@@ -10,6 +10,9 @@ use Algling\Nominals\Models\Form as NominalForm;
 use Algling\Phonology\Models\Phoneme;
 use Algling\Words\Models\Example;
 use Algling\Verbals\Models\Form as VerbForm;
+use Algling\Verbals\Models\Mode;
+use Algling\Verbals\Models\Order;
+use Algling\Verbals\Models\VerbClass;
 
 use Illuminate\Http\Request;
 
@@ -41,5 +44,35 @@ class AdminController extends Controller
     {
         $codes = RegistrationCode::with('users')->get();
         return view('admin.users', compact('codes'));
+    }
+
+    public function verbs()
+    {
+        $disableTest = function($item) { return $item->structures_count > 0; };
+
+        $data = [
+            'classes' => [
+                'data' => VerbClass::withCount('structures')->get(),
+                'fields' => ['name'],
+                'uri' => '/verbs/classes',
+                'disableTest' => $disableTest
+            ],
+
+            'modes' => [
+                'data' => Mode::withCount('structures')->get(),
+                'fields' => ['name'],
+                'uri' => '/verbs/modes',
+                'disableTest' => $disableTest
+            ],
+
+            'orders' => [
+                'data' => Order::withCount('structures')->get(),
+                'fields' => ['name'],
+                'uri' => '/verbs/orders',
+                'disableTest' => $disableTest
+            ]
+        ];
+
+        return view('admin.verbs', $data);
     }
 }

@@ -45,6 +45,7 @@
                                    @keydown.enter.shift.prevent="addLine(i)"
                                    @keydown.backspace.shift="removeLine(i)"
                                    :ref="'line-'+i"
+                                   autocomplete="off"
                             />
                         </alg-typwriter>
                     </div>

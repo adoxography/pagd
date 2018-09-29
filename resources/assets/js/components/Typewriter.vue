@@ -22,7 +22,7 @@
         </transition>
         <slot></slot>
         <portal :to="portalName">
-          <a class="button" @click="toggle">
+          <a class="button" @click="toggle" title="Special characters">
             <i class="fa fa-keyboard-o"></i>
           </a>
         </portal>

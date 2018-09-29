@@ -6,7 +6,7 @@
         @keydown="onKeyDown($event)"
     >
         <transition name="fade">
-            <ul class="box alg-typewriter" v-show="show && !disabled" :style="{bottom: options.size + 'rem'}">
+            <ul class="box alg-typewriter" v-show="shouldShow" :style="{bottom: options.size + 'rem'}">
                 <li v-for="charset in chars">
                     <a
                         v-for="char in charset"
@@ -21,6 +21,11 @@
             </ul>
         </transition>
         <slot></slot>
+        <portal :to="portalName">
+          <a class="button" @click="toggle">
+            <i class="fa fa-keyboard-o"></i>
+          </a>
+        </portal>
     </div>
 </template>
 
@@ -29,9 +34,11 @@ import { dictionary } from '../util/SpecialCharacters'
 
 export default {
     props: {
-        disabled: {
-            default: false
-        },
+        disabled: { default: false },
+
+        startHidden: { default: false },
+
+        typewriterId: { default: null },
 
         options: {
             default() {
@@ -43,6 +50,7 @@ export default {
     data() {
         return {
             show: false,
+            turnedOff: false,
 
             chars: dictionary,
 
@@ -59,6 +67,26 @@ export default {
             }
 
             return defaultSlot.getElementsByClassName("input")[0];
+        },
+
+        shouldShow() {
+            return this.show && !this.disabled && !this.turnedOff;
+        },
+
+        portalName() {
+            let name = 'typewriter-toggle';
+
+            if (this.typewriterId !== null) {
+                name += '-' + this.typewriterId;
+            }
+
+            return name;
+        }
+    },
+
+    created() {
+        if (this.startHidden) {
+            this.turnedOff = true;
         }
     },
 
@@ -69,6 +97,16 @@ export default {
 
         onFocusOut() {
             this.show = false;
+        },
+
+        toggle() {
+            this.inputField.focus();
+            if (this.shouldShow) {
+              this.turnedOff = true;
+            } else {
+              this.turnedOff = false;
+              this.show = true;
+            }
         },
 
         append(char) {

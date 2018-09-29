@@ -1,4 +1,5 @@
 import axiosRetry from 'axios-retry';
+import PortalVue from 'portal-vue';
 
 window._ = require('lodash');
 
@@ -26,6 +27,7 @@ require('vue-resource');
 
 let vueScrollTo = require('vue-scroll-to');
 Vue.use(vueScrollTo);
+Vue.use(PortalVue);
 
 /**
  * Import Pug to allow for fully extendable Vue components

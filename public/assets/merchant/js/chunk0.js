@@ -33,7 +33,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 
-var IGTLine = function IGTLine() {
+/**
+ * Datatype that holds information on IGT lines
+ */
+
+var IGTLine =
+/**
+ * Ininitializes the IGTLine
+ *
+ * @param text  The text of the line
+ * @param type  An object representing the line's formatting type
+ */
+function IGTLine() {
   var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
   var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
@@ -57,6 +68,7 @@ var IGTLine = function IGTLine() {
   created: function created() {
     var _this = this;
 
+    // If old lines were passed in, prepopulate the form with them
     if (this.oldLines) {
       this.lines = this.oldLines.map(function (line) {
         var type = _this.lineTypes.find(function (type) {
@@ -66,17 +78,26 @@ var IGTLine = function IGTLine() {
       });
     }
 
+    // Ensure that all lines have a type
     this.lines.forEach(function (line) {
       if (!line.type) {
         line.type = _this.lineTypes[0];
       }
     });
 
+    // Make sure that everything is aligned properly to start off with
     this.align();
   },
 
 
   methods: {
+    /**
+     * Adds a line to the IGT
+     *
+     * Gives focus to the newly added line.
+     *
+     * @param index  The index to add the line after
+     */
     addLine: function addLine(index) {
       var _this2 = this;
 
@@ -88,6 +109,17 @@ var IGTLine = function IGTLine() {
         return _this2.$refs["line-" + newIndex][0].focus();
       });
     },
+
+
+    /**
+     * Removes a line of IGT
+     *
+     * Gives focus to the line before the line that was removed, or the first
+     * line if the first line was removed. Will do nothing if there is only
+     * one line.
+     *
+     * @param index  The index of the line to remove
+     */
     removeLine: function removeLine(index) {
       var _this3 = this;
 
@@ -101,6 +133,11 @@ var IGTLine = function IGTLine() {
         });
       }
     },
+
+
+    /**
+     * Lines up all of the aligning lines in the IGT
+     */
     align: function align() {
       var _this4 = this;
 
@@ -111,8 +148,6 @@ var IGTLine = function IGTLine() {
       var exclude = [];
 
       for (var i = 0; i < this.lines.length; i++) {
-        //let type = this.lines[i].type;
-        //if (!this.lineTypes[type].align) {
         if (!this.lines[i].type.align) {
           exclude.push(i);
         }
@@ -127,6 +162,17 @@ var IGTLine = function IGTLine() {
         this.lines[_i].text = horizontal[_i].join(' ').trim();
       }
     },
+
+
+    /**
+     * Ensures all members of an array are the same length by padding them
+     * with a given character
+     *
+     * @param arr      An array of strings
+     * @param str      The string to pad the members of the array with
+     * @param exclude  The indices to exclude from the padding
+     * @return  An array of strings which are all the same length
+     */
     __padArray: function __padArray(arr, str) {
       var exclude = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
@@ -149,15 +195,6 @@ var IGTLine = function IGTLine() {
       }
 
       return arr;
-
-      /*
-       *let size = Math.max(...arr.map(token => token ? token.length : 0));
-       *return arr.map(token => {
-       *  token = token || '';
-       *  let addon = str.repeat(size - token.length);
-       *  return token + addon;
-       *});
-       */
     }
   }
 });

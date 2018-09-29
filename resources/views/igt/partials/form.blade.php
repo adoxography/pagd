@@ -26,42 +26,65 @@
         <h4 class="subtitle is-4">IGT</h4>
         <ul class="field">
             <li class="igt-line" v-for="(line, i) in lines">
-                <div class="field is-grouped">
-                    <div class="control">
-                        <div class="select">
-                            <select v-model="line.type">
-                                <option v-for="lineType in lineTypes" :value="lineType" v-text="lineType.name"></option>
-                            </select>
-                            <input type="hidden" v-model="line.type.id" :name="'lines['+i+'][type_id]'" />
+                <div class="field is-horizontal">
+                    <div class="field-body">
+
+                    <div class="field is-narrow">
+                        <div class="control">
+                            <div class="select">
+                                <select v-model="line.type">
+                                    <option v-for="lineType in lineTypes" :value="lineType" v-text="lineType.name"></option>
+                                </select>
+                                <input type="hidden" v-model="line.type.id" :name="'lines['+i+'][type_id]'" />
+                            </div>
                         </div>
                     </div>
-                    <div class="control is-expanded">
-                        <alg-typewriter :disabled="!line.type.align">
-                            <input class="input"
-                                   :class="{'is-monospace': line.type.align}"
-                                   type="text"
-                                   :name="'lines['+i+'][text]'"
-                                   v-model="line.text"
-                                   @keydown.enter.shift.prevent="addLine(i)"
-                                   @keydown.backspace.shift="removeLine(i)"
-                                   :ref="'line-'+i"
-                                   autocomplete="off"
-                            />
-                        </alg-typwriter>
+
+
+                    <div class="field is-expanded">
+                        <div class="field has-addons">
+                            <div class="control is-expanded">
+                                <alg-typewriter :disabled="!line.type.align" :start-hidden="true" :typewriter-id='i'>
+                                    <input class="input"
+                                           :class="{'is-monospace': line.type.align}"
+                                           type="text"
+                                           :name="'lines['+i+'][text]'"
+                                           v-model="line.text"
+                                           @keydown.enter.shift.prevent="addLine(i)"
+                                           @keydown.backspace.shift="removeLine(i)"
+                                           :ref="'line-'+i"
+                                           autocomplete="off"
+                                    />
+                                </alg-typwriter>
+                            </div>
+                            <p class="control">
+                                <portal-target :name="'typewriter-toggle-'+i"></portal-target>
+                            </p>
+                        </div>
                     </div>
-                    <p class="control">
-                        <a class="button is-success"
-                           @click="addLine(i)"
-                           title="Add line after (Shift+Enter)"
-                        ><i class="fa fa-plus"></i></a>
-                    </p>
-                    <p class="control">
-                        <a class="button is-danger"
-                           @click="removeLine(i)"
-                           :disabled="lines.length <= 1"
-                           title="Remove line (Shift+Backspace)"
-                        ><i class="fa fa-minus"></i></a>
-                    </p>
+
+                    <div class="field is-narrow">
+                        <p class="control">
+                            <a class="button is-success"
+                               @click="addLine(i)"
+                               title="Add line after (Shift+Enter)"
+                            ><i class="fa fa-plus"></i></a>
+                        </p>
+                    </div>
+
+                    <div class="field is-narrow">
+                        <p class="control">
+                            <a class="button is-danger"
+                               @click="removeLine(i)"
+                               :disabled="lines.length <= 1"
+                               title="Remove line (Shift+Backspace)"
+                            ><i class="fa fa-minus"></i></a>
+                        </p>
+                    </div>
+
+
+                    </div>
+
                 </div>
             </li>
         </ul>

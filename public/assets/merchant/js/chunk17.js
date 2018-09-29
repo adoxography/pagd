@@ -31,14 +31,21 @@ webpackJsonp([17],{
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     props: {
-        disabled: {
-            default: false
-        },
+        disabled: { default: false },
+
+        startHidden: { default: false },
+
+        typewriterId: { default: null },
 
         options: {
             default: function _default() {
@@ -50,6 +57,7 @@ webpackJsonp([17],{
     data: function data() {
         return {
             show: false,
+            turnedOff: false,
 
             chars: __WEBPACK_IMPORTED_MODULE_0__util_SpecialCharacters__["a" /* dictionary */],
 
@@ -67,8 +75,27 @@ webpackJsonp([17],{
             }
 
             return defaultSlot.getElementsByClassName("input")[0];
+        },
+        shouldShow: function shouldShow() {
+            return this.show && !this.disabled && !this.turnedOff;
+        },
+        portalName: function portalName() {
+            var name = 'typewriter-toggle';
+
+            if (this.typewriterId !== null) {
+                name += '-' + this.typewriterId;
+            }
+
+            return name;
         }
     },
+
+    created: function created() {
+        if (this.startHidden) {
+            this.turnedOff = true;
+        }
+    },
+
 
     methods: {
         onFocusIn: function onFocusIn() {
@@ -76,6 +103,15 @@ webpackJsonp([17],{
         },
         onFocusOut: function onFocusOut() {
             this.show = false;
+        },
+        toggle: function toggle() {
+            this.inputField.focus();
+            if (this.shouldShow) {
+                this.turnedOff = true;
+            } else {
+                this.turnedOff = false;
+                this.show = true;
+            }
         },
         append: function append(char) {
             var event = new Event('input', {
@@ -158,8 +194,8 @@ var render = function() {
               {
                 name: "show",
                 rawName: "v-show",
-                value: _vm.show && !_vm.disabled,
-                expression: "show && !disabled"
+                value: _vm.shouldShow,
+                expression: "shouldShow"
               }
             ],
             staticClass: "box alg-typewriter",
@@ -197,7 +233,13 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm._t("default")
+      _vm._t("default"),
+      _vm._v(" "),
+      _c("portal", { attrs: { to: _vm.portalName } }, [
+        _c("a", { staticClass: "button", on: { click: _vm.toggle } }, [
+          _c("i", { staticClass: "fa fa-keyboard-o" })
+        ])
+      ])
     ],
     2
   )

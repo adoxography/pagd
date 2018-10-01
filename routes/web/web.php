@@ -163,28 +163,6 @@ Route::group(['as' => 'morphemes::'], function () {
     Route::get('morphemes/{morpheme}/log', 'Morphology\MorphemeShowController@log')->name('showLog');
 });
 
-Route::group(['as' => 'clusters::'], function () {
-    Route::get('clusters/create', 'Phonology\PhonemeController@create');
-    Route::get('clusters/{phoneme}', 'Phonology\PhonemeController@show');
-    Route::delete('clusters/{phoneme}', 'Phonology\PhonemeController@destroy');
-    Route::patch('clusters/{phoneme}', 'Phonology\PhonemeController@update');
-    Route::patch('clusters/{phoneme}/edit', 'Phonology\PhonemeController@edit');
-    Route::get('clusters/{phoneme}/clone', 'Phonology\PhonemeController@clone');
-
-    Route::get('clusters/{phoneme}/basic', 'Phonology\PhonemeShowController@basicDetails')->name('showBasic');
-    Route::get('clusters/{phoneme}/reflexes', 'Phonology\PhonemeShowController@reflexes')->name('showReflexes');
-    Route::get('clusters/{phoneme}/examples', 'Phonology\PhonemeShowController@examples')->name('showExamples');
-    Route::get('clusters/{phoneme}/log', 'Phonology\PhonemeShowController@log')->name('showLog');
-
-    Route::post('clusters/{phoneme}/bookmark', 'Phonology\PhonemeController@bookmark');
-    Route::delete('clusters/{phoneme}/bookmark', 'Phonology\PhonemeController@unbookmark');
-
-    Route::get('clusters/{phoneme}/addParent', 'Phonology\PhonemeController@addParent')->name('addParent');
-    Route::get('clusters/{phoneme}/addChild', 'Phonology\PhonemeController@addChild')->name('addChild');
-    Route::get('clusters/{phoneme}/examples/create', 'Phonology\PhonemeExampleController@create')->name('addExample');
-    Route::post('clusters/{phoneme}/examples', 'Phonology\PhonemeExampleController@store');
-});
-
 Auth::routes();
 
 Route::get('{args}', 'PageController@show')->where('args', '.*');

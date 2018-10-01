@@ -8,6 +8,8 @@ use App\Models\Morphology\Gloss;
 use App\Models\Morphology\Morpheme;
 use App\Models\Morphology\Slot;
 use App\Models\Phonology\Reflex;
+use App\Models\StructuralSurvey\Value;
+use App\Models\StructuralSurvey\Variable;
 use App\Rule;
 use App\Source;
 use Route;
@@ -31,7 +33,9 @@ class RouteServiceProvider extends ServiceProvider
         Morpheme::class => 'morpheme',
         Gloss::class => 'gloss',
         Slot::class => 'slot',
-        Reflex::class => 'reflex'
+        Reflex::class => 'reflex',
+        Value::class => 'value',
+        Variable::class => 'variable'
     ];
 
     /**
@@ -75,6 +79,9 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes('phonemes', 'Phonology');
         $this->mapWebroutes('clusters', 'Phonology');
         $this->mapWebRoutes('reflexes', 'Phonology');
+
+        $this->mapWebRoutes('variables',  'StructuralSurvey');
+        $this->mapWebRoutes('datapoints', 'StructuralSurvey');
 
         $this->mapWebRoutes('admin');
         $this->mapWebRoutes('users');

@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Algling\SS\Models\Variable;
+use App\Models\StructuralSurvey\Variable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;

@@ -24,7 +24,7 @@ class MorphMapServiceProvider extends ServiceProvider
             'examples'   => 'Algling\Words\Models\Example',
             'morphemes'  => Morpheme::class,
             'gaps'       => 'Algling\Words\Models\Gap',
-            'datapoints' => 'Algling\SS\Models\Datapoint',
+            'datapoints' => 'App\Models\StructuralSurvey\Datapoint',
             'rules'      => 'App\Rule',
             'verbStructures' => 'Algling\Verbals\Models\Structure',
             'nominalStructures' => 'Algling\Nominals\Models\Structure',

@@ -20,6 +20,10 @@ use App\Models\Phonology\Height;
 use App\Models\Phonology\Backness;
 use App\Models\Phonology\Length;
 
+use App\Models\StructuralSurvey\Type;
+use App\Models\StructuralSurvey\Value;
+use App\Models\StructuralSurvey\Variable;
+
 use App\RuleType;
 use App\IGTLineType;
 use Illuminate\Support\ServiceProvider;
@@ -44,6 +48,9 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         $this->composePhonemeForm();
         $this->composeReflexForm();
+
+        $this->composeVariableForm();
+        $this->composeDatapointForm();
 
         $this->composeSearch();
     }
@@ -164,6 +171,28 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         view()->composer('reflexes.partials.form', function ($view) {
             $data = ['languages' => Language::select('id', 'name')->get()];
+            $view->with($data);
+        });
+    }
+
+    private function composeVariableForm()
+    {
+        view()->composer('variables.partials.form', function ($view) {
+            $data = [
+                'types'  => Type::select('id', 'name')->get(),
+                'values' => Value::select('id', 'name')->get()
+            ];
+            $view->with($data);
+        });
+    }
+
+    private function composeDatapointForm()
+    {
+        view()->composer('datapoints.partials.form', function ($view) {
+            $data = [
+                'languages' => Language::select('id', 'name')->get(),
+                'variables' => Variable::select('id', 'name')->with('values')->get()
+            ];
             $view->with($data);
         });
     }

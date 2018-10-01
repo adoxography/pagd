@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use Algling\SS\Models\Datapoint;
+use App\Models\StructuralSurvey\Datapoint;
 use App\Language;
 use App\Models\Morphology\Morpheme;
 

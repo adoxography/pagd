@@ -3,12 +3,6 @@
 namespace App\Providers;
 
 use Algling\Nominals\Models\Form as NominalForm;
-use App\Obervers\ReflexObserver;
-use App\Observers\PhonemeObserver;
-use Algling\SS\Models\Datapoint;
-use Algling\SS\Models\Observers\VariableObserver;
-use Algling\SS\Models\Variable;
-use Algling\SS\Observers\DatapointObserver;
 use Algling\Verbals\Models\Form as VerbForm;
 use Algling\Words\Models\Form as WordForm;
 use Algling\Words\Models\Observers\FormObserver;
@@ -19,11 +13,17 @@ use App\Models\Morphology\Gloss;
 use App\Models\Morphology\Morpheme;
 use App\Models\Phonology\Phoneme;
 use App\Models\Phonology\Reflex;
+use App\Models\StructuralSurvey\Datapoint;
+use App\Models\StructuralSurvey\Variable;
+use App\Observers\DatapointObserver;
 use App\Observers\GlossObserver;
 use App\Observers\GroupObserver;
+use App\Observers\IGTObserver;
 use App\Observers\LanguageObserver;
 use App\Observers\MorphemeObserver;
-use App\Observers\IGTObserver;
+use App\Observers\PhonemeObserver;
+use App\Observers\ReflexObserver;
+use App\Observers\VariableObserver;
 use Illuminate\Support\ServiceProvider;
 
 
@@ -54,15 +54,5 @@ class ObserverServiceProvider extends ServiceProvider
         foreach ($this->observations as $model => $observer) {
             $model::observe($observer);
         }
-    }
-
-    /**
-     * Register the application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Obervers;
+namespace App\Observers;
 
 use App\Models\Phonology\Reflex;
 use App\Queue;

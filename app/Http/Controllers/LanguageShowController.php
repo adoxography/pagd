@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Language;
-use Algling\SS\Models\Type;
+use App\Models\StructuralSurvey\Type;
 
 class LanguageShowController extends Controller
 {

@@ -185,14 +185,6 @@ Route::group(['as' => 'clusters::'], function () {
     Route::post('clusters/{phoneme}/examples', 'Phonology\PhonemeExampleController@store');
 });
 
-Route::group(['as' => 'reflexes::'], function () {
-    Route::resource('reflexes', 'Phonology\ReflexController');
-    Route::get('reflexes/{reflex}/clone', 'Phonology\ReflexController@clone');
-    Route::post('reflexes/{reflex}/bookmark', 'Phonology\ReflexController@bookmark');
-    Route::delete('reflexes/{reflex}/bookmark', 'Phonology\ReflexController@unbookmark');
-});
-
-
 Auth::routes();
 
 Route::get('{args}', 'PageController@show')->where('args', '.*');

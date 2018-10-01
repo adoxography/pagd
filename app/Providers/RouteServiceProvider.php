@@ -69,6 +69,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapLanguageWebRoutes();
         $this->mapPhonemeWebRoutes();
+        $this->mapReflexWebRoutes();
 
         $this->mapWebRoutes();
     }
@@ -104,6 +105,14 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace . '\\Phonology')
             ->prefix('phonemes')
             ->group(base_path('routes/web/phonemes.php'));
+    }
+
+    protected function mapReflexWebRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace . '\\Phonology')
+            ->prefix('reflexes')
+            ->group(base_path('routes/web/reflexes.php'));
     }
 
     /**

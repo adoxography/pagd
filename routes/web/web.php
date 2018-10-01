@@ -100,15 +100,6 @@ Route::get('rules/{rule}/clone', 'RuleController@clone');
 Route::patch('rules/{rule}/hide', 'RuleController@hide');
 Route::post('rules/{rule}/bookmark', 'RuleController@bookmark');
 
-Route::group(['as' => 'sources::'], function () {
-    Route::resource('sources', 'SourceController');
-    Route::get('sources/{source}/clone', 'SourceController@clone');
-
-    Route::get('sources/{source}/basic', 'SourceShowController@basicDetails')->name('showBasic');
-    Route::get('sources/{source}/forms', 'SourceShowController@forms')->name('showForms');
-    Route::get('sources/{source}/morphemes', 'SourceShowController@morphemes')->name('showMorphemes');
-});
-
 Route::get('users', 'UserController@index');
 Route::get('users/{user}/edit', 'UserController@edit');
 Route::patch('users/{user}', 'UserController@update');

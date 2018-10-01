@@ -68,6 +68,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
 
         $this->mapWebRoutes('languages');
+        $this->mapWebRoutes('sources');
 
         $this->mapWebRoutes('morphemes', 'Morphology');
 

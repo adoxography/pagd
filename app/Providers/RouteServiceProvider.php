@@ -67,12 +67,11 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
 
-        $this->mapLanguageWebRoutes();
-        $this->mapPhonemeWebRoutes();
-        $this->mapClusterWebRoutes();
-        $this->mapReflexWebRoutes();
-
-        $this->mapWebRoutes();
+        $this->mapWebRoutes('languages');
+        $this->mapWebRoutes('phonemes', 'Phonology');
+        $this->mapWebroutes('clusters', 'Phonology');
+        $this->mapWebRoutes('reflexes', 'Phonology');
+        $this->mapWebRoutes('web');
     }
 
     /**
@@ -82,46 +81,18 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapWebRoutes()
+    protected function mapWebRoutes($name, $namespaceAddon = null)
     {
-        Route::group([
-            'middleware' => 'web',
-            'namespace' => $this->namespace,
-        ], function ($router) {
-            require base_path('routes/web/web.php');
-        });
-    }
+        $namespace = $this->namespace;
 
-    protected function mapLanguageWebRoutes()
-    {
-        Route::middleware('web')
-            ->namespace($this->namespace)
-            ->prefix('languages')
-            ->group(base_path('routes/web/languages.php'));
-    }
+        if ($namespaceAddon) {
+            $namespace .= "\\$namespaceAddon";
+        }
 
-    protected function mapPhonemeWebRoutes()
-    {
         Route::middleware('web')
-            ->namespace($this->namespace . '\\Phonology')
-            ->prefix('phonemes')
-            ->group(base_path('routes/web/phonemes.php'));
-    }
-
-    protected function mapClusterWebRoutes()
-    {
-        Route::middleware('web')
-            ->namespace($this->namespace . '\\Phonology')
-            ->prefix('clusters')
-            ->group(base_path('routes/web/clusters.php'));
-    }
-
-    protected function mapReflexWebRoutes()
-    {
-        Route::middleware('web')
-            ->namespace($this->namespace . '\\Phonology')
-            ->prefix('reflexes')
-            ->group(base_path('routes/web/reflexes.php'));
+            ->namespace($namespace)
+            ->prefix($name)
+            ->group(base_path("routes/web/$name.php"));
     }
 
     /**

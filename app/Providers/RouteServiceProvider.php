@@ -68,10 +68,16 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
 
         $this->mapWebRoutes('languages');
+
+        $this->mapWebRoutes('morphemes', 'Morphology');
+
         $this->mapWebRoutes('phonemes', 'Phonology');
         $this->mapWebroutes('clusters', 'Phonology');
         $this->mapWebRoutes('reflexes', 'Phonology');
-        $this->mapWebRoutes('web');
+
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/web.php'));
     }
 
     /**

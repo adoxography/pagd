@@ -139,29 +139,17 @@ Route::group(['as' => 'users::'], function () {
 /**
  * Morphology
  */
-Route::resource('morphemes', 'Morphology\MorphemeController');
-Route::get('morphemes/{morpheme}/clone', 'Morphology\MorphemeController@clone');
 Route::resource('glosses', 'Morphology\GlossController');
 Route::get('glosses/{gloss}/clone', 'Morphology\GlossController@clone');
 Route::resource('slots', 'Morphology\SlotController');
 Route::get('slots/{slot}/clone', 'Morphology\SlotController@clone');
 
-Route::patch('morphemes/{morpheme}/hide', 'Morphology\MorphemeController@hide');
 Route::patch('glosses/{gloss}/hide', 'Morphology\GlossController@hide');
 Route::patch('slots/{slot}/hide', 'Morphology\SlotController@hide');
 
 Route::get('changes', 'Morphology\InitialChangeController@index');
 Route::post('changes', 'Morphology\InitialChangeController@store');
 Route::delete('changes/{change}', 'Morphology\InitialChangeController@destroy');
-
-Route::group(['as' => 'morphemes::'], function () {
-    Route::get('morphemes/{morpheme}/possible-connections', 'Morphology\MorphemeController@showConnections')->name('possible-connections');
-    Route::patch('morphemes/{morpheme}/connect', 'Morphology\MorphemeController@connect')->name('connect');
-    Route::get('morphemes/{morpheme}/basic', 'Morphology\MorphemeShowController@basicDetails')->name('showBasic');
-    Route::get('morphemes/{morpheme}/cognates', 'Morphology\MorphemeShowController@cognates')->name('showCognates');
-    Route::get('morphemes/{morpheme}/forms', 'Morphology\MorphemeShowController@forms')->name('showForms');
-    Route::get('morphemes/{morpheme}/log', 'Morphology\MorphemeShowController@log')->name('showLog');
-});
 
 Auth::routes();
 

@@ -19,15 +19,6 @@ Route::get('', 'HomeController@index');
 Route::get('home', 'HomeController@index');
 Route::get('welcome', 'HomeController@index');
 
-// Admin routes
-Route::group(['as' => 'admin::'], function () {
-    Route::get('admin', 'AdminController@index')->name('index');
-    Route::get('admin/users', 'AdminController@users')->name('users');
-    Route::get('admin/verbs', 'AdminController@verbs')->name('verbs');
-    Route::get('admin/features', 'AdminController@features')->name('features');
-    Route::get('admin/phonemes', 'AdminController@phonemes')->name('phonemes');
-});
-
 Route::post('/reg-codes/create', 'RegistrationCodeController@create');
 Route::patch('/reg-codes/{code}/enable', 'RegistrationCodeController@enable');
 Route::patch('/reg-codes/{code}/disable', 'RegistrationCodeController@disable');

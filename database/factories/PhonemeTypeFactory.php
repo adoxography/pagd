@@ -1,15 +1,15 @@
 <?php
 
-use Algling\Phonology\Models\Backness;
-use Algling\Phonology\Models\ClusterType;
-use Algling\Phonology\Models\ConsonantType;
-use Algling\Phonology\Models\Height;
-use Algling\Phonology\Models\Length;
-use Algling\Phonology\Models\Manner;
-use Algling\Phonology\Models\Phoneme;
-use Algling\Phonology\Models\Place;
-use Algling\Phonology\Models\Voicing;
-use Algling\Phonology\Models\VowelType;
+use App\Models\Phonology\Backness;
+use App\Models\Phonology\ClusterType;
+use App\Models\Phonology\ConsonantType;
+use App\Models\Phonology\Height;
+use App\Models\Phonology\Length;
+use App\Models\Phonology\Manner;
+use App\Models\Phonology\Phoneme;
+use App\Models\Phonology\Place;
+use App\Models\Phonology\Voicing;
+use App\Models\Phonology\VowelType;
 use Faker\Generator as Faker;
 
 $factory->define(ClusterType::class, function (Faker $faker) {

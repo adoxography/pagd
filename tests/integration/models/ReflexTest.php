@@ -1,6 +1,6 @@
 <?php
 
-use Algling\Phonology\Models\Reflex;
+use App\Models\Phonology\Reflex;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ReflexTest extends TestCase

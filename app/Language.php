@@ -2,8 +2,8 @@
 namespace App;
 
 use Algling\Nominals\Traits\HasNominalsTrait;
-use Algling\Phonology\Inventory;
-use Algling\Phonology\Models\Phoneme;
+use App\Models\Phonology\Inventory;
+use App\Models\Phonology\Phoneme;
 use Algling\SS\Models\Datapoint;
 use Algling\SS\Models\Variable;
 use Algling\Verbals\Traits\HasVerbsTrait;

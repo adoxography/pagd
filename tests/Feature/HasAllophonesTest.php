@@ -1,7 +1,7 @@
 <?php
 
-use Algling\Phonology\Models\Allophone;
-use Algling\Phonology\Models\Phoneme;
+use App\Models\Phonology\Allophone;
+use App\Models\Phonology\Phoneme;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Venturecraft\Revisionable\Revision;
 

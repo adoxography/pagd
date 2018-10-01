@@ -1,6 +1,6 @@
 <?php
 
-use Algling\Phonology\Models\Phoneme;
+use App\Models\Phonology\Phoneme;
 use App\Models\Morphology\Morpheme;
 use App\Source;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

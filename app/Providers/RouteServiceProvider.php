@@ -2,11 +2,12 @@
 
 namespace App\Providers;
 
-use Algling\Phonology\Models\Phoneme;
+use App\Models\Phonology\Phoneme;
 use App\Language;
 use App\Models\Morphology\Gloss;
 use App\Models\Morphology\Morpheme;
 use App\Models\Morphology\Slot;
+use App\Models\Phonology\Reflex;
 use App\Rule;
 use App\Source;
 use Route;
@@ -29,7 +30,8 @@ class RouteServiceProvider extends ServiceProvider
         Phoneme::class => 'phoneme',
         Morpheme::class => 'morpheme',
         Gloss::class => 'gloss',
-        Slot::class => 'slot'
+        Slot::class => 'slot',
+        Reflex::class => 'reflex'
     ];
 
     /**

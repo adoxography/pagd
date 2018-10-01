@@ -1,7 +1,7 @@
 <?php
 
-use Algling\Phonology\Models\Phoneme;
-use Algling\Phonology\Models\Reflex;
+use App\Models\Phonology\Phoneme;
+use App\Models\Phonology\Reflex;
 use App\Language;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 

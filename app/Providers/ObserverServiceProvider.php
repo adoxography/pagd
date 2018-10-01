@@ -3,10 +3,8 @@
 namespace App\Providers;
 
 use Algling\Nominals\Models\Form as NominalForm;
-use Algling\Phonology\Models\Phoneme;
-use Algling\Phonology\Models\Reflex;
-use Algling\Phonology\Obervers\ReflexObserver;
-use Algling\Phonology\Observers\PhonemeObserver;
+use App\Obervers\ReflexObserver;
+use App\Observers\PhonemeObserver;
 use Algling\SS\Models\Datapoint;
 use Algling\SS\Models\Observers\VariableObserver;
 use Algling\SS\Models\Variable;
@@ -19,6 +17,8 @@ use App\IGT;
 use App\Language;
 use App\Models\Morphology\Gloss;
 use App\Models\Morphology\Morpheme;
+use App\Models\Phonology\Phoneme;
+use App\Models\Phonology\Reflex;
 use App\Observers\GlossObserver;
 use App\Observers\GroupObserver;
 use App\Observers\LanguageObserver;

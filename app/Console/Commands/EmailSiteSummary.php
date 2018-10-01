@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use Algling\Phonology\Models\Phoneme;
+use App\Models\Phonology\Phoneme;
 use Algling\Words\Models\Example;
 use Algling\Words\Models\Form;
 use App\Language;

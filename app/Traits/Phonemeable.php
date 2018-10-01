@@ -3,7 +3,7 @@
 namespace App\Traits;
 
 use DB;
-use Algling\Phonology\Models\Phoneme;
+use App\Models\Phonology\Phoneme;
 
 trait Phonemeable
 {
@@ -66,7 +66,7 @@ trait Phonemeable
      * Look up the phoneme at the given index
      *
      * @param  string $phoneme
-     * @return Algling\Phonology\Models\Phoneme|null
+     * @return App\Models\Phonology\Phoneme|null
      */
     public function lookupPhoneme(string $phoneme)
     {

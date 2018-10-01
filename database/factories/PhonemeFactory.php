@@ -1,10 +1,10 @@
 <?php
 
-use Algling\Phonology\Models\ClusterType;
-use Algling\Phonology\Models\ConsonantType;
-use Algling\Phonology\Models\Phoneme;
-use Algling\Phonology\Models\Reflex;
-use Algling\Phonology\Models\VowelType;
+use App\Models\Phonology\ClusterType;
+use App\Models\Phonology\ConsonantType;
+use App\Models\Phonology\Phoneme;
+use App\Models\Phonology\Reflex;
+use App\Models\Phonology\VowelType;
 use App\Language;
 use Faker\Generator as Faker;
 

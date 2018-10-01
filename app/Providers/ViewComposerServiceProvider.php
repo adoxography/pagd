@@ -9,8 +9,17 @@ use Algling\Verbals\Models\VerbClass;
 use App\ChangeType;
 use App\Group;
 use App\Language;
+
 use App\Models\Morphology\Gloss;
 use App\Models\Morphology\Slot;
+
+use App\Models\Phonology\Place;
+use App\Models\Phonology\Manner;
+use App\Models\Phonology\Voicing;
+use App\Models\Phonology\Height;
+use App\Models\Phonology\Backness;
+use App\Models\Phonology\Length;
+
 use App\RuleType;
 use App\IGTLineType;
 use Illuminate\Support\ServiceProvider;
@@ -32,6 +41,9 @@ class ViewComposerServiceProvider extends ServiceProvider
         $this->composeIGTForm();
 
         $this->composeShowMorphemes();
+
+        $this->composePhonemeForm();
+        $this->composeReflexForm();
 
         $this->composeSearch();
     }
@@ -129,13 +141,30 @@ class ViewComposerServiceProvider extends ServiceProvider
         });
     }
 
-    /**
-     * Register the application services.
-     *
-     * @return void
-     */
-    public function register()
+    private function composePhonemeForm()
     {
-        //
+        view()->composer('phonemes.partials.form', function ($view) {
+            $data = [
+                'languages'  => Language::select('id', 'name')->get(),
+
+                'places'     => Place::select('id', 'name')->orderBy('id')->get(),
+                'manners'    => Manner::select('id', 'name')->orderBy('id')->get(),
+                'voicings'   => Voicing::select('id', 'name')->get(),
+
+                'heights'    => Height::select('id', 'name')->orderBy('id')->get(),
+                'backnesses' => Backness::select('id', 'name')->orderBy('id')->get(),
+                'lengths'    => Length::select('id', 'name')->orderBy('id')->get()
+            ];
+
+            $view->with($data);
+        });
+    }
+
+    private function composeReflexForm()
+    {
+        view()->composer('reflexes.partials.form', function ($view) {
+            $data = ['languages' => Language::select('id', 'name')->get()];
+            $view->with($data);
+        });
     }
 }

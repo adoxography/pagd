@@ -10,7 +10,7 @@ use Algling\Words\FormRepository;
 use Algling\Words\Models\Example;
 use Algling\Words\Models\Form;
 use Algling\Words\Models\Gap;
-use Algling\Phonology\Models\Phoneme;
+use App\Models\Phonology\Phoneme;
 use App\Models\Morphology\Morpheme;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

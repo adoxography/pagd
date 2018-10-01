@@ -59,12 +59,8 @@ Route::get('guide', 'HomeController@guide');
 
 Route::post('backup', 'BackupController@store');
 
-Route::get('profile/bookmarks', 'UserController@bookmarks');
-
 Route::get('resources', 'PageController@resources');
 Route::get('resources/statistics', 'PageController@statistics');
-
-Route::get('profile/unsubscribe/{subscription}', 'UserController@unsubscribe');
 
 // Contact Routes
 // Route::get('contact',  'ContactController@index');
@@ -100,14 +96,15 @@ Route::get('rules/{rule}/clone', 'RuleController@clone');
 Route::patch('rules/{rule}/hide', 'RuleController@hide');
 Route::post('rules/{rule}/bookmark', 'RuleController@bookmark');
 
-Route::get('users', 'UserController@index');
-Route::get('users/{user}/edit', 'UserController@edit');
-Route::patch('users/{user}', 'UserController@update');
-
+/**
+ * "Profile" routes are aliases for users/{current user}
+ *
+ * @see /routes/web/users.php
+ */
 Route::group(['as' => 'users::'], function () {
     Route::get('profile', 'UserController@show')->name('profile');
-    Route::get('users/{user}', 'UserController@show')->name('show');
-    Route::get('users/{user}/history', 'UserController@history')->name('showHistory');
+    Route::get('profile/bookmarks', 'UserController@bookmarks');
+    Route::get('profile/unsubscribe/{subscription}', 'UserController@unsubscribe');
 });
 
 /**

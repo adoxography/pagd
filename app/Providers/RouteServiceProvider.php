@@ -76,6 +76,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebroutes('clusters', 'Phonology');
         $this->mapWebRoutes('reflexes', 'Phonology');
 
+        $this->mapWebRoutes('users');
         $this->mapWebRoutes('tickets', 'Tickets');
         $this->mapWebRoutes('autocomplete');
 

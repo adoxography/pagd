@@ -112,33 +112,33 @@ Route::patch('groups/{group}/hide', 'GroupController@hide');
 Route::get('groups/{group}/order/edit', 'GroupOrderController@edit');
 
 // Language Routes
-Route::group(['as' => 'languages::'], function () {
-    Route::get('languages/order', 'LanguageController@order');
-    Route::post('languages/order', 'LanguageController@storeOrder');
-    Route::resource('languages', 'LanguageController');
-    Route::get('languages/{language}/clone', 'LanguageController@clone');
-    Route::get('languages/{language}/addChild', 'LanguageController@addChild');
-    Route::get('languages/{language}/addExample', 'LanguageController@addExample');
-    Route::get('languages/{language}/addVerbForm', 'LanguageController@addVerbForm');
-    Route::get('languages/{language}/addNominalForm', 'LanguageController@addNominalForm');
-    Route::get('languages/{language}/addMorpheme', 'LanguageController@addMorpheme');
-    Route::get('languages/{language}/addRule', 'LanguageController@addRule');
-    Route::get('languages/{language}/addParadigm', 'LanguageController@addParadigm');
-    Route::get('languages/{language}/addPhoneme', 'LanguageController@addPhoneme');
-    Route::patch('languages/{language}/hide', 'LanguageController@hide');
+//Route::group(['as' => 'languages::'], function () {
+    //Route::get('languages/order', 'LanguageController@order');
+    //Route::post('languages/order', 'LanguageController@storeOrder');
+    //Route::resource('languages', 'LanguageController');
+    //Route::get('languages/{language}/clone', 'LanguageController@clone');
+    //Route::get('languages/{language}/addChild', 'LanguageController@addChild');
+    //Route::get('languages/{language}/addExample', 'LanguageController@addExample');
+    //Route::get('languages/{language}/addVerbForm', 'LanguageController@addVerbForm');
+    //Route::get('languages/{language}/addNominalForm', 'LanguageController@addNominalForm');
+    //Route::get('languages/{language}/addMorpheme', 'LanguageController@addMorpheme');
+    //Route::get('languages/{language}/addRule', 'LanguageController@addRule');
+    //Route::get('languages/{language}/addParadigm', 'LanguageController@addParadigm');
+    //Route::get('languages/{language}/addPhoneme', 'LanguageController@addPhoneme');
+    //Route::patch('languages/{language}/hide', 'LanguageController@hide');
 
-    Route::get('languages/{language}/basic', 'LanguageShowController@basicDetails')->name('showBasic');
-    Route::get('languages/{language}/survey', 'LanguageShowController@survey')->name('showSurvey');
-    Route::get('languages/{language}/verbs', 'LanguageShowController@verbs')->name('showVerbs');
-    Route::get('languages/{language}/nominals', 'LanguageShowController@nominals')->name('showNominals');
-    Route::get('languages/{language}/morphemes', 'LanguageShowController@morphemes')->name('showMorphemes');
-    Route::get('languages/{language}/paradigms', 'LanguageShowController@paradigms')->name('showParadigms');
-    Route::get('languages/{language}/phonemes', 'LanguageShowController@phonemes')->name('showPhonemes');
-    Route::get('languages/{language}/clusters', 'LanguageShowController@clusters')->name('showClusters');
-    Route::get('languages/{language}/rules', 'LanguageShowController@rules')->name('showRules');
-    Route::get('languages/{language}/sources', 'LanguageShowController@sources')->name('showSources');
-    Route::get('languages/{language}/log', 'LanguageShowController@log')->name('showLog');
-});
+    //Route::get('languages/{language}/basic', 'LanguageShowController@basicDetails')->name('showBasic');
+    //Route::get('languages/{language}/survey', 'LanguageShowController@survey')->name('showSurvey');
+    //Route::get('languages/{language}/verbs', 'LanguageShowController@verbs')->name('showVerbs');
+    //Route::get('languages/{language}/nominals', 'LanguageShowController@nominals')->name('showNominals');
+    //Route::get('languages/{language}/morphemes', 'LanguageShowController@morphemes')->name('showMorphemes');
+    //Route::get('languages/{language}/paradigms', 'LanguageShowController@paradigms')->name('showParadigms');
+    //Route::get('languages/{language}/phonemes', 'LanguageShowController@phonemes')->name('showPhonemes');
+    //Route::get('languages/{language}/clusters', 'LanguageShowController@clusters')->name('showClusters');
+    //Route::get('languages/{language}/rules', 'LanguageShowController@rules')->name('showRules');
+    //Route::get('languages/{language}/sources', 'LanguageShowController@sources')->name('showSources');
+    //Route::get('languages/{language}/log', 'LanguageShowController@log')->name('showLog');
+//});
 
 // Rule routes
 Route::resource('rules', 'RuleController');

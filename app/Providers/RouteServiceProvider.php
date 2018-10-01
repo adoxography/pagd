@@ -67,6 +67,8 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
 
+        $this->mapLanguageWebRoutes();
+
         $this->mapWebRoutes();
     }
 
@@ -85,6 +87,20 @@ class RouteServiceProvider extends ServiceProvider
         ], function ($router) {
             require base_path('routes/web/web.php');
         });
+    }
+
+    protected function mapLanguageWebRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->prefix('languages')
+            ->group(base_path('routes/web/languages.php'));
+        //Route::group([
+            //'middleware' => 'web',
+            //'namespace' => $this->namespace,
+        //], function ($router) {
+            //require base_path('routes/web/languages.php');
+        //});
     }
 
     /**

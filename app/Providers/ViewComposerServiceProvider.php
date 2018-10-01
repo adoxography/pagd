@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use Algling\Verbals\Models\Argument;
-use Algling\Verbals\Models\Mode;
-use Algling\Verbals\Models\Order;
-use Algling\Verbals\Models\VerbClass;
+use App\Models\Verbs\Argument;
+use App\Models\Verbs\Mode;
+use App\Models\Verbs\Order;
+use App\Models\Verbs\VerbClass;
 use App\ChangeType;
 use App\Group;
 use App\Language;
@@ -53,6 +53,7 @@ class ViewComposerServiceProvider extends ServiceProvider
         $this->composeDatapointForm();
 
         $this->composeExampleForm();
+        $this->composeVerbFormForm();
 
         $this->composeSearch();
     }
@@ -194,6 +195,24 @@ class ViewComposerServiceProvider extends ServiceProvider
             $data = [
                 'languages' => Language::select('id', 'name')->get(),
                 'variables' => Variable::select('id', 'name')->with('values')->get()
+            ];
+            $view->with($data);
+        });
+    }
+
+    private function composeVerbFormForm()
+    {
+        view()->composer('verbs.forms.partials.form', function ($view) {
+            $data = [
+                'arguments'   => Argument::select('id', 'name')->get(),
+                'classes'     => VerbClass::select('id', 'name')->get(),
+                'languages'   => Language::select('id', 'name')->get(),
+                'modes'       => Mode::select('id', 'name')->get(),
+                'orders'      => Order::select('id', 'name')->get(),
+                'changeTypes' => ChangeType::select('id', 'name')->get()->prepend([
+                    'id' => null,
+                    'name' => 'N/A'
+                ])
             ];
             $view->with($data);
         });

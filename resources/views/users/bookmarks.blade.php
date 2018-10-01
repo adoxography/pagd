@@ -20,10 +20,10 @@
 		<br />
 	@endif
 
-	@if(count($user->bookmarks(Algling\Verbals\Models\Form::class)) > 0)
+	@if(count($user->bookmarks(App\Models\Verbs\Form::class)) > 0)
 		<h4 class="subtitle is-4">Forms</h4>
 		<ul>
-			@foreach($user->bookmarks(Algling\Verbals\Models\Form::class) as $form)
+			@foreach($user->bookmarks(App\Models\Verbs\Form::class) as $form)
 				<li>
 					{!! $form->present()->as('unique', 'link')->then('language') !!}
 					@if($form->pivot->comment)

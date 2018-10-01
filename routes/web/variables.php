@@ -4,6 +4,7 @@ Route::group(['as' => 'variables::'], function() {
     Route::get('/create', 'VariableController@create');
     Route::get('/{variable}', 'VariableController@show');
     Route::get('/{variable}/edit', 'VariableController@edit');
+    Route::post('/', 'VariableController@store');
     Route::patch('/{variable}', 'VariableController@update');
     Route::delete('/{variable}', 'VariableController@destroy');
 

@@ -2,7 +2,7 @@
 
 namespace App\Models\Words;
 
-use Algling\Verbals\Models\Structure as VerbStructure;
+use App\Models\Verbs\Structure as VerbStructure;
 use Algling\Nominals\Models\Structure as NominalStructure;
 use Illuminate\Database\Eloquent\Model;
 

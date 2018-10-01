@@ -16,10 +16,10 @@ use App\Models\Phonology\Voicing;
 use App\Models\Phonology\Manner;
 use App\Models\Words\Example;
 use App\Models\Words\Feature;
-use Algling\Verbals\Models\Form as VerbForm;
-use Algling\Verbals\Models\Mode;
-use Algling\Verbals\Models\Order;
-use Algling\Verbals\Models\VerbClass;
+use App\Models\Verbs\Form as VerbForm;
+use App\Models\Verbs\Mode;
+use App\Models\Verbs\Order;
+use App\Models\Verbs\VerbClass;
 
 use Illuminate\Http\Request;
 

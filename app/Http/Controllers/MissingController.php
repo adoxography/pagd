@@ -17,9 +17,9 @@ class MissingController extends Controller
         $sourceGroups = collect();
         $classes = [
             \App\Models\Morphology\Morpheme::class => 'morpheme',
-            \Algling\Verbals\Models\Form::class => 'verb form',
+            \App\Models\Verbs\Form::class => 'verb form',
             \Algling\Nominals\Models\Form::class => 'nominal form',
-            \Algling\Verbals\Models\Example::class => 'verb example',
+            \App\Models\Verbs\Example::class => 'verb example',
             \Algling\Nominals\Models\Example::class => 'nominal example',
             \App\Rule::class => 'rule'
         ];

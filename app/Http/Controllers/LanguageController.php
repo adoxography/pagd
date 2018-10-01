@@ -147,7 +147,7 @@ class LanguageController extends AlgModelController
      */
     public function addVerbForm(Language $language)
     {
-        return view('verb::forms.create')->with('language', $language);
+        return view('verbs.forms.create')->with('language', $language);
     }
 
     public function addNominalForm(Language $language)

@@ -29,6 +29,6 @@ class PhonemeDataController extends Controller
     protected function getClass(string $name)
     {
         $baseName = ucfirst(camel_case(str_singular($name)));
-        return 'Algling\\Phonology\\Models\\' . $baseName;
+        return 'App\\Models\\Phonology\\' . $baseName;
     }
 }

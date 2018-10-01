@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Language;
-use Algling\Verbals\Models\Order;
-use Algling\Verbals\Models\VerbClass;
+use App\Models\Verbs\Order;
+use App\Models\Verbs\VerbClass;
 use Storage;
 
 class HomeController extends PageController

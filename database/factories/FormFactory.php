@@ -3,8 +3,8 @@
 use Algling\Nominals\Models\Form as NominalForm;
 use Algling\Nominals\Models\Paradigm;
 use Algling\Nominals\Models\Structure as NominalStructure;
-use Algling\Verbals\Models\Form as VerbForm;
-use Algling\Verbals\Models\Structure as VerbStructure;
+use App\Models\Verbs\Form as VerbForm;
+use App\Models\Verbs\Structure as VerbStructure;
 use App\Models\Words\Form as WordForm;
 use App\Language;
 use App\Models\Morphology\Morpheme;

@@ -4,8 +4,8 @@ namespace App;
 
 use Algling\Nominals\Models\Form as NominalForm;
 use Algling\Nominals\NominalFormRepositoryInterface;
-use Algling\Verbals\Models\Form as VerbForm;
-use Algling\Verbals\VerbFormRepositoryInterface;
+use App\Models\Verbs\Form as VerbForm;
+use App\Interfaces\VerbFormRepositoryInterface;
 use App\Models\Words\Example;
 use App\Models\Words\Form;
 use App\Models\Words\FormRepository;

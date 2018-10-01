@@ -6,7 +6,7 @@ Route::get('/{form}', 'FormController@show');
 Route::get('/{form}/edit', 'FormController@edit');
 Route::post('/', 'FormController@store');
 Route::patch('/{form}', 'FormController@update');
-Route::delete('/{form}', 'FormController@store');
+Route::delete('/{form}', 'FormController@destroy');
 
 Route::get('/{form}/clone',          'FormController@clone');
 Route::get('/{form}/addExample',     'FormController@addExample');

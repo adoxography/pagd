@@ -29,7 +29,7 @@ if(!isset($uri)) {
 							<div class="select is-fullwidth">
 								<select name="structure.subject_id" @input="onInput($event)">
 									<option value="">By subject</option>
-									@foreach(Algling\Verbals\Models\Argument::select(['id', 'name'])->orderBy('name')->get() as $arg)
+									@foreach(App\Models\Verbs\Argument::select(['id', 'name'])->orderBy('name')->get() as $arg)
 									<option value="{{ $arg->id }}">{{ $arg->name }}</option>
 									@endforeach
 								</select>
@@ -42,7 +42,7 @@ if(!isset($uri)) {
 								<select name="structure.primaryObject_id" @input="onInput($event)">
 									<option value="">By primary object</option>
 									<option value="null">None</option>
-									@foreach(Algling\Verbals\Models\Argument::select(['id', 'name'])->orderBy('name')->get() as $arg)
+									@foreach(App\Models\Verbs\Argument::select(['id', 'name'])->orderBy('name')->get() as $arg)
 									<option value="{{ $arg->id }}">{{ $arg->name }}</option>
 									@endforeach
 								</select>
@@ -55,7 +55,7 @@ if(!isset($uri)) {
 								<select name="structure.secondaryObject_id" @input="onInput($event)">
 									<option value="">By secondary object</option>
 									<option value="null">None</option>
-									@foreach(Algling\Verbals\Models\Argument::select(['id', 'name'])->orderBy('name')->get() as $arg)
+									@foreach(App\Models\Verbs\Argument::select(['id', 'name'])->orderBy('name')->get() as $arg)
 									<option value="{{ $arg->id }}">{{ $arg->name }}</option>
 									@endforeach
 								</select>
@@ -72,7 +72,7 @@ if(!isset($uri)) {
 							<div class="select is-fullwidth">
 								<select name="structure.class_id" @input="onInput($event)">
 									<option value="">By class</option>
-									@foreach(Algling\Verbals\Models\VerbClass::select(['id', 'name'])->orderBy('name')->get() as $class)
+									@foreach(App\Models\Verbs\VerbClass::select(['id', 'name'])->orderBy('name')->get() as $class)
 									<option value="{{ $class->id }}">{{ $class->name }}</option>
 									@endforeach
 								</select>
@@ -84,7 +84,7 @@ if(!isset($uri)) {
 							<div class="select is-fullwidth">
 								<select name="structure.order_id" @input="onInput($event)">
 									<option value="">By order</option>
-									@foreach(Algling\Verbals\Models\Order::select(['id', 'name'])->orderBy('position')->get() as $order)
+									@foreach(App\Models\Verbs\Order::select(['id', 'name'])->orderBy('position')->get() as $order)
 									<option value="{{ $order->id }}">{{ $order->name }}</option>
 									@endforeach
 								</select>
@@ -96,7 +96,7 @@ if(!isset($uri)) {
 							<div class="select is-fullwidth">
 								<select name="structure.mode_id" @input="onInput($event)">
 									<option value="">By mode</option>
-									@foreach(Algling\Verbals\Models\Mode::select(['id', 'name'])->orderBy('name')->get() as $mode)
+									@foreach(App\Models\Verbs\Mode::select(['id', 'name'])->orderBy('name')->get() as $mode)
 									<option value="{{ $mode->id }}">{{ $mode->name }}</option>
 									@endforeach
 								</select>

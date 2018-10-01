@@ -1,6 +1,6 @@
 <?php
 
-use Algling\Verbals\Models\Argument;
+use App\Models\Verbs\Argument;
 use Faker\Generator as Faker;
 
 $factory->define(Argument::class, function (Faker $faker) {

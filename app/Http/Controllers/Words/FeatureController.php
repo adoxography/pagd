@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Words;
 
 use App\Models\Words\Feature;
-use Algling\Http\Requests\Words\FeatureRequest;
+use App\Http\Requests\Words\FeatureRequest;
 use App\Http\Controllers\Controller;
 
 class FeatureController extends Controller

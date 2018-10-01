@@ -6,7 +6,7 @@ use App\Models\Phonology\Inventory;
 use App\Models\Phonology\Phoneme;
 use App\Models\StructuralSurvey\Datapoint;
 use App\Models\StructuralSurvey\Variable;
-use Algling\Verbals\Traits\HasVerbsTrait;
+use App\Traits\Verbs\HasVerbsTrait;
 use App\Models\Morphology\Morpheme;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

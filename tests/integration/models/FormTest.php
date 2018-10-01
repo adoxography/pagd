@@ -2,8 +2,8 @@
 
 use App\Source;
 use App\Language;
-use Algling\Verbals\Models\Form;
-use Algling\Verbals\Models\Structure;
+use App\Models\Verbs\Form;
+use App\Models\Verbs\Structure;
 use App\Models\Morphology\Morpheme;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 

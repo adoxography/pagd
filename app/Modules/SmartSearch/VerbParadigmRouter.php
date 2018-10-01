@@ -2,9 +2,9 @@
 
 namespace App\Modules\SmartSearch; 
 
-use Algling\Verbals\Models\Mode;
-use Algling\Verbals\Models\Order;
-use Algling\Verbals\Models\VerbClass;
+use App\Models\Verbs\Mode;
+use App\Models\Verbs\Order;
+use App\Models\Verbs\VerbClass;
 use App\Group;
 use App\Language;
 

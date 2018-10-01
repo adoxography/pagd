@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Algling\Verbals\Models\Structure as VerbStructure;
+use App\Models\Verbs\Structure as VerbStructure;
 use Algling\Nominals\Models\Structure as NominalStructure;
 
 class Structure extends JsonResource

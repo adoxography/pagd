@@ -18,7 +18,7 @@ class MorphMapServiceProvider extends ServiceProvider
     public function boot()
     {
         Relation::morphMap([
-            'verbForms'  => 'Algling\Verbals\Models\Form',
+            'verbForms'  => 'App\Models\Verbs\Form',
             'nominalForms' => NominalForm::class,
             'forms'      => 'App\Models\Words\Form',
             'examples'   => 'App\Models\Words\Example',
@@ -26,7 +26,7 @@ class MorphMapServiceProvider extends ServiceProvider
             'gaps'       => 'App\Models\Words\Gap',
             'datapoints' => 'App\Models\StructuralSurvey\Datapoint',
             'rules'      => 'App\Rule',
-            'verbStructures' => 'Algling\Verbals\Models\Structure',
+            'verbStructures' => 'App\Models\Verbs\Structure',
             'nominalStructures' => 'Algling\Nominals\Models\Structure',
             'phonemes' => Phoneme::class,
             'consonantTypes' => 'App\Models\Phonology\ConsonantType',

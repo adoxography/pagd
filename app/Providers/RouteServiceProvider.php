@@ -10,8 +10,9 @@ use App\Models\Morphology\Slot;
 use App\Models\Phonology\Reflex;
 use App\Models\StructuralSurvey\Value;
 use App\Models\StructuralSurvey\Variable;
+use App\Models\Verbs\Form as VerbForm;
 use App\Models\Words\Example as WordExample;
-use App\Models\Words\Gap;
+use App\Models\Words\Gap as WordGap;
 use App\Models\Words\Form as WordForm;
 use App\Rule;
 use App\Source;
@@ -30,18 +31,26 @@ class RouteServiceProvider extends ServiceProvider
     protected $namespace = 'App\Http\Controllers';
 
     protected $connections = [
-        Source::class    => 'source',
-        Rule::class      => 'rule',
+        Source::class => 'source',
+        Rule::class   => 'rule',
+
         Phoneme::class => 'phoneme',
+        Reflex::class  => 'reflex',
+
+        Gloss::class    => 'gloss',
         Morpheme::class => 'morpheme',
-        Gloss::class => 'gloss',
-        Slot::class => 'slot',
-        Reflex::class => 'reflex',
-        Value::class => 'value',
+        Slot::class     => 'slot',
+
+        Value::class    => 'value',
         Variable::class => 'variable',
-        WordForm::class => 'form',
+
+        VerbForm::class => 'verbForm',
+        VerbGap::class  => 'verbGap',
+
         WordExample::class => 'example',
-        Gap::class => 'emptyform'
+        WordForm::class    => 'form',
+        WordGap::class     => 'emptyform'
+
     ];
 
     /**
@@ -92,6 +101,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes('forms',    'Words');
         $this->mapWebRoutes('examples', 'Words');
         $this->mapWebRoutes('features', 'Words');
+        $this->mapWebroutes('verbs', 'Verbs');
 
         $this->mapWebRoutes('admin');
         $this->mapWebRoutes('users');

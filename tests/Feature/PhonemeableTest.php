@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Phonology\Phoneme;
-use Algling\Verbals\Models\Form;
+use App\Models\Verbs\Form;
 use App\Models\Words\Example;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 

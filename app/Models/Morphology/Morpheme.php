@@ -3,7 +3,7 @@
 namespace App\Models\Morphology;
 
 use Algling\Nominals\Models\Form as NominalForm;
-use Algling\Verbals\Models\Form as VerbForm;
+use App\Models\Verbs\Form as VerbForm;
 use App\Models\Words\Example;
 use App\Models\Words\Form;
 use App\BacksUpTrait;

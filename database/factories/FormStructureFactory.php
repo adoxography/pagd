@@ -5,11 +5,11 @@ use Algling\Nominals\Models\Paradigm;
 use Algling\Nominals\Models\ParadigmType;
 use Algling\Nominals\Models\PronominalFeature;
 use Algling\Nominals\Models\Structure as NominalStructure;
-use Algling\Verbals\Models\Argument;
-use Algling\Verbals\Models\Mode;
-use Algling\Verbals\Models\Order;
-use Algling\Verbals\Models\Structure as VerbStructure;
-use Algling\Verbals\Models\VerbClass;
+use App\Models\Verbs\Argument;
+use App\Models\Verbs\Mode;
+use App\Models\Verbs\Order;
+use App\Models\Verbs\Structure as VerbStructure;
+use App\Models\Verbs\VerbClass;
 use App\Language;
 use Faker\Generator as Faker;
 

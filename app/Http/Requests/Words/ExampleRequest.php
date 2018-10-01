@@ -1,6 +1,6 @@
 <?php
 
-namespace Algling\Http\Requests\Words;
+namespace App\Http\Requests\Words;
 
 use Auth;
 use Illuminate\Foundation\Http\FormRequest;

@@ -1,6 +1,6 @@
 <?php
 
-use Algling\Verbals\Models\Form as VerbForm;
+use App\Models\Verbs\Form as VerbForm;
 use App\Models\Words\Form as WordForm;
 use App\Group;
 use App\Language;

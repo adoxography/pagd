@@ -12,12 +12,6 @@ use App\Contracts\Search;
 | application.
 |
 */
-Route::resource('tickets', 'TicketController');
-Route::get('tickets/{ticket}/subscribe', 'TicketController@subscribe');
-Route::get('tickets/{ticket}/respond', 'TicketController@respond');
-Route::post('tickets/{ticket}/respond', 'TicketController@updateResponse');
-Route::post('tickets/{ticket}/comment', 'CommentController@create');
-
 Route::view('create', 'create');
 Route::view('search', 'search');
 

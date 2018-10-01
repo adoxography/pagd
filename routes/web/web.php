@@ -78,17 +78,6 @@ Route::get('search/form', 'SearchController@form');
 Route::get('search/smart', 'SearchController@smart');
 Route::get('search/smart/results', 'SearchController@smartResults');
 
-// Autocomplete Routes
-Route::get('autocomplete/forms', 'AutocompleteController@forms');
-Route::get('autocomplete/formParents', 'AutocompleteController@formParents');
-Route::get('autocomplete/examples', 'AutocompleteController@examples');
-Route::get('autocomplete/exampleParents', 'AutocompleteController@exampleParents');
-Route::get('autocomplete/morphemes', 'AutocompleteController@morphemes');
-Route::get('autocomplete/morphemeParents', 'AutocompleteController@morphemeParents');
-Route::get('autocomplete/sources', 'AutocompleteController@sources');
-Route::get('autocomplete/phonemes', 'AutocompleteController@phonemes');
-Route::get('autocomplete/phonemeParents', 'AutocompleteController@phonemeParents');
-
 Route::get('log', 'LogController@index');
 Route::post('sources/ajax', 'SourceController@store');
 

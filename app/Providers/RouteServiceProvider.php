@@ -76,6 +76,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes('reflexes', 'Phonology');
 
         $this->mapWebRoutes('tickets', 'Tickets');
+        $this->mapWebRoutes('autocomplete');
 
         Route::middleware('web')
             ->namespace($this->namespace)

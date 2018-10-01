@@ -40,14 +40,6 @@ Route::get('changelog', 'HomeController@changelog');
 Route::get('/missing/page-numbers', 'MissingController@editPageNumbers');
 Route::patch('/missing/page-numbers', 'MissingController@updatePageNumbers');
 
-//Route::get('sandbox', function () {
-    //return view('sandbox');
-//});
-
-//Route::post('sandbox', function () {
-    //dd(request()->all());
-//});
-
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware('auth');
 
 Route::post('upload/audio', 'UploadController@audio');
@@ -61,10 +53,6 @@ Route::post('backup', 'BackupController@store');
 
 Route::get('resources', 'PageController@resources');
 Route::get('resources/statistics', 'PageController@statistics');
-
-// Contact Routes
-// Route::get('contact',  'ContactController@index');
-// Route::post('contact', 'ContactController@send');
 
 // Search Routes
 Route::get('search/text', 'SearchController@index');

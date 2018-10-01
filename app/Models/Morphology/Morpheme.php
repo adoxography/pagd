@@ -4,8 +4,8 @@ namespace App\Models\Morphology;
 
 use Algling\Nominals\Models\Form as NominalForm;
 use Algling\Verbals\Models\Form as VerbForm;
-use Algling\Words\Models\Example;
-use Algling\Words\Models\Form;
+use App\Models\Words\Example;
+use App\Models\Words\Form;
 use App\BacksUpTrait;
 use App\BookmarkableTrait;
 use App\ChangeType;

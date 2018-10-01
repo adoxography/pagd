@@ -4,7 +4,7 @@ namespace Algling\Verbals\Models;
 
 use Algling\Verbals\FormPresenter;
 use Algling\Verbals\Traits\HasStructureTrait;
-use Algling\Words\Models\Form as WordForm;
+use App\Models\Words\Form as WordForm;
 use Illuminate\Database\Eloquent\Builder;
 
 class Form extends WordForm

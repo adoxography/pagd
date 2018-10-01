@@ -52,6 +52,8 @@ class ViewComposerServiceProvider extends ServiceProvider
         $this->composeVariableForm();
         $this->composeDatapointForm();
 
+        $this->composeExampleForm();
+
         $this->composeSearch();
     }
 
@@ -192,6 +194,17 @@ class ViewComposerServiceProvider extends ServiceProvider
             $data = [
                 'languages' => Language::select('id', 'name')->get(),
                 'variables' => Variable::select('id', 'name')->with('values')->get()
+            ];
+            $view->with($data);
+        });
+    }
+
+    private function composeExampleForm()
+    {
+        view()->composer('words.examples.partials.form', function ($view) {
+
+            $data = [
+                'languages' => Language::select('id', 'name')->get()
             ];
             $view->with($data);
         });

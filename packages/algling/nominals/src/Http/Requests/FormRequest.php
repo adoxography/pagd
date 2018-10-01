@@ -3,7 +3,7 @@
 namespace Algling\Nominals\Http\Requests;
 
 use Auth;
-use Algling\Words\Http\Requests\FormRequest as WordFormRequest;
+use App\Http\Requests\Words\FormRequest as WordFormRequest;
 
 class FormRequest extends WordFormRequest
 {

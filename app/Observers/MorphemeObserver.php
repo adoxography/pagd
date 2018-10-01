@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
-use Algling\Words\Models\Form;
-use Algling\Words\Models\Example;
+use App\Models\Words\Form;
+use App\Models\Words\Example;
 use App\Models\Morphology\Morpheme;
 
 class MorphemeObserver

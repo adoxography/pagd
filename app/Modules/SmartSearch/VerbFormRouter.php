@@ -5,7 +5,7 @@ namespace App\Modules\SmartSearch;
 use Algling\Verbals\Models\Mode;
 use Algling\Verbals\Models\Order;
 use Algling\Verbals\Models\VerbClass;
-use Algling\Words\Models\Feature;
+use App\Models\Words\Feature;
 use App\Group;
 use App\Language;
 

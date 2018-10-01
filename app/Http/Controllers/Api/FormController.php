@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Algling\Words\Models\Form;
+use App\Models\Words\Form;
 use App\Http\Resources\Form as FormResource;
 use App\Http\Resources\FormCollection;
 

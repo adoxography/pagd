@@ -4,7 +4,7 @@ namespace Algling\Verbals\Models;
 
 use Algling\Verbals\GapPresenter;
 use Algling\Verbals\Traits\HasStructureTrait;
-use Algling\Words\Models\Gap as WordGap;
+use App\Models\Words\Gap as WordGap;
 use Illuminate\Database\Eloquent\Builder;
 
 class Gap extends WordGap

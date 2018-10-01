@@ -2,7 +2,7 @@
 
 use App\Models\Phonology\Phoneme;
 use Algling\Verbals\Models\Form;
-use Algling\Words\Models\Example;
+use App\Models\Words\Example;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class HasPhonemesTest extends TestCase

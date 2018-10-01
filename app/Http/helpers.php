@@ -1,8 +1,8 @@
 <?php
 
 use Adoxography\VerbalExpressions\Expression;
-use Algling\Words\Models\Example;
-use Algling\Words\Models\Form;
+use App\Models\Words\Example;
+use App\Models\Words\Form;
 use App\Language;
 use App\Models\Morphology\Morpheme;
 use App\Source;
@@ -26,7 +26,7 @@ function roundUpTo($n, $x)
 
 function assessAllForms()
 {
-    $forms = \Algling\Words\Models\Form::all();
+    $forms = \App\Models\Words\Form::all();
     foreach ($forms as $form) {
         $form->connectMorphemes();
     }

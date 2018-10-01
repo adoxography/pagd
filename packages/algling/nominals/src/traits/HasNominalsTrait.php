@@ -4,7 +4,7 @@ namespace Algling\Nominals\Traits;
 
 use Algling\Nominals\Models\Form;
 use Algling\Nominals\Models\Paradigm;
-use Algling\Words\Traits\HasWordsTrait;
+use App\Traits\HasWordsTrait;
 use App\Models\Morphology\Morpheme;
 
 trait HasNominalsTrait {

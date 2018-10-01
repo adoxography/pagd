@@ -1,6 +1,6 @@
 <?php
 
-use Algling\Words\Models\Example;
+use App\Models\Words\Example;
 use App\Language;
 use Faker\Generator as Faker;
 

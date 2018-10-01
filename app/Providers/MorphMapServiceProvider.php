@@ -20,10 +20,10 @@ class MorphMapServiceProvider extends ServiceProvider
         Relation::morphMap([
             'verbForms'  => 'Algling\Verbals\Models\Form',
             'nominalForms' => NominalForm::class,
-            'forms'      => 'Algling\Words\Models\Form',
-            'examples'   => 'Algling\Words\Models\Example',
+            'forms'      => 'App\Models\Words\Form',
+            'examples'   => 'App\Models\Words\Example',
             'morphemes'  => Morpheme::class,
-            'gaps'       => 'Algling\Words\Models\Gap',
+            'gaps'       => 'App\Models\Words\Gap',
             'datapoints' => 'App\Models\StructuralSurvey\Datapoint',
             'rules'      => 'App\Rule',
             'verbStructures' => 'Algling\Verbals\Models\Structure',

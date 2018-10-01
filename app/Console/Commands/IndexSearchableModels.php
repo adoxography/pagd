@@ -2,13 +2,13 @@
 
 namespace App\Console\Commands;
 
+use Artisan;
 use App\Language;
 use App\Models\Morphology\Morpheme;
+use App\Models\Words\Form;
+use App\Models\Words\Example;
 use App\Source;
 use Illuminate\Console\Command;
-use Algling\Words\Models\Form;
-use Algling\Words\Models\Example;
-use Artisan;
 
 class IndexSearchableModels extends Command
 {

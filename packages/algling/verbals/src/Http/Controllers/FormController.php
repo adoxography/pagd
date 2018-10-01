@@ -5,7 +5,7 @@ namespace Algling\Verbals\Http\Controllers;
 use Algling\Verbals\Http\Requests\FormRequest;
 use Algling\Verbals\Models\Form;
 use Algling\Verbals\Models\Gap;
-use Algling\Words\Traits\ConvertsMorphemes;
+use App\Traits\ConvertsMorphemes;
 use App\Http\Controllers\AlgModelController;
 
 /**

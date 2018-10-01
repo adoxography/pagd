@@ -4,7 +4,7 @@ namespace Algling\Nominals\Http\Controllers;
 
 use Algling\Nominals\Http\Requests\FormRequest;
 use Algling\Nominals\Models\Form;
-use Algling\Words\Traits\ConvertsMorphemes;
+use App\Traits\ConvertsMorphemes;
 use App\Http\Controllers\Controller;
 
 class FormController extends Controller

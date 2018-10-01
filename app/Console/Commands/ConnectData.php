@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Algling\Words\Models\Example;
-use Algling\Words\Models\Form;
+use App\Models\Words\Example;
+use App\Models\Words\Form;
 use App\Models\Morphology\Morpheme;
 use Illuminate\Console\Command;
 

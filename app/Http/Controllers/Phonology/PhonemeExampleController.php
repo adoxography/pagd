@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Phonology;
 
 use App\Models\Phonology\Phoneme;
-use Algling\Words\Http\Requests\ExampleRequest;
-use Algling\Words\Models\Example;
-use Algling\Words\Traits\ConvertsMorphemes;
+use Algling\Http\Requests\Words\ExampleRequest;
+use App\Models\Words\Example;
+use App\Traits\ConvertsMorphemes;
 use App\Http\Controllers\Controller;
 
 class PhonemeExampleController extends Controller

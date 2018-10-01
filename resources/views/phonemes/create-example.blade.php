@@ -5,5 +5,5 @@
 @endsection
 
 @section('content')
-    @include('word::examples.partials.form', ['method' => 'POST', 'action' => "/phonemes/{$phoneme->id}/examples"])
+    @include('words.examples.partials.form', ['method' => 'POST', 'action' => "/phonemes/{$phoneme->id}/examples"])
 @stop

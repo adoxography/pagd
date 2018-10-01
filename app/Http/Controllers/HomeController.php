@@ -122,6 +122,6 @@ class HomeController extends PageController
         }])
         ->where('Languages.name', '<>', 'Demo');
 
-        return view('word::forms.need-attention', compact('languages'));
+        return view('words.forms.need-attention', compact('languages'));
     }
 }

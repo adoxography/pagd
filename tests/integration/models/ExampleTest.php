@@ -1,6 +1,6 @@
 <?php
 
-use Algling\Words\Models\Example;
+use App\Models\Words\Example;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ExampleTest extends TestCase

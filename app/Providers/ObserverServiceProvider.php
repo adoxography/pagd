@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use Algling\Nominals\Models\Form as NominalForm;
 use Algling\Verbals\Models\Form as VerbForm;
-use Algling\Words\Models\Form as WordForm;
-use Algling\Words\Models\Observers\FormObserver;
+use App\Models\Words\Form as WordForm;
+use App\Models\Words\Observers\FormObserver;
 use App\Group;
 use App\IGT;
 use App\Language;

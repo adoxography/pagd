@@ -6,7 +6,7 @@ use App\Models\Phonology\ReflexGraph;
 use App\Presenters\PhonemePresenter;
 use App\Traits\Phonology\HasAllophonesTrait;
 use App\Traits\Phonology\HasTypeTrait;
-use Algling\Words\Models\Example;
+use App\Models\Words\Example;
 use App\BacksUpTrait;
 use App\BookmarkableTrait;
 use App\Language;

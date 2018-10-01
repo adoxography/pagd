@@ -2,7 +2,7 @@
 
 namespace Algling\Verbals\Models;
 
-use Algling\Words\Models\Feature;
+use App\Models\Words\Feature;
 use Illuminate\Database\Eloquent\Builder;
 
 /**

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Algling\Nominals\Models\Form as NominalForm;
 use App\Models\Phonology\Phoneme;
 use Algling\Verbals\Models\Form as VerbForm;
-use Algling\Words\Models\Example;
+use App\Models\Words\Example;
 use App\Language;
 use App\Models\Morphology\Morpheme;
 use App\Source;

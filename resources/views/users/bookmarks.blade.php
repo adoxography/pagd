@@ -35,10 +35,10 @@
 		<br />
 	@endif
 
-	@if(count($user->bookmarks(Algling\Words\Models\Example::class)) > 0)
+	@if(count($user->bookmarks(App\Models\Words\Example::class)) > 0)
 		<h4 class="subtitle is-4">Examples</h4>
 		<ul>
-			@foreach($user->bookmarks(Algling\Words\Models\Example::class) as $example)
+			@foreach($user->bookmarks(App\Models\Words\Example::class) as $example)
 				<li>
 					{!! $example->present()->as('unique', 'link')->then('language') !!}
 					@if($example->pivot->comment)

@@ -5,7 +5,7 @@ use Algling\Nominals\Models\Paradigm;
 use Algling\Nominals\Models\Structure as NominalStructure;
 use Algling\Verbals\Models\Form as VerbForm;
 use Algling\Verbals\Models\Structure as VerbStructure;
-use Algling\Words\Models\Form as WordForm;
+use App\Models\Words\Form as WordForm;
 use App\Language;
 use App\Models\Morphology\Morpheme;
 use Faker\Generator as Faker;

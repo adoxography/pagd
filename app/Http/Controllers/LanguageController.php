@@ -136,7 +136,7 @@ class LanguageController extends AlgModelController
      */
     public function addExample(Language $language)
     {
-        return view('word::examples.create')->with('language', $language);
+        return view('words.examples.create')->with('language', $language);
     }
 
     /**

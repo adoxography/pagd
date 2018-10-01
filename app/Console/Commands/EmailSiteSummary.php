@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Models\Phonology\Phoneme;
-use Algling\Words\Models\Example;
-use Algling\Words\Models\Form;
+use App\Models\Words\Example;
+use App\Models\Words\Form;
 use App\Language;
 use App\Mail\SiteSummary;
 use App\Models\Morphology\Morpheme;

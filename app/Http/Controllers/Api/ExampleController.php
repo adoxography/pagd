@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Algling\Words\Models\Example;
+use App\Models\Words\Example;
 use App\Http\Resources\Example as ExampleResource;
 use App\Http\Resources\ExampleCollection;
 

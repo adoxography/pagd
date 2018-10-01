@@ -2,7 +2,7 @@
 
 namespace Algling\Verbals;
 
-use Algling\Words\FormPresenter as WordFormPresenter;
+use App\Presenters\Words\FormPresenter as WordFormPresenter;
 
 class FormPresenter extends WordFormPresenter
 {

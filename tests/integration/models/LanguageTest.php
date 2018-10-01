@@ -1,7 +1,7 @@
 <?php
 
 use Algling\Verbals\Models\Form as VerbForm;
-use Algling\Words\Models\Form as WordForm;
+use App\Models\Words\Form as WordForm;
 use App\Group;
 use App\Language;
 use App\Models\Morphology\Morpheme;

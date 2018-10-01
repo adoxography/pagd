@@ -10,6 +10,9 @@ use App\Models\Morphology\Slot;
 use App\Models\Phonology\Reflex;
 use App\Models\StructuralSurvey\Value;
 use App\Models\StructuralSurvey\Variable;
+use App\Models\Words\Example as WordExample;
+use App\Models\Words\Gap;
+use App\Models\Words\Form as WordForm;
 use App\Rule;
 use App\Source;
 use Route;
@@ -35,7 +38,10 @@ class RouteServiceProvider extends ServiceProvider
         Slot::class => 'slot',
         Reflex::class => 'reflex',
         Value::class => 'value',
-        Variable::class => 'variable'
+        Variable::class => 'variable',
+        WordForm::class => 'form',
+        WordExample::class => 'example',
+        Gap::class => 'emptyform'
     ];
 
     /**
@@ -82,6 +88,10 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes('variables',  'StructuralSurvey');
         $this->mapWebRoutes('datapoints', 'StructuralSurvey');
+
+        $this->mapWebRoutes('forms',    'Words');
+        $this->mapWebRoutes('examples', 'Words');
+        $this->mapWebRoutes('features', 'Words');
 
         $this->mapWebRoutes('admin');
         $this->mapWebRoutes('users');

@@ -3,7 +3,7 @@
 namespace Algling\Nominals\Models;
 
 use Algling\Nominals\StructurePresenter;
-use Algling\Words\Models\Feature;
+use App\Models\Words\Feature;
 use Illuminate\Database\Eloquent\Model;
 
 class Structure extends Model

@@ -2,7 +2,7 @@
 
 namespace Algling\Verbals\Models;
 
-use Algling\Words\Models\Example as WordExample;
+use App\Models\Words\Example as WordExample;
 
 class Example extends WordExample
 {

@@ -2,7 +2,7 @@
 
 namespace Algling\Verbals\Http\Requests;
 
-use Algling\Words\Http\Requests\FormRequest as Request;
+use Algling\Http\Requests\Words\FormRequest as Request;
 
 class FormRequest extends Request
 {

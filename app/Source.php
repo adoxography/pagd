@@ -2,16 +2,16 @@
 
 namespace App;
 
-use Algling\Nominals\Models\Form as NominalForm;
-use Algling\Nominals\NominalFormRepositoryInterface;
-use App\Models\Verbs\Form as VerbForm;
+use App\Interfaces\NominalFormRepositoryInterface;
 use App\Interfaces\VerbFormRepositoryInterface;
+use App\Models\Morphology\Morpheme;
+use App\Models\Nominals\Form as NominalForm;
+use App\Models\Phonology\Phoneme;
+use App\Models\Verbs\Form as VerbForm;
 use App\Models\Words\Example;
 use App\Models\Words\Form;
 use App\Models\Words\FormRepository;
 use App\Models\Words\Gap;
-use App\Models\Phonology\Phoneme;
-use App\Models\Morphology\Morpheme;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\Verbs\Structure as VerbStructure;
-use Algling\Nominals\Models\Structure as NominalStructure;
+use App\Models\Nominals\Structure as NominalStructure;
 
 class Structure extends JsonResource
 {

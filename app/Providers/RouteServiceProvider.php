@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Phonology\Phoneme;
 use App\Language;
+use App\Models\Nominals\Form as NominalForm;
 use App\Models\Morphology\Gloss;
 use App\Models\Morphology\Morpheme;
 use App\Models\Morphology\Slot;
@@ -44,9 +45,9 @@ class RouteServiceProvider extends ServiceProvider
         Value::class    => 'value',
         Variable::class => 'variable',
 
-        VerbForm::class => 'verbForm',
-        VerbGap::class  => 'verbGap',
-
+        NominalForm::class => 'nominalForm',
+        VerbForm::class    => 'verbForm',
+        VerbGap::class     => 'verbGap',
         WordExample::class => 'example',
         WordForm::class    => 'form',
         WordGap::class     => 'emptyform'
@@ -92,16 +93,17 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes('morphemes', 'Morphology');
 
         $this->mapWebRoutes('phonemes', 'Phonology');
-        $this->mapWebroutes('clusters', 'Phonology');
+        $this->mapWebRoutes('clusters', 'Phonology');
         $this->mapWebRoutes('reflexes', 'Phonology');
 
         $this->mapWebRoutes('variables',  'StructuralSurvey');
         $this->mapWebRoutes('datapoints', 'StructuralSurvey');
 
+        $this->mapWebRoutes('nominals', 'Nominals');
         $this->mapWebRoutes('forms',    'Words');
         $this->mapWebRoutes('examples', 'Words');
         $this->mapWebRoutes('features', 'Words');
-        $this->mapWebroutes('verbs', 'Verbs');
+        $this->mapWebroutes('verbs',    'Verbs');
 
         $this->mapWebRoutes('admin');
         $this->mapWebRoutes('users');

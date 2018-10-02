@@ -1,8 +1,8 @@
 <?php
 
-use Algling\Nominals\Models\Form as NominalForm;
-use Algling\Nominals\Models\Paradigm;
-use Algling\Nominals\Models\Structure as NominalStructure;
+use App\Models\Nominals\Form as NominalForm;
+use App\Models\Nominals\Paradigm;
+use App\Models\Nominals\Structure as NominalStructure;
 use App\Models\Verbs\Form as VerbForm;
 use App\Models\Verbs\Structure as VerbStructure;
 use App\Models\Words\Form as WordForm;

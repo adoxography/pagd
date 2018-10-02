@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Morphology\Morpheme;
-use Algling\Nominals\Models\Form as NominalForm;
+use App\Models\Nominals\Form as NominalForm;
 use App\Models\Phonology\Phoneme;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
@@ -27,7 +27,7 @@ class MorphMapServiceProvider extends ServiceProvider
             'datapoints' => 'App\Models\StructuralSurvey\Datapoint',
             'rules'      => 'App\Rule',
             'verbStructures' => 'App\Models\Verbs\Structure',
-            'nominalStructures' => 'Algling\Nominals\Models\Structure',
+            'nominalStructures' => 'App\Models\Nominals\Structure',
             'phonemes' => Phoneme::class,
             'consonantTypes' => 'App\Models\Phonology\ConsonantType',
             'vowelTypes' => 'App\Models\Phonology\VowelType',

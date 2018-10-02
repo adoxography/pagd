@@ -2,7 +2,7 @@
 
 namespace App\Modules\SmartSearch;
 
-use Algling\Nominals\Models\ParadigmType;
+use App\Models\Nominals\ParadigmType;
 use App\Models\Verbs\Mode;
 use App\Models\Verbs\Order;
 use App\Models\Verbs\VerbClass;

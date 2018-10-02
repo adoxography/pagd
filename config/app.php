@@ -154,7 +154,6 @@ return [
         TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
-        Algling\Nominals\NominalServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Adoxography\VerbalExpressions\VerbalExpressionServiceProvider::class,
 

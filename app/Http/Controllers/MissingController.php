@@ -18,9 +18,9 @@ class MissingController extends Controller
         $classes = [
             \App\Models\Morphology\Morpheme::class => 'morpheme',
             \App\Models\Verbs\Form::class => 'verb form',
-            \Algling\Nominals\Models\Form::class => 'nominal form',
+            \App\Models\Nominals\Form::class => 'nominal form',
             \App\Models\Verbs\Example::class => 'verb example',
-            \Algling\Nominals\Models\Example::class => 'nominal example',
+            \App\Models\Nominals\Example::class => 'nominal example',
             \App\Rule::class => 'rule'
         ];
 

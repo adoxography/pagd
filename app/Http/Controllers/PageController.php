@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Algling\Nominals\Models\Form as NominalForm;
+use App\Models\Nominals\Form as NominalForm;
 use App\Models\Phonology\Phoneme;
 use App\Models\Verbs\Form as VerbForm;
 use App\Models\Words\Example;

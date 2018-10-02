@@ -1,6 +1,6 @@
 <?php
 
-namespace Algling\Morpheme;
+namespace App\Models\Morphology\Morpheme;
 
 use App\AlgPresenter;
 

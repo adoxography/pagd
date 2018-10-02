@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Words;
 
-use Algling\Http\Requests\Words\ExampleRequest;
+use App\Http\Requests\Words\ExampleRequest;
 use App\Models\Words\Example;
 use App\Traits\ConvertsMorphemes;
 use App\Http\Controllers\AlgModelController;

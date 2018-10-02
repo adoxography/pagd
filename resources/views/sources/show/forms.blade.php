@@ -19,6 +19,6 @@ $hasNominals = $source->nominalForms()->count() + $source->nominalExamples()->co
 
 	@if($hasNominals)
 		<h4 class="title is-4">Nominals</h4>
-		@include('nom::partials.show.nominals', ['model' => $source, 'showAddButtons' => false])
+		@include('nominals.partials.show.nominals', ['model' => $source, 'showAddButtons' => false])
 	@endif
 @endsection

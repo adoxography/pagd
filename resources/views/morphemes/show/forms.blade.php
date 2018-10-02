@@ -19,6 +19,6 @@ $hasNominals = $morpheme->nominalForms()->count() + $morpheme->nominalExamples()
 
 	@if($hasNominals)
 		<h4 class="title is-4">Nominals</h4>
-		@include('nom::partials.show.nominals', ['model' => $morpheme, 'showAddButtons' => false])
+		@include('nominals.partials.show.nominals', ['model' => $morpheme, 'showAddButtons' => false])
 	@endif
 @endsection

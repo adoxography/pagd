@@ -152,7 +152,7 @@ class LanguageController extends AlgModelController
 
     public function addNominalForm(Language $language)
     {
-        return view('nom::forms.create')->with('language', $language);
+        return view('nominals.forms.create')->with('language', $language);
     }
 
     /**
@@ -179,7 +179,7 @@ class LanguageController extends AlgModelController
 
     public function addParadigm(Language $language)
     {
-        return view('nom::paradigms.create', compact('language'));
+        return view('nominals.paradigms.create', compact('language'));
     }
 
     public function addPhoneme(Language $language)

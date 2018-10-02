@@ -6,7 +6,7 @@ use App\Models\Morphology\Morpheme;
 use App\RegistrationCode;
 use App\User;
 use App\Source;
-use Algling\Nominals\Models\Form as NominalForm;
+use App\Models\Nominals\Form as NominalForm;
 use App\Models\Phonology\Length;
 use App\Models\Phonology\Height;
 use App\Models\Phonology\Backness;

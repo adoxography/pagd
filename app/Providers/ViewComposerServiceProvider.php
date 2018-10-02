@@ -2,13 +2,15 @@
 
 namespace App\Providers;
 
-use App\Models\Verbs\Argument;
-use App\Models\Verbs\Mode;
-use App\Models\Verbs\Order;
-use App\Models\Verbs\VerbClass;
 use App\ChangeType;
 use App\Group;
 use App\Language;
+use App\RuleType;
+use App\IGTLineType;
+
+use App\Models\Nominals\NominalFeature;
+use App\Models\Nominals\Paradigm;
+use App\Models\Nominals\PronominalFeature;
 
 use App\Models\Morphology\Gloss;
 use App\Models\Morphology\Slot;
@@ -24,8 +26,11 @@ use App\Models\StructuralSurvey\Type;
 use App\Models\StructuralSurvey\Value;
 use App\Models\StructuralSurvey\Variable;
 
-use App\RuleType;
-use App\IGTLineType;
+use App\Models\Verbs\Argument;
+use App\Models\Verbs\Mode;
+use App\Models\Verbs\Order;
+use App\Models\Verbs\VerbClass;
+
 use Illuminate\Support\ServiceProvider;
 
 class ViewComposerServiceProvider extends ServiceProvider
@@ -54,6 +59,8 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         $this->composeExampleForm();
         $this->composeVerbFormForm();
+        $this->composeNominalFormForm();
+        $this->composeShowNominals();
 
         $this->composeSearch();
     }
@@ -195,6 +202,31 @@ class ViewComposerServiceProvider extends ServiceProvider
             $data = [
                 'languages' => Language::select('id', 'name')->get(),
                 'variables' => Variable::select('id', 'name')->with('values')->get()
+            ];
+            $view->with($data);
+        });
+    }
+
+    protected function composeNominalFormForm()
+    {
+        view()->composer('nominals.forms.partials.form', function ($view) {
+            $data = [
+                'languages'          => Language::select(['name', 'id'])->get(),
+                'pronominalFeatures' => PronominalFeature::all(),
+                'nominalFeatures'    => NominalFeature::all(),
+                'paradigms'          => Paradigm::with('type')->get(),
+                'changeTypes'        => ChangeType::all()
+            ];
+            $view->with($data);
+        });
+    }
+
+    protected function composeShowNominals()
+    {
+        view()->composer('nominals.partials.show.nominals', function ($view) {
+            $data = [
+                'pronominalFeatures' => PronominalFeature::all(),
+                'nominalFeatures'    => NominalFeature::all()
             ];
             $view->with($data);
         });

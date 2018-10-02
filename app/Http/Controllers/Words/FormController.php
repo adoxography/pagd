@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Words;
 
 use App\Models\Words\Form;
 use App\Models\Verbs\Form as VerbForm;
-use Algling\Nominals\Models\Form as NominalForm;
+use App\Models\Nominals\Form as NominalForm;
 use App\Http\Controllers\AlgModelController;
 
 /**

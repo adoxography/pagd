@@ -1,10 +1,10 @@
 <?php
 
-use Algling\Nominals\Models\NominalFeature;
-use Algling\Nominals\Models\Paradigm;
-use Algling\Nominals\Models\ParadigmType;
-use Algling\Nominals\Models\PronominalFeature;
-use Algling\Nominals\Models\Structure as NominalStructure;
+use App\Models\Nominals\NominalFeature;
+use App\Models\Nominals\Paradigm;
+use App\Models\Nominals\ParadigmType;
+use App\Models\Nominals\PronominalFeature;
+use App\Models\Nominals\Structure as NominalStructure;
 use App\Models\Verbs\Argument;
 use App\Models\Verbs\Mode;
 use App\Models\Verbs\Order;

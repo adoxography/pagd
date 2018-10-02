@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use Algling\Nominals\Models\Form as NominalForm;
+use App\Models\Nominals\Form as NominalForm;
 use App\Models\Verbs\Form as VerbForm;
 use App\Models\Words\Form as WordForm;
 use App\Models\Words\Observers\FormObserver;

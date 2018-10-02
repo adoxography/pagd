@@ -1,7 +1,7 @@
 <?php
 namespace App;
 
-use Algling\Nominals\Traits\HasNominalsTrait;
+use App\Traits\Nominals\HasNominalsTrait;
 use App\Models\Phonology\Inventory;
 use App\Models\Phonology\Phoneme;
 use App\Models\StructuralSurvey\Datapoint;

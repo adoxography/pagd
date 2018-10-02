@@ -1,7 +1,7 @@
 * text=auto
 *.css linguist-vendored
-/public/assets/ linguist-generated=true
-/public/css/ linguist-generated=true
-/public/build/ linguist-generated=true
+/public/assets linguist-generated=true
+/public/css linguist-generated=true
+/public/build linguist-generated=true
 /public/fonts linguist-generated=true
-/public/js/ linguist-generated=true
+/public/js linguist-generated=true

@@ -1,0 +1,60 @@
+.admin-menu {
+    position: fixed;
+    padding: .5em;
+    height: 100%;
+    width: 10em;
+    box-shadow: 2px 0 5px -2px #888;
+
+    .menu-list {
+        a {
+            padding-top: 0;
+            padding-bottom: .25em;
+
+            &:hover {
+                box-shadow: none;
+                -webkit-box-shadow: none;
+            }
+        }
+
+        li ul {
+            margin-top: 0;
+            margin-bottom: .5em;
+        }
+
+    }
+
+    .back-button {
+        margin-top: .5em;
+        text-align: center;
+        background-color: $yellow;
+
+        a {
+            display: block;
+            color: $sandbox-grey;
+            box-shadow: none;
+            -webkit-box-shadow: none;
+
+            &:hover {
+                background-color: $primary;
+                color: $white;
+            }
+        }
+    }
+}
+
+.admin-body {
+    margin-left: 10em;
+
+    .admin-header {
+        padding: 1em 2em;
+        background-color: $yellow;
+    }
+
+    .admin-content {
+        padding: 1em .75em;
+
+        .title.is-2 {
+            font-size: 1.5rem;
+        }
+    }
+}

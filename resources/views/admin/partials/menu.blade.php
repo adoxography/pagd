@@ -13,5 +13,5 @@
             </li>
         @endforeach
     </ul>
-    <p class="menu-label"><a href="/">Back</a></p>
+    <p class="back-button"><a href="/">Back</a></p>
 </aside>

@@ -21,8 +21,11 @@
                                     class="button is-danger"
                                     @if($disableTest($item))
                                         disabled="disabled"
+                                        title="Value in use"
+                                    @else
+                                        title="Delete"
                                     @endif
-                            >Delete</button>
+                            ><i class="fa fa-times"></i></button>
                         @endcomponent
                     </td>
                 @endforeach

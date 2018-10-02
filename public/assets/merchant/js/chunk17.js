@@ -236,9 +236,15 @@ var render = function() {
       _vm._t("default"),
       _vm._v(" "),
       _c("portal", { attrs: { to: _vm.portalName } }, [
-        _c("a", { staticClass: "button", on: { click: _vm.toggle } }, [
-          _c("i", { staticClass: "fa fa-keyboard-o" })
-        ])
+        _c(
+          "a",
+          {
+            staticClass: "button",
+            attrs: { title: "Special characters" },
+            on: { click: _vm.toggle }
+          },
+          [_c("i", { staticClass: "fa fa-keyboard-o" })]
+        )
       ])
     ],
     2

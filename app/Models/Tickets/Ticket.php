@@ -7,7 +7,7 @@ use App\Models\Tickets\Comment;
 use App\Models\Tickets\TicketType;
 use App\Presenters\AlgPresenter;
 use App\Traits\SubscribeableTrait;
-use App\SubscribeableInterface;
+use App\Interfaces\SubscribeableInterface;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 

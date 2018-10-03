@@ -8,7 +8,7 @@ use App\Traits\BookmarkableTrait;
 use App\Traits\HasChildrenTrait;
 use App\Traits\HideableTrait;
 use App\Models\Language;
-use App\PhonemeableInterface;
+use App\Interfaces\PhonemeableInterface;
 use App\Traits\ReconstructableTrait;
 use App\Traits\SourceableTrait;
 use App\Traits\HasMorphemesTrait;

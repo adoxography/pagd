@@ -13,7 +13,7 @@ use App\Traits\DisambiguatableTrait;
 use App\Traits\HasChildrenTrait;
 use App\Traits\HideableTrait;
 use App\Models\Language;
-use App\PhonemeableInterface;
+use App\Interfaces\PhonemeableInterface;
 use App\Presenters\MorphemePresenter;
 use App\Traits\ReconstructableTrait;
 use App\Traits\SourceableTrait;

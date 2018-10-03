@@ -372,15 +372,15 @@ try {
         forgetName('App\Traits\SourceableTrait');
     }
 try {
-    $su = App\SubscribeableInterface::first() ?: new App\SubscribeableInterface;
-    $su_ = App\SubscribeableInterface::latest($latestColumn)->first() ?: new App\SubscribeableInterface;
+    $su = App\Interfaces\SubscribeableInterface::first() ?: new App\Interfaces\SubscribeableInterface;
+    $su_ = App\Interfaces\SubscribeableInterface::latest($latestColumn)->first() ?: new App\Interfaces\SubscribeableInterface;
     if (!function_exists('su')) {
         function su(...$args) {
-            return getQueryInstance('App\SubscribeableInterface', ...$args);
+            return getQueryInstance('App\Interfaces\SubscribeableInterface', ...$args);
         }
     }
 } catch (\Illuminate\Database\QueryException $e) {
-        forgetName('App\SubscribeableInterface');
+        forgetName('App\Interfaces\SubscribeableInterface');
     }
 try {
     $tickett = App\Models\Tickets\TicketType::first() ?: new App\Models\Tickets\TicketType;

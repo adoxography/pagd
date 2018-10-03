@@ -2,7 +2,7 @@
 
 namespace App\Presenters;
 
-use App\PhonemeableInterface;
+use App\Interfaces\PhonemeableInterface;
 use Illuminate\Support\Collection;
 
 trait PhonemeablePresentation

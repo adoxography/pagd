@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\RegistrationCode;
+use App\Models\Users\RegistrationCode;
 use Illuminate\Http\Request;
 
 class RegistrationCodeController extends Controller

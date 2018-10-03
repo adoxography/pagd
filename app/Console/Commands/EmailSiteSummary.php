@@ -8,7 +8,7 @@ use App\Models\Words\Form;
 use App\Models\Language;
 use App\Mail\SiteSummary;
 use App\Models\Morphology\Morpheme;
-use App\User;
+use App\Models\Users\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Mail;

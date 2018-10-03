@@ -3,7 +3,7 @@
 namespace App\Models\Tickets;
 
 use App\Models\Tickets\Ticket;
-use App\User;
+use App\Models\Users\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model

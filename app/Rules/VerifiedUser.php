@@ -2,7 +2,7 @@
 
 namespace App\Models\Rules\Rules;
 
-use App\RegistrationCode;
+use App\Models\Users\RegistrationCode;
 use Illuminate\Contracts\Validation\Rule;
 
 class VerifiedUser implements Rule

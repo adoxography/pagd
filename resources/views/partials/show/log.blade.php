@@ -1,7 +1,7 @@
 @php
 
 $userIDs = $model->revisionHistory->pluck('user_id');
-$users = App\User::whereIn('id', $userIDs)->orderBy('lastName')->get();
+$users = App\Models\Users\User::whereIn('id', $userIDs)->orderBy('lastName')->get();
 
 $creation = $model->revisionHistory->where('key', 'created_at')->first();
 @endphp

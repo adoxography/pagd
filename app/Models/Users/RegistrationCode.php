@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models\Users;
 
-use App\User;
+use App\Models\Users\User;
 use Illuminate\Database\Eloquent\Model;
 
 class RegistrationCode extends Model

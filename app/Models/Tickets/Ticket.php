@@ -2,7 +2,7 @@
 
 namespace App\Models\Tickets;
 
-use App\User;
+use App\Models\Users\User;
 use App\Models\Tickets\Comment;
 use App\Models\Tickets\TicketType;
 use App\Presenters\AlgPresenter;

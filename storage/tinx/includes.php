@@ -52,14 +52,14 @@ function getQueryInstance($class, ...$args)
     $totalArgs = count($args);
 
     /**
-     * Zero arguments (i.e. u() returns "App\User").
+     * Zero arguments (i.e. u() returns "App\Models\Users\User").
      * */
     if ($totalArgs === 0) {
         return $class; // Return a clean starting point for the query builder.
     }
 
     /**
-     * One argument (i.e. u(2) returns App\User::find(2)).
+     * One argument (i.e. u(2) returns App\Models\Users\User::find(2)).
      * */
     if ($totalArgs === 1) {
         $arg = $args[0];
@@ -91,8 +91,8 @@ function getQueryInstance($class, ...$args)
 
     /**
      * The query builder's "where" method accepts up to 4 arguments, but let's lock it to 3.
-     * Two arguments (i.e. u("name", "Anders") returns App\User::where("name", "Anders")).
-     * Three arguments (i.e. u("id", ">", 1) returns App\User::where("id", ">", 1)).
+     * Two arguments (i.e. u("name", "Anders") returns App\Models\Users\User::where("name", "Anders")).
+     * Three arguments (i.e. u("id", ">", 1) returns App\Models\Users\User::where("id", ">", 1)).
      * */
     if ($totalArgs >= 2 && $totalArgs <= 3) {
         return $class::where(...$args)->get();
@@ -394,15 +394,15 @@ try {
         forgetName('App\Models\Tickets\TicketType');
     }
 try {
-    $userr = App\UserRole::first() ?: new App\UserRole;
-    $userr_ = App\UserRole::latest($latestColumn)->first() ?: new App\UserRole;
+    $userr = App\Models\Users\UserRole::first() ?: new App\Models\Users\UserRole;
+    $userr_ = App\Models\Users\UserRole::latest($latestColumn)->first() ?: new App\Models\Users\UserRole;
     if (!function_exists('userr')) {
         function userr(...$args) {
-            return getQueryInstance('App\UserRole', ...$args);
+            return getQueryInstance('App\Models\Users\UserRole', ...$args);
         }
     }
 } catch (\Illuminate\Database\QueryException $e) {
-        forgetName('App\UserRole');
+        forgetName('App\Models\Users\UserRole');
     }
 unset($latestColumn);
 

@@ -3,7 +3,7 @@
 namespace App\Mail;
 
 use App\Models\Tickets\Ticket;
-use App\User;
+use App\Models\Users\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;

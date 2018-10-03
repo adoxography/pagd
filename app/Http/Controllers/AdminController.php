@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Morphology\Morpheme;
-use App\RegistrationCode;
-use App\User;
+use App\Models\Users\RegistrationCode;
+use App\Models\Users\User;
 use App\Models\Source;
 use App\Models\Nominals\Form as NominalForm;
 use App\Models\Phonology\Length;

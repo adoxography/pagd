@@ -3,7 +3,7 @@
 namespace Tests\Browser;
 
 use App\Models\Language;
-use App\User;
+use App\Models\Users\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\DuskTestCase;
 

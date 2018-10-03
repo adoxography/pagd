@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace App\Models\Users;
 
 use App\Models\Tickets\Comment;
 use Carbon\Carbon;

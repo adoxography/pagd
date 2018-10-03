@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\TicketOpened;
 use App\Models\Tickets\Ticket;
 use App\Models\Tickets\TicketType;
-use App\User;
+use App\Models\Users\User;
 use Auth;
 use Illuminate\Database\Eloquent\Collection;
 use Mail;

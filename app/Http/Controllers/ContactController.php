@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Models\Users\User;
 use App\Mail\Contact;
 use Illuminate\Http\Request;
 use Mail;

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Mail\RegistrationContact;
 use App\Rules\VerifiedUser;
-use App\User;
+use App\Models\Users\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Validator;
 

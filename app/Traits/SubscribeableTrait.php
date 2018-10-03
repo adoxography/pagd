@@ -3,7 +3,7 @@
 namespace App\Traits;
 
 use App\Mail\TicketUpdated;
-use App\User;
+use App\Models\Users\User;
 use Mail;
 
 trait SubscribeableTrait

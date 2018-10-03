@@ -2,7 +2,7 @@
 
 namespace App\Models\Verbs;
 
-use App\AlgPresenter;
+use App\Presenters\AlgPresenter;
 use App\Models\Verbs\Structure;
 use Illuminate\Database\Eloquent\Model;
 

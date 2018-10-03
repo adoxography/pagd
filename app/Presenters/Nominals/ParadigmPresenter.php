@@ -2,7 +2,7 @@
 
 namespace App\Presenters\Nominals;
 
-use App\AlgPresenter;
+use App\Presenters\AlgPresenter;
 
 class ParadigmPresenter extends AlgPresenter
 {

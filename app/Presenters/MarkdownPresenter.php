@@ -1,7 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Presenters;
 
+use App\Presenters\Presenter;
+use App\Presenters\PresenterInterface;
 use Illuminate\Database\Eloquent\Model;
 
 class MarkdownPresenter extends Presenter implements PresenterInterface

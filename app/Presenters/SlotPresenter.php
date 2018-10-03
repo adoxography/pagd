@@ -2,7 +2,7 @@
 
 namespace App\Presenters;
 
-use App\AlgPresenter;
+use App\Presenters\AlgPresenter;
 
 class SlotPresenter extends AlgPresenter
 {

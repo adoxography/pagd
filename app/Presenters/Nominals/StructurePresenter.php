@@ -3,7 +3,7 @@
 namespace App\Presenters\Nominals;
 
 use App\Models\Nominals\Structure;
-use App\AlgPresenter;
+use App\Presenters\AlgPresenter;
 
 class StructurePresenter extends AlgPresenter
 {

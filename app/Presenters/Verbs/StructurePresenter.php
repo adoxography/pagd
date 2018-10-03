@@ -2,7 +2,7 @@
 
 namespace App\Presenters\Verbs;
 
-use App\AlgPresenter;
+use App\Presenters\AlgPresenter;
 use App\Models\Verbs\Structure;
 
 class StructurePresenter extends AlgPresenter {

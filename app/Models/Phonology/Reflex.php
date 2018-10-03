@@ -2,7 +2,7 @@
 
 namespace App\Models\Phonology;
 
-use App\AlgPresenter;
+use App\Presenters\AlgPresenter;
 use App\BacksUpTrait;
 use App\BookmarkableTrait;
 use App\SourceableTrait;

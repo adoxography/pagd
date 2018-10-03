@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Presenters;
 
 use App\Exceptions\PresenterException;
 use Illuminate\Database\Eloquent\Model;

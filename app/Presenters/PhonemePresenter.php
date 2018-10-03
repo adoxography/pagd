@@ -3,7 +3,7 @@
 namespace App\Presenters;
 
 use App\Models\Phonology\Phoneme;
-use App\AlgPresenter;
+use App\Presenters\AlgPresenter;
 
 class PhonemePresenter extends AlgPresenter
 {

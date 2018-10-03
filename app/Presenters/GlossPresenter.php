@@ -2,7 +2,7 @@
 
 namespace App\Models\Morphology\Morpheme;
 
-use App\AlgPresenter;
+use App\Presenters\AlgPresenter;
 
 class GlossPresenter extends AlgPresenter
 {

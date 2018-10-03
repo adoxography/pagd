@@ -2,7 +2,7 @@
 
 namespace App\Presenters\Verbs;
 
-use App\AlgPresenter;
+use App\Presenters\AlgPresenter;
 
 class GapPresenter extends AlgPresenter
 {

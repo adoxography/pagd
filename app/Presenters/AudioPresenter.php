@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Presenters;
 
+use App\Presenters\AlgPresenter;
 use Illuminate\Database\Eloquent\Model;
 
 class AudioPresenter extends AlgPresenter

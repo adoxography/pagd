@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Presenters\AlgPresenter;
 use App\Models\StructuralSurvey\Variable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

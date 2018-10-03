@@ -2,7 +2,7 @@
 
 namespace App\Presenters\Words;
 
-use App\AlgPresenter;
+use App\Presenters\AlgPresenter;
 use App\Presenters\MorphemeablePresentation;
 use App\Presenters\PhonemeablePresentation;
 

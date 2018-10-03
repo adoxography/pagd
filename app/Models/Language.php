@@ -6,7 +6,7 @@ use App\Traits\BacksUpTrait;
 use App\Traits\BookmarkableTrait;
 use App\Traits\HideableTrait;
 use App\Traits\LocatableTrait;
-use App\Rule;
+use App\Models\Rules\Rule;
 use App\Models\Morphology\Morpheme;
 use App\Models\Phonology\Inventory;
 use App\Models\Phonology\Phoneme;

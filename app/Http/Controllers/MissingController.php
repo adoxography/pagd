@@ -21,7 +21,7 @@ class MissingController extends Controller
             \App\Models\Nominals\Form::class => 'nominal form',
             \App\Models\Verbs\Example::class => 'verb example',
             \App\Models\Nominals\Example::class => 'nominal example',
-            \App\Rule::class => 'rule'
+            \App\Models\Rules\Rule::class => 'rule'
         ];
 
         foreach ($classes as $class => $keyword) {

@@ -1,8 +1,8 @@
 <?php
 
 use App\Models\Language;
-use App\Rule;
-use App\RuleType;
+use App\Models\Rules\Rule;
+use App\Models\Rules\RuleType;
 use Faker\Generator as Faker;
 
 $factory->define(Rule::class, function (Faker $faker) {

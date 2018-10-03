@@ -80,10 +80,10 @@
 		<br />
 	@endif
 
-	@if(count($user->bookmarks(App\Rule::class)) > 0)
+	@if(count($user->bookmarks(App\Models\Rules\Rule::class)) > 0)
 		<h4 class="subtitle is-4">Rules</h4>
 		<ul>
-			@foreach($user->bookmarks(App\Rule::class) as $rule)
+			@foreach($user->bookmarks(App\Models\Rules\Rule::class) as $rule)
 				<li>
 					<a href="/sources/{{ $rule->id }}">{{ $rule->name }}</a>
 					@if($rule->pivot->comment)

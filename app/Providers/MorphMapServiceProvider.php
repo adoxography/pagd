@@ -25,7 +25,7 @@ class MorphMapServiceProvider extends ServiceProvider
             'morphemes'  => Morpheme::class,
             'gaps'       => 'App\Models\Words\Gap',
             'datapoints' => 'App\Models\StructuralSurvey\Datapoint',
-            'rules'      => 'App\Rule',
+            'rules'      => 'App\Models\Rules\Rule',
             'verbStructures' => 'App\Models\Verbs\Structure',
             'nominalStructures' => 'App\Models\Nominals\Structure',
             'phonemes' => Phoneme::class,

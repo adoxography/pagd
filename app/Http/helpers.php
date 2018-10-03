@@ -98,7 +98,7 @@ function matchTag(string $tag, int $id)
             $replacement = $model->present('stub');
         }
     } else {
-        $rule = \App\Rule::where('abv', $tag)->where('language_id', $id)->first();
+        $rule = \App\Models\Rules\Rule::where('abv', $tag)->where('language_id', $id)->first();
 
         // If it was found, replace the tag with it
         if ($rule && !$rule->isHidden()) {

@@ -350,15 +350,15 @@ try {
         forgetName('App\Traits\ReconstructableTrait');
     }
 try {
-    $rulet = App\RuleType::first() ?: new App\RuleType;
-    $rulet_ = App\RuleType::latest($latestColumn)->first() ?: new App\RuleType;
+    $rulet = App\RuleType::first() ?: new App\Models\Rules\RuleType;
+    $rulet_ = App\RuleType::latest($latestColumn)->first() ?: new App\Models\Rules\RuleType;
     if (!function_exists('rulet')) {
         function rulet(...$args) {
-            return getQueryInstance('App\RuleType', ...$args);
+            return getQueryInstance('App\Models\Rules\RuleType', ...$args);
         }
     }
 } catch (\Illuminate\Database\QueryException $e) {
-        forgetName('App\RuleType');
+        forgetName('App\Models\Rules\RuleType');
     }
 try {
     $sourcea = App\Traits\SourceableTrait::first() ?: new App\Traits\SourceableTrait;

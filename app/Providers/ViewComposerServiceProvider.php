@@ -5,7 +5,7 @@ namespace App\Providers;
 use App\ChangeType;
 use App\Models\Group;
 use App\Models\Language;
-use App\RuleType;
+use App\Models\Rules\RuleType;
 use App\Models\IGT\IGTLineType;
 
 use App\Models\Nominals\NominalFeature;

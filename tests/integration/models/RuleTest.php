@@ -1,6 +1,6 @@
 <?php
 
-use App\Rule;
+use App\Models\Rules\Rule;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class RuleTest extends TestCase

@@ -4,6 +4,9 @@ namespace App\Models\Rules;
 
 use App\Models\Language;
 use App\Models\Rules\RuleType;
+use App\Traits\BookmarkableTrait;
+use App\Traits\HideableTrait;
+use App\Traits\SourceableTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Rule extends Model

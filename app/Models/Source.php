@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Interfaces\NominalFormRepositoryInterface;
 use App\Interfaces\VerbFormRepositoryInterface;

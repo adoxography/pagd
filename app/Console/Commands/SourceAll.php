@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Language;
-use App\Source;
+use App\Models\Source;
 use Illuminate\Console\Command;
 
 class SourceAll extends Command

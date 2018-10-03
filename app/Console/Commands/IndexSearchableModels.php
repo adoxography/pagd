@@ -7,7 +7,7 @@ use App\Models\Language;
 use App\Models\Morphology\Morpheme;
 use App\Models\Words\Form;
 use App\Models\Words\Example;
-use App\Source;
+use App\Models\Source;
 use Illuminate\Console\Command;
 
 class IndexSearchableModels extends Command

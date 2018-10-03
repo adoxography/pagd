@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Source;
+use App\Models\Source;
 
 class SourceShowController extends Controller
 {

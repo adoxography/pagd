@@ -5,7 +5,7 @@ use App\Models\Words\Form as WordForm;
 use App\Models\Group;
 use App\Models\Language;
 use App\Models\Morphology\Morpheme;
-use App\Source;
+use App\Models\Source;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class LanguageTest extends TestCase

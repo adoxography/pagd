@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-use App\Source;
+use App\Models\Source;
 
 trait SourceableTrait
 {

@@ -65,10 +65,10 @@
 		<br />
 	@endif
 
-	@if(count($user->bookmarks(App\Source::class)) > 0)
+	@if(count($user->bookmarks(App\Models\Source::class)) > 0)
 		<h4 class="subtitle is-4">Sources</h4>
 		<ul>
-			@foreach($user->bookmarks(App\Source::class) as $source)
+			@foreach($user->bookmarks(App\Models\Source::class) as $source)
 				<li>
 					<a href="/sources/{{ $source->id }}">{{ $source->short }}</a>
 					@if($source->pivot->comment)

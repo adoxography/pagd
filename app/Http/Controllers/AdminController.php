@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Morphology\Morpheme;
 use App\RegistrationCode;
 use App\User;
-use App\Source;
+use App\Models\Source;
 use App\Models\Nominals\Form as NominalForm;
 use App\Models\Phonology\Length;
 use App\Models\Phonology\Height;

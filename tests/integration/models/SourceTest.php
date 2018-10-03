@@ -2,7 +2,7 @@
 
 use App\Models\Phonology\Phoneme;
 use App\Models\Morphology\Morpheme;
-use App\Source;
+use App\Models\Source;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class SourceTest extends TestCase

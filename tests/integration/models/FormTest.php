@@ -1,6 +1,6 @@
 <?php
 
-use App\Source;
+use App\Models\Source;
 use App\Models\Language;
 use App\Models\Verbs\Form;
 use App\Models\Verbs\Structure;

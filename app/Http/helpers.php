@@ -5,7 +5,7 @@ use App\Models\Words\Example;
 use App\Models\Words\Form;
 use App\Models\Language;
 use App\Models\Morphology\Morpheme;
-use App\Source;
+use App\Models\Source;
 
 function verEx($init = null, $capture = false)
 {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Source;
+use App\Models\Source;
 use App\Http\Requests\SourceRequest;
 
 class SourceController extends Controller

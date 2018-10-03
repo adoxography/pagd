@@ -16,7 +16,7 @@ use App\Models\Words\Example as WordExample;
 use App\Models\Words\Gap as WordGap;
 use App\Models\Words\Form as WordForm;
 use App\Rule;
-use App\Source;
+use App\Models\Source;
 use Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 

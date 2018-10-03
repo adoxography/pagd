@@ -3,7 +3,7 @@
 namespace App\Models\Morphology;
 
 use App\Traits\BookmarkableTrait;
-use App\Closed;
+use App\Models\Closed;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Gloss extends Closed

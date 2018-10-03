@@ -119,15 +119,15 @@ try {
         forgetName('App\AlgPresenter');
     }
 try {
-    $audiop = App\AudioPresenter::first() ?: new App\AudioPresenter;
-    $audiop_ = App\AudioPresenter::latest($latestColumn)->first() ?: new App\AudioPresenter;
+    $audiop = App\Models\AudioPresenter::first() ?: new App\Models\AudioPresenter;
+    $audiop_ = App\Models\AudioPresenter::latest($latestColumn)->first() ?: new App\Models\AudioPresenter;
     if (!function_exists('audiop')) {
         function audiop(...$args) {
-            return getQueryInstance('App\AudioPresenter', ...$args);
+            return getQueryInstance('App\Models\AudioPresenter', ...$args);
         }
     }
 } catch (\Illuminate\Database\QueryException $e) {
-        forgetName('App\AudioPresenter');
+        forgetName('App\Models\AudioPresenter');
     }
 try {
     $backs = App\Traits\BacksUpTrait::first() ?: new App\Traits\BacksUpTrait;
@@ -174,26 +174,26 @@ try {
         forgetName('App\Traits\BookmarkableTrait');
     }
 try {
-    $ch = App\ChangeType::first() ?: new App\ChangeType;
-    $ch_ = App\ChangeType::latest($latestColumn)->first() ?: new App\ChangeType;
+    $ch = App\Models\ChangeType::first() ?: new App\Models\ChangeType;
+    $ch_ = App\Models\ChangeType::latest($latestColumn)->first() ?: new App\Models\ChangeType;
     if (!function_exists('ch')) {
         function ch(...$args) {
-            return getQueryInstance('App\ChangeType', ...$args);
+            return getQueryInstance('App\Models\ChangeType', ...$args);
         }
     }
 } catch (\Illuminate\Database\QueryException $e) {
-        forgetName('App\ChangeType');
+        forgetName('App\Models\ChangeType');
     }
 try {
-    $cl = App\ClosedWithAbv::first() ?: new App\ClosedWithAbv;
-    $cl_ = App\ClosedWithAbv::latest($latestColumn)->first() ?: new App\ClosedWithAbv;
+    $cl = App\Models\ClosedWithAbv::first() ?: new App\Models\ClosedWithAbv;
+    $cl_ = App\Models\ClosedWithAbv::latest($latestColumn)->first() ?: new App\Models\ClosedWithAbv;
     if (!function_exists('cl')) {
         function cl(...$args) {
-            return getQueryInstance('App\ClosedWithAbv', ...$args);
+            return getQueryInstance('App\Models\ClosedWithAbv', ...$args);
         }
     }
 } catch (\Illuminate\Database\QueryException $e) {
-        forgetName('App\ClosedWithAbv');
+        forgetName('App\Models\ClosedWithAbv');
     }
 try {
     $disa = App\Traits\DisambiguatableTrait::first() ?: new App\Traits\DisambiguatableTrait;

@@ -8,7 +8,7 @@ use App\Models\Words\Example;
 use App\Models\Words\Form;
 use App\Traits\BacksUpTrait;
 use App\Traits\BookmarkableTrait;
-use App\ChangeType;
+use App\Models\ChangeType;
 use App\Traits\DisambiguatableTrait;
 use App\Traits\HasChildrenTrait;
 use App\Traits\HideableTrait;

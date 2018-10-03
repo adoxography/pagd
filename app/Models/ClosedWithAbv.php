@@ -1,6 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
+
+use App\Models\Closed;
 
 class ClosedWithAbv extends Closed
 {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Audio;
+use App\Models\Audio;
 
 class UploadController extends Controller
 {

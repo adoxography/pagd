@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Audio;
+use App\Models\Audio;
 use App\Http\Requests\AudioRequest;
 
 class AudioController extends Controller
@@ -58,7 +58,7 @@ class AudioController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Audio  $audio
+     * @param  \App\Models\Audio  $audio
      * @return \Illuminate\Http\Response
      */
     public function show(Audio $audio)
@@ -71,7 +71,7 @@ class AudioController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Audio  $audio
+     * @param  \App\Models\Audio  $audio
      * @return \Illuminate\Http\Response
      */
     public function edit(Audio $audio)
@@ -85,7 +85,7 @@ class AudioController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\AudioRequest  $request
-     * @param  \App\Audio  $audio
+     * @param  \App\Models\Audio  $audio
      * @return \Illuminate\Http\Response
      */
     public function update(AudioRequest $request, Audio $audio)
@@ -103,7 +103,7 @@ class AudioController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Audio  $audio
+     * @param  \App\Models\Audio  $audio
      * @return \Illuminate\Http\Response
      */
     public function destroy(Audio $audio)

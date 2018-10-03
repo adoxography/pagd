@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\ChangeType;
+use App\Models\ChangeType;
 use App\Models\Group;
 use App\Models\Language;
 use App\Models\Rules\RuleType;

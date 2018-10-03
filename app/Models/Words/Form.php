@@ -5,7 +5,7 @@ namespace App\Models\Words;
 use App\Presenters\Words\FormPresenter;
 use App\Traits\BacksUpTrait;
 use App\Traits\BookmarkableTrait;
-use App\ChangeType;
+use App\Models\ChangeType;
 use App\Traits\HasChildrenTrait;
 use App\Traits\HideableTrait;
 use App\Models\Language;

@@ -2,7 +2,7 @@
 
 namespace App\Events\Audio;
 
-use App\Audio;
+use App\Models\Audio;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RulesRule;
+use App\Models\Rules\Rule;
 use App\Http\Requests\RuleRequest;
 
 class RuleController extends AlgModelController

@@ -2,7 +2,7 @@
 
 namespace Tests\Browser;
 
-use App\Language;
+use App\Models\Language;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\DuskTestCase;

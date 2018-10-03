@@ -2,7 +2,7 @@
 
 namespace App\Models\Verbs;
 
-use App\Language;
+use App\Models\Language;
 use App\Models\Verbs\Gap;
 use App\Models\Verbs\Form;
 

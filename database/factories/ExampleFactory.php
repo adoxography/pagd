@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Words\Example;
-use App\Language;
+use App\Models\Language;
 use Faker\Generator as Faker;
 
 $factory->define(Example::class, function (Faker $faker) {

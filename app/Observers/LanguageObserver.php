@@ -3,7 +3,7 @@
 namespace App\Observers;
 
 use App\Models\StructuralSurvey\Datapoint;
-use App\Language;
+use App\Models\Language;
 use App\Models\Morphology\Morpheme;
 
 class LanguageObserver

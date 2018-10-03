@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Verbs;
 
-use App\Language;
+use App\Models\Language;
 use Illuminate\Http\Request;
 use App\Models\Verbs\Paradigm;
 use App\Models\Verbs\Gap;

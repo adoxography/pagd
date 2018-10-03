@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Language;
+use App\Models\Language;
 use App\IGTLine;
 use Illuminate\Database\Eloquent\Model;
 use App\BookmarkableTrait;

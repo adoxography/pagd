@@ -5,7 +5,7 @@ use App\Models\Phonology\ConsonantType;
 use App\Models\Phonology\Phoneme;
 use App\Models\Phonology\Reflex;
 use App\Models\Phonology\VowelType;
-use App\Language;
+use App\Models\Language;
 use Faker\Generator as Faker;
 
 $factory->define(Phoneme::class, function (Faker $faker) {

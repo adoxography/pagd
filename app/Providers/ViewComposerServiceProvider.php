@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\ChangeType;
 use App\Group;
-use App\Language;
+use App\Models\Language;
 use App\RuleType;
 use App\IGTLineType;
 

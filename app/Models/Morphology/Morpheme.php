@@ -12,7 +12,7 @@ use App\ChangeType;
 use App\DisambiguatableTrait;
 use App\HasChildrenTrait;
 use App\HideableTrait;
-use App\Language;
+use App\Models\Language;
 use App\PhonemeableInterface;
 use App\Presenters\MorphemePresenter;
 use App\ReconstructableTrait;

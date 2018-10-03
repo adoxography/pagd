@@ -1,6 +1,6 @@
 @php
 
-$languages = App\Language::all();
+$languages = App\Models\Language::all();
 $pronominalFeatures = App\Models\Nominals\PronominalFeature::all();
 $nominalFeatures = App\Models\Nominals\NominalFeature::all();
 $paradigms = App\Models\Nominals\Paradigm::with('type')->get();

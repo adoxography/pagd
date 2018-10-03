@@ -22,7 +22,7 @@
 				<div class="navbar-dropdown is-right is-boxed" style="right: -12em">
 					<div class="columns is-desktop">
 						<div class="column">
-							@foreach (App\Language::orderBy('name')->get() as $language)
+							@foreach (App\Models\Language::orderBy('name')->get() as $language)
 								@if ($loop->index % 12 == 0 && !$loop->first)
 									</div><div class="column">
 								@endif

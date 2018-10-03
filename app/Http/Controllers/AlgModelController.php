@@ -9,7 +9,7 @@ class AlgModelController extends Controller
     /**
      * Toggles a model's visibility from the public
      * 
-     * @param \App\Language The model
+     * @param \App\Models\Language The model
      * @return \Illuminate\Http\Response
      */
     public function hide($model)

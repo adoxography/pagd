@@ -9,7 +9,7 @@ use App\Traits\Phonology\HasTypeTrait;
 use App\Models\Words\Example;
 use App\BacksUpTrait;
 use App\BookmarkableTrait;
-use App\Language;
+use App\Models\Language;
 use App\ReconstructableTrait;
 use App\SourceableTrait;
 use Illuminate\Database\Eloquent\Model;

@@ -273,26 +273,26 @@ try {
         forgetName('App\InteractsAcrossFilesystems');
     }
 try {
-    $languagea = App\LanguageAssetName::first() ?: new App\LanguageAssetName;
-    $languagea_ = App\LanguageAssetName::latest($latestColumn)->first() ?: new App\LanguageAssetName;
+    $languagea = App\Models\LanguageAssetName::first() ?: new App\Models\LanguageAssetName;
+    $languagea_ = App\Models\LanguageAssetName::latest($latestColumn)->first() ?: new App\Models\LanguageAssetName;
     if (!function_exists('languagea')) {
         function languagea(...$args) {
-            return getQueryInstance('App\LanguageAssetName', ...$args);
+            return getQueryInstance('App\Models\LanguageAssetName', ...$args);
         }
     }
 } catch (\Illuminate\Database\QueryException $e) {
-        forgetName('App\LanguageAssetName');
+        forgetName('App\Models\LanguageAssetName');
     }
 try {
-    $languagep = App\LanguagePresenter::first() ?: new App\LanguagePresenter;
-    $languagep_ = App\LanguagePresenter::latest($latestColumn)->first() ?: new App\LanguagePresenter;
+    $languagep = App\Models\LanguagePresenter::first() ?: new App\Models\LanguagePresenter;
+    $languagep_ = App\Models\LanguagePresenter::latest($latestColumn)->first() ?: new App\Models\LanguagePresenter;
     if (!function_exists('languagep')) {
         function languagep(...$args) {
-            return getQueryInstance('App\LanguagePresenter', ...$args);
+            return getQueryInstance('App\Models\LanguagePresenter', ...$args);
         }
     }
 } catch (\Illuminate\Database\QueryException $e) {
-        forgetName('App\LanguagePresenter');
+        forgetName('App\Models\LanguagePresenter');
     }
 try {
     $lo = App\LocatableTrait::first() ?: new App\LocatableTrait;

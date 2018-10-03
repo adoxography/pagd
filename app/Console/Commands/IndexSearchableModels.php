@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Artisan;
-use App\Language;
+use App\Models\Language;
 use App\Models\Morphology\Morpheme;
 use App\Models\Words\Form;
 use App\Models\Words\Example;

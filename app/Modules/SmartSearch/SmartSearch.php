@@ -8,7 +8,7 @@ use App\Models\Verbs\Order;
 use App\Models\Verbs\VerbClass;
 use App\Models\Words\Feature;
 use App\Group;
-use App\Language;
+use App\Models\Language;
 
 class SmartSearch
 {

@@ -6,7 +6,7 @@ use App\Models\Nominals\Structure as NominalStructure;
 use App\Models\Verbs\Form as VerbForm;
 use App\Models\Verbs\Structure as VerbStructure;
 use App\Models\Words\Form as WordForm;
-use App\Language;
+use App\Models\Language;
 use App\Models\Morphology\Morpheme;
 use Faker\Generator as Faker;
 

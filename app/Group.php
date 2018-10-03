@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Language;
 use App\Presenters\AlgPresenter;
 use App\Models\StructuralSurvey\Variable;
 use Illuminate\Database\Eloquent\Model;

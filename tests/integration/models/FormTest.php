@@ -1,7 +1,7 @@
 <?php
 
 use App\Source;
-use App\Language;
+use App\Models\Language;
 use App\Models\Verbs\Form;
 use App\Models\Verbs\Structure;
 use App\Models\Morphology\Morpheme;

@@ -1,7 +1,7 @@
 <?php
 
 use App\Group;
-use App\Language;
+use App\Models\Language;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class GroupTest extends TestCase

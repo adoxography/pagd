@@ -6,7 +6,7 @@ use App\Models\Nominals\Form as NominalForm;
 use App\Models\Phonology\Phoneme;
 use App\Models\Verbs\Form as VerbForm;
 use App\Models\Words\Example;
-use App\Language;
+use App\Models\Language;
 use App\Models\Morphology\Morpheme;
 use Storage;
 

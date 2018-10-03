@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Phonology;
 
 use App\Http\Controllers\Controller;
-use App\Language;
+use App\Models\Language;
 
 class SearchController extends Controller
 {

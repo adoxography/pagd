@@ -1,6 +1,6 @@
 @php
 
-$languages = App\Language::all();
+$languages = App\Models\Language::all();
 $types = App\Models\Nominals\ParadigmType::all();
 
 @endphp

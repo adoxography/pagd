@@ -8,7 +8,7 @@ use App\Models\Words\Form as WordForm;
 use App\Models\Words\Observers\FormObserver;
 use App\Group;
 use App\IGT;
-use App\Language;
+use App\Models\Language;
 use App\Models\Morphology\Gloss;
 use App\Models\Morphology\Morpheme;
 use App\Models\Phonology\Phoneme;

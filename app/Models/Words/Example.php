@@ -7,7 +7,7 @@ use App\BacksUpTrait;
 use App\BookmarkableTrait;
 use App\HasChildrenTrait;
 use App\HideableTrait;
-use App\Language;
+use App\Models\Language;
 use App\PhonemeableInterface;
 use App\ReconstructableTrait;
 use App\SourceableTrait;

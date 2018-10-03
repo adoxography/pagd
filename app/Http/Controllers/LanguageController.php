@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Group;
-use App\Language;
+use App\Models\Language;
 use App\Http\Requests\LanguageRequest;
 
 /**
@@ -32,7 +32,7 @@ class LanguageController extends AlgModelController
     /**
      * Show the language details.
      *
-     * @param \App\Language The language
+     * @param \App\Models\Language The language
      * @return \Illuminate\Http\Response
      */
     public function show(Language $language)
@@ -64,7 +64,7 @@ class LanguageController extends AlgModelController
     /**
      * Show the language edit form
      *
-     * @param \App\Language The language
+     * @param \App\Models\Language The language
      * @return \Illuminate\Http\Response
      */
     public function edit(Language $language)
@@ -91,7 +91,7 @@ class LanguageController extends AlgModelController
      * Update a language
      *
      * @param \App\Http\Requests\LanguageRequest
-     * @param \App\Language The language
+     * @param \App\Models\Language The language
      * @return \Illuminate\Http\Response
      */
     public function update(LanguageRequest $request, Language $language)
@@ -105,7 +105,7 @@ class LanguageController extends AlgModelController
     /**
      * Destroy a language
      *
-     * @param \App\Language The language
+     * @param \App\Models\Language The language
      * @return \Illuminate\Http\Response
      */
     public function destroy(Language $language)
@@ -119,7 +119,7 @@ class LanguageController extends AlgModelController
     /**
      * Show the language creation form with this language's details preloaded as its parent
      *
-     * @param \App\Language The language
+     * @param \App\Models\Language The language
      * @return \Illuminate\Http\Response
      */
     public function addChild(Language $language)
@@ -131,7 +131,7 @@ class LanguageController extends AlgModelController
     /**
      * Show the example creation form with this language's details preloaded
      *
-     * @param \App\Language The language
+     * @param \App\Models\Language The language
      * @return \Illuminate\Http\Response
      */
     public function addExample(Language $language)
@@ -142,7 +142,7 @@ class LanguageController extends AlgModelController
     /**
      * Show the form creation form with this language's details preloaded
      *
-     * @param \App\Language The language
+     * @param \App\Models\Language The language
      * @return \Illuminate\Http\Response
      */
     public function addVerbForm(Language $language)
@@ -158,7 +158,7 @@ class LanguageController extends AlgModelController
     /**
      * Show the morpheme creation form with this language's details preloaded
      *
-     * @param \App\Language The language
+     * @param \App\Models\Language The language
      * @return \Illuminate\Http\Response
      */
     public function addMorpheme(Language $language)
@@ -169,7 +169,7 @@ class LanguageController extends AlgModelController
     /**
      * Show the rule creation form with this language's details preloaded
      *
-     * @param \App\Language The language
+     * @param \App\Models\Language The language
      * @return \Illuminate\Http\Response
      */
     public function addRule(Language $language)

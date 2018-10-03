@@ -3,7 +3,7 @@
 use Adoxography\VerbalExpressions\Expression;
 use App\Models\Words\Example;
 use App\Models\Words\Form;
-use App\Language;
+use App\Models\Language;
 use App\Models\Morphology\Morpheme;
 use App\Source;
 

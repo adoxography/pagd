@@ -5,10 +5,10 @@
 @endsection
 
 @section('content')
-	@if(count($user->bookmarks(App\Language::class)) > 0)
+	@if(count($user->bookmarks(App\Models\Language::class)) > 0)
 		<h4 class="subtitle is-4">Languages</h4>
 		<ul>
-			@foreach($user->bookmarks(App\Language::class) as $language)
+			@foreach($user->bookmarks(App\Models\Language::class) as $language)
 				<li>
 					{!! $language->present('link') !!}
 					@if($language->pivot->comment)

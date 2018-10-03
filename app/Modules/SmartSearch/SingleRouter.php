@@ -3,7 +3,7 @@
 namespace App\Modules\SmartSearch;
 
 use App\Group;
-use App\Language;
+use App\Models\Language;
 
 class SingleRouter implements RouterInterface
 {

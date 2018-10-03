@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Phonology\Phoneme;
 use App\Models\Words\Example;
 use App\Models\Words\Form;
-use App\Language;
+use App\Models\Language;
 use App\Mail\SiteSummary;
 use App\Models\Morphology\Morpheme;
 use App\User;

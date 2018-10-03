@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Phonology;
 use App\Http\Requests\Phonology\ReflexRequest;
 use App\Models\Phonology\Reflex;
 use App\Http\Controllers\AlgModelController;
-use App\Language;
+use App\Models\Language;
 
 class ReflexController extends AlgModelController
 {

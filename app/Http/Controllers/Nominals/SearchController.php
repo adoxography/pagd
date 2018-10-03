@@ -6,7 +6,7 @@ use App\Models\Nominals\Form;
 use App\Models\Nominals\ParadigmType;
 use App\Models\Nominals\ParadigmTable;
 use App\Http\Controllers\Controller;
-use App\Language;
+use App\Models\Language;
 
 class SearchController extends Controller
 {

@@ -4,7 +4,7 @@ namespace App\Models\Words;
 
 use App\BookmarkableTrait;
 use App\HideableTrait;
-use App\Language;
+use App\Models\Language;
 use App\SourceableTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

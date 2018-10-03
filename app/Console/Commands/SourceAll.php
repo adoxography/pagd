@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Language;
+use App\Models\Language;
 use App\Source;
 use Illuminate\Console\Command;
 

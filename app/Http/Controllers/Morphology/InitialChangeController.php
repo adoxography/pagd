@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Morphology;
 
 use App\Http\Requests\InitialChangeRequest;
-use App\Language;
+use App\Models\Language;
 use App\Http\Controllers\Controller;
 use App\Models\Morphology\InitialChange;
 

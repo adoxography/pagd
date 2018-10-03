@@ -2,7 +2,7 @@
 
 use App\Models\Phonology\Phoneme;
 use App\Models\Phonology\Reflex;
-use App\Language;
+use App\Models\Language;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class PhonemeTest extends TestCase

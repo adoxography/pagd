@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Phonology\Phoneme;
-use App\Language;
+use App\Models\Language;
 use App\Models\Nominals\Form as NominalForm;
 use App\Models\Morphology\Gloss;
 use App\Models\Morphology\Morpheme;

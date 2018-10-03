@@ -5,7 +5,7 @@ namespace App\Models\Nominals;
 use App\Models\ParadigmTablePresenter;
 use App\Presenters\Nominals\ParadigmPresenter;
 use App\BookmarkableTrait;
-use App\Language;
+use App\Models\Language;
 use App\SourceableTrait;
 use Illuminate\Database\Eloquent\Model;
 

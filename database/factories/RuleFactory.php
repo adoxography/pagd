@@ -1,6 +1,6 @@
 <?php
 
-use App\Language;
+use App\Models\Language;
 use App\Rule;
 use App\RuleType;
 use Faker\Generator as Faker;

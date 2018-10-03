@@ -2,7 +2,7 @@
 
 namespace App\Models\StructuralSurvey;
 
-use App\Language;
+use App\Models\Language;
 use App\SourceableTrait;
 use App\BookmarkableTrait;
 use Illuminate\Database\Eloquent\Model;

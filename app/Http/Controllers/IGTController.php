@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\IGT;
-use App\Language;
+use App\Models\Language;
 use App\Http\Requests\IGTRequest as Request;
 
 class IGTController extends Controller

@@ -1,6 +1,12 @@
 <?php
-namespace App;
+namespace App\Models;
 
+use App\HasChildrenTrait;
+use App\BacksUpTrait;
+use App\BookmarkableTrait;
+use App\HideableTrait;
+use App\LocatableTrait;
+use App\Rule;
 use App\Models\Morphology\Morpheme;
 use App\Models\Phonology\Inventory;
 use App\Models\Phonology\Phoneme;

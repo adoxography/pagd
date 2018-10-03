@@ -1,7 +1,7 @@
 <?php
 
 use App\Group;
-use App\Language;
+use App\Models\Language;
 use Faker\Generator as Faker;
 
 $factory->define(Language::class, function (Faker $faker) {

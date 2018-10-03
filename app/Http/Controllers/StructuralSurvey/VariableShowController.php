@@ -5,7 +5,7 @@ namespace App\Http\Controllers\StructuralSurvey;
 use App\Models\StructuralSurvey\Variable;
 use App\Group;
 use App\Http\Controllers\Controller;
-use App\Language;
+use App\Models\Language;
 use App\Palette\Palette;
 
 class VariableShowController extends Controller

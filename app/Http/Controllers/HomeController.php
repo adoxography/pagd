@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Language;
+use App\Models\Language;
 use App\Models\Verbs\Order;
 use App\Models\Verbs\VerbClass;
 use Storage;

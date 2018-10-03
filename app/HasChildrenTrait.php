@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Models\Language;
+
 trait HasChildrenTrait
 {
 

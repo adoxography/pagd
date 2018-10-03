@@ -10,7 +10,7 @@ use App\Models\Verbs\Mode;
 use App\Models\Verbs\Order;
 use App\Models\Verbs\Structure as VerbStructure;
 use App\Models\Verbs\VerbClass;
-use App\Language;
+use App\Models\Language;
 use Faker\Generator as Faker;
 
 $factory->define(NominalStructure::class, function (Faker $faker) {

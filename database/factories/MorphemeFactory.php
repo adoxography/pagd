@@ -1,6 +1,6 @@
 <?php
 
-use App\Language;
+use App\Models\Language;
 use App\Models\Morphology\Gloss;
 use App\Models\Morphology\Morpheme;
 use App\Models\Morphology\Slot;

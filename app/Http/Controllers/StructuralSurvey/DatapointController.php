@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\StructuralSurvey;
 
-use App\Language;
+use App\Models\Language;
 use App\Models\StructuralSurvey\Variable;
 use App\Models\StructuralSurvey\Datapoint;
 use App\Http\Controllers\Controller;

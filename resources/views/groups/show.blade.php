@@ -7,7 +7,7 @@ function recursiveRender($group) {
 
 	foreach($data as $child) {
 
-		if($child instanceof App\Group) {
+		if($child instanceof App\Models\Group) {
 			if($child->languages->count() > 0) {
 				$html .= '<li>';
 				$html .= "<input type='checkbox' id='c{$child->id}' />";

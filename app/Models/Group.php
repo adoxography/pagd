@@ -1,7 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use App\HasChildrenTrait;
+use App\BookmarkableTrait;
+use App\SourceableTrait;
+use App\BacksUpTrait;
 use App\Models\Language;
 use App\Presenters\AlgPresenter;
 use App\Models\StructuralSurvey\Variable;

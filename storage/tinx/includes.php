@@ -229,15 +229,15 @@ try {
         forgetName('App\DropboxAdapter');
     }
 try {
-    $g = App\Group::first() ?: new App\Group;
-    $g_ = App\Group::latest($latestColumn)->first() ?: new App\Group;
+    $g = App\Models\Group::first() ?: new App\Models\Group;
+    $g_ = App\Models\Group::latest($latestColumn)->first() ?: new App\Models\Group;
     if (!function_exists('g')) {
         function g(...$args) {
-            return getQueryInstance('App\Group', ...$args);
+            return getQueryInstance('App\Models\Group', ...$args);
         }
     }
 } catch (\Illuminate\Database\QueryException $e) {
-        forgetName('App\Group');
+        forgetName('App\Models\Group');
     }
 try {
     $ha = App\HasChildrenTrait::first() ?: new App\HasChildrenTrait;

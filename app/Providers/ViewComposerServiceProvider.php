@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\ChangeType;
-use App\Group;
+use App\Models\Group;
 use App\Models\Language;
 use App\RuleType;
 use App\IGTLineType;

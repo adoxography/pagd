@@ -8,7 +8,7 @@ function recursiveRender($group, $variable, $colorAssignments) {
 
 	foreach($data as $child) {
 
-		if($child instanceof App\Group) {
+		if($child instanceof App\Models\Group) {
 			if($child->languages->count() > 0 && ($child->hasVariable($variable) || Auth::user() && Auth::user()->hasPermissionTo('add content'))) {
 				$html .= '<li>';
 				$html .= "<input type='checkbox' ";

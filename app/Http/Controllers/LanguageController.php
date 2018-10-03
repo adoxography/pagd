@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Group;
+use App\Models\Group;
 use App\Models\Language;
 use App\Http\Requests\LanguageRequest;
 

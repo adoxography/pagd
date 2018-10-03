@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Group;
+use App\Models\Group;
 
 class GroupObserver {
 

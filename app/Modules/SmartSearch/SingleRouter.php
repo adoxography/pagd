@@ -2,7 +2,7 @@
 
 namespace App\Modules\SmartSearch;
 
-use App\Group;
+use App\Models\Group;
 use App\Models\Language;
 
 class SingleRouter implements RouterInterface

@@ -1,7 +1,7 @@
 <?php
 
 use App\Events\Backup;
-use App\Group;
+use App\Models\Group;
 
 class BackupTest extends TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-use App\Group;
+use App\Models\Group;
 use App\Models\Language;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 

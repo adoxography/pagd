@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Words\Form;
-use App\Group;
+use App\Models\Group;
 use App\Models\Morphology\Morpheme;
 use App\Source;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Group;
 use App\Models\Language;
 
 trait HasChildrenTrait

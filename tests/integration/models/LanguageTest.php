@@ -2,7 +2,7 @@
 
 use App\Models\Verbs\Form as VerbForm;
 use App\Models\Words\Form as WordForm;
-use App\Group;
+use App\Models\Group;
 use App\Models\Language;
 use App\Models\Morphology\Morpheme;
 use App\Source;

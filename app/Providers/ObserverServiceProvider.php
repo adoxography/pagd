@@ -6,7 +6,7 @@ use App\Models\Nominals\Form as NominalForm;
 use App\Models\Verbs\Form as VerbForm;
 use App\Models\Words\Form as WordForm;
 use App\Models\Words\Observers\FormObserver;
-use App\Group;
+use App\Models\Group;
 use App\IGT;
 use App\Models\Language;
 use App\Models\Morphology\Gloss;

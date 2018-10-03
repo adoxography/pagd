@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\StructuralSurvey;
 
 use App\Models\StructuralSurvey\Variable;
-use App\Group;
+use App\Models\Group;
 use App\Http\Controllers\Controller;
 use App\Models\Language;
 use App\Palette\Palette;

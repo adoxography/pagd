@@ -5,7 +5,7 @@ namespace App\Modules\SmartSearch;
 use App\Models\Verbs\Mode;
 use App\Models\Verbs\Order;
 use App\Models\Verbs\VerbClass;
-use App\Group;
+use App\Models\Group;
 use App\Models\Language;
 
 class VerbParadigmRouter implements RouterInterface

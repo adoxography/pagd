@@ -3,15 +3,15 @@
 namespace App\Models\Words;
 
 use App\Presenters\Words\FormPresenter;
-use App\BacksUpTrait;
-use App\BookmarkableTrait;
+use App\Traits\BacksUpTrait;
+use App\Traits\BookmarkableTrait;
 use App\ChangeType;
-use App\HasChildrenTrait;
-use App\HideableTrait;
+use App\Traits\HasChildrenTrait;
+use App\Traits\HideableTrait;
 use App\Models\Language;
 use App\PhonemeableInterface;
-use App\ReconstructableTrait;
-use App\SourceableTrait;
+use App\Traits\ReconstructableTrait;
+use App\Traits\SourceableTrait;
 use App\Traits\HasMorphemesTrait;
 use App\Traits\Phonemeable;
 use Illuminate\Database\Eloquent\Model;
@@ -22,9 +22,9 @@ use Venturecraft\Revisionable\RevisionableTrait;
 /**
  * A verb form
  *
- * @uses \App\SourceableTrait
+ * @uses \App\Traits\SourceableTrait
  * @uses \App\HasMorphemesTrait
- * @uses \App\ReconstructableTrait
+ * @uses \App\Traits\ReconstructableTrait
  * @uses \App\CognatableTrait
  */
 class Form extends Model implements PhonemeableInterface

@@ -3,14 +3,14 @@
 namespace App\Models\Words;
 
 use App\Presenters\Words\ExamplePresenter;
-use App\BacksUpTrait;
-use App\BookmarkableTrait;
-use App\HasChildrenTrait;
-use App\HideableTrait;
+use App\Traits\BacksUpTrait;
+use App\Traits\BookmarkableTrait;
+use App\Traits\HasChildrenTrait;
+use App\Traits\HideableTrait;
 use App\Models\Language;
 use App\PhonemeableInterface;
-use App\ReconstructableTrait;
-use App\SourceableTrait;
+use App\Traits\ReconstructableTrait;
+use App\Traits\SourceableTrait;
 use App\Traits\HasMorphemesTrait;
 use App\Traits\Phonemeable;
 use Illuminate\Database\Eloquent\Model;

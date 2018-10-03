@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\InteractsAcrossFilesystems;
+use App\Traits\InteractsAcrossFilesystems;
 use Illuminate\Console\Command;
 use Storage;
 

@@ -5,8 +5,8 @@ namespace App;
 use App\Models\Language;
 use App\IGTLine;
 use Illuminate\Database\Eloquent\Model;
-use App\BookmarkableTrait;
-use App\SourceableTrait;
+use App\Traits\BookmarkableTrait;
+use App\Traits\SourceableTrait;
 
 class IGT extends Model
 {

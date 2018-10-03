@@ -130,15 +130,15 @@ try {
         forgetName('App\AudioPresenter');
     }
 try {
-    $backs = App\BacksUpTrait::first() ?: new App\BacksUpTrait;
-    $backs_ = App\BacksUpTrait::latest($latestColumn)->first() ?: new App\BacksUpTrait;
+    $backs = App\Traits\BacksUpTrait::first() ?: new App\Traits\BacksUpTrait;
+    $backs_ = App\Traits\BacksUpTrait::latest($latestColumn)->first() ?: new App\Traits\BacksUpTrait;
     if (!function_exists('backs')) {
         function backs(...$args) {
-            return getQueryInstance('App\BacksUpTrait', ...$args);
+            return getQueryInstance('App\Traits\BacksUpTrait', ...$args);
         }
     }
 } catch (\Illuminate\Database\QueryException $e) {
-        forgetName('App\BacksUpTrait');
+        forgetName('App\Traits\BacksUpTrait');
     }
 try {
     $backu = App\Backup::first() ?: new App\Backup;
@@ -163,15 +163,15 @@ try {
         forgetName('App\BelongsToMorph');
     }
 try {
-    $bo = App\BookmarkableTrait::first() ?: new App\BookmarkableTrait;
-    $bo_ = App\BookmarkableTrait::latest($latestColumn)->first() ?: new App\BookmarkableTrait;
+    $bo = App\Traits\BookmarkableTrait::first() ?: new App\Traits\BookmarkableTrait;
+    $bo_ = App\Traits\BookmarkableTrait::latest($latestColumn)->first() ?: new App\Traits\BookmarkableTrait;
     if (!function_exists('bo')) {
         function bo(...$args) {
-            return getQueryInstance('App\BookmarkableTrait', ...$args);
+            return getQueryInstance('App\Traits\BookmarkableTrait', ...$args);
         }
     }
 } catch (\Illuminate\Database\QueryException $e) {
-        forgetName('App\BookmarkableTrait');
+        forgetName('App\Traits\BookmarkableTrait');
     }
 try {
     $ch = App\ChangeType::first() ?: new App\ChangeType;
@@ -196,15 +196,15 @@ try {
         forgetName('App\ClosedWithAbv');
     }
 try {
-    $disa = App\DisambiguatableTrait::first() ?: new App\DisambiguatableTrait;
-    $disa_ = App\DisambiguatableTrait::latest($latestColumn)->first() ?: new App\DisambiguatableTrait;
+    $disa = App\Traits\DisambiguatableTrait::first() ?: new App\Traits\DisambiguatableTrait;
+    $disa_ = App\Traits\DisambiguatableTrait::latest($latestColumn)->first() ?: new App\Traits\DisambiguatableTrait;
     if (!function_exists('disa')) {
         function disa(...$args) {
-            return getQueryInstance('App\DisambiguatableTrait', ...$args);
+            return getQueryInstance('App\Traits\DisambiguatableTrait', ...$args);
         }
     }
 } catch (\Illuminate\Database\QueryException $e) {
-        forgetName('App\DisambiguatableTrait');
+        forgetName('App\Traits\DisambiguatableTrait');
     }
 try {
     $discussionc = App\DiscussionCategory::first() ?: new App\DiscussionCategory;
@@ -240,37 +240,37 @@ try {
         forgetName('App\Models\Group');
     }
 try {
-    $ha = App\HasChildrenTrait::first() ?: new App\HasChildrenTrait;
-    $ha_ = App\HasChildrenTrait::latest($latestColumn)->first() ?: new App\HasChildrenTrait;
+    $ha = App\Traits\HasChildrenTrait::first() ?: new App\Traits\HasChildrenTrait;
+    $ha_ = App\Traits\HasChildrenTrait::latest($latestColumn)->first() ?: new App\Traits\HasChildrenTrait;
     if (!function_exists('ha')) {
         function ha(...$args) {
-            return getQueryInstance('App\HasChildrenTrait', ...$args);
+            return getQueryInstance('App\Traits\HasChildrenTrait', ...$args);
         }
     }
 } catch (\Illuminate\Database\QueryException $e) {
-        forgetName('App\HasChildrenTrait');
+        forgetName('App\Traits\HasChildrenTrait');
     }
 try {
-    $hi = App\HideableTrait::first() ?: new App\HideableTrait;
-    $hi_ = App\HideableTrait::latest($latestColumn)->first() ?: new App\HideableTrait;
+    $hi = App\Traits\HideableTrait::first() ?: new App\Traits\HideableTrait;
+    $hi_ = App\Traits\HideableTrait::latest($latestColumn)->first() ?: new App\Traits\HideableTrait;
     if (!function_exists('hi')) {
         function hi(...$args) {
-            return getQueryInstance('App\HideableTrait', ...$args);
+            return getQueryInstance('App\Traits\HideableTrait', ...$args);
         }
     }
 } catch (\Illuminate\Database\QueryException $e) {
-        forgetName('App\HideableTrait');
+        forgetName('App\Traits\HideableTrait');
     }
 try {
-    $i = App\InteractsAcrossFilesystems::first() ?: new App\InteractsAcrossFilesystems;
-    $i_ = App\InteractsAcrossFilesystems::latest($latestColumn)->first() ?: new App\InteractsAcrossFilesystems;
+    $i = App\Traits\InteractsAcrossFilesystems::first() ?: new App\Traits\InteractsAcrossFilesystems;
+    $i_ = App\Traits\InteractsAcrossFilesystems::latest($latestColumn)->first() ?: new App\Traits\InteractsAcrossFilesystems;
     if (!function_exists('i')) {
         function i(...$args) {
-            return getQueryInstance('App\InteractsAcrossFilesystems', ...$args);
+            return getQueryInstance('App\Traits\InteractsAcrossFilesystems', ...$args);
         }
     }
 } catch (\Illuminate\Database\QueryException $e) {
-        forgetName('App\InteractsAcrossFilesystems');
+        forgetName('App\Traits\InteractsAcrossFilesystems');
     }
 try {
     $languagea = App\Models\LanguageAssetName::first() ?: new App\Models\LanguageAssetName;
@@ -339,15 +339,15 @@ try {
         forgetName('App\PresenterInterface');
     }
 try {
-    $rec = App\ReconstructableTrait::first() ?: new App\ReconstructableTrait;
-    $rec_ = App\ReconstructableTrait::latest($latestColumn)->first() ?: new App\ReconstructableTrait;
+    $rec = App\Traits\ReconstructableTrait::first() ?: new App\Traits\ReconstructableTrait;
+    $rec_ = App\Traits\ReconstructableTrait::latest($latestColumn)->first() ?: new App\Traits\ReconstructableTrait;
     if (!function_exists('rec')) {
         function rec(...$args) {
-            return getQueryInstance('App\ReconstructableTrait', ...$args);
+            return getQueryInstance('App\Traits\ReconstructableTrait', ...$args);
         }
     }
 } catch (\Illuminate\Database\QueryException $e) {
-        forgetName('App\ReconstructableTrait');
+        forgetName('App\Traits\ReconstructableTrait');
     }
 try {
     $rulet = App\RuleType::first() ?: new App\RuleType;
@@ -361,15 +361,15 @@ try {
         forgetName('App\RuleType');
     }
 try {
-    $sourcea = App\SourceableTrait::first() ?: new App\SourceableTrait;
-    $sourcea_ = App\SourceableTrait::latest($latestColumn)->first() ?: new App\SourceableTrait;
+    $sourcea = App\Traits\SourceableTrait::first() ?: new App\Traits\SourceableTrait;
+    $sourcea_ = App\Traits\SourceableTrait::latest($latestColumn)->first() ?: new App\Traits\SourceableTrait;
     if (!function_exists('sourcea')) {
         function sourcea(...$args) {
-            return getQueryInstance('App\SourceableTrait', ...$args);
+            return getQueryInstance('App\Traits\SourceableTrait', ...$args);
         }
     }
 } catch (\Illuminate\Database\QueryException $e) {
-        forgetName('App\SourceableTrait');
+        forgetName('App\Traits\SourceableTrait');
     }
 try {
     $su = App\SubscribeableInterface::first() ?: new App\SubscribeableInterface;

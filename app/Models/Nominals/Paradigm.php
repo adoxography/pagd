@@ -4,9 +4,9 @@ namespace App\Models\Nominals;
 
 use App\Models\ParadigmTablePresenter;
 use App\Presenters\Nominals\ParadigmPresenter;
-use App\BookmarkableTrait;
+use App\Traits\BookmarkableTrait;
 use App\Models\Language;
-use App\SourceableTrait;
+use App\Traits\SourceableTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Paradigm extends Model

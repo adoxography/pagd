@@ -2,7 +2,7 @@
 
 namespace App\Models\Morphology;
 
-use App\DisambiguatableTrait;
+use App\Traits\DisambiguatableTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class InitialChange extends Model

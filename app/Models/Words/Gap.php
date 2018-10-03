@@ -2,10 +2,10 @@
 
 namespace App\Models\Words;
 
-use App\BookmarkableTrait;
-use App\HideableTrait;
+use App\Traits\BookmarkableTrait;
+use App\Traits\HideableTrait;
 use App\Models\Language;
-use App\SourceableTrait;
+use App\Traits\SourceableTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

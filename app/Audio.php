@@ -6,6 +6,7 @@ use App\Models\Language;
 use App\Events\Audio\Deleting;
 use App\Events\FileOrphaned;
 use App\Presenters\AudioPresenter;
+use App\Traits\BookmarkableTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Storage;

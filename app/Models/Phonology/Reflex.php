@@ -3,9 +3,9 @@
 namespace App\Models\Phonology;
 
 use App\Presenters\AlgPresenter;
-use App\BacksUpTrait;
-use App\BookmarkableTrait;
-use App\SourceableTrait;
+use App\Traits\BacksUpTrait;
+use App\Traits\BookmarkableTrait;
+use App\Traits\SourceableTrait;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;

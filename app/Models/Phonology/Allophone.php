@@ -2,7 +2,7 @@
 
 namespace App\Models\Phonology;
 
-use App\ReconstructableTrait;
+use App\Traits\ReconstructableTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 

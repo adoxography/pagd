@@ -3,8 +3,8 @@
 namespace App\Models\StructuralSurvey;
 
 use App\Models\Language;
-use App\SourceableTrait;
-use App\BookmarkableTrait;
+use App\Traits\SourceableTrait;
+use App\Traits\BookmarkableTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Datapoint extends Model

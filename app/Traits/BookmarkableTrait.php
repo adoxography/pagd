@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Traits;
 
 use Auth;
 use Illuminate\Database\QueryException;
@@ -33,14 +33,7 @@ trait BookmarkableTrait {
 
 	public function isBookmarkedBy($user = null)
 	{
-		if(!isset($user)) {
-			$user = Auth::user();
-		}
-
-		if($this->bookmarkedBy()->find($user->id)) {
-			return true;
-		} else {
-			return false;
-		}
+        $user = $user ?? Auth::user();
+        return !!($this->bookmarkedBy()->find($user->id));
 	}
 }

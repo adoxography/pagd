@@ -2,7 +2,7 @@
 
 namespace App\Models\Morphology;
 
-use App\BookmarkableTrait;
+use App\Traits\BookmarkableTrait;
 use App\Closed;
 use App\Presenters\SlotPresenter;
 use Illuminate\Database\Eloquent\SoftDeletes;

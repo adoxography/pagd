@@ -6,7 +6,7 @@ use App\ChangeType;
 use App\Models\Group;
 use App\Models\Language;
 use App\RuleType;
-use App\IGTLineType;
+use App\Models\IGT\IGTLineType;
 
 use App\Models\Nominals\NominalFeature;
 use App\Models\Nominals\Paradigm;

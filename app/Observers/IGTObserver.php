@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
-use App\IGT;
-use App\IGTLine;
+use App\Models\IGT\IGT;
+use App\Models\IGT\IGTLine;
 
 class IGTObserver
 {
@@ -14,7 +14,7 @@ class IGTObserver
      * onto a property on the model itself so that the database doesn't try to
      * save the lines itself.
      *
-     * @param App\IGT  $model
+     * @param App\Models\IGT\IGT  $model
      */
     public function saving(IGT $model)
     {
@@ -26,7 +26,7 @@ class IGTObserver
      *
      * Synchronizes the extracted lines with the existing lines.
      *
-     * @param App\IGT  $model
+     * @param App\Models\IGT\IGT  $model
      */
     public function saved(IGT $model)
     {
@@ -38,7 +38,7 @@ class IGTObserver
      *
      * Ensures all of the model's lines also get deleted.
      *
-     * @param App\IGT  $model
+     * @param App\Models\IGT\IGT  $model
      */
     public function deleting(IGT $model)
     {
@@ -49,7 +49,7 @@ class IGTObserver
      * Extracts the lines from the model's attributes and onto an instance on
      * the object itself
      *
-     * @param App\IGT  $model
+     * @param App\Models\IGT\IGT  $model
      */
     protected function extractLines(IGT $model)
     {
@@ -64,7 +64,7 @@ class IGTObserver
      * Existing lines are updated in order with the data from the new lines.
      * Remaining existing lines are deleted, and extra new lines are created.
      *
-     * @param App\IGT  $model
+     * @param App\Models\IGT\IGT  $model
      */
     protected function syncLines(IGT $model)
     {
@@ -88,7 +88,7 @@ class IGTObserver
     /**
      * Deletes all of the model's lines
      *
-     * @param App\IGT  $model
+     * @param App\Models\IGT\IGT  $model
      */
     protected function destroyLines(IGT $model)
     {

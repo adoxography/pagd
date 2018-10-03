@@ -1,9 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models\IGT;
 
 use App\Models\Language;
-use App\IGTLine;
+use App\Models\IGT\IGTLine;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\BookmarkableTrait;
 use App\Traits\SourceableTrait;

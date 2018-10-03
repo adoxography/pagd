@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\IGT;
+use App\Models\IGT\IGT;
 use Illuminate\Http\Request;
 
 class IGTShowController extends Controller

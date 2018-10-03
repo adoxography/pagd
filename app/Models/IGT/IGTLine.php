@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models\IGT;
 
-use App\IGTLineType;
+use App\Models\IGT\IGTLineType;
 use Illuminate\Database\Eloquent\Model;
 
 class IGTLine extends Model

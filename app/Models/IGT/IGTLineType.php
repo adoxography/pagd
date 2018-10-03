@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models\IGT;
 
 use Illuminate\Database\Eloquent\Model;
 

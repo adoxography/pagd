@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\IGT;
+use App\Models\IGT\IGT;
 use App\Models\Language;
 use App\Http\Requests\IGTRequest as Request;
 
@@ -43,7 +43,7 @@ class IGTController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\IGT  $igt
+     * @param  \App\Models\IGT\IGT  $igt
      * @return \Illuminate\Http\Response
      */
     public function show(IGT $igt)
@@ -54,7 +54,7 @@ class IGTController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\IGT  $igt
+     * @param  \App\Models\IGT\IGT  $igt
      * @return \Illuminate\Http\Response
      */
     public function edit(IGT $igt)
@@ -67,7 +67,7 @@ class IGTController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\IGTRequest  $request
-     * @param  \App\IGT  $igt
+     * @param  \App\Models\IGT\IGT  $igt
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, IGT $igt)
@@ -81,7 +81,7 @@ class IGTController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\IGT  $igt
+     * @param  \App\Models\IGT\IGT  $igt
      * @return \Illuminate\Http\Response
      */
     public function destroy(IGT $igt)

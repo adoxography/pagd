@@ -1,7 +1,7 @@
 <?php
 namespace App;
 
-use App\Comment;
+use App\Models\Tickets\Comment;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Mail\Mailable;

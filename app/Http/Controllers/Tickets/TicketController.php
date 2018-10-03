@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Tickets;
 
 use App\Http\Controllers\Controller;
 use App\Mail\TicketOpened;
-use App\Ticket;
-use App\TicketType;
+use App\Models\Tickets\Ticket;
+use App\Models\Tickets\TicketType;
 use App\User;
 use Auth;
 use Illuminate\Database\Eloquent\Collection;

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Tickets;
 
-use App\Comment;
-use App\Ticket;
+use App\Models\Tickets\Comment;
+use App\Models\Tickets\Ticket;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 

@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Ticket;
+use App\Models\Tickets\Ticket;
 use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Mail;
 use App\Mail\TicketSummary;
-use App\Ticket;
+use App\Models\Tickets\Ticket;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;

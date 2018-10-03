@@ -1,9 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models\Tickets;
 
+use App\User;
+use App\Models\Tickets\Comment;
+use App\Models\Tickets\TicketType;
+use App\Presenters\AlgPresenter;
 use App\Traits\SubscribeableTrait;
-use App\Comment;
+use App\SubscribeableInterface;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 

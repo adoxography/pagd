@@ -383,15 +383,15 @@ try {
         forgetName('App\SubscribeableInterface');
     }
 try {
-    $tickett = App\TicketType::first() ?: new App\TicketType;
-    $tickett_ = App\TicketType::latest($latestColumn)->first() ?: new App\TicketType;
+    $tickett = App\Models\Tickets\TicketType::first() ?: new App\Models\Tickets\TicketType;
+    $tickett_ = App\Models\Tickets\TicketType::latest($latestColumn)->first() ?: new App\Models\Tickets\TicketType;
     if (!function_exists('tickett')) {
         function tickett(...$args) {
-            return getQueryInstance('App\TicketType', ...$args);
+            return getQueryInstance('App\Models\Tickets\TicketType', ...$args);
         }
     }
 } catch (\Illuminate\Database\QueryException $e) {
-        forgetName('App\TicketType');
+        forgetName('App\Models\Tickets\TicketType');
     }
 try {
     $userr = App\UserRole::first() ?: new App\UserRole;

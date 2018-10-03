@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models\Tickets;
 
-use App\Ticket;
+use App\Models\Tickets\Ticket;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 

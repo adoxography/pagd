@@ -30,6 +30,18 @@ class FormController extends AlgModelController
 
     public function async()
     {
+        $data = request()->validate([
+            'language' => 'integer',
+            'class' => 'integer',
+            'mode' => 'integer',
+            'order' => 'integer',
+            'subject' => 'integer',
+            'primaryObject' => 'integer',
+            'secondaryObject' => 'integer',
+            'shape' => 'nullable',
+            'perPage' => 'integer',
+        ]);
+
         $query = Form::select()
             ->with([
                 'structure',
@@ -42,30 +54,32 @@ class FormController extends AlgModelController
                 'examples'
             ]);
 
-        if (request()->language) {
-            $query->where('language_id', request()->language);
+        if ($data['language']) {
+            $query->where('language_id', $data['language']);
         }
 
         foreach (['class', 'mode', 'order', 'subject', 'primaryObject', 'secondaryObject'] as $field) {
-            $value = request()->$field;
-            if ($value && $value >= 0) {
-                $label = "{$field}_id";
-                $query->whereHas('structure', function ($query) use ($label, $value) {
-                    if ($value === 0) {
-                        $query->whereNull($label);
-                    } else {
-                        $query->where($label, $value);
-                    }
-                });
+            if (isset($data[$field])) {
+                $value = (int)$data[$field];
+                if ($value >= 0) {
+                    $label = "{$field}_id";
+                    $query->whereHas('structure', function ($query) use ($label, $value) {
+                        if ($value == 0) {
+                            $query->whereNull($label);
+                        } else {
+                            $query->where($label, $value);
+                        }
+                    });
+                }
             }
         }
 
-        if (request()->shape) {
-            $shape = request()->shape;
+        if (isset($data['shape'])) {
+            $shape = $data['shape'];
             $query->where('name', 'LIKE',"%$shape%");
         }
 
-        $forms = $query->paginate(request()->perPage);
+        $forms = $query->orderBy('name')->paginate(request()->perPage);
         return $forms->toJson();
     }
 

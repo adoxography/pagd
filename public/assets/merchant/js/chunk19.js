@@ -159,7 +159,10 @@ var Filter = function Filter(label, options) {
 
       this.forms = null;
 
-      var params = {};
+      var params = {
+        'per_page': this.perPage,
+        'page': this.page
+      };
 
       if (this.language) {
         params['language'] = this.language;

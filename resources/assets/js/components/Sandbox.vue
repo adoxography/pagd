@@ -147,7 +147,10 @@ export default {
     getForms() {
       this.forms = null;
 
-      let params = {};
+      let params = {
+        'per_page': this.perPage,
+        'page': this.page
+      };
 
       if (this.language) {
         params['language'] = this.language;

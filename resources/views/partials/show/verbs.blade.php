@@ -22,7 +22,7 @@
                 :languages="{{ $languages->toJson() }}"
              @endisset
 
-             @if (!isset($showAddButtons) || !$showAddButtons)
+             @if ((!isset($showAddButtons) || !$showAddButtons) && Auth::user() && Auth::user()->hasPermissionTo('add content'))
                  :show-add-buttons="true"
              @endif
 ></alg-form-filter>

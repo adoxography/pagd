@@ -1,5 +1,5 @@
 <template>
-  <div class="sandbox">
+  <div class="alg-form-filter">
     <div role="pagination">
       <div class="level">
         <div class="level-left">
@@ -68,8 +68,22 @@
     <table v-else-if="forms.length > 0" class="table">
       <thead>
         <tr>
-          <th>Forms</th>
-          <th>Examples</th>
+          <th>
+            Forms
+            <a class="icon add-icon" :href="addURI + formUri" v-show="showAddButtons">
+              <span title="Add another" class="icon">
+                <i class="fa fa-plus-square"></i>
+              </span>
+            </a>
+          </th>
+          <th>
+            Examples
+            <a class="icon add-icon" :href="addURI + '/addExample'" v-show="showAddButtons">
+              <span title="Add another" class="icon">
+                <i class="fa fa-plus-square"></i>
+              </span>
+            </a>
+          </th>
         </tr>
       </thead>
       <tbody v-for="form in forms">
@@ -117,7 +131,11 @@ export default {
     'uri': {},
     'perPage': {
       default: 20
-    }
+    },
+    'showAddButtons': {
+      default: false
+    },
+    'formUri': {}
   },
 
   data() {
@@ -128,6 +146,14 @@ export default {
       showFilter: false,
       shape: '',
       filters: []
+    }
+  },
+
+  computed: {
+    addURI() {
+      if (this.language) {
+        return `/languages/${this.language}`;
+      }
     }
   },
 
@@ -200,7 +226,7 @@ export default {
   border-bottom-width: thin;
 }
 
-.sandbox {
+.alg-form-filter {
   .table-note {
     font-style: italic;
   }

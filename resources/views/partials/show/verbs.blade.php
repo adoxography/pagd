@@ -1,5 +1,6 @@
-<alg-sandbox :filter-data="{{ $data->toJson() }}"
+<alg-form-filter :filter-data="{{ $data->toJson() }}"
              uri="/verbs/forms/async"
+             form-uri="/addVerbForm"
 
              @isset($perPage)
                 :per-page="{{ $perPage }}" 
@@ -20,4 +21,8 @@
              @isset($languages)
                 :languages="{{ $languages->toJson() }}"
              @endisset
-></alg-sandbox>
+
+             @if (!isset($showAddButtons) || !$showAddButtons)
+                 :show-add-buttons="true"
+             @endif
+></alg-form-filter>

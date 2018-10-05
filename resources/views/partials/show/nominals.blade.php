@@ -4,7 +4,7 @@
     }
 @endphp
 
-<alg-sandbox :filter-data="{{ $data->toJson() }}"
+<alg-form-filter :filter-data="{{ $data->toJson() }}"
              uri="/nominals/forms/async"
 
              @isset($perPage)
@@ -26,4 +26,4 @@
              @isset($languages)
                 :languages="{{ $languages->toJson() }}"
              @endisset
-></alg-sandbox>
+></alg-form-filter>

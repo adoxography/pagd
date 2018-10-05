@@ -2,6 +2,7 @@
 namespace App\Models\Users;
 
 use App\Models\Tickets\Comment;
+use App\Presenters\AlgPresenter;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Mail\Mailable;

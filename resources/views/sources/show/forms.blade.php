@@ -3,6 +3,7 @@
 $hasVerbs    = $source->verbForms()->count()    + $source->verbExamples()->count()    > 0;
 $hasNominals = $source->nominalForms()->count() + $source->nominalExamples()->count() > 0;
 
+$languages = App\Models\Language::all();
 @endphp
 
 @extends('sources.show')
@@ -10,7 +11,7 @@ $hasNominals = $source->nominalForms()->count() + $source->nominalExamples()->co
 @section('content')
 	@if($hasVerbs)
 		<h4 class="title is-4">Verbs</h4>
-		@include('partials.show.verbs', ['model' => $source, 'showAddButtons' => false])
+        @include('partials.show.verbs', ['model' => $source, 'languages' => $languages, 'showAddButtons' => false])
 
 		@if($hasNominals)
 			<hr>

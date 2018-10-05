@@ -35,38 +35,51 @@ class LanguageShowController extends Controller
 
     public function verbs(Language $language)
     {
-        $language->load([
-            'verbGaps',
-            'verbGaps.structure',
-            'verbGaps.structure.mode',
-            'verbGaps.structure.verbClass',
-            'verbGaps.structure.order',
-            'verbGaps.structure.subject',
-            'verbGaps.structure.primaryObject',
-            'verbGaps.structure.secondaryObject',
+        $formsPerPage = 20;
+        $numPages = $language->forms()->count() / $formsPerPage;
+        $forms = $language->verbForms()
+                          ->with([
+                              'structure',
+                              'structure.mode',
+                              'structure.verbClass',
+                              'structure.order',
+                              'structure.subject',
+                              'structure.primaryObject',
+                              'structure.secondaryObject',
+                              'examples'
+                          ])->paginate($formsPerPage);
+        //$language->load([
+            //'verbGaps',
+            //'verbGaps.structure',
+            //'verbGaps.structure.mode',
+            //'verbGaps.structure.verbClass',
+            //'verbGaps.structure.order',
+            //'verbGaps.structure.subject',
+            //'verbGaps.structure.primaryObject',
+            //'verbGaps.structure.secondaryObject',
 
-            'verbForms',
-            'verbForms.structure',
-            'verbForms.structure.mode',
-            'verbForms.structure.verbClass',
-            'verbForms.structure.order',
-            'verbForms.structure.subject',
-            'verbForms.structure.primaryObject',
-            'verbForms.structure.secondaryObject',
-            'verbForms.examples'
-        ]);
+            //'verbForms',
+            //'verbForms.structure',
+            //'verbForms.structure.mode',
+            //'verbForms.structure.verbClass',
+            //'verbForms.structure.order',
+            //'verbForms.structure.subject',
+            //'verbForms.structure.primaryObject',
+            //'verbForms.structure.secondaryObject',
+            //'verbForms.examples'
+        //]);
 
-        $language->examples = collect();
+        //$language->examples = collect();
 
-        foreach($language->verbForms as $form) {
-            foreach($form->examples as &$example) {
-                $example->structure = $form->structure;
-            }
+        //foreach($language->verbForms as $form) {
+            //foreach($form->examples as &$example) {
+                //$example->structure = $form->structure;
+            //}
 
-            $language->examples = $language->examples->merge($form->examples);
-        }
+            //$language->examples = $language->examples->merge($form->examples);
+        //}
 
-        return view('languages.show.verbs', compact('language'));
+        return view('languages.show.verbs', compact('language', 'numPages', 'forms'));
     }
 
     public function nominals(Language $language)

@@ -8,6 +8,7 @@ Route::patch('/gaps/{verbGap}/hide', 'GapController@hide');
 Route::post('/gaps/{verbGap}/bookmark', 'GapController@bookmark');
 Route::delete('/gaps/{verbGap}/bookmark', 'GapController@unbookmark');
 
+Route::get('/forms/async', 'FormController@async');
 Route::get('/forms', 'FormController@index');
 Route::post('/forms', 'FormController@store');
 Route::get('/forms/create', 'FormController@create');

@@ -1,4 +1,4 @@
-webpackJsonp([54,75],{
+webpackJsonp([54,77],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/Form.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -22,44 +22,225 @@ webpackJsonp([54,75],{
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/VerbForm.vue":
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/IGT.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form__ = __webpack_require__("./resources/assets/js/components/forms/Form.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_HasMorphemes__ = __webpack_require__("./resources/assets/js/mixins/HasMorphemes.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Datalist_js__ = __webpack_require__("./resources/assets/js/Datalist.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Datalist_js__ = __webpack_require__("./resources/assets/js/Datalist.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 
 
 
+/**
+ * Datatype that holds information on IGT lines
+ */
+
+var IGTLine =
+/**
+ * Ininitializes the IGTLine
+ *
+ * @param text  The text of the line
+ * @param type  An object representing the line's formatting type
+ */
+function IGTLine() {
+  var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+  _classCallCheck(this, IGTLine);
+
+  this.text = text;
+  this.type = type;
+};
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-	extends: __WEBPACK_IMPORTED_MODULE_0__Form__["default"],
+  extends: __WEBPACK_IMPORTED_MODULE_0__Form__["default"],
 
-	props: ['isEmpty'],
+  props: ['lineTypes', 'oldLines'],
 
-	mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_HasMorphemes__["a" /* default */]],
+  data: function data() {
+    return {
+      language: new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */](),
+      lines: [new IGTLine()]
+    };
+  },
+  created: function created() {
+    var _this = this;
 
-	data: function data() {
-		return {
-			empty: false,
-			language: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
-			subject: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
-			primaryObject: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
-			secondaryObject: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
-			verbClass: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
-			order: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
-			mode: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
-			parent: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */]()
-		};
-	},
-	created: function created() {
-		if (this.isEmpty) {
-			this.empty = this.isEmpty;
-		}
-	}
+    // If old lines were passed in, prepopulate the form with them
+    if (this.oldLines) {
+      this.lines = this.oldLines.map(function (line) {
+        var type = _this.lineTypes.find(function (type) {
+          return type.id == line.type_id;
+        });
+        return new IGTLine(line.text, type);
+      });
+    }
+
+    // Ensure that all lines have a type
+    this.lines.forEach(function (line) {
+      if (!line.type) {
+        line.type = _this.lineTypes[0];
+      }
+    });
+
+    // Make sure that everything is aligned properly to start off with
+    this.align();
+  },
+
+
+  methods: {
+    /**
+     * Adds a line to the IGT
+     *
+     * Gives focus to the newly added line.
+     *
+     * @param index  The index to add the line after
+     */
+    addLine: function addLine(index) {
+      var _this2 = this;
+
+      var newIndex = index + 1;
+      this.lines.splice(newIndex, 0, new IGTLine('', this.lineTypes[0]));
+
+      // Wait for the page to re-render before focusing the new element
+      Vue.nextTick(function () {
+        return _this2.$refs["line-" + newIndex][0].focus();
+      });
+    },
+
+
+    /**
+     * Removes a line of IGT
+     *
+     * Gives focus to the line before the line that was removed, or the first
+     * line if the first line was removed. Will do nothing if there is only
+     * one line.
+     *
+     * @param index  The index of the line to remove
+     */
+    removeLine: function removeLine(index) {
+      var _this3 = this;
+
+      if (this.lines.length > 1) {
+        this.lines.splice(index, 1);
+
+        var remainingLine = Math.max(index - 1, 0);
+
+        Vue.nextTick(function () {
+          return _this3.$refs["line-" + remainingLine][0].focus();
+        });
+      }
+    },
+
+
+    /**
+     * Lines up all of the aligning lines in the IGT
+     */
+    align: function align() {
+      var _this4 = this;
+
+      var horizontal = this.lines.map(function (line) {
+        return line.text.split(/\s+/);
+      });
+      var vertical = _.zip.apply(_, horizontal);
+      var exclude = [];
+
+      for (var i = 0; i < this.lines.length; i++) {
+        if (!this.lines[i].type.align) {
+          exclude.push(i);
+        }
+      }
+
+      vertical = vertical.map(function (tokens) {
+        return _this4.__padArray(tokens, ' ', exclude);
+      });
+      horizontal = _.zip.apply(_, vertical);
+
+      for (var _i = 0; _i < horizontal.length; _i++) {
+        this.lines[_i].text = horizontal[_i].join(' ').trim();
+      }
+    },
+
+
+    /**
+     * Ensures all members of an array are the same length by padding them
+     * with a given character
+     *
+     * @param arr      An array of strings
+     * @param str      The string to pad the members of the array with
+     * @param exclude  The indices to exclude from the padding
+     * @return  An array of strings which are all the same length
+     */
+    __padArray: function __padArray(arr, str) {
+      var exclude = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
+      exclude = exclude || [];
+      var size = 0;
+
+      for (var i = 0; i < arr.length; i++) {
+        if (!exclude.includes(i)) {
+          var token = arr[i] || '';
+          size = Math.max(size, token.length);
+        }
+      }
+
+      for (var _i2 = 0; _i2 < arr.length; _i2++) {
+        if (!exclude.includes(_i2)) {
+          var _token = arr[_i2] || '';
+          var addon = str.repeat(size - _token.length);
+          arr[_i2] = _token + addon;
+        }
+      }
+
+      return arr;
+    }
+  }
 });
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/forms/IGT.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.igt-line {\n  margin: inherit;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/forms/IGT.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/forms/IGT.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__("./node_modules/vue-loader/node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("6dad0bc2", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./IGT.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./IGT.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ }),
 
@@ -156,15 +337,19 @@ if (false) {(function () {
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/forms/VerbForm.vue":
+/***/ "./resources/assets/js/components/forms/IGT.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_VerbForm_vue__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/VerbForm.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_IGT_vue__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/IGT.vue");
 /* empty harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/component-normalizer.js");
 var disposed = false
+function injectStyle (context) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-loader/node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"scoped\":false,\"sourceMap\":false}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/forms/IGT.vue")
+}
 /* script */
 
 
@@ -173,14 +358,14 @@ var __vue_render__, __vue_static_render_fns__
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 
 var Component = Object(__WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
-  __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_VerbForm_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_IGT_vue__["a" /* default */],
   __vue_render__,
   __vue_static_render_fns__,
   __vue_template_functional__,
@@ -188,7 +373,7 @@ var Component = Object(__WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/forms/VerbForm.vue"
+Component.options.__file = "resources/assets/js/components/forms/IGT.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -197,9 +382,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-659094da", Component.options)
+    hotAPI.createRecord("data-v-09766a0f", Component.options)
   } else {
-    hotAPI.reload("data-v-659094da", Component.options)
+    hotAPI.reload("data-v-09766a0f", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -208,28 +393,6 @@ if (false) {(function () {
 
 /* harmony default export */ __webpack_exports__["default"] = (Component.exports);
 
-
-/***/ }),
-
-/***/ "./resources/assets/js/mixins/HasMorphemes.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    props: ['init-morphemes'],
-
-    data: function data() {
-        return {
-            morphemes: []
-        };
-    },
-    created: function created() {
-        if (this.initMorphemes) {
-            this.morphemes = this.initMorphemes;
-        }
-    }
-});
 
 /***/ }),
 

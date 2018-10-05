@@ -20,12 +20,53 @@ class FormController extends AlgModelController
      */
     public function __construct()
     {
-        $this->middleware('auth')->except('show');
+        $this->middleware('auth')->except('show', 'async');
     }
 
     public function show(Form $verbForm)
     {
         return redirect("/verbs/forms/{$verbForm->id}/basic");
+    }
+
+    public function async()
+    {
+        $query = Form::select()
+            ->with([
+                'structure',
+                'structure.mode',
+                'structure.verbClass',
+                'structure.order',
+                'structure.subject',
+                'structure.primaryObject',
+                'structure.secondaryObject',
+                'examples'
+            ]);
+
+        if (request()->language) {
+            $query->where('language_id', request()->language);
+        }
+
+        foreach (['class', 'mode', 'order', 'subject', 'primaryObject', 'secondaryObject'] as $field) {
+            $value = request()->$field;
+            if ($value && $value >= 0) {
+                $label = "{$field}_id";
+                $query->whereHas('structure', function ($query) use ($label, $value) {
+                    if ($value === 0) {
+                        $query->whereNull($label);
+                    } else {
+                        $query->where($label, $value);
+                    }
+                });
+            }
+        }
+
+        if (request()->shape) {
+            $shape = request()->shape;
+            $query->where('name', 'LIKE',"%$shape%");
+        }
+
+        $forms = $query->paginate(request()->perPage);
+        return $forms->toJson();
     }
 
     public function create()

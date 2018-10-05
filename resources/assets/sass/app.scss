@@ -30,6 +30,11 @@
     font-family: "DejaVueSansMono", "monospace";
 }
 
+a.pagination-next:hover, a.pagination-previous:hover, a.pagination-link:hover {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
 .breadcrumb {
 	a {
 		padding-top: 0;

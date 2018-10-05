@@ -1,6 +1,6 @@
 webpackJsonp([26],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Multi-DataList.vue":
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Phoneme-Examples.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -37,61 +37,78 @@ webpackJsonp([26],{
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['value', 'list', 'name', 'disabled'],
+    props: ['language', 'old'],
 
-	data: function data() {
-		return {
-			numFields: 1,
-			suggestions: {
-				cree: [new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Plains Cree', 2), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Woods Cree', 35), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Swampy Cree', 59), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Moose Cree', 5), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Atikamekw', 36), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Southern East Cree', 37), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Northern East Cree', 38), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Sheshatshiu Innu', 39)],
-
-				ojibwe: [new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Saulteaux', 27), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Southwestern Ojibwe', 21), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Oji-Cree', 28), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Odawa', 29), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Nishnaabemwin', 22), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Nipissing', 31), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Old Algonquin', 32), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Lac Simon Algonquin', 33), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Golden Lake Algonquin', 34)]
-			}
-		};
-	},
+    data: function data() {
+        return {
+            lookup: new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */](),
+            examples: []
+        };
+    },
 
 
-	methods: {
-		addField: function addField() {
-			if (this.value.length < 5) {
-				var temp = this.value;
-				temp.push({
-					text: '',
-					id: ''
-				});
+    computed: {
+        autocompleteData: function autocompleteData() {
+            return {
+                language: this.language ? this.language.id : null
+            };
+        }
+    },
 
-				this.$emit('input', temp);
-			}
-		},
-		removeField: function removeField() {
-			if (this.value.length > 1) {
-				var temp = this.value;
-				temp.pop();
-				this.$emit('input', temp);
-			}
-		},
-		suggest: function suggest(key) {
-			var newLists = [];
+    methods: {
+        onUpdateLookup: function onUpdateLookup(example) {
+            if (example.text && this.$refs.lookup.showCheck) {
+                this.examples.push({
+                    name: example.text,
+                    id: example.id,
+                    comment: ''
+                });
 
-			this.suggestions[key].forEach(function (suggestion) {
-				newLists.push({
-					text: suggestion.text,
-					id: suggestion.id
-				});
-			});
+                this.$refs.lookup.reset();
+            }
+        },
+        onDelete: function onDelete(index) {
+            this.examples.splice(index, 1);
+        }
+    },
 
-			this.$emit('input', newLists);
-		}
-	}
+    created: function created() {
+        var _this = this;
+
+        if (this.old) {
+            this.old.forEach(function (example) {
+                _this.examples.push({
+                    name: example.name,
+                    id: example.id,
+                    comments: example.pivot.comments
+                });
+            });
+        }
+    }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-3d68a993\",\"hasScoped\":false,\"optionsId\":\"0\",\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Multi-DataList.vue":
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-bda815f2\",\"hasScoped\":false,\"optionsId\":\"0\",\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Phoneme-Examples.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -104,92 +121,112 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._l(_vm.value, function(line, n) {
-        return _c(
-          "div",
-          { staticClass: "field" },
+      _c("div", { staticClass: "field" }, [
+        _c(
+          "span",
+          { staticClass: "control" },
           [
-            _c("alg-datalist", {
-              key: n,
-              ref: "datalists",
-              refInFor: true,
-              attrs: { list: _vm.list, name: _vm.name, disabled: _vm.disabled },
+            _c("alg-ajaxlist", {
+              ref: "lookup",
+              attrs: {
+                uri: "/autocomplete/examples",
+                with: _vm.autocompleteData
+              },
+              on: {
+                input: function($event) {
+                  _vm.onUpdateLookup($event)
+                }
+              },
               model: {
-                value: _vm.value[n],
+                value: _vm.lookup,
                 callback: function($$v) {
-                  _vm.$set(_vm.value, n, $$v)
+                  _vm.lookup = $$v
                 },
-                expression: "value[n]"
+                expression: "lookup"
               }
             })
           ],
           1
         )
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "level" }, [
-        _c("div", { staticClass: "level-left" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "level-right" }, [
-          _c("div", { staticClass: "level-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "button is-primary is-small",
-                attrs: { disabled: _vm.value.length >= 5 || _vm.disabled },
-                on: {
-                  click: function($event) {
-                    _vm.addField()
-                  }
-                }
-              },
-              [_vm._m(0)]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "level-item" }, [
-            _c(
-              "a",
-              {
-                staticClass: "button is-primary is-small",
-                attrs: { disabled: _vm.value.length <= 1 || _vm.disabled },
-                on: {
-                  click: function($event) {
-                    _vm.removeField()
-                  }
-                }
-              },
-              [_vm._m(1)]
-            )
-          ])
-        ])
       ]),
       _vm._v(" "),
-      _c("em", [_vm._v("Suggestions: ")]),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          on: {
-            click: function($event) {
-              _vm.suggest("cree")
+      _vm._l(_vm.examples, function(example, index) {
+        return _c("div", { staticClass: "field is-horizontal" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: example.id,
+                expression: "example.id"
+              }
+            ],
+            attrs: { type: "hidden", name: "examples[" + index + "][id]" },
+            domProps: { value: example.id },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(example, "id", $event.target.value)
+              }
             }
-          }
-        },
-        [_vm._v("Cree Dialects")]
-      ),
-      _vm._v(",\n\t"),
-      _c(
-        "a",
-        {
-          on: {
-            click: function($event) {
-              _vm.suggest("ojibwe")
-            }
-          }
-        },
-        [_vm._v("Ojibwe Dialects")]
-      )
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "field-label is-normal" }, [
+            _c("label", { staticClass: "label" }, [
+              _vm._v(_vm._s(example.name))
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field-body" }, [
+            _c("div", { staticClass: "field is-grouped" }, [
+              _c("p", { staticClass: "control is-expanded" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: example.comments,
+                      expression: "example.comments"
+                    }
+                  ],
+                  staticClass: "input",
+                  attrs: {
+                    type: "text",
+                    placeholder: "Comments",
+                    name: "examples[" + index + "][comments]"
+                  },
+                  domProps: { value: example.comments },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(example, "comments", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "control" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "button is-danger",
+                    on: {
+                      click: function($event) {
+                        _vm.onDelete(index)
+                      }
+                    }
+                  },
+                  [_vm._m(0, true)]
+                )
+              ])
+            ])
+          ])
+        ])
+      })
     ],
     2
   )
@@ -200,15 +237,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "icon" }, [
-      _c("i", { staticClass: "fa fa-plus" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon" }, [
-      _c("i", { staticClass: "fa fa-minus" })
+      _c("i", { staticClass: "fa fa-times" })
     ])
   }
 ]
@@ -217,7 +246,7 @@ render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-3d68a993", { render: render, staticRenderFns: staticRenderFns })
+    require("vue-hot-reload-api")      .rerender("data-v-bda815f2", { render: render, staticRenderFns: staticRenderFns })
   }
 }
 
@@ -261,14 +290,14 @@ var Datalist = function () {
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/Multi-DataList.vue":
+/***/ "./resources/assets/js/components/Phoneme-Examples.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_Multi_DataList_vue__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Multi-DataList.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_Phoneme_Examples_vue__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Phoneme-Examples.vue");
 /* empty harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3d68a993_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Multi_DataList_vue__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-3d68a993\",\"hasScoped\":false,\"optionsId\":\"0\",\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Multi-DataList.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_bda815f2_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Phoneme_Examples_vue__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-bda815f2\",\"hasScoped\":false,\"optionsId\":\"0\",\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Phoneme-Examples.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/component-normalizer.js");
 var disposed = false
 /* script */
@@ -286,15 +315,15 @@ var __vue_scopeId__ = null
 var __vue_module_identifier__ = null
 
 var Component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
-  __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_Multi_DataList_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3d68a993_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Multi_DataList_vue__["a" /* render */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3d68a993_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Multi_DataList_vue__["b" /* staticRenderFns */],
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_cacheDirectory_true_presets_env_modules_false_targets_browsers_2_uglify_true_plugins_transform_object_rest_spread_transform_runtime_polyfill_false_helpers_false_node_modules_vue_loader_lib_selector_type_script_index_0_Phoneme_Examples_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_bda815f2_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Phoneme_Examples_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_bda815f2_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Phoneme_Examples_vue__["b" /* staticRenderFns */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/Multi-DataList.vue"
+Component.options.__file = "resources/assets/js/components/Phoneme-Examples.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -303,9 +332,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3d68a993", Component.options)
+    hotAPI.createRecord("data-v-bda815f2", Component.options)
   } else {
-    hotAPI.reload("data-v-3d68a993", Component.options)
+    hotAPI.reload("data-v-bda815f2", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

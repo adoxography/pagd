@@ -13,6 +13,7 @@ use App\Models\Words\Example;
 use App\Models\Words\Form;
 use App\Models\Words\FormRepository;
 use App\Models\Words\Gap;
+use App\Presenters\AlgPresenter;
 use App\Traits\BookmarkableTrait;
 use App\Traits\DisambiguatableTrait;
 use Illuminate\Database\Eloquent\Builder;

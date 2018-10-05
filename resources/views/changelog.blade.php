@@ -6,6 +6,10 @@
 
 @section('content')
 	<ul class="indented-list">
+        <li>
+            05-10-18: Converted the verb forms page to load on-demand instead of all at once to improve speed
+        </li>
+        <hr>
 		<li>
 			29-04-18: Filtered possible morpheme connections better
 		</li>

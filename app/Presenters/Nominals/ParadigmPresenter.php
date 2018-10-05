@@ -3,12 +3,13 @@
 namespace App\Presenters\Nominals;
 
 use App\Presenters\AlgPresenter;
+use App\Models\Nominals\ParadigmTable;
 
 class ParadigmPresenter extends AlgPresenter
 {
 	public function table()
 	{
-		$paradigm = new Paradigm($this->model->forms);
+		$paradigm = new ParadigmTable($this->model->forms);
 		$html = 'No forms yet';
 
 		if(!$paradigm->isEmpty()) {

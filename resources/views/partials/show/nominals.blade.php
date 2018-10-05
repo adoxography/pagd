@@ -1,5 +1,11 @@
+@php
+    if (isset($paradigms)) {
+        $data['Paradigm'] = $paradigms;
+    }
+@endphp
+
 <alg-sandbox :filter-data="{{ $data->toJson() }}"
-             uri="/verbs/forms/async"
+             uri="/nominals/forms/async"
 
              @isset($perPage)
                 :per-page="{{ $perPage }}" 

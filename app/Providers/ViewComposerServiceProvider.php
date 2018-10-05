@@ -61,6 +61,7 @@ class ViewComposerServiceProvider extends ServiceProvider
         $this->composeVerbFormForm();
         $this->composeNominalFormForm();
         $this->composeShowNominals();
+        $this->composeShowVerbs();
 
         $this->composeSearch();
     }
@@ -223,12 +224,14 @@ class ViewComposerServiceProvider extends ServiceProvider
 
     protected function composeShowNominals()
     {
-        view()->composer('nominals.partials.show.nominals', function ($view) {
-            $data = [
-                'pronominalFeatures' => PronominalFeature::all(),
-                'nominalFeatures'    => NominalFeature::all()
-            ];
-            $view->with($data);
+        view()->composer('partials.show.nominals', function ($view) {
+            $noneOption = collect([['name' => 'None', 'id' => 0]]);
+
+            $data = collect([
+                'Pronominal Feature' => $noneOption->concat(PronominalFeature::all()),
+                'Nominal Feature'    => $noneOption->concat(NominalFeature::all())
+            ]);
+            $view->with(['data' => $data]);
         });
     }
 
@@ -258,6 +261,25 @@ class ViewComposerServiceProvider extends ServiceProvider
                 'languages' => Language::select('id', 'name')->get()
             ];
             $view->with($data);
+        });
+    }
+
+    private function composeShowVerbs()
+    {
+        view()->composer('partials.show.verbs', function ($view) {
+            $features = Argument::all();
+            $nullableFeatures = collect([['name' => 'None', 'id' => 0]])->concat($features);
+
+            $data = collect([
+                'Mode' => Mode::all(),
+                'Class' => VerbClass::all(),
+                'Order' => Order::all(),
+                'Subject' => $features,
+                'Primary Object' => $nullableFeatures,
+                'Secondary Object' => $nullableFeatures
+            ]);
+
+            $view->with(['data' => $data]);
         });
     }
 }

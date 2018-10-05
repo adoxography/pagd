@@ -6,6 +6,7 @@ use App\Http\Requests\Verbs\FormRequest;
 use App\Models\Verbs\Form;
 use App\Models\Verbs\Gap;
 use App\Traits\ConvertsMorphemes;
+use App\Traits\HandlesAsyncFormRequests;
 use App\Http\Controllers\AlgModelController;
 
 /**
@@ -13,7 +14,9 @@ use App\Http\Controllers\AlgModelController;
  */
 class FormController extends AlgModelController
 {
-    use ConvertsMorphemes;
+    use ConvertsMorphemes, HandlesAsyncFormRequests;
+
+    protected $asyncData = ['class', 'mode', 'order', 'subject', 'primaryObject', 'secondaryObject'];
 
     /**
      * Initialize middleware
@@ -28,59 +31,19 @@ class FormController extends AlgModelController
         return redirect("/verbs/forms/{$verbForm->id}/basic");
     }
 
-    public function async()
+    protected function asyncQuery()
     {
-        $data = request()->validate([
-            'language' => 'integer',
-            'class' => 'integer',
-            'mode' => 'integer',
-            'order' => 'integer',
-            'subject' => 'integer',
-            'primaryObject' => 'integer',
-            'secondaryObject' => 'integer',
-            'shape' => 'nullable',
-            'perPage' => 'integer',
-        ]);
-
-        $query = Form::select()
-            ->with([
-                'structure',
-                'structure.mode',
-                'structure.verbClass',
-                'structure.order',
-                'structure.subject',
-                'structure.primaryObject',
-                'structure.secondaryObject',
-                'examples'
-            ]);
-
-        if ($data['language']) {
-            $query->where('language_id', $data['language']);
-        }
-
-        foreach (['class', 'mode', 'order', 'subject', 'primaryObject', 'secondaryObject'] as $field) {
-            if (isset($data[$field])) {
-                $value = (int)$data[$field];
-                if ($value >= 0) {
-                    $label = "{$field}_id";
-                    $query->whereHas('structure', function ($query) use ($label, $value) {
-                        if ($value == 0) {
-                            $query->whereNull($label);
-                        } else {
-                            $query->where($label, $value);
-                        }
-                    });
-                }
-            }
-        }
-
-        if (isset($data['shape'])) {
-            $shape = $data['shape'];
-            $query->where('name', 'LIKE',"%$shape%");
-        }
-
-        $forms = $query->orderBy('name')->paginate(request()->perPage);
-        return $forms->toJson();
+        return Form::select()
+                    ->with([
+                        'structure',
+                        'structure.mode',
+                        'structure.verbClass',
+                        'structure.order',
+                        'structure.subject',
+                        'structure.primaryObject',
+                        'structure.secondaryObject',
+                        'examples'
+                    ]);
     }
 
     public function create()

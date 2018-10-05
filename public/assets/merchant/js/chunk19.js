@@ -115,7 +115,14 @@ var Filter = function Filter(label, options) {
     'languages': {
       default: null
     },
+    'morpheme': {
+      default: null
+    },
+    'source': {
+      default: null
+    },
     'filterData': {},
+    'uri': {},
     'perPage': {
       default: 20
     }
@@ -145,7 +152,6 @@ var Filter = function Filter(label, options) {
     }
 
     this.getForms();
-    console.log(this.filterData);
 
     for (var filterName in this.filterData) {
       this.filters.push(new Filter(filterName, this.filterData[filterName]));
@@ -160,12 +166,20 @@ var Filter = function Filter(label, options) {
       this.forms = null;
 
       var params = {
-        'per_page': this.perPage,
+        'perPage': this.perPage,
         'page': this.page
       };
 
       if (this.language) {
         params['language'] = this.language;
+      }
+
+      if (this.morpheme) {
+        params['morpheme'] = this.morpheme;
+      }
+
+      if (this.source) {
+        params['source'] = this.source;
       }
 
       var _iteratorNormalCompletion = true;
@@ -193,7 +207,7 @@ var Filter = function Filter(label, options) {
         }
       }
 
-      axios.get('/verbs/forms/async', {
+      axios.get(this.uri, {
         params: params
       }).then(function (response) {
         _this.forms = response.data.data;
@@ -209,7 +223,6 @@ var Filter = function Filter(label, options) {
 
 
     debounceGetForms: _.debounce(function (e) {
-      console.log('bar');
       this.getForms();
     }, 300)
   }

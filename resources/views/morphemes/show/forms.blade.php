@@ -10,7 +10,12 @@ $hasNominals = $morpheme->nominalForms()->count() + $morpheme->nominalExamples()
 @section('content')
 	@if($hasVerbs)
 		<h4 class="title is-4">Verbs</h4>
-        @include('partials.show.verbs', ['language_id' => $morpheme->language_id, 'perPage' => 10, 'showAddButtons' => false])
+        @include('partials.show.verbs', [
+            'language_id' => $morpheme->language_id,
+            'morpheme_id' => $morpheme->id,
+            'perPage' => 10,
+            'showAddButtons' => false
+        ])
 
 		@if($hasNominals)
 			<hr>
@@ -19,6 +24,12 @@ $hasNominals = $morpheme->nominalForms()->count() + $morpheme->nominalExamples()
 
 	@if($hasNominals)
 		<h4 class="title is-4">Nominals</h4>
-		@include('nominals.partials.show.nominals', ['model' => $morpheme, 'showAddButtons' => false])
+        @include('partials.show.nominals', [
+            'language_id' => $morpheme->language_id,
+            'paradigms' => $morpheme->language->paradigms,
+            'morpheme_id' => $morpheme_id,
+            'perPage' => 10,
+            'showAddButtons' => false
+        ])
 	@endif
 @endsection

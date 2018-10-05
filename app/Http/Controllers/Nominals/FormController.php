@@ -5,23 +5,37 @@ namespace App\Http\Controllers\Nominals;
 use App\Http\Requests\Nominals\FormRequest;
 use App\Models\Nominals\Form;
 use App\Traits\ConvertsMorphemes;
+use App\Traits\HandlesAsyncFormRequests;
 use App\Http\Controllers\Controller;
 
 class FormController extends Controller
 {
-    use ConvertsMorphemes;
+    use ConvertsMorphemes, HandlesAsyncFormRequests;
+
+    protected $asyncData = ['nominalFeature', 'pronominalFeature', 'paradigm'];
 
     /**
      * Initialize middleware
      */
     public function __construct()
     {
-        $this->middleware('auth')->except('show');
+        $this->middleware('auth')->except('show', 'async');
     }
 
     public function show(Form $nominalForm)
     {
         return redirect("/nominals/forms/{$nominalForm->id}/basic");
+    }
+
+    protected function asyncQuery()
+    {
+        return Form::select()
+                     ->with([
+                         'structure',
+                         'structure.nominalFeature',
+                         'structure.pronominalFeature',
+                         'examples'
+                     ]);
     }
 
     public function create()

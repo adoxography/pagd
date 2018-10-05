@@ -107,7 +107,14 @@ export default {
     'languages': {
       default: null
     },
+    'morpheme': {
+      default: null
+    },
+    'source': {
+      default: null
+    },
     'filterData': {},
+    'uri': {},
     'perPage': {
       default: 20
     }
@@ -136,7 +143,6 @@ export default {
     }
 
     this.getForms();
-    console.log(this.filterData);
 
     for (let filterName in this.filterData) {
       this.filters.push(new Filter(filterName, this.filterData[filterName]));
@@ -148,7 +154,7 @@ export default {
       this.forms = null;
 
       let params = {
-        'per_page': this.perPage,
+        'perPage': this.perPage,
         'page': this.page
       };
 
@@ -156,11 +162,19 @@ export default {
         params['language'] = this.language;
       }
 
+      if (this.morpheme) {
+        params['morpheme'] = this.morpheme;
+      }
+
+      if (this.source) {
+        params['source'] = this.source;
+      }
+
       for (let filter of this.filters) {
         params[_.camelCase(filter.label)] = filter.value;
       }
 
-      axios.get('/verbs/forms/async', {
+      axios.get(this.uri, {
         params: params
       }).then(response => {
           this.forms = response.data.data;
@@ -175,7 +189,6 @@ export default {
     },
 
     debounceGetForms: _.debounce(function (e) {
-      console.log('bar');
       this.getForms();
     }, 300)
   }

@@ -7,6 +7,7 @@ Route::resource('/paradigms', 'ParadigmController');
 
 Route::group(['as' => 'nominalForms::'], function() {
 	Route::get('/forms/create', 'FormController@create');
+    Route::get('/forms/async', 'FormController@async');
 	Route::get('/forms/{nominalForm}', 'FormController@show');
     Route::get('/forms/{nominalForm}/clone', 'FormController@clone');
 	Route::get('/forms/{nominalForm}/basic',    'FormShowController@basicDetails')->name('showBasic');

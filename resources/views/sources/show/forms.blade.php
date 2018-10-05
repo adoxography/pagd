@@ -11,7 +11,12 @@ $languages = App\Models\Language::all();
 @section('content')
 	@if($hasVerbs)
 		<h4 class="title is-4">Verbs</h4>
-        @include('partials.show.verbs', ['model' => $source, 'languages' => $languages, 'showAddButtons' => false])
+        @include('partials.show.verbs', [
+            'languages' => $languages,
+            'showAddButtons' => false,
+            'source_id' => $source->id,
+            'perPage' => 10
+        ])
 
 		@if($hasNominals)
 			<hr>
@@ -20,6 +25,11 @@ $languages = App\Models\Language::all();
 
 	@if($hasNominals)
 		<h4 class="title is-4">Nominals</h4>
-		@include('nominals.partials.show.nominals', ['model' => $source, 'showAddButtons' => false])
+        @include('partials.show.nominals', [
+            'languages' => $languages,
+            'source_id' => $source->id,
+            'showAddButtons' => false,
+            'perPage' => 10
+        ])
 	@endif
 @endsection

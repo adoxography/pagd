@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Language;
+use App\Models\Group;
+use App\Models\Source;
 use App\Models\Morphology\Morpheme;
 use App\Models\Nominals\Form as NominalForm;
 use App\Models\Phonology\Phoneme;
@@ -19,6 +22,9 @@ class MorphMapServiceProvider extends ServiceProvider
     public function boot()
     {
         Relation::morphMap([
+            'languages' => Language::class,
+            'sources' => Source::class,
+            'groups' => Group::class,
             'verbForms'  => 'App\Models\Verbs\Form',
             'nominalForms' => NominalForm::class,
             'forms'      => 'App\Models\Words\Form',

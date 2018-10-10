@@ -1,6 +1,7 @@
 <?php
 namespace App\Models\Users;
 
+use App\Interfaces\SubscribeableInterface;
 use App\Models\Tickets\Comment;
 use App\Presenters\AlgPresenter;
 use Carbon\Carbon;

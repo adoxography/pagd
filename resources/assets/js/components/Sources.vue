@@ -40,6 +40,11 @@
 						type="hidden"
 						v-model="source.long"
 						:name="'sources['+index+'][long]'" />
+          <input
+            type="hidden"
+            v-model="source.description"
+            :name="'sources['+index+'][description]'"
+          />
 					<div class="column is-one-quarter">
 						<div>
 							<p :title="source.long">{{ index + 1 }}. {{ source.short }}</p>
@@ -49,7 +54,7 @@
 							</span>
 						</div>
 					</div>
-					<div class="column is-8">
+					<div class="column is-7">
 						<p class="control">
 							<input type="text"
 								   class="input is-expanded"
@@ -61,6 +66,12 @@
 								   autocomplete="off" />
 						</p>
 					</div>
+          <div class="column is-1">
+            <a class="button"
+               @click="openDescriptionModal(index)"
+               :class="{'is-primary': source.description && source.description.length > 0}"
+            > Desc </a>
+          </div>
 					<div class="column is-1">
 						<a class="button"
 						   @click="remove(index)"
@@ -69,6 +80,22 @@
 				</div>
 			</div>
 		</ul>
+
+    <div class="modal is-active" v-show="showDescription">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Description</p>
+        </header>
+        <section class="modal-card-body">
+          <textarea class="textarea" v-model="focusedSource.description"></textarea>
+        </section>
+        <footer class="modal-card-foot">
+          <a class="button is-success" @click="saveDescription">Save</a>
+          <a class="button is-danger" @click="showDescription=false">Cancel</a>
+        </footer>
+      </div>
+    </div>
 
 		<alg-new-source v-show="showModal"
 						@close="close"
@@ -87,6 +114,9 @@
 		data() {
 			return {
 				showModal: false,
+
+        showDescription: false,
+        focusedSource: { index: 0, description: ''},
 
 				oldSource: {
 					text: '',
@@ -144,6 +174,22 @@
 				this.$emit('input', sources);
 			},
 
+      openDescriptionModal(index) {
+        let sources = this.value;
+        this.focusedSource.description = sources[index].description;
+        this.focusedSource.index = index;
+
+        this.showDescription = true;
+      },
+
+      saveDescription() {
+        let sources = this.value;
+        sources[this.focusedSource.index].description = this.focusedSource.description;
+        this.showDescription = false;
+
+        this.$emit('input', sources);
+      },
+
 			duplicateSource(index) {
 				let sources = this.value;
 				let found = false;
@@ -163,15 +209,6 @@
 				}
 
 				return duplicate;
-			},
-
-			extractExtraInfo(source) {
-				if(source.pivot) {
-					return source.pivot.extraInfo;
-				}
-				else {
-					return source.extraInfo;
-				}
 			},
 
 			handleOldSourceInput() {

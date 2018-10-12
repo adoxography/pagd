@@ -286,7 +286,8 @@ if (false) {(function () {
 					short: source.display ? source.display : source.short,
 					id: source.id,
 					long: source.long,
-					extraInfo: source.pivot ? source.pivot.extraInfo : source.extraInfo
+					extraInfo: source.pivot ? source.pivot.extraInfo : source.extraInfo,
+					description: source.pivot ? source.pivot.description : source.description
 				});
 			});
 		}

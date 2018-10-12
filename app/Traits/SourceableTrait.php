@@ -44,12 +44,14 @@ trait SourceableTrait
             $newSources = [];
 
             foreach ($dirty['sources'] as $source) {
-                $id = isset($source['id']) ? $source['id'] : Source::create($source);
-                $extraInfo = isset($source['extraInfo']) ? $source['extraInfo'] : null;
+                $id          = $source['id']          ?? Source::create($source);
+                $extraInfo   = $source['extraInfo']   ?? null;
+                $description = $source['description'] ?? null;
 
                 $newSources[] = [
-                    'id'        => $id,
-                    'extraInfo' => $extraInfo
+                    'id'          => $id,
+                    'extraInfo'   => $extraInfo,
+                    'description' => $description
                 ];
             }
 
@@ -60,12 +62,13 @@ trait SourceableTrait
 
     public function connectSource($source)
     {
-        $type = $this->morphCode ? $this->morphCode : $this->getMorphClass();
+        $type = $this->morphCode ?: $this->getMorphClass();
 
         if ($source) {
             $options = [
                 'sourceable_type' => $type,
-                'extraInfo'       => isset($source['extraInfo']) ? $source['extraInfo'] : null
+                'extraInfo'       => $source['extraInfo']   ?? null,
+                'description'     => $source['description'] ?? null
             ];
 
             $this->sources()->attach($source['id'], $options);
@@ -107,7 +110,7 @@ trait SourceableTrait
             ->where('sourceable_type', $type);
 
         if ($includeExtraInfo) {
-            $output->withPivot('extraInfo', 'id');
+            $output->withPivot('extraInfo', 'id', 'description');
         }
 
         return $output;

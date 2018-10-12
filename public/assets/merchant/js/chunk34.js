@@ -86,6 +86,33 @@ webpackJsonp([34],{
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -95,6 +122,9 @@ webpackJsonp([34],{
 	data: function data() {
 		return {
 			showModal: false,
+
+			showDescription: false,
+			focusedSource: { index: 0, description: '' },
 
 			oldSource: {
 				text: '',
@@ -151,6 +181,20 @@ webpackJsonp([34],{
 
 			this.$emit('input', sources);
 		},
+		openDescriptionModal: function openDescriptionModal(index) {
+			var sources = this.value;
+			this.focusedSource.description = sources[index].description;
+			this.focusedSource.index = index;
+
+			this.showDescription = true;
+		},
+		saveDescription: function saveDescription() {
+			var sources = this.value;
+			sources[this.focusedSource.index].description = this.focusedSource.description;
+			this.showDescription = false;
+
+			this.$emit('input', sources);
+		},
 		duplicateSource: function duplicateSource(index) {
 			var sources = this.value;
 			var found = false;
@@ -169,13 +213,6 @@ webpackJsonp([34],{
 			}
 
 			return duplicate;
-		},
-		extractExtraInfo: function extractExtraInfo(source) {
-			if (source.pivot) {
-				return source.pivot.extraInfo;
-			} else {
-				return source.extraInfo;
-			}
 		},
 		handleOldSourceInput: function handleOldSourceInput() {
 			var _this2 = this;
@@ -263,7 +300,7 @@ var render = function() {
                 attrs: { id: "new-source-button" },
                 on: { click: _vm.open }
               },
-              [_vm._v("\n\t\t\t   \tAdd a new source\n\t\t    ")]
+              [_vm._v("\n\t\t\t\t   \tAdd a new source\n\t\t\t    ")]
             )
           ]
         )
@@ -340,6 +377,30 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: source.description,
+                    expression: "source.description"
+                  }
+                ],
+                attrs: {
+                  type: "hidden",
+                  name: "sources[" + index + "][description]"
+                },
+                domProps: { value: source.description },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(source, "description", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
               _c("div", { staticClass: "column is-one-quarter" }, [
                 _c("div", [
                   _c("p", { attrs: { title: source.long } }, [
@@ -363,7 +424,7 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "column is-8" }, [
+              _c("div", { staticClass: "column is-7" }, [
                 _c("p", { staticClass: "control" }, [
                   _c("input", {
                     directives: [
@@ -402,6 +463,25 @@ var render = function() {
                   "a",
                   {
                     staticClass: "button",
+                    class: {
+                      "is-primary":
+                        source.description && source.description.length > 0
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.openDescriptionModal(index)
+                      }
+                    }
+                  },
+                  [_vm._v(" Desc ")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "column is-1" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "button",
                     attrs: { disabled: _vm.disabled },
                     on: {
                       click: function($event) {
@@ -415,6 +495,79 @@ var render = function() {
             ])
           ])
         })
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showDescription,
+              expression: "showDescription"
+            }
+          ],
+          staticClass: "modal is-active"
+        },
+        [
+          _c("div", { staticClass: "modal-background" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-card" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("section", { staticClass: "modal-card-body" }, [
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.focusedSource.description,
+                    expression: "focusedSource.description"
+                  }
+                ],
+                staticClass: "textarea",
+                domProps: { value: _vm.focusedSource.description },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.focusedSource,
+                      "description",
+                      $event.target.value
+                    )
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("footer", { staticClass: "modal-card-foot" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "button is-success",
+                  on: { click: _vm.saveDescription }
+                },
+                [_vm._v("Save")]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "button is-danger",
+                  on: {
+                    click: function($event) {
+                      _vm.showDescription = false
+                    }
+                  }
+                },
+                [_vm._v("Cancel")]
+              )
+            ])
+          ])
+        ]
       ),
       _vm._v(" "),
       _c("alg-new-source", {
@@ -438,7 +591,16 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("header", { staticClass: "modal-card-head" }, [
+      _c("p", { staticClass: "modal-card-title" }, [_vm._v("Description")])
+    ])
+  }
+]
 render._withStripped = true
 
 if (false) {

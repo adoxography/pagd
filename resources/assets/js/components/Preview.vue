@@ -69,6 +69,11 @@ export default {
             display: flex;
             align-self: flex-end;
             justify-content: center;
+            pointer-events: none;
+
+            a {
+              pointer-events: all;
+            }
         }
     }
 </style>

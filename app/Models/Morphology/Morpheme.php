@@ -2,22 +2,21 @@
 
 namespace App\Models\Morphology;
 
+use App\Interfaces\PhonemeableInterface;
+use App\Models\ChangeType;
+use App\Models\Language;
 use App\Models\Nominals\Form as NominalForm;
 use App\Models\Verbs\Form as VerbForm;
 use App\Models\Words\Example;
 use App\Models\Words\Form;
 use App\Traits\BacksUp;
 use App\Traits\Bookmarkable;
-use App\Models\ChangeType;
 use App\Traits\Disambiguatable;
 use App\Traits\HasChildren;
-use App\Traits\Hideable;
-use App\Models\Language;
-use App\Interfaces\PhonemeableInterface;
-use App\Presenters\MorphemePresenter;
 use App\Traits\Reconstructable;
 use App\Traits\Sourceable;
 use App\Traits\Phonology\Phonemeable;
+use App\Presenters\MorphemePresenter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
@@ -26,7 +25,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
 class Morpheme extends Model implements PhonemeableInterface
 {
     use Searchable, RevisionableTrait, Sourceable, Reconstructable, HasChildren, BacksUp,
-        Bookmarkable, SoftDeletes, Hideable, Disambiguatable, Phonemeable;
+        Bookmarkable, SoftDeletes, Disambiguatable, Phonemeable;
 
     /*
     |--------------------------------------------------------------------------

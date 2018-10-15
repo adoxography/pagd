@@ -12,9 +12,6 @@
 				@endif
 			</p>
 			@if(Auth::user())
-				@if($model->isHideable)
-					<alg-hidden-icon uri="{{ $uri }}" hidden="{{ $model->isHidden() }}"></alg-hidden-icon>
-				@endif
 				<alg-bookmark uri="{{ $uri }}" bookmarked="{{ $model->isBookmarkedBy() }}"></alg-bookmark>
 			    <a href="{{ $uri }}/edit" class="card-header-icon">
 			      	<span class="icon">

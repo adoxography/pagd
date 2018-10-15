@@ -6,13 +6,12 @@ use App\Models\Language;
 use App\Models\Rules\RuleType;
 use App\Presenters\AlgPresenter;
 use App\Traits\Bookmarkable;
-use App\Traits\Hideable;
 use App\Traits\Sourceable;
 use Illuminate\Database\Eloquent\Model;
 
 class Rule extends Model
 {
-    use Sourceable, Bookmarkable, Hideable;
+    use Sourceable, Bookmarkable;
 
     public $table = 'Rules';
     protected $fillable = ['name', 'abv', 'rule', 'language_id', 'publicComments', 'privateComments', 'type_id'];

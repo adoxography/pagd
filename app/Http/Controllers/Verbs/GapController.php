@@ -10,22 +10,18 @@ class GapController extends AlgModelController
 {
     public function show(Gap $gap)
     {
-        if($this->shouldShow($gap)) {
-            $gap->load([
-                'language',
-                'structure',
-                'structure.mode',
-                'structure.verbClass',
-                'structure.order',
-                'structure.subject',
-                'structure.primaryObject',
-                'structure.secondaryObject'
-            ]);
+        $gap->load([
+            'language',
+            'structure',
+            'structure.mode',
+            'structure.verbClass',
+            'structure.order',
+            'structure.subject',
+            'structure.primaryObject',
+            'structure.secondaryObject'
+        ]);
 
-            return view('verbs.gaps.show', compact('gap'));
-        } else {
-            return view('errors.404');
-        }
+        return view('verbs.gaps.show', compact('gap'));
     }
 
     public function clone(Gap $gap)

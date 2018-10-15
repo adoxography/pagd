@@ -17,13 +17,8 @@ class RuleController extends AlgModelController
 
     public function show(Rule $rule)
     {
-        if($this->shouldShow($rule)) {
-            $rule->load('language');
-
-            return view('rules.show', compact('rule'));
-        } else {
-            return view('errors.404');
-        }
+        $rule->load('language');
+        return view('rules.show', compact('rule'));
     }
 
     public function create()

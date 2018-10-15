@@ -101,7 +101,7 @@ function matchTag(string $tag, int $id)
         $rule = \App\Models\Rules\Rule::where('abv', $tag)->where('language_id', $id)->first();
 
         // If it was found, replace the tag with it
-        if ($rule && !$rule->isHidden()) {
+        if ($rule) {
             $replacement = "<a href='/rules/{$rule->id}'>{$rule->rule}</a>";
         }
     }

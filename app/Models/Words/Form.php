@@ -2,14 +2,13 @@
 
 namespace App\Models\Words;
 
+use App\Interfaces\PhonemeableInterface;
+use App\Models\ChangeType;
+use App\Models\Language;
 use App\Presenters\Words\FormPresenter;
 use App\Traits\BacksUp;
 use App\Traits\Bookmarkable;
-use App\Models\ChangeType;
 use App\Traits\HasChildren;
-use App\Traits\Hideable;
-use App\Models\Language;
-use App\Interfaces\PhonemeableInterface;
 use App\Traits\Reconstructable;
 use App\Traits\Sourceable;
 use App\Traits\Morphemes\HasMorphemes;
@@ -30,7 +29,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
 class Form extends Model implements PhonemeableInterface
 {
     use Searchable, RevisionableTrait, Sourceable, HasMorphemes, Reconstructable, HasChildren,
-        BacksUp, Bookmarkable, SoftDeletes, Hideable, Phonemeable;
+        BacksUp, Bookmarkable, SoftDeletes, Phonemeable;
 
     /*
     |--------------------------------------------------------------------------

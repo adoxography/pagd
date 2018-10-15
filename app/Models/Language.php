@@ -1,11 +1,6 @@
 <?php
 namespace App\Models;
 
-use App\Traits\HasChildren;
-use App\Traits\BacksUp;
-use App\Traits\Bookmarkable;
-use App\Traits\Hideable;
-use App\Traits\Locatable;
 use App\Models\Rules\Rule;
 use App\Models\Morphology\Morpheme;
 use App\Models\Phonology\Inventory;
@@ -13,6 +8,10 @@ use App\Models\Phonology\Phoneme;
 use App\Models\StructuralSurvey\Datapoint;
 use App\Models\StructuralSurvey\Variable;
 use App\Presenters\LanguagePresenter;
+use App\Traits\BacksUp;
+use App\Traits\Bookmarkable;
+use App\Traits\HasChildren;
+use App\Traits\Locatable;
 use App\Traits\Nominals\HasNominals;
 use App\Traits\Verbs\HasVerbs;
 use Illuminate\Database\Eloquent\Model;
@@ -25,7 +24,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  */
 class Language extends Model
 {
-    use SoftDeletes, Searchable, RevisionableTrait, HasChildren, BacksUp, Bookmarkable, Hideable,
+    use SoftDeletes, Searchable, RevisionableTrait, HasChildren, BacksUp, Bookmarkable, 
         Locatable;
     use HasVerbs, HasNominals {
         HasVerbs::forms    insteadof HasNominals;
@@ -176,22 +175,6 @@ class Language extends Model
         }]);
 
         return $sources;
-    }
-
-    protected function respondToHiding()
-    {
-        foreach ($this->assets as $asset) {
-            if ($this->isHidden()) {
-                $relation = $this->$asset();
-                $relation->unsearchable();
-            } else {
-                foreach ($this->$asset as $item) {
-                    if (!$item->isHidden()) {
-                        $item->searchable();
-                    }
-                }
-            }
-        }
     }
 
     public function present(string $method = 'name')

@@ -77,7 +77,6 @@ Vue.component('alg-nominal-paradigm-search',  resolve => { require(['./component
 Vue.component('alg-phoneme-search',           resolve => { require(['./components/forms/search/Phoneme.vue'], resolve); });
 
 Vue.component('alg-delete-button', resolve => { require(['./components/Delete-Button.vue'], resolve); });
-Vue.component('alg-hidden-icon', resolve => { require(['./components/Hidden-Icon.vue'], resolve); });
 Vue.component('alg-source-index', resolve => { require(['./components/Source-Index.vue'], resolve); });
 Vue.component('alg-pagination-limited', resolve => { require(['./components/Pagination-Limited.vue'], resolve); });
 Vue.component('alg-pagination-full', resolve => { require(['./components/Pagination-Full.vue'], resolve); });

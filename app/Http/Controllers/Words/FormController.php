@@ -28,14 +28,10 @@ class FormController extends AlgModelController
      */
     public function show(Form $form)
     {
-        if ($this->shouldShow($form)) {
-            if ($form->structure_type == 'verbStructures') {
-                return redirect("/verbs/forms/{$form->id}/basic");
-            } else {
-                return redirect("/nominals/forms/{$form->id}/basic");
-            }
+        if ($form->structure_type == 'verbStructures') {
+            return redirect("/verbs/forms/{$form->id}/basic");
         } else {
-            return view('errors.404');
+            return redirect("/nominals/forms/{$form->id}/basic");
         }
     }
 

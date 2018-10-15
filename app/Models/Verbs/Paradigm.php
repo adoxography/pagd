@@ -48,10 +48,18 @@ class Paradigm
     private function loadHeaders($forms)
     {
         $this->headers = collect();
+        $headers = $this->extractHeaders($forms);
+
+        $roots = $headers->shift()
+                         ->unique()
+                         ->mapToGroups(function ($root) {
+                             return [$root => collect()];
+                         });
+
+        dd($roots);
+
         foreach ($forms as $form) {
-            // Extract the structure for more efficient reference
-            $structure = $form->structure;
-            $fields = [$form->language->name, $structure->order->name, $structure->mode->name, $structure->absoluteStatus, $structure->negativeStatus, $structure->diminutiveStatus];
+            $fields = $this->extractHeaderValues($form);
 
             $pos = $this->headers;
             foreach ($fields as $field) {
@@ -64,6 +72,25 @@ class Paradigm
         }
 
         $this->headers = $this->mergeHeaders();
+    }
+
+    private function extractHeaders($forms) {
+        return $forms->map(function ($form) {
+            return $this->extractheaderValues($form);
+        })->transpose();
+    }
+
+    private function extractHeaderValues($form) {
+        $structure = $form->structure;
+
+        return [
+            $form->language->name, 
+            $structure->order->name, 
+            $structure->mode->name, 
+            $structure->absoluteStatus, 
+            $structure->negativeStatus, 
+            $structure->diminutiveStatus
+        ];
     }
 
     private function mergeHeaders($headers = null, $span = 1, $bordered = true, $firstRow = true)

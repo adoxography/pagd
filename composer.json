@@ -23,6 +23,7 @@
         "netcarver/textile": "3.6.*",
         "rap2hpoutre/laravel-log-viewer": "^0.12.0",
         "spatie/flysystem-dropbox": "^1.0",
+        "spatie/laravel-collection-macros": "^4.0",
         "spatie/laravel-permission": "^2.3.2",
         "spatie/laravel-sluggable": "^2.0",
         "srmklive/flysystem-dropbox-v2": "^1.0",

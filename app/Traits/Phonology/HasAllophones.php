@@ -7,11 +7,11 @@ use App\Models\Phonology\Allophone;
 use Illuminate\Support\Collection;
 use Venturecraft\Revisionable\Revision;
 
-trait HasAllophonesTrait
+trait HasAllophones
 {
     protected $newAllophones = null;
 
-    public static function bootHasAllophonesTrait()
+    public static function bootHasAllophones()
     {
         static::saving(function ($model) {
             $model->extractAllophones();

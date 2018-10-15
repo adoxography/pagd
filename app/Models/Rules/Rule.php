@@ -5,14 +5,14 @@ namespace App\Models\Rules;
 use App\Models\Language;
 use App\Models\Rules\RuleType;
 use App\Presenters\AlgPresenter;
-use App\Traits\BookmarkableTrait;
-use App\Traits\HideableTrait;
-use App\Traits\SourceableTrait;
+use App\Traits\Bookmarkable;
+use App\Traits\Hideable;
+use App\Traits\Sourceable;
 use Illuminate\Database\Eloquent\Model;
 
 class Rule extends Model
 {
-    use SourceableTrait, BookmarkableTrait, HideableTrait;
+    use Sourceable, Bookmarkable, Hideable;
 
     public $table = 'Rules';
     protected $fillable = ['name', 'abv', 'rule', 'language_id', 'publicComments', 'privateComments', 'type_id'];

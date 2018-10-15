@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Traits;
+namespace App\Traits\Words;
 
 use App\Models\Words\Gap;
 use App\Models\Words\Form;
 use App\Models\Words\Example;
 
-trait HasWordsTrait {
+trait HasWords {
 
 	public function forms()
 	{

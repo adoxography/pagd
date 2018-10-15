@@ -1,11 +1,11 @@
 <?php
 namespace App\Models;
 
-use App\Traits\HasChildrenTrait;
-use App\Traits\BacksUpTrait;
-use App\Traits\BookmarkableTrait;
-use App\Traits\HideableTrait;
-use App\Traits\LocatableTrait;
+use App\Traits\HasChildren;
+use App\Traits\BacksUp;
+use App\Traits\Bookmarkable;
+use App\Traits\Hideable;
+use App\Traits\Locatable;
 use App\Models\Rules\Rule;
 use App\Models\Morphology\Morpheme;
 use App\Models\Phonology\Inventory;
@@ -13,8 +13,8 @@ use App\Models\Phonology\Phoneme;
 use App\Models\StructuralSurvey\Datapoint;
 use App\Models\StructuralSurvey\Variable;
 use App\Presenters\LanguagePresenter;
-use App\Traits\Nominals\HasNominalsTrait;
-use App\Traits\Verbs\HasVerbsTrait;
+use App\Traits\Nominals\HasNominals;
+use App\Traits\Verbs\HasVerbs;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
@@ -25,12 +25,12 @@ use Venturecraft\Revisionable\RevisionableTrait;
  */
 class Language extends Model
 {
-    use SoftDeletes, Searchable, RevisionableTrait, HasChildrenTrait, BacksUpTrait, BookmarkableTrait, HideableTrait,
-        LocatableTrait;
-    use HasVerbsTrait, HasNominalsTrait {
-        HasVerbsTrait::forms    insteadof HasNominalsTrait;
-        HasVerbsTrait::examples insteadof HasNominalsTrait;
-        HasVerbsTrait::gaps     insteadof HasNominalsTrait;
+    use SoftDeletes, Searchable, RevisionableTrait, HasChildren, BacksUp, Bookmarkable, Hideable,
+        Locatable;
+    use HasVerbs, HasNominals {
+        HasVerbs::forms    insteadof HasNominals;
+        HasVerbs::examples insteadof HasNominals;
+        HasVerbs::gaps     insteadof HasNominals;
     }
 
     /*

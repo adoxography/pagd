@@ -4,9 +4,9 @@ namespace App\Traits;
 
 use Schema;
 
-trait DisambiguatableTrait
+trait Disambiguatable
 {
-    public static function bootDisambiguatableTrait()
+    public static function bootDisambiguatable()
     {
         static::creating(function ($model) {
             $model->assignDisambiguator();

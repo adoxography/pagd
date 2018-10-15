@@ -4,14 +4,14 @@ namespace App\Traits\Nominals;
 
 use App\Models\Nominals\Form;
 use App\Models\Nominals\Paradigm;
-use App\Traits\HasWordsTrait;
+use App\Traits\Words\HasWords;
 use App\Models\Morphology\Morpheme;
 
-trait HasNominalsTrait {
+trait HasNominals {
 
-	use HasWordsTrait;
+	use HasWords;
 
-	public static function bootHasNominalsTrait()
+	public static function bootHasNominals()
 	{
 		static::created(function($model) {
 			$model->createNStem();

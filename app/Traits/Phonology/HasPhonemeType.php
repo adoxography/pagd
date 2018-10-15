@@ -7,9 +7,9 @@ use App\Models\Phonology\VowelType;
 use App\Models\Phonology\ClusterType;
 use App\Models\Phonology\ConsonantType;
 
-trait HasTypeTrait
+trait HasPhonemeType
 {
-    public static function bootHasTypeTrait()
+    public static function bootHasPhonemeType()
     {
         static::saving(function ($model) {
             if (!$model->isNull()) {

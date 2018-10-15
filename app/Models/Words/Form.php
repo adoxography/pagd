@@ -3,17 +3,17 @@
 namespace App\Models\Words;
 
 use App\Presenters\Words\FormPresenter;
-use App\Traits\BacksUpTrait;
-use App\Traits\BookmarkableTrait;
+use App\Traits\BacksUp;
+use App\Traits\Bookmarkable;
 use App\Models\ChangeType;
-use App\Traits\HasChildrenTrait;
-use App\Traits\HideableTrait;
+use App\Traits\HasChildren;
+use App\Traits\Hideable;
 use App\Models\Language;
 use App\Interfaces\PhonemeableInterface;
-use App\Traits\ReconstructableTrait;
-use App\Traits\SourceableTrait;
-use App\Traits\HasMorphemesTrait;
-use App\Traits\Phonemeable;
+use App\Traits\Reconstructable;
+use App\Traits\Sourceable;
+use App\Traits\Morphemes\HasMorphemes;
+use App\Traits\Phonology\Phonemeable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
@@ -22,15 +22,15 @@ use Venturecraft\Revisionable\RevisionableTrait;
 /**
  * A verb form
  *
- * @uses \App\Traits\SourceableTrait
- * @uses \App\HasMorphemesTrait
- * @uses \App\Traits\ReconstructableTrait
+ * @uses \App\Traits\Sourceable
+ * @uses \App\HasMorphemes
+ * @uses \App\Traits\Reconstructable
  * @uses \App\CognatableTrait
  */
 class Form extends Model implements PhonemeableInterface
 {
-    use Searchable, RevisionableTrait, SourceableTrait, HasMorphemesTrait, ReconstructableTrait, HasChildrenTrait,
-        BacksUpTrait, BookmarkableTrait, SoftDeletes, HideableTrait, Phonemeable;
+    use Searchable, RevisionableTrait, Sourceable, HasMorphemes, Reconstructable, HasChildren,
+        BacksUp, Bookmarkable, SoftDeletes, Hideable, Phonemeable;
 
     /*
     |--------------------------------------------------------------------------

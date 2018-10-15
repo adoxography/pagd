@@ -6,14 +6,14 @@ use App\Models\Language;
 use App\Events\Audio\Deleting;
 use App\Events\FileOrphaned;
 use App\Presenters\AudioPresenter;
-use App\Traits\BookmarkableTrait;
+use App\Traits\Bookmarkable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Storage;
 
 class Audio extends Model
 {
-    use BookmarkableTrait;
+    use Bookmarkable;
 
     public $table = 'Audio';
 

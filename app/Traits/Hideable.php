@@ -4,9 +4,9 @@ namespace App\Traits;
 
 use App\Scopes\HidingScope;
 
-trait HideableTrait {
+trait Hideable {
 
-	public static function bootHideableTrait() {
+	public static function bootHideable() {
 		static::addGlobalScope(new HidingScope);
 	}
 

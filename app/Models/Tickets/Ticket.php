@@ -6,14 +6,14 @@ use App\Models\Users\User;
 use App\Models\Tickets\Comment;
 use App\Models\Tickets\TicketType;
 use App\Presenters\AlgPresenter;
-use App\Traits\SubscribeableTrait;
+use App\Traits\Subscribeable;
 use App\Interfaces\SubscribeableInterface;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model implements SubscribeableInterface
 {
-    use SubscribeableTrait;
+    use Subscribeable;
 
     public $table = 'Tickets';
 

@@ -4,9 +4,9 @@ namespace App\Traits\Nominals;
 
 use App\Models\Nominals\Structure;
 
-trait HasStructureTrait {
+trait HasStructure {
 
-	public static function bootHasStructureTrait() {
+	public static function bootHasStructure() {
 		static::saving(function($model) {
 			$model->assignStructure();
 		});

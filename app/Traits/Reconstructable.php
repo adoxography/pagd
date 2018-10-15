@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-trait ReconstructableTrait {
+trait Reconstructable {
     /**
      * Modifies a string to begin with an asterisk if the form is reconstructed
      *

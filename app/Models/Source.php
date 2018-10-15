@@ -14,8 +14,8 @@ use App\Models\Words\Form;
 use App\Models\Words\FormRepository;
 use App\Models\Words\Gap;
 use App\Presenters\AlgPresenter;
-use App\Traits\BookmarkableTrait;
-use App\Traits\DisambiguatableTrait;
+use App\Traits\Bookmarkable;
+use App\Traits\Disambiguatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -24,7 +24,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
 
 class Source extends Model implements VerbFormRepositoryInterface, NominalFormRepositoryInterface
 {
-    use Searchable, BookmarkableTrait, DisambiguatableTrait, SoftDeletes, RevisionableTrait;
+    use Searchable, Bookmarkable, Disambiguatable, SoftDeletes, RevisionableTrait;
 
     public $table = 'Sources';
     protected $fillable = ['author', 'year', 'disambiguator', 'long', 'url', 'summary', 'notes'];

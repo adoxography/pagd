@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-trait LocatableTrait {
+trait Locatable {
 
 	public function getLocation()
 	{

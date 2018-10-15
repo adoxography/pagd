@@ -3,16 +3,16 @@
 namespace App\Models\Words;
 
 use App\Presenters\Words\ExamplePresenter;
-use App\Traits\BacksUpTrait;
-use App\Traits\BookmarkableTrait;
-use App\Traits\HasChildrenTrait;
-use App\Traits\HideableTrait;
+use App\Traits\BacksUp;
+use App\Traits\Bookmarkable;
+use App\Traits\HasChildren;
+use App\Traits\Hideable;
 use App\Models\Language;
 use App\Interfaces\PhonemeableInterface;
-use App\Traits\ReconstructableTrait;
-use App\Traits\SourceableTrait;
-use App\Traits\HasMorphemesTrait;
-use App\Traits\Phonemeable;
+use App\Traits\Reconstructable;
+use App\Traits\Sourceable;
+use App\Traits\Morphemes\HasMorphemes;
+use App\Traits\Phonology\Phonemeable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
@@ -23,8 +23,8 @@ use Venturecraft\Revisionable\RevisionableTrait;
  */
 class Example extends Model implements PhonemeableInterface
 {
-    use RevisionableTrait, Searchable, SourceableTrait, HasMorphemesTrait, BacksUpTrait, ReconstructableTrait,
-        BookmarkableTrait, SoftDeletes, HideableTrait, HasChildrenTrait, Phonemeable;
+    use RevisionableTrait, Searchable, Sourceable, HasMorphemes, BacksUp, Reconstructable,
+        Bookmarkable, SoftDeletes, Hideable, HasChildren, Phonemeable;
 
     /*
     |--------------------------------------------------------------------------

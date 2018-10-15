@@ -4,9 +4,9 @@ namespace App\Traits;
 
 use App\Events\Backup;
 
-trait BacksUpTrait
+trait BacksUp
 {
-    public static function bootBacksUpTrait()
+    public static function bootBacksUp()
     {
         static::saved(function () {
             event(new Backup());

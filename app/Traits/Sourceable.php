@@ -4,7 +4,7 @@ namespace App\Traits;
 
 use App\Models\Source;
 
-trait SourceableTrait
+trait Sourceable
 {
     public $isSourceable = true;
 
@@ -17,7 +17,7 @@ trait SourceableTrait
         parent::__construct($options);
     }
 
-    public static function bootSourceableTrait()
+    public static function bootSourceable()
     {
         static::saving(function ($model) {
             $model->extractSources();

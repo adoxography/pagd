@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits;
+namespace App\Traits\Phonology;
 
 use DB;
 use App\Models\Phonology\Phoneme;

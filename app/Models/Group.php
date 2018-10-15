@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use App\Traits\HasChildrenTrait;
-use App\Traits\BookmarkableTrait;
-use App\Traits\SourceableTrait;
-use App\Traits\BacksUpTrait;
+use App\Traits\HasChildren;
+use App\Traits\Bookmarkable;
+use App\Traits\Sourceable;
+use App\Traits\BacksUp;
 use App\Models\Language;
 use App\Presenters\AlgPresenter;
 use App\Models\StructuralSurvey\Variable;
@@ -15,7 +15,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
 
 class Group extends Model
 {
-    use SoftDeletes, HasChildrenTrait, BookmarkableTrait, SourceableTrait, RevisionableTrait, BacksUpTrait;
+    use SoftDeletes, HasChildren, Bookmarkable, Sourceable, RevisionableTrait, BacksUp;
 
     public $table = 'Groups';
 

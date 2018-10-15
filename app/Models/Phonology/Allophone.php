@@ -2,13 +2,13 @@
 
 namespace App\Models\Phonology;
 
-use App\Traits\ReconstructableTrait;
+use App\Traits\Reconstructable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 class Allophone extends Model
 {
-    use ReconstructableTrait;
+    use Reconstructable;
 
     public $table = 'Phon_Allophones';
     public $timestamps = false;

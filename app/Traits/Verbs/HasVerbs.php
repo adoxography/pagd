@@ -5,10 +5,10 @@ namespace App\Traits\Verbs;
 use App\Models\Verbs\Gap;
 use App\Models\Verbs\Form;
 use App\Models\Verbs\Structure;
-use App\Traits\HasWordsTrait;
+use App\Traits\Words\HasWords;
 
-trait HasVerbsTrait {
-	use HasWordsTrait;
+trait HasVerbs {
+	use HasWords;
 
 	protected $verbParadigms;
 	protected $verbParadigmsLoaded = false;

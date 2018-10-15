@@ -5,9 +5,9 @@ namespace App\Traits;
 use Auth;
 use Illuminate\Database\QueryException;
 
-trait BookmarkableTrait {
+trait Bookmarkable {
 
-	public static function bootBookmarkableTrait()
+	public static function bootBookmarkable()
 	{
 		static::deleting(function($model) {
 			$model->bookmarkedBy()->detach();

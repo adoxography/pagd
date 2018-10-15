@@ -5,12 +5,12 @@ namespace App\Models\IGT;
 use App\Models\Language;
 use App\Models\IGT\IGTLine;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\BookmarkableTrait;
-use App\Traits\SourceableTrait;
+use App\Traits\Bookmarkable;
+use App\Traits\Sourceable;
 
 class IGT extends Model
 {
-    use SourceableTrait, BookmarkableTrait;
+    use Sourceable, Bookmarkable;
 
     public $table = 'IGT';
     protected $fillable = ['language_id', 'publicNotes', 'privateNotes', 'lines'];

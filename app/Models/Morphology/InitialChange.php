@@ -2,12 +2,12 @@
 
 namespace App\Models\Morphology;
 
-use App\Traits\DisambiguatableTrait;
+use App\Traits\Disambiguatable;
 use Illuminate\Database\Eloquent\Model;
 
 class InitialChange extends Model
 {
-	use DisambiguatableTrait;
+	use Disambiguatable;
 
     public $table = 'Morph_InitialChanges';
     protected $fillable = ['change', 'morpheme_id'];

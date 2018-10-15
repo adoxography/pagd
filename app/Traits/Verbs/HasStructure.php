@@ -4,9 +4,9 @@ namespace App\Traits\Verbs;
 
 use App\Models\Verbs\Structure;
 
-trait HasStructureTrait
+trait HasStructure
 {
-    public static function bootHasStructureTrait()
+    public static function bootHasStructure()
     {
         static::saving(function ($model) {
             /**

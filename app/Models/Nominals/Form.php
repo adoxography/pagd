@@ -3,13 +3,13 @@
 namespace App\Models\Nominals;
 
 use App\Presenters\Nominals\FormPresenter;
-use App\Traits\Nominals\HasStructureTrait;
+use App\Traits\Nominals\HasStructure;
 use App\Models\Words\Form as WordForm;
 use Illuminate\Database\Eloquent\Builder;
 
 class Form extends WordForm
 {
-    use HasStructureTrait;
+    use HasStructure;
 
     public $uri = 'nominals/forms';
 

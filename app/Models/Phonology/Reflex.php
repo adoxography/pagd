@@ -3,20 +3,20 @@
 namespace App\Models\Phonology;
 
 use App\Presenters\AlgPresenter;
-use App\Traits\BacksUpTrait;
-use App\Traits\BookmarkableTrait;
-use App\Traits\SourceableTrait;
+use App\Traits\BacksUp;
+use App\Traits\Bookmarkable;
+use App\Traits\Sourceable;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 class Reflex extends Model
 {
-    use SourceableTrait;
+    use Sourceable;
     use RevisionableTrait;
-    use BookmarkableTrait;
+    use Bookmarkable;
     use Searchable;
-    use BacksUpTrait;
+    use BacksUp;
 
     public $table = 'Phon_Reflexes';
 

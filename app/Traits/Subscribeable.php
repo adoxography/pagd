@@ -6,7 +6,7 @@ use App\Mail\TicketUpdated;
 use App\Models\Users\User;
 use Mail;
 
-trait SubscribeableTrait
+trait Subscribeable
 {
     public function subscribers()
     {

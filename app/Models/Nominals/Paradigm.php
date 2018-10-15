@@ -4,15 +4,15 @@ namespace App\Models\Nominals;
 
 use App\Models\ParadigmTablePresenter;
 use App\Presenters\Nominals\ParadigmPresenter;
-use App\Traits\BookmarkableTrait;
+use App\Traits\Bookmarkable;
 use App\Models\Language;
-use App\Traits\SourceableTrait;
+use App\Traits\Sourceable;
 use Illuminate\Database\Eloquent\Model;
 
 class Paradigm extends Model
 {
-    use SourceableTrait;
-    use BookmarkableTrait;
+    use Sourceable;
+    use Bookmarkable;
 
     public $table = 'Nom_Paradigms';
 

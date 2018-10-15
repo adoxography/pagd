@@ -4,14 +4,14 @@ namespace App\Models\Phonology;
 
 use App\Models\Phonology\ReflexGraph;
 use App\Presenters\PhonemePresenter;
-use App\Traits\Phonology\HasAllophonesTrait;
-use App\Traits\Phonology\HasTypeTrait;
+use App\Traits\Phonology\HasAllophones;
+use App\Traits\Phonology\HasPhonemeType;
 use App\Models\Words\Example;
-use App\Traits\BacksUpTrait;
-use App\Traits\BookmarkableTrait;
+use App\Traits\BacksUp;
+use App\Traits\Bookmarkable;
 use App\Models\Language;
-use App\Traits\ReconstructableTrait;
-use App\Traits\SourceableTrait;
+use App\Traits\Reconstructable;
+use App\Traits\Sourceable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
@@ -19,8 +19,8 @@ use Venturecraft\Revisionable\RevisionableTrait;
 
 class Phoneme extends Model
 {
-    use SoftDeletes, HasTypeTrait, RevisionableTrait, BookmarkableTrait, SourceableTrait, ReconstructableTrait,
-    HasAllophonesTrait, Searchable, BacksUpTrait;
+    use SoftDeletes, HasPhonemeType, RevisionableTrait, Bookmarkable, Sourceable, Reconstructable,
+    HasAllophones, Searchable, BacksUp;
 
     public $table = 'Phon_Phonemes';
     public $uri = '/phonemes';

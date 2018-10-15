@@ -2,13 +2,13 @@
 
 namespace App\Models\Morphology;
 
-use App\Traits\BookmarkableTrait;
+use App\Traits\Bookmarkable;
 use App\Models\Closed;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Gloss extends Closed
 {
-    use BookmarkableTrait, SoftDeletes;
+    use Bookmarkable, SoftDeletes;
 
     public $table = 'Morph_Glosses';
 

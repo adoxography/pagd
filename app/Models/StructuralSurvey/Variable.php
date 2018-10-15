@@ -2,14 +2,14 @@
 
 namespace App\Models\StructuralSurvey;
 
-use App\Traits\SourceableTrait;
-use App\Traits\BookmarkableTrait;
+use App\Traits\Sourceable;
+use App\Traits\Bookmarkable;
 use Illuminate\Database\Eloquent\Model;
 
 class Variable extends Model
 {
-	use SourceableTrait;
-    use BookmarkableTrait;
+	use Sourceable;
+    use Bookmarkable;
 
     public $table = 'SS_Variables';
     protected $fillable = ['name', 'type_id', 'description', 'essay'];

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits;
+namespace App\Traits\Morphemes;
 
 use DB;
 use Auth;
@@ -13,9 +13,9 @@ use App\Models\Morphology\Morpheme;
  *
  * Requires that the model has a morphemicForm property and a pivot table to connect the model to the Morphemes table
  */
-trait HasMorphemesTrait
+trait HasMorphemes
 {
-    public static function bootHasMorphemesTrait()
+    public static function bootHasMorphemes()
     {
         static::saved(function ($model) {
             $model->connectMorphemes();

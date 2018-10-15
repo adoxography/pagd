@@ -5,7 +5,7 @@ namespace App\Traits;
 use App\Models\Group;
 use App\Models\Language;
 
-trait HasChildrenTrait
+trait HasChildren
 {
 
     /*
@@ -20,7 +20,7 @@ trait HasChildrenTrait
      *
      * @return void
      */
-    public static function bootHasChildrenTrait()
+    public static function bootHasChildren()
     {
         static::deleting(function ($model) {
             $model->disconnectChildren();

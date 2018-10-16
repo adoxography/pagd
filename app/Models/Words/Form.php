@@ -2,6 +2,7 @@
 
 namespace App\Models\Words;
 
+use App\Interfaces\Morphemes\HasMorphemesInterface;
 use App\Interfaces\PhonemeableInterface;
 use App\Models\ChangeType;
 use App\Models\Language;
@@ -26,7 +27,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @uses \App\Traits\Reconstructable
  * @uses \App\CognatableTrait
  */
-class Form extends Model implements PhonemeableInterface
+class Form extends Model implements PhonemeableInterface, HasMorphemesInterface
 {
     use Searchable, RevisionableTrait, Sourceable, HasMorphemes, Reconstructable, HasChildren,
         BacksUp, Bookmarkable, SoftDeletes, Phonemeable;

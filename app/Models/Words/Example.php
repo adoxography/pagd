@@ -2,6 +2,7 @@
 
 namespace App\Models\Words;
 
+use App\Interfaces\Morphemes\HasMorphemesInterface;
 use App\Interfaces\PhonemeableInterface;
 use App\Models\Language;
 use App\Presenters\Words\ExamplePresenter;
@@ -20,7 +21,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
 /**
  * An example of a form
  */
-class Example extends Model implements PhonemeableInterface
+class Example extends Model implements HasMorphemesInterface, PhonemeableInterface
 {
     use RevisionableTrait, Searchable, Sourceable, HasMorphemes, BacksUp, Reconstructable,
         Bookmarkable, SoftDeletes, HasChildren, Phonemeable;

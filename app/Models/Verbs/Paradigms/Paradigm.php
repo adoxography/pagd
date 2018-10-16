@@ -660,7 +660,7 @@ class Paradigm
         $html = "<tr>";
 
         if ($firstTime) {
-            $html = "<tr style=\"border-top: 2px solid #363636;\">";
+            $html = "<tr class=\"is-bordered-top\">";
             $html .= "<th rowspan=\"$numStructures\">$class</th>";
         }
 
@@ -710,24 +710,26 @@ class Paradigm
 
     private function renderCell(Collection $forms, bool $bordered) : string
     {
-        $style = $bordered ? 'style="border-left: 2px solid #363636;"' : '';
-        $html = "<td $style></td>";
+        $class = $bordered ? 'is-bordered-left' : '';
+        $rowspan = 1;
+        $html = '';
 
         if (!$forms->isEmpty()) {
             $firstForm = $forms->first();
 
             if (!$firstForm->placed || $firstForm->distant) {
-                $rowspan = $firstForm->span ?: 1;
-                $html = "<td rowspan=\"$rowspan\" $style>";
+                if ($firstForm->span) {
+                    $rowspan = $firstForm->span;
+                }
+
                 foreach ($forms as $form) {
                     $html .= $this->renderForm($form);
                     $form->placed = true;
                 }
-                $html .= "</td>";
             }
         }
 
-        return $html;
+        return "<td rowspan=\"$rowspan\" class=\"$class\">$html</td>";
     }
 
     private function renderForm($form) : string
@@ -735,7 +737,7 @@ class Paradigm
         $html = $form->present('link');
 
         if (isset($form->diffClass) && isset($form->structure->head)) {
-            $html .= "<span style=\"margin-left: .25rem;\" class=\"alg-highlight\">";
+            $html .= "<span class=\"structure-annotation\">";
             $html .= '<nobr>(' . $form->structure->present('arguments') . ')</nobr>';
             $html .= "</span>";
         }

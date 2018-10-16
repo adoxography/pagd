@@ -21,7 +21,7 @@
 				</div>
 			</nav>
 			<div class="paradigm-container">
-				<table class="table is-bordered">
+				<table class="paradigm table is-bordered">
 					{!! $search->renderHeaders() !!}
                     {!! $search->renderBody() !!}
 				</table>

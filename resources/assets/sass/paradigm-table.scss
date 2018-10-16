@@ -1,0 +1,24 @@
+.paradigm.table {
+    tr, td, th {
+        &.is-bordered-top {
+            border-top: 2px solid $grey-darker;
+        }
+
+        &.is-bordered-left {
+            border-left: 2px solid $grey-darker;
+        }
+
+        &.is-bordered-right {
+            border-right: 2px solid $grey-darker;
+        }
+
+        &.is-bordered-bottom {
+            border-bottom: 2px solid $grey-darker;
+        }
+
+        .structure-annotation {
+            margin-left: .25rem;
+            background-color: #FFFF99;
+        }
+    }
+}

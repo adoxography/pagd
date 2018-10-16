@@ -49,13 +49,9 @@ class HeaderRow extends Collection {
     private function generateCellOpeningTag($cell) {
         $colspan = $cell['colspan'];
         $rowspan = $cell['rowspan'];
-        $style   = '';
+        $class = $cell['bordered'] ? 'is-bordered-left' : '';
 
-        if ($cell['bordered']) {
-            $style = 'style="border-left: 2px solid #363636;"';
-        }
-
-        return "<th colspan=\"$colspan\" rowspan=\"$rowspan\" $style>";
+        return "<th colspan=\"$colspan\" rowspan=\"$rowspan\" class=\"$class\">";
     }
 
     private function generateCellText($cell) {

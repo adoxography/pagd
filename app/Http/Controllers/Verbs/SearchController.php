@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Verbs;
 
 use App\Models\Language;
 use Illuminate\Http\Request;
-use App\Models\Verbs\Paradigm;
+use App\Models\Verbs\Paradigms\Paradigm;
 use App\Models\Verbs\Gap;
 use App\Models\Verbs\Form;
 use App\Models\Verbs\Mode;

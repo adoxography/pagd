@@ -3,6 +3,7 @@
 namespace App\Models\Verbs\Paradigms;
 
 use Config;
+use App\Interfaces\Morphemes\HasMorphemesInterface;
 use App\Models\Verbs\Paradigms\HeaderRow;
 use Illuminate\Support\Collection;
 
@@ -737,6 +738,12 @@ class Paradigm
             $html .= "<span style=\"margin-left: .25rem;\" class=\"alg-highlight\">";
             $html .= '<nobr>(' . $form->structure->present('arguments') . ')</nobr>';
             $html .= "</span>";
+        }
+
+        if ($form instanceof HasMorphemesInterface) {
+            $html .= '<div v-show="show">';
+            $html .= $form->printMorphemes();
+            $html .= '</div>';
         }
 
         return "<p>$html</p>";

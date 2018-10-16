@@ -16,7 +16,7 @@ interface HasMorphemesInterface
 
     public function printMorphemes();
 
-    public function containsMorphemes();
+    public function containsMorpheme($morpheme);
 
     public function morphemesToJson();
 }

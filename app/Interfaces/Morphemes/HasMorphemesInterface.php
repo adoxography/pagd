@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Interfaces\Morphemes\HasMorphemesInterface;
+
 interface HasMorphemesInterface
 {
     public function morphemes();

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Interfaces\Morphemes\HasMorphemesInterface;
+namespace App\Interfaces\Morphemes;
 
 interface HasMorphemesInterface
 {

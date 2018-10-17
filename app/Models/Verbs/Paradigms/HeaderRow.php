@@ -14,7 +14,7 @@ class HeaderRow extends Collection {
         });
     }
 
-    public function render($index, $numHeaders) {
+    public function render(int $index, int $numHeaders, int $placedRows) {
         $html = '';
 
         if ($index == 0 && $numHeaders > 0) {
@@ -31,15 +31,15 @@ class HeaderRow extends Collection {
             return $this->generateCellHTML($cell);
         })->implode('');
 
-        return "<tr>$html</tr>";
+        return "<tr class=\"is-row-$placedRows\">$html</tr>";
     }
 
     private function generateBlankSection($span) {
-        return "<th rowspan=\"$span\" colspan=\"2\"></th>";
+        return "<th class=\"is-col-0\" rowspan=\"$span\" colspan=\"2\"></th>";
     }
 
     private function generateLeftHeaders() {
-        return '<th>Class</th><th>Arguments</th>';
+        return '<th class="is-col-0">Class</th><th class="is-col-1">Arguments</th>';
     }
 
     private function generateCellHTML($cell) {

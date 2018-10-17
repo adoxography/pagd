@@ -612,10 +612,16 @@ class Paradigm
     public function renderHeaders() : string
     {
         $html = '';
+        $placedRows = 0;
 
         for ($i = 0; $i < $this->headerRows->count(); $i++) {
             $row = $this->headerRows[$i];
-            $html .= $row->render($i, $this->numHeaders);
+            $headerHTML = $row->render($i, $this->numHeaders, $placedRows);
+            $html .= $headerHTML;
+
+            if (preg_match('`^<tr class="is-row-\d+"></tr>$`', $headerHTML) === 0) {
+                $placedRows++;
+            }
         }
 
         return "<thead>$html</thead>";
@@ -661,10 +667,10 @@ class Paradigm
 
         if ($firstTime) {
             $html = "<tr class=\"is-bordered-top\">";
-            $html .= "<th rowspan=\"$numStructures\">$class</th>";
+            $html .= "<th class=\"is-col-0\" rowspan=\"$numStructures\"><div class=\"header-container\">$class</div></th>";
         }
 
-        $html .= "<td><nobr>$structure</nobr></td>";
+        $html .= "<th class=\"is-col-1\"><nobr>$structure</nobr></th>";
 
         foreach ($this->headers as $language) {
             $firstOrder = true;

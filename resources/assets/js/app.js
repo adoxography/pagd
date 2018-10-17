@@ -83,28 +83,8 @@ Vue.component('alg-pagination-full', resolve => { require(['./components/Paginat
 
 Vue.component('alg-filter', resolve => { require(['./components/Filter.vue'], resolve); });
 Vue.component('alg-select-all', resolve => { require(['./components/SelectAll.vue'], resolve); });
+Vue.component('alg-paradigm-table', resolve => { require(['./components/ParadigmTable.vue'], resolve); });
 
-Vue.component('alg-paradigm-table', {
-	props: ['morphemesOn', 'hasMorphemes'],
-
-	data() {
-		return {
-			show: false
-		};
-	},
-
-	methods: {
-		toggleShow() {
-			this.show = !this.show;
-		}
-	},
-
-	created() {
-		if(this.morphemesOn) {
-			this.show = this.hasMorphemes && this.morphemesOn;
-		}
-	}
-});
 
 Vue.component('paradigm-language-suggest', {
 	methods: {

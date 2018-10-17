@@ -1,11 +1,17 @@
 .paradigm.table {
+    border-right: 1px solid #d0d0d0;
+    border-bottom: 1px solid #d0d0d0;
+
+    th, td {
+        box-shadow: 1px 1px inset #d0d0d0;
+    }
+
     tr, td, th {
-        &.is-bordered-top {
-            border-top: 2px solid $grey-darker;
-        }
+        border: none;
 
         &.is-bordered-left {
-            border-left: 2px solid $grey-darker;
+            box-shadow: 0px 1px inset #d0d0d0, 2px 0px inset $grey-darker;
+            -webkit-box-shadow: 0px 1px inset #d0d0d0, 2px 0px inset $grey-darker;
         }
 
         &.is-bordered-right {
@@ -21,4 +27,60 @@
             background-color: #FFFF99;
         }
     }
+
+    tr.is-bordered-top {
+        td, th {
+            box-shadow: 1px 0px inset #d0d0d0, 0px 2px inset $grey-darker;
+
+            &.is-bordered-left {
+                box-shadow: 2px 2px inset $grey-darker;
+            }
+        }
+    }
+
+    th {
+        position: sticky;
+        background-color: $white;
+
+        &.is-col-0 {
+            left: 0;
+        }
+
+        &.is-col-1 {
+            left: 7.3em + 0.75em * 2;
+        }
+
+        .header-container {
+            width: 7.3em;
+        }
+    }
+
+    thead th {
+        z-index: 10;
+
+        &.is-col-0, &.is-col-1 {
+            z-index: 11
+        }
+    }
+
+    tbody th {
+        z-index: 9;
+    }
+
+    .is-row-0 th {
+        top: 0;
+    }
+
+    .is-row-1 th {
+        top: 3rem;
+    }
+
+    .is-row-2 th {
+        top: 6rem;
+    }
+
+    .is-row-3 th {
+        top: 9rem;
+    }
+
 }

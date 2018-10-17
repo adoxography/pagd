@@ -418,7 +418,7 @@ class Paradigm
             $arg = $args[$i];
 
             if (count($rows[$class][$arg]) > 0) {
-                if (!$matches->has($arg)) {
+                if (!$matches->contains($arg)) {
                     break;
                 }
 
@@ -541,7 +541,6 @@ class Paradigm
      */
     private function generatePossibleMatches(string $args) : Collection
     {
-        $args = '1—2+3';
         // The possible delimiters are the em dash and the plus
         $arguments = preg_split("/[—+]/u", $args);
 
@@ -720,29 +719,30 @@ class Paradigm
         $rowspan = 1;
         $html = '';
 
-        if (!$forms->isEmpty()) {
+        if ($forms->isEmpty()) {
+            $html = "<td class=\"$class\"></td>";
+        } else {
             $firstForm = $forms->first();
 
             if (!$firstForm->placed || $firstForm->distant) {
-                if ($firstForm->span) {
-                    $rowspan = $firstForm->span;
-                }
-
+                $rowspan = $firstForm->span ?: 1;
+                $html = "<td rowspan=\"$rowspan\" class=\"$class\">";
                 foreach ($forms as $form) {
                     $html .= $this->renderForm($form);
                     $form->placed = true;
                 }
+                $html .= "</td>";
             }
         }
 
-        return "<td rowspan=\"$rowspan\" class=\"$class\">$html</td>";
+        return $html;
     }
 
     private function renderForm($form) : string
     {
-        $html = $form->present('link');
+        $html = '<nobr>' . $form->present('link') . '</nobr>';
 
-        if (isset($form->diffClass) && isset($form->structure->head)) {
+        if (isset($form->diffClass) || isset($form->structure->head)) {
             $html .= "<span class=\"structure-annotation\">";
             $html .= '<nobr>(' . $form->structure->present('arguments') . ')</nobr>';
             $html .= "</span>";

@@ -67,7 +67,7 @@ class HeaderRow extends Collection {
      */
     private function generateBlankSection(int $span) : string
     {
-        return "<th class=\"is-col-0\" rowspan=\"$span\" colspan=\"2\"></th>";
+        return "<th class=\"is-col-0 is-bordered-right\" rowspan=\"$span\" colspan=\"2\"></th>";
     }
 
     /**
@@ -78,7 +78,7 @@ class HeaderRow extends Collection {
      */
     private function generateLeftHeaders() : string
     {
-        return '<th class="is-col-0">Class</th><th class="is-col-1">Arguments</th>';
+        return '<th class="is-col-0 is-bordered-bottom">Class</th><th class="is-col-1 is-bordered-right is-bordered-bottom">Arguments</th>';
     }
 
     /**
@@ -102,7 +102,17 @@ class HeaderRow extends Collection {
     {
         $colspan = $cell['colspan'];
         $rowspan = $cell['rowspan'];
-        $class = $cell['bordered'] ? 'is-bordered-left' : '';
+        $classes = [];
+
+        if ($cell['bordered']) {
+            $classes[] = 'is-bordered-left';
+        }
+
+        if ($this->isLast($cell)) {
+            $classes[] = 'is-bordered-bottom';
+        }
+
+        $class = implode(' ', $classes);
 
         return "<th colspan=\"$colspan\" rowspan=\"$rowspan\" class=\"$class\">";
     }
@@ -130,5 +140,22 @@ class HeaderRow extends Collection {
         }
 
         return $text;
+    }
+
+    private function isLast($cell) : bool
+    {
+        if ($cell['subheaders']->count() == 0) {
+            return true;
+        } else {
+            $subheaders = $cell['subheaders']->filter(function ($header) {
+                return $header['show'];
+            });
+
+            if ($subheaders->count() > 1) {
+                return false;
+            }
+        }
+
+        return $this->isLast($cell['subheaders']->first());
     }
 }

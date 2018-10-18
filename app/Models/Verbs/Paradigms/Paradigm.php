@@ -148,11 +148,11 @@ class Paradigm
      * @param Collection $headers
      * @param int $span
      * @param bool $bordered
-     * @param bool $firstRow
+     * @param bool $firstCol
      * @return Collection
      */
     private function prepareHeaders(Collection $headers, int $span=1,
-        bool $bordered=true, bool $firstRow=true) : Collection
+        bool $bordered=true, bool $firstCol=true, $veryFirstCol=true) : Collection
     {
         $preparedHeaders = collect();
         $rowspan = 1;
@@ -164,15 +164,16 @@ class Paradigm
         foreach ($headers as $header => $subheaders) {
             $subheaders = $this->sortHeaders($subheaders);
 
-            if (!$firstRow && !$firstTime) {
+            if (!$firstCol && !$firstTime) {
                 $bordered = false;
             }
+
             $firstTime = false;
 
             if (!$headers->isEmpty()) {
                 $colspan = $this->calculateHeaderColspan($subheaders);
                 $rowspan = $this->calculateHeaderRowspan($subheaders);
-                $subs = $this->prepareHeaders($subheaders, $rowspan, $bordered, false);
+                $subs = $this->prepareHeaders($subheaders, $rowspan, $bordered, false, $veryFirstCol);
             }
 
             if ($span > 1) {
@@ -186,8 +187,10 @@ class Paradigm
                 'subheaders' => $subs,
                 'show'       => $show,
                 'name'       => $header,
-                'bordered'   => $bordered
+                'bordered'   => $bordered && !$veryFirstCol
             ]);
+
+            $veryFirstCol = false;
         }
 
         return $preparedHeaders;
@@ -664,8 +667,9 @@ class Paradigm
             $html .= "<th class=\"is-col-0\" rowspan=\"$numStructures\"><div class=\"header-container\">$class</div></th>";
         }
 
-        $html .= "<th class=\"is-col-1\"><nobr>$structure</nobr></th>";
+        $html .= "<th class=\"is-col-1 is-bordered-right\"><nobr>$structure</nobr></th>";
 
+        $firstLanguage = true;
         foreach ($this->headers as $language) {
             $firstOrder = true;
             foreach ($language['subheaders'] as $order) {
@@ -687,7 +691,7 @@ class Paradigm
                                         $form->structure->diminutiveStatus == $dim['name'];
                                 });
 
-                                $bordered = $firstOrder && $firstMode && $firstAbsObj &&
+                                $bordered = !$firstLanguage && $firstOrder && $firstMode && $firstAbsObj &&
                                     $firstPolarity && $firstDim;
 
                                 $html .= $this->renderCell($cellForms, $bordered);
@@ -702,6 +706,7 @@ class Paradigm
                 }
                 $firstOrder = false;
             }
+            $firstLanguage = false;
         }
 
         $html .= "</tr>";

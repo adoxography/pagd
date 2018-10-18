@@ -2,7 +2,7 @@
 
 namespace App\Models\Verbs\Paradigms;
 
-use \Illuminate\Support\Collection;
+use Illuminate\Support\Collection;
 
 
 class HeaderRow extends Collection {

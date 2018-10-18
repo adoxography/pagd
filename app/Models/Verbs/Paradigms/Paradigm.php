@@ -611,16 +611,11 @@ class Paradigm
     public function renderHeaders() : string
     {
         $html = '';
-        $placedRows = 0;
 
         for ($i = 0; $i < $this->headerRows->count(); $i++) {
             $row = $this->headerRows[$i];
-            $headerHTML = $row->render($i, $this->numHeaders, $placedRows);
+            $headerHTML = $row->render($i, $this->numHeaders);
             $html .= $headerHTML;
-
-            if (preg_match('`^<tr class="is-row-\d+"></tr>$`', $headerHTML) === 0) {
-                $placedRows++;
-            }
         }
 
         return "<thead>$html</thead>";

@@ -1,0 +1,63 @@
+.vb {
+    &> .vb-dragger {
+        z-index: 12;
+
+        &> .vb-dragger-styler {
+            backface-visibility: hidden;
+            transform: rotate3d(0, 0, 0, 0);
+            transition:
+                background-color 100ms ease-out,
+                margin 100ms ease-out,
+                height 100ms ease-out,
+                width 100ms ease-out;
+            background-color: rgba($primary, .1);
+            display: block;
+        }
+
+        &:hover > .vb-dragger-styler {
+            background-color: rgba($primary, .5);
+            margin: 0px;
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    &> .vb-dragger-x {
+        z-index: 12;
+        bottom: 0;
+        height: 12px;
+
+        &> .vb-dragger-styler {
+            margin: 0 5px 5px 5px;
+            height: calc(100% - 5px);
+            width: calc(100% - 10px);
+        }
+    }
+
+    &> .vb-dragger-y {
+        z-index: 13;
+        right: 0;
+        width: 12px;
+
+        &> .vb-dragger-styler {
+            margin: 5px 5px 5px 0;
+            width: calc(100% - 5px);
+            height: calc(100% - 10px);
+        }
+    }
+
+    &.vb-dragging > .vb-dragger > .vb-dragger-styler {
+        background-color: rgba($primary, .5);
+        margin: 0px;
+        height: 100%;
+        width: 100%;
+    }
+
+    &.vb-scrolling-phantom > .vb-dragger > .vb-dragger-styler {
+        background-color: rgba($primary, .3);
+    }
+
+    &.vb-dragging-phantom > .vb-dragger > .vb-dragger-styler {
+        background-color: rgba($primary, .5);
+    }
+}

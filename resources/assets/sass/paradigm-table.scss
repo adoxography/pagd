@@ -1,32 +1,77 @@
+.paradigm-results {
+    $table-height: 80vh;
+
+    height: $table-height;
+	display: inline-grid;
+
+	.paradigm-container {
+		overflow: auto;
+        max-height: $table-height;
+		position: relative;
+
+	}
+}
+
 .paradigm.table {
-    border-right: 1px solid #d0d0d0;
-    border-bottom: 1px solid #d0d0d0;
+    $thin-line-weight: 1px;
+    $thick-line-weight: 2px;
+    $col-0-width: 7.3em;
+    $col-0-padding: .75em;
+
+    $thin-line-top:    0px  $thin-line-weight inset $grey-lighter;
+    $thin-line-bottom: 0px -$thin-line-weight inset $grey-lighter;
+    $thin-line-left:   $thin-line-weight 0px  inset $grey-lighter;
+    $thin-line-right: -$thin-line-weight 0px  inset $grey-lighter;
+
+    $thick-line-top:    0px  $thick-line-weight inset $grey-darker;
+    $thick-line-bottom: 0px (-$thick-line-weight) inset $grey-darker;
+    $thick-line-left:   $thick-line-weight  0px inset $grey-darker;
+    $thick-line-right: -$thick-line-weight  0px inset $grey-darker;
+
+    border-right: $thin-line-weight solid $grey-lighter;
+    border-bottom: $thin-line-weight solid $grey-lighter;
+    display: block;
+
+    th {
+        height: 3rem;
+    }
 
     th, td {
-        box-shadow: 1px 1px inset #d0d0d0;
+        box-shadow: $thin-line-left, $thin-line-top;
+        -webkit-box-shadow: $thin-line-left, $thin-line-top;
+        -moz-shadow: $thin-line-left, $thin-line-top;
     }
 
     tr, td, th {
         border: none;
 
         &.is-bordered-left {
-            box-shadow: 0px 1px inset #d0d0d0, 2px 0px inset $grey-darker;
-            -webkit-box-shadow: 0px 1px inset #d0d0d0, 2px 0px inset $grey-darker;
+            box-shadow: $thin-line-top, $thick-line-left;
+            -webkit-box-shadow: $thin-line-top, $thick-line-left;
+            -moz-box-shadow: $thin-line-top, $thick-line-left;
         }
 
         &.is-bordered-right {
-            box-shadow: 1px 1px inset #d0d0d0, -2px 0px inset $grey-darker;
+            box-shadow: $thin-line-left, $thin-line-top, $thick-line-right;
+            -webkit-box-shadow: $thin-line-left, $thin-line-top, $thick-line-right;
+            -moz-box-shadow: $thin-line-left, $thin-line-top, $thick-line-right;
         }
 
         &.is-bordered-bottom {
-            box-shadow: 1px 1px inset #d0d0d0, 0px -2px inset $grey-darker;
+            box-shadow: $thin-line-left, $thin-line-top, $thick-line-bottom;
+            -webkit-box-shadow: $thin-line-left, $thin-line-top, $thick-line-bottom;
+            -moz-box-shadow: $thin-line-left, $thin-line-top, $thick-line-bottom;
 
             &.is-bordered-left {
-                box-shadow: 0px 1px inset #d0d0d0, 2px -2px inset $grey-darker;
+                box-shadow: $thin-line-top, $thick-line-left, $thick-line-bottom;
+                -webkit-box-shadow: $thin-line-top, $thick-line-left, $thick-line-bottom;
+                -moz-box-shadow: $thin-line-top, $thick-line-left, $thick-line-bottom;
             }
 
             &.is-bordered-right {
-                box-shadow: 1px 1px inset #d0d0d0, -2px -2px inset $grey-darker;
+                box-shadow: $thin-line-left, $thin-line-top, $thick-line-bottom, $thick-line-right;
+                -webkit-box-shadow: $thin-line-left, $thin-line-top, $thick-line-bottom, $thick-line-right;
+                -moz-box-shadow: $thin-line-left, $thin-line-top, $thick-line-bottom, $thick-line-right;
             }
         }
 
@@ -38,14 +83,20 @@
 
     tr.is-bordered-top:not(:first-child) {
         td, th {
-            box-shadow: 1px 0px inset #d0d0d0, 0px 2px inset $grey-darker;
+            box-shadow: $thin-line-left, $thick-line-top;
+            -webkit-box-shadow: $thin-line-left, $thick-line-top;
+            -moz-box-shadow: $thin-line-left, $thick-line-top;
 
             &.is-bordered-left {
-                box-shadow: 2px 2px inset $grey-darker;
+                box-shadow: $thick-line-left, $thick-line-top;
+                -webkit-box-shadow: $thick-line-left, $thick-line-top;
+                -moz-box-shadow: $thick-line-left, $thick-line-top;
             }
 
             &.is-bordered-right {
-                box-shadow: 1px 0px inset #d0d0d0, -2px 2px inset $grey-darker;
+                box-shadow: $thin-line-left, $thick-line-top, $thick-line-right;
+                -webkit-box-shadow: $thin-line-left, $thick-line-top, $thick-line-right;
+                -moz-box-shadow: $thin-line-left, $thick-line-top, $thick-line-right;
             }
         }
     }
@@ -59,11 +110,11 @@
         }
 
         &.is-col-1 {
-            left: calc(7.3em + 0.75em * 2 + 1px);
+            left: calc(#{$col-0-width} + #{$col-0-padding} * 2 + #{$thin-line-weight});
         }
 
         .header-container {
-            width: 7.3em;
+            width: $col-0-width;
         }
     }
 

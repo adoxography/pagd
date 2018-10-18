@@ -20,12 +20,15 @@
 					</div>
 				</div>
 			</nav>
+
+            <div v-bar>
 			<div class="paradigm-container">
 				<table class="paradigm table" ref="table">
 					{!! $search->renderHeaders() !!}
                     {!! $search->renderBody() !!}
 				</table>
 			</div>
+            </div>
 
 			<br>
 			<p>

@@ -1,4 +1,7 @@
 <script>
+import Vuebar from 'vuebar';
+Vue.use(Vuebar);
+
 export default {
 	props: ['morphemesOn', 'hasMorphemes'],
 
@@ -12,8 +15,6 @@ export default {
 		toggleShow() {
 			this.show = !this.show;
 		},
-
-
 	},
 
 	created() {
@@ -24,7 +25,11 @@ export default {
 
   mounted() {
     let table = this.$refs.table;
-    table.style.width = table.firstChild.scrollWidth + 'px';
+
+    Vue.nextTick(() =>  {
+      table.style.width = table.firstChild.scrollWidth + 'px';
+      //console.log(table.style.width);
+    });
 
     let header = table.firstChild;
     for (let row of header.children) {

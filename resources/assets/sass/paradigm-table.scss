@@ -121,6 +121,8 @@
     thead th {
         z-index: 10;
 
+        padding-bottom: 0;
+
         &.is-col-0, &.is-col-1 {
             z-index: 11
         }

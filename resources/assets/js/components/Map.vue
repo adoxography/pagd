@@ -5,13 +5,13 @@
 		style="width: 100%; height: 400px"
 		@rightclick="onRightClick($event)"
 	>
-	    <ground-overlay
-	    	v-for="(overlay, index) in overlays"
-	    	:key="index"
-	    	:source="overlay.source"
-	    	:bounds="overlay.bounds"
-	    	:opacity="overlay.opacity"
-        ></ground-overlay>
+			<!--<ground-overlay-->
+				<!--v-for="(overlay, index) in overlays"-->
+				<!--:key="index"-->
+				<!--:source="overlay.source"-->
+				<!--:bounds="overlay.bounds"-->
+				<!--:opacity="overlay.opacity"-->
+        <!--></ground-overlay>-->
 
 		<gmap-marker
 			v-for="(location, index) in markerArray"
@@ -87,28 +87,6 @@ export default {
 
 			markerArray: []
 		};
-	},
-
-	components: {
-		'ground-overlay': Vue.extend({
-	        render() {
-	          	return '';
-	        },
-	        mixins: [VueGoogleMaps.MapElementMixin],
-	        props: ['source', 'bounds', 'opacity'],
-	        created() {},
-	        deferredReady: function() {
-	          	this.$overlay = new google.maps.GroundOverlay(
-	            	this.source,
-	            	this.bounds
-	          	);
-	          	this.$overlay.setOpacity(this.opacity);
-	          	this.$overlay.setMap(this.$map);
-	        },
-	        destroyed: function() {
-	          	this.$overlay.setMap(null);
-	        },
-      	})
 	},
 
 	computed: {

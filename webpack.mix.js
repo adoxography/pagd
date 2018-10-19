@@ -1,4 +1,5 @@
 let mix = require('laravel-mix');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 /*
  |--------------------------------------------------------------------------
@@ -20,8 +21,34 @@ mix.webpackConfig({
     chunkFilename: `assets/merchant/js/chunk[name].${ mix.inProduction() ? '[chunkhash].' : '' }js`
   },
 
+  plugins: [new VueLoaderPlugin()],
+
   externals: {
     tinymce: 'tinymce'
+  },
+
+  module: {
+    rules: [
+        {
+            test: require.resolve('tinymce/tinymce'),
+            loaders: [
+                'imports-loader?this=>window',
+                'exports?window.tinymce'
+            ]
+        },
+
+        {
+            test: /tinymce\/(themes|plugins)\//,
+            loaders: [
+                'imports-loader?this=>window'
+            ]
+        },
+
+        {
+            test: /\.pug$/,
+            loader: 'pug-plain-loader'
+        }
+    ]
   }
 });
 

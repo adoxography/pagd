@@ -50,6 +50,14 @@ class AdminController extends Controller
 
     public function stats()
     {
+        $formPendingFunction = function ($query) {
+            $query->whereNotNull('Word_Forms.morphemicForm');
+        };
+
+        $examplePendingFunction = function ($query) {
+            $query->whereNotNull('Word_Examples.morphemicForm');
+        };
+
         $formCompleteFunction = function ($query) {
             $query->whereNotNull('Word_Forms.morphemicform')
                   ->where('Word_Forms.complete', '1');
@@ -65,14 +73,51 @@ class AdminController extends Controller
             'verbExamples',
             'nominalForms',
             'nominalExamples',
-            'morphemes',
-            'phonemes',
+
+            'verbForms as pending_verb_forms_count' => $formPendingFunction,
+            'verbExamples as pending_verb_examples_count' => $examplePendingFunction,
+            'nominalForms as pending_nominal_forms_count' => $formPendingFunction,
+            'nominalExamples as pending_nominal_examples_count' => $examplePendingFunction,
 
             'verbForms as complete_verb_forms_count' => $formCompleteFunction,
             'verbExamples as complete_verb_examples_count' => $exampleCompleteFunction,
             'nominalForms as complete_nominal_forms_count' => $formCompleteFunction,
             'nominalExamples as complete_nominal_examples_count' => $exampleCompleteFunction
         ])->get();
+
+        $languages->each(function ($language) {
+            foreach (['verb_forms', 'verb_examples', 'nominal_forms', 'nominal_examples'] as $field) {
+                $count = "{$field}_count";
+                $complete = "complete_{$field}_count";
+                $pending = "pending_{$field}_count";
+                $pendingPercent = "pending_{$field}_percent";
+                $completePercent = "complete_{$field}_percent";
+                $pendingColour = "pending_{$field}_colour";
+                $completeColour = "complete_{$field}_colour";
+
+                if ($language->$count > 0) {
+                    $value = $language->$pending / $language->$count;
+                    $language->$pendingPercent = number_format($value, 2);
+                } else {
+                    $language->$pendingPercent = number_format(0, 2);
+                }
+
+                if ($language->$complete > 0) {
+                    $value = $language->$complete / $language->$pending;
+                    $language->$completePercent = number_format($value, 2);
+                } else {
+                    $language->$completePercent = number_format(0, 2);
+                }
+
+                $value = round($language->$pendingPercent * 255);
+                $antivalue = 255 - $value;
+                $language->$pendingColour = "rgba($antivalue, $value, 0, 0.6)";
+
+                $value = round($language->$completePercent * 255);
+                $antivalue = 255 - $value;
+                $language->$completeColour = "rgba($antivalue, $value, 0, 0.6)";
+            }
+        });
 
         return view('admin.stats', compact('languages'));
     }

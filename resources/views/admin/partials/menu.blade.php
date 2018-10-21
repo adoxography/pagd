@@ -2,6 +2,7 @@
     <p class="menu-label">General</p>
     <ul class="menu-list">
         <li><a href="/admin" class="@if(Route::is('admin::index')) is-active @endif">Dashboard</a></li>
+        <li><a href="/admin/statistics" class="@if(Route::is('admin::stats')) is-active @endif">Statistics</a></li>
     </ul>
     <p class="menu-label">Edit data</p>
     <ul class="menu-list">

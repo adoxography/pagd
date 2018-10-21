@@ -6,6 +6,7 @@ use App\Models\Morphology\Morpheme;
 use App\Models\Users\RegistrationCode;
 use App\Models\Users\User;
 use App\Models\Source;
+use App\Models\Language;
 use App\Models\Nominals\Form as NominalForm;
 use App\Models\Phonology\Length;
 use App\Models\Phonology\Height;
@@ -45,6 +46,35 @@ class AdminController extends Controller
         ];
 
         return view('admin.index', $data);
+    }
+
+    public function stats()
+    {
+        $formCompleteFunction = function ($query) {
+            $query->whereNotNull('Word_Forms.morphemicform')
+                  ->where('Word_Forms.complete', '1');
+        };
+
+        $exampleCompleteFunction = function ($query) {
+            $query->whereNotNull('Word_Examples.morphemicform')
+                  ->where('Word_Examples.complete', '1');
+        };
+
+        $languages = Language::withCount([
+            'verbForms',
+            'verbExamples',
+            'nominalForms',
+            'nominalExamples',
+            'morphemes',
+            'phonemes',
+
+            'verbForms as complete_verb_forms_count' => $formCompleteFunction,
+            'verbExamples as complete_verb_examples_count' => $exampleCompleteFunction,
+            'nominalForms as complete_nominal_forms_count' => $formCompleteFunction,
+            'nominalExamples as complete_nominal_examples_count' => $exampleCompleteFunction
+        ])->get();
+
+        return view('admin.stats', compact('languages'));
     }
 
     public function users()

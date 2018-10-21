@@ -4,23 +4,24 @@
 		:zoom="zoom"
 		style="width: 100%; height: 400px"
 		@rightclick="onRightClick($event)"
+    :options="{streetViewControl: false, mapTypeControl: false}"
 	>
-			<!--<ground-overlay-->
-				<!--v-for="(overlay, index) in overlays"-->
-				<!--:key="index"-->
-				<!--:source="overlay.source"-->
-				<!--:bounds="overlay.bounds"-->
-				<!--:opacity="overlay.opacity"-->
-        <!--></ground-overlay>-->
+      <ground-overlay
+        v-for="(overlay, index) in overlays"
+        :key="999999"
+        :source="overlay.source"
+        :bounds="overlay.bounds"
+        :opacity="overlay.opacity"
+        ></ground-overlay>
 
-		<gmap-marker
-			v-for="(location, index) in markerArray"
-			:key="index"
-			:position="getLatLng(location)"
-			:clickable="true"
-			:icon="getIcon(location)"
-			@click="onClickMarker(location)"
-		></gmap-marker>
+    <gmap-marker
+      v-for="(location, index) in markerArray"
+      :key="index"
+      :position="getLatLng(location)"
+      :clickable="true"
+      :icon="getIcon(location)"
+      @click="onClickMarker(location)"
+    ></gmap-marker>
 
 		<gmap-info-window
 			:opened="infoWindow.opened"
@@ -38,7 +39,9 @@ import * as VueGoogleMaps from 'vue2-google-maps';
 // Initialze google maps
 Vue.use(VueGoogleMaps, {
 	load: {
-  		key: 'AIzaSyATvyKZDW8wl1v1uooU3Z8e_qwd57u0sWI'
+      key: 'AIzaSyCLFKIvNQZfk0Q-h4nwSHpYMFRx7TZW5Yc',
+      v: '3.33'
+      //key: 'AIzaSyATvyKZDW8wl1v1uooU3Z8e_qwd57u0sWI'
     }
 });
 
@@ -49,11 +52,20 @@ export default {
 		return {
 
 			// Map variables
-			zoom: 4,
-			center: {
-				lat: 46.000000,
-				lng: -87.659916
-			},
+      zoom: 4,
+      center: {
+        lat: 46.000000,
+        lng: -87.659916
+      },
+
+      //zoom: 1,
+      //center: {
+        //lag: 0, lng: 0
+      //},
+      //streetViewControl: false,
+      //mapTypeControlOptions: {
+        //mapTypeIds: ['moon']
+      //},
 
 			// Variables for the floating info window
 			infoWindow: {
@@ -63,16 +75,16 @@ export default {
 			},
 
 			overlays: [
-				{
-					source: "/img/giphy.gif",
-					bounds: {
-			            north: 1.502,
-			            south: 1.185,
-			            east: 104.0262,
-			            west: 103.5998,
-					},
-					opacity: 0.5
-				}
+				//{
+          //source: 'https://legacy.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
+          //bounds: {
+            //north: 40.773941,
+            //south: 40.712216,
+            //east: -74.12544,
+            //west: -74.22655
+          //},
+					//opacity: 0.5
+				//}
 				// {
 				// 	source: "/img/EasternAlgMap.gif",
 				// 	bounds: {
@@ -88,6 +100,24 @@ export default {
 			markerArray: []
 		};
 	},
+
+  components: {
+    'ground-overlay': VueGoogleMaps.MapElementFactory({
+      mappedProps: {
+        'opacity': {}
+      },
+      props: {
+        'source': {type: String},
+        'bounds': {type: Object},
+      },
+      events: ['click', 'dblclick'],
+      name: 'groundOverlay',
+      ctr: () => google.maps.GroundOverlay,
+      ctrArgs: (options, {source, bounds}) => [source, new google.maps.LatLngBounds(
+        new google.maps.LatLng(bounds.south, bounds.west), new google.maps.LatLng(bounds.north, bounds.east)
+      ), options]
+    })
+  },
 
 	computed: {
 		markerIndex() {

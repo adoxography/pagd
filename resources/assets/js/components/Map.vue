@@ -6,17 +6,16 @@
 		@rightclick="onRightClick($event)"
     :options="{streetViewControl: false, mapTypeControl: false}"
 	>
-      <ground-overlay
-        v-for="(overlay, index) in overlays"
-        :key="999999"
-        :source="overlay.source"
-        :bounds="overlay.bounds"
-        :opacity="overlay.opacity"
-        ></ground-overlay>
+    <gmap-polygon
+      v-for="zone in zones"
+      :key="'polygon-'+zone.name"
+      :path="zone.path"
+      :options="{fillColor: zone.color}"
+    ></gmap-polygon>
 
     <gmap-marker
       v-for="(location, index) in markerArray"
-      :key="index"
+      :key="'marker-' + index"
       :position="getLatLng(location)"
       :clickable="true"
       :icon="getIcon(location)"
@@ -41,7 +40,6 @@ Vue.use(VueGoogleMaps, {
 	load: {
       key: 'AIzaSyCLFKIvNQZfk0Q-h4nwSHpYMFRx7TZW5Yc',
       v: '3.33'
-      //key: 'AIzaSyATvyKZDW8wl1v1uooU3Z8e_qwd57u0sWI'
     }
 });
 
@@ -58,14 +56,24 @@ export default {
         lng: -87.659916
       },
 
-      //zoom: 1,
-      //center: {
-        //lag: 0, lng: 0
-      //},
-      //streetViewControl: false,
-      //mapTypeControlOptions: {
-        //mapTypeIds: ['moon']
-      //},
+      zones: [
+        //{
+          //name: 'Foo',
+          //path: [
+            //{lng: 94.5243292, lat: 55.5964913},
+            //{lng: 96.1942511, lat: 53.4286678},
+            //{lng: 99.5340949, lat: 53.4286678},
+            //{lng: 96.0184699, lat: 51.8012962},
+            //{lng: 97.6883917, lat: 49.2026878},
+            //{lng: 94.2606574, lat: 51.0063078},
+            //{lng: 90.6131964, lat: 49.773621 },
+            //{lng: 92.2831183, lat: 51.9911227},
+            //{lng: 88.9432745, lat: 53.5332733},
+            //{lng: 92.7225714, lat: 53.4810028}
+          //],
+          //color: 'green'
+        //},
+      ],
 
 			// Variables for the floating info window
 			infoWindow: {
@@ -74,50 +82,9 @@ export default {
 				content: ''
 			},
 
-			overlays: [
-				//{
-          //source: 'https://legacy.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',
-          //bounds: {
-            //north: 40.773941,
-            //south: 40.712216,
-            //east: -74.12544,
-            //west: -74.22655
-          //},
-					//opacity: 0.5
-				//}
-				// {
-				// 	source: "/img/EasternAlgMap.gif",
-				// 	bounds: {
-		  //       		north: 49.30,
-		  //       		south: 35,
-		  //       		east: -64.87,
-		  //       		west: -77.69
-				// 	},
-				// 	opacity: 0.5
-				// }
-			],
-
 			markerArray: []
 		};
 	},
-
-  components: {
-    'ground-overlay': VueGoogleMaps.MapElementFactory({
-      mappedProps: {
-        'opacity': {}
-      },
-      props: {
-        'source': {type: String},
-        'bounds': {type: Object},
-      },
-      events: ['click', 'dblclick'],
-      name: 'groundOverlay',
-      ctr: () => google.maps.GroundOverlay,
-      ctrArgs: (options, {source, bounds}) => [source, new google.maps.LatLngBounds(
-        new google.maps.LatLng(bounds.south, bounds.west), new google.maps.LatLng(bounds.north, bounds.east)
-      ), options]
-    })
-  },
 
 	computed: {
 		markerIndex() {
@@ -274,7 +241,13 @@ export default {
 			}
 
 			return { url: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + color };
-		}
+		},
+
+    arr2Coords(arr) {
+      return arr.map(coords => {
+        return {lat: coords[0], lng: coords[1]}
+      });
+    }
 	}
 }
 </script>

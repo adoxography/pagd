@@ -134,7 +134,7 @@
 
 			{{-- Location --}}
 			<div class="column is-12">
-				<label class="label">Location <em>(Right click to add)</em></label>
+				<label class="label">Location</label>
 				<alg-map
 					:add-mode="true"
 					:markers="{{ $parents }}"
@@ -147,7 +147,8 @@
 				></alg-map>
 			</div>
 
-			<input type="hidden" name="location" v-model="location">
+			<input type="hidden" name="location[position]" v-model="location.position" />
+			<input type="hidden" name="location[type]" v-model="location.type" />
 		</div>
 	@endcomponent
 </alg-language-form>

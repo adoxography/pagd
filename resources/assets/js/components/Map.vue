@@ -1,35 +1,71 @@
 <template>
-	<gmap-map
-		:center="center"
-		:zoom="zoom"
-		style="width: 100%; height: 400px"
-		@rightclick="onRightClick($event)"
-    :options="{streetViewControl: false, mapTypeControl: false}"
-	>
-    <gmap-polygon
-      v-for="zone in zones"
-      :key="'polygon-'+zone.name"
-      :path="zone.path"
-      :options="{fillColor: zone.color}"
-    ></gmap-polygon>
+  <div>
+    <div class="control" v-show="addMode">
+      <label class="radio">
+        <input type="radio" :value="null" v-model="addType" />
+        None
+      </label>
+      <label class="radio">
+        <input type="radio" value="point" v-model="addType" />
+        Point
+      </label>
+      <label class="radio">
+        <input type="radio" value="area" v-model="addType" />
+        Area
+      </label>
+    </div>
 
-    <gmap-marker
-      v-for="(location, index) in markerArray"
-      :key="'marker-' + index"
-      :position="getLatLng(location)"
-      :clickable="true"
-      :icon="getIcon(location)"
-      @click="onClickMarker(location)"
-    ></gmap-marker>
+    <gmap-map
+      :center="center"
+      :zoom="zoom"
+      style="width: 100%; height: 400px"
+      :options="{streetViewControl: false, mapTypeControl: false}"
+      @dragend="onRightClick($event)"
+    >
+      <!-- Pre-existing zones -->
+      <gmap-polygon
+        v-for="zone in zones"
+        :key="'polygon-'+zone.name"
+        :path="zone.path"
+        :options="{fillColor: zone.color}"
+      ></gmap-polygon>
 
-		<gmap-info-window
-			:opened="infoWindow.opened"
-			:position="infoWindow.position"
-			@closeclick="infoWindow.opened = !infoWindow.opened"
-		>
-			<span v-html="infoWindow.content"></span>
-		</gmap-info-window>
-	</gmap-map>
+      <!-- New zone -->
+      <gmap-polygon
+        :path="newZone.path"
+        :options="{visible: addType == 'area', fillColor: newZone.color}"
+        :editable="true"
+        @path_changed="updateEdited($event)"
+      ></gmap-polygon>
+
+      <!-- Pre-existing markers -->
+      <gmap-marker
+        v-for="(location, index) in markerArray"
+        :key="'marker-' + index"
+        :position="getLatLng(location)"
+        :clickable="true"
+        :icon="getIcon(location)"
+        @click="onClickMarker(location)"
+      ></gmap-marker>
+
+      <!-- New marker -->
+      <gmap-marker
+        :visible="addType == 'point'"
+        :position="getLatLng(newMarker)"
+        :icon="getIcon(newMarker)"
+        :draggable="true"
+        @dragend="onRightClick($event)"
+      ></gmap-marker>
+
+      <gmap-info-window
+        :opened="infoWindow.opened"
+        :position="infoWindow.position"
+        @closeclick="infoWindow.opened = !infoWindow.opened"
+      >
+        <span v-html="infoWindow.content"></span>
+      </gmap-info-window>
+    </gmap-map>
+  </div>
 </template>
 
 <script>
@@ -56,24 +92,28 @@ export default {
         lng: -87.659916
       },
 
-      zones: [
-        //{
-          //name: 'Foo',
-          //path: [
-            //{lng: 94.5243292, lat: 55.5964913},
-            //{lng: 96.1942511, lat: 53.4286678},
-            //{lng: 99.5340949, lat: 53.4286678},
-            //{lng: 96.0184699, lat: 51.8012962},
-            //{lng: 97.6883917, lat: 49.2026878},
-            //{lng: 94.2606574, lat: 51.0063078},
-            //{lng: 90.6131964, lat: 49.773621 },
-            //{lng: 92.2831183, lat: 51.9911227},
-            //{lng: 88.9432745, lat: 53.5332733},
-            //{lng: 92.7225714, lat: 53.4810028}
-          //],
-          //color: 'green'
-        //},
-      ],
+      zones: [],
+
+      addType: null,
+      edited: null,
+
+      newMarker: {
+        id: 0,
+        name: 'New language',
+        latLng: {lng: -96.194, lat: 53.430},
+        color: '0000ff'
+      },
+
+      newZone: {
+          name: 'Foo',
+          path: [
+            {lng: -96.194, lat: 53.430},
+            {lng: -96.194, lat: 51.300},
+            {lng: -92.284, lat: 51.300},
+            {lng: -92.284, lat: 53.430}
+          ],
+          color: 'blue'
+        },
 
 			// Variables for the floating info window
 			infoWindow: {
@@ -100,6 +140,12 @@ export default {
 		}
 	},
 
+  watch: {
+    addType() {
+      this.fireEvent();
+    }
+  },
+
 	created() {
 		if(this.markers) {
 
@@ -115,6 +161,8 @@ export default {
 
 			this.center = this.getCenter();
 		}
+
+    this.edited = this.newZone.path;
 	},
 
 	mounted() {
@@ -129,11 +177,50 @@ export default {
 		},
 
 		onRightClick(e) {
-			if(this.addMode) {
-				let newMarker = this.addMarker(e.latLng);
-				this.openInfoWindow(newMarker);
+			if(this.addType == 'point') {
+        let latLng = e.latLng;
+        let marker = {
+          id: 0,
+          name: "New language",
+          latLng: latLng,
+          color: '0000ff'
+        }
+
+        this.newMarker = marker;
+        this.fireEvent();
 			}
 		},
+
+    updateEdited(mvcArray) {
+      let path = [];
+
+      for (let j = 0; j < mvcArray.getLength(); j++) {
+        let point = mvcArray.getAt(j);
+        path.push({lat: point.lat(), lng: point.lng()});
+      }
+
+      this.edited = path;
+      this.fireEvent();
+    },
+
+    fireEvent() {
+      let position = null;
+
+      if (this.addType == 'point') {
+        position = this.newMarker.latLng;
+      } else if (this.addType == 'area') {
+        position = this.edited;
+      }
+
+      if (position != null) {
+        position = JSON.stringify(position);
+      }
+
+      this.$emit('marker-added', {
+        type: this.addType,
+        position: position
+      });
+    },
 
 		addMarker(latLng) {
 			let marker;

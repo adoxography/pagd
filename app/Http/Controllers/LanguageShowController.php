@@ -10,6 +10,7 @@ class LanguageShowController extends Controller
     public function basicDetails(Language $language)
     {
         $language->load([
+            'location',
             'group', 
             'parent',
             'children' => function($query) {

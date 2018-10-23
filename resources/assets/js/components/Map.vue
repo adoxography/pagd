@@ -1,35 +1,74 @@
 <template>
-	<gmap-map
-		:center="center"
-		:zoom="zoom"
-		style="width: 100%; height: 400px"
-		@rightclick="onRightClick($event)"
-	>
-			<!--<ground-overlay-->
-				<!--v-for="(overlay, index) in overlays"-->
-				<!--:key="index"-->
-				<!--:source="overlay.source"-->
-				<!--:bounds="overlay.bounds"-->
-				<!--:opacity="overlay.opacity"-->
-        <!--></ground-overlay>-->
+  <div>
+    <div class="control" v-show="addMode">
+      <label class="radio">
+        <input type="radio" :value="null" v-model="addType" />
+        None
+      </label>
+      <label class="radio">
+        <input type="radio" value="point" v-model="addType" />
+        Point
+      </label>
+      <label class="radio">
+        <input type="radio" value="area" v-model="addType" />
+        Area
+      </label>
+    </div>
 
-		<gmap-marker
-			v-for="(location, index) in markerArray"
-			:key="index"
-			:position="getLatLng(location)"
-			:clickable="true"
-			:icon="getIcon(location)"
-			@click="onClickMarker(location)"
-		></gmap-marker>
+    <gmap-map
+      :center="center"
+      :zoom="zoom"
+      style="width: 100%; height: 400px"
+      :options="{streetViewControl: false, mapTypeControl: false}"
+      @dragend="onRightClick($event)"
+    >
+      <!-- Pre-existing zones -->
+      <gmap-polygon
+        v-for="zone in zones"
+        :key="'polygon-'+zone.id"
+        :path="zone.location.position"
+        :options="{fillColor: '#'+zone.color, strokeColor: '#'+zone.color}"
+        :clickable="true"
+        @click="onClickMarker(zone, 'area', $event)"
+      ></gmap-polygon>
 
-		<gmap-info-window
-			:opened="infoWindow.opened"
-			:position="infoWindow.position"
-			@closeclick="infoWindow.opened = !infoWindow.opened"
-		>
-			<span v-html="infoWindow.content"></span>
-		</gmap-info-window>
-	</gmap-map>
+      <!-- New zone -->
+      <gmap-polygon
+        :path="newZone.location.position"
+        :options="{visible: addType == 'area', fillColor: '#'+newZone.color, strokeColor: '#'+newZone.color}"
+        :editable="true"
+        :draggable="true"
+        @path_changed="updateEdited($event)"
+      ></gmap-polygon>
+
+      <!-- Pre-existing markers -->
+      <gmap-marker
+        v-for="(marker, index) in markerArray"
+        :key="'marker-' + marker.id"
+        :position="marker.location.position"
+        :clickable="true"
+        :icon="getIcon(marker)"
+        @click="onClickMarker(marker, 'point')"
+      ></gmap-marker>
+
+      <!-- New marker -->
+      <gmap-marker
+        :visible="addType == 'point'"
+        :position="newMarker.location.position"
+        :icon="getIcon(newMarker)"
+        :draggable="true"
+        @dragend="onRightClick($event)"
+      ></gmap-marker>
+
+      <gmap-info-window
+        :opened="infoWindow.opened"
+        :position="infoWindow.position"
+        @closeclick="infoWindow.opened = !infoWindow.opened"
+      >
+        <span v-html="infoWindow.content"></span>
+      </gmap-info-window>
+    </gmap-map>
+  </div>
 </template>
 
 <script>
@@ -38,22 +77,61 @@ import * as VueGoogleMaps from 'vue2-google-maps';
 // Initialze google maps
 Vue.use(VueGoogleMaps, {
 	load: {
-  		key: 'AIzaSyATvyKZDW8wl1v1uooU3Z8e_qwd57u0sWI'
+      key: 'AIzaSyCLFKIvNQZfk0Q-h4nwSHpYMFRx7TZW5Yc',
+      v: '3.33'
     }
 });
 
 export default {
-	props: ['markers', 'addMode', 'marker'],
+  props: {
+    'markers': [Array, Object],
+    'addMode': Boolean,
+    'marker': Object,
+    'zonesEnabled': {
+      type: Boolean,
+      default: true
+    }
+  },
 
 	data() {
 		return {
 
 			// Map variables
-			zoom: 4,
-			center: {
-				lat: 46.000000,
-				lng: -87.659916
-			},
+      zoom: 4,
+      center: {
+        lat: 46.000000,
+        lng: -87.659916
+      },
+
+      zones: [],
+
+      addType: null,
+      edited: null,
+
+      newMarker: {
+        id: 0,
+        name: 'New language',
+        color: '0000ff',
+        location: {
+          type: 'point',
+          position: {lng: -96.194, lat: 53.430}
+        }
+      },
+
+      newZone: {
+        id: 0,
+        name: 'New language',
+        color: '0000ff',
+        location: {
+          type: 'area',
+          position: [
+            {lng: -96.194, lat: 53.430},
+            {lng: -96.194, lat: 51.300},
+            {lng: -92.284, lat: 51.300},
+            {lng: -92.284, lat: 53.430}
+          ]
+        }
+      },
 
 			// Variables for the floating info window
 			infoWindow: {
@@ -62,188 +140,257 @@ export default {
 				content: ''
 			},
 
-			overlays: [
-				{
-					source: "/img/giphy.gif",
-					bounds: {
-			            north: 1.502,
-			            south: 1.185,
-			            east: 104.0262,
-			            west: 103.5998,
-					},
-					opacity: 0.5
-				}
-				// {
-				// 	source: "/img/EasternAlgMap.gif",
-				// 	bounds: {
-		  //       		north: 49.30,
-		  //       		south: 35,
-		  //       		east: -64.87,
-		  //       		west: -77.69
-				// 	},
-				// 	opacity: 0.5
-				// }
-			],
-
 			markerArray: []
 		};
 	},
 
-	computed: {
-		markerIndex() {
-			let index = 0; // Database primary keys will never be 0
-
-			if(this.marker) {
-				index = this.marker.id;
-			}
-
-			return this.markerArray.findIndex(lang => {
-				return lang.id == index;
-			});
-		}
-	},
+  watch: {
+    addType() {
+      this.fireEvent();
+    }
+  },
 
 	created() {
+    /**
+     * Process all of the incoming markers
+     */
 		if(this.markers) {
-
 			if(Array.isArray(this.markers)) {
-				this.markers.forEach(marker => {
-					if(marker.location) {
-						this.markerArray.push(marker);
-					}
-				});
+				this.markers.forEach(marker => this.addEntity(marker));
 			} else {
-				this.markerArray.push(this.markers);
+        this.addEntity(this.markers);
 			}
 
-			this.center = this.getCenter();
+			this.center = this.getMapCenter();
 		}
+
+    /**
+     * Handle the special marker, if provided
+     */
+    if (this.marker && this.validateEntity(this.marker)) {
+      if (this.marker.location.type == 'point') {
+        this.newMarker = this.marker;
+      } else if (this.marker.location.type == 'area') {
+        this.newZone = this.marker;
+      }
+
+      this.newMarker.color = '0000ff';
+      this.newZone.color = '0000ff';
+      this.addType = this.marker.location.type;
+    }
+
+    this.edited = this.newZone.location.position;
 	},
 
 	mounted() {
-		if(this.marker) {
-			this.openInfoWindow(this.marker);
-		}
+    if(this.marker) {
+      this.openInfoWindow(this.marker, this.addType);
+    }
 	},
 
 	methods: {
-		onClickMarker(location) {
-			this.openInfoWindow(location);
+    /**
+     * Fires when a marker or zone is left clicked
+     */
+		onClickMarker(location, type, event=null) {
+			this.openInfoWindow(location, type, event);
 		},
 
+    /**
+     * Fires when a marker is right clicked
+     */
 		onRightClick(e) {
-			if(this.addMode) {
-				let newMarker = this.addMarker(e.latLng);
-				this.openInfoWindow(newMarker);
+			if(this.addType == 'point') {
+        let latLng = e.latLng;
+        this.newMarker.location.position = e.latLng;
+        this.fireEvent();
 			}
 		},
 
-		addMarker(latLng) {
-			let marker;
-			let index = this.markerIndex;
+    /**
+     * Adds an entity to the appropriate array
+     *
+     * The entity will only be added if it passes validation.
+     *
+     * @param entity  The entity to add
+     */
+    addEntity(entity) {
+      if (this.validateEntity(entity) && (!this.marker || this.marker.id != entity.id)) {
+        if (entity.location.type == 'point') {
+          this.markerArray.push(entity);
+        } else if (entity.location.type == 'area') {
+          if (this.zonesEnabled) {
+            this.zones.push(entity);
+          } else {
+            let center = this.getCenter(entity.location.position, 0);
+            entity.location.position = center;
+            this.markerArray.push(entity);
+          }
+        }
+      }
+    },
 
-			if(index >= 0) {
-				marker = this.removeMarker(index);
-			} else if (this.marker) {
-				marker = this.marker;
-			} else {
-				marker = {
-					id: 0,
-					name: "New language"
-				}
-			}
+    /**
+     * Validates an entity and ensures that it conforms to the component
+     * requirements
+     *
+     * Rejects entities that don't have locations, and if they do have
+     * locations, ensures that the location position is an array or object and
+     * a color exists on the entity.
+     *
+     * @param entity  The entity to validate
+     * @return  true if the entiy passes and false otherwise
+     */
+    validateEntity(entity) {
+      if (!entity.location) {
+        return false;
+      }
 
-			marker.latLng = latLng;
+      let position = entity.location.position;
+      if (typeof position == 'string' || position instanceof String) {
+        entity.location.position = JSON.parse(position);
+      }
 
-			this.markerArray.push(marker);
+      if (!entity.color) {
+        if (entity.location.color) {
+          entity.color = entity.location.color;
+        } else {
+          entity.color = 'FE7569';
+        }
+      }
 
-			this.$emit('marker-added', {
-				latLng: latLng
-			});
+      return true;
+    },
 
-			return marker;
+    /**
+     * Fires when a zone has been edited
+     *
+     * @param mvcArray  The data from the editing event
+     */
+    updateEdited(mvcArray) {
+      let path = [];
+
+      for (let j = 0; j < mvcArray.getLength(); j++) {
+        let point = mvcArray.getAt(j);
+        path.push({lat: point.lat(), lng: point.lng()});
+      }
+
+      this.edited = path;
+      this.fireEvent();
+    },
+
+    /**
+     * Fires an update event with the current marker/zone information
+     */
+    fireEvent() {
+      let position = null;
+
+      switch (this.addType) {
+        case 'point':
+          position = this.newMarker.location.position;
+          break;
+        case 'area':
+          position = this.edited;
+          break;
+        default:
+          break;
+      }
+
+      this.$emit('marker-added', {
+        type: this.addType,
+        position: position ? JSON.stringify(position) : null
+      });
+    },
+
+    /**
+     * Opens the info window, loaded with the appropriate information
+     *
+     * @param entity  The marker or zone that was clicked
+     * @param type    The type of marker -- marker or zone
+     * @param event   The event that accompanied the click
+     */
+		openInfoWindow(entity, type, event) {
+      if (type == 'point') {
+        this.infoWindow.position = entity.location.position;
+      } else if (type == 'area') {
+        this.infoWindow.position = event.latLng;
+      }
+
+			this.infoWindow.opened   = true;
+			this.infoWindow.content  = this.getInfoWindowContent(entity);
 		},
 
-		removeMarker(index) {
-			let output = this.markerArray.splice(index, 1)[0];
+    /**
+     * Gets the info window content based on an entity
+     *
+     * @param entity  The entity to base the content off of
+     * @return  A string with HTML to load into the info window
+     */
+		getInfoWindowContent(entity) {
+      let output = `<strong>${entity.name}</strong>`;
+
+			if(entity.datapoints) {
+        let datapoint = entity.datapoints[0];
+        let id = datapoint.id;
+        let name = datapoint.value.name;
+        let link = `<a href="/datapoints/${id}" style="color: #${entity.color};">${name}</a>`;
+        output += `<br>\n${link}`;
+			} else if(entity.id > 0) {
+        let link = `<a href="/languages/${entity.id}">View details</a>`;
+        output += `<br>\n${link}`;
+			}
 
 			return output;
 		},
 
-		openInfoWindow(location) {
-			this.infoWindow.opened = true;
-			this.infoWindow.position = this.getLatLng(location);
-			this.infoWindow.content  = this.setMarkerContent(location);
-		},
+    /**
+     * Finds the center position of all the entities on the map
+     *
+     * @return  An object containing lat and lng coordinates for the center
+     */
+    getMapCenter() {
+      let markerPositions = this.markerArray.map(marker => marker.location.position);
+      let zonePositions = this.zones.flatMap(zone => zone.location.position);
+      const allPositions = [...markerPositions, ...zonePositions];
 
-		setMarkerContent(location) {
-			let output = "<strong>" + location.name + "</strong>";
+      return this.getCenter(allPositions);
+    },
 
-			if(location.datapoints) {
-				let link = "<a href=\"/datapoints/" + location.datapoints[0].id + "\" style=\"color: #" + location.color + ";\">" + location.datapoints[0].value.name + "</a>";
-				output += "<br>\n" + link;
-			} else if(location.id > 0) {
-				let link = "<a href=\"/languages/" + location.id + "\">View details</a>";
-				output += "<br>\n" + link;
-			}
+    /**
+     * Finds the center position of a list of coordinates
+     *
+     * @return  An object containing lat and lng coordinates for the center
+     */
+		getCenter(positions, compensation=2.0) {
+      let top = -Infinity;
+      let bottom = Infinity;
+      let left = Infinity;
+      let right = -Infinity;
 
-			return output;
-		},
-
-		getLatLng(location) {
-			if(location.latLng) {
-				return location.latLng;
-			} else if(location.location) {
-				let array = location.location.replace(/[\(\)\s]/g,'').split(',');
-
-				return {
-					lat: parseFloat(array[0]),
-					lng: parseFloat(array[1])
-				}
-			} else {
-				return null;
-			}
-		},
-
-		getCenter() {
-			let location, left, right, top, bottom;
-			let markerCompensation = 2.0;
-			let initialized = false;
-
-			this.markerArray.forEach(marker => {
-				location = this.getLatLng(marker);
-
-				if(location) {
-					if(!initialized) {
-						initialized = true;
-
-						top = location.lat;
-						bottom = location.lat;
-						left = location.lng;
-						right = location.lng;
-					} else {
-						top = Math.max(top, location.lat);
-						bottom = Math.min(bottom, location.lat);
-						left = Math.min(left, location.lng);
-						right = Math.max(right, location.lng);
-					}
-				}
-			});
+      positions.forEach(position => {
+        top = Math.max(top, position.lat);
+        bottom = Math.min(bottom, position.lat);
+        left = Math.min(left, position.lng);
+        right = Math.max(right, position.lng);
+      });
 
 			return {
-				lat: ((top + bottom) / 2) + markerCompensation,
+				lat: ((top + bottom) / 2) + compensation,
 				lng: ((left + right) / 2)
 			}
 		},
 
-		getIcon(location) {
-			let color = 'FE7569';
-
-			if(location.color) {
-				color = location.color;
-			}
-
-			return { url: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + color };
+    /**
+     * Retrieves the appropriately colored icon for a marker
+     *
+     * @param marker  The marker object to base the icon off of
+     * @return  An object with a url key
+     */
+		getIcon(marker) {
+      let color = marker.color;
+			return {
+        url: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|'+color
+      };
 		}
 	}
 }

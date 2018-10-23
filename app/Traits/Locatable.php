@@ -2,17 +2,46 @@
 
 namespace App\Traits;
 
-trait Locatable {
+use App\Models\Location;
 
-	public function getLocation()
-	{
-		$location = null;
+trait Locatable
+{
+    public static function bootLocatable()
+    {
+        static::saving(function ($model) {
+            if (request()->has('location')
+                && request()->location['type'] != null
+                && request()->location['position'] != null) {
+                if ($model->location) {
+                    $model->location->update(request()->location);
+                } else {
+                    $location = Location::create(request()->location);
+                    $model->location_id = $location->id;
+                }
+            } elseif ($model->location) {
+                $model->location->delete();
+            }
+        });
 
-		if($this->location) {
-			$location = explode(',', str_replace(['(',')',' '], '', $this->location));
-		}
+        static::deleting(function ($model) {
+            if ($model->location) {
+                $model->location->delete();
+            }
+        });
+    }
 
-		return $location;
-	}
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
 
+    public function getLocationCoordsAttribute()
+    {
+        return $this->location->position;
+    }
+
+    public function getLocationTypeAttribute()
+    {
+        return $this->location->type;
+    }
 }

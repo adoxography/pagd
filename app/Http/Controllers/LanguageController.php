@@ -69,7 +69,7 @@ class LanguageController extends AlgModelController
      */
     public function edit(Language $language)
     {
-        $language->load('parent', 'group');
+        $language->load('parent', 'group', 'location');
         return view('languages.edit', compact('language'));
     }
 

@@ -50,7 +50,7 @@ class Language extends Model
         'algoCode',
         'notes',
         'reconstructed',
-        'location'
+        'location_id'
     ];
     public $assets = [
         'forms',

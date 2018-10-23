@@ -11,13 +11,13 @@ export default {
 		return {
 			group: new Datalist,
 			parent: new Datalist,
-			location: null
+      location: {position: null, type: null},
 		};
 	},
 
 	methods: {
 		updateLocation(event) {
-			this.location = event.latLng.toString();
+      this.location = event;
 		}
 	},
 

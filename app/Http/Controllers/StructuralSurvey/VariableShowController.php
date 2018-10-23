@@ -30,6 +30,7 @@ class VariableShowController extends Controller
         $colorAssignments = $this->getPalette($variable);
 
         $languages = Language::with([
+            'location',
             'datapoints' => function($query) use ($variable) {
                 return $query->where('variable_id', $variable->id);
             },

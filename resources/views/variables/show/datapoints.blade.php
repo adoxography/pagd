@@ -4,7 +4,7 @@
 	<!--suppress SyntaxError -->
 	<div class="field">
 		<span class="label">{{ $variable->description }}</span>
-		<alg-map :markers="{{ $languages }}"></alg-map>
+		<alg-map :markers="{{ $languages }}" :zones-enabled="false"></alg-map>
         @foreach($colorAssignments as $value => $color)
             <span style="color: #{{ $color }}; @if(!$loop->first) margin-left: .5rem; @endif">&#9679</span> {{ $value }}
         @endforeach

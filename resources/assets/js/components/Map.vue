@@ -83,7 +83,15 @@ Vue.use(VueGoogleMaps, {
 });
 
 export default {
-	props: ['markers', 'addMode', 'marker'],
+  props: {
+    'markers': [Array, Object],
+    'addMode': Boolean,
+    'marker': Object,
+    'zonesEnabled': {
+      type: Boolean,
+      default: true
+    }
+  },
 
 	data() {
 		return {
@@ -211,7 +219,13 @@ export default {
         if (entity.location.type == 'point') {
           this.markerArray.push(entity);
         } else if (entity.location.type == 'area') {
-          this.zones.push(entity);
+          if (this.zonesEnabled) {
+            this.zones.push(entity);
+          } else {
+            let center = this.getCenter(entity.location.position, 0);
+            entity.location.position = center;
+            this.markerArray.push(entity);
+          }
         }
       }
     },
@@ -347,12 +361,11 @@ export default {
      *
      * @return  An object containing lat and lng coordinates for the center
      */
-		getCenter(positions) {
+		getCenter(positions, compensation=2.0) {
       let top = -Infinity;
       let bottom = Infinity;
       let left = Infinity;
       let right = -Infinity;
-			const markerCompensation = 2.0;
 
       positions.forEach(position => {
         top = Math.max(top, position.lat);
@@ -362,7 +375,7 @@ export default {
       });
 
 			return {
-				lat: ((top + bottom) / 2) + markerCompensation,
+				lat: ((top + bottom) / 2) + compensation,
 				lng: ((left + right) / 2)
 			}
 		},

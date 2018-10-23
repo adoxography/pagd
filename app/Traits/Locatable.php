@@ -2,17 +2,22 @@
 
 namespace App\Traits;
 
-trait Locatable {
+use App\Models\Location;
 
-	public function getLocation()
-	{
-		$location = null;
+trait Locatable
+{
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
 
-		if($this->location) {
-			$location = explode(',', str_replace(['(',')',' '], '', $this->location));
-		}
+    public function getLocationCoordsAttribute()
+    {
+        return $this->location->position;
+    }
 
-		return $location;
-	}
-
+    public function getLocationTypeAttribute()
+    {
+        return $this->location->type;
+    }
 }

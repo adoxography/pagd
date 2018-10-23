@@ -70,7 +70,9 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         view()->composer(['languages.create', 'languages.edit'], function ($view) {
             $data = [
-                'parents' => Language::select('id', 'name', 'location')->get(),
+                'parents' => Language::select('id', 'name', 'location_id')
+                    ->with('location')
+                    ->get(),
                 'groups' => Group::select('id', 'name')->orderBy('position')->get()
             ];
             $view->with($data);

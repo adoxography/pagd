@@ -25,14 +25,14 @@
       <!-- Pre-existing zones -->
       <gmap-polygon
         v-for="zone in zones"
-        :key="'polygon-'+zone.name"
-        :path="zone.path"
+        :key="'polygon-'+zone.id"
+        :path="zone.location.position"
         :options="{fillColor: zone.color}"
       ></gmap-polygon>
 
       <!-- New zone -->
       <gmap-polygon
-        :path="newZone.path"
+        :path="newZone.location.position"
         :options="{visible: addType == 'area', fillColor: newZone.color}"
         :editable="true"
         @path_changed="updateEdited($event)"
@@ -40,18 +40,18 @@
 
       <!-- Pre-existing markers -->
       <gmap-marker
-        v-for="(location, index) in markerArray"
-        :key="'marker-' + index"
-        :position="getLatLng(location)"
+        v-for="(marker, index) in markerArray"
+        :key="'marker-' + marker.id"
+        :position="marker.location.position"
         :clickable="true"
-        :icon="getIcon(location)"
-        @click="onClickMarker(location)"
+        :icon="getIcon(marker)"
+        @click="onClickMarker(marker)"
       ></gmap-marker>
 
       <!-- New marker -->
       <gmap-marker
         :visible="addType == 'point'"
-        :position="getLatLng(newMarker)"
+        :position="newMarker.location.position"
         :icon="getIcon(newMarker)"
         :draggable="true"
         @dragend="onRightClick($event)"
@@ -100,20 +100,27 @@ export default {
       newMarker: {
         id: 0,
         name: 'New language',
-        latLng: {lng: -96.194, lat: 53.430},
-        color: '0000ff'
+        color: '0000ff',
+        location: {
+          type: 'point',
+          position: {lng: -96.194, lat: 53.430}
+        }
       },
 
       newZone: {
-          name: 'Foo',
-          path: [
+        id: 0,
+        name: 'New language',
+        color: '0000ff',
+        location: {
+          type: 'area',
+          position: [
             {lng: -96.194, lat: 53.430},
             {lng: -96.194, lat: 51.300},
             {lng: -92.284, lat: 51.300},
             {lng: -92.284, lat: 53.430}
-          ],
-          color: 'blue'
-        },
+          ]
+        }
+      },
 
 			// Variables for the floating info window
 			infoWindow: {
@@ -159,10 +166,19 @@ export default {
 				this.markerArray.push(this.markers);
 			}
 
+      for (let i = 0; i < this.markerArray.length; i++) {
+        let marker = this.markerArray[i];
+        let position = marker.location.position;
+
+        if (typeof position == 'string' || position instanceof String) {
+          this.markerArray[i].location.position = JSON.parse(position);
+        }
+      }
+
 			this.center = this.getCenter();
 		}
 
-    this.edited = this.newZone.path;
+    this.edited = this.newZone.location.position;
 	},
 
 	mounted() {
@@ -179,14 +195,7 @@ export default {
 		onRightClick(e) {
 			if(this.addType == 'point') {
         let latLng = e.latLng;
-        let marker = {
-          id: 0,
-          name: "New language",
-          latLng: latLng,
-          color: '0000ff'
-        }
-
-        this.newMarker = marker;
+        this.newMarker.location.position = e.latLng;
         this.fireEvent();
 			}
 		},
@@ -207,7 +216,7 @@ export default {
       let position = null;
 
       if (this.addType == 'point') {
-        position = this.newMarker.latLng;
+        position = this.newMarker.location.position;
       } else if (this.addType == 'area') {
         position = this.edited;
       }
@@ -254,10 +263,10 @@ export default {
 			return output;
 		},
 
-		openInfoWindow(location) {
+		openInfoWindow(marker) {
 			this.infoWindow.opened = true;
-			this.infoWindow.position = this.getLatLng(location);
-			this.infoWindow.content  = this.setMarkerContent(location);
+			this.infoWindow.position = marker.location.position;
+			this.infoWindow.content  = this.setMarkerContent(marker);
 		},
 
 		setMarkerContent(location) {
@@ -295,7 +304,7 @@ export default {
 			let initialized = false;
 
 			this.markerArray.forEach(marker => {
-				location = this.getLatLng(marker);
+				location = marker.location.position;
 
 				if(location) {
 					if(!initialized) {
@@ -320,11 +329,11 @@ export default {
 			}
 		},
 
-		getIcon(location) {
+		getIcon(marker) {
 			let color = 'FE7569';
 
-			if(location.color) {
-				color = location.color;
+			if(marker.color) {
+				color = marker.color;
 			}
 
 			return { url: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + color };

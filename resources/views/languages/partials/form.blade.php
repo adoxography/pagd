@@ -4,7 +4,7 @@
 	:old-errors="{{ json_encode($errors->messages()) }}"
 
 	@if(isset($language) && $language->location)
-	old-location="{{ $language->location }}"
+	:old-location="{{ json_encode($language->location) }}"
 	@endif
 >
 	@component('components.form', ['method' => $method, 'action' => $action, 'visible' => true])

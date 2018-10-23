@@ -16,5 +16,5 @@
 		{!! $page !!}
 	</div>
 
-	<alg-map :markers="{{ App\Models\Language::all() }}"></alg-map>
+    <alg-map :markers="{{ App\Models\Language::with('location')->get() }}"></alg-map>
 @stop

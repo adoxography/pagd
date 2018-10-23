@@ -33,7 +33,9 @@ class LanguageRequest extends FormRequest
             'reconstructed' => ['required','boolean'],
             'name'          => ['required'],
             'iso'           => ['nullable', 'size:3'],
-            'algoCode'      => ['required', 'between:1,5']
+            'algoCode'      => ['required', 'between:1,5'],
+            'location.type' => ['nullable', 'in:point,area'],
+            'location.position' => ['nullable', 'json']
         ];
 
         switch ($this->method()) {

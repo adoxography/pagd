@@ -158,12 +158,20 @@ export default {
 
 			if(Array.isArray(this.markers)) {
 				this.markers.forEach(marker => {
-					if(marker.location) {
-						this.markerArray.push(marker);
+					if(marker.location && (!this.marker || this.marker.id != marker.id)) {
+            if (marker.location.type == 'point') {
+              this.markerArray.push(marker);
+            } else if (marker.location.type == 'area') {
+              this.zones.push(marker);
+            }
 					}
 				});
 			} else {
-				this.markerArray.push(this.markers);
+        if (this.markers.location.type == 'point') {
+          this.markerArray.push(this.markers);
+        } else if (this.markers.location.type == 'area') {
+          this.zones.push(this.markers);
+        }
 			}
 
       for (let i = 0; i < this.markerArray.length; i++) {
@@ -175,16 +183,43 @@ export default {
         }
       }
 
+      for (let i = 0; i < this.zones.length; i++) {
+        let zone = this.zones[i];
+        let position = zone.location.position;
+
+        if (typeof position == 'string' || position instanceof String) {
+          this.zones[i].location.position = JSON.parse(position);
+        }
+      }
+
 			this.center = this.getCenter();
 		}
+
+    if (this.marker && this.marker.location) {
+      let position = this.marker.location.position;
+
+      if (typeof position == 'string' || position instanceof String) {
+        this.marker.location.position = JSON.parse(position);
+      }
+
+      if (this.marker.location.type == 'point') {
+        this.newMarker = this.marker;
+        this.newMarker.color = '0000ff';
+      } else if (this.marker.location.type == 'area') {
+        this.newZone = this.marker;
+        this.newZone.color = '0000ff';
+      }
+
+      this.addType = this.marker.location.type;
+    }
 
     this.edited = this.newZone.location.position;
 	},
 
 	mounted() {
-		if(this.marker) {
-			this.openInfoWindow(this.marker);
-		}
+		//if(this.marker) {
+			//this.openInfoWindow(this.marker);
+		//}
 	},
 
 	methods: {
@@ -321,6 +356,27 @@ export default {
 						right = Math.max(right, location.lng);
 					}
 				}
+			});
+
+			this.zones.forEach(zone => {
+        zone.location.position.forEach(location => {
+
+          if(location) {
+            if(!initialized) {
+              initialized = true;
+
+              top = location.lat;
+              bottom = location.lat;
+              left = location.lng;
+              right = location.lng;
+            } else {
+              top = Math.max(top, location.lat);
+              bottom = Math.min(bottom, location.lat);
+              left = Math.min(left, location.lng);
+              right = Math.max(right, location.lng);
+            }
+          }
+        });
 			});
 
 			return {

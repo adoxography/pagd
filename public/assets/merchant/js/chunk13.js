@@ -41,14 +41,14 @@ webpackJsonp([13,28],{
 		return {
 			group: new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */](),
 			parent: new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */](),
-			location: null
+			location: { position: null, type: null }
 		};
 	},
 
 
 	methods: {
 		updateLocation: function updateLocation(event) {
-			this.location = event.latLng.toString();
+			this.location = event;
 		}
 	},
 

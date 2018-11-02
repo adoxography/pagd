@@ -85,7 +85,12 @@ class Group extends Model
 
     public function directDescendants()
     {
-        $this->load(['languages', 'children']);
+        $this->load([
+            'languages' => function ($query) {
+                $query->with('location');
+            },
+            'children'
+        ]);
 
         return $this->languages->concat($this->children);
     }

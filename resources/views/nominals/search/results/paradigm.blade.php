@@ -15,7 +15,7 @@
 					</div>
 					<div class="level-item">
 						<form style="margin: 0;" method="GET" action="/nominals/search/paradigm">
-							<input type="hidden" name="preset" value="{{ $params or '' }}">
+							<input type="hidden" name="preset" value="{{ $params ?: '' }}">
 							<button class="button" type="submit">Refine</button>
 						</form>
 					</div>

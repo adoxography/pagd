@@ -6,7 +6,7 @@
 
 @section('content')
 	<form style="margin: 0;" method="GET" action="/verbs/search/form">
-		<input type="hidden" name="preset" value="{{ $params or '' }}">
+		<input type="hidden" name="preset" value="{{ $params ?: '' }}">
 		<button class="button" type="submit">Refine</button>
 	</form>
 	<table class="table" style="display: block;">

@@ -7,6 +7,10 @@
 @section('content')
 	<ul class="indented-list">
         <li>
+            11-02-18: Fixed refine search button for forms and nominals
+        </li>
+        <hr>
+        <li>
             05-10-18: Converted the verb forms page to load on-demand instead of all at once to improve speed
         </li>
         <hr>

@@ -64,6 +64,16 @@ class ViewComposerServiceProvider extends ServiceProvider
         $this->composeShowVerbs();
 
         $this->composeSearch();
+
+        $this->composeActionMenu();
+    }
+
+    private function composeActionMenu() {
+        view()->composer(['layout.action-menu'], function ($view) {
+            $languages = Language::withActivity()->orderBy('activity', 'desc')->take(12)->get();
+
+            $view->with(['headerLanguages' => $languages]);
+        });
     }
 
     private function composeLanguageForm()

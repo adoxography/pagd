@@ -434,3 +434,22 @@ p.is-danger {
 [v-cloak] {
 	display: none;
 }
+
+#actionMenu {
+    .navbar-dropdown a.navbar-item {
+        display: flex;
+        justify-content: space-between;
+
+        progress.progress {
+            width: 2.5em;
+            margin-left: .5em;
+            height: .5rem;
+            border-radius: 0;
+
+        }
+
+        &:hover {
+            background-color: red;
+        }
+    }
+}

@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 
+use DB;
 use App\Models\Rules\Rule;
 use App\Models\Morphology\Morpheme;
 use App\Models\Phonology\Inventory;
@@ -222,5 +223,21 @@ class Language extends Model
             'language_id' => $this->id,
             'algoName' => '∅'
         ]);
+    }
+
+    public function scopeWithActivity($query) {
+        $query->select()
+              ->addSelect(DB::raw("(
+                  (select count(*) from `Word_Forms` where `Languages`.`id` = `Word_Forms`.`language_id` and `Word_Forms`.deleted_at is null) +
+                  (select count(*) from `Word_Examples` where `Languages`.`id` = `Word_Examples`.`language_id` and `Word_Examples`.deleted_at is null) +
+                  (select count(*) from `Phon_Phonemes` where `Languages`.`id` = `Phon_Phonemes`.`language_id` and `Phon_Phonemes`.deleted_at is null)
+              ) as `activity`"));
+        return $query;
+    }
+
+    public function getActivityAttribute($activity) {
+        $activity = $activity ?: $this->forms()->count() + $this->examples()->count() + $this->phonemes()->count();
+
+        return min(1.0, $activity / 500);
     }
 }

@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
         <li>
+            11-02-18: Condensed the languages shown in the Languages tab
+        </li>
+        <li>
             11-02-18: Fixed refine search button for forms and nominals
         </li>
         <hr>

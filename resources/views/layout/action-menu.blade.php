@@ -19,18 +19,16 @@
 					<h5 class="subtitle is-5">Languages</h5>
 				</a>
 
-				<div class="navbar-dropdown is-right is-boxed" style="right: -12em">
-					<div class="columns is-desktop">
-						<div class="column">
-							@foreach (App\Models\Language::orderBy('name')->get() as $language)
-								@if ($loop->index % 12 == 0 && !$loop->first)
-									</div><div class="column">
-								@endif
-
-								<a class="navbar-item" href="/languages/{{ $language->id }}">{{ $language->name }}</a>
-							@endforeach
-						</div>
-					</div>
+				<div class="navbar-dropdown is-boxed" style="left: -8px">
+                    @foreach ($headerLanguages as $language)
+                        <a class="navbar-item" href="/languages/{{ $language->id }}">
+                            {{ $language->name }}
+                            <progress class="progress is-success is-pulled-right" title="Activity" value="{{ $language->activity * 100 }}" max="100">
+                                {{ round($language->activity * 100) }}%
+                            </progress>
+                        </a>
+                    @endforeach
+                    <a class="navbar-item" href="/languages"><em>More...</em></a>
 				</div>
 			</div>
 

@@ -1,4 +1,4 @@
-<div class="is-hidden-desktop horizontal-menu">
+<div class="is-hidden-tablet horizontal-menu">
 	<a href="/languages" style="display: inline-block; margin-right: 1em">
 		<h5 class="subtitle is-5">Languages</h5>
 	</a>
@@ -11,7 +11,7 @@
 		</a>
 	@endcan
 </div>
-<nav class="navbar is-transparent is-hidden-touch">
+<nav class="navbar is-transparent is-hidden-mobile">
 	<div class="navbar-menu" id="actionMenu">
 		<div class="navbar-end">
 			<div class="navbar-item has-dropdown is-hoverable">

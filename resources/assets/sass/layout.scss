@@ -143,15 +143,15 @@ p {
 		}
 	}
 
-	#user-menu {
-		display: flex;
+	#user-menu, #action-menu {
 		justify-content: flex-end;
-		flex: inherit!important;
+
+        @media only screen and (max-width: $tablet) {
+            padding: 0;
+        }
 	}
 
 	#action-menu {
-		display: flex;
-		justify-content: flex-end;
 		flex-direction: column;
 		align-items: flex-end;
 

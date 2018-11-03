@@ -22,12 +22,12 @@
 							<div class="column">
 								@include('search.smart')
 							</div>
-							<div class="column is-narrow-desktop" id="user-menu">
+							<div class="column is-narrow-desktop is-flex-tablet" id="user-menu">
 								@include('layout.user-menu')
 							</div>
 						</div>
 					</div>
-					<div class="tile is-child" id="action-menu">
+					<div class="tile is-child is-flex-tablet" id="action-menu">
 						@include('layout.action-menu')
 					</div>
 				</div>

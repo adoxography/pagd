@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
         <li>
+            11-02-18: Fixed awkward spacing in header on tablet-sized screens
+        </li>
+        <li>
             11-02-18: Condensed the languages shown in the Languages tab
         </li>
         <li>

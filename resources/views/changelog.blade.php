@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
         <li>
+            11-03-18: Made header arrows stay until screen is mobile-sized
+        </li>
+        <li>
             11-02-18: Fixed awkward spacing in header on tablet-sized screens
         </li>
         <li>

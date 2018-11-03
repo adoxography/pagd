@@ -35,12 +35,12 @@ class PageController extends Controller
     public function statistics()
     {
         $stats = [
-            'languages' => Language::whereNull('hidden_at')->count(),
-            'verbForms' => VerbForm::whereNull('hidden_at')->count(),
-            'nominalForms' => NominalForm::whereNull('hidden_at')->count(),
-            'examples'  => Example::whereNull('hidden_at')->count(),
-            'morphemes' => Morpheme::whereNull('hidden_at')->count(),
-            'phonemes' => Phoneme::whereNull('hidden_at')->count()
+            'languages' => Language::count(),
+            'verbForms' => VerbForm::count(),
+            'nominalForms' => NominalForm::count(),
+            'examples'  => Example::count(),
+            'morphemes' => Morpheme::count(),
+            'phonemes' => Phoneme::count()
         ];
 
         return view('resources.statistics', compact('stats'));

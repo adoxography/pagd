@@ -15,7 +15,7 @@
 	<div class="navbar-menu" id="actionMenu">
 		<div class="navbar-end">
 			<div class="navbar-item has-dropdown is-hoverable">
-				<a class="navbar-link" href="/languages">
+				<a class="navbar-link" href="/groups/1">
 					<h5 class="subtitle is-5">Languages</h5>
 				</a>
 

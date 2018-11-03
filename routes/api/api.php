@@ -16,4 +16,7 @@ use Illuminate\Http\Request;
 Route::resource('examples', 'Api\\ExampleController');
 Route::resource('forms', 'Api\\FormController');
 
+Route::post('postreceive', 'WebhookController@postreceive');
+
+
 // ->middleware('auth:api')

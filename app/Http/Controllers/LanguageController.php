@@ -26,7 +26,8 @@ class LanguageController extends AlgModelController
      */
     public function index()
     {
-        return redirect('/groups/1');
+        $groups = Group::all();
+        return view('languages.index', compact('groups'));
     }
 
     /**

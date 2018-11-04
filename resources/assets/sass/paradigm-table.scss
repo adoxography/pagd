@@ -1,5 +1,5 @@
 .paradigm-results {
-    $table-height: 80vh;
+    $table-height: 90vh;
 
     height: $table-height;
 	display: inline-grid;
@@ -15,7 +15,7 @@
 .paradigm.table {
     $thin-line-weight: 1px;
     $thick-line-weight: 2px;
-    $col-0-width: 7.3em;
+    $col-0-width: 7.4em;
     $col-0-padding: .75em;
 
     $thin-line-top:    0px  $thin-line-weight inset $grey-lighter;
@@ -32,11 +32,8 @@
     border-bottom: $thin-line-weight solid $grey-lighter;
     display: block;
 
-    th {
-        height: 3rem;
-    }
-
     th, td {
+        height: 1.75rem;
         box-shadow: $thin-line-left, $thin-line-top;
         -webkit-box-shadow: $thin-line-left, $thin-line-top;
         -moz-shadow: $thin-line-left, $thin-line-top;

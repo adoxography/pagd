@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
         <li>
+            11-03-18: Fixed vertical spacing issues in form paradigm tables
+        </li>
+        <li>
             11-03-18: Overhauled the language index page
         </li>
         <li>

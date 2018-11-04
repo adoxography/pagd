@@ -1,14 +1,20 @@
 <table class="table">
 	@foreach($items as $item)
 		<tr>
-			<td>
-				<a href="/{{ $model }}/{{ $item->id }}">{{ $item->abv ?? $item->name }}</a>
-			</td>
-			@if ($item->name)
-				<td>
-					{{ $item->name }}
-				</td>
-			@endif
+            @if ($item->abv)
+                <td>
+                    <a href="/{{ $model }}/{{ $item->id }}">{{ $item->abv }}</a>
+                </td>
+                @if ($item->name)
+                    <td>
+                        {{ $item->name }}
+                    </td>
+                @endif
+            @else
+                <td>
+                    <a href="/{{ $model }}/{{ $item->id }}">{{ $item->name }}</a>
+                </td>
+            @endif
 			<td>
 				@can('add content')
 					<div class="level-right">

@@ -11,13 +11,13 @@
     @endcomponent
     <br />
 
-    <label class="label">{{ $pa->present() }}</label>
+    <label class="label">{!! $pa->present()->link('phonemes') !!}</label>
     @include("languages.show.partials.$type", [
         'localInventory' => $pa->inventory
     ])
 
     @foreach ($languages as $language)
-        <label class="label">{{ $language->present() }}</label>
+        <label class="label">{!! $language->present()->link('phonemes') !!}</label>
         @include("languages.show.partials.$type", [
             'localInventory' => $language->inventory
         ])

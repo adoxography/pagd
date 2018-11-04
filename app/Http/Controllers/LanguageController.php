@@ -26,8 +26,8 @@ class LanguageController extends AlgModelController
      */
     public function index()
     {
-        $groups = Group::all();
-        return view('languages.index', compact('groups'));
+        $languages = Language::withActivity()->orderBy('name')->get();
+        return view('languages.index', compact('languages'));
     }
 
     /**

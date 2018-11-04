@@ -10,14 +10,17 @@
 		<br />
 	@endcan
 
-	@foreach($groups as $group)
-		@if(count($group->languages) > 0)
-			<h4 class="title is-4">{!! $group->present('link') !!}</h4>
-			@include('components.index', ['items' => $group->languages, 'model' => 'languages'])
-		@endif
-	@endforeach
-	@can('add content')
-		<br />
-		<a href="/languages/order" class="button is-primary is-medium">Modify the order</a>
-	@endcan
+    <p>The database contains at least some information on all of the following languages. Languages with fuller bars contain more information than languages with emptier bars.</p>
+    <br />
+
+    <ul class="language-index-list">
+        @foreach($languages as $language)
+            <li>
+                {!! $language->present('link') !!}
+                <span class="activity-bar">
+                    {!! $language->present('activity') !!}
+                </span>
+            </li>
+        @endforeach
+    </ul>
 @stop

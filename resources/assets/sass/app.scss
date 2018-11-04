@@ -442,14 +442,28 @@ p.is-danger {
 
         progress.progress {
             width: 2.5em;
-            margin-left: .5em;
             height: .5rem;
-            border-radius: 0;
-
+            margin-left: .5em;
         }
+    }
+}
 
-        &:hover {
-            background-color: red;
+progress.language-activity {
+    border-radius: 0;
+}
+
+// The list of languages on the language index
+ul.language-index-list {
+    width: 400px;
+    margin: auto;
+
+    li {
+        display: flex;
+        justify-content: space-between;
+
+        span.activity-bar {
+            width: 8em;
+            margin: .25em .5em;
         }
     }
 }

@@ -23,9 +23,9 @@
                     @foreach ($headerLanguages as $language)
                         <a class="navbar-item" href="/languages/{{ $language->id }}">
                             {{ $language->name }}
-                            <progress class="progress is-success is-pulled-right" title="Activity" value="{{ $language->activity * 100 }}" max="100">
-                                {{ round($language->activity * 100) }}%
-                            </progress>
+                            <span class="is-pulled-right">
+                                {!! $language->present()->activity() !!}
+                            </span>
                         </a>
                     @endforeach
                     <a class="navbar-item" href="/languages"><em>More...</em></a>

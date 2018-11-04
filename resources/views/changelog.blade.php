@@ -7,6 +7,9 @@
 @section('content')
 	<ul class="indented-list">
         <li>
+            11-03-18: Overhauled the language index page
+        </li>
+        <li>
             11-03-18: Hyperlinked language names in phonology search results to their phoneme page
         </li>
         <li>

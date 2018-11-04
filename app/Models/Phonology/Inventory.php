@@ -187,10 +187,10 @@ class Inventory implements Jsonable
     public function getConsonants(Place $place = null, Manner $manner = null, Voicing $voicing = null)
     {
         return $this->consonants->filter(function ($value) use ($voicing, $place, $manner) {
-            $rc = true;
+            $rc = !!$value->featureable;
 
             if (isset($place)) {
-                $rc = $value->featureable->place_id == $place->id;
+                $rc = $rc && $value->featureable->place_id == $place->id;
             }
 
             if (isset($manner)) {

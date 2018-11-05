@@ -15,7 +15,7 @@
 			</ul>
 
             @hasanyrole('developer|leader')
-                <a href="/admin">Admin panel</a>
+                <a class="is-pulled-right" href="/admin">Admin panel</a>
             @endhasanyrole
 		</nav>
 

@@ -116,12 +116,19 @@ export default {
             });
 
             if (this.inputField.tagName == 'DIV') {
-                this.inputField.innerHTML += char.symbol;
+                this.inputField.innerHTML = this.merge(this.inputField.innerHTML, char);
             } else {
-                this.inputField.value += char.symbol;
+                this.inputField.value = this.merge(this.inputField.value, char);
             }
 
             this.inputField.dispatchEvent(event);
+        },
+
+        merge(oldText, char) {
+            let merged = char.appendTo(oldText);
+            console.log(merged);
+            console.log(merged.length);
+            return merged;
         },
 
         onKeyDown(event) {

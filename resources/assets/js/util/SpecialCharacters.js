@@ -1,5 +1,5 @@
 class SpecialCharacter {
-    constructor(symbol, code = null) {
+    constructor(symbol, code) {
         this.symbol = symbol;
         this.code = code;
     }
@@ -10,6 +10,35 @@ class SpecialCharacter {
 
     getCommand() {
         return "Alt + " + this.code;
+    }
+
+    appendTo(string) {
+        return string + this.symbol;
+    }
+}
+
+class Diacritic extends SpecialCharacter {
+    constructor(symbol, code, modificationTable) {
+        super(symbol, code);
+        this.table = modificationTable || {};
+    }
+
+    modify(letter) {
+        if (letter in this.table) {
+            return this.table[letter];
+        }
+
+        return letter + this.symbol;
+    }
+
+    appendTo(string) {
+        if (string.length == 0) {
+            return super.appendTo(string);
+        }
+
+        let left = string.slice(0, -1);
+        let last = string[string.length - 1];
+        return left + this.modify(last);
     }
 }
 
@@ -38,16 +67,16 @@ var dictionary = [
 
     // Diacritics
     [
-        new SpecialCharacter("\u0301", "'"), // Acute
-        new SpecialCharacter("\u0300", "`"), // Grave
-        new SpecialCharacter("\u0302", "^"), // Circumflex
-        new SpecialCharacter("\u0306", "u"), // Breve
-        new SpecialCharacter("\u0304", "-"), // Macron
-        new SpecialCharacter("\u0303", "~"), // Tilde
-        new SpecialCharacter("ː", ":"),
-        new SpecialCharacter("·", "."),
-        new SpecialCharacter("\u0325") // Voiceless
+        new Diacritic("\u0301", "'", {'a': 'á', 'e': 'é', 'i': 'í', 'o': 'ó', 'u': 'ú', 'ǽ': 'ǽ'}), // Acute
+        new Diacritic("\u0300", "`", {'a': 'à', 'e': 'è', 'i': 'ì', 'o': 'ò', 'u': 'ù'}), // Grave
+        new Diacritic("\u0302", "^", {'a': 'â', 'e': 'ê', 'i': 'î', 'o': 'ô', 'u': 'û'}), // Circumflex
+        new Diacritic("\u0306", "u", {'a': 'ă', 'e': 'ĕ', 'i': 'ĭ', 'o': 'ŏ', 'u': 'ŭ'}), // Breve
+        new Diacritic("\u0304", "-", {'a': 'ā', 'e': 'ē', 'i': 'ī', 'o': 'ō', 'u': 'ū'}), // Macron
+        new Diacritic("\u0303", "~", {'a': 'ã', 'e': 'ẽ', 'i': 'ĩ', 'o': 'õ', 'u': 'ũ'}), // Tilde
+        new Diacritic("ː", ":"),
+        new Diacritic("·", "."),
+        new Diacritic("\u0325", null) // Voiceless
     ]
 ];
 
-export { SpecialCharacter, dictionary }
+export { SpecialCharacter, Diacritic, dictionary }

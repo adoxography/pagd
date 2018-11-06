@@ -1,6 +1,6 @@
 div
     transition(name="fade")
-        div(class="field tags-field" v-show="tags.length > 0" style="margin-bottom: 0;")
+        div(class="field tags-field" v-show="tagArray.length > 0" style="margin-bottom: 0;")
             .control
                 .input
                     draggable(v-model="tagArray")

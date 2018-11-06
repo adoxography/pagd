@@ -6,7 +6,7 @@ webpackJsonp([18],{
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_typeahead__ = __webpack_require__("./node_modules/vue-typeahead/dist/vue-typeahead.common.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_typeahead___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_typeahead__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_input_tag__ = __webpack_require__("./node_modules/vue-input-tag/dist/vue-input-tag.min.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_input_tag__ = __webpack_require__("./node_modules/vue-input-tag/dist/vueInputTag.common.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_input_tag___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_input_tag__);
 //
 //

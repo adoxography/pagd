@@ -82,7 +82,7 @@ export default {
 		typewriterBottom() {
 			let pos = 1;
 
-			if (this.tagArray.length > 0) {
+			if (this.innerTags.length > 0) {
 				pos += 2;
 			}
 
@@ -95,8 +95,7 @@ export default {
 			keyCodes: [13, 188, 9],
 			$http: axios,
 			queryParamName: 'term',
-			defaultColor: "#fff74a",
-      tagArray: null
+			defaultColor: "#fff74a"
 		};
 	},
 
@@ -113,7 +112,7 @@ export default {
 			this.keyCodes.push(110, 190);
 		}
 
-    this.tagArray = this.tags;
+    this.innerTags = [...this.tags];
 	},
 
 	mounted() {
@@ -149,13 +148,13 @@ export default {
 			this.addNew(item);
 			this.items = [];
 			this.resetActive();
-			this.$emit('input', this.tagArray);
+			this.$emit('input', this.innerTags);
 		},
 
 		removeTag(index) {
 			this.remove(index);
 			this.$forceUpdate();
-			this.$emit('input', this.tagArray);
+			this.$emit('input', this.innerTags);
 		},
 
 		toggleList() {
@@ -197,8 +196,8 @@ export default {
 		},
 
 	    addNew (tag) {
-	        if (tag && (this.tagArray.indexOf(tag) === -1 || this.allowDuplicates) && this.validateIfNeeded(tag)) {
-	          	this.tagArray.push(tag)
+	        if (tag && (this.innerTags.indexOf(tag) === -1 || this.allowDuplicates) && this.validateIfNeeded(tag)) {
+	          	this.innerTags.push(tag)
 	          	this.tagChange()
 	        }
 	        this.newTag = ''

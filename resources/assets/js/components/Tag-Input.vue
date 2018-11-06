@@ -53,7 +53,11 @@ export default {
 
 		typewriter: {
 			default: false
-		}
+		},
+
+    limit: {
+      default: false
+    }
 	},
 
 	computed: {
@@ -87,7 +91,14 @@ export default {
 			}
 
 			return pos;
-		}
+		},
+
+    /**
+     * Override InputTag's limit property, since it clashes with VueTypeahead's limit prop
+     */
+    isLimit() {
+      return false;
+    }
 	},
 
 	data() {
@@ -195,30 +206,29 @@ export default {
 			this.current = -1;
 		},
 
-	    addNew (tag) {
-	        if (tag && (this.innerTags.indexOf(tag) === -1 || this.allowDuplicates) && this.validateIfNeeded(tag)) {
-	          	this.innerTags.push(tag)
-	          	this.tagChange()
-	        }
-	        this.newTag = ''
-	    },
+    addNew (tag) {
+      if (tag && (this.innerTags.indexOf(tag) === -1 || this.allowDuplicates) && this.validateIfNeeded(tag)) {
+        this.innerTags.push(tag)
+        this.tagChange()
+      }
+      this.newTag = ''
+    },
 
-	    prepareResponseData(data) {
-	    	for (let i = 0; i < data.length; i++) {
-	    		data[i]['name'] = data[i].name.replace(/<\/?a(?=[ >])[^>]*>/gi, ""); // Get rid of anchor tags
-	    	}
+    prepareResponseData(data) {
+      for (let i = 0; i < data.length; i++) {
+        data[i]['name'] = data[i].name.replace(/<\/?a(?=[ >])[^>]*>/gi, ""); // Get rid of anchor tags
+      }
+      return data;
+    },
 
-	    	return data;
-	    },
+    closeList() {
+      this.items = [];
+    },
 
-	    closeList() {
-	    	this.items = [];
-	    },
+    // Override if desired
+    onClickTag(tag) {},
 
-	    // Override if desired
-	    onClickTag(tag) {},
-
-	    fontColour: fontColour
+    fontColour: fontColour
 	}
 }
 </script>

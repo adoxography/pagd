@@ -6,5 +6,5 @@
 @endsection
 
 @section('content')
-	@include('phon::reflexes.partials.form', ['method' => 'PATCH', 'action' => "/reflexes/{$reflex->id}"])
+	@include('reflexes.partials.form', ['method' => 'PATCH', 'action' => "/reflexes/{$reflex->id}"])
 @endsection

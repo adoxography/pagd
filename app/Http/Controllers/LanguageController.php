@@ -187,7 +187,7 @@ class LanguageController extends AlgModelController
     {
         $type = request()->type;
 
-        return view('phon::phonemes.create', compact('language', 'type'));
+        return view('phonemes.create', compact('language', 'type'));
     }
 
     public function order()

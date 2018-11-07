@@ -1,11 +1,13 @@
 <?php
 
+use Auth;
 use Adoxography\VerbalExpressions\Expression;
 use App\Models\Words\Example;
 use App\Models\Words\Form;
 use App\Models\Language;
 use App\Models\Morphology\Morpheme;
 use App\Models\Source;
+use App\Models\Users\User;
 
 function verEx($init = null, $capture = false)
 {
@@ -31,14 +33,6 @@ function assessAllForms()
         $form->connectMorphemes();
     }
     return "Operation complete";
-}
-
-function tagAIOStructures() {
-    $structures = \App\Models\Verbs\Structure::where('class_id', 7)->get();
-    foreach ($structures as $structure) {
-        $structure->assignSubclass();
-        $structure->save();
-    }
 }
 
 function indexAllModels()
@@ -192,4 +186,38 @@ function array_toList($arr) : string
     }
 
     return $output;
+}
+
+function tagExamples($languageId, $morphemeString, $morphemeReplacement) {
+    Auth::login(User::first());
+    $examples = Example::whereNull('morphemicForm')
+                       ->where('name', 'LIKE', "%$morphemeString%")
+                       ->where('language_id', $languageId)
+                       ->whereHas('form', function ($query) {
+                           $query->whereNotNull('morphemicForm');
+                       })
+                       ->get();
+
+    $placeholder = Morpheme::where('name', 'V-')
+                           ->where('language_id', $languageId)
+                           ->first();
+    $placeholderId = $placeholder->id;
+
+    $newMorphemeId = $morphemeReplacement->id;
+
+    foreach ($examples as $example) {
+        $morphemes = explode('-', $example->form->morphemicForm);
+        $newMorphemes = [];
+
+        foreach ($morphemes as $morpheme) {
+            if ((int)$morpheme == $placeholderId) {
+                $newMorphemes[] = $newMorphemeId;
+            } else {
+                $newMorphemes[] = $morpheme;
+            }
+        }
+
+        $example->morphemicForm = implode('-', $newMorphemes);
+        $example->save();
+    }
 }

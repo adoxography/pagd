@@ -1,6 +1,5 @@
 <?php
 
-use Auth;
 use Adoxography\VerbalExpressions\Expression;
 use App\Models\Words\Example;
 use App\Models\Words\Form;

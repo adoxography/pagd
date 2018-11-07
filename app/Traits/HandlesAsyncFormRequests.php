@@ -12,7 +12,8 @@ trait HandlesAsyncFormRequests {
 
         if (request()->shape) {
             $shape = request()->shape;
-            $query->where('name', 'LIKE', "%$shape%");
+            $shapeStr = "%$shape%";
+            $query->where('name', 'LIKE', $shapeStr);
         }
 
         if (request()->morpheme) {

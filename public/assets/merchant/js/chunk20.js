@@ -193,7 +193,8 @@ var Filter = function Filter(label, options) {
 
       var params = {
         'perPage': this.perPage,
-        'page': this.page
+        'page': this.page,
+        'shape': this.shape
       };
 
       if (this.language) {
@@ -414,7 +415,10 @@ var render = function() {
                       }
                     ],
                     staticClass: "input",
-                    attrs: { type: "text" },
+                    attrs: {
+                      type: "text",
+                      placeholder: "Filter by form shape"
+                    },
                     domProps: { value: _vm.shape },
                     on: {
                       input: [

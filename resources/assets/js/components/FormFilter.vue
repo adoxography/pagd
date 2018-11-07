@@ -29,7 +29,7 @@
           <div class="field-body">
             <div class="field">
               <p class="control">
-                <input type="text" class="input" v-model="shape" @input="debounceGetForms()" />
+                <input type="text" class="input" v-model="shape" placeholder="Filter by form shape" @input="debounceGetForms()" />
               </p>
             </div>
           </div>
@@ -181,7 +181,8 @@ export default {
 
       let params = {
         'perPage': this.perPage,
-        'page': this.page
+        'page': this.page,
+        'shape': this.shape
       };
 
       if (this.language) {

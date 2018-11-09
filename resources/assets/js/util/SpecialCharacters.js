@@ -12,8 +12,8 @@ class SpecialCharacter {
         return "Alt + " + this.code;
     }
 
-    appendTo(string) {
-        return string + this.symbol;
+    insertInto(string, index) {
+        return string.substr(0, index) + this.symbol + string.substr(index);
     }
 }
 
@@ -31,14 +31,15 @@ class Diacritic extends SpecialCharacter {
         return letter + this.symbol;
     }
 
-    appendTo(string) {
-        if (string.length == 0) {
-            return super.appendTo(string);
+    insertInto(string, index) {
+        let left = string.slice(0, index);
+        let right = string.slice(index);
+
+        if (length.length == 0) {
+            return left + this.symbol + right;
         }
 
-        let left = string.slice(0, -1);
-        let last = string[string.length - 1];
-        return left + this.modify(last);
+        return left.slice(0, -1) + this.modify(left[left.length - 1]) + right;
     }
 }
 

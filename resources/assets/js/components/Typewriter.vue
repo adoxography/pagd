@@ -11,8 +11,8 @@
                     <a
                         v-for="char in charset"
                         class="button alg-typewriter-button"
-                        @click="append(char)"
-                        @mousedown.prevent=""
+                        @click="insertCharacter(char)"
+                        @mousedown.prevent="getPosition"
                         :title="char.getCommand()"
                     >
                         {{ char.symbol }}
@@ -109,25 +109,50 @@ export default {
             }
         },
 
-        append(char) {
+        getPosition() {
+            if (this.inputField.tagName == 'DIV') {
+              this.cursorPosition = window.getSelection().anchorOffset;
+            } else {
+              this.cursorPosition = this.inputField.selectionStart;
+            }
+        },
+
+        insertCharacter(char) {
             let event = new Event('input', {
                 'bubbles': true,
                 'cancelable': true
             });
 
             if (this.inputField.tagName == 'DIV') {
-                this.inputField.innerHTML = this.merge(this.inputField.innerHTML, char);
+                let initialLength = this.inputField.innerHTML.length;
+                this.inputField.innerHTML = this.insertCharacter(this.inputField.innerHTML, char, this.cursorPosition);
+                this.cursorPosition += this.inputField.innerHTML.length - initialLength;
             } else {
-                this.inputField.value = this.merge(this.inputField.value, char);
+                let initialLength = this.inputField.value.length;
+                this.inputField.value = this.insertCharacter(this.inputField.value, char, this.cursorPosition);
+                this.cursorPosition += this.inputField.value.length - initialLength;
             }
 
             this.inputField.dispatchEvent(event);
+
+            if (this.inputField.tagName == 'DIV') {
+              let range = document.createRange();
+              let selection = window.getSelection();
+              let line = this.inputField.childNodes[0];
+
+              range.setStart(line, this.cursorPosition);
+              range.setEnd(line, this.cursorPosition);
+
+              selection.removeAllRanges();
+              selection.addRange(range);
+            } else {
+              this.inputField.selectionStart = this.cursorPosition;
+              this.inputField.selectionEnd = this.cursorPosition;
+            }
         },
 
-        merge(oldText, char) {
-            let merged = char.appendTo(oldText);
-            console.log(merged);
-            console.log(merged.length);
+        insertCharacter(oldText, char, index) {
+            let merged = char.insertInto(oldText, index);
             return merged;
         },
 
@@ -143,7 +168,7 @@ export default {
 
                 if (triggered) {
                     event.preventDefault();
-                    this.append(triggered);
+                    this.insertCharacter(triggered);
                 }
             }
         }

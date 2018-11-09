@@ -5,6 +5,10 @@ webpackJsonp([17],{
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_SpecialCharacters__ = __webpack_require__("./resources/assets/js/util/SpecialCharacters.js");
+var _methods;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -97,7 +101,7 @@ webpackJsonp([17],{
     },
 
 
-    methods: {
+    methods: (_methods = {
         onFocusIn: function onFocusIn() {
             this.show = true;
         },
@@ -113,43 +117,65 @@ webpackJsonp([17],{
                 this.show = true;
             }
         },
-        append: function append(char) {
+        getPosition: function getPosition() {
+            if (this.inputField.tagName == 'DIV') {
+                this.cursorPosition = window.getSelection().anchorOffset;
+            } else {
+                this.cursorPosition = this.inputField.selectionStart;
+            }
+        },
+        insertCharacter: function insertCharacter(char) {
             var event = new Event('input', {
                 'bubbles': true,
                 'cancelable': true
             });
 
             if (this.inputField.tagName == 'DIV') {
-                this.inputField.innerHTML = this.merge(this.inputField.innerHTML, char);
+                var initialLength = this.inputField.innerHTML.length;
+                this.inputField.innerHTML = this.insertCharacter(this.inputField.innerHTML, char, this.cursorPosition);
+                this.cursorPosition += this.inputField.innerHTML.length - initialLength;
             } else {
-                this.inputField.value = this.merge(this.inputField.value, char);
+                var _initialLength = this.inputField.value.length;
+                this.inputField.value = this.insertCharacter(this.inputField.value, char, this.cursorPosition);
+                this.cursorPosition += this.inputField.value.length - _initialLength;
             }
 
             this.inputField.dispatchEvent(event);
-        },
-        merge: function merge(oldText, char) {
-            var merged = char.appendTo(oldText);
-            console.log(merged);
-            console.log(merged.length);
-            return merged;
-        },
-        onKeyDown: function onKeyDown(event) {
-            if (event.altKey) {
-                var triggered = null;
 
-                for (var i = 0; i < this.chars.length && !triggered; i++) {
-                    triggered = this.chars[i].find(function (char) {
-                        return char.triggeredBy(event.key);
-                    });
-                }
+            if (this.inputField.tagName == 'DIV') {
+                var range = document.createRange();
+                var selection = window.getSelection();
+                var line = this.inputField.childNodes[0];
 
-                if (triggered) {
-                    event.preventDefault();
-                    this.append(triggered);
-                }
+                range.setStart(line, this.cursorPosition);
+                range.setEnd(line, this.cursorPosition);
+
+                selection.removeAllRanges();
+                selection.addRange(range);
+            } else {
+                this.inputField.selectionStart = this.cursorPosition;
+                this.inputField.selectionEnd = this.cursorPosition;
             }
         }
-    }
+    }, _defineProperty(_methods, "insertCharacter", function insertCharacter(oldText, char, index) {
+        var merged = char.insertInto(oldText, index);
+        return merged;
+    }), _defineProperty(_methods, "onKeyDown", function onKeyDown(event) {
+        if (event.altKey) {
+            var triggered = null;
+
+            for (var i = 0; i < this.chars.length && !triggered; i++) {
+                triggered = this.chars[i].find(function (char) {
+                    return char.triggeredBy(event.key);
+                });
+            }
+
+            if (triggered) {
+                event.preventDefault();
+                this.insertCharacter(triggered);
+            }
+        }
+    }), _methods)
 });
 
 /***/ }),
@@ -250,10 +276,11 @@ var render = function() {
                     attrs: { title: char.getCommand() },
                     on: {
                       click: function($event) {
-                        _vm.append(char)
+                        _vm.insertCharacter(char)
                       },
                       mousedown: function($event) {
                         $event.preventDefault()
+                        return _vm.getPosition($event)
                       }
                     }
                   },
@@ -387,8 +414,6 @@ component.options.__file = "resources/assets/js/components/Typewriter.vue"
 /* unused harmony export SpecialCharacter */
 /* unused harmony export Diacritic */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return dictionary; });
-var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -416,9 +441,9 @@ var SpecialCharacter = function () {
             return "Alt + " + this.code;
         }
     }, {
-        key: "appendTo",
-        value: function appendTo(string) {
-            return string + this.symbol;
+        key: "insertInto",
+        value: function insertInto(string, index) {
+            return string.substr(0, index) + this.symbol + string.substr(index);
         }
     }]);
 
@@ -447,15 +472,16 @@ var Diacritic = function (_SpecialCharacter) {
             return letter + this.symbol;
         }
     }, {
-        key: "appendTo",
-        value: function appendTo(string) {
-            if (string.length == 0) {
-                return _get(Diacritic.prototype.__proto__ || Object.getPrototypeOf(Diacritic.prototype), "appendTo", this).call(this, string);
+        key: "insertInto",
+        value: function insertInto(string, index) {
+            var left = string.slice(0, index);
+            var right = string.slice(index);
+
+            if (length.length == 0) {
+                return left + this.symbol + right;
             }
 
-            var left = string.slice(0, -1);
-            var last = string[string.length - 1];
-            return left + this.modify(last);
+            return left.slice(0, -1) + this.modify(left[left.length - 1]) + right;
         }
     }]);
 

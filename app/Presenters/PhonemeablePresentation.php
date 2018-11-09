@@ -18,7 +18,12 @@ trait PhonemeablePresentation
             throw new \Exception("Cannot convert phonemes of null");
         }
 
-        $output = preg_replace('/[^A-Z*-]+/', '<i>$0</i>', $this->model->$field);
+        if (preg_match('/^[A-Z∅]-|-[A-Z∅]$/', $this->model->$field)) {
+            return $this->model->$field;
+        }
+
+        //$output = preg_replace('/[^A-Z*-]+/', '<i>$0</i>', $this->model->$field);
+        $output = "<i>{$this->model->$field}</i>";
         $phonemes = $this->model->phonemes;
 
         if ($phonemes->count() > 0) {

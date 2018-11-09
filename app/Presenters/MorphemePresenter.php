@@ -12,7 +12,12 @@ class MorphemePresenter extends AlgPresenter
     {
         $name = parent::name($format);
 
-        return preg_replace('/[^A-Z∅]+/', '<em>$0</em>', $name);
+        // Don't italicize single character capital morphemes
+        if (preg_match('/^[A-Z∅]-|-[A-Z∅]$/', $name)) {
+            return $name;
+        }
+
+        return "<em>$name</em>";
     }
 
     public function disambiguatedName(string $format = '')

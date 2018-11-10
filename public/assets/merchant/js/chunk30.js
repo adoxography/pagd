@@ -193,6 +193,8 @@ webpackJsonp([30],{
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["a"] = ({
 	props: ['method', 'action', 'orders', 'modes', 'languages', 'preset'],
@@ -444,7 +446,7 @@ var render = function() {
                     }
                   }
                 }),
-                _vm._v("\n\t\t\t\t\t\tAI\n\t\t\t\t\t")
+                _vm._v("\n\t\t\t\t\t\t\tAI\n\t\t\t\t\t\t")
               ])
             ]),
             _vm._v(" "),
@@ -494,7 +496,7 @@ var render = function() {
                     }
                   }
                 }),
-                _vm._v("\n\t\t\t\t\t\tII\n\t\t\t\t\t")
+                _vm._v("\n\t\t\t\t\t\t\tII\n\t\t\t\t\t\t")
               ])
             ]),
             _vm._v(" "),
@@ -544,7 +546,7 @@ var render = function() {
                     }
                   }
                 }),
-                _vm._v("\n\t\t\t\t\t\tTI\n\t\t\t\t\t")
+                _vm._v("\n\t\t\t\t\t\t\tTI\n\t\t\t\t\t\t")
               ])
             ])
           ]),
@@ -600,7 +602,7 @@ var render = function() {
                   ]
                 }
               }),
-              _vm._v("\n\t\t\t\t\tTA\n\t\t\t\t")
+              _vm._v("\n\t\t\t\t\t\tTA\n\t\t\t\t\t")
             ])
           ]),
           _vm._v(" "),
@@ -657,7 +659,7 @@ var render = function() {
                     }
                   }),
                   _vm._v(
-                    "\n\t\t\t\t\t\t" + _vm._s(subclass.id) + "\n\t\t\t\t\t"
+                    "\n\t\t\t\t\t\t\t" + _vm._s(subclass.id) + "\n\t\t\t\t\t\t"
                   )
                 ])
               ])
@@ -676,10 +678,10 @@ var render = function() {
                       expression: "form.classes.AIO.checked"
                     }
                   ],
-                  attrs: { type: "checkbox", name: "classes[]" },
+                  attrs: { type: "checkbox", value: "7", name: "classes[]" },
                   domProps: {
                     checked: Array.isArray(_vm.form.classes.AIO.checked)
-                      ? _vm._i(_vm.form.classes.AIO.checked, null) > -1
+                      ? _vm._i(_vm.form.classes.AIO.checked, "7") > -1
                       : _vm.form.classes.AIO.checked
                   },
                   on: {
@@ -688,7 +690,7 @@ var render = function() {
                         $$el = $event.target,
                         $$c = $$el.checked ? true : false
                       if (Array.isArray($$a)) {
-                        var $$v = null,
+                        var $$v = "7",
                           $$i = _vm._i($$a, $$v)
                         if ($$el.checked) {
                           $$i < 0 &&
@@ -711,7 +713,7 @@ var render = function() {
                     }
                   }
                 }),
-                _vm._v("\n\t\t\t\t\t\tAI+O\n\t\t\t\t\t")
+                _vm._v("\n\t\t\t\t\t\t\tAI+O\n\t\t\t\t\t\t")
               ])
             ]),
             _vm._v(" "),
@@ -726,10 +728,10 @@ var render = function() {
                       expression: "form.classes.TAO.checked"
                     }
                   ],
-                  attrs: { type: "checkbox", name: "classes[]" },
+                  attrs: { type: "checkbox", value: "8", name: "classes[]" },
                   domProps: {
                     checked: Array.isArray(_vm.form.classes.TAO.checked)
-                      ? _vm._i(_vm.form.classes.TAO.checked, null) > -1
+                      ? _vm._i(_vm.form.classes.TAO.checked, "8") > -1
                       : _vm.form.classes.TAO.checked
                   },
                   on: {
@@ -738,7 +740,7 @@ var render = function() {
                         $$el = $event.target,
                         $$c = $$el.checked ? true : false
                       if (Array.isArray($$a)) {
-                        var $$v = null,
+                        var $$v = "8",
                           $$i = _vm._i($$a, $$v)
                         if ($$el.checked) {
                           $$i < 0 &&
@@ -761,7 +763,7 @@ var render = function() {
                     }
                   }
                 }),
-                _vm._v("\n\t\t\t\t\t\tTA+O\n\t\t\t\t\t")
+                _vm._v("\n\t\t\t\t\t\t\tTA+O\n\t\t\t\t\t\t")
               ])
             ])
           ])
@@ -817,7 +819,7 @@ var render = function() {
                       }
                     }
                   }),
-                  _vm._v("\n\t\t\t\t\t" + _vm._s(order.name) + "\n\t\t\t\t")
+                  _vm._v("\n\t\t\t\t\t\t" + _vm._s(order.name) + "\n\t\t\t\t\t")
                 ])
               ])
             })
@@ -853,7 +855,7 @@ var render = function() {
                   }
                 }
               }),
-              _vm._v("\n\t\t\t\t\tIndicative/Unmarked only\n\t\t\t\t")
+              _vm._v("\n\t\t\t\t\t\tIndicative/Unmarked only\n\t\t\t\t\t")
             ])
           ]),
           _vm._v(" "),
@@ -876,7 +878,7 @@ var render = function() {
                   }
                 }
               }),
-              _vm._v("\n\t\t\t\t\tAll available modes\n\t\t\t\t")
+              _vm._v("\n\t\t\t\t\t\tAll available modes\n\t\t\t\t\t")
             ])
           ]),
           _vm._v(" "),
@@ -905,7 +907,7 @@ var render = function() {
                   }
                 }
               }),
-              _vm._v("\n\t\t\t\t\tThe following modes...\n\t\t\t\t")
+              _vm._v("\n\t\t\t\t\t\tThe following modes...\n\t\t\t\t\t")
             ])
           ]),
           _vm._v(" "),
@@ -969,7 +971,9 @@ var render = function() {
                       }
                     }
                   }),
-                  _vm._v("\n\t\t\t\t\t\t" + _vm._s(mode.name) + "\n\t\t\t\t\t")
+                  _vm._v(
+                    "\n\t\t\t\t\t\t\t" + _vm._s(mode.name) + "\n\t\t\t\t\t\t"
+                  )
                 ])
               ])
             })
@@ -1021,7 +1025,7 @@ var render = function() {
                   }
                 }
               }),
-              _vm._v("\n\t\t\t\t\tAffirmative\n\t\t\t\t")
+              _vm._v("\n\t\t\t\t\t\tAffirmative\n\t\t\t\t\t")
             ])
           ]),
           _vm._v(" "),
@@ -1067,7 +1071,7 @@ var render = function() {
                   }
                 }
               }),
-              _vm._v("\n\t\t\t\t\tNegative\n\t\t\t\t")
+              _vm._v("\n\t\t\t\t\t\tNegative\n\t\t\t\t\t")
             ])
           ]),
           _vm._v(" "),
@@ -1113,7 +1117,7 @@ var render = function() {
                   }
                 }
               }),
-              _vm._v("\n\t\t\t\t\tNon-diminutive\n\t\t\t\t")
+              _vm._v("\n\t\t\t\t\t\tNon-diminutive\n\t\t\t\t\t")
             ])
           ]),
           _vm._v(" "),
@@ -1159,7 +1163,7 @@ var render = function() {
                   }
                 }
               }),
-              _vm._v("\n\t\t\t\t\tDiminutive\n\t\t\t\t")
+              _vm._v("\n\t\t\t\t\t\tDiminutive\n\t\t\t\t\t")
             ])
           ])
         ]),
@@ -1230,7 +1234,7 @@ var render = function() {
               }
             }
           }),
-          _vm._v("\n\t\t\tShow Morphology\n\t\t")
+          _vm._v("\n\t\t\t\tShow Morphology\n\t\t\t")
         ])
       ]),
       _vm._v(" "),

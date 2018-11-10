@@ -62,6 +62,7 @@
 					<p class="control">
 						<label class="checkbox">
 							<input type="checkbox"
+                   value="7"
 								   v-model="form.classes.AIO.checked"
 								   name="classes[]">
 							AI+O
@@ -70,6 +71,7 @@
 					<p class="control">
 						<label class="checkbox">
 							<input type="checkbox"
+                   value="8"
 								   v-model="form.classes.TAO.checked"
 								   name="classes[]">
 							TA+O

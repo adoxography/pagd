@@ -186,6 +186,8 @@ class Structure extends Model
 
             $this->subclass = $subclass;
         } elseif ($this->formClass->name == 'TA') {
+        // Possible solution to obscenely large TA+O paradigms?
+        //} elseif ($this->formClass->name == 'TA' || $this->formClass->name == 'TA+O') {
             if ($this->subject->person == '0') {
                 // All TA forms with an inanimate subject are TA Inanimate
                 $subclass = 'TA Inanimate';

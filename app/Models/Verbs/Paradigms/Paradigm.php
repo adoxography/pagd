@@ -324,6 +324,10 @@ class Paradigm
             $rows[$structure->subclass][$structure->arguments][] = $form;
         }
 
+        foreach ($rows as &$row) {
+            uksort($row, [$this, 'compareFeatureSets']);
+        }
+
         return $rows;
     }
 
@@ -600,6 +604,174 @@ class Paradigm
         }
 
         return $options;
+    }
+
+    /**
+     * Parses the features of an argument in string format
+     *
+     * @param string $arg  The argument to parse
+     * @return array  An array representing the person, obviative status, and
+     *                number of the argument
+     */
+    private function extractFeatures($arg) {
+        if (preg_match("/(\d+)('*)([sdp]?)/", $arg, $matches)) {
+            if (strlen($matches[1]) == 1) {
+                $person = (int)$matches[1];
+            } else {
+                $person = 1.5;
+            }
+
+            $obv = strlen($matches[2]);
+
+            switch($matches[3]) {
+            case '':
+                if ($person == 1.5) {
+                    $num = 3;
+                } else {
+                    $num = 0;
+                }
+                break;
+            case 's':
+                $num = 1;
+                break;
+            case 'd':
+                $num = 2;
+                break;
+            case 'p':
+                $num = 3;
+                break;
+            default:
+                break;
+            }
+        } else {
+            $person = $arg;
+            $obv = 0;
+            $num = 0;
+        }
+
+        return [$person, $obv, $num];
+    }
+
+    /**
+     * Compares two feature sets
+     *
+     * @param string $a  The first feature set
+     * @param string $b  The second feature set
+     * @return int  -1 if $a should go first, 1 if $b should go first, and 0 if
+     *              they are equal
+     */
+    private function compareFeatureSets($a, $b) {
+        $aFeatures = preg_split('/[+—]/', $a);
+        $bFeatures = preg_split('/[+—]/', $b);
+
+        for ($i = 0; $i < count($aFeatures); $i++) {
+            $aFeature = $aFeatures[$i];
+
+            if ($i >= count($bFeatures)) {
+                return 1;
+            }
+
+            $bFeature = $bFeatures[$i];
+            $cmp = $this->compareFeatures($aFeature, $bFeature);
+            if ($cmp != 0) {
+                return $cmp;
+            }
+        }
+
+        if ($i < count($bFeatures) - 1) {
+            return -1;
+        }
+
+        return 0;
+    }
+
+    /**
+     * Compares two features
+     *
+     * @param string $a  The first feature
+     * @param string $b  The second feature
+     * @return int  -1 if $a should go first, 1 if $b should go first, and 0 if
+     *              they are equal
+     */
+    private function compareFeatures($a, $b) {
+        $aFeatures = $this->extractFeatures($a);
+        $bFeatures = $this->extractFeatures($b);
+        [$aPers, $aObv, $aNum] = $aFeatures;
+        [$bPers, $bObv, $bNum] = $bFeatures;
+
+        if (is_numeric($aPers) && $aPers <= 2) {
+            if (is_numeric($bPers) && $bPers <= 2) {
+                return $this->comparePersonalFeatures($aFeatures, $bFeatures);
+            }
+
+            return -1;
+        } elseif (is_numeric($bPers) && $bPers <= 2) {
+            return 1;
+        }
+
+        return $this->compareImpersonalFeatures($aFeatures, $bFeatures);
+    }
+
+    /**
+     * Compares two personal (persons 1, 21, or 2) features
+     *
+     * @param array $a  The parameters of the first feature
+     * @param array $b  The parameters of the second feature
+     * @return int  -1 if $a should go first, 1 if $b should go first, and 0 if
+     *              they are equal
+     */
+    private function comparePersonalFeatures($a, $b) {
+        [$aPers, $aObv, $aNum] = $a;
+        [$bPers, $bObv, $bNum] = $b;
+
+        if ($aNum <= 1) {
+            // If a and b are both singular or unmarked, do a normal comparison
+            // looking first at their person values, then at their number
+            // values.
+            if ($bNum <= 1) {
+                return [$aPers, $aNum] <=> [$bPers, $bNum];
+            }
+
+            // If a is singular or unmarked and b is not, a comes first.
+            return -1;
+        } elseif ($bNum <= 1) {
+            // If b is singular or unmarked and a is not, b comes first.
+            return 1;
+        }
+
+        // If a and b are both dual or plural, do a normal comparison looking
+        // first at their number values, then at their person values
+        return [$aNum, $aPers] <=> [$bNum, $bPers];
+    }
+
+    /**
+     * Compares two impersonal (persons 0, 3, or other) features
+     *
+     * @param array $a  The parameters of the first feature
+     * @param array $b  The parameters of the second feature
+     * @return int  -1 if $a should go first, 1 if $b should go first, and 0 if
+     *              they are equal
+     */
+    private function compareImpersonalFeatures($a, $b) {
+        [$aPers, $aObv, $aNum] = $a;
+        [$bPers, $bObv, $bNum] = $b;
+
+        if (is_int($aPers)) {
+            if (is_int($bPers)) {
+                // If a and b both have numeric persons, compare them normally.
+                return $a <=> $b;
+            }
+
+            // If a has a numeric person and b doesnt, a comes first.
+            return -1;
+        } elseif (is_int($bPers)) {
+            // If b has a numeric person and a doesn't, b comes first.
+            return 1;
+        }
+
+        // If neither a nor b have numeric persons, compare the persons
+        // directly.
+        return $aPers <=> $bPers;
     }
 
     //=======================================================================//

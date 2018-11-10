@@ -125,11 +125,11 @@ export default {
 
             if (this.inputField.tagName == 'DIV') {
                 let initialLength = this.inputField.innerHTML.length;
-                this.inputField.innerHTML = this.insertCharacter(this.inputField.innerHTML, char, this.cursorPosition);
+                this.inputField.innerHTML = this.insertCharacterIntoString(this.inputField.innerHTML, char, this.cursorPosition);
                 this.cursorPosition += this.inputField.innerHTML.length - initialLength;
             } else {
                 let initialLength = this.inputField.value.length;
-                this.inputField.value = this.insertCharacter(this.inputField.value, char, this.cursorPosition);
+                this.inputField.value = this.insertCharacterIntoString(this.inputField.value, char, this.cursorPosition);
                 this.cursorPosition += this.inputField.value.length - initialLength;
             }
 
@@ -151,7 +151,7 @@ export default {
             }
         },
 
-        insertCharacter(oldText, char, index) {
+        insertCharacterIntoString(oldText, char, index) {
             let merged = char.insertInto(oldText, index);
             return merged;
         },

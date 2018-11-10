@@ -5,10 +5,6 @@ webpackJsonp([17],{
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_SpecialCharacters__ = __webpack_require__("./resources/assets/js/util/SpecialCharacters.js");
-var _methods;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -101,7 +97,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
 
 
-    methods: (_methods = {
+    methods: {
         onFocusIn: function onFocusIn() {
             this.show = true;
         },
@@ -132,11 +128,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             if (this.inputField.tagName == 'DIV') {
                 var initialLength = this.inputField.innerHTML.length;
-                this.inputField.innerHTML = this.insertCharacter(this.inputField.innerHTML, char, this.cursorPosition);
+                this.inputField.innerHTML = this.insertCharacterIntoString(this.inputField.innerHTML, char, this.cursorPosition);
                 this.cursorPosition += this.inputField.innerHTML.length - initialLength;
             } else {
                 var _initialLength = this.inputField.value.length;
-                this.inputField.value = this.insertCharacter(this.inputField.value, char, this.cursorPosition);
+                this.inputField.value = this.insertCharacterIntoString(this.inputField.value, char, this.cursorPosition);
                 this.cursorPosition += this.inputField.value.length - _initialLength;
             }
 
@@ -156,26 +152,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 this.inputField.selectionStart = this.cursorPosition;
                 this.inputField.selectionEnd = this.cursorPosition;
             }
-        }
-    }, _defineProperty(_methods, "insertCharacter", function insertCharacter(oldText, char, index) {
-        var merged = char.insertInto(oldText, index);
-        return merged;
-    }), _defineProperty(_methods, "onKeyDown", function onKeyDown(event) {
-        if (event.altKey) {
-            var triggered = null;
+        },
+        insertCharacterIntoString: function insertCharacterIntoString(oldText, char, index) {
+            var merged = char.insertInto(oldText, index);
+            return merged;
+        },
+        onKeyDown: function onKeyDown(event) {
+            if (event.altKey) {
+                var triggered = null;
 
-            for (var i = 0; i < this.chars.length && !triggered; i++) {
-                triggered = this.chars[i].find(function (char) {
-                    return char.triggeredBy(event.key);
-                });
-            }
+                for (var i = 0; i < this.chars.length && !triggered; i++) {
+                    triggered = this.chars[i].find(function (char) {
+                        return char.triggeredBy(event.key);
+                    });
+                }
 
-            if (triggered) {
-                event.preventDefault();
-                this.insertCharacter(triggered);
+                if (triggered) {
+                    event.preventDefault();
+                    this.insertCharacter(triggered);
+                }
             }
         }
-    }), _methods)
+    }
 });
 
 /***/ }),

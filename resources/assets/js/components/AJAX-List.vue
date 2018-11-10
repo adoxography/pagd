@@ -60,7 +60,8 @@
 				options: [],
 				loading: false,
 				curr: 0,
-				extra: ''
+				extra: '',
+        cursor: 0
 			};
 		},
 
@@ -92,28 +93,23 @@
 				}
 			},
 
-			//===========================================================================================================//
-			// From http://stackoverflow.com/questions/1125292/how-to-move-cursor-to-end-of-contenteditable-entity
-			setEndOfContenteditable(contentEditableElement) {
-			    var range,selection;
-			    if(document.createRange)//Firefox, Chrome, Opera, Safari, IE 9+
-			    {
-			        range = document.createRange();//Create a range (a range is a like the selection but invisible)
-			        range.selectNodeContents(contentEditableElement);//Select the entire contents of the element with the range
-			        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
-			        selection = window.getSelection();//get the selection object (allows you to change selection)
-			        selection.removeAllRanges();//remove any selections already made
-			        selection.addRange(range);//make the range you have just created the visible selection
-			    }
-			    else if(document.selection)//IE 8 and lower
-			    {
-			        range = document.body.createTextRange();//Create a range (a range is a like the selection but invisible)
-			        range.moveToElementText(contentEditableElement);//Select the entire contents of the element with the range
-			        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
-			        range.select();//Select the range (make it the visible selection
-			    }
-			},
-			//===========================================================================================================//
+      setCursorPosition(position) {
+        let el = this.$refs.list;
+        let range = document.createRange();
+        let selection = window.getSelection();
+
+        if (position >= 0) {
+          let line = el.childNodes[0];
+          range.setStart(line, position);
+          range.setEnd(line, position);
+        } else {
+          range.selectNodeContents(el);
+          range.collapse(false);
+        }
+
+        selection.removeAllRanges();
+        selection.addRange(range);
+      },
 
 			closeList() {
 				this.showList = false;
@@ -162,6 +158,7 @@
 
 			update(newText) {
 				let id = this.determineValue(newText);
+        let position = window.getSelection().anchorOffset;
 
 				this.$emit('input', {
 					text: newText,
@@ -169,9 +166,13 @@
 					extra: this.extra
 				});
 
+        if (id == '') {
+          position = -1;
+        }
+
 				Vue.nextTick(() => {
 					let list = this.$refs.list;
-					this.setEndOfContenteditable(list);
+          this.setCursorPosition(position);
 				});
 			},
 

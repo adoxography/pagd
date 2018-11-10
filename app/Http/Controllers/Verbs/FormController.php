@@ -41,8 +41,7 @@ class FormController extends AlgModelController
                         'structure.order',
                         'structure.subject',
                         'structure.primaryObject',
-                        'structure.secondaryObject',
-                        'examples'
+                        'structure.secondaryObject'
                     ]);
     }
 

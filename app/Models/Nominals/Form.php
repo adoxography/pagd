@@ -25,7 +25,6 @@ class Form extends WordForm
 
     public function getTranslationAttribute()
     {
-        // dd($this->isStemless());
         if ($this->isStemless()) {
             return $this->examples->first()->translation;
         }

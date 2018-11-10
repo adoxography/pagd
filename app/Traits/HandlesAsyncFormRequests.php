@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use App\Models\Verbs\Example;
+
 trait HandlesAsyncFormRequests {
     public function async() {
         $query = $this->asyncQuery();
@@ -13,12 +15,19 @@ trait HandlesAsyncFormRequests {
         if (request()->shape) {
             $shape = request()->shape;
             $shapeStr = "%$shape%";
-            $query->where('name', 'LIKE', $shapeStr);
+            $query->where('name', 'LIKE', $shapeStr)
+                  ->orWhereHas('examples', function ($query) use ($shapeStr) {
+                      $query->where('name', 'LIKE', $shapeStr);
+                  });
         }
 
         if (request()->morpheme) {
             $query->whereHas('morphemes', function ($query) {
                 $query->where('Morph_Morphemes.id', request()->morpheme);
+            })->orWhereHas('examples', function ($query) {
+                $query->whereHas('morphemes', function ($query) {
+                    $query->where('Morph_Morphemes.id', request()->morpheme);
+                });
             });
         }
 
@@ -43,6 +52,20 @@ trait HandlesAsyncFormRequests {
                 }
             }
         }
+
+        $query->with(['examples' => function ($query) {
+            if (request()->morpheme) {
+                $query->whereHas('morphemes', function ($query) {
+                    $query->where('Morph_Morphemes.id', request()->morpheme);
+                });
+            }
+
+            if (request()->shape) {
+                $shape = request()->shape;
+                $shapeStr = "%$shape%";
+                $query->where('name', 'LIKE', $shapeStr);
+            }
+        }]);
 
         $forms = $query->orderBy('name')->paginate(request()->perPage);
         return $forms->toJson();

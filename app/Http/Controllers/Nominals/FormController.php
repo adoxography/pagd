@@ -33,8 +33,7 @@ class FormController extends Controller
                      ->with([
                          'structure',
                          'structure.nominalFeature',
-                         'structure.pronominalFeature',
-                         'examples'
+                         'structure.pronominalFeature'
                      ]);
     }
 

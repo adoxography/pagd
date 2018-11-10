@@ -27,7 +27,7 @@ $hasNominals = $morpheme->nominalForms()->count() + $morpheme->nominalExamples()
         @include('partials.show.nominals', [
             'language_id' => $morpheme->language_id,
             'paradigms' => $morpheme->language->paradigms,
-            'morpheme_id' => $morpheme_id,
+            'morpheme_id' => $morpheme->id,
             'perPage' => 10,
             'showAddButtons' => false
         ])

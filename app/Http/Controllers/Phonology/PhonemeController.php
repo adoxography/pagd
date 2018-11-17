@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Phonology;
 
-use App\Http\Requests\PhonemeRequest;
+use App\Http\Requests\Phonology\PhonemeRequest;
 use App\Models\Phonology\Phoneme;
 use App\Http\Controllers\AlgModelController;
 

@@ -18,6 +18,7 @@
         "laracasts/utilities": "~2.0",
         "laravel/dusk": "^3.0",
         "laravel/framework": "5.7.*",
+        "laravel/telescope": "^1.0",
         "laravel/tinker": "^1.0",
         "mikealmond/color": "0.0.4",
         "netcarver/textile": "3.6.*",

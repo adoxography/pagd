@@ -69,7 +69,7 @@ class SearchController extends Controller
             ->sortBy('name');
         $showMorphology = $request->showMorphology;
         $hasMorphemes = !!$forms->first(function ($form) {
-            return $form->morphemes->count() > 0;
+            return $form->morphemes && $form->morphemes->count() > 0;
         });
 
         $search = new Paradigm($forms);

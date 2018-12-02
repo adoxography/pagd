@@ -12,6 +12,7 @@ use App\Models\Phonology\Reflex;
 use App\Models\StructuralSurvey\Value;
 use App\Models\StructuralSurvey\Variable;
 use App\Models\Verbs\Form as VerbForm;
+use App\Models\Verbs as VerbGap;
 use App\Models\Words\Example as WordExample;
 use App\Models\Words\Gap as WordGap;
 use App\Models\Words\Form as WordForm;

@@ -34,6 +34,9 @@ class Kernel extends ConsoleKernel
                  ->timezone('America/Winnipeg')
                  ->between('00:00', '1:00');
 
+        $schedule->command('telescope:prune --hours=48')
+                 ->daily();
+
         $schedule->command('algling:send-ticket-notifications-to-administrator')
                  ->everyMinute()
                  ->timezone('America/Winnipeg')

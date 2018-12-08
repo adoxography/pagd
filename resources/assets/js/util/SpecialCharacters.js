@@ -76,7 +76,8 @@ var dictionary = [
         new Diacritic("\u0303", "~", {'a': 'ã', 'e': 'ẽ', 'i': 'ĩ', 'o': 'õ', 'u': 'ũ'}), // Tilde
         new Diacritic("ː", ":"),
         new Diacritic("·", "."),
-        new Diacritic("\u0325", null) // Voiceless
+        new Diacritic("\u0325", null), // Voiceless
+        new SpecialCharacter("→", null)
     ]
 ];
 

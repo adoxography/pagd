@@ -56,7 +56,8 @@
 				@component('components.form.text', [
 					'name'        => 'rule',
 					'rules'       => 'required',
-					'loadRequest' => false
+					'loadRequest' => false,
+					'typewriter' => true
 				])
 					@slot('value')
 						@if(isset($rule))

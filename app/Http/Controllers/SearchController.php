@@ -39,7 +39,7 @@ class SearchController extends Controller
 
     public function smartResults()
     {
-        $search = new SmartSearch(request()->lookup);
+        $search = new SmartSearch(request()->lookup ?? "");
 
         $search->parse();
 

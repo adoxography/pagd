@@ -17,7 +17,7 @@
 					   @focus="onFocus"
 					   @blur="onBlur"
 					   ref="textInput"
-					   autocomplete="off"
+					   autocomplete="new-password"
 					   :placeholder="placeholder"
 					   :autofocus="autofocus"
 					   :required="required" />

@@ -500,8 +500,8 @@ new Diacritic("\u0302", "^", { 'a': 'â', 'e': 'ê', 'i': 'î', 'o': 'ô', 'u': 
 new Diacritic("\u0306", "u", { 'a': 'ă', 'e': 'ĕ', 'i': 'ĭ', 'o': 'ŏ', 'u': 'ŭ' }), // Breve
 new Diacritic("\u0304", "-", { 'a': 'ā', 'e': 'ē', 'i': 'ī', 'o': 'ō', 'u': 'ū' }), // Macron
 new Diacritic("\u0303", "~", { 'a': 'ã', 'e': 'ẽ', 'i': 'ĩ', 'o': 'õ', 'u': 'ũ' }), // Tilde
-new Diacritic("ː", ":"), new Diacritic("·", "."), new Diacritic("\u0325", null) // Voiceless
-]];
+new Diacritic("ː", ":"), new Diacritic("·", "."), new Diacritic("\u0325", null), // Voiceless
+new SpecialCharacter("→", null)]];
 
 
 

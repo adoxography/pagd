@@ -1,6 +1,8 @@
 import axiosRetry from 'axios-retry';
 import PortalVue from 'portal-vue';
 
+require('./polyfill/scrollIntoViewIfNeeded');
+
 window._ = require('lodash');
 
 /**
@@ -25,8 +27,6 @@ import VeeValidate from 'vee-validate';
 Vue.use(VeeValidate);
 require('vue-resource');
 
-let vueScrollTo = require('vue-scroll-to');
-Vue.use(vueScrollTo);
 Vue.use(PortalVue);
 
 /**

@@ -36,7 +36,7 @@
 
 		<div class="box alg-datalist-dropdown" v-show="showList">
 			<ul>
-				<li v-for="(option, index) in options">
+				<li v-for="(option, index) in options" :ref="'option-'+index">
 					<a @click="selectItem(option.name)"
 					   @mouseover="handleHover(option.name)"
 					   :class="{ 'is-highlighted': activeItem(index) }">
@@ -61,7 +61,15 @@
 		computed: {
 			hasValue() {
 				return this.value.id > 0 && !this.showList;
-			}
+			},
+
+      selectedElement() {
+        if (this.curr == 0) {
+          return null;
+        }
+
+        return this.$refs['option-'+(this.curr-1)][0];
+      }
 		},
 
 		directives: {
@@ -211,10 +219,12 @@
 					this.curr++;
 					this.curr %= this.options.length + 1;
 
-					// If the current selection isn't the textbox itself, set the textbox to the current selection
 					if(this.curr > 0){
+            // If the current selection isn't the textbox itself, set the textbox to the current selection
 						this.update(this.options[this.curr - 1].name);
-					}
+
+            this.selectedElement.scrollIntoViewIfNeeded(false);
+          }
 				}
 				else { // The list is closed
 
@@ -231,6 +241,8 @@
 				this.curr %= this.options.length + 1;
 				if(this.curr > 0){
 					this.update(this.options[this.curr - 1].name);
+
+          this.selectedElement.scrollIntoViewIfNeeded(false);
 				}
 			},
 

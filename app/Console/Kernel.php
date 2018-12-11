@@ -35,7 +35,7 @@ class Kernel extends ConsoleKernel
                  ->between('00:00', '1:00');
 
         $schedule->command('telescope:prune --hours=48')
-                 ->daily();
+                 ->everyMinute();
 
         $schedule->command('algling:send-ticket-notifications-to-administrator')
                  ->everyMinute()

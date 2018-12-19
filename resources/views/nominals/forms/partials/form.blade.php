@@ -207,7 +207,7 @@ $changeTypes = App\Models\ChangeType::all();
 					@slot('value')
 						@if(isset($form))
 							@if($form->parent)
-								{{ '{ "text": "'.str_replace('*', '', $form->parent->present('unique')->then('language')).'", "id": "'.$form->parent_id.'" }' }}
+                                {{ '{ "text": "'.strip_tags(str_replace('*', '', $form->parent->present('unique')->then('language'))).'", "id": "'.$form->parent_id.'" }' }}
 							@endif
 						@endif
 					@endslot

@@ -2,7 +2,6 @@ import axiosRetry from 'axios-retry';
 import PortalVue from 'portal-vue';
 import Buefy from 'buefy';
 
-
 require('./polyfill/scrollIntoViewIfNeeded');
 
 window._ = require('lodash');

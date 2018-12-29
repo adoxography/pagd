@@ -34,4 +34,9 @@ class Datapoint extends Model
     {
     	return $this->belongsTo(Value::class);
     }
+
+    public function present(string $method = 'name')
+    {
+        return new AlgPresenter($this, $method);
+    }
 }

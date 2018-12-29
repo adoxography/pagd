@@ -1,0 +1,651 @@
+// Mixins
+@import "_mixins";
+
+// Variables
+@import "_variables";
+
+// Font Awesome
+@import "~@fortawesome/fontawesome-free/scss/regular";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+
+// Bulma
+@import "node_modules/bulma/sass/utilities/_all.sass";
+@import "node_modules/bulma/sass/base/_all.sass";
+@import "node_modules/bulma/sass/grid/columns.sass";
+
+@import "node_modules/bulma/sass/elements/button.sass";
+@import "node_modules/bulma/sass/elements/container.sass";
+// Using this upstream version until upstream gets merged
+@import "bulma/form.sass";
+@import "node_modules/bulma/sass/elements/title.sass";
+@import "node_modules/bulma/sass/elements/table.sass";
+@import "node_modules/bulma/sass/elements/notification.sass";
+@import "node_modules/bulma/sass/elements/icon.sass";
+@import "node_modules/bulma/sass/components/navbar.sass";
+@import "node_modules/bulma/sass/layout/section.sass";
+
+// Modifications to bulma
+html, body, #body-wrapper {
+    height: 100%;
+}
+
+html {
+    overflow: auto;
+}
+
+body {
+    font-size: 18px;
+    overflow: auto;
+}
+
+#body-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+// The header and main content
+.top-content {
+    flex: 1 0 auto;
+}
+
+.navbar {
+    padding: 0 2em;
+}
+
+a.navbar-item, .navbar-item a {
+    &.has-background-primary:hover {
+        background: darken($primary, 10%) !important;
+    }
+}
+
+.footer {
+    flex-shrink: 0;
+    padding: 1em 2em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.notification a:not(.button):not(.dropdown-item) {
+    text-decoration: none;
+    color: $link;
+}
+
+.has-background-secondary {
+    background: $secondary !important;
+}
+
+// Site specific stuff
+#main-content {
+    padding: 1.5rem;
+    
+    .main-content-header {
+        display: flex;
+        justify-content: space-between;
+
+        nav.icons {
+            a {
+                color: $grey-dark;
+            }
+        }
+    }
+}
+
+.content-container {
+    padding: 2rem;
+
+    header {
+        margin-bottom: 1rem;
+    }
+}
+
+blockquote {
+    border-left: 6px solid $red;
+    margin: .25rem 6px;
+    padding: .1rem 6px;
+}
+
+.logo {
+    font-size: 1.25em;
+    margin-right: .5em;
+}
+
+ul.is-horizontal {
+    //list-style: square;
+
+
+    li {
+        float: left;
+        margin-right: .5rem;
+
+        &:not(:first-child):before {
+            content: "▪";
+            font-size: .5rem;
+            padding-right: .5rem;
+            vertical-align: middle;
+        }
+    }
+}
+
+.smart-search {
+    input {
+        color: $white;
+        border-color: $grey-darker;
+
+        &:hover {
+            border-color: $primary;
+        }
+
+        &:focus {
+            border-color: $red;
+        }
+    }
+}
+
+nav.detail-menu {
+    a {
+        text-transform: uppercase;
+        font-weight: bold;
+        display: block;
+        background: $grey-light;
+        color: $grey-darker;
+        padding: .2em .5em;
+
+        &:hover {
+            background: darken($grey-light, 5%);
+        }
+
+        &.is-active {
+            background: $red;
+            color: $white;
+        }
+    }
+}
+
+table.table.details {
+    width: 100%;
+
+    th {
+        text-transform: uppercase;
+        font-weight: 400;
+    }
+
+    td {
+        color: $grey-dark;
+        width: 100%;
+    }
+}
+
+.morpheme-printout {
+    .column.is-narrow {
+        padding-right: .15em;
+    
+        &:not(:first-child) {
+            padding-left: .15em;
+        }
+
+        &.hyphen {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+    }
+}
+
+
+
+//@import "bulma-mods";
+
+//@import "layout";
+//@import "tree";
+//@import "phoneme-table";
+//@import "file-upload";
+//@import "audio";
+//@import "tooltip";
+//@import "admin";
+//@import "paradigm-table";
+//@import "scroll";
+
+//.is-monospace {
+    //font-family: "DejaVueSansMono", "monospace";
+//}
+
+//a.pagination-next:hover, a.pagination-previous:hover, a.pagination-link:hover {
+    //box-shadow: none;
+    //-webkit-box-shadow: none;
+//}
+
+//.breadcrumb {
+	//a {
+		//padding-top: 0;
+		//padding-bottom: 0;
+	//}
+
+	//li+li:before {
+		//content: "\25AA";
+		//font-size: xx-small;
+	//}
+//}
+
+//.ticket-comments {
+	//padding-bottom: 1.5rem;
+//}
+
+//.navbar-dropdown.is-boxed {
+	//border-radius: 0;
+//}
+
+//.navbar-dropdown {
+	//font-size: 1rem;
+	//left: calc(100%/-2);
+//}
+
+//@media screen and (min-width: 1000px) {
+	//.navbar-dropdown {
+		//border-bottom-left-radius: 0;
+		//border-bottom-right-radius: 0;
+		//font-size: 1rem;
+		//left: calc(100%/-2);
+	//}
+//}
+
+//.notification {
+	//padding: .75rem 2.5rem .75rem .75rem;
+//}
+
+
+//@import "pagination";
+
+//.alg-source-index {
+	//.input {
+		//margin-bottom: 1rem;
+	//}
+//}
+
+//.alg-tag-input {
+	//.alg-tag-section {
+		//@extend .input;
+		//background-color: $white-ter;
+		//height: 3em;
+
+		//.alg-tag-container {
+			//display: inline-block;
+
+			//.tag {
+				//cursor: default;
+			//}
+		//}
+	//}
+//}
+
+//ul.indented-list {
+	//list-style-type: circle;
+	//list-style-position: inside;
+
+	//ul {
+		//list-style-type: circle;
+		//list-style-position: inside;
+		//margin-left: 2rem;
+	//}
+//}
+
+//.content blockquote {
+	//background-color: whitesmoke;
+//}
+
+//.alg-highlight {
+	//background-color: #FFFF99;
+//}
+
+//.title {
+	//font-size: 1.75rem;
+//}
+
+//a.nav-item, .footer a {
+	//font-weight: 400;
+//}
+
+//.alg-filter-list a{
+	//font-weight: 400;
+//}
+
+//.markdown {
+	//table {
+		//display: block !important;
+	//}
+//}
+
+//.data-hidden {
+	//text-decoration: line-through;
+//}
+
+//.gloss {
+	//font-variant: small-caps;
+
+	//a {
+		//color: inherit;
+	//}
+//}
+
+//.add-icon {
+	//margin-left: .5rem;
+//}
+
+//.table tr:hover {
+	//background-color: $white;
+//}
+
+//.display-source-list {
+	//margin-top: 0 !important;
+//}
+
+//.arguments {
+	//.alg-datalist {
+		//margin-right: .5rem;
+	//}
+
+	//.alg-datalist-container {
+		//width: 3.75rem;
+	//}
+
+	//p.control.is-expanded {
+		//flex-shrink: initial !important;
+	//}
+//}
+
+//.alg-datalist-dropdown ul li {
+    //cursor: pointer;
+//}
+
+//.textarea {
+	//min-height: 4em;
+//}
+
+//.alg-model-tab {
+	//padding-top: 0;
+
+	//.column {
+		//padding: 0;
+		//padding-bottom: 0.75rem;
+	//}
+//}
+
+//.alg-old-source input {
+	//width: 15rem;
+//}
+
+//.alg-datalist-container {
+	//position: relative;
+	//display: flex;
+	//flex-grow: 1;
+
+	//.field {
+		//flex-grow: 1;
+		//margin: 0;
+	//}
+//}
+
+//.alg-paginated-list {
+	//.pagination {
+		//ul {
+			//list-style: none;
+			//margin: 0;
+
+			//li {
+				//margin-top: 0;
+			//}
+		//}
+	//}
+
+	//.content {
+		//ul {
+			//list-style: none;
+			//margin-left: 0;
+		//}
+	//}
+//}
+
+//.alg-datalist-dropdown {
+	//box-shadow: 0 0 8px #777;
+	//display: block;
+	//left: 0;
+	//right: 0;
+	//position: absolute;
+	//top: 100%;
+	//z-index: 1000;
+	//padding: .5rem;
+	//max-height: 400%;
+	//overflow: auto;
+
+	//ul {
+		//list-style: none;
+		//margin: 0;
+	//}
+
+	//a {
+		//display: block;
+		//box-shadow: none;
+	//}
+
+	//.is-highlighted {
+		//background-color: #f0f0f0;
+	//}
+//}
+
+//.form-search-form .argument-label {
+	//font-weight: normal;
+	//font-style: italic;
+//}
+
+//.paradigm-search-form {
+	//p.control {
+		//margin-bottom: .25em;
+	//}
+
+	//.disabled {
+		//background-color: #fbfbfb;
+		//color: #585858;
+
+		//input, .checkbox {
+			//cursor: default;
+		//}
+
+		//.checkbox:hover {
+			//color: #585858;
+		//}
+	//}
+//}
+
+//.description-list {
+	//list-style: none !important;
+	//margin: 0 !important;
+
+	//li {
+		//float: left;
+		//margin-top: 0 !important;
+	//}
+
+	//li:not(:first-child) {
+		//margin-left: .5rem;
+	//}
+//}
+
+//.alg-morpheme-alert {
+	//position: absolute;
+	//z-index: 1;
+
+	//ul {
+		//list-style-type: none;
+		//margin: 0;
+	//}
+
+	//.message-body {
+		//padding: .5em;
+	//}
+
+	//p {
+		//margin-left: .5rem;
+	//}
+//}
+
+//.morpheme-printout {
+	//margin-left: 0;
+	//margin-top: 0;
+
+	//.column {
+		//padding-top: 0;
+		//padding-left: .25rem;
+		//padding-right: .25rem;
+	//}
+
+	//.hyphen {
+		//padding-left: 0;
+		//padding-right: 0;
+	//}
+//}
+
+//.detail-title-language {
+	//padding-left: .25em;
+//}
+
+//.dropdown {
+	//&:hover .dropdown-options {
+		//display: block;
+	//}
+
+	//.dropdown-options {
+		//box-shadow: 0 0 8px #777;
+		//display: none;
+		//position: absolute;
+		//top: 92%;
+		//z-index: 1000;
+		//background-color: $white;
+
+		//a {
+			//display: block;
+			//padding-left: .5rem;
+			//padding-right: .5rem;
+
+			//&:last-child {
+				//padding-bottom: .5rem;
+			//}
+
+			//&:hover {
+				//background-color: #f0f0f0;
+				//box-shadow: none;
+			//}
+		//}
+	//}
+//}
+
+//p.is-danger {
+	//color: $danger;
+//}
+
+//.tabs-details .tabs > ul {
+	//margin: 0;
+	//margin-top: -.75rem;
+//}
+
+//.head-argument {
+	//text-decoration: underline;
+//}
+
+//[contenteditable="true"].single-line {
+	//white-space: nowrap;
+	//overflow: hidden;
+
+	//br {
+		//display: none;
+	//}
+
+	//* {
+		//display: inline;
+		//white-space: no-wrap;
+	//}
+//}
+
+//.horizontal-list {
+	//> li {
+		//display: inline-block;
+		//padding: .5rem;
+	//}
+
+	//&.has-bullets li:not(:first-child) {
+		//// padding-left: 0;
+
+		//&::before {
+			//content: "•";
+		//}
+	//}
+//}
+
+//// Transitions
+
+//.fade-enter-active, .fade-leave-active {
+  //transition: opacity .5s
+//}
+//.fade-enter, .fade-leave-to [> .fade-leave-active in <2.1.8 <] {
+  //opacity: 0
+//}
+
+//.language-menu {
+	//float: right;
+	//position: absolute;
+	//background-color: white;
+	//z-index: 10;
+	//right: 0;
+	//transform: translateX(100%);
+	//opacity: 0;
+	//transition: transform 0.6s, opacity 0.6s;
+
+	//&.is-open {
+		//transform: translateX(0);
+		//opacity: 1;
+	//}
+//}
+
+//.language-menu-subtab {
+	//display: none;
+
+	//&.is-active {
+		//display: block;
+	//}
+//}
+
+//[v-cloak] {
+	//display: none;
+//}
+
+//#actionMenu {
+    //.navbar-dropdown a.navbar-item {
+        //display: flex;
+        //justify-content: space-between;
+
+        //progress.progress {
+            //width: 2.5em;
+            //height: .5rem;
+            //margin-left: .5em;
+        //}
+    //}
+//}
+
+//progress.language-activity {
+    //border-radius: 0;
+//}
+
+//// The list of languages on the language index
+//ul.language-index-list {
+    //width: 400px;
+    //margin: auto;
+
+    //li {
+        //display: flex;
+        //justify-content: space-between;
+
+        //span.activity-bar {
+            //width: 8em;
+            //margin: .25em .5em;
+        //}
+    //}
+//}

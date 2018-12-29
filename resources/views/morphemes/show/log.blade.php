@@ -1,5 +1,5 @@
 @extends('morphemes.show')
 
-@section('content')
+@section('details')
 	@include('partials.show.log', ['model' => $morpheme])
 @endsection

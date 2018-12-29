@@ -1,5 +1,8 @@
 import axiosRetry from 'axios-retry';
 import PortalVue from 'portal-vue';
+import Buefy from 'buefy';
+//import 'buefy/dist/buefy.css';
+
 
 require('./polyfill/scrollIntoViewIfNeeded');
 
@@ -23,11 +26,44 @@ window._ = require('lodash');
  */
 
 window.Vue = require('vue');
+import wysiwyg from 'vue-wysiwyg';
+import VTooltip from 'v-tooltip';
 import VeeValidate from 'vee-validate';
-Vue.use(VeeValidate);
 require('vue-resource');
 
+import SpecialCharacter from './components/wysiwyg/SpecialCharacter';
+Vue.use(VeeValidate, {
+  //delay: 1000
+});
+
+Vue.use(VTooltip);
 Vue.use(PortalVue);
+Vue.use(wysiwyg, {
+  hideModules: {
+    "headings": true,
+    "code": true,
+    "image": true
+  },
+
+  customModules: [SpecialCharacter],
+
+  iconOverrides: {
+    'bold': '<span class="icon"><i class="fas fa-bold"></i></span>',
+    'italic': '<span class="icon"><i class="fas fa-italic"></i></span>',
+    'underline': '<span class="icon"><i class="fas fa-underline"></i></span>',
+    'justifyLeft': '<span class="icon"><i class="fas fa-align-left"></i></span>',
+    'justifyCenter': '<span class="icon"><i class="fas fa-align-center"></i></span>',
+    'justifyRight': '<span class="icon"><i class="fas fa-align-right"></i></span>',
+    'link': '<span class="icon"><i class="fas fa-link"></i></span>',
+    'orderedList': '<span class="icon"><i class="fas fa-list-ol"></i></span>',
+    'unorderedList': '<span class="icon"><i class="fas fa-list"></i></span>',
+    'table': '<span class="icon"><i class="fas fa-table"></i></span>',
+    'removeFormat': '<span class="icon"><i class="fas fa-eraser"></i></span>',
+  },
+
+  forcePlainTextOnPaste: true
+});
+Vue.use(Buefy);
 
 /**
  * Import Pug to allow for fully extendable Vue components

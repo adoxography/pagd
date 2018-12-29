@@ -1,4 +1,4 @@
-	@php
+@php
 if(!isset($uri)) {
 	$uri = '/'.strtolower(array_last(explode('_', $model->table))).'/';
 }

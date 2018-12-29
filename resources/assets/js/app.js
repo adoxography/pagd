@@ -7,6 +7,8 @@
 
 require('./bootstrap');
 
+require('typeface-lato');
+
 require('./layout');
 
 require('./validation');
@@ -41,7 +43,6 @@ Vue.component('alg-button',          require('./components/Button.vue').default)
 Vue.component('alg-map',             require('./components/Map.vue').default);
 Vue.component('alg-network',         resolve => { require(['./components/Network.vue'], resolve); });
 Vue.component('alg-file-upload',     resolve => { require(['./components/FileUpload.vue'], resolve); });
-Vue.component('alg-tooltip', require('./components/Tooltip.vue').default);
 Vue.component('alg-typeahead', resolve => { require(['./components/Typeahead.vue'], resolve ); });
 Vue.component('alg-typewriter', resolve => { require(['./components/Typewriter.vue'], resolve); });
 Vue.component('alg-preview', resolve => { require(['./components/Preview.vue'], resolve); });
@@ -64,7 +65,6 @@ Vue.component('alg-phoneme-example-form',  resolve => { require(['./components/f
 Vue.component('alg-igt-form', resolve => { require(['./components/forms/IGT.vue'], resolve); });
 
 Vue.component('alg-order', resolve => { require(['./components/Order.vue'], resolve); });
-Vue.component('alg-textarea', resolve => { require(['./components/Textarea.vue'], resolve); });
 Vue.component('alg-tag-input', resolve => { require(['./components/Tag-Input.vue'], resolve); });
 Vue.component('alg-morpheme-tag-input', require('./components/Morpheme-Tag-Input.vue').default);
 Vue.component('alg-value-input', resolve => { require(['./components/Value-Input.vue'], resolve); });
@@ -109,6 +109,7 @@ const app = new Vue({
 
     data() {
     	return {
+        mobileNavbarOpen: false,
     		showFlash: true,
     		testVal: {text: '', id: ''}
     	};

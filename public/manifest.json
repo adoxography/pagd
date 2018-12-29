@@ -1,0 +1,15 @@
+{
+  "short_name": "DALS",
+  "name": "DALS",
+  "icons": [
+    {
+      "src": "img/logo.png",
+      "sizes": "512x512",
+      "types": "image/png"
+    }
+  ],
+  "start_url": "/?utm_source=homescreen",
+  "background_color": "#262626",
+  "theme_color": "#fee414",
+  "display": "standalone"
+}

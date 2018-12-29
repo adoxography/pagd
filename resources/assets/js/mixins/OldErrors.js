@@ -17,11 +17,11 @@ export default {
 
 	methods: {
 		validateBeforeSubmit(event) {
-			this.$validator.validateAll();
-
-			if(this.errors.any()) {
-				event.preventDefault();
-			}
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          return;
+        }
+      });
 		}
 	}
 }

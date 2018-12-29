@@ -2,6 +2,7 @@
 
 namespace App\Models\StructuralSurvey;
 
+use App\Presenters\AlgPresenter;
 use App\Traits\Sourceable;
 use App\Traits\Bookmarkable;
 use Illuminate\Database\Eloquent\Model;
@@ -27,5 +28,10 @@ class Variable extends Model
     public function datapoints()
     {
     	return $this->hasMany(Datapoint::class);
+    }
+
+    public function present(string $method = 'name')
+    {
+        return new AlgPresenter($this, $method);
     }
 }

@@ -1,6 +1,6 @@
 @extends('sources.show')
 
-@section('content')
+@section('details')
 	<div class="field">
 		<span class="label">Full citation</span>
 		{!! replaceTags($source->long) !!}

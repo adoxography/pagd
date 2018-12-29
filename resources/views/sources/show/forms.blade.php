@@ -8,7 +8,7 @@ $languages = App\Models\Language::all();
 
 @extends('sources.show')
 
-@section('content')
+@section('details')
 	@if($hasVerbs)
 		<h4 class="title is-4">Verbs</h4>
         @include('partials.show.verbs', [

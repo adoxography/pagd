@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.css" />
 @endsection
 
-@section('content')
+@section('details')
 	@foreach ($languages as $language)
 		<span>
             <span style="color: #{{ $language->color }}; @if(!$loop->first) margin-left: .5rem; @endif">&#9679</span>&nbsp{!! $language->present('link') !!}

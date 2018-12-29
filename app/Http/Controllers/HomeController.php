@@ -16,10 +16,7 @@ class HomeController extends PageController
      */
     public function index()
     {
-        $page = Storage::get('pages/welcome.php');
-        $styles = $this->getCSSFiles();
-
-        return view('welcome', compact('page', 'styles'));
+        return view('welcome');
     }
 
     public function glossary()

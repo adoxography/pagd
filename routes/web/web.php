@@ -63,17 +63,32 @@ Route::group(['as' => 'igt::'], function () {
 });
 
 // Group Routes
-Route::patch('groups/{group}/order', 'GroupOrderController@update');
-Route::resource('groups', 'GroupController');
-Route::get('groups/{group}/clone', 'GroupController@clone');
-Route::patch('groups/{group}/hide', 'GroupController@hide');
-Route::get('groups/{group}/order/edit', 'GroupOrderController@edit');
+Route::group(['as' => 'groups::'], function () {
+    Route::patch('groups/{group}/order', 'GroupOrderController@update');
+    Route::get('groups', 'GroupController@index')->name('index');
+    Route::get('groups/create', 'GroupController@create')->name('create');
+    Route::get('groups/{group}', 'GroupController@show')->name('show');
+    Route::get('groups/{group}/clone', 'GroupController@clone')->name('clone');
+    Route::get('groups/{group}/edit', 'GroupController@edit')->name('edit');
+    Route::post('groups/{group}/bookmark', 'GroupController@bookmark')->name('bookmark');
+    Route::post('groups', 'GroupController@create')->name('create');
+    Route::patch('groups/{group}', 'GroupController@update')->name('update');
+    Route::delete('groups/{group}', 'GroupController@destroy')->name('delete');
+    Route::get('groups/{group}/order/edit', 'GroupOrderController@edit');
+});
 
 // Rule routes
-Route::resource('rules', 'RuleController');
-Route::get('rules/{rule}/clone', 'RuleController@clone');
-Route::patch('rules/{rule}/hide', 'RuleController@hide');
-Route::post('rules/{rule}/bookmark', 'RuleController@bookmark');
+Route::group(['as' => 'rules::'], function () {
+    Route::get('rules', 'RuleController@index');
+    Route::get('rules/create', 'RuleController@create');
+    Route::get('rules/{rule}', 'RuleController@show');
+    Route::get('rules/{rule}/edit', 'RuleController@edit')->name('edit');
+    Route::post('rules', 'RuleController@create');
+    Route::patch('rules/{rule}', 'RuleController@update');
+    Route::delete('rules/{rule}', 'RuleController@destroy')->name('delete');
+    Route::get('rules/{rule}/clone', 'RuleController@clone')->name('clone');
+    Route::post('rules/{rule}/bookmark', 'RuleController@bookmark')->name('bookmark');
+});
 
 /**
  * "Profile" routes are aliases for users/{current user}
@@ -89,13 +104,21 @@ Route::group(['as' => 'users::'], function () {
 /**
  * Morphology
  */
-Route::resource('glosses', 'Morphology\GlossController');
-Route::get('glosses/{gloss}/clone', 'Morphology\GlossController@clone');
-Route::resource('slots', 'Morphology\SlotController');
-Route::get('slots/{slot}/clone', 'Morphology\SlotController@clone');
+Route::group(['as' => 'glosses::'], function () {
+    Route::resource('glosses', 'Morphology\GlossController');
+    Route::get('glosses/{gloss}/edit', 'Morphology\GlossController@edit')->name('edit');
+    Route::delete('glosses/{gloss}', 'Morphology\GlossController@destroy')->name('delete');
+    Route::get('glosses/{gloss}/clone', 'Morphology\GlossController@clone')->name('clone');
+    Route::get('glosses/{gloss}/bookmark', 'Morphology\GlossController@bookmark')->name('bookmark');
+});
 
-Route::patch('glosses/{gloss}/hide', 'Morphology\GlossController@hide');
-Route::patch('slots/{slot}/hide', 'Morphology\SlotController@hide');
+Route::group(['as' => 'slots::'], function () {
+    Route::resource('slots', 'Morphology\SlotController');
+    Route::get('slots/{slot}/edit', 'Morphology\SlotController@edit')->name('edit');
+    Route::delete('slots/{slot}', 'Morphology\SlotController@destroy')->name('delete');
+    Route::get('slots/{slot}/clone', 'Morphology\SlotController@clone')->name('clone');
+    Route::get('slots/{slot}/bookmark', 'Morphology\SlotController@bookmark')->name('bookmark');
+});
 
 Route::get('changes', 'Morphology\InitialChangeController@index');
 Route::post('changes', 'Morphology\InitialChangeController@store');

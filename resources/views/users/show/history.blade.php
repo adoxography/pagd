@@ -1,6 +1,6 @@
 @extends('users.show')
 
-@section('content')
+@section('details')
 	{{ $revisions->links() }}
 	<table class="table is-striped">
 		<thead>

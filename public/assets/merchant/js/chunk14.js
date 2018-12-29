@@ -1,4 +1,53 @@
-webpackJsonp([14,28],{
+webpackJsonp([14,27],{
+
+/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Datapoint.vue?vue&type=script&lang=js&":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form__ = __webpack_require__("./resources/assets/js/components/forms/Form.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Datalist_js__ = __webpack_require__("./resources/assets/js/Datalist.js");
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+	extends: __WEBPACK_IMPORTED_MODULE_0__Form__["default"],
+
+	props: ['method', 'action', 'variables', 'initialValue'],
+
+	data: function data() {
+		return {
+			language: new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */](),
+			variable: new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */](),
+			selectedValue: ''
+		};
+	},
+
+
+	computed: {
+		values: function values() {
+			var _this = this;
+
+			var variable = this.variables.find(function (variable) {
+				return variable.id == _this.variable.id;
+			});
+
+			if (variable) {
+				return variable.values;
+			} else {
+				return [];
+			}
+		}
+	},
+
+	created: function created() {
+		if (this.initialValue) {
+			this.selectedValue = this.initialValue;
+		}
+	}
+});
+
+/***/ }),
 
 /***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Form.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -18,28 +67,6 @@ webpackJsonp([14,28],{
             sources: []
         };
     }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Group.vue?vue&type=script&lang=js&":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form__ = __webpack_require__("./resources/assets/js/components/forms/Form.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Datalist_js__ = __webpack_require__("./resources/assets/js/Datalist.js");
-
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-	extends: __WEBPACK_IMPORTED_MODULE_0__Form__["default"],
-
-	data: function data() {
-		return {
-			parent: new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */]()
-		};
-	}
 });
 
 /***/ }),
@@ -79,6 +106,61 @@ var Datalist = function () {
 }();
 
 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/forms/Datapoint.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Datapoint_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/forms/Datapoint.vue?vue&type=script&lang=js&");
+/* empty harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_componentNormalizer_js__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(__WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_componentNormalizer_js__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__Datapoint_vue_vue_type_script_lang_js___["a" /* default */],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) {
+  var api = require("/etc/httpd/docs/alglang.localhost/node_modules/vue-hot-reload-api/dist/index.js")
+  api.install(require('vue'))
+  if (api.compatible) {
+    module.hot.accept()
+    if (!module.hot.data) {
+      api.createRecord('1a95a25f', component.options)
+    } else {
+      api.reload('1a95a25f', component.options)
+    }
+    
+  }
+}
+component.options.__file = "resources/assets/js/components/forms/Datapoint.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/forms/Datapoint.vue?vue&type=script&lang=js&":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Datapoint_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Datapoint.vue?vue&type=script&lang=js&");
+/* unused harmony namespace reexport */
+ /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Datapoint_vue_vue_type_script_lang_js___["a" /* default */]); 
 
 /***/ }),
 
@@ -137,94 +219,39 @@ component.options.__file = "resources/assets/js/components/forms/Form.vue"
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/forms/Group.vue":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Group_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/forms/Group.vue?vue&type=script&lang=js&");
-/* empty harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_componentNormalizer_js__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
-
-
-
-
-/* normalize component */
-
-var component = Object(__WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_componentNormalizer_js__["a" /* default */])(
-  __WEBPACK_IMPORTED_MODULE_0__Group_vue_vue_type_script_lang_js___["a" /* default */],
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) {
-  var api = require("/etc/httpd/docs/alglang.localhost/node_modules/vue-hot-reload-api/dist/index.js")
-  api.install(require('vue'))
-  if (api.compatible) {
-    module.hot.accept()
-    if (!module.hot.data) {
-      api.createRecord('466cc690', component.options)
-    } else {
-      api.reload('466cc690', component.options)
-    }
-    
-  }
-}
-component.options.__file = "resources/assets/js/components/forms/Group.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/forms/Group.vue?vue&type=script&lang=js&":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Group_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Group.vue?vue&type=script&lang=js&");
-/* unused harmony namespace reexport */
- /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Group_vue_vue_type_script_lang_js___["a" /* default */]); 
-
-/***/ }),
-
 /***/ "./resources/assets/js/mixins/OldErrors.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['oldErrors'],
+    props: ['oldErrors'],
 
-	mounted: function mounted() {
-		var _this = this;
+    mounted: function mounted() {
+        var _this = this;
 
-		if (this.oldErrors) {
-			Vue.nextTick(function () {
-				_.forEach(_this.oldErrors, function (errors, field) {
-					field = field.split('_')[0];
+        if (this.oldErrors) {
+            Vue.nextTick(function () {
+                _.forEach(_this.oldErrors, function (errors, field) {
+                    field = field.split('_')[0];
 
-					errors.forEach(function (message) {
-						_this.errors.add(field, message, 'database');
-					});
-				});
-			});
-		}
-	},
+                    errors.forEach(function (message) {
+                        _this.errors.add(field, message, 'database');
+                    });
+                });
+            });
+        }
+    },
 
 
-	methods: {
-		validateBeforeSubmit: function validateBeforeSubmit(event) {
-			this.$validator.validateAll();
-
-			if (this.errors.any()) {
-				event.preventDefault();
-			}
-		}
-	}
+    methods: {
+        validateBeforeSubmit: function validateBeforeSubmit(event) {
+            this.$validator.validateAll().then(function (result) {
+                if (result) {
+                    return;
+                }
+            });
+        }
+    }
 });
 
 /***/ }),

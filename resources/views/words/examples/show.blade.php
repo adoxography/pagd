@@ -1,18 +1,31 @@
 @extends('layout', ['title' => $example->name])
 
 @section('title')
-	<label>Example details:</label>
-	{!! $example->present()
-				->as('name', 'bold')
-				->then('language')
-				->as('link',
-					 optional($example->form)->structure_type == 'nominalStructures' ? 'nominals' : 'verbs'
-				)
-	!!}
+<h2 class="subtitle is-5 is-uppercase has-text-grey-darker has-text-weight-bold">Example details</h2>
+<h1 class="title is-4">
+    {!! $example->present()->then('language')->as('link', optional($example->form)->structure_type == 'nominalStructure' ? 'nominals' : 'verbs') !!}
+</h1>
 @endsection
 
-@include('components.show-icons', ['model' => $example])
+@section('icons')
+@include('partials.show.icons', ['model' => $example, 'namespace' => 'examples'])
+@endsection
 
-@section('panel')
-	@include('words.examples.partials.panel')
+@section('content')
+<div class="columns">
+    <div class="column is-narrow">
+        @include('partials.show.nav', [
+            'routes' => [
+                'showBasic' => 'Basic details',
+                'showCognates' => 'Cognates',
+                'showLog' => 'Credits'
+            ],
+            'namespace' => 'examples',
+            'model' => $example
+        ])
+    </div>
+    <div class="column">
+        @yield('details')
+    </div>
+</div>
 @endsection

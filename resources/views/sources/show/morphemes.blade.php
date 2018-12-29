@@ -1,5 +1,5 @@
 @extends('sources.show')
 
-@section('content')
+@section('details')
 	@include('partials.show.morphemes', ['model' => $source, 'showAddButtons' => false])
 @endsection

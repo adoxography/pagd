@@ -5,16 +5,12 @@
 @endphp
 
 @section("{$name}_control")
-	<alg-textarea
+	<wysiwyg
 		value="{{ old($name, 'not found') !== 'not found' ? old($name) : $value }}"
 		name="{{ $name }}"
 
 		@if(isset($disabled))
 		:disabled="{{ $disabled }}"
 		@endif
-
-		@if(isset($height))
-		:height="{{ $height }}"
-		@endif
-	></alg-textarea>
+  ></wysiwyg>
 @endsection

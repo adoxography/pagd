@@ -1,5 +1,5 @@
 @extends('nominals.forms.show')
 
-@section('content')
+@section('details')
 	@include('partials.show.log', ['model' => $form])
 @endsection

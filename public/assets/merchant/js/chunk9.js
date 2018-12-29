@@ -1,4 +1,4 @@
-webpackJsonp([9,28],{
+webpackJsonp([9,27],{
 
 /***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Form.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -22,12 +22,12 @@ webpackJsonp([9,28],{
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/PhonemeExample.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Phoneme.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form__ = __webpack_require__("./resources/assets/js/components/forms/Form.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Datalist_js__ = __webpack_require__("./resources/assets/js/Datalist.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Datalist__ = __webpack_require__("./resources/assets/js/Datalist.js");
 
 
 
@@ -35,10 +35,77 @@ webpackJsonp([9,28],{
 /* harmony default export */ __webpack_exports__["a"] = ({
 	extends: __WEBPACK_IMPORTED_MODULE_0__Form__["default"],
 
+	props: ['oldType', 'oldIsArchiphoneme'],
+
 	data: function data() {
 		return {
-			language: new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */]()
+			type: '',
+			isArchiphoneme: false,
+
+			language: new __WEBPACK_IMPORTED_MODULE_1__Datalist__["a" /* Datalist */](),
+
+			// Consonant features
+			place: new __WEBPACK_IMPORTED_MODULE_1__Datalist__["a" /* Datalist */](),
+			manner: new __WEBPACK_IMPORTED_MODULE_1__Datalist__["a" /* Datalist */](),
+			voicing: new __WEBPACK_IMPORTED_MODULE_1__Datalist__["a" /* Datalist */](),
+
+			// Vowel features
+			height: new __WEBPACK_IMPORTED_MODULE_1__Datalist__["a" /* Datalist */](),
+			backness: new __WEBPACK_IMPORTED_MODULE_1__Datalist__["a" /* Datalist */](),
+			length: new __WEBPACK_IMPORTED_MODULE_1__Datalist__["a" /* Datalist */](),
+
+			// Cluster features
+			firstSegment: new __WEBPACK_IMPORTED_MODULE_1__Datalist__["a" /* Datalist */](),
+			secondSegment: new __WEBPACK_IMPORTED_MODULE_1__Datalist__["a" /* Datalist */]()
 		};
+	},
+
+
+	computed: {
+		fieldConstraints: function fieldConstraints() {
+			return this.isArchiphoneme ? "datalist_exists" : "datalist_required|datalist_exists";
+		},
+		archiphonemeDescriptionConstraints: function archiphonemeDescriptionConstraints() {
+			return this.isArchiphoneme ? 'required' : '';
+		},
+		typeConstraints: function typeConstraints() {
+			return this.isArchiphoneme ? 'required|not_in:clusterTypes' : 'required';
+		}
+	},
+
+	created: function created() {
+		if (this.oldType) {
+			this.type = this.oldType;
+		}
+
+		if (this.oldIsArchiphoneme) {
+			this.isArchiphoneme = this.oldIsArchiphoneme;
+		}
+
+		var dict = {
+			en: {
+				custom: {
+					featurable_type: {
+						not_in: 'Clusters cannot be archiphonemes'
+					}
+				}
+			}
+		};
+
+		this.$validator.updateDictionary(dict);
+	},
+
+
+	watch: {
+		language: function language() {
+			this.firstSegment = new __WEBPACK_IMPORTED_MODULE_1__Datalist__["a" /* Datalist */]();
+			this.secondSegment = new __WEBPACK_IMPORTED_MODULE_1__Datalist__["a" /* Datalist */]();
+		},
+		type: function type(value) {
+			if (value == 'clusterTypes') {
+				this.isArchiphoneme = false;
+			}
+		}
 	}
 });
 
@@ -137,12 +204,12 @@ component.options.__file = "resources/assets/js/components/forms/Form.vue"
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/forms/PhonemeExample.vue":
+/***/ "./resources/assets/js/components/forms/Phoneme.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__PhonemeExample_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/forms/PhonemeExample.vue?vue&type=script&lang=js&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Phoneme_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/forms/Phoneme.vue?vue&type=script&lang=js&");
 /* empty harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_componentNormalizer_js__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 var render, staticRenderFns
@@ -153,7 +220,7 @@ var render, staticRenderFns
 /* normalize component */
 
 var component = Object(__WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_componentNormalizer_js__["a" /* default */])(
-  __WEBPACK_IMPORTED_MODULE_0__PhonemeExample_vue_vue_type_script_lang_js___["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_0__Phoneme_vue_vue_type_script_lang_js___["a" /* default */],
   render,
   staticRenderFns,
   false,
@@ -170,25 +237,25 @@ if (false) {
   if (api.compatible) {
     module.hot.accept()
     if (!module.hot.data) {
-      api.createRecord('1583d99b', component.options)
+      api.createRecord('6133a402', component.options)
     } else {
-      api.reload('1583d99b', component.options)
+      api.reload('6133a402', component.options)
     }
     
   }
 }
-component.options.__file = "resources/assets/js/components/forms/PhonemeExample.vue"
+component.options.__file = "resources/assets/js/components/forms/Phoneme.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/forms/PhonemeExample.vue?vue&type=script&lang=js&":
+/***/ "./resources/assets/js/components/forms/Phoneme.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PhonemeExample_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/PhonemeExample.vue?vue&type=script&lang=js&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Phoneme_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Phoneme.vue?vue&type=script&lang=js&");
 /* unused harmony namespace reexport */
- /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PhonemeExample_vue_vue_type_script_lang_js___["a" /* default */]); 
+ /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Phoneme_vue_vue_type_script_lang_js___["a" /* default */]); 
 
 /***/ }),
 
@@ -197,34 +264,34 @@ component.options.__file = "resources/assets/js/components/forms/PhonemeExample.
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['oldErrors'],
+    props: ['oldErrors'],
 
-	mounted: function mounted() {
-		var _this = this;
+    mounted: function mounted() {
+        var _this = this;
 
-		if (this.oldErrors) {
-			Vue.nextTick(function () {
-				_.forEach(_this.oldErrors, function (errors, field) {
-					field = field.split('_')[0];
+        if (this.oldErrors) {
+            Vue.nextTick(function () {
+                _.forEach(_this.oldErrors, function (errors, field) {
+                    field = field.split('_')[0];
 
-					errors.forEach(function (message) {
-						_this.errors.add(field, message, 'database');
-					});
-				});
-			});
-		}
-	},
+                    errors.forEach(function (message) {
+                        _this.errors.add(field, message, 'database');
+                    });
+                });
+            });
+        }
+    },
 
 
-	methods: {
-		validateBeforeSubmit: function validateBeforeSubmit(event) {
-			this.$validator.validateAll();
-
-			if (this.errors.any()) {
-				event.preventDefault();
-			}
-		}
-	}
+    methods: {
+        validateBeforeSubmit: function validateBeforeSubmit(event) {
+            this.$validator.validateAll().then(function (result) {
+                if (result) {
+                    return;
+                }
+            });
+        }
+    }
 });
 
 /***/ }),

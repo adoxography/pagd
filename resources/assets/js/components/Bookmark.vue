@@ -1,14 +1,14 @@
 <template>
-	<div style="display: flex;">
-		<a @click="openModal" class="card-header-icon" v-show="bookmarkable">
+	<div style="display: inline-block;">
+		<a @click="openModal" v-show="bookmarkable">
 			<span class="icon">
-				<i class="fa fa-bookmark-o" title="Bookmark"></i>
+				<i class="far fa-bookmark" title="Bookmark"></i>
 			</span>
 		</a>
-		<a @click="unBookmark" class="card-header-icon" v-show="!bookmarkable">
+		<a @click="unBookmark" v-show="!bookmarkable">
 			<span class="icon">
 				<i class="fa fa-spinner fa-pulse fa-3x fa-fw" v-show="loading"></i>
-				<i class="fa fa-bookmark" v-show="!loading" title="Remove from bookmarks"></i>
+				<i class="fas fa-bookmark" v-show="!loading" title="Remove from bookmarks"></i>
 			</span>
 		</a>
 		<alg-modal ref="modal">
@@ -17,7 +17,7 @@
 			</div>
 
 			<em>Add a comment if desired:</em>
-			<alg-textarea ref="textarea" v-model="comment" :name="comment"></alg-textarea>
+      <wysiwyg ref="textarea" v-model="comment" :name="comment"></wysiwyg>
 
 			<div slot="footer">
 				<button class="button is-success" type="submit" @click.prevent="onSubmit">Bookmark</button>

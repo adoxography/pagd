@@ -34,9 +34,7 @@ class SearchController extends Controller
         })->get();
         $modes     = Mode::all();
 
-        if(request()->preset){
-            $preset = unserialize(request()->preset);
-        }
+        $preset = request()->preset ? unserialize(request()->preset) : null;
 
         return view('verbs.search.paradigm', compact('orders', 'languages', 'modes', 'preset'));
     }
@@ -51,9 +49,7 @@ class SearchController extends Controller
         $modes     = Mode::all();
         $orders    = Order::all();
 
-        if(request()->preset) {
-            $params = unserialize(request()->preset);
-        }
+        $params = request()->preset ? unserialize(request()->preset) : null;
 
         return view('verbs.search.form', compact('languages', 'arguments', 'classes', 'modes', 'orders', 'params'));
     }

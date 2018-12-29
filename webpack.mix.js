@@ -23,27 +23,8 @@ mix.webpackConfig({
 
   plugins: [new VueLoaderPlugin()],
 
-  externals: {
-    tinymce: 'tinymce'
-  },
-
   module: {
     rules: [
-        {
-            test: require.resolve('tinymce/tinymce'),
-            loaders: [
-                'imports-loader?this=>window',
-                'exports?window.tinymce'
-            ]
-        },
-
-        {
-            test: /tinymce\/(themes|plugins)\//,
-            loaders: [
-                'imports-loader?this=>window'
-            ]
-        },
-
         {
             test: /\.pug$/,
             loader: 'pug-plain-loader'
@@ -54,8 +35,8 @@ mix.webpackConfig({
 
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
-   .copy('resources/assets/libs/font-awesome/fonts', 'public/build/fonts')
-   .extract(['vue', 'axios', 'axios-retry', 'lodash', 'vee-validate', 'tinymce'])
+   //.copy('resources/assets/libs/font-awesome/fonts', 'public/build/fonts')
+   .extract(['vue', 'axios', 'axios-retry', 'lodash', 'vee-validate'])
    .version();
 
 // mix.browserSync('algling.dev');

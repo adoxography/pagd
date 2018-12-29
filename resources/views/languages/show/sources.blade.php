@@ -1,5 +1,5 @@
 @extends('languages/show')
 
-@section('content')
+@section('details')
 	@include('components.model.sourcelist', ['sources' => $sources])
 @endsection

@@ -1,6 +1,6 @@
 @extends('users.show')
 
-@section('content')
+@section('details')
 	<div class="field">
 		<span class="is-one-line">
 			<span class="label">User type:</span>

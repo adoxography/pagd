@@ -7,12 +7,13 @@ Route::group(['as' => 'languages::'], function () {
     Route::get('/', 'LanguageController@index');
     Route::get('/create', 'LanguageController@create');
     Route::get('/{language}', 'LanguageController@show');
-    Route::get('/{language}/edit', 'LanguageController@edit');
+    Route::get('/{language}/edit', 'LanguageController@edit')->name('edit');
     Route::post('/', 'LanguageController@store');
+    Route::get('/{language}/bookmark', 'LanguageController@bookmark')->name('bookmark');
     Route::patch('/{language}', 'LanguageController@update');
-    Route::delete('/{language}', 'LanguageController@destroy');
+    Route::delete('/{language}', 'LanguageController@destroy')->name('delete');
 
-    Route::get('/{language}/clone', 'LanguageController@clone');
+    Route::get('/{language}/clone', 'LanguageController@clone')->name('clone');
     Route::get('/{language}/addChild', 'LanguageController@addChild');
     Route::get('/{language}/addExample', 'LanguageController@addExample');
     Route::get('/{language}/addVerbForm', 'LanguageController@addVerbForm');

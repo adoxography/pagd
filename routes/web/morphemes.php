@@ -4,13 +4,13 @@ Route::group(['as' => 'morphemes::'], function () {
     Route::get('/', 'MorphemeController@index');
     Route::get('/create', 'MorphemeController@create');
     Route::get('/{morpheme}', 'MorphemeController@show');
-    Route::get('/{morpheme}/edit', 'MorphemeController@edit');
+    Route::get('/{morpheme}/edit', 'MorphemeController@edit')->name('edit');
     Route::post('/', 'MorphemeController@store');
     Route::patch('/{morpheme}', 'MorphemeController@update');
-    Route::delete('/{morpheme}', 'MorphemeController@destroy');
+    Route::delete('/{morpheme}', 'MorphemeController@destroy')->name('delete');
+    Route::post('/{morpheme}/bookmark', 'MorphemeController@bookmark')->name('bookmark');
 
-    Route::get('/{morpheme}/clone', 'MorphemeController@clone');
-    Route::patch('/{morpheme}/hide', 'MorphemeController@hide');
+    Route::get('/{morpheme}/clone', 'MorphemeController@clone')->name('clone');
 
     Route::get('/{morpheme}/possible-connections', 'MorphemeController@showConnections')->name('possible-connections');
     Route::patch('/{morpheme}/connect', 'MorphemeController@connect')->name('connect');

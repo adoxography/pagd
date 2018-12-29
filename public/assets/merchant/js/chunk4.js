@@ -1,4 +1,4 @@
-webpackJsonp([4,28],{
+webpackJsonp([4,27],{
 
 /***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Allophone.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -404,34 +404,34 @@ component.options.__file = "resources/assets/js/components/forms/Form.vue"
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['oldErrors'],
+    props: ['oldErrors'],
 
-	mounted: function mounted() {
-		var _this = this;
+    mounted: function mounted() {
+        var _this = this;
 
-		if (this.oldErrors) {
-			Vue.nextTick(function () {
-				_.forEach(_this.oldErrors, function (errors, field) {
-					field = field.split('_')[0];
+        if (this.oldErrors) {
+            Vue.nextTick(function () {
+                _.forEach(_this.oldErrors, function (errors, field) {
+                    field = field.split('_')[0];
 
-					errors.forEach(function (message) {
-						_this.errors.add(field, message, 'database');
-					});
-				});
-			});
-		}
-	},
+                    errors.forEach(function (message) {
+                        _this.errors.add(field, message, 'database');
+                    });
+                });
+            });
+        }
+    },
 
 
-	methods: {
-		validateBeforeSubmit: function validateBeforeSubmit(event) {
-			this.$validator.validateAll();
-
-			if (this.errors.any()) {
-				event.preventDefault();
-			}
-		}
-	}
+    methods: {
+        validateBeforeSubmit: function validateBeforeSubmit(event) {
+            this.$validator.validateAll().then(function (result) {
+                if (result) {
+                    return;
+                }
+            });
+        }
+    }
 });
 
 /***/ }),

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Just for Heroku
+ */
+$heroku = parse_url(getenv('DATABASE_URL'));
+
 return [
 
     /*
@@ -94,6 +99,19 @@ return [
             'schema' => 'public',
             'sslmode' => 'prefer',
         ],
+
+        'heroku' => [
+            'driver' => 'pgsql',
+            'host' => $heroku['host'],
+            'database' => substr($heroku['path'], 1),
+            'username' => $heroku['user'],
+            'password' => $heroku['pass'],
+            'port' => env('DB_PORT', '5432'),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'schema' => 'public',
+            'sslmode' => 'prefer'
+        ]
 
     ],
 

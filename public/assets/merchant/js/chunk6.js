@@ -1,4 +1,4 @@
-webpackJsonp([6,28],{
+webpackJsonp([6,27],{
 
 /***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Form.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -22,7 +22,7 @@ webpackJsonp([6,28],{
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/search/Phoneme.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Rule.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33,101 +33,14 @@ webpackJsonp([6,28],{
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-    extends: __WEBPACK_IMPORTED_MODULE_0__Form__["default"],
+	extends: __WEBPACK_IMPORTED_MODULE_0__Form__["default"],
 
-    props: ['inventory', 'preset'],
-
-    data: function data() {
-        return {
-            languages: [new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */]()],
-            type: '',
-            mode: 'inventory',
-            phonemes: {},
-            pa: { 'text': 'Proto-Algonquian' }
-        };
-    },
-
-
-    computed: {
-        phones: function phones() {
-            return this.inventory[this.type];
-        }
-    },
-
-    watch: {
-        type: function type() {
-            var phonemes = {};
-
-            _.each(this.phones, function (phone) {
-                phonemes[phone.id] = true;
-            });
-
-            this.phonemes = phonemes;
-        }
-    },
-
-    created: function created() {
-        if (this.preset) {
-            this.mode = this.preset.mode;
-
-            var languages = [];
-
-            for (var i = 0; i < this.preset.languages.length; i += 2) {
-                var name = this.preset.languages[i];
-                var id = this.preset.languages[i + 1];
-
-                if (name) {
-                    languages.push(new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */](name, id));
-                }
-            }
-
-            languages.push(this.languages[0]);
-            this.languages = languages;
-        }
-    },
-    mounted: function mounted() {
-        var _this = this;
-
-        if (this.preset) {
-            this.type = this.preset.type;
-            Vue.nextTick(function () {
-                _.each(_this.phonemes, function (_, key) {
-                    _this.phonemes[key] = _this.preset.phonemes.includes(key);
-                });
-            });
-        } else {
-            this.type = 'consonants';
-        }
-    },
-
-
-    methods: {
-        onInput: function onInput(text, index) {
-            if (text == '') {
-                if (this.languages.length > 1) {
-                    this.languages.splice(index, 1);
-                }
-            } else if (index == this.languages.length - 1) {
-                this.languages.push(new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */]());
-            }
-        },
-        phoneName: function phoneName(phoneme) {
-            return phoneme.algoName;
-        },
-        selectAll: function selectAll() {
-            this.toggle(true);
-        },
-        selectNone: function selectNone() {
-            this.toggle(false);
-        },
-        toggle: function toggle(setting) {
-            var _this2 = this;
-
-            _.each(this.phonemes, function (_, key) {
-                _this2.phonemes[key] = setting;
-            });
-        }
-    }
+	data: function data() {
+		return {
+			language: new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */](),
+			type: new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */]()
+		};
+	}
 });
 
 /***/ }),
@@ -225,12 +138,12 @@ component.options.__file = "resources/assets/js/components/forms/Form.vue"
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/forms/search/Phoneme.vue":
+/***/ "./resources/assets/js/components/forms/Rule.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Phoneme_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/forms/search/Phoneme.vue?vue&type=script&lang=js&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Rule_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/forms/Rule.vue?vue&type=script&lang=js&");
 /* empty harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_componentNormalizer_js__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 var render, staticRenderFns
@@ -241,7 +154,7 @@ var render, staticRenderFns
 /* normalize component */
 
 var component = Object(__WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_componentNormalizer_js__["a" /* default */])(
-  __WEBPACK_IMPORTED_MODULE_0__Phoneme_vue_vue_type_script_lang_js___["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_0__Rule_vue_vue_type_script_lang_js___["a" /* default */],
   render,
   staticRenderFns,
   false,
@@ -258,25 +171,25 @@ if (false) {
   if (api.compatible) {
     module.hot.accept()
     if (!module.hot.data) {
-      api.createRecord('69d442f6', component.options)
+      api.createRecord('797ab853', component.options)
     } else {
-      api.reload('69d442f6', component.options)
+      api.reload('797ab853', component.options)
     }
     
   }
 }
-component.options.__file = "resources/assets/js/components/forms/search/Phoneme.vue"
+component.options.__file = "resources/assets/js/components/forms/Rule.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/forms/search/Phoneme.vue?vue&type=script&lang=js&":
+/***/ "./resources/assets/js/components/forms/Rule.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Phoneme_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/search/Phoneme.vue?vue&type=script&lang=js&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Rule_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Rule.vue?vue&type=script&lang=js&");
 /* unused harmony namespace reexport */
- /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Phoneme_vue_vue_type_script_lang_js___["a" /* default */]); 
+ /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Rule_vue_vue_type_script_lang_js___["a" /* default */]); 
 
 /***/ }),
 
@@ -285,34 +198,34 @@ component.options.__file = "resources/assets/js/components/forms/search/Phoneme.
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['oldErrors'],
+    props: ['oldErrors'],
 
-	mounted: function mounted() {
-		var _this = this;
+    mounted: function mounted() {
+        var _this = this;
 
-		if (this.oldErrors) {
-			Vue.nextTick(function () {
-				_.forEach(_this.oldErrors, function (errors, field) {
-					field = field.split('_')[0];
+        if (this.oldErrors) {
+            Vue.nextTick(function () {
+                _.forEach(_this.oldErrors, function (errors, field) {
+                    field = field.split('_')[0];
 
-					errors.forEach(function (message) {
-						_this.errors.add(field, message, 'database');
-					});
-				});
-			});
-		}
-	},
+                    errors.forEach(function (message) {
+                        _this.errors.add(field, message, 'database');
+                    });
+                });
+            });
+        }
+    },
 
 
-	methods: {
-		validateBeforeSubmit: function validateBeforeSubmit(event) {
-			this.$validator.validateAll();
-
-			if (this.errors.any()) {
-				event.preventDefault();
-			}
-		}
-	}
+    methods: {
+        validateBeforeSubmit: function validateBeforeSubmit(event) {
+            this.$validator.validateAll().then(function (result) {
+                if (result) {
+                    return;
+                }
+            });
+        }
+    }
 });
 
 /***/ }),

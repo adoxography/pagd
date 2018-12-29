@@ -60,7 +60,7 @@
 
     // Tree expanded icon
     &.label:before {
-      background: $sandbox-dark-grey;
+      background: $yellow;
       color: $info;
       position: relative;
       z-index: 1;
@@ -82,7 +82,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: -.5em;
+    left: -.45em;
     display: block;
     width: 0;
     border-left: 1px solid #777;
@@ -92,7 +92,7 @@
   .label:after {
     position: absolute;
     top: 0;
-    left: -1.5em;
+    left: -1.6em;
     display: block;
     height: 0.5em;
     width: 1em;
@@ -110,6 +110,7 @@
     border-right: 1px solid #777;
     border-bottom: 0;
     border-left: 0;
+    left: -1.5em;
     bottom: 0;
     top: 0.5em;
     height: auto;

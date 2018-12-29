@@ -1,6 +1,6 @@
 @extends('languages/show')
 
-@section('content')
+@section('details')
 	<label class="label">
 		Rules
 		@component('components.model.add-icon', ['uri' => "/languages/{$language->id}/addRule"]) @endcomponent

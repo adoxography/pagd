@@ -1,5 +1,5 @@
 @extends('words.examples.show')
 
-@section('content')
+@section('details')
 	@include('partials.show.log', ['model' => $example])
 @endsection

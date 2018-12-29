@@ -1,69 +1,79 @@
 @extends('languages/show')
 
-@section('content')
-	<div class="columns">
-		<div class="column">
-			<div class="field">
-			@if($language->alternateNames)
-				<span class="is-one-line">
-					<label class="label">Also known as:</label>
-					{{ $language->alternateNames }}
-				</span>
-			@endif
+@section('details')
+<div class="details">
+    @isset($language->alternateNames)
+    <div class="detail-row">
+        <label class="detail-label">Also&nbsp;known&nbsp;as</label>
+        <div class="detail-value">
+            {{ $language->alternateNames }}
+        </div>
+    </div>
+    @endisset
 
-			@if($language->parent)
-				<span class="is-one-line">
-					<label class="label">Parent:</label>
-					{!! $language->parent->present('link') !!}
-				</span>
-			@endif
+    @isset($language->parent)
+    <div class="detail-row">
+        <label class="detail-label">Parent</label>
+        <div class="detail-value">
+            {!! $language->parent->present('link') !!}
+        </div>
+    </div>
+    @endisset
 
-			<span class="is-one-line">
-				<label class="label">Group:</label>
-				{!! $language->group->present('link') !!}
-			</span>
+    <div class="detail-row">
+        <label class="detail-label">Group</label>
+        <div class="detail-value">
+            {!! $language->group->present('link') !!}
+        </div>
+    </div>
 
-			<span class="is-one-line">
-				<label class="label">Algonquianist code:</label>
-				{{ $language->algoCode }}
-			</span>
+    <div class="detail-row">
+        <label class="detail-label">Algonquianist&nbsp;code</label>
+        <div class="detail-value">
+            {{ $language->algoCode }}
+        </div>
+    </div>
 
-			<span class="is-one-line">
-				<label class="label">ISO:</label>
-				{{ $language->iso ?? 'none' }}
-			</span>
-			</div>
+    @isset($language->iso)
+    <div class="detail-row">
+        <label class="detail-label">ISO&nbsp;code</label>
+        <div class="detail-value">
+            {{ $language->iso }}
+        </div>
+    </div>
+    @endisset
 
-			@if($language->children->count() > 0)
-			<div class="field">
-				<span class="label">
-					Children @include('components.model.add-icon', ['uri' => "/languages/{$language->id}/addChild"])
-				</span>
+    @if($language->children->count() > 0)
+    <div class="detail-row">
+        <label class="detail-label">Direct Children</label>
+        <div class="detail-value">
+            <ul>
+                @foreach($language->children as $child)
+                <li>{!! $child->present('link') !!}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+    @endif
 
-				<ul>
-					@foreach($language->children as $child)
-						<li>{!! $child->present('link') !!}</li>
-					@endforeach
-				</ul>
-			</div>
-			@endif
-		</div>
+    @isset($language->notes)
+    <div class="detail-row">
+        <label class="detail-label">Description</label>
+        <div class="detail-value">
+            {!! replaceTags($language->notes, $language->id) !!}
+        </div>
+    </div>
+    @endisset
 
-		<div class="column">
-			@if($language->notes)
-				<div class="field">
-					<label class="label">Description</label>
-					{!! replaceTags($language->notes, $language->id) !!}
-				</div>
-			@endif
-		</div>
-	</div>
+    @isset($language->location)
+    <div class="detail-row">
+        <label class="detail-label">Location</label>
+        <div class="detail-value">
+            <em>(Centre of the area in which the language has most recently been spoken)</em>
+            <alg-map :markers="{{ $language->toJson() }}"></alg-map>
 
-	@if($language->location)
-		<div class="field">
-			<span class="label">Location</span>
-			<em>(centre of the area in which the language has most recently been spoken)</em>
-			<alg-map :markers="{{ $language->toJson() }}"></alg-map>
-		</div>
-	@endif
+        </div>
+    </div>
+    @endisset
+</div>
 @endsection

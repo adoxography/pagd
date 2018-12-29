@@ -1,6 +1,6 @@
 @extends('variables.show')
 
-@section('content')
+@section('details')
 	<div class="columns">
 		<div class="column">
 			<div class="field">

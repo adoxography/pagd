@@ -1,7 +1,6 @@
 @extends('variables.show')
 
-@section('content')
-	<!--suppress SyntaxError -->
+@section('details')
 	<div class="field">
 		<span class="label">{{ $variable->description }}</span>
 		<alg-map :markers="{{ $languages }}" :zones-enabled="false"></alg-map>

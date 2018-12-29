@@ -1,5 +1,4 @@
 @php
-
 function recursiveRender($group) {
 	$html = '';
 
@@ -22,24 +21,29 @@ function recursiveRender($group) {
 
 	return "<ul>$html</ul>";
 }
-
 @endphp
 
 @extends('layout', ['title' => "{$group->name} languages"])
 
 @section('title')
-	<label>Group details:</label>
-	<strong>{{ $group->name }} languages</strong>
+<h2 class="subtitle is-5 is-uppercase has-text-grey-darker has-text-weight-bold">Group details</h2>
+<h1 class="title is-4">
+    {!! $group->present() !!} languages
+</h1>
 @endsection
 
-@include('components.show-icons', ['model' => $group])
+@section('icons')
+@include('partials.show.icons', ['model' => $group, 'namespace' => 'groups'])
+@endsection
 
-@section('panel')
+@section('content')
+<div class="columns">
+    <div class="column is-2">
 	<label class="label" style="padding-top: .95em">Languages in this group
 		@can('add content')
-			<a href="/groups/{{ $group->id }}/order/edit" class="icon" title="reorder">
-				<i class="fa fa-sort"></i>
-			</a>
+        <a href="/groups/{{ $group->id }}/order/edit" class="icon" title="reorder">
+            <i class="fa fa-sort"></i>
+        </a>
 		@endcan
 	</label>
 	<ul class="tree">
@@ -49,49 +53,49 @@ function recursiveRender($group) {
 			{!! recursiveRender($group) !!}
 		</li>
 	</ul>
-@endsection
+</div>
 
-@section('content')
-	<div class="columns">
-		<div class="column">
-			<div class="field">
-				<span class="is-one-line">
-					<span class="label">Group:</span>
-					{{ $group->name }} languages
-				</span>
+<div class="column">
+    <div class="details">
+        @isset($group->parent)
+        <div class="detail-row">
+            <label class="detail-label">Parent group</label>
+            <div class="detail-value">
+                {!! $group->parent->present('link') !!}
+            </div>
+        </div>
+        @endisset
 
-				@if($group->parent)
-				<span class="is-one-line">
-					<span class="label">Parent group:</span>
-					{!! $group->parent->present('link') !!}
-				</span>
-				@endif
-			</div>
-		</div>
-		<div class="column">
+        @isset($group->publicNotes)
+        <div class="detail-row">
+            <label class="detail-label">Notes</label>
+            <div class="detail-value">
+                {!! replaceTags($group->publicNotes) !!}
+            </div>
+        </div>
+        @endisset
 
-			@if($group->publicNotes)
-				<div class="field">
-					<span class="label">Public notes</span>
-					{!! replaceTags($group->publicNotes) !!}
-				</div>
-			@endif
+        @if(isset($group->privateNotes) && Auth::user() && Auth::user()->can('add content'))
+        <div class="detail-row">
+            <label class="detail-label">Private notes</label>
+            <div class="detail-value">
+                {!! replaceTags($group->privateNotes) !!}
+            </div>
+        </div>
+        @endif
 
-			@if($group->privateNotes)
-				<div class="field">
-					<span class="label">Private notes</span>
-					{!! replaceTags($group->privateNotes) !!}
-				</div>
-			@endif
-		</div>
-	</div>
-	<div class="field">
-		<span class="label">Map</span>
-		<alg-map :markers="{{ $group->allLanguages()->toJson() }}"></alg-map>
-	</div>
+        <div class="detail-row">
+            <label class="detail-label">Map</label>
+            <div class="detail-value">
+                <em>(Centre of the area in which the language has most recently been spoken)</em>
+                <alg-map :markers="{{ $group->allLanguages()->toJson() }}"></alg-map>
+            </div>
+        </div>
 
-	<div class="field">
-		<span class="label">Sources</span>
-		@include('components.model.sourcelist', ['sources' => $group->sources])
-	</div>
+        <div class="field">
+            <span class="label">Sources</span>
+            @include('components.model.sourcelist', ['sources' => $group->sources])
+        </div>
+    </div>
+</div>
 @endsection

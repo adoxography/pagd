@@ -1,6 +1,6 @@
 @extends('words.examples.show')
 
-@section('content')
+@section('details')
 	<div class="columns">
 		<div class="column">
 			@if ($example->form)

@@ -52,7 +52,7 @@ function recursiveRender($group, $variable, $colorAssignments) {
 
 @extends('variables.show')
 
-@section('content')
+@section('details')
 	<div class="field">
 		<span class="label">{{ $variable->description }}</span>
 

@@ -1,20 +1,38 @@
 @extends('layout')
 
 @section('title')
-	<label>User profile:</label>
-	{{ $user->name }}
+<h2 class="subtitle is-5 is-uppercase has-text-grey-darker has-text-weight-bold">User profile</h2>
+<h1 class="title is-4">
+    {!! $user->present() !!}
+</h1>
 @endsection
 
+@if(Auth::user() && $user->id == Auth::user()->id)
 @section('icons')
-	@if(Auth::user() && $user->id == Auth::user()->id)
-	    <a href="/users/{{ $user->id }}/edit" class="card-header-icon">
-	      	<span class="icon">
-	        	<i class="fa fa-pencil"></i>
-	      	</span>
-	    </a>
-    @endif
+<aside class="icons">
+    <a href="{{ route("users::edit", [$user->id]) }}" title="Edit">
+        <span class="icon">
+            <i class="fas fa-edit"></i>
+        </span>
+    </a>
+</aside>
 @endsection
+@endif
 
-@section('panel')
-	@include('users.partials.panel')
+@section('content')
+<div class="columns">
+    <div class="column is-narrow">
+        @include('partials.show.nav', [
+            'routes' => [
+                'show|profile' => 'Basic details',
+                'showHistory' => 'History'
+            ],
+            'namespace' => 'users',
+            'model' => $user
+        ])
+    </div>
+    <div class="column">
+        @yield('details')
+    </div>
+</div>
 @endsection

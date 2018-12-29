@@ -1,5 +1,5 @@
 @extends('languages/show')
 
-@section('content')
+@section('details')
     @include('partials.show.verbs', ['language_id' => $language->id])
 @endsection

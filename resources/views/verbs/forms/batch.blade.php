@@ -1,7 +1,7 @@
 @extends('layout', ['title' => 'Batch upload'])
 
 @section('title')
-    Batch upload
+    <h1 class="title is-4">Batch upload</h1>
 @endsection
 
 @section('content')

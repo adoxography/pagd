@@ -77,6 +77,8 @@ class LanguageShowController extends Controller
         $inventory = $language->phonology();
         if($language->id != 1) {
             $paInventory = Language::find(1)->phonology();
+        } else {
+            $paInventory = $inventory;
         }
 
         return view('languages.show.phonemes', compact('language', 'inventory', 'paInventory'));
@@ -93,6 +95,8 @@ class LanguageShowController extends Controller
         $inventory = $language->phonology();
         if($language->id != 1) {
             $paInventory = Language::find(1)->phonology();
+        } else {
+            $paInventory = $inventory;
         }
 
         return view('languages.show.clusters', compact('language', 'inventory', 'paInventory'));

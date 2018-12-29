@@ -1,5 +1,5 @@
 @extends('phonemes.show')
 
-@section('content')
+@section('details')
 	@include('partials.show.log', ['model' => $phoneme])
 @endsection

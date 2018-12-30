@@ -11,12 +11,12 @@
                 <div class="columns">
                     <div class="column">
                         @component('components.form.text', [
-                            'name' => 'firstName',
+                            'name' => 'first_name',
                             'label' => 'First name',
                             'required' => 'true'
                         ])
                             @slot('value')
-                                {{ $user->firstName }}
+                                {{ $user->first_name }}
                             @endslot
                         @endcomponent
                     </div>

@@ -1,5 +1,5 @@
 @component('mail::message')
-Hi {{ $user->firstName }},
+Hi {{ $user->first_name }},
 
 This is to let you know that the ticket "[{{ $ticket->title }}](http://alglang.net/tickets/{{ $ticket->id }})," which you had asked to be notified about, has been updated.
 

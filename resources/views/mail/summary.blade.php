@@ -1,5 +1,5 @@
 @component('mail::message')
-Hi {{ $user->firstName }},
+Hi {{ $user->first_name }},
 
 Here is the activity summary for alglang.net over the past week:
 

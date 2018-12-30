@@ -12,6 +12,6 @@ class RegistrationCode extends Model
     protected $casts = ['valid' => 'boolean'];
 
     public function users() {
-        return $this->hasMany(User::class, 'verificationCode', 'code');
+        return $this->hasMany(User::class, 'verification_code', 'code');
     }
 }

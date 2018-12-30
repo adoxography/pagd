@@ -1,5 +1,5 @@
 @component('mail::message')
-Hi {{ $user->firstName }},
+Hi {{ $user->first_name }},
 
 @if(count($urgentTickets) > 0)
 The following urgent tickets remain open:

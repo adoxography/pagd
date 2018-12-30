@@ -1,5 +1,5 @@
 @component('mail::message')
-Hi {{ $user->firstName }},
+Hi {{ $user->first_name }},
 
 {{ $ticket->openedBy->name }} has opened the following urgent ticket on alglang.net:
 

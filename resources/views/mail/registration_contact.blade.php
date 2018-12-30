@@ -1,5 +1,5 @@
 @component('mail::message')
-Hi {{ $user->firstName }},
+Hi {{ $user->first_name }},
 
 Welcome to DALS! To get started, [log in](http://www.alglang.net/login) to your account. The menu for adding data will be on the upper right of the page. (You can also click [here](http://www.alglang.net/create) to go directly to the menu of add options.)
 

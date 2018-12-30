@@ -1,7 +1,6 @@
 import axiosRetry from 'axios-retry';
 import PortalVue from 'portal-vue';
 import Buefy from 'buefy';
-//import 'buefy/dist/buefy.css';
 
 
 require('./polyfill/scrollIntoViewIfNeeded');

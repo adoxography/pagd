@@ -4,6 +4,7 @@ namespace App\Models\Nominals;
 
 use App\Models\Nominals\Form;
 use App\Models\Words\Example as BaseExample;
+use Illuminate\Database\Eloquent\Builder;
 
 class Example extends BaseExample
 {

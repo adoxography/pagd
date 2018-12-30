@@ -21,10 +21,14 @@ class TicketController extends Controller
 
     public function index()
     {
-        $tickets = Ticket::with('type')
-                        ->orderByRaw('ISNULL(closed_at) DESC')
-                        ->orderByDesc('updated_at')
-                        ->simplePaginate(20);
+        $query = Ticket::with('type');
+
+        if (env('DB_CONNECTION') == 'mysql') {
+            $query->orderByRaw('ISNULL(closed_at) DESC');
+        }
+
+        $tickets = $query->orderByDesc('updated_at')
+                         ->simplePaginate(20);
 
         return view('tickets.index', compact('tickets'));
     }

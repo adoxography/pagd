@@ -6,14 +6,13 @@ use App\Models\Language;
 use App\Traits\Bookmarkable;
 use App\Traits\Sourceable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Gap extends Model
 {
     public $table = 'word_gaps';
     protected $fillable = ['structure_id', 'language_id', 'private_notes', 'historical_notes', 'usage_notes'];
 
-    use Sourceable, SoftDeletes, Bookmarkable;
+    use Sourceable, Bookmarkable;
 
     public function language()
     {

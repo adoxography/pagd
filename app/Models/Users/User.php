@@ -45,16 +45,6 @@ class User extends Authenticatable
         return $name;
     }
 
-    public function getLastNameAttribute()
-    {
-        return $this->last_name;
-    }
-
-    public function getFirstNameAttribute()
-    {
-        return $this->first_name;
-    }
-
     public function getRouteKeyName()
     {
         return 'slug';

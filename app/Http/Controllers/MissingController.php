@@ -66,7 +66,7 @@ class MissingController extends Controller
 
         for ($i = 0; $i < count($ids); $i++) {
             if (strlen($pages[$i]) > 0) {
-                DB::table('Sourceables')->where('id', $ids[$i])->update(['extraInfo' => $pages[$i]]);
+                DB::table('sourceables')->where('id', $ids[$i])->update(['extraInfo' => $pages[$i]]);
             }
         }
 

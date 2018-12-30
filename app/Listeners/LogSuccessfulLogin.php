@@ -15,7 +15,7 @@ class LogSuccessfulLogin
      */
     public function handle(Login $event)
     {
-        $event->user->lastLogin = Carbon::now();
+        $event->user->last_login = Carbon::now();
         $event->user->save();
     }
 }

@@ -138,17 +138,17 @@ class Source extends Model implements VerbFormRepositoryInterface, NominalFormRe
 
     public function forms()
     {
-        return $this->morphedByMany(Form::class, 'Sourceable')->withPivot('extra_info');
+        return $this->morphedByMany(Form::class, 'sourceable')->withPivot('extra_info');
     }
 
     public function morphemes()
     {
-        return $this->morphedByMany(Morpheme::class, 'Sourceable')->withPivot('extra_info');
+        return $this->morphedByMany(Morpheme::class, 'sourceable')->withPivot('extra_info');
     }
 
     public function examples()
     {
-        return $this->morphedByMany(Example::class, 'Sourceable')->withPivot('extra_info');
+        return $this->morphedByMany(Example::class, 'sourceable')->withPivot('extra_info');
     }
 
     public function verbExamples()
@@ -163,17 +163,17 @@ class Source extends Model implements VerbFormRepositoryInterface, NominalFormRe
 
     public function rules()
     {
-        return $this->morphedByMany(Rule::class, 'Sourceable')->withPivot('extra_info');
+        return $this->morphedByMany(Rule::class, 'sourceable')->withPivot('extra_info');
     }
 
     public function gaps()
     {
-        return $this->morphedByMany(Gap::class, 'Sourceable')->withPivot('extra_info');
+        return $this->morphedByMany(Gap::class, 'sourceable')->withPivot('extra_info');
     }
 
     public function phonemes()
     {
-        return $this->morphedByMany(Phoneme::class, 'Sourceable')->withPivot('extra_info');
+        return $this->morphedByMany(Phoneme::class, 'sourceable')->withPivot('extra_info');
     }
 
     public function present(string $method = 'name')

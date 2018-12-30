@@ -51,21 +51,21 @@ class AdminController extends Controller
     public function stats()
     {
         $formPendingFunction = function ($query) {
-            $query->whereNotNull('Word_Forms.morphemicForm');
+            $query->whereNotNull('word_forms.morphemic_form');
         };
 
         $examplePendingFunction = function ($query) {
-            $query->whereNotNull('Word_Examples.morphemicForm');
+            $query->whereNotNull('word_examples.morphemic_form');
         };
 
         $formCompleteFunction = function ($query) {
-            $query->whereNotNull('Word_Forms.morphemicform')
-                  ->where('Word_Forms.complete', '1');
+            $query->whereNotNull('word_forms.morphemic_form')
+                  ->where('word_forms.complete', '1');
         };
 
         $exampleCompleteFunction = function ($query) {
-            $query->whereNotNull('Word_Examples.morphemicform')
-                  ->where('Word_Examples.complete', '1');
+            $query->whereNotNull('word_examples.morphemic_form')
+                  ->where('word_examples.complete', '1');
         };
 
         $languages = Language::withCount([

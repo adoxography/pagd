@@ -27,6 +27,7 @@
         "spatie/laravel-permission": "^2.3.2",
         "spatie/laravel-sluggable": "^2.0",
         "srmklive/flysystem-dropbox-v2": "^1.0",
+        "symfony/polyfill-iconv": "^1.10",
         "teamtnt/laravel-scout-tntsearch-driver": "^3.0",
         "venturecraft/revisionable": "dev-master"
     },

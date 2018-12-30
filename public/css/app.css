@@ -20297,6 +20297,10 @@ a.navbar-item.has-background-primary:hover,
   background: #262626 !important;
 }
 
+.field.is-expanded.is-grouped .field.is-expanded.has-addons {
+  display: block;
+}
+
 #main-content {
   padding: 1.5rem;
 }

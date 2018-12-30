@@ -59,6 +59,11 @@ class User extends Authenticatable
         }
     }
 
+    public function getFirstNameAttribute($value)
+    {
+        return $value;
+    }
+
     public function revisions()
     {
         return $this->hasMany(Revision::class)->latest();

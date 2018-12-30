@@ -16,7 +16,7 @@ class TicketController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('checkbox:isUrgent')->only('store');
+        $this->middleware('checkbox:is_urgent')->only('store');
     }
 
     public function index()
@@ -46,7 +46,7 @@ class TicketController extends Controller
     public function store()
     {
         $ticket = new Ticket(request()->only(
-            ['title', 'url', 'current', 'desired', 'etc', 'ticketType_id', 'isUrgent']
+            ['title', 'url', 'current', 'desired', 'etc', 'ticket_type_id', 'is_urgent']
         ));
         $ticket->openedBy_id = Auth::user()->id;
         $ticket->save();
@@ -55,7 +55,7 @@ class TicketController extends Controller
             $ticket->subscribe(Auth::user());
         }
 
-        if (request()->isUrgent) {
+        if (request()->is_urgent) {
             $this->notifyDevelopers($ticket);
         }
 
@@ -101,7 +101,7 @@ class TicketController extends Controller
         $map = [];
         $types = $tickets->pluck('type')->unique()->sortBy('id');
         foreach ($types as $type) {
-            $map[$type->name] = $tickets->where('ticketType_id', $type->id);
+            $map[$type->name] = $tickets->where('ticket_type_id', $type->id);
         }
 
         return $map;

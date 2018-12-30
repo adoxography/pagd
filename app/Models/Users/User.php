@@ -38,8 +38,8 @@ class User extends Authenticatable
     {
         $name = $this->first_name;
 
-        if ($this->lastName) {
-            $name .= ' ' . $this->lastName;
+        if ($this->last_name) {
+            $name .= ' ' . $this->last_name;
         }
 
         return $name;

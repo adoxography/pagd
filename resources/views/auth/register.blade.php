@@ -128,9 +128,9 @@
                         {{--@endcomponent--}}
                     {{--</div>--}}
                     {{--<div class="column">--}}
-                        {{--@component('components.form.text', ['name' => 'lastName', 'label' => 'Last name', 'required' => 'true'])--}}
+                        {{--@component('components.form.text', ['name' => 'last_name', 'label' => 'Last name', 'required' => 'true'])--}}
                             {{--@slot('value')--}}
-                                {{--{{ old('lastName') }}--}}
+                                {{--{{ old('last_name') }}--}}
                             {{--@endslot--}}
                         {{--@endcomponent--}}
                     {{--</div>--}}

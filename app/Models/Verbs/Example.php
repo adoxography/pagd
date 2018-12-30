@@ -4,6 +4,7 @@ namespace App\Models\Verbs;
 
 use App\Models\Verbs\Form;
 use App\Models\Words\Example as BaseExample;
+use Illuminate\Database\Eloquent\Builder;
 
 class Example extends BaseExample
 {

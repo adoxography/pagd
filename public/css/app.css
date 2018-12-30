@@ -20768,6 +20768,65 @@ table.table.details td {
   transition: opacity .15s;
 }
 
+.admin-menu {
+  position: fixed;
+  padding: .5em;
+  height: 100%;
+  width: 10em;
+  -webkit-box-shadow: 2px 0 5px -2px #888;
+          box-shadow: 2px 0 5px -2px #888;
+}
+
+.admin-menu .menu-list a {
+  padding-top: 0;
+  padding-bottom: .25em;
+}
+
+.admin-menu .menu-list a:hover {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+.admin-menu .menu-list li ul {
+  margin-top: 0;
+  margin-bottom: .5em;
+}
+
+.admin-menu .back-button {
+  margin-top: .5em;
+  text-align: center;
+  background-color: #fee414;
+}
+
+.admin-menu .back-button a {
+  display: block;
+  color: #262626;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+.admin-menu .back-button a:hover {
+  background-color: #fee414;
+  color: #ffffff;
+}
+
+.admin-body {
+  margin-left: 10em;
+}
+
+.admin-body .admin-header {
+  padding: 1em 2em;
+  background-color: #fee414;
+}
+
+.admin-body .admin-content {
+  padding: 1em .75em;
+}
+
+.admin-body .admin-content .title.is-2 {
+  font-size: 1.5rem;
+}
+
 [v-cloak] {
   display: none;
 }

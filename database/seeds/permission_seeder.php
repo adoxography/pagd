@@ -14,6 +14,9 @@ class permission_seeder extends Seeder
      */
     public function run()
     {
+        DB::table('roles')->delete();
+        DB::table('permissions')->delete();
+
         $roles = [
             'developer' => [
                 'receive ticket summaries'
@@ -40,7 +43,7 @@ class permission_seeder extends Seeder
             }
         }
 
-        User::find(1)->assignRole(['developer', 'leader', 'contributor', 'reader']);
+        User::first()->assignRole(['developer', 'leader', 'contributor', 'reader']);
         Artisan::call('cache:forget', ['key' => 'spatie.permission.cache']);
     }
 }

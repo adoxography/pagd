@@ -48,7 +48,7 @@ class Aggregate extends Command
 
             exec("mysql algling < $file");
 
-            exec("mysqldump --skip-add-drop-table --no-create-info --insert-ignore --skip-add-locks algling Sourceables >> aggregate.sql");
+            exec("mysqldump --skip-add-drop-table --no-create-info --insert-ignore --skip-add-locks algling sourceables >> aggregate.sql");
 
             $this->delete(array_last(explode('/', $file)), 'local');
         }

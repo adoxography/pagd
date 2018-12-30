@@ -9,6 +9,6 @@ Route::group(['as' => 'reflexes::'], function () {
     Route::patch('/{reflex}', 'ReflexController@update');
     Route::delete('/{reflex}', 'ReflexController@destroy')->name('delete');
 
-    Route::get('reflexes/{reflex}/clone', 'Phonology\ReflexController@clone')->name('clone');
-    Route::post('reflexes/{reflex}/bookmark', 'Phonology\ReflexController@bookmark')->name('bookmark');
+    Route::get('reflexes/{reflex}/clone', 'ReflexController@clone')->name('clone');
+    Route::post('reflexes/{reflex}/bookmark', 'ReflexController@bookmark')->name('bookmark');
 });

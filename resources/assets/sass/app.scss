@@ -115,6 +115,10 @@ a.navbar-item, .navbar-item a {
     background: $secondary !important;
 }
 
+.field.is-expanded.is-grouped .field.is-expanded.has-addons {
+    display: block;
+}
+
 // Site specific stuff
 #main-content {
     padding: 1.5rem;

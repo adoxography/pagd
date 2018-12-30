@@ -44225,8 +44225,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-//import 'buefy/dist/buefy.css';
-
 
 __webpack_require__("./resources/assets/js/polyfill/scrollIntoViewIfNeeded.js");
 

@@ -13,24 +13,22 @@ class CreatePhonExamplesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Phon_Examples', function(Blueprint $table) {
+        Schema::create('phon_examples', function(Blueprint $table) {
             $table->increments('id');
 
             $table->string('name');
             $table->string('translation');
-            $table->string('phonemicRepresentation')->nullable();
+            $table->string('phonemic_representation')->nullable();
 
-            $table->text('publicNotes')->nullable();
-            $table->text('privateNotes')->nullable();
+            $table->text('public_notes')->nullable();
+            $table->text('private_notes')->nullable();
 
             $table->unsignedInteger('language_id');
             $table->unsignedInteger('parent_id')->nullable();
 
             $table->timestamps();
-            $table->softDeletes();
-            $table->timestamp('hidden_at')->nullable();
 
-            $table->foreign('language_id')->references('id')->on('Languages');
+            $table->foreign('language_id')->references('id')->on('languages');
             $table->unique(['language_id', 'name']);
         });
     }
@@ -42,6 +40,6 @@ class CreatePhonExamplesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Phon_Examples');
+        Schema::dropIfExists('phon_examples');
     }
 }

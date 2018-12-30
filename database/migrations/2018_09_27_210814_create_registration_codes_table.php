@@ -13,7 +13,7 @@ class CreateRegistrationCodesTable extends Migration
      */
     public function up()
     {
-        Schema::create('RegistrationCodes', function (Blueprint $table) {
+        Schema::create('registration_codes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code')->unique();
             $table->boolean('valid')->default(true);
@@ -28,6 +28,6 @@ class CreateRegistrationCodesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('RegistrationCodes');
+        Schema::dropIfExists('registration_codes');
     }
 }

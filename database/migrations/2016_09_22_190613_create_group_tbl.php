@@ -13,12 +13,17 @@ class CreateGroupTbl extends Migration
      */
     public function up()
     {
-        Schema::create('Groups', function (Blueprint $table) {
+        Schema::create('groups', function (Blueprint $table) {
         	$table->engine = 'InnoDB';
         	
             $table->increments('id');
             $table->string('name',100);
+            $table->string('aliases')->nullable();
             $table->text('description')->nullable();
+            $table->integer('position')->default(-1);
+            $table->unsignedInteger('parent_id')->nullable();
+            $table->text('public_notes')->nullable();
+            $table->text('private_notes')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +35,6 @@ class CreateGroupTbl extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Groups');
+        Schema::dropIfExists('groups');
     }
 }

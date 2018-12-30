@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Structure extends Model
 {
-    public $table = 'Nom_Structures';
+    public $table = 'nom_structures';
 
-    protected $fillable = ['pronominalFeature_id', 'nominalFeature_id', 'paradigm_id'];
+    protected $fillable = ['pronominal_feature_id', 'nominal_feature_id', 'paradigm_id'];
 
     public $with = ['pronominalFeature', 'nominalFeature', 'paradigm'];
 
@@ -21,12 +21,12 @@ class Structure extends Model
 
     public function pronominalFeature()
     {
-   		return $this->belongsTo(Feature::class, 'pronominalFeature_id');
+   		return $this->belongsTo(Feature::class, 'pronominal_feature_id');
     }
 
     public function nominalFeature()
     {
-    	return $this->belongsTo(Feature::class, 'nominalFeature_id');
+    	return $this->belongsTo(Feature::class, 'nominal_feature_id');
     }
 
     public function paradigm()

@@ -13,16 +13,16 @@ class CreateIgtTable extends Migration
      */
     public function up()
     {
-        Schema::create('IGT', function (Blueprint $table) {
+        Schema::create('igts', function (Blueprint $table) {
         	$table->engine = 'InnoDB';
 
             $table->increments('id');
             $table->unsignedInteger('language_id');
-            $table->text('publicNotes')->nullable();
-            $table->text('privateNotes')->nullable();
+            $table->text('public_notes')->nullable();
+            $table->text('private_notes')->nullable();
             $table->timestamps();
 
-            $table->foreign('language_id')->references('id')->on('Languages');
+            $table->foreign('language_id')->references('id')->on('languages');
         });
     }
 
@@ -33,6 +33,6 @@ class CreateIgtTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('IGT');
+        Schema::dropIfExists('igts');
     }
 }

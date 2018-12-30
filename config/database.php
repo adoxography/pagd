@@ -102,10 +102,10 @@ return [
 
         'heroku' => [
             'driver' => 'pgsql',
-            'host' => $heroku['host'],
-            'database' => substr($heroku['path'], 1),
-            'username' => $heroku['user'],
-            'password' => $heroku['pass'],
+            'host' => $heroku['host'] ?? 'localhost',
+            'database' => substr($heroku['path'] ?? '/', 1),
+            'username' => $heroku['user'] ?? 'forge',
+            'password' => $heroku['pass'] ?? '',
             'port' => env('DB_PORT', '5432'),
             'charset' => 'utf8',
             'prefix' => '',

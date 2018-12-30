@@ -11,7 +11,7 @@ class seed_phon_lengths extends Seeder
      */
     public function run()
     {
-        DB::table('Phon_Lengths')->delete();
+        DB::table('phon_lengths')->delete();
 
         $lengths = [
         	['id' => 1, 'name' => 'Long'],
@@ -19,6 +19,6 @@ class seed_phon_lengths extends Seeder
         	['id' => 3, 'name' => 'Extrashort'],
         ];
 
-        DB::table('Phon_Lengths')->insert($lengths);
+        DB::table('phon_lengths')->insert($lengths);
     }
 }

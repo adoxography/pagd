@@ -11,7 +11,7 @@ class seed_ss_types extends Seeder
      */
     public function run()
     {
-        DB::table('SS_Types')->delete();
+        DB::table('ss_types')->delete();
 
         $types = [
         	[
@@ -36,6 +36,6 @@ class seed_ss_types extends Seeder
         	]
         ];
 
-        DB::table('SS_Types')->insert($types);
+        DB::table('ss_types')->insert($types);
     }
 }

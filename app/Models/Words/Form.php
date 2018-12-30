@@ -15,7 +15,6 @@ use App\Traits\Sourceable;
 use App\Traits\Morphemes\HasMorphemes;
 use App\Traits\Phonology\Phonemeable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
 
@@ -30,7 +29,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
 class Form extends Model implements PhonemeableInterface, HasMorphemesInterface
 {
     use Searchable, RevisionableTrait, Sourceable, HasMorphemes, Reconstructable, HasChildren,
-        BacksUp, Bookmarkable, SoftDeletes, Phonemeable;
+        BacksUp, Bookmarkable, Phonemeable;
 
     /*
     |--------------------------------------------------------------------------
@@ -40,22 +39,22 @@ class Form extends Model implements PhonemeableInterface, HasMorphemesInterface
     | These are the basic variables required by Eloquent to manage this model.
     |
     */
-    public $table = 'Word_Forms';
+    public $table = 'word_forms';
     public $morphCode = 'forms';
 
     protected $fillable = [
-        'allomorphyNotes',
-        'changeType_id',
-        'privateNotes',
+        'allomorphy_notes',
+        'change_type_id',
+        'private_notes',
         'structure_id',
         'structure_type',
-        'historicalNotes',
+        'historical_notes',
         'language_id',
-        'morphemicForm',
+        'morphemic_form',
         'parent_id',
-        'phonemicForm',
+        'phonemic_form',
         'name',
-        'usageNotes'
+        'usage_notes'
     ];
 
     protected $appends = ['html'];
@@ -64,7 +63,16 @@ class Form extends Model implements PhonemeableInterface, HasMorphemesInterface
     {
         $array = $this->toArray();
 
-        return array_only($array, ['id', 'allomorphyNotes', 'privateNotes', 'historicalNotes', 'morphemicForm', 'phonemicForm', 'name', 'usageNotes']);
+        return array_only($this->toArray(), [
+            'id',
+            'allomorphy_notes',
+            'private_notes',
+            'historical_notes',
+            'morphemic_form',
+            'phonemic_form',
+            'name',
+            'usage_notes'
+        ]);
     }
 
     /*
@@ -79,15 +87,15 @@ class Form extends Model implements PhonemeableInterface, HasMorphemesInterface
     protected $revisionCreationsEnabled = true;
     protected $revisionNullString = 'none';
     protected $revisionFormattedFieldNames = [
-        'allomorphyNotes' => 'allomorphy notes',
-        'privateNotes'    => 'comments',
-        'historicalNotes' => 'historical notes',
-        'morphemicForm'   => 'morphemes',
+        'allomorphy_notes' => 'allomorphy notes',
+        'private_notes'    => 'comments',
+        'historical_notes' => 'historical notes',
+        'morphemic_form'   => 'morphemes',
         'parent_id'       => 'parent',
-        'phonemicForm'    => 'phonemic representation',
+        'phonemic_form'    => 'phonemic representation',
         'name'            => 'surface form',
-        'usageNotes'      => 'usage notes',
-        'changeType_id'   => 'change type',
+        'usage_notes'      => 'usage notes',
+        'change_type_id'   => 'change type',
         'created_at'      => '[created]'
     ];
     protected $dontKeepRevisionOf = [
@@ -111,7 +119,7 @@ class Form extends Model implements PhonemeableInterface, HasMorphemesInterface
 
     public function getCommentsAttribute()
     {
-        return $this->privateNotes;
+        return $this->private_notes;
     }
 
     /**
@@ -127,8 +135,6 @@ class Form extends Model implements PhonemeableInterface, HasMorphemesInterface
     public function getNameAttribute($value)
     {
         return $this->modifyIfReconstructed($value);
-
-        // return preg_replace('/^([^A-Z]*)([A-Z]*)(.*)/', '<em>$1</em>$2<em>$3</em>', $name);
     }
 
     /**
@@ -139,16 +145,12 @@ class Form extends Model implements PhonemeableInterface, HasMorphemesInterface
      */
     public function getPhonemicFormAttribute($value)
     {
-        if ($value) {
-            return $this->modifyIfReconstructed($value);
-        } else {
-            return null;
-        }
+        return $value ? $this->modifyIfReconstructed($value) : null;
     }
 
     public function getPhoneticFormAttribute()
     {
-        return $this->phonemicForm;
+        return $this->phonemic_form;
     }
 
     public function getDisplayAttribute()
@@ -169,36 +171,30 @@ class Form extends Model implements PhonemeableInterface, HasMorphemesInterface
 
     public function isStemless()
     {
-        if ($this->morphemicForm) {
-            return !$this->hasStem();
-        } else {
-            return $this->hasIdenticalExample();
-        }
+        return $this->morphemic_form ? !$this->hasStem() : $this->hasIdenticalExample();
     }
 
     protected function hasStem()
     {
-        $morphemes = $this->morphemes;
-        $found = false;
-
-        for ($i = 0; $i < $morphemes->count() && !$found; $i++) {
-            $morpheme = str_replace(['*', '-'], '', $morphemes[$i]->name);
-            $found = $morpheme == 'N' || $morpheme == 'V';
+        foreach ($this->morphemes as $morpheme) {
+            $strippedMorpheme = str_replace(['*', '-'], '', $morpheme->name);
+            if ($strippedMorpheme == 'N' || $strippedMorpheme == 'V') {
+                return true;
+            }
         }
 
-        return $found;
+        return false;
     }
 
     protected function hasIdenticalExample()
     {
         $examples = $this->examples;
-        $found = false;
 
-        if ($examples->count() == 1) {
-            $found = $this->name == $this->examples->first()->name;
+        if ($examples->count() != 1) {
+            return false;
         }
 
-        return $found;
+        return $this->name == $this->examples->first()->name;
     }
 
     public function generateExample(string $translation)
@@ -207,8 +203,8 @@ class Form extends Model implements PhonemeableInterface, HasMorphemesInterface
             'form_id'       => $this->id,
             'language_id'   => $this->language_id,
             'name'          => str_replace('*', '', $this->name),
-            'phonemicForm'  => str_replace('*', '', $this->phonemicForm),
-            'morphemicForm' => $this->morphemicForm,
+            'phonemic_form'  => str_replace('*', '', $this->phonemic_form),
+            'morphemic_form' => $this->morphemic_form,
             'translation'   => $translation
         ];
 
@@ -232,12 +228,12 @@ class Form extends Model implements PhonemeableInterface, HasMorphemesInterface
 
     public function changeType()
     {
-        return $this->belongsTo(ChangeType::class, 'changeType_id');
+        return $this->belongsTo(ChangeType::class, 'change_type_id');
     }
 
     public function duplicates()
     {
-        return $this->belongsToMany(Form::class, 'Forms_Duplicates', 'form_id', 'duplicate_id');
+        return $this->belongsToMany(Form::class, 'forms_duplicates', 'form_id', 'duplicate_id');
     }
 
     public function examples()

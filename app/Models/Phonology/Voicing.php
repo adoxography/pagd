@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Voicing extends Model
 {
-    public $table = 'Phon_Voicings';
+    public $table = 'phon_voicings';
 
     protected $fillable = ['name'];
 

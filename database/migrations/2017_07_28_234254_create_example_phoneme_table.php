@@ -17,9 +17,12 @@ class CreateExamplePhonemeTable extends Migration
             $table->unsignedInteger('example_id');
             $table->unsignedInteger('phoneme_id');
 
-            $table->foreign('example_id')->references('id')->on('Phon_Examples');
-            $table->foreign('phoneme_id')->references('id')->on('Phon_Phonemes');
+            $table->foreign('example_id')->references('id')->on('word_examples');
+            $table->foreign('phoneme_id')->references('id')->on('phon_phonemes');
             $table->unique(['example_id', 'phoneme_id']);
+
+            $table->text('usage_notes')->nullable();
+            $table->text('comments')->nullable();
         });
     }
 

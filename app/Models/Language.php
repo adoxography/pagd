@@ -16,7 +16,6 @@ use App\Traits\Locatable;
 use App\Traits\Nominals\HasNominals;
 use App\Traits\Verbs\HasVerbs;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
 
@@ -25,8 +24,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  */
 class Language extends Model
 {
-    use SoftDeletes, Searchable, RevisionableTrait, HasChildren, BacksUp, Bookmarkable, 
-        Locatable;
+    use Searchable, RevisionableTrait, HasChildren, BacksUp, Bookmarkable, Locatable;
     use HasVerbs, HasNominals {
         HasVerbs::forms    insteadof HasNominals;
         HasVerbs::examples insteadof HasNominals;
@@ -41,7 +39,6 @@ class Language extends Model
     | These are the basic variables required by Eloquent to manage this model.
     |
     */
-    public $table = 'Languages';
     protected $fillable = [
         'alternateNames',
         'name',
@@ -230,7 +227,7 @@ class Language extends Model
               ->addSelect(DB::raw("(
                   (select count(*) from `Word_Forms` where `Languages`.`id` = `Word_Forms`.`language_id` and `Word_Forms`.deleted_at is null) +
                   (select count(*) from `Word_Examples` where `Languages`.`id` = `Word_Examples`.`language_id` and `Word_Examples`.deleted_at is null) +
-                  (select count(*) from `Phon_Phonemes` where `Languages`.`id` = `Phon_Phonemes`.`language_id` and `Phon_Phonemes`.deleted_at is null)
+                  (select count(*) from `phon_phonemes` where `Languages`.`id` = `phon_phonemes`.`language_id` and `phon_phonemes`.deleted_at is null)
               ) as `activity`"));
         return $query;
     }

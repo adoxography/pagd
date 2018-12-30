@@ -13,7 +13,7 @@ class CreateMannersTable extends Migration
      */
     public function up()
     {
-        Schema::create('Phon_Manners', function(Blueprint $table) {
+        Schema::create('phon_manners', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
         });
@@ -26,6 +26,6 @@ class CreateMannersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Phon_Manners');
+        Schema::dropIfExists('phon_manners');
     }
 }

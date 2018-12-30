@@ -11,7 +11,7 @@ class seed_glosses extends Seeder
      */
     public function run()
     {
-        DB::table('Morph_Glosses')->delete();
+        DB::table('morph_glosses')->delete();
         
         $glosses = array(
             ['id' => 1,  'abv' => 'V',     'name' => 'verb stem'],
@@ -42,6 +42,6 @@ class seed_glosses extends Seeder
         	['id' => 26, 'abv' => 'N',     'name' => 'noun stem']
         );
         
-        DB::table('Morph_Glosses')->insert($glosses);
+        DB::table('morph_glosses')->insert($glosses);
     }
 }

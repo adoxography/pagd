@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class IGTLineType extends Model
 {
-    public $table = 'IGTLineTypes';
+    public $table = 'igt_line_types';
 
     protected $casts = ['align' => 'boolean'];
 }

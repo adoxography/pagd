@@ -14,9 +14,9 @@ class Paradigm extends Model
     use Sourceable;
     use Bookmarkable;
 
-    public $table = 'Nom_Paradigms';
+    public $table = 'nom_paradigms';
 
-    protected $fillable = ['name', 'language_id', 'paradigmType_id'];
+    protected $fillable = ['name', 'language_id', 'paradigm_type_id'];
 
     public $uri = 'nominals/paradigms';
 
@@ -24,7 +24,7 @@ class Paradigm extends Model
 
     public function paradigmType()
     {
-        return $this->belongsTo(ParadigmType::class, 'paradigmType_id');
+        return $this->belongsTo(ParadigmType::class, 'paradigm_type_id');
     }
 
     public function type()

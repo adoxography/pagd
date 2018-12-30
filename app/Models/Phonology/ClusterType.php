@@ -4,7 +4,7 @@ namespace App\Models\Phonology;
 
 class ClusterType extends PhonemeType
 {
-    public $table = 'Phon_Clusters';
+    public $table = 'phon_clusters';
     public $timestamps = false;
     public $name = 'Cluster';
 

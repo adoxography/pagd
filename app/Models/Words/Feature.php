@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Feature extends Model
 {
-    public $table = 'Word_Features';
+    public $table = 'word_features';
     protected $aliasesCache;
 
-    protected $fillable = ['name', 'person', 'number', 'obviativeCode'];
+    protected $fillable = ['name', 'person', 'number', 'obviative_code'];
     public $timestamps = false;
 
     /**
@@ -29,8 +29,8 @@ class Feature extends Model
             $code = '5';
         }
 
-        if (isset($this->obviativeCode)) {
-            $code .= $this->obviativeCode;
+        if (isset($this->obviative_code)) {
+            $code .= $this->obviative_code;
         } else {
             $code .= "0";
         }
@@ -77,7 +77,7 @@ class Feature extends Model
     {
         $str = null;
 
-        switch ($this->obviativeCode) {
+        switch ($this->obviative_code) {
             case 1:
                 $str = '\'';
                 break;
@@ -93,7 +93,7 @@ class Feature extends Model
 
     public function getObviativeNameAttribute()
     {
-        switch ($this->obviativeCode) {
+        switch ($this->obviative_code) {
         case 1:
             return 'Obviative';
         case 2:
@@ -137,21 +137,21 @@ class Feature extends Model
 
     public function primaryObjectStructures()
     {
-        return $this->hasMany(VerbStructure::class, 'primaryObject_id');
+        return $this->hasMany(VerbStructure::class, 'primary_object_id');
     }
 
     public function secondaryObjectStructures()
     {
-        return $this->hasMany(VerbStructure::class, 'secondaryObject_id');
+        return $this->hasMany(VerbStructure::class, 'secondary_object_id');
     }
 
     public function nominalStructures()
     {
-        return $this->hasMany(NominalStructure::class, 'nominalFeature_id');
+        return $this->hasMany(NominalStructure::class, 'nominal_feature_id');
     }
 
     public function pronominalStructures()
     {
-        return $this->hasMany(NominalStructure::class, 'pronominalFeature_id');
+        return $this->hasMany(NominalStructure::class, 'pronominal_feature_id');
     }
 }

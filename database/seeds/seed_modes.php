@@ -11,7 +11,7 @@ class seed_modes extends Seeder
      */
     public function run()
     {
-        DB::table('Verb_Modes')->delete();
+        DB::table('verb_modes')->delete();
         
         $modes = array(
         	['id' => 1, 'name' => 'Indicative'],
@@ -33,6 +33,6 @@ class seed_modes extends Seeder
         	['id' => 17, 'name' => 'Subordinative'],
         );
         
-        DB::table('Verb_Modes')->insert($modes);
+        DB::table('verb_modes')->insert($modes);
     }
 }

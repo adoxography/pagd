@@ -13,7 +13,7 @@ class CreateVerbOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('Verb_Orders', function(Blueprint $table) {
+        Schema::create('verb_orders', function(Blueprint $table) {
 
             // Primary key
             $table->increments('id');
@@ -33,6 +33,6 @@ class CreateVerbOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Verb_Orders');
+        Schema::dropIfExists('verb_orders');
     }
 }

@@ -16,14 +16,13 @@ use Venturecraft\Revisionable\Revision;
 class User extends Authenticatable
 {
     use Notifiable, HasRoles, HasSlug;
-    public $table = 'users';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'firstName', 'lastName', 'email', 'password', 'receiveSiteSummary', 'verificationCode'
+        'first_name', 'last_name', 'email', 'password', 'receive_site_summary', 'verification_code'
     ];
 
     /**
@@ -44,6 +43,16 @@ class User extends Authenticatable
         }
 
         return $name;
+    }
+
+    public function getLastNameAttribute()
+    {
+        return $this->last_name;
+    }
+
+    public function getFirstNameAttribute()
+    {
+        return $this->first_name;
     }
 
     public function getRouteKeyName()
@@ -105,7 +114,7 @@ class User extends Authenticatable
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom(['firstName', 'lastName'])
+            ->generateSlugsFrom(['first_name', 'last_name'])
             ->saveSlugsTo('slug');
     }
 

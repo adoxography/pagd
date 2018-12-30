@@ -13,15 +13,14 @@ class CreateBookmarksTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('Bookmarks');
-
-        Schema::create('Bookmarks', function(Blueprint $table) {
+        Schema::create('bookmarkables', function(Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->text('comment')->nullable();
             $table->morphs('bookmarkable');
             $table->timestamps();
 
+            $table->unique(['user_id', 'bookmarkable_type', 'bookmarkable_id']);
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
@@ -33,6 +32,6 @@ class CreateBookmarksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Bookmarks');
+        Schema::dropIfExists('bookmarkables');
     }
 }

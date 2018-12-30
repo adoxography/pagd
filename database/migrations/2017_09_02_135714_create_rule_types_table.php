@@ -13,7 +13,7 @@ class CreateRuleTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('RuleTypes', function (Blueprint $table) {
+        Schema::create('Rule_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
         });
@@ -26,6 +26,6 @@ class CreateRuleTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('RuleTypes');
+        Schema::dropIfExists('rule_types');
     }
 }

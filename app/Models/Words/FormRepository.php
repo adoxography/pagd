@@ -34,9 +34,9 @@ class FormRepository {
 		$foreignKey   = $options['foreignKey'];
 		$id           = $options['id'];
 
-	    $query = ($this->formType)::select('Word_Forms.*')
+	    $query = ($this->formType)::select('word_forms.*')
 	        ->join($pivotTable, function($join) use($morphIDKey, $morphTypeKey) {
-	            $join->on('Word_Forms.id', '=', $morphIDKey)
+	            $join->on('word_forms.id', '=', $morphIDKey)
 	                ->where($morphTypeKey, 'forms');
 	        })->where($foreignKey, $id);
 

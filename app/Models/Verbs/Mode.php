@@ -7,11 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mode extends Model
 {
-    public $table = 'Verb_Modes';
-    protected $fillable = [
-            'name',
-            'description'
-    ];
+    public $table = 'verb_modes';
+    protected $fillable = ['name', 'description'];
 
     public function present(string $method = 'name')
     {

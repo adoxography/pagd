@@ -4,7 +4,7 @@ namespace App\Models\Phonology;
 
 class VowelType extends PhonemeType
 {
-    public $table = 'Phon_Vowels';
+    public $table = 'phon_vowels';
     public $name = 'Vowel';
 
     public $booleans = [

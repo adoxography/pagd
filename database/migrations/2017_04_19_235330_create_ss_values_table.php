@@ -13,7 +13,7 @@ class CreateSSValuesTable extends Migration
      */
     public function up()
     {
-        Schema::create('SS_Values', function(Blueprint $table) {
+        Schema::create('ss_values', function(Blueprint $table) {
             $table->engine = 'InnoDB';
 
             $table->increments('id');
@@ -30,6 +30,6 @@ class CreateSSValuesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('SS_Values');
+        Schema::dropIfExists('ss_values');
     }
 }

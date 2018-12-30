@@ -11,7 +11,7 @@ class seed_user_roles_table extends Seeder
      */
     public function run()
     {
-        DB::table('UserRoles')->delete();
+        DB::table('user_roles')->delete();
 
         $roles = [
         	[
@@ -34,6 +34,6 @@ class seed_user_roles_table extends Seeder
         	]
         ];
 
-        DB::table('UserRoles')->insert($roles);
+        DB::table('user_roles')->insert($roles);
     }
 }

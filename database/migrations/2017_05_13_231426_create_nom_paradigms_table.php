@@ -13,20 +13,18 @@ class CreateNomParadigmsTable extends Migration
      */
     public function up()
     {
-        Schema::create('Nom_Paradigms', function(Blueprint $table) {
+        Schema::create('nom_paradigms', function(Blueprint $table) {
             $table->increments('id');
 
             $table->string('name');
             $table->unsignedInteger('language_id');
-            $table->unsignedInteger('paradigmType_id');
+            $table->unsignedInteger('paradigm_type_id');
 
-            $table->timestamp('hidden_at')->nullable();
-            $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('language_id')->references('id')->on('Languages');
-            $table->foreign('paradigmType_id')->references('id')->on('Nom_ParadigmTypes');
-            $table->unique(['name', 'language_id', 'paradigmType_id']);
+            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
+            $table->foreign('paradigm_type_id')->references('id')->on('nom_paradigm_types');
+            $table->unique(['name', 'language_id', 'paradigm_type_id']);
         });
     }
 
@@ -37,6 +35,6 @@ class CreateNomParadigmsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Nom_Paradigms');
+        Schema::dropIfExists('nom_paradigms');
     }
 }

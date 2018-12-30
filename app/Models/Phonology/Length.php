@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Length extends Model
 {
-    public $table = 'Phon_Lengths';
+    public $table = 'phon_lengths';
 
     protected $fillable = ['name'];
 

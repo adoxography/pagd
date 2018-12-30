@@ -13,7 +13,6 @@ class Rule extends Model
 {
     use Sourceable, Bookmarkable;
 
-    public $table = 'Rules';
     protected $fillable = ['name', 'abv', 'rule', 'language_id', 'publicComments', 'privateComments', 'type_id'];
 
     public function getNameAttribute($value)

@@ -15,7 +15,7 @@ class PronominalFeature extends Feature
             // Only animate features
             $query->where(function ($query) {
                 $query->where('person', '<>', 0)
-                    ->orWhereNull('obviativeCode');
+                    ->orWhereNull('obviative_code');
             })
 
             // No locative

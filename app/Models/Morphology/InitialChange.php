@@ -9,7 +9,7 @@ class InitialChange extends Model
 {
 	use Disambiguatable;
 
-    public $table = 'Morph_InitialChanges';
+    public $table = 'morph_initial_changes';
     protected $fillable = ['change', 'morpheme_id'];
 
     protected $disambiguatableFields = ['morpheme_id'];

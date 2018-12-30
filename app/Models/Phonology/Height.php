@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Height extends Model
 {
-    public $table = 'Phon_Heights';
+    public $table = 'phon_heights';
 
     protected $fillable = ['name'];
 

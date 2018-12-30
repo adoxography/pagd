@@ -11,13 +11,13 @@ class seed_change_types extends Seeder
      */
     public function run()
     {
-        DB::table('ChangeTypes')->delete();
+        DB::table('change_types')->delete();
         
         $changeTypes = [
         	['id' => 1, 'name' => 'Phonological'],
         	['id' => 2, 'name' => 'Morphological']
         ];
         
-        DB::table('ChangeTypes')->insert($changeTypes);
+        DB::table('change_types')->insert($changeTypes);
     }
 }

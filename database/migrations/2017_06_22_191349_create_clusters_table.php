@@ -13,18 +13,18 @@ class CreateClustersTable extends Migration
      */
     public function up()
     {
-        Schema::create('Phon_Clusters', function(Blueprint $table) {
+        Schema::create('phon_clusters', function(Blueprint $table) {
             // Primary key
             $table->increments('id');
 
             // Foreign keys
-            $table->unsignedInteger('firstSegment_id');
-            $table->unsignedInteger('secondSegment_id');
+            $table->unsignedInteger('first_segment_id');
+            $table->unsignedInteger('second_segment_id');
 
             // Constraints
-            $table->foreign('firstSegment_id')->references('id')->on('Phon_Phonemes');
-            $table->foreign('secondSegment_id')->references('id')->on('Phon_Phonemes');
-            $table->unique(['firstSegment_id', 'secondSegment_id'], 'phon_clusters_unique');
+            $table->foreign('first_segment_id')->references('id')->on('phon_phonemes');
+            $table->foreign('second_segment_id')->references('id')->on('phon_phonemes');
+            $table->unique(['first_segment_id', 'second_segment_id'], 'phon_clusters_unique');
         });
     }
 
@@ -35,6 +35,6 @@ class CreateClustersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Phon_Clusters');
+        Schema::dropIfExists('phon_clusters');
     }
 }

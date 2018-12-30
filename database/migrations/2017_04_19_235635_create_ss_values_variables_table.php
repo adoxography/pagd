@@ -13,7 +13,7 @@ class CreateSSValuesVariablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('SS_Values_Variables', function(Blueprint $table) {
+        Schema::create('ss_values_variables', function(Blueprint $table) {
             $table->engine = 'InnoDB';
 
             $table->increments('id');
@@ -23,8 +23,8 @@ class CreateSSValuesVariablesTable extends Migration
             $table->timestamps();
 
             // Constraints
-            $table->foreign('value_id')->references('id')->on('SS_Values');
-            $table->foreign('variable_id')->references('id')->on('SS_Variables');
+            $table->foreign('value_id')->references('id')->on('ss_values');
+            $table->foreign('variable_id')->references('id')->on('ss_variables');
             $table->unique(['value_id', 'variable_id']);
         });
     }
@@ -36,6 +36,6 @@ class CreateSSValuesVariablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('SS_Values_Variables');
+        Schema::dropIfExists('ss_values_variables');
     }
 }

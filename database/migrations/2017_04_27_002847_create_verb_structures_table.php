@@ -13,7 +13,7 @@ class CreateVerbStructuresTable extends Migration
      */
     public function up()
     {
-        Schema::create('Verb_Structures', function(Blueprint $table) {
+        Schema::create('verb_structures', function(Blueprint $table) {
 
             // Primary key
             $table->increments('id');
@@ -21,15 +21,15 @@ class CreateVerbStructuresTable extends Migration
             // Foreign keys
             $table->unsignedInteger('class_id');
             $table->unsignedInteger('subject_id');
-            $table->unsignedInteger('primaryObject_id')->nullable();
-            $table->unsignedInteger('secondaryObject_id')->nullable();
+            $table->unsignedInteger('primary_object_id')->nullable();
+            $table->unsignedInteger('secondary_object_id')->nullable();
             $table->unsignedInteger('order_id');
             $table->unsignedInteger('mode_id');
 
             // Booleans
-            $table->boolean('isNegative');
-            $table->boolean('isDiminutive');
-            $table->boolean('isAbsolute')->nullable();
+            $table->boolean('is_negative');
+            $table->boolean('is_diminutive');
+            $table->boolean('is_absolute')->nullable();
 
             $table->string('head')->nullable();
             $table->string('subclass')->nullable();
@@ -37,13 +37,13 @@ class CreateVerbStructuresTable extends Migration
             $table->timestamps();
 
             // Constraints
-            $table->foreign('class_id')->references('id')->on('Verb_Classes');
-            $table->foreign('subject_id')->references('id')->on('Verb_Arguments');
-            $table->foreign('primaryObject_id')->references('id')->on('Verb_Arguments');
-            $table->foreign('secondaryObject_id')->references('id')->on('Verb_Arguments');
-            $table->foreign('order_id')->references('id')->on('Verb_Orders');
-            $table->foreign('mode_id')->references('id')->on('Verb_Modes');
-            $table->unique(['class_id', 'subject_id', 'primaryObject_id', 'secondaryObject_id', 'order_id', 'mode_id', 'isNegative', 'isDiminutive', 'isAbsolute', 'head'], 'verb_structures_unique');
+            $table->foreign('class_id')->references('id')->on('verb_classes');
+            $table->foreign('subject_id')->references('id')->on('word_features');
+            $table->foreign('primary_object_id')->references('id')->on('word_features');
+            $table->foreign('secondary_object_id')->references('id')->on('word_features');
+            $table->foreign('order_id')->references('id')->on('verb_orders');
+            $table->foreign('mode_id')->references('id')->on('verb_modes');
+            $table->unique(['class_id', 'subject_id', 'primary_object_id', 'secondary_object_id', 'order_id', 'mode_id', 'is_negative', 'is_diminutive', 'is_absolute', 'head'], 'verb_structures_unique');
         });
     }
 
@@ -54,6 +54,6 @@ class CreateVerbStructuresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Verb_Structures');
+        Schema::dropIfExists('verb_structures');
     }
 }

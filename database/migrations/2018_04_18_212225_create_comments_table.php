@@ -20,7 +20,7 @@ class CreateCommentsTable extends Migration
             $table->text('comment');
             $table->timestamps();
 
-            $table->foreign('ticket_id')->references('id')->on('Tickets');
+            $table->foreign('ticket_id')->references('id')->on('tickets');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

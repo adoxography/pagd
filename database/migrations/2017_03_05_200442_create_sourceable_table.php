@@ -13,16 +13,18 @@ class CreateSourceableTable extends Migration
      */
     public function up()
     {
-        Schema::create('Sourceables', function ($table) {
+        Schema::create('sourceables', function ($table) {
             $table->increments('id');
             $table->unsignedInteger('source_id')->index();
             $table->unsignedInteger('sourceable_id')->index();
             $table->string('sourceable_type')->index();
-            $table->string('extraInfo')->nullable();
+            $table->string('extra_info')->nullable();
+            $table->string('description')->nullable();
 
             $table->timestamps();
 
-            $table->foreign('source_id')->references('id')->on('Sources');
+            $table->foreign('source_id')->references('id')->on('sources');
+            $table->unique(['sourceable_type', 'sourceable_id', 'source_id', 'extra_info'], 'unique_sourceables');
         });
     }
 
@@ -33,6 +35,6 @@ class CreateSourceableTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Sourceables');
+        Schema::dropIfExists('sourceables');
     }
 }

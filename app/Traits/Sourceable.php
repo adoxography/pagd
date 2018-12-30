@@ -106,11 +106,11 @@ trait Sourceable
     {
         $type = $this->morphCode ? $this->morphCode : $this->getMorphClass();
 
-        $output = $this->belongsToMany(Source::class, 'Sourceables', 'sourceable_id')
+        $output = $this->belongsToMany(Source::class, 'sourceables', 'sourceable_id')
             ->where('sourceable_type', $type);
 
         if ($includeExtraInfo) {
-            $output->withPivot('extraInfo', 'id', 'description');
+            $output->withPivot('extra_info', 'id', 'description');
         }
 
         return $output;
@@ -120,7 +120,7 @@ trait Sourceable
     {
         $type = $this->morphCode ? $this->morphCode : $this->getMorphClass();
 
-        \DB::table('Sourceables')->where('sourceable_type', $type)
+        \DB::table('sourceables')->where('sourceable_type', $type)
                                  ->where('sourceable_id', $this->id)
                                  ->delete();
     }

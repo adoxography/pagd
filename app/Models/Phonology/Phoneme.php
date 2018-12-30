@@ -13,16 +13,15 @@ use App\Models\Language;
 use App\Traits\Reconstructable;
 use App\Traits\Sourceable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 class Phoneme extends Model
 {
-    use SoftDeletes, HasPhonemeType, RevisionableTrait, Bookmarkable, Sourceable, Reconstructable,
+    use HasPhonemeType, RevisionableTrait, Bookmarkable, Sourceable, Reconstructable,
     HasAllophones, Searchable, BacksUp;
 
-    public $table = 'Phon_Phonemes';
+    public $table = 'phon_phonemes';
     public $uri = '/phonemes';
 
     protected $fillable = [
@@ -166,7 +165,7 @@ class Phoneme extends Model
 
     public function paParents()
     {
-        return $this->belongsToMany(Phoneme::class, 'Phon_PaParents', 'phoneme_id', 'parent_id');
+        return $this->belongsToMany(Phoneme::class, 'phon_pa_parents', 'phoneme_id', 'parent_id');
     }
 
     public function allChildren()

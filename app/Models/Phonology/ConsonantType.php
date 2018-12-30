@@ -4,7 +4,7 @@ namespace App\Models\Phonology;
 
 class ConsonantType extends PhonemeType
 {
-    public $table = 'Phon_Consonants';
+    public $table = 'phon_consonants';
     public $name = 'Consonant';
 
     protected $fillable = [

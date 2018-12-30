@@ -61,7 +61,8 @@
                             </tr>
                         @endforeach
                         <tr>
-                            @component('components.form', ['action' => '/reg-codes/create'])
+                            <form method="POST" action="/reg-codes/create">
+                                @csrf
                                 <td colspan="3">
                                     <input type="input" name="code" class="input" />
                                 </td>
@@ -69,7 +70,6 @@
                                     <button type="submit" class="button is-primary">Add</button>
                                 </td>
                             </form>
-                            @endcomponent
                         </tr>
                     </tbody>
                 </table>

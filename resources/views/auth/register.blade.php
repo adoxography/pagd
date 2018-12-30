@@ -120,9 +120,9 @@
             {{--<div class="column is-half">--}}
                 {{--<div class="columns">--}}
                     {{--<div class="column">--}}
-                        {{--@component('components.form.text', ['name' => 'firstName', 'label' => 'First name', 'required' => 'true'])--}}
+                        {{--@component('components.form.text', ['name' => 'first_name', 'label' => 'First name', 'required' => 'true'])--}}
                             {{--@slot('value')--}}
-                                {{--{{ old('firstName') }}--}}
+                                {{--{{ old('first_name') }}--}}
                             {{--@endslot--}}
                         {{--@endcomponent--}}
                     {{--</div>--}}

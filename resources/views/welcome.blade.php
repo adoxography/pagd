@@ -8,10 +8,10 @@
     <article>
         <p>This database provides information about the sounds and grammar of the <a href="/groups/1">Algonquian Languages</a>, focusing on the following areas:</p>
         <blockquote>
-            <p><a class="is-uppercase">Structural survey</a>: maps showing the patterning of various features across the Algonquian family</p>
-            <p><a class="is-uppercase">Verb forms</a> and <a class="is-uppercase">Nominal forms</a> annotated with glosses, allomorphy, examples, cognates, and historical derivation</p>
-            <p><a class="is-uppercase">Phonology</a>: phoneme inventories, clusters, synchronic and diachronic rules, and sound changes</p>
-            <p><a class="is-uppercase">Bibliography</a>: a filterable bibliography of Algonquian linguistics</p>
+            <p><a href="/variables" class="is-uppercase">Structural survey</a>: maps showing the patterning of various features across the Algonquian family</p>
+            <p><a href="/verb%20forms" class="is-uppercase">Verb forms</a> and <a href="/nominal%20forms" class="is-uppercase">Nominal forms</a> annotated with glosses, allomorphy, examples, cognates, and historical derivation</p>
+            <p><a href="/phonology" class="is-uppercase">Phonology</a>: phoneme inventories, clusters, synchronic and diachronic rules, and sound changes</p>
+            <p><a href="/sources" class="is-uppercase">Bibliography</a>: a filterable bibliography of Algonquian linguistics</p>
         </blockquote>
 
         <article class="notification has-background-primary">

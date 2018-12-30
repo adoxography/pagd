@@ -16,7 +16,7 @@ trait Bookmarkable {
 
 	public function bookmarkedBy()
 	{
-		return $this->morphToMany('App\Models\Users\User', 'Bookmarkable');
+		return $this->morphToMany('App\Models\Users\User', 'bookmarkable');
 	}
 
 	public function bookmark($comment = NULL)

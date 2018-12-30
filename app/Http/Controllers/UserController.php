@@ -41,7 +41,7 @@ class UserController extends Controller
     public function update(User $user)
     {
         $user->first_name = request()->first_name;
-        $user->lastName = request()->lastName;
+        $user->last_name = request()->last_name;
         $user->email = request()->email;
 
         $user->save();

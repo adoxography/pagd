@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Manner extends Model
 {
-    public $table = 'Phon_Manners';
+    public $table = 'phon_manners';
 
     protected $fillable = ['name'];
 

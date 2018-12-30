@@ -13,7 +13,7 @@ class CreateMorphInitialChangesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Morph_InitialChanges', function(Blueprint $table) {
+        Schema::create('morph_initial_changes', function(Blueprint $table) {
             $table->engine = 'InnoDB';
 
             // Primary key
@@ -32,7 +32,7 @@ class CreateMorphInitialChangesTable extends Migration
             $table->timestamps();
 
             // Constraints
-            $table->foreign('morpheme_id')->references('id')->on('Morph_Morphemes');
+            $table->foreign('morpheme_id')->references('id')->on('morph_morphemes');
             $table->unique(['morpheme_id', 'disambiguator']);
             $table->unique(['morpheme_id', 'change']);
         });
@@ -45,6 +45,6 @@ class CreateMorphInitialChangesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Morph_InitialChanges');
+        Schema::dropIfExists('morph_initial_changes');
     }
 }

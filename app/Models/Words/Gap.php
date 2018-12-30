@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Gap extends Model
 {
-    public $table = 'Word_Gaps';
-    protected $fillable = ['structure_id', 'language_id', 'privateNotes', 'historicalNotes', 'usageNotes'];
+    public $table = 'word_gaps';
+    protected $fillable = ['structure_id', 'language_id', 'private_notes', 'historical_notes', 'usage_notes'];
 
     use Sourceable, SoftDeletes, Bookmarkable;
 

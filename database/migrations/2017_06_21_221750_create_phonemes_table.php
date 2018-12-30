@@ -13,22 +13,25 @@ class CreatePhonemesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Phon_Phonemes', function (Blueprint $table) {
+        Schema::create('phon_phonemes', function (Blueprint $table) {
             // Primary key
             $table->increments('id');
 
             // Names
-            $table->string('algoName');
-            $table->string('ipaName')->nullable();
-            $table->string('orthoName')->nullable();
+            $table->string('algo_name');
+            $table->string('ipa_name')->nullable();
+            $table->string('ortho_name')->nullable();
 
             // Notes
-            $table->text('phoneticNotes')->nullable();
-            $table->text('orthoNotes')->nullable();
-            $table->text('privateNotes')->nullable();
+            $table->text('phonetic_notes')->nullable();
+            $table->text('ortho_notes')->nullable();
+            $table->text('private_notes')->nullable();
 
             // Booleans
-            $table->boolean('isMarginal')->default(false);
+            $table->boolean('is_marginal')->default(false);
+
+            $table->boolean('is_archiphoneme')->default(false);
+            $table->string('archiphoneme_description')->nullable();
 
             // Foreign keys
             $table->unsignedInteger('language_id');
@@ -36,13 +39,11 @@ class CreatePhonemesTable extends Migration
 
             // Timestamps
             $table->timestamps();
-            $table->softDeletes();
-            $table->timestamp('hidden_at')->nullable();
 
             // Constraints
-            $table->foreign('language_id')->references('id')->on('Languages');
-            $table->unique(['algoName', 'language_id', 'deleted_at']);
-            $table->unique(['ipaName', 'language_id', 'deleted_at']);
+            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
+            $table->unique(['algo_name', 'language_id']);
+            $table->unique(['ipa_name', 'language_id']);
         });
     }
 
@@ -53,6 +54,6 @@ class CreatePhonemesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Phon_Phonemes');
+        Schema::dropIfExists('phon_phonemes');
     }
 }

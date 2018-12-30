@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Place extends Model
 {
-    public $table = 'Phon_Places';
+    public $table = 'phon_places';
 
     protected $fillable = ['name'];
 

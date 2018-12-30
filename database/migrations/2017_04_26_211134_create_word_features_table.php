@@ -13,7 +13,7 @@ class CreateWordFeaturesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Word_Features', function(Blueprint $table) {
+        Schema::create('word_features', function(Blueprint $table) {
 
             // Primary key
             $table->increments('id');
@@ -21,10 +21,10 @@ class CreateWordFeaturesTable extends Migration
             $table->string('name')->unique();
 
             $table->string('person')->nullable();
-            $table->integer('obviativeCode')->nullable();
+            $table->integer('obviative_code')->nullable();
             $table->integer('number')->nullable();
 
-            $table->unique(['person', 'obviativeCode', 'number']);
+            $table->unique(['person', 'obviative_code', 'number']);
         });
     }
 
@@ -35,6 +35,6 @@ class CreateWordFeaturesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Word_Features');
+        Schema::dropIfExists('word_features');
     }
 }

@@ -13,7 +13,7 @@ class CreateSSTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('SS_Types', function(Blueprint $table) {
+        Schema::create('ss_types', function(Blueprint $table) {
             $table->engine = 'InnoDB';
 
             $table->increments('id');
@@ -28,6 +28,6 @@ class CreateSSTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('SS_Types');
+        Schema::dropIfExists('ss_types');
     }
 }

@@ -13,7 +13,7 @@ class CreateMorphGlossesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Morph_Glosses', function(Blueprint $table) {
+        Schema::create('morph_glosses', function(Blueprint $table) {
             $table->engine = 'InnoDB';
 
             // Primary key
@@ -39,6 +39,6 @@ class CreateMorphGlossesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Morph_Glosses');
+        Schema::dropIfExists('morph_glosses');
     }
 }

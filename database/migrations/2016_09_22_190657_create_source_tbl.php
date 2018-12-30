@@ -13,15 +13,15 @@ class CreateSourceTbl extends Migration
      */
     public function up()
     {
-        Schema::create('Sources', function (Blueprint $table) {
+        Schema::create('sources', function (Blueprint $table) {
+
         	$table->engine = 'InnoDB';
 
             $table->increments('id');
 
             $table->string('author');
-            $table->smallInteger('year');
+            $table->string('year');
             $table->char('disambiguator', 2)->nullable();
-            $table->string('short',100)->nullable();
         	
             $table->text('long');
             $table->string('url')->nullable();
@@ -39,6 +39,6 @@ class CreateSourceTbl extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Sources');
+        Schema::dropIfExists('sources');
     }
 }

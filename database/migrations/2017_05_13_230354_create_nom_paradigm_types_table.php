@@ -13,14 +13,14 @@ class CreateNomParadigmTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Nom_ParadigmTypes', function(Blueprint $table) {
+        Schema::create('nom_paradigm_types', function(Blueprint $table) {
             // Primary key
             $table->increments('id');
             $table->string('name')->unique();
 
             // Booleans
-            $table->boolean('hasPronominalFeature');
-            $table->boolean('hasNominalFeature');
+            $table->boolean('has_pronominal_feature');
+            $table->boolean('has_nominal_feature');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateNomParadigmTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Nom_ParadigmTypes');
+        Schema::dropIfExists('nom_paradigm_types');
     }
 }

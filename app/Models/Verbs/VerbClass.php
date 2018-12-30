@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class VerbClass extends Model
 {
-    public $table = 'Verb_Classes';
+    public $table = 'verb_classes';
 
     public $fillable = ['name'];
 

@@ -5,14 +5,12 @@ namespace App\Models\Morphology;
 use App\Traits\Bookmarkable;
 use App\Models\Closed;
 use App\Presenters\SlotPresenter;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Slot extends Closed
 {
-    use Bookmarkable, SoftDeletes;
+    use Bookmarkable;
 
-    public $table = 'Morph_Slots';
-
+    public $table = 'morph_slots';
     protected $fillable = ['name', 'colour', 'abv', 'description'];
 
     public $relationList = ['morphemes'];

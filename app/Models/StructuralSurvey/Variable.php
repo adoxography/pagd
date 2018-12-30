@@ -12,7 +12,7 @@ class Variable extends Model
 	use Sourceable;
     use Bookmarkable;
 
-    public $table = 'SS_Variables';
+    public $table = 'ss_variables';
     protected $fillable = ['name', 'type_id', 'description', 'essay'];
 
     public function type()
@@ -22,7 +22,7 @@ class Variable extends Model
 
     public function values()
     {
-    	return $this->belongsToMany(Value::class, 'SS_Values_Variables');
+    	return $this->belongsToMany(Value::class, 'ss_values_variables');
     }
 
     public function datapoints()

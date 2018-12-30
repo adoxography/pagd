@@ -13,7 +13,7 @@ class CreateMorphMorphemesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Morph_Morphemes', function(Blueprint $table) {
+        Schema::create('morph_morphemes', function(Blueprint $table) {
             $table->engine = 'InnoDB';
 
             // Primary key
@@ -27,28 +27,27 @@ class CreateMorphMorphemesTable extends Migration
             $table->unsignedInteger('language_id');
             $table->unsignedInteger('slot_id');
             $table->unsignedInteger('parent_id')->nullable();
-            $table->unsignedInteger('changeType_id')->nullable();
+            $table->unsignedInteger('change_type_id')->nullable();
 
             // Text fields
-            $table->text('historicalNotes')->nullable();
-            $table->text('allomorphyNotes')->nullable();
-            $table->text('privateNotes')->nullable();
+            $table->text('historical_notes')->nullable();
+            $table->text('allomorphy_notes')->nullable();
+            $table->text('private_notes')->nullable();
+            $table->text('usage_notes')->nullable();
 
             // Timestamps
             $table->timestamps();
-            $table->timestamp('hidden_at')->nullable();
-            $table->softDeletes();
 
             // Other
             $table->integer('disambiguator');
-            $table->boolean('hasDuplicates');
+            $table->boolean('has_duplicates');
 
             // Constraints
-            $table->foreign('language_id')->references('id')->on('Languages');
-            $table->foreign('slot_id')->references('id')->on('Morph_Slots');
-            $table->foreign('changeType_id')->references('id')->on('ChangeTypes');
+            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
+            $table->foreign('slot_id')->references('id')->on('morph_slots');
+            $table->foreign('change_type_id')->references('id')->on('change_types');
             $table->unique(['language_id', 'name', 'disambiguator']);
-            $table->unique(['language_id', 'name', 'slot_id', 'gloss', 'deleted_at']);
+            $table->unique(['language_id', 'name', 'slot_id', 'gloss']);
         });
     }
 
@@ -59,6 +58,6 @@ class CreateMorphMorphemesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Morph_Morphemes');
+        Schema::dropIfExists('morph_morphemes');
     }
 }

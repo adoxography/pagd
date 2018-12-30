@@ -13,7 +13,7 @@ class CreateVerbClassesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Verb_Classes', function(Blueprint $table) {
+        Schema::create('verb_classes', function(Blueprint $table) {
 
             // Primary key
             $table->increments('id');
@@ -31,6 +31,6 @@ class CreateVerbClassesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Verb_Classes');
+        Schema::dropIfExists('verb_classes');
     }
 }

@@ -13,7 +13,7 @@ class CreateMorphMorphemeablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Morph_Morphemeables', function(Blueprint $table) {
+        Schema::create('morph_morphemeables', function(Blueprint $table) {
             $table->engine = 'InnoDB';
 
             // Primary key
@@ -27,7 +27,7 @@ class CreateMorphMorphemeablesTable extends Migration
             $table->unsignedInteger('position');
 
             // Constraints
-            $table->foreign('morpheme_id')->references('id')->on('Morph_Morphemes');
+            $table->foreign('morpheme_id')->references('id')->on('morph_morphemes');
             $table->unique(['morpheme_id', 'morphemeable_type', 'morphemeable_id', 'position'], 'morphemeables_unique');
         });
     }
@@ -39,6 +39,6 @@ class CreateMorphMorphemeablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Morph_Morphemeables');
+        Schema::dropIfExists('morph_morphemeables');
     }
 }

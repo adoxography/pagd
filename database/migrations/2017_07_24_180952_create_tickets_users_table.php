@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFeedbackUsersTable extends Migration
+class CreateTicketsUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateFeedbackUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('ticket_user', function(Blueprint $table) {
+        Schema::create('tickets_users', function(Blueprint $table) {
             $table->unsignedInteger('ticket_id');
             $table->unsignedInteger('user_id');
 
             $table->unique(['ticket_id', 'user_id']);
-            $table->foreign('ticket_id')->references('id')->on('Tickets');
+            $table->foreign('ticket_id')->references('id')->on('tickets');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
@@ -30,6 +30,6 @@ class CreateFeedbackUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('feedback_user');
+        Schema::dropIfExists('tickets_users');
     }
 }

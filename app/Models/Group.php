@@ -10,14 +10,11 @@ use App\Models\Language;
 use App\Presenters\AlgPresenter;
 use App\Models\StructuralSurvey\Variable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 class Group extends Model
 {
-    use SoftDeletes, HasChildren, Bookmarkable, Sourceable, RevisionableTrait, BacksUp;
-
-    public $table = 'Groups';
+    use HasChildren, Bookmarkable, Sourceable, RevisionableTrait, BacksUp;
 
     protected $fillable = ['name', 'parent_id', 'publicNotes', 'privateNotes', 'aliases'];
 

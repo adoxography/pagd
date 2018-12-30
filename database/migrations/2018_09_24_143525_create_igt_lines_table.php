@@ -13,15 +13,15 @@ class CreateIGTLinesTable extends Migration
      */
     public function up()
     {
-        Schema::create('IGTLines', function (Blueprint $table) {
+        Schema::create('igt_lines', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('igt_id');
             $table->unsignedInteger('type_id');
             $table->text('text');
             $table->timestamps();
 
-            $table->foreign('igt_id')->references('id')->on('IGT');
-            $table->foreign('type_id')->references('id')->on('IGTLineTypes');
+            $table->foreign('igt_id')->references('id')->on('igts');
+            $table->foreign('type_id')->references('id')->on('igt_line_types');
         });
     }
 
@@ -32,6 +32,6 @@ class CreateIGTLinesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('IGTLines');
+        Schema::dropIfExists('igt_lines');
     }
 }

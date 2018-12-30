@@ -11,7 +11,7 @@ class seed_igt_line_types extends Seeder
      */
     public function run()
     {
-        DB::table('IGTLineTypes')->delete();
+        DB::table('igt_line_types')->delete();
         
         $types = [
         	['id' => 1, 'name' => 'Morphemes',            'align' => true],
@@ -23,6 +23,6 @@ class seed_igt_line_types extends Seeder
         	['id' => 7, 'name' => 'Other (non-aligning)', 'align' => false]
         ];
         
-        DB::table('IGTLineTypes')->insert($types);
+        DB::table('igt_line_types')->insert($types);
     }
 }

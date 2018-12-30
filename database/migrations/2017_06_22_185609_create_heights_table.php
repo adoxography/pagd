@@ -13,7 +13,7 @@ class CreateHeightsTable extends Migration
      */
     public function up()
     {
-        Schema::create('Phon_Heights', function(Blueprint $table) {
+        Schema::create('phon_heights', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
         });
@@ -26,6 +26,6 @@ class CreateHeightsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Phon_Heights');
+        Schema::dropIfExists('phon_heights');
     }
 }

@@ -18,7 +18,7 @@ class Reflex extends Model
     use Searchable;
     use BacksUp;
 
-    public $table = 'Phon_Reflexes';
+    public $table = 'phon_reflexes';
 
     protected $fillable = ['environment', 'reflex_id', 'parent_id', 'publicNotes', 'privateNotes'];
 

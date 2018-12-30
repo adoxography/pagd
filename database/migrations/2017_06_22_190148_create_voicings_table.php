@@ -13,7 +13,7 @@ class CreateVoicingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('Phon_Voicings', function(Blueprint $table) {
+        Schema::create('phon_voicings', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
         });
@@ -26,6 +26,6 @@ class CreateVoicingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Phon_Voicings');
+        Schema::dropIfExists('phon_voicings');
     }
 }

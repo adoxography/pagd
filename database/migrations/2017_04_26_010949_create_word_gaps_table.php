@@ -13,7 +13,7 @@ class CreateWordGapsTable extends Migration
      */
     public function up()
     {
-        Schema::create('Word_Gaps', function(Blueprint $table) {
+        Schema::create('word_gaps', function(Blueprint $table) {
 
             // Primary key
             $table->increments('id');
@@ -23,16 +23,15 @@ class CreateWordGapsTable extends Migration
             $table->morphs('structure');
 
             // Text fields
-            $table->text('historicalNotes')->nullable();
-            $table->text('privateNotes')->nullable();
+            $table->text('historical_notes')->nullable();
+            $table->text('private_notes')->nullable();
+            $table->text('usage_notes')->nullable();
 
             // Timestamps
             $table->timestamps();
-            $table->timestamp('hidden_at')->nullable();
-            $table->softDeletes();
 
             // Constraints
-            $table->foreign('language_id')->references('id')->on('Languages');
+            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
             $table->unique(['language_id', 'structure_id', 'structure_type']);
         });
     }
@@ -44,6 +43,6 @@ class CreateWordGapsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Word_Gaps');
+        Schema::dropIfExists('word_gaps');
     }
 }

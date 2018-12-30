@@ -15,7 +15,6 @@ use App\Traits\Phonology\Phonemeable;
 use App\Traits\Reconstructable;
 use App\Traits\Sourceable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
 
@@ -25,7 +24,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
 class Example extends Model implements HasMorphemesInterface, PhonemeableInterface
 {
     use RevisionableTrait, Searchable, Sourceable, HasMorphemes, BacksUp, Reconstructable,
-        Bookmarkable, SoftDeletes, HasChildren, Phonemeable;
+        Bookmarkable, HasChildren, Phonemeable;
 
     /*
     |--------------------------------------------------------------------------
@@ -35,8 +34,8 @@ class Example extends Model implements HasMorphemesInterface, PhonemeableInterfa
     | These are the basic variables required by Eloquent to manage this model.
     |
     */
-    public $table = 'Word_Examples';
-    protected $fillable = ['id', 'name','translation','form_id','language_id','publicNotes','privateNotes','morphemicForm', 'parent_id', 'phonemicForm'];
+    public $table = 'word_examples';
+    protected $fillable = ['id', 'name','translation','form_id','language_id','public_notes','private_notes','morphemic_form', 'parent_id', 'phonemic_form'];
     protected $appends = ['html'];
     protected $morphCode = 'examples';
 

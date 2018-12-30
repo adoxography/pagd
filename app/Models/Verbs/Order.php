@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    public $table = 'Verb_Orders';
+    public $table = 'verb_orders';
 
     protected $fillable = ['name', 'description'];
 

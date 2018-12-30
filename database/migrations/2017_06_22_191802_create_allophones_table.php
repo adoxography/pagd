@@ -13,7 +13,7 @@ class CreateAllophonesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Phon_Allophones', function(Blueprint $table) {
+        Schema::create('phon_allophones', function(Blueprint $table) {
             // Primary key
             $table->increments('id');
 
@@ -28,7 +28,7 @@ class CreateAllophonesTable extends Migration
             $table->timestamps();
 
             // Constraints
-            $table->foreign('phoneme_id')->references('id')->on('Phon_Phonemes');
+            $table->foreign('phoneme_id')->references('id')->on('phon_phonemes');
         });
     }
 
@@ -39,6 +39,6 @@ class CreateAllophonesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Phon_Allophones');
+        Schema::dropIfExists('phon_allophones');
     }
 }

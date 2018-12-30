@@ -11,8 +11,8 @@ class seed_groups extends Seeder
      */
     public function run()
     {
-    	DB::table('Languages')->delete();
-        DB::table('Groups')->delete();
+    	DB::table('languages')->delete();
+        DB::table('groups')->delete();
         
         $groups = array(
         	['id' => 1, 'name' => 'Algonquian'],
@@ -21,7 +21,7 @@ class seed_groups extends Seeder
         	['id' => 4, 'name' => 'Eastern']
         );
         
-        DB::table('Groups')->insert($groups);
+        DB::table('groups')->insert($groups);
     }
 }
 

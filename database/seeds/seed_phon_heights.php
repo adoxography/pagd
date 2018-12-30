@@ -11,7 +11,7 @@ class seed_phon_heights extends Seeder
      */
     public function run()
     {
-        DB::table('Phon_Heights')->delete();
+        DB::table('phon_heights')->delete();
 
         $heights = [
         	['id' => 1, 'name' => 'High'],
@@ -19,6 +19,6 @@ class seed_phon_heights extends Seeder
         	['id' => 3, 'name' => 'Low'],
         ];
 
-        DB::table('Phon_Heights')->insert($heights);
+        DB::table('phon_heights')->insert($heights);
     }
 }

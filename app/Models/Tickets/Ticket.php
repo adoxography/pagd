@@ -15,9 +15,7 @@ class Ticket extends Model implements SubscribeableInterface
 {
     use Subscribeable;
 
-    public $table = 'Tickets';
-
-    protected $fillable = ['title', 'url', 'current', 'desired', 'etc', 'isUrgent', 'ticketType_id'];
+    protected $fillable = ['title', 'url', 'current', 'desired', 'etc', 'is_urgent', 'ticket_type_id'];
 
     public function getNameAttribute()
     {

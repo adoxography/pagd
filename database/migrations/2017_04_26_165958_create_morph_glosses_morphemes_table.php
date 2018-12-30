@@ -13,7 +13,7 @@ class CreateMorphGlossesMorphemesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Morph_Glosses_Morphemes', function(Blueprint $table) {
+        Schema::create('morph_glosses_morphemes', function(Blueprint $table) {
             $table->engine = 'InnoDB';
 
             // Foreign keys
@@ -21,8 +21,8 @@ class CreateMorphGlossesMorphemesTable extends Migration
             $table->unsignedInteger('morpheme_id');
 
             // Constraints
-            $table->foreign('gloss_id')->references('id')->on('Morph_Glosses');
-            $table->foreign('morpheme_id')->references('id')->on('Morph_Morphemes');
+            $table->foreign('gloss_id')->references('id')->on('morph_glosses');
+            $table->foreign('morpheme_id')->references('id')->on('morph_morphemes');
             $table->index(['gloss_id', 'morpheme_id']);
         });
     }
@@ -34,6 +34,6 @@ class CreateMorphGlossesMorphemesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Morph_Glosses_Morphemes');
+        Schema::dropIfExists('morph_glosses_morphemes');
     }
 }

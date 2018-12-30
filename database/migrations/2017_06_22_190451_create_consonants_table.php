@@ -13,24 +13,24 @@ class CreateConsonantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('Phon_Consonants', function(Blueprint $table) {
+        Schema::create('phon_consonants', function(Blueprint $table) {
             // Primary key
             $table->increments('id');
 
             // Foreign keys
-            $table->unsignedInteger('place_id');
-            $table->unsignedInteger('manner_id');
+            $table->unsignedInteger('place_id')->nullable();
+            $table->unsignedInteger('manner_id')->nullable();
             $table->unsignedInteger('voicing_id')->nullable();
 
             // Booleans
-            $table->boolean('isRounded')->default(false);
-            $table->boolean('isPalatalized')->default(false);
-            $table->boolean('isGlottalized')->default(false);
+            $table->boolean('is_rounded')->default(false);
+            $table->boolean('is_palatalized')->default(false);
+            $table->boolean('is_glottalized')->default(false);
 
             // Constraints
-            $table->foreign('place_id')->references('id')->on('Phon_Places');
-            $table->foreign('manner_id')->references('id')->on('Phon_Manners');
-            $table->unique(['place_id', 'manner_id', 'voicing_id', 'isRounded', 'isPalatalized', 'isGlottalized'], 'phon_consontants_unique');
+            $table->foreign('place_id')->references('id')->on('phon_places');
+            $table->foreign('manner_id')->references('id')->on('phon_manners');
+            $table->unique(['place_id', 'manner_id', 'voicing_id', 'is_rounded', 'is_palatalized', 'is_glottalized'], 'phon_consontants_unique');
         });
     }
 
@@ -41,6 +41,6 @@ class CreateConsonantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Phon_Consonants');
+        Schema::dropIfExists('phon_consonants');
     }
 }

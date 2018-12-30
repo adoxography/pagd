@@ -10,7 +10,7 @@ class Allophone extends Model
 {
     use Reconstructable;
 
-    public $table = 'Phon_Allophones';
+    public $table = 'phon_allophones';
     public $timestamps = false;
 
     protected $fillable = ['name', 'environment', 'phoneme_id'];

@@ -11,7 +11,7 @@ class seed_ticket_types extends Seeder
      */
     public function run()
     {
-        DB::table('TicketTypes')->delete();
+        DB::table('ticket_types')->delete();
 
         $types = [
         	[
@@ -46,6 +46,6 @@ class seed_ticket_types extends Seeder
         	]
         ];
 
-        DB::table('TicketTypes')->insert($types);
+        DB::table('ticket_types')->insert($types);
     }
 }

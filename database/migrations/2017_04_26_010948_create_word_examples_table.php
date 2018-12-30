@@ -13,7 +13,7 @@ class CreateWordExamplesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Word_Examples', function(Blueprint $table) {
+        Schema::create('word_examples', function(Blueprint $table) {
 
             // Primary key
             $table->increments('id');
@@ -21,27 +21,22 @@ class CreateWordExamplesTable extends Migration
             // Strings
             $table->string('name');
             $table->string('translation');
-            $table->string('phonemicForm')->nullable();
-            $table->string('morphemicForm')->nullable();
+            $table->string('phonemic_form')->nullable();
+            $table->string('morphemic_form')->nullable();
 
             // Foreign keys
-            $table->unsignedInteger('form_id');
+            $table->unsignedInteger('form_id')->nullable();
             $table->unsignedInteger('parent_id')->nullable();
+            $table->unsignedInteger('language_id')->nullable();
 
             // Text fields
-            $table->text('publicNotes')->nullable();
-            $table->text('privateNotes')->nullable();
+            $table->text('public_notes')->nullable();
+            $table->text('private_notes')->nullable();
 
             // Timestamps
             $table->timestamps();
-            $table->timestamp('hidden_at')->nullable();
-            $table->softDeletes();
 
             $table->boolean('complete')->default(0);
-
-            // Constraints
-            $table->foreign('form_id')->references('id')->on('Word_Forms');
-            $table->unique(['name', 'form_id', 'deleted_at']);
         });
     }
 
@@ -52,6 +47,6 @@ class CreateWordExamplesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Word_Examples');
+        Schema::dropIfExists('word_examples');
     }
 }

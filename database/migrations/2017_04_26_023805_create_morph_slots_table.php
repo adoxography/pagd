@@ -13,7 +13,7 @@ class CreateMorphSlotsTable extends Migration
      */
     public function up()
     {
-        Schema::create('Morph_Slots', function(Blueprint $table) {
+        Schema::create('morph_slots', function(Blueprint $table) {
             $table->engine = 'InnoDB';
 
             // Primary key
@@ -40,6 +40,6 @@ class CreateMorphSlotsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Morph_Slots');
+        Schema::dropIfExists('morph_slots');
     }
 }

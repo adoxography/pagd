@@ -13,7 +13,7 @@ class Structure extends Model
 {
     use RevisionableTrait;
 
-    public $table = 'Verb_Structures';
+    public $table = 'verb_structures';
     public $errors;
     protected $fillable = [
         'class_id',
@@ -21,14 +21,14 @@ class Structure extends Model
         'mode_id',
         'order_id',
         'subject_id',
-        'primaryObject_id',
-        'secondaryObject_id',
-        'isAbsolute',
-        'isNegative',
-        'isDiminutive'
+        'primary_object_id',
+        'secondary_object_id',
+        'is_absolute',
+        'is_negative',
+        'is_diminutive'
     ];
     protected $appends = ['summary'];
-    public $with = ['mode', 'order', 'subject', 'primaryObject', 'secondaryObject'];
+    public $with = ['mode', 'order', 'subject', 'primary_object', 'secondary_object'];
 
     public static function boot()
     {
@@ -132,7 +132,7 @@ class Structure extends Model
      */
     public function getAbsoluteStatusAttribute()
     {
-        $code = $this->isAbsolute;
+        $code = $this->is_absolute;
 
         if ($code === null) {
             $status = '';
@@ -152,7 +152,7 @@ class Structure extends Model
      */
     public function getNegativeStatusAttribute()
     {
-        if ($this->isNegative) {
+        if ($this->is_negative) {
             return 'Negative';
         } else {
             return 'Affirmative';
@@ -166,7 +166,7 @@ class Structure extends Model
      */
     public function getDiminutiveStatusAttribute()
     {
-        if ($this->isDiminutive) {
+        if ($this->is_diminutive) {
             return 'Diminutive';
         } else {
             return 'Non-diminutive';
@@ -270,7 +270,7 @@ class Structure extends Model
      */
     public function hasModifiers()
     {
-        return $this->isNegative || $this->isDiminutive || isset($this->isAbsolute);
+        return $this->is_negative || $this->is_diminutive || isset($this->is_absolute);
     }
 
     public function renderSummary()
@@ -346,12 +346,12 @@ class Structure extends Model
 
     public function primaryObject()
     {
-        return $this->belongsTo(Argument::class, 'primaryObject_id');
+        return $this->belongsTo(Argument::class, 'primary_object_id');
     }
 
     public function secondaryObject()
     {
-        return $this->belongsTo(Argument::class, 'secondaryObject_id');
+        return $this->belongsTo(Argument::class, 'secondary_object_id');
     }
 
     public function forms()
@@ -368,16 +368,16 @@ class Structure extends Model
     {
         $output = '';
 
-        if ($this->isNegative) {
+        if ($this->is_negative) {
             $output .= 'Negative ';
         }
 
-        if ($this->isDiminutive) {
+        if ($this->is_diminutive) {
             $output .= 'Diminutive ';
         }
 
-        if (isset($this->isAbsolute)) {
-            if ($this->isAbsolute) {
+        if (isset($this->is_absolute)) {
+            if ($this->is_absolute) {
                 $output .= 'Absolute';
             } else {
                 $output .= 'Objective';

@@ -13,7 +13,7 @@ class CreateReflexesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Phon_Reflexes', function(Blueprint $table) {
+        Schema::create('phon_reflexes', function(Blueprint $table) {
             // Primary key
             $table->increments('id');
 
@@ -25,18 +25,16 @@ class CreateReflexesTable extends Migration
             $table->unsignedInteger('parent_id');
 
             // Text fields
-            $table->text('publicNotes')->nullable();
-            $table->text('privateNotes')->nullable();
+            $table->text('public_notes')->nullable();
+            $table->text('private_notes')->nullable();
 
             // Timestamps
             $table->timestamps();
-            $table->softDeletes();
-            $table->timestamp('hidden_at')->nullable();
 
             // Constraints
-            $table->foreign('reflex_id')->references('id')->on('Phon_Phonemes');
-            $table->foreign('parent_id')->references('id')->on('Phon_Phonemes');
-            $table->unique(['reflex_id', 'parent_id', 'deleted_at']);
+            $table->foreign('reflex_id')->references('id')->on('phon_phonemes');
+            $table->foreign('parent_id')->references('id')->on('phon_phonemes');
+            $table->unique(['reflex_id', 'parent_id']);
         });
     }
 
@@ -47,6 +45,6 @@ class CreateReflexesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Phon_Reflexes');
+        Schema::dropIfExists('phon_reflexes');
     }
 }

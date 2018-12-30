@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class IGTLine extends Model
 {
-    public $table = 'IGTLines';
+    public $table = 'igt_lines';
     protected $fillable = ['type_id', 'igt_id', 'text'];
 
     public function type()

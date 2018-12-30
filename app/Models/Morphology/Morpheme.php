@@ -18,14 +18,13 @@ use App\Traits\Sourceable;
 use App\Traits\Phonology\Phonemeable;
 use App\Presenters\MorphemePresenter;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 class Morpheme extends Model implements PhonemeableInterface
 {
     use Searchable, RevisionableTrait, Sourceable, Reconstructable, HasChildren, BacksUp,
-        Bookmarkable, SoftDeletes, Disambiguatable, Phonemeable;
+        Bookmarkable, Disambiguatable, Phonemeable;
 
     /*
     |--------------------------------------------------------------------------
@@ -35,7 +34,7 @@ class Morpheme extends Model implements PhonemeableInterface
     | These are the basic variables required by Eloquent to manage this model.
     |
     */
-    public $table = 'Morph_Morphemes';
+    public $table = 'morph_morphemes';
     protected $fillable = [
         'changeType_id',
         'name',

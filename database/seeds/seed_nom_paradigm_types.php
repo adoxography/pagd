@@ -12,18 +12,18 @@ class seed_nom_paradigm_types extends Seeder
      */
     public function run()
     {
-        DB::table('Nom_ParadigmTypes')->delete();
+        DB::table('nom_paradigm_types')->delete();
 
         $types = [
-        	['id' => 1, 'name' => 'Personal pronoun',         'hasPronominalFeature' => true,  'hasNominalFeature' => false],
-        	['id' => 2, 'name' => 'Common noun',              'hasPronominalFeature' => false, 'hasNominalFeature' => true],
-        	['id' => 3, 'name' => 'Demonstrative',            'hasPronominalFeature' => false, 'hasNominalFeature' => true],
-        	['id' => 4, 'name' => 'Indefinite/interrogative', 'hasPronominalFeature' => false, 'hasNominalFeature' => true],
-        	['id' => 5, 'name' => 'Possessed noun',           'hasPronominalFeature' => true,  'hasNominalFeature' => true],
-            ['id' => 6, 'name' => 'Alternative pronoun',      'hasPronominalFeature' => false, 'hasNominalFeature' => true],
-            ['id' => 7, 'name' => 'Hesitation pronoun',       'hasPronominalFeature' => false, 'hasNominalFeature' => true]
+        	['id' => 1, 'name' => 'Personal pronoun',         'has_pronominal_feature' => true,  'has_nominal_feature' => false],
+        	['id' => 2, 'name' => 'Common noun',              'has_pronominal_feature' => false, 'has_nominal_feature' => true],
+        	['id' => 3, 'name' => 'Demonstrative',            'has_pronominal_feature' => false, 'has_nominal_feature' => true],
+        	['id' => 4, 'name' => 'Indefinite/interrogative', 'has_pronominal_feature' => false, 'has_nominal_feature' => true],
+        	['id' => 5, 'name' => 'Possessed noun',           'has_pronominal_feature' => true,  'has_nominal_feature' => true],
+            ['id' => 6, 'name' => 'Alternative pronoun',      'has_pronominal_feature' => false, 'has_nominal_feature' => true],
+            ['id' => 7, 'name' => 'Hesitation pronoun',       'has_pronominal_feature' => false, 'has_nominal_feature' => true]
         ];
 
-        DB::table('Nom_ParadigmTypes')->insert($types);
+        DB::table('nom_paradigm_types')->insert($types);
     }
 }

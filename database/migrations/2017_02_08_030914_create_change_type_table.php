@@ -13,7 +13,7 @@ class CreateChangeTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('ChangeTypes', function (Blueprint $table) {
+        Schema::create('change_types', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             
             $table->increments('id');
@@ -29,6 +29,6 @@ class CreateChangeTypeTable extends Migration
      */
     public function down()
     {
-        Schema::drop('ChangeTypes');
+        Schema::drop('change_types');
     }
 }

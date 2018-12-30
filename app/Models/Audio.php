@@ -15,8 +15,6 @@ class Audio extends Model
 {
     use Bookmarkable;
 
-    public $table = 'Audio';
-
     protected $disk = 'dropbox';
 
     protected $baseFolder = 'audio';

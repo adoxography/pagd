@@ -13,7 +13,7 @@ class CreateBacknessesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Phon_Backnesses', function(Blueprint $table) {
+        Schema::create('phon_backnesses', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
         });
@@ -26,6 +26,6 @@ class CreateBacknessesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Phon_Backnesses');
+        Schema::dropIfExists('phon_backnesses');
     }
 }

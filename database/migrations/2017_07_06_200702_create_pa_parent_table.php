@@ -13,7 +13,7 @@ class CreatePaParentTable extends Migration
      */
     public function up()
     {
-        Schema::create('Phon_PaParents', function(Blueprint $table) {
+        Schema::create('phon_pa_parents', function(Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('phoneme_id');
             $table->unsignedInteger('parent_id');
@@ -27,6 +27,6 @@ class CreatePaParentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Phon_PaParents');
+        Schema::dropIfExists('phon_pa_parents');
     }
 }

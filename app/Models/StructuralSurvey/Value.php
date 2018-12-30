@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Value extends Model
 {
-    public $table = 'SS_Values';
+    public $table = 'ss_values';
     protected $fillable = ['name'];
     protected $used;
     public $appends = ['used'];

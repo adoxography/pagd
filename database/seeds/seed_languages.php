@@ -11,20 +11,20 @@ class seed_languages extends Seeder
      */
     public function run()
     {
-        DB::table('Morph_Morphemes')->delete();
-        DB::table('Languages')->delete();
+        DB::table('morph_morphemes')->delete();
+        DB::table('languages')->delete();
         
         $languages = [
         	[
                 'id'        => 1,
                 'name'      => 'Proto-Algonquian', 
                 'iso'       => 'alg', 
-                'algoCode'  => 'alg', 
+                'algo_code'  => 'alg', 
                 'parent_id' => NULL, 
-                'group_id'  => 5 // N/A
+                'group_id'  => 1 // Algonquian
             ]
         ];
         
-        DB::table('Languages')->insert($languages);
+        DB::table('languages')->insert($languages);
     }
 }

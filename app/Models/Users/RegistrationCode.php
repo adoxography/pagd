@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class RegistrationCode extends Model
 {
-    public $table = 'RegistrationCodes';
     protected $fillable = ['code'];
 
     protected $casts = ['valid' => 'boolean'];

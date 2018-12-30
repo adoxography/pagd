@@ -13,7 +13,7 @@ class CreateSSVariablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('SS_Variables', function(Blueprint $table) {
+        Schema::create('ss_variables', function(Blueprint $table) {
             $table->engine = 'InnoDB';
 
             $table->increments('id');
@@ -24,7 +24,7 @@ class CreateSSVariablesTable extends Migration
 
             $table->timestamps();
 
-            $table->foreign('type_id')->references('id')->on('SS_Types');
+            $table->foreign('type_id')->references('id')->on('ss_types');
         });
     }
 
@@ -35,6 +35,6 @@ class CreateSSVariablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('SS_Variables');
+        Schema::dropIfExists('ss_variables');
     }
 }

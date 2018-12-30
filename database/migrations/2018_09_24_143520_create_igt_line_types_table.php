@@ -13,7 +13,7 @@ class CreateIGTLineTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('IGTLineTypes', function (Blueprint $table) {
+        Schema::create('igt_line_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->boolean('align');
@@ -28,6 +28,6 @@ class CreateIGTLineTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('IGTLineTypes');
+        Schema::dropIfExists('igt_line_types');
     }
 }

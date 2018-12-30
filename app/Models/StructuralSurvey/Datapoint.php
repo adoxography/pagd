@@ -13,8 +13,8 @@ class Datapoint extends Model
 	use Sourceable;
     use Bookmarkable;
 
-    public $table = 'SS_Datapoints';
-    protected $fillable = ['language_id', 'variable_id', 'value_id', 'comments', 'note', 'isExtended', 'isExtension'];
+    public $table = 'ss_datapoints';
+    protected $fillable = ['language_id', 'variable_id', 'value_id', 'comments', 'note', 'is_extended', 'is_extension'];
 
     public function language()
     {

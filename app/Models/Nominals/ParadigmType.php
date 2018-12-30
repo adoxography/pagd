@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class ParadigmType extends Model
 {
-    public $table = 'Nom_ParadigmTypes';
+    public $table = 'nom_paradigm_types';
 }

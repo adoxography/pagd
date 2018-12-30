@@ -13,7 +13,7 @@ class CreateVerbModesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Verb_Modes', function(Blueprint $table) {
+        Schema::create('verb_modes', function(Blueprint $table) {
 
             // Primary key
             $table->increments('id');
@@ -32,6 +32,6 @@ class CreateVerbModesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Verb_Modes');
+        Schema::dropIfExists('verb_modes');
     }
 }

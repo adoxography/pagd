@@ -15,10 +15,11 @@ class seed_users extends Seeder
 
         $users = [
             [
-                'firstName'     => 'Joe',
-                'lastName'     => 'Doe',
+                'first_name'     => 'Joe',
+                'last_name'     => 'Doe',
                 'email'    => 'test@gmail.com',
-                'password' => bcrypt('test')
+                'password' => bcrypt('test'),
+                'slug' => 'joe-doe'
             ]
         ];
 

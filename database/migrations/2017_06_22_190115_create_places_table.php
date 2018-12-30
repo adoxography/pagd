@@ -13,7 +13,7 @@ class CreatePlacesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Phon_Places', function(Blueprint $table) {
+        Schema::create('phon_places', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
         });
@@ -26,6 +26,6 @@ class CreatePlacesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Phon_Places');
+        Schema::dropIfExists('phon_places');
     }
 }

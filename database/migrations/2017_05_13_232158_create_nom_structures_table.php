@@ -13,18 +13,16 @@ class CreateNomStructuresTable extends Migration
      */
     public function up()
     {
-        Schema::create('Nom_Structures', function(Blueprint $table) {
+        Schema::create('nom_structures', function(Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('pronominalFeature_id')->nullable();
-            $table->unsignedInteger('nominalFeature_id')->nullable();
+            $table->unsignedInteger('pronominal_feature_id')->nullable();
+            $table->unsignedInteger('nominal_feature_id')->nullable();
             $table->unsignedInteger('paradigm_id');
-            $table->unsignedInteger('mode_id');
 
-            $table->foreign('pronominalFeature_id')->references('id')->on('Word_Features');
-            $table->foreign('nominalFeature_id')->references('id')->on('Word_Features');
-            $table->foreign('paradigm_id')->references('id')->on('Nom_Paradigms');
-            $table->foreign('mode_id')->references('id')->on('Nom_Modes');
-            $table->unique(['pronominalFeature_id', 'nominalFeature_id', 'paradigm_id', 'mode_id'], 'nominal_structures_unique');
+            $table->foreign('pronominal_feature_id')->references('id')->on('word_features');
+            $table->foreign('nominal_feature_id')->references('id')->on('word_features');
+            $table->foreign('paradigm_id')->references('id')->on('nom_paradigms');
+            $table->unique(['pronominal_feature_id', 'nominal_feature_id', 'paradigm_id'], 'nominal_structures_unique');
 
             $table->timestamps();
         });
@@ -37,6 +35,6 @@ class CreateNomStructuresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Nom_Structures');
+        Schema::dropIfExists('nom_structures');
     }
 }

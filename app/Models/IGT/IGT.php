@@ -12,7 +12,7 @@ class IGT extends Model
 {
     use Sourceable, Bookmarkable;
 
-    public $table = 'IGT';
+    public $table = 'igts';
     protected $fillable = ['language_id', 'publicNotes', 'privateNotes', 'lines'];
 
     /**

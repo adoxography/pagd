@@ -18,15 +18,13 @@ use App\Traits\Bookmarkable;
 use App\Traits\Disambiguatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 class Source extends Model implements VerbFormRepositoryInterface, NominalFormRepositoryInterface
 {
-    use Searchable, Bookmarkable, Disambiguatable, SoftDeletes, RevisionableTrait;
+    use Searchable, Bookmarkable, Disambiguatable, RevisionableTrait;
 
-    public $table = 'Sources';
     protected $fillable = ['author', 'year', 'disambiguator', 'long', 'url', 'summary', 'notes'];
     protected $appends = ['display'];
     protected $disambiguatableFields = ['author', 'year'];
@@ -101,7 +99,7 @@ class Source extends Model implements VerbFormRepositoryInterface, NominalFormRe
     {
         return [
             'id' => $this->id,
-            'pivotTable'   => 'Sourceables',
+            'pivotTable'   => 'sourceables',
             'morphIDKey'   => 'sourceable_id',
             'morphTypeKey' => 'sourceable_type',
             'foreignKey'   => 'source_id'
@@ -140,17 +138,17 @@ class Source extends Model implements VerbFormRepositoryInterface, NominalFormRe
 
     public function forms()
     {
-        return $this->morphedByMany(Form::class, 'Sourceable')->withPivot('extraInfo');
+        return $this->morphedByMany(Form::class, 'Sourceable')->withPivot('extra_info');
     }
 
     public function morphemes()
     {
-        return $this->morphedByMany(Morpheme::class, 'Sourceable')->withPivot('extraInfo');
+        return $this->morphedByMany(Morpheme::class, 'Sourceable')->withPivot('extra_info');
     }
 
     public function examples()
     {
-        return $this->morphedByMany(Example::class, 'Sourceable')->withPivot('extraInfo');
+        return $this->morphedByMany(Example::class, 'Sourceable')->withPivot('extra_info');
     }
 
     public function verbExamples()
@@ -165,17 +163,17 @@ class Source extends Model implements VerbFormRepositoryInterface, NominalFormRe
 
     public function rules()
     {
-        return $this->morphedByMany(Rule::class, 'Sourceable')->withPivot('extraInfo');
+        return $this->morphedByMany(Rule::class, 'Sourceable')->withPivot('extra_info');
     }
 
     public function gaps()
     {
-        return $this->morphedByMany(Gap::class, 'Sourceable')->withPivot('extraInfo');
+        return $this->morphedByMany(Gap::class, 'Sourceable')->withPivot('extra_info');
     }
 
     public function phonemes()
     {
-        return $this->morphedByMany(Phoneme::class, 'Sourceable')->withPivot('extraInfo');
+        return $this->morphedByMany(Phoneme::class, 'Sourceable')->withPivot('extra_info');
     }
 
     public function present(string $method = 'name')

@@ -13,7 +13,7 @@ class CreateLengthsTable extends Migration
      */
     public function up()
     {
-        Schema::create('Phon_Lengths', function(Blueprint $table) {
+        Schema::create('phon_lengths', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
         });
@@ -26,6 +26,6 @@ class CreateLengthsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Phon_Lengths');
+        Schema::dropIfExists('phon_lengths');
     }
 }

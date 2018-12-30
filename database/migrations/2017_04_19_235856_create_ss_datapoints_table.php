@@ -13,7 +13,7 @@ class CreateSSDatapointsTable extends Migration
      */
     public function up()
     {
-        Schema::create('SS_Datapoints', function(Blueprint $table) {
+        Schema::create('ss_datapoints', function(Blueprint $table) {
             $table->engine = 'InnoDB';
 
             $table->increments('id');
@@ -21,14 +21,17 @@ class CreateSSDatapointsTable extends Migration
             $table->unsignedInteger('value_id');
             $table->unsignedInteger('variable_id');
             $table->text('comments')->nullable();
-            $table->text('note');
+            $table->text('note')->nullable();
+
+            $table->boolean('is_extended')->default(false);
+            $table->boolean('is_extension')->default(false);
 
             $table->timestamps();
 
             // Constraints
-            $table->foreign('language_id')->references('id')->on('Languages');
-            $table->foreign('value_id')->references('id')->on('SS_Values');
-            $table->foreign('variable_id')->references('id')->on('SS_Variables');
+            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
+            $table->foreign('value_id')->references('id')->on('ss_values');
+            $table->foreign('variable_id')->references('id')->on('ss_variables');
             $table->unique(['language_id', 'variable_id']);
         });
     }
@@ -40,6 +43,6 @@ class CreateSSDatapointsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('SS_Datapoints');
+        Schema::dropIfExists('ss_datapoints');
     }
 }

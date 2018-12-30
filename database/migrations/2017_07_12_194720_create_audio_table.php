@@ -13,19 +13,19 @@ class CreateAudioTable extends Migration
      */
     public function up()
     {
-        Schema::create('Audio', function (Blueprint $table) {
+        Schema::create('audios', function (Blueprint $table) {
             $table->increments('id');
 
             $table->unsignedInteger('language_id');
             $table->string('name');
-            $table->string('fileName');
+            $table->string('file_name');
             $table->text('comments')->nullable();
 
             $table->timestamps();
 
-            $table->foreign('language_id')->references('id')->on('Languages');
+            $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
             $table->unique(['language_id', 'name'], 'audio_n_unique');
-            $table->unique(['language_id', 'fileName'], 'audio_fn_unique');
+            $table->unique(['language_id', 'file_name'], 'audio_fn_unique');
         });
     }
 
@@ -36,6 +36,6 @@ class CreateAudioTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Audio');
+        Schema::dropIfExists('audios');
     }
 }

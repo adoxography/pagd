@@ -11,7 +11,7 @@ class seed_phon_backnesses extends Seeder
      */
     public function run()
     {
-        DB::table('Phon_Backnesses')->delete();
+        DB::table('phon_backnesses')->delete();
 
         $backnesses = [
         	['id' => 1, 'name' => 'Front'],
@@ -19,6 +19,6 @@ class seed_phon_backnesses extends Seeder
         	['id' => 3, 'name' => 'Back'],
         ];
 
-        DB::table('Phon_Backnesses')->insert($backnesses);
+        DB::table('phon_backnesses')->insert($backnesses);
     }
 }

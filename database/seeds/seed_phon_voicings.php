@@ -11,7 +11,7 @@ class seed_phon_voicings extends Seeder
      */
     public function run()
     {
-        DB::table('Phon_Voicings')->delete();
+        DB::table('phon_voicings')->delete();
 
         $voicings = [
         	['id' => 1, 'name' => 'Voiceless'],
@@ -21,6 +21,6 @@ class seed_phon_voicings extends Seeder
         	['id' => 5, 'name' => 'Preaspirated']
         ];
 
-        DB::table('Phon_Voicings')->insert($voicings);
+        DB::table('phon_voicings')->insert($voicings);
     }
 }

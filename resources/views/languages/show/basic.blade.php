@@ -2,11 +2,11 @@
 
 @section('details')
 <div class="details">
-    @isset($language->alternateNames)
+    @isset($language->alternate_names)
     <div class="detail-row">
         <label class="detail-label">Also&nbsp;known&nbsp;as</label>
         <div class="detail-value">
-            {{ $language->alternateNames }}
+            {{ $language->alternate_names }}
         </div>
     </div>
     @endisset

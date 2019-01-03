@@ -18,7 +18,7 @@ class Language extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'iso' => $this->iso,
-            'algo_code' => $this->algoCode,
+            'algo_code' => $this->algo_code,
             'reconstructed' => !!$this->reconstructed,
             'group' => new Group($this->whenLoaded('group')),
             'parent' => new Language($this->whenLoaded('parent'))

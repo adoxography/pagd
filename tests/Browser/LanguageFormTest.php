@@ -99,8 +99,8 @@ class LanguageFormTest extends DuskTestCase
         $this->browse(function ($browser) {
             $browser->loginAs(User::find(1))
                     ->visit('/languages/create')
-                    ->type('algoCode', 'a')
-                    ->clear('algoCode')
+                    ->type('algo_code', 'a')
+                    ->clear('algo_code')
                     ->type('iso', 'blah')
                     ->assertSee('The algonquianist code field is required.');
         });
@@ -114,13 +114,13 @@ class LanguageFormTest extends DuskTestCase
                     ->visit('/languages/create')
 
                     ->type('name', 'Test Language')
-                    ->type('alternateNames', 'Some Name, Other name')
+                    ->type('alternate_names', 'Some Name, Other name')
                     ->clear('parent')
                     ->type('parent', 'Proto-Algonquian')
                     ->clear('group')
                     ->type('group', 'Plains')
                     ->type('iso', 'tst')
-                    ->type('algoCode', 'abfse')
+                    ->type('algo_code', 'abfse')
                     ->press('Submit')
 
                     ->assertSee('Test Language added successfully.')
@@ -146,11 +146,11 @@ class LanguageFormTest extends DuskTestCase
             // Create the language
             $language = Language::create([
                 'name'           => 'Test Language',
-                'alternateNames' => 'Other name, Different name',
+                'alternate_names' => 'Other name, Different name',
                 'parent_id'      => 1,
                 'group_id'       => 1,
                 'iso'            => 'tst',
-                'algoCode'       => 'abfde',
+                'algo_code'       => 'abfde',
                 'reconstructed'  => true,
                 'notes'          => 'These are some notes about this language'
             ]);
@@ -160,13 +160,13 @@ class LanguageFormTest extends DuskTestCase
                     ->visit("/languages/{$language->id}/edit")
 
                     ->assertInputValue('name', 'Test Language')
-                    ->assertInputValue('alternateNames', 'Other name, Different name')
+                    ->assertInputValue('alternate_names', 'Other name, Different name')
                     ->assertInputValue('parent', 'Proto-Algonquian')
                     ->assertInputValue('parent_id', '1')
                     ->assertInputValue('group', 'Unknown')
                     ->assertInputValue('group_id', '1')
                     ->assertInputValue('iso', 'tst')
-                    ->assertInputValue('algoCode', 'abfde')
+                    ->assertInputValue('algo_code', 'abfde')
                     // ->assertInputValue('reconstructed', '1') <- Figure out a way to verify radio boxes
                     ->assertInputValue('notes', 'These are some notes about this language');
 
@@ -186,19 +186,19 @@ class LanguageFormTest extends DuskTestCase
 
     //                 // Clear all the old info
     //                 ->clear('name')
-    //                 ->clear('alternateNames')
+    //                 ->clear('alternate_names')
     //                 ->clear('parent')
     //                 ->clear('group')
     //                 ->clear('iso')
-    //                 ->clear('algoCode')
+    //                 ->clear('algo_code')
 
     //                 // Enter the new info
     //                 ->type('name', 'Test Language')
-    //                 ->type('alternateNames', 'Some Name, Other name')
+    //                 ->type('alternate_names', 'Some Name, Other name')
     //                 ->type('parent', 'Proto-Algonquian')
     //                 ->type('group', 'Plains')
     //                 ->type('iso', 'tst')
-    //                 ->type('algoCode', 'abfse')
+    //                 ->type('algo_code', 'abfse')
     //                 ->press('Submit')
 
     //                 // Make sure we get back to the detail page

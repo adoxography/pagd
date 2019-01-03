@@ -16,19 +16,16 @@ class seed_nom_paradigms extends Seeder
 
         $paradigms = [
         	[
-        		'id'              => 1,
         		'language_id'     => 1, // Proto-Algonquian
         		'paradigm_type_id' => 1, // Personal pronoun
         		'name'            => 'Emphatic personal pronoun'
         	],
         	[
-        		'id'              => 2,
         		'language_id'     => 1, // Proto-Algonquian
         		'paradigm_type_id' => 2, // Common noun
         		'name'            => 'Common noun'
         	],
         	[
-        		'id'              => 3,
         		'language_id'     => 1, // Proto-Algonquian
         		'paradigm_type_id' => 5, // Possessed noun
         		'name'            => 'Possessed noun'

@@ -1,4 +1,4 @@
-webpackJsonp([4,27],{
+webpackJsonp([4,19],{
 
 /***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Allophone.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -142,12 +142,16 @@ var Row = function () {
 //
 //
 //
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_OldErrors__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_OldSources__["a" /* default */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_OldSources__["a" /* default */]],
 
   props: ['method', 'action'],
 
@@ -165,7 +169,15 @@ var Row = function () {
 
       this.$validator.validateAll().then(function (result) {
         if (result) {
-          _this.$refs.form.submit();
+          _this.$children.forEach(function (child) {
+            if (child.beforeSubmit) {
+              child.beforeSubmit();
+            }
+          });
+
+          _this.$nextTick(function () {
+            return _this.$refs.form.submit();
+          });
         }
       });
     }
@@ -315,7 +327,10 @@ var render = function() {
     "form",
     {
       ref: "form",
-      attrs: { method: _vm.method, action: _vm.action },
+      attrs: {
+        method: _vm.method == "GET" ? _vm.method : "POST",
+        action: _vm.action
+      },
       on: {
         submit: function($event) {
           $event.preventDefault()
@@ -329,13 +344,20 @@ var render = function() {
         domProps: { value: _vm.csrfToken }
       }),
       _vm._v(" "),
+      _vm.method != "POST" && _vm.method != "GET"
+        ? _c("input", {
+            attrs: { type: "hidden", name: "_method" },
+            domProps: { value: _vm.method }
+          })
+        : _vm._e(),
+      _vm._v(" "),
       _vm._t("default"),
       _vm._v(" "),
       _c("div", { staticClass: "field" }, [
         _c(
           "button",
           {
-            staticClass: "button is-primary",
+            staticClass: "button is-primary has-text-grey-dark",
             attrs: { type: "submit", disabled: _vm.errors.any() }
           },
           [_vm._v("Submit")]
@@ -500,7 +522,7 @@ component.options.__file = "resources/assets/js/components/forms/Form.vue"
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ({
+/* unused harmony default export */ var _unused_webpack_default_export = ({
   props: ['oldErrors'],
 
   mounted: function mounted() {

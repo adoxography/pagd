@@ -30,7 +30,7 @@
     <div class="detail-row">
         <label class="detail-label">Algonquianist&nbsp;code</label>
         <div class="detail-value">
-            {{ $language->algoCode }}
+            {{ $language->algo_code }}
         </div>
     </div>
 

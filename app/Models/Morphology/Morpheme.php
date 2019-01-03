@@ -36,16 +36,16 @@ class Morpheme extends Model implements PhonemeableInterface
     */
     public $table = 'morph_morphemes';
     protected $fillable = [
-        'changeType_id',
+        'change_type_id',
         'name',
         'language_id',
         'parent_id',
         'gloss',
         'slot_id',
-        'allomorphyNotes',
-        'historicalNotes',
-        'usageNotes',
-        'privateNotes',
+        'allomorphy_notes',
+        'historical_notes',
+        'usage_notes',
+        'private_notes',
         'newSources'
     ];
     protected $appends = [
@@ -59,7 +59,7 @@ class Morpheme extends Model implements PhonemeableInterface
     {
         $array = $this->toArray();
 
-        return array_only($array, ['id', 'name', 'allomorphyNotes', 'historicalNotes', 'usageNotes', 'comments']);
+        return array_only($array, ['id', 'name', 'allomorphy_notes', 'historical_notes', 'usage_notes', 'comments']);
     }
 
     protected $disambiguatableFields = ['name', 'language_id'];
@@ -82,12 +82,12 @@ class Morpheme extends Model implements PhonemeableInterface
         'reconstructed' => 'boolean:Attested|Reconstructed'
     ];
     protected $revisionFormattedFieldNames = [
-        'allomorphyNotes' => 'allomorphy notes',
-        'privateNotes'    => 'comments',
-        'historicalNotes' => 'historical notes',
-        'usageNotes'      => 'usage notes',
+        'allomorphy_notes' => 'allomorphy notes',
+        'private_notes'    => 'comments',
+        'historical_notes' => 'historical notes',
+        'usage_notes'      => 'usage notes',
         'name'            => 'Morpheme',
-        'changeType_id'   => 'change type',
+        'change_type_id'   => 'change type',
         'created_at'      => '[created]'
     ];
     protected $dontKeepRevisionOf = [
@@ -221,7 +221,7 @@ class Morpheme extends Model implements PhonemeableInterface
 
     public function forms()
     {
-        return $this->morphedByMany(Form::class, 'morphemeable', 'Morph_Morphemeables')->distinct();
+        return $this->morphedByMany(Form::class, 'morphemeable', 'morph_morphemeables')->distinct();
     }
 
     public function getVerbFormsAttribute()
@@ -254,9 +254,9 @@ class Morpheme extends Model implements PhonemeableInterface
 
     public function verbForms($with = [])
     {
-        $query = VerbForm::select('Word_Forms.*')
-            ->join('Morph_Morphemeables', function ($join) {
-                $join->on('Word_Forms.id', '=', 'morphemeable_id')
+        $query = VerbForm::select('word_forms.*')
+            ->join('morph_morphemeables', function ($join) {
+                $join->on('word_forms.id', '=', 'morphemeable_id')
                     ->where('morphemeable_type', 'forms');
             })->where('morpheme_id', $this->id);
 
@@ -269,9 +269,9 @@ class Morpheme extends Model implements PhonemeableInterface
 
     public function nominalForms($with = [])
     {
-        $query = NominalForm::select('Word_Forms.*')
-            ->join('Morph_Morphemeables', function ($join) {
-                $join->on('Word_Forms.id', '=', 'morphemeable_id')
+        $query = NominalForm::select('word_forms.*')
+            ->join('morph_morphemeables', function ($join) {
+                $join->on('word_forms.id', '=', 'morphemeable_id')
                     ->where('morphemeable_type', 'forms');
             })->where('morpheme_id', $this->id);
 
@@ -284,7 +284,7 @@ class Morpheme extends Model implements PhonemeableInterface
 
     public function examples()
     {
-        return $this->morphedByMany(Example::class, 'morphemeable', 'Morph_Morphemeables')->distinct();
+        return $this->morphedByMany(Example::class, 'morphemeable', 'morph_morphemeables')->distinct();
     }
 
     public function verbExamples()
@@ -299,12 +299,12 @@ class Morpheme extends Model implements PhonemeableInterface
 
     public function glosses()
     {
-        return $this->belongsToMany(Gloss::class, 'Morph_Glosses_Morphemes', 'morpheme_id', 'gloss_id');
+        return $this->belongsToMany(Gloss::class, 'morph_glosses_morphemes', 'morpheme_id', 'gloss_id');
     }
 
     public function changeType()
     {
-        return $this->belongsTo(ChangeType::class, 'changeType_id');
+        return $this->belongsTo(ChangeType::class, 'change_type_id');
     }
 
     public function slot()

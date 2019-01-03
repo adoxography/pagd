@@ -56,7 +56,7 @@ class MorphemeObserver
         $data = $morpheme->forms->concat($morpheme->examples);
 
         foreach ($data as $item) {
-            $morphemes = explode('-', $item->morphemicForm);
+            $morphemes = explode('-', $item->morphemic_form);
 
             for ($i = 0; $i < count($morphemes); $i++) {
                 preg_match('/(?<morpheme>[^.]+)(?:\.(?<ic>\d+))?/', $morphemes[$i], $matches);
@@ -70,7 +70,7 @@ class MorphemeObserver
                 }
             }
 
-            $item->morphemicForm = implode('-', $morphemes);
+            $item->morphemic_form = implode('-', $morphemes);
             $item->save();
         }
     }
@@ -130,9 +130,9 @@ class MorphemeObserver
         foreach ($lookups as $lookup) {
             if ($firstTime) {
                 $firstTime = false;
-                $query->where('morphemicForm', 'LIKE', "%$lookup%");
+                $query->where('morphemic_form', 'LIKE', "%$lookup%");
             } else {
-                $query->orWhere('morphemicForm', 'LIKE', "%$lookup%");
+                $query->orWhere('morphemic_form', 'LIKE', "%$lookup%");
             }
         }
     }

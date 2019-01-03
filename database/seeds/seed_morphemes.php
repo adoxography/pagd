@@ -17,8 +17,7 @@ class seed_morphemes extends Seeder
     	DB::table('morph_morphemes')->delete();
 
     	$morphemes = [
-    		'id'          => 1,
-    		'name'        => 'V',
+    		'name'        => 'V-',
     		'language_id' => 1,
     		'gloss'       => 'V',
     		'slot_id'     => 1,
@@ -27,8 +26,7 @@ class seed_morphemes extends Seeder
     	];
 
     	$morphemes = [
-    		'id'          => 2,
-    		'name'        => 'N',
+    		'name'        => 'N-',
     		'language_id' => 1,
     		'gloss'       => 'N',
     		'slot_id'     => 1,

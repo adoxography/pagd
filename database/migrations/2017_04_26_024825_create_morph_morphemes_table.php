@@ -40,7 +40,7 @@ class CreateMorphMorphemesTable extends Migration
 
             // Other
             $table->integer('disambiguator');
-            $table->boolean('has_duplicates');
+            $table->boolean('has_duplicates')->default(false);
 
             // Constraints
             $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');

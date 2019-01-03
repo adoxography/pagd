@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use DB;
+use App\Models\Location;
 use App\Models\Rules\Rule;
 use App\Models\Morphology\Morpheme;
 use App\Models\Phonology\Inventory;
@@ -40,12 +41,12 @@ class Language extends Model
     |
     */
     protected $fillable = [
-        'alternateNames',
+        'alternate_names',
         'name',
         'group_id',
         'parent_id',
         'iso',
-        'algoCode',
+        'algo_code',
         'notes',
         'reconstructed',
         'location_id'
@@ -64,7 +65,7 @@ class Language extends Model
     {
         $array = $this->toArray();
 
-        return array_only($array, ['id', 'alternateNames', 'name', 'iso', 'algoCode', 'notes']);
+        return array_only($array, ['id', 'alternate_names', 'name', 'iso', 'algo_code', 'notes']);
     }
 
     /*
@@ -82,8 +83,8 @@ class Language extends Model
         'reconstructed' => 'boolean:Attested|Reconstructed'
     ];
     protected $revisionFormattedFieldNames = [
-        'algoCode'       => 'algonquianist code',
-        'alternateNames' => 'alternate names',
+        'algo_code'       => 'algonquianist code',
+        'alternate_names' => 'alternate names',
         'iso'            => 'ISO code'
     ];
     protected $dontKeepRevisionOf = [
@@ -211,14 +212,14 @@ class Language extends Model
 
     public function getAliasesAttribute()
     {
-        return $this->alternateNames;
+        return $this->alternate_names;
     }
 
     public function getNullPhoneme()
     {
         return Phoneme::firstOrCreate([
             'language_id' => $this->id,
-            'algoName' => '∅'
+            'algo_name' => '∅'
         ]);
     }
 
@@ -236,5 +237,25 @@ class Language extends Model
         $activity = $activity ?: $this->forms()->count() + $this->examples()->count() + $this->phonemes()->count();
 
         return min(1.0, $activity / 500);
+    }
+
+    public static function fieldTemplate($root = true) {
+        $template = collect(['fields' => [
+            'id' => '0',
+            'name' => '',
+            'alternate_names' => '',
+            'algo_code' => '',
+            'iso' => '',
+            'reconstructed' => '0',
+            'notes' => '',
+        ]]);
+
+        if ($root) {
+            $template['group'] = Group::fieldTemplate(false);
+            $template['parent'] = Language::fieldTemplate(false);
+            $template['location'] = Location::fieldTemplate(false);
+        }
+
+        return $template;
     }
 }

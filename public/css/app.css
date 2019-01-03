@@ -20754,6 +20754,10 @@ table.table.details td {
   border-color: #f2f2f2;
 }
 
+.tooltip.popover::after {
+  display: none;
+}
+
 .tooltip[aria-hidden='true'] {
   visibility: hidden;
   opacity: 0;

@@ -3,7 +3,6 @@ namespace App\Models;
 
 use DB;
 use App\Models\Location;
-use App\Models\Model;
 use App\Models\Rules\Rule;
 use App\Models\Morphology\Morpheme;
 use App\Models\Phonology\Inventory;
@@ -247,5 +246,25 @@ class Language extends Model
         $activity = $activity ?: $this->forms()->count() + $this->examples()->count() + $this->phonemes()->count();
 
         return min(1.0, $activity / 500);
+    }
+
+    public static function fieldTemplate($root = true) {
+        $template = collect(['fields' => [
+            'id' => '0',
+            'name' => '',
+            'alternate_names' => '',
+            'algo_code' => '',
+            'iso' => '',
+            'reconstructed' => '0',
+            'notes' => '',
+        ]]);
+
+        if ($root) {
+            $template['group'] = Group::fieldTemplate(false);
+            $template['parent'] = Language::fieldTemplate(false);
+            $template['location'] = Location::fieldTemplate(false);
+        }
+
+        return $template;
     }
 }

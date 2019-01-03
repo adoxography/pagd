@@ -24,7 +24,7 @@ class LanguageTest extends TestCase
             'name' => 'Test Name',
             'group_id' => $group->id,
             'iso' => 'tst',
-            'algoCode' => 'test1',
+            'algo_code' => 'test1',
             'parent_id' => $parent->id
         ]);
 
@@ -32,7 +32,7 @@ class LanguageTest extends TestCase
         $this->assertEquals('Test Name', $language->name);
         $this->assertEquals($group->id, $language->group_id);
         $this->assertEquals('tst', $language->iso);
-        $this->assertEquals('test1', $language->algoCode);
+        $this->assertEquals('test1', $language->algo_code);
         $this->assertEquals($parent->id, $language->parent_id);
     }
 

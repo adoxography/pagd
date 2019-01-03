@@ -107,7 +107,7 @@ class ReflexGraph
         $name = $phoneme->present();
 
         $collection = collect($phoneme->toArray());
-        $collection['label']    = "{$phoneme->language->algoCode} $name";
+        $collection['label']    = "{$phoneme->language->algo_code} $name";
         $collection['language'] = $phoneme->language;
         $collection['level']    = $phoneme->language->getDepth();
         $collection['id']       = $this->getNodeID($phoneme->id);
@@ -136,7 +136,7 @@ class ReflexGraph
             'id' => $reflex->id,
             'from' => $this->getNodeID($start->id),
             'to' => $this->getNodeID($end->id),
-            'title' => "{$start->language->algoCode} {$start->present()} > {$end->language->algoCode} {$end->present()} / " . ($reflex->environment ?: 'elsewhere'),
+            'title' => "{$start->language->algo_code} {$start->present()} > {$end->language->algo_code} {$end->present()} / " . ($reflex->environment ?: 'elsewhere'),
             'href' => "/reflexes/{$reflex->id}"
         ]);
     }

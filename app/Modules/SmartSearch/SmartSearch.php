@@ -106,7 +106,7 @@ class SmartSearch
     protected function extractLanguages()
     {
         $groups = Group::select('name', 'aliases', 'id')->get();
-        $languages = Language::select('name', 'alternateNames', 'algoCode', 'id')->get();
+        $languages = Language::select('name', 'alternate_names', 'algo_code', 'id')->get();
 
         foreach ($groups as $group) {
             $group->category = 'groups';
@@ -116,8 +116,8 @@ class SmartSearch
         }
 
         $collection = $languages->concat($groups);
-        $dictionary = Dictionary::build($collection, ['aliases', 'algoCode']);
-        $pattern = ModelPattern::generate($collection, ['aliases', 'algoCode']);
+        $dictionary = Dictionary::build($collection, ['aliases', 'algo_code']);
+        $pattern = ModelPattern::generate($collection, ['aliases', 'algo_code']);
         $output = ['languages' => [], 'groups' => []];
 
         preg_match_all($pattern, $this->lookup, $matches);

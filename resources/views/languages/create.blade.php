@@ -1,7 +1,7 @@
 @extends('layout', ['title' => 'Add language'])
 
 @section('title')
-	Add language
+    <h1 class="title is-4">Add language</h1>
 @endsection
 
 @section('content')

@@ -70,16 +70,22 @@ trait Phonemeable
      */
     public function lookupPhoneme(string $phoneme)
     {
-        $lookup = Phoneme::where('language_id', $this->language_id)
-            ->whereRaw('BINARY algoName = ?', [$phoneme])
-            ->get();
+        $query = Phoneme::where('language_id', $this->language_id);
+
+        if (config('database.default') == 'pgsql') {
+            $query->where('algo_name', $phoneme);
+        } else {
+            $query->whereRaw('BINARY algo_name = ?', [$phoneme]);
+        }
+
+        $lookup = $query->get();
 
         if ($lookup->count() > 1) {
             $encoding = mb_internal_encoding();
             $phoneme = mb_strtolower($phoneme);
 
             $lookup = $lookup->filter(function ($result) use ($phoneme, $encoding) {
-                return strcmp(mb_strtolower($result->algoName, $encoding), $phoneme) == 0;
+                return strcmp(mb_strtolower($result->algo_name, $encoding), $phoneme) == 0;
             });
         }
 
@@ -105,7 +111,7 @@ trait Phonemeable
     {
         $pattern = '';
 
-        $this->phonemes->pluck('algoName')
+        $this->phonemes->pluck('algo_name')
             ->sortByDesc(function ($phoneme) {
                 return strlen($phoneme);
             })

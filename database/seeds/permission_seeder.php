@@ -14,8 +14,12 @@ class permission_seeder extends Seeder
      */
     public function run()
     {
+        Artisan::call('cache:forget', ['key' => 'spatie.permission.cache']);
         DB::table('roles')->delete();
         DB::table('permissions')->delete();
+        DB::table('model_has_permissions')->delete();
+        DB::table('model_has_roles')->delete();
+        DB::table('role_has_permissions')->delete();
 
         $roles = [
             'developer' => [

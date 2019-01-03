@@ -1,19 +1,10 @@
 <template>
   <div>
-    <div class="control" v-show="addMode">
-      <label class="radio">
-        <input type="radio" :value="null" v-model="addType" />
-        None
-      </label>
-      <label class="radio">
-        <input type="radio" value="point" v-model="addType" />
-        Point
-      </label>
-      <label class="radio">
-        <input type="radio" value="area" v-model="addType" />
-        Area
-      </label>
-    </div>
+    <b-field v-show="addMode">
+      <b-radio v-model="addType" :native-value="null">None</b-radio>
+      <b-radio v-model="addType" native-value="point">Point</b-radio>
+      <b-radio v-model="addType" native-value="area">Area</b-radio>
+    </b-field>
 
     <gmap-map
       :center="center"
@@ -154,15 +145,18 @@ export default {
     /**
      * Process all of the incoming markers
      */
-		if(this.markers) {
-			if(Array.isArray(this.markers)) {
-				this.markers.forEach(marker => this.addEntity(marker));
-			} else {
+    if(this.markers) {
+      if(Array.isArray(this.markers)) {
+        this.markers.forEach(marker => this.addEntity(marker));
+      } else {
         this.addEntity(this.markers);
-			}
+      }
 
-			this.center = this.getMapCenter();
-		}
+      let center = this.getMapCenter();
+      if (center) {
+        this.center = center;
+      }
+    }
 
     /**
      * Handle the special marker, if provided
@@ -346,14 +340,19 @@ export default {
     /**
      * Finds the center position of all the entities on the map
      *
-     * @return  An object containing lat and lng coordinates for the center
+     * @return  An object containing lat and lng coordinates for the center, or
+     *          null if there are no entities on the map
      */
     getMapCenter() {
       let markerPositions = this.markerArray.map(marker => marker.location.position);
       let zonePositions = this.zones.flatMap(zone => zone.location.position);
       const allPositions = [...markerPositions, ...zonePositions];
 
-      return this.getCenter(allPositions);
+      if (allPositions.length > 0) {
+        return this.getCenter(allPositions);
+      }
+
+      return null;
     },
 
     /**

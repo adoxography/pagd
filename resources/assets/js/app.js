@@ -48,7 +48,7 @@ Vue.component('alg-typewriter', resolve => { require(['./components/Typewriter.v
 Vue.component('alg-preview', resolve => { require(['./components/Preview.vue'], resolve); });
 
 Vue.component('alg-form',           resolve => { require(['./components/forms/Form.vue'], resolve); });
-Vue.component('alg-language-form',  resolve => { require(['./components/forms/Language.vue'], resolve); });
+Vue.component('alg-model-form',  resolve => { require(['./components/forms/ModelForm.vue'], resolve); });
 Vue.component('alg-group-form',     resolve => { require(['./components/forms/Group.vue'], resolve); });
 Vue.component('alg-form-form',      resolve => { require(['./components/forms/VerbForm.vue'], resolve); });
 Vue.component('alg-morpheme-form',  resolve => { require(['./components/forms/Morpheme.vue'], resolve); });

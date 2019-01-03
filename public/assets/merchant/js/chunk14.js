@@ -1,11 +1,11 @@
-webpackJsonp([14,27],{
+webpackJsonp([14,19],{
 
-/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Datapoint.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Audio.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form__ = __webpack_require__("./resources/assets/js/components/forms/Form.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Datalist_js__ = __webpack_require__("./resources/assets/js/Datalist.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Datalist__ = __webpack_require__("./resources/assets/js/Datalist.js");
 
 
 
@@ -13,36 +13,16 @@ webpackJsonp([14,27],{
 /* harmony default export */ __webpack_exports__["a"] = ({
 	extends: __WEBPACK_IMPORTED_MODULE_0__Form__["default"],
 
-	props: ['method', 'action', 'variables', 'initialValue'],
-
 	data: function data() {
 		return {
-			language: new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */](),
-			variable: new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */](),
-			selectedValue: ''
+			language: new __WEBPACK_IMPORTED_MODULE_1__Datalist__["a" /* Datalist */]()
 		};
 	},
 
 
-	computed: {
-		values: function values() {
-			var _this = this;
-
-			var variable = this.variables.find(function (variable) {
-				return variable.id == _this.variable.id;
-			});
-
-			if (variable) {
-				return variable.values;
-			} else {
-				return [];
-			}
-		}
-	},
-
-	created: function created() {
-		if (this.initialValue) {
-			this.selectedValue = this.initialValue;
+	methods: {
+		onUpload: function onUpload(event) {
+			this.$refs.name.value = event.name;
 		}
 	}
 });
@@ -68,12 +48,16 @@ webpackJsonp([14,27],{
 //
 //
 //
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_OldErrors__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_OldSources__["a" /* default */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_OldSources__["a" /* default */]],
 
   props: ['method', 'action'],
 
@@ -91,7 +75,15 @@ webpackJsonp([14,27],{
 
       this.$validator.validateAll().then(function (result) {
         if (result) {
-          _this.$refs.form.submit();
+          _this.$children.forEach(function (child) {
+            if (child.beforeSubmit) {
+              child.beforeSubmit();
+            }
+          });
+
+          _this.$nextTick(function () {
+            return _this.$refs.form.submit();
+          });
         }
       });
     }
@@ -114,7 +106,10 @@ var render = function() {
     "form",
     {
       ref: "form",
-      attrs: { method: _vm.method, action: _vm.action },
+      attrs: {
+        method: _vm.method == "GET" ? _vm.method : "POST",
+        action: _vm.action
+      },
       on: {
         submit: function($event) {
           $event.preventDefault()
@@ -128,13 +123,20 @@ var render = function() {
         domProps: { value: _vm.csrfToken }
       }),
       _vm._v(" "),
+      _vm.method != "POST" && _vm.method != "GET"
+        ? _c("input", {
+            attrs: { type: "hidden", name: "_method" },
+            domProps: { value: _vm.method }
+          })
+        : _vm._e(),
+      _vm._v(" "),
       _vm._t("default"),
       _vm._v(" "),
       _c("div", { staticClass: "field" }, [
         _c(
           "button",
           {
-            staticClass: "button is-primary",
+            staticClass: "button is-primary has-text-grey-dark",
             attrs: { type: "submit", disabled: _vm.errors.any() }
           },
           [_vm._v("Submit")]
@@ -189,12 +191,12 @@ var Datalist = function () {
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/forms/Datapoint.vue":
+/***/ "./resources/assets/js/components/forms/Audio.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Datapoint_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/forms/Datapoint.vue?vue&type=script&lang=js&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Audio_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/forms/Audio.vue?vue&type=script&lang=js&");
 /* empty harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_componentNormalizer_js__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 var render, staticRenderFns
@@ -205,7 +207,7 @@ var render, staticRenderFns
 /* normalize component */
 
 var component = Object(__WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_componentNormalizer_js__["a" /* default */])(
-  __WEBPACK_IMPORTED_MODULE_0__Datapoint_vue_vue_type_script_lang_js___["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_0__Audio_vue_vue_type_script_lang_js___["a" /* default */],
   render,
   staticRenderFns,
   false,
@@ -222,25 +224,25 @@ if (false) {
   if (api.compatible) {
     module.hot.accept()
     if (!module.hot.data) {
-      api.createRecord('1a95a25f', component.options)
+      api.createRecord('4065be8f', component.options)
     } else {
-      api.reload('1a95a25f', component.options)
+      api.reload('4065be8f', component.options)
     }
     
   }
 }
-component.options.__file = "resources/assets/js/components/forms/Datapoint.vue"
+component.options.__file = "resources/assets/js/components/forms/Audio.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/forms/Datapoint.vue?vue&type=script&lang=js&":
+/***/ "./resources/assets/js/components/forms/Audio.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Datapoint_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Datapoint.vue?vue&type=script&lang=js&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Audio_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Audio.vue?vue&type=script&lang=js&");
 /* unused harmony namespace reexport */
- /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Datapoint_vue_vue_type_script_lang_js___["a" /* default */]); 
+ /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Audio_vue_vue_type_script_lang_js___["a" /* default */]); 
 
 /***/ }),
 
@@ -320,7 +322,7 @@ component.options.__file = "resources/assets/js/components/forms/Form.vue"
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = ({
+/* unused harmony default export */ var _unused_webpack_default_export = ({
   props: ['oldErrors'],
 
   mounted: function mounted() {

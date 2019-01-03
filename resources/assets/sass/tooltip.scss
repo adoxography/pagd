@@ -94,6 +94,10 @@
         .popover-arrow {
             border-color: $color;
         }
+
+        &::after {
+            display: none;
+        }
     }
 
     &[aria-hidden='true'] {

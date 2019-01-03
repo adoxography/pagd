@@ -16,7 +16,6 @@ class seed_languages extends Seeder
         
         $languages = [
         	[
-                'id'        => 1,
                 'name'      => 'Proto-Algonquian', 
                 'iso'       => 'alg', 
                 'algo_code'  => 'alg', 

@@ -130,4 +130,14 @@ class Group extends Model
     {
         return new AlgPresenter($this, $method);
     }
+
+    public static function fieldTemplate($root = true)
+    {
+        return collect([
+            'fields' => [
+                'name' => '',
+                'id' => 0
+            ]
+        ]);
+    }
 }

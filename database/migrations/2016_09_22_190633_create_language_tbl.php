@@ -22,7 +22,6 @@ class CreateLanguageTbl extends Migration
             $table->string('algo_code',5)->unique();
             $table->unsignedInteger('parent_id')->nullable();
             $table->unsignedInteger('group_id');
-            $table->boolean('verified')->default(0);
             $table->timestamps();
             $table->string('alternate_names')->nullable();
             $table->text('notes')->nullable();

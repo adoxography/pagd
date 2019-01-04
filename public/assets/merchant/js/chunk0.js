@@ -405,19 +405,11 @@ function updateData(data, initial) {
     };
   },
   created: function created() {
-    var _this = this;
-
     updateData(this.data, this.initial);
 
-    this.$validator.extend('exists', function (value, _ref5) {
-      var _ref6 = _slicedToArray(_ref5, 2),
-          arr = _ref6[0],
-          key = _ref6[1];
-
-      return _this[arr].some(function (el) {
-        return (key ? el[key] : el) === value;
-      });
-    });
+    //this.$validator.extend('exists', (value, [arr, key]) => {
+    //return this[arr].some(el => (key ? el[key] : el) === value);
+    //});
 
     if (this.isEmpty) {
       this.empty = this.isEmpty;
@@ -427,7 +419,7 @@ function updateData(data, initial) {
 
   methods: {
     getAsyncData: __WEBPACK_IMPORTED_MODULE_3_lodash_debounce___default()(function () {
-      var _this2 = this;
+      var _this = this;
 
       if (!this.parent.length) {
         this.parentData = [];
@@ -445,15 +437,15 @@ function updateData(data, initial) {
           term: this.parent
         }
       }).then(function (response) {
-        _this2.parentData = [];
+        _this.parentData = [];
         response.parentData.forEach(function (item) {
-          return _this2.parentData.push(item);
+          return _this.parentData.push(item);
         });
       }).catch(function (error) {
-        _this2.parentData = [];
+        _this.parentData = [];
         console.error(error);
       }).finally(function () {
-        _this2.isFetching = false;
+        _this.isFetching = false;
       });
     }, 500)
   }

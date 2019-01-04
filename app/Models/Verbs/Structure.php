@@ -4,6 +4,10 @@
 namespace App\Models\Verbs;
 
 use App\Models\Model;
+use App\Models\Verbs\Argument;
+use App\Models\Verbs\Mode;
+use App\Models\Verbs\Order;
+use App\Models\Verbs\VerbClass;
 use App\Presenters\Verbs\StructurePresenter;
 use Venturecraft\Revisionable\RevisionableTrait;
 
@@ -384,5 +388,23 @@ class Structure extends Model
         }
 
         return trim($output);
+    }
+
+    public static function fieldTemplate($root = true)
+    {
+        $argumentTemplate = Argument::fieldTemplate(false);
+
+        return collect([
+            'fields' => [
+                'is_negative' => false,
+                'is_diminutive' => false,
+                'subject' => $argumentTemplate,
+                'primary_object' => $argumentTemplate,
+                'secondary_object' => $argumentTemplate,
+                'verb_class' => VerbClass::fieldTemplate(false),
+                'order' => Order::fieldTemplate(false),
+                'mode' => Mode::fieldTemplate(false),
+            ]
+        ]);
     }
 }

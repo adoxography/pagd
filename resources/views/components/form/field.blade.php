@@ -1,30 +1,27 @@
-@if(!isset($standalone) || !$standalone)
-<div class="field">
-		<label for="{{ $id ?? $name }}" class="label">
-			@if(isset($label))
-				{{ ucfirst($label) }}
-			@else
-				{{ ucfirst($name) }}
-			@endif
-		</label>
+@php
+$standalone = $standalone ?? false;
+$label      = $label      ?? ucfirst(str_replace('_', ' ', $name));
+@endphp
 
-	@isset($typewriter)
-		<alg-typewriter>
-	@endisset
-	<div class="control">
+@if(!$standalone)
+<div class="detail-row">
+    <label class="detail-label" for="{{ $name}}-input">{{ $label }}</label>
+    <div class="detail-value">
+@else
+    <label class="is-hidden-visual" for="{{ $name }}-input">{{ $label }}</label>
 @endif
 
-		@yield("{$name}_control")
+        @yield('outer-field')
+        <b-field :type="{'is-danger': errors.has('{{ $name }}')}"
+                 :message="errors.first('{{ $name }}')"
+                 @if($standalone)
+                 expanded
+                 @endif
+                 >
+            @yield('inner-field')
+        </b-field>
 
-@if(!isset($standalone) || !$standalone)
-	</div>
-	@isset($typewriter)
-		</alg-typewriter>
-	@endisset
-	<span
-		class="help is-danger"
-		v-show="errors.has('{{ $name }}')"
-		v-text="errors.first('{{ $name }}')"
-	></span>
+@if(!$standalone)
+    </div>
 </div>
 @endif

@@ -1,0 +1,334 @@
+webpackJsonp([102],{
+
+/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/ModelForm.vue?vue&type=script&lang=js&":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+function existsValidator(value, _ref) {
+  var _ref2 = _slicedToArray(_ref, 2),
+      arr = _ref2[0],
+      key = _ref2[1];
+
+  return arr.some(function (el) {
+    return (key ? el[key] : el) === value;
+  });
+}
+
+function updateData(data, initial) {
+  if (data !== null) {
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+      for (var _iterator = Object.entries(data)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var _ref3 = _step.value;
+
+        var _ref4 = _slicedToArray(_ref3, 2);
+
+        var key = _ref4[0];
+        var v = _ref4[1];
+
+        if (key == 'fields') {
+          var _iteratorNormalCompletion2 = true;
+          var _didIteratorError2 = false;
+          var _iteratorError2 = undefined;
+
+          try {
+            for (var _iterator2 = Object.entries(v)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+              var _ref5 = _step2.value;
+
+              var _ref6 = _slicedToArray(_ref5, 2);
+
+              var field = _ref6[0];
+              var value = _ref6[1];
+
+              if (initial && initial.hasOwnProperty(field)) {
+                value = initial[field];
+              }
+              Vue.set(data, field, value);
+            }
+          } catch (err) {
+            _didIteratorError2 = true;
+            _iteratorError2 = err;
+          } finally {
+            try {
+              if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                _iterator2.return();
+              }
+            } finally {
+              if (_didIteratorError2) {
+                throw _iteratorError2;
+              }
+            }
+          }
+        } else if (data.hasOwnProperty(key)) {
+          updateData(v, initial ? initial[key] : null);
+        }
+      }
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator.return) {
+          _iterator.return();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
+      }
+    }
+  }
+}
+
+function turnOffAutocompletes(parent) {
+  var inputs = parent.getElementsByTagName('input');
+  var _iteratorNormalCompletion3 = true;
+  var _didIteratorError3 = false;
+  var _iteratorError3 = undefined;
+
+  try {
+    for (var _iterator3 = inputs[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+      var input = _step3.value;
+
+      input.autocomplete = 'off';
+    }
+  } catch (err) {
+    _didIteratorError3 = true;
+    _iteratorError3 = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion3 && _iterator3.return) {
+        _iterator3.return();
+      }
+    } finally {
+      if (_didIteratorError3) {
+        throw _iteratorError3;
+      }
+    }
+  }
+}
+
+function normalizeTextareas(parent) {
+  var wysiwygs = parent.getElementsByClassName('editr');
+
+  var _iteratorNormalCompletion4 = true;
+  var _didIteratorError4 = false;
+  var _iteratorError4 = undefined;
+
+  try {
+    for (var _iterator4 = wysiwygs[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+      var wysiwyg = _step4.value;
+
+      var content = wysiwyg.getElementsByClassName('editr--content')[0];
+      content.tabIndex = null;
+    }
+  } catch (err) {
+    _didIteratorError4 = true;
+    _iteratorError4 = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion4 && _iterator4.return) {
+        _iterator4.return();
+      }
+    } finally {
+      if (_didIteratorError4) {
+        throw _iteratorError4;
+      }
+    }
+  }
+}
+
+function normalizeRadios(parent) {
+  var els = parent.getElementsByClassName('radio');
+  var _iteratorNormalCompletion5 = true;
+  var _didIteratorError5 = false;
+  var _iteratorError5 = undefined;
+
+  try {
+    for (var _iterator5 = els[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+      var el = _step5.value;
+
+      el.getElementsByTagName('input')[0].tabIndex = -1;
+    }
+  } catch (err) {
+    _didIteratorError5 = true;
+    _iteratorError5 = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion5 && _iterator5.return) {
+        _iterator5.return();
+      }
+    } finally {
+      if (_didIteratorError5) {
+        throw _iteratorError5;
+      }
+    }
+  }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  props: {
+    lists: {
+      type: Object,
+      default: function _default() {}
+    },
+
+    initial: {
+      type: Object,
+      default: function _default() {}
+    },
+
+    template: {
+      type: Object,
+      default: function _default() {}
+    },
+
+    oldErrors: {},
+    oldValues: {}
+  },
+
+  data: function data() {
+    return {
+      data: {},
+      filteredLists: {},
+      stringifiedData: ''
+    };
+  },
+  created: function created() {
+    this.filteredLists = JSON.parse(JSON.stringify(this.lists));
+
+    this.$validator.extend('exists', existsValidator);
+
+    this.data = this.template;
+    if (this.oldValues) {
+      updateData(this.data, this.oldValues);
+    } else {
+      updateData(this.data, this.initial);
+    }
+  },
+  mounted: function mounted() {
+    turnOffAutocompletes(this.$vnode.elm);
+    normalizeTextareas(this.$vnode.elm);
+    normalizeRadios(this.$vnode.elm);
+
+    if (this.oldErrors) {
+      this.updateErrors(this.oldErrors);
+    };
+  },
+
+
+  methods: {
+    filterList: function filterList(listName, query) {
+      query = query.toLowerCase();
+      this.filteredLists[listName] = this.lists[listName].filter(function (item) {
+        return item.name.toLowerCase().includes(query);
+      });
+    },
+    updateErrors: function updateErrors(errorList) {
+      var _this = this;
+
+      var _loop = function _loop(field, errors) {
+        errors.forEach(function (msg) {
+          return _this.errors.add({ field: field, msg: msg });
+        });
+      };
+
+      var _iteratorNormalCompletion6 = true;
+      var _didIteratorError6 = false;
+      var _iteratorError6 = undefined;
+
+      try {
+        for (var _iterator6 = Object.entries(errorList)[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+          var _ref7 = _step6.value;
+
+          var _ref8 = _slicedToArray(_ref7, 2);
+
+          var field = _ref8[0];
+          var errors = _ref8[1];
+
+          _loop(field, errors);
+        }
+      } catch (err) {
+        _didIteratorError6 = true;
+        _iteratorError6 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion6 && _iterator6.return) {
+            _iterator6.return();
+          }
+        } finally {
+          if (_didIteratorError6) {
+            throw _iteratorError6;
+          }
+        }
+      }
+    },
+    beforeSubmit: function beforeSubmit() {
+      this.stringifiedData = JSON.stringify(this.data);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/forms/ModelForm.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ModelForm_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/forms/ModelForm.vue?vue&type=script&lang=js&");
+/* empty harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_componentNormalizer_js__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(__WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_componentNormalizer_js__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__ModelForm_vue_vue_type_script_lang_js___["a" /* default */],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) {
+  var api = require("/etc/httpd/docs/alglang.localhost/node_modules/vue-hot-reload-api/dist/index.js")
+  api.install(require('vue'))
+  if (api.compatible) {
+    module.hot.accept()
+    if (!module.hot.data) {
+      api.createRecord('89129374', component.options)
+    } else {
+      api.reload('89129374', component.options)
+    }
+    
+  }
+}
+component.options.__file = "resources/assets/js/components/forms/ModelForm.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/forms/ModelForm.vue?vue&type=script&lang=js&":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModelForm_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/ModelForm.vue?vue&type=script&lang=js&");
+/* unused harmony namespace reexport */
+ /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModelForm_vue_vue_type_script_lang_js___["a" /* default */]); 
+
+/***/ })
+
+});

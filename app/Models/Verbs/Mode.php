@@ -14,4 +14,14 @@ class Mode extends Model
     {
         return $this->hasMany(Structure::class, 'mode_id');
     }
+
+    public static function fieldTemplate($root = true)
+    {
+        return collect([
+            'fields' => [
+                'name' => '',
+                'id' => 0
+            ]
+        ]);
+    }
 }

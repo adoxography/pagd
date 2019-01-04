@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+@extends('components.form.field')
+
+>>>>>>> Replace verb form form template with blade components
 @php
 $list     = $list     ?? str_plural($name);
 $required = $required ?? 'false';

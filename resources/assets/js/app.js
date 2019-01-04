@@ -50,7 +50,6 @@ Vue.component('alg-preview', resolve => { require(['./components/Preview.vue'], 
 Vue.component('alg-form',           resolve => { require(['./components/forms/Form.vue'], resolve); });
 Vue.component('alg-model-form',  resolve => { require(['./components/forms/ModelForm.vue'], resolve); });
 Vue.component('alg-group-form',     resolve => { require(['./components/forms/Group.vue'], resolve); });
-Vue.component('alg-form-form',      resolve => { require(['./components/forms/VerbForm.vue'], resolve); });
 Vue.component('alg-morpheme-form',  resolve => { require(['./components/forms/Morpheme.vue'], resolve); });
 Vue.component('alg-example-form',   resolve => { require(['./components/forms/Example.vue'], resolve); });
 Vue.component('alg-rule-form',      resolve => { require(['./components/forms/Rule.vue'], resolve); });

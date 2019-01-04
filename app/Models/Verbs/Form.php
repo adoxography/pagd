@@ -2,9 +2,11 @@
 
 namespace App\Models\Verbs;
 
+use App\Models\Language;
+use App\Models\Verbs\Structure;
+use App\Models\Words\Form as WordForm;
 use App\Presenters\Verbs\FormPresenter;
 use App\Traits\Verbs\HasStructure;
-use App\Models\Words\Form as WordForm;
 use Illuminate\Database\Eloquent\Builder;
 
 class Form extends WordForm
@@ -14,6 +16,13 @@ class Form extends WordForm
     public $uri = 'verbs/forms';
 
     public $presenter = FormPresenter::class;
+
+    public static $template = [
+        'name' => '',
+        'empty' => false,
+        'language' => Language::class,
+        'structure' => Structure::class
+    ];
 
     public static function boot()
     {

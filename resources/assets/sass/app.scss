@@ -171,6 +171,12 @@ blockquote {
     padding: .1rem 6px;
 }
 
+.argument-inputs .field {
+    .field:not(:last-child) {
+        margin-right: .75rem;
+    }
+}
+
 .logo {
     text-transform: none !important;
     font-size: 1.25em;

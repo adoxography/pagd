@@ -398,6 +398,7 @@ class Structure extends Model
             'fields' => [
                 'is_negative' => false,
                 'is_diminutive' => false,
+                'is_absolute' => null,
                 'subject' => $argumentTemplate,
                 'primary_object' => $argumentTemplate,
                 'secondary_object' => $argumentTemplate,

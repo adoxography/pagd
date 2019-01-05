@@ -1,16 +1,16 @@
 @extends('components.form.field')
 
-@php
-	$value = isset($value) ? $value : '';
-@endphp
+@section("outer-field")
+@overwrite
 
-@section("{$name}_control")
+@section("inner-field")
 	<wysiwyg
-		value="{{ old($name, 'not found') !== 'not found' ? old($name) : $value }}"
 		name="{{ $name }}"
+        id="{{ $name }}-input"
+        v-model="data.{{ $name }}"
 
-		@if(isset($disabled))
+		@isset($disabled)
 		:disabled="{{ $disabled }}"
-		@endif
+		@endisset
   ></wysiwyg>
-@endsection
+@overwrite

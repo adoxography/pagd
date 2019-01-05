@@ -1,67 +1,18 @@
 @extends('components.form.field')
 
-@section("{$name}_control")
-	<div class="control">
-		<span class="select">
-			<select
-				name="{{ $name }}"
-				id="{{ $id ?? $name }}"
+@php
+$list = $list ?? str_plural($name);
+$path = 'data';
 
-				@if(isset($disabled))
-				:disabled="{{ $disabled }}"
-				@endif
+if (isset($goesThrough)) {
+    $path .= '.' . $goesThrough;
+}
+@endphp
 
-				@if(isset($model))
-				v-model="{{ $model }}"
-				@endif
-
-				@isset ($activeRules)
-					v-validate="{{ $activeRules }}"
-				@elseif(isset($rules))
-					v-validate="'{{ $rules }}'"
-				@endisset
-
-				@if (isset($label))
-					data-vv-as="{{ $label }}"
-				@endif
-			>
-
-				@if($options instanceof Illuminate\Database\Eloquent\Collection)
-					@foreach($options as $option)
-						<option
-							value="{{ $option['id'] }}"
-							@if(old($name, 'not found') !== 'not found')
-								@if(old($name) === $option['id'])
-									selected="selected"
-								@endif
-							@elseif(isset($selected))
-								@if($selected === $option['id'])
-									selected="selected"
-								@endif
-							@endif
-						>
-							{{ $option['name'] }}
-						</option>
-					@endforeach
-				@else
-					@foreach($options as $display => $value)
-						<option
-							value="{{ $value }}"
-							@if(old($name, 'not found') !== 'not found')
-								@if(old($name) === $value)
-									selected="selected"
-								@endif
-							@elseif(isset($selected))
-								@if($selected === $value)
-									selected="selected"
-								@endif
-							@endif
-						>
-							{{ $display }}
-						</option>
-					@endforeach
-				@endif
-			</select>
-		</span>
-	</div>
-@endsection
+@section('inner-field')
+    <b-select v-model="{{ $path }}.{{ $name }}">
+        <option v-for="(value, label) in lists.{{ $list }}" :value="value">
+            @{{ label }}
+        </option>
+    </b-select>
+@overwrite

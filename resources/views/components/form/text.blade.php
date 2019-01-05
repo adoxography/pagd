@@ -16,10 +16,5 @@
          @isset($disabled)
          :disabled="{{ $disabled }}"
          @endisset
-
-         @if($required && $required != 'false')
-         required
-         @endif
-         >
-</b-input>
+></b-input>
 @overwrite

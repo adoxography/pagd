@@ -376,6 +376,7 @@ function normalizeRadios(parent) {
     getAsyncData: _.debounce(function (listName, query, options) {
       var _this2 = this;
 
+      console.log(query);
       this.asyncLoading[listName] = true;
       axios.get(this.lists[listName], {
         params: {
@@ -383,6 +384,7 @@ function normalizeRadios(parent) {
           options: options
         }
       }).then(function (response) {
+        console.log(response);
         _this2.filteredLists[listName] = response.data;
         _this2.asyncLoading[listName] = false;
       }).catch(function (error) {

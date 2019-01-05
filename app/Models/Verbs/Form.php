@@ -23,7 +23,6 @@ class Form extends WordForm
 
     public static $template = [
         'name' => '',
-<<<<<<< HEAD
         'historical_notes' => '',
         'allomorphy_notes' => '',
         'usage_notes' => '',
@@ -34,11 +33,6 @@ class Form extends WordForm
         'parent' => Form::class,
         'change_type' => ChangeType::class,
         'morphemes' => []
-=======
-        'empty' => false,
-        'language' => Language::class,
-        'structure' => Structure::class
->>>>>>> Replace verb form form template with blade components
     ];
 
     public static function boot()

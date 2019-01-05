@@ -1,4 +1,8 @@
+<<<<<<< HEAD:public/assets/merchant/js/chunk63.js
 webpackJsonp([63,72],{
+=======
+webpackJsonp([10,18],{
+>>>>>>> Adapt async autocomplete into Buefy component:public/assets/merchant/js/chunk10.js
 
 /***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Form.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -63,7 +67,7 @@ webpackJsonp([63,72],{
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Paradigm.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Morpheme.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -76,11 +80,20 @@ webpackJsonp([63,72],{
 /* harmony default export */ __webpack_exports__["a"] = ({
 	extends: __WEBPACK_IMPORTED_MODULE_0__Form__["default"],
 
+	props: ['init-glosses'],
+
 	data: function data() {
 		return {
 			language: new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */](),
-			paradigmType: new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */]()
+			slot: new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */](),
+			parent: new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */](),
+			glosses: []
 		};
+	},
+	created: function created() {
+		if (this.initGlosses) {
+			this.glosses = this.initGlosses;
+		}
 	}
 });
 
@@ -257,12 +270,12 @@ component.options.__file = "resources/assets/js/components/forms/Form.vue"
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/forms/Paradigm.vue":
+/***/ "./resources/assets/js/components/forms/Morpheme.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Paradigm_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/forms/Paradigm.vue?vue&type=script&lang=js&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Morpheme_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/forms/Morpheme.vue?vue&type=script&lang=js&");
 /* empty harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_componentNormalizer_js__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 var render, staticRenderFns
@@ -273,7 +286,7 @@ var render, staticRenderFns
 /* normalize component */
 
 var component = Object(__WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_componentNormalizer_js__["a" /* default */])(
-  __WEBPACK_IMPORTED_MODULE_0__Paradigm_vue_vue_type_script_lang_js___["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_0__Morpheme_vue_vue_type_script_lang_js___["a" /* default */],
   render,
   staticRenderFns,
   false,
@@ -290,25 +303,25 @@ if (false) {
   if (api.compatible) {
     module.hot.accept()
     if (!module.hot.data) {
-      api.createRecord('2bc80a62', component.options)
+      api.createRecord('8220ffe8', component.options)
     } else {
-      api.reload('2bc80a62', component.options)
+      api.reload('8220ffe8', component.options)
     }
     
   }
 }
-component.options.__file = "resources/assets/js/components/forms/Paradigm.vue"
+component.options.__file = "resources/assets/js/components/forms/Morpheme.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/forms/Paradigm.vue?vue&type=script&lang=js&":
+/***/ "./resources/assets/js/components/forms/Morpheme.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Paradigm_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Paradigm.vue?vue&type=script&lang=js&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Morpheme_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Morpheme.vue?vue&type=script&lang=js&");
 /* unused harmony namespace reexport */
- /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Paradigm_vue_vue_type_script_lang_js___["a" /* default */]); 
+ /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Morpheme_vue_vue_type_script_lang_js___["a" /* default */]); 
 
 /***/ }),
 

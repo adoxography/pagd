@@ -101,9 +101,9 @@ export default {
 	},
 
 	created() {
-    initLists();
-    initValidator();
-    initData();
+    this.initLists();
+    this.initValidator();
+    this.initData();
 	},
 
   mounted() {

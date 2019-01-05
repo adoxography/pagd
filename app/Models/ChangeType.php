@@ -12,4 +12,14 @@ class ChangeType extends Model
     {
     	return $this->name;
     }
+
+    public static function fieldTemplate($root = true)
+    {
+        return collect([
+            'fields' => [
+                'name' => 'N/A',
+                'id' => 0
+            ]
+        ]);
+    }
 }

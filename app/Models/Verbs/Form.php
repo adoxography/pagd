@@ -2,10 +2,7 @@
 
 namespace App\Models\Verbs;
 
-<<<<<<< HEAD
 use App\Models\ChangeType;
-=======
->>>>>>> Replace verb form form template with blade components
 use App\Models\Language;
 use App\Models\Verbs\Structure;
 use App\Models\Words\Form as WordForm;

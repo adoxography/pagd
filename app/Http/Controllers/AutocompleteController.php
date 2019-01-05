@@ -85,17 +85,17 @@ class AutocompleteController extends Controller
         $language = $options['language'];
 
         $results = Morpheme::select('name', 'id', 'gloss', 'slot_id', 'language_id', 'disambiguator')
-                            ->with(['slot', 'initialChanges'])
+                           ->with(['slot', 'initialChanges'])
                            ->where('name', 'LIKE', "%$term%")
                            ->where('name', '<>', 'V')
                            ->where('language_id', $language)
                            ->get();
 
-        if (!isset($options['alter']) || $options['alter'] === true) {
-            foreach ($results as $result) {
-                $result->name = str_replace('*', '', $result->present('unique'));
-            }
-        }
+        //if (!isset($options['alter']) || $options['alter'] === true) {
+            //foreach ($results as $result) {
+                //$result->name = str_replace('*', '', $result->present('unique'));
+            //}
+        //}
 
         return $results->toJson();
     }

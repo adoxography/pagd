@@ -2,6 +2,7 @@
 
 namespace App\Models\Verbs;
 
+use App\Models\ChangeType;
 use App\Models\Language;
 use App\Models\Verbs\Structure;
 use App\Models\Words\Form as WordForm;
@@ -19,10 +20,16 @@ class Form extends WordForm
 
     public static $template = [
         'name' => '',
+        'historical_notes' => '',
+        'allomorphy_notes' => '',
+        'usage_notes' => '',
+        'private_notes' => '',
         'empty' => false,
         'language' => Language::class,
         'structure' => Structure::class,
-        'parent' => Form::class
+        'parent' => Form::class,
+        'change_type' => ChangeType::class,
+        'morphemes' => []
     ];
 
     public static function boot()

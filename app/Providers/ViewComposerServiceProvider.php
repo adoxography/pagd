@@ -27,6 +27,7 @@ use App\Models\StructuralSurvey\Value;
 use App\Models\StructuralSurvey\Variable;
 
 use App\Models\Verbs\Argument;
+use App\Models\Verbs\Form as VerbForm;
 use App\Models\Verbs\Mode;
 use App\Models\Verbs\Order;
 use App\Models\Verbs\VerbClass;
@@ -250,16 +251,30 @@ class ViewComposerServiceProvider extends ServiceProvider
     private function composeVerbFormForm()
     {
         view()->composer('verbs.forms.partials.form', function ($view) {
-            $data = [
-                'arguments'   => Argument::select('id', 'name')->get(),
-                'classes'     => VerbClass::select('id', 'name')->get(),
-                'languages'   => Language::select('id', 'name')->get(),
-                'modes'       => Mode::select('id', 'name')->get(),
-                'orders'      => Order::select('id', 'name')->get(),
-                'changeTypes' => ChangeType::select('id', 'name')->get()->prepend([
-                    'id' => null,
+            $lists = [
+                'languages'    => Language::select('id', 'name')->get(),
+                'features'     => Argument::select('id', 'name')->get(),
+                'classes'      => VerbClass::select('id', 'name')->get(),
+                'orders'       => Order::select('id', 'name')->get(),
+                'modes'        => Mode::select('id', 'name')->get(),
+                'change_types' => ChangeType::select('id', 'name')->get()->prepend([
+                    'id' => 0,
                     'name' => 'N/A'
-                ])
+                ]),
+                'definitenesses' => ['N/A' => null, 'absolute' => 1, 'objective' => 0],
+                'heads' => [
+                    'N/A' => null,
+                    'subject' => 'subject',
+                    'primary object' => 'primary object',
+                    'secondary object' => 'secondary object'
+                ],
+                'parents' => '/autocomplete/formParents',
+                'morphemes' => '/autocomplete/morphemes'
+            ];
+
+            $data = [
+                'lists' => json_encode($lists),
+                'template' => VerbForm::fieldTemplate()
             ];
             $view->with($data);
         });

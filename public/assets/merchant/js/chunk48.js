@@ -228,9 +228,9 @@ function normalizeRadios(parent) {
     };
   },
   created: function created() {
-    initLists();
-    initValidator();
-    initData();
+    this.initLists();
+    this.initValidator();
+    this.initData();
   },
   mounted: function mounted() {
     turnOffAutocompletes(this.$vnode.elm);

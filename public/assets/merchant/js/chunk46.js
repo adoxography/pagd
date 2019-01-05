@@ -1,88 +1,93 @@
 webpackJsonp([46],{
 
-/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Delete-Button.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/search/Nominal-Paradigm.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-//
-//
-//
-//
-//
-//
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Datalist_js__ = __webpack_require__("./resources/assets/js/Datalist.js");
+
+
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['href'],
+	props: ['oldLanguages'],
 
 	data: function data() {
 		return {
-			classes: {}
+			languages: [new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]()]
 		};
 	},
+	created: function created() {
+		if (this.oldLanguages && Array.isArray(this.oldLanguages)) {
+			var languages = [];
 
+			for (var i = 0; i < this.oldLanguages.length; i += 2) {
+				languages.push(new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */](this.oldLanguages[i], this.oldLanguages[i + 1]));
+			}
 
-	methods: {
-		onClick: function onClick() {
-			axios.delete(this.href).then(function (response) {
-				alert('Deleted');
-			});
+			this.languages = languages;
 		}
 	}
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Delete-Button.vue?vue&type=template&id=15298f0d&":
+/***/ "./resources/assets/js/Datalist.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "a",
-    {
-      on: {
-        click: function($event) {
-          $event.preventDefault()
-          return _vm.onClick($event)
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Datalist; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Datalist = function () {
+    function Datalist() {
+        var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+        var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+        var extra = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
+
+        _classCallCheck(this, Datalist);
+
+        this.text = text;
+        this.id = id;
+        this.extra = extra;
+    }
+
+    _createClass(Datalist, [{
+        key: "reset",
+        value: function reset() {
+            this.text = "";
+            this.id = "";
+            this.extra = "";
         }
-      }
-    },
-    [_vm._t("default")],
-    2
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
+    }]);
+
+    return Datalist;
+}();
 
 
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/Delete-Button.vue":
+/***/ "./resources/assets/js/components/forms/search/Nominal-Paradigm.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Delete_Button_vue_vue_type_template_id_15298f0d___ = __webpack_require__("./resources/assets/js/components/Delete-Button.vue?vue&type=template&id=15298f0d&");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Delete_Button_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/Delete-Button.vue?vue&type=script&lang=js&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Nominal_Paradigm_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/forms/search/Nominal-Paradigm.vue?vue&type=script&lang=js&");
 /* empty harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_componentNormalizer_js__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_componentNormalizer_js__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
 
 
 
 
 /* normalize component */
 
-var component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_componentNormalizer_js__["a" /* default */])(
-  __WEBPACK_IMPORTED_MODULE_1__Delete_Button_vue_vue_type_script_lang_js___["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_0__Delete_Button_vue_vue_type_template_id_15298f0d___["a" /* render */],
-  __WEBPACK_IMPORTED_MODULE_0__Delete_Button_vue_vue_type_template_id_15298f0d___["b" /* staticRenderFns */],
+var component = Object(__WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_componentNormalizer_js__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__Nominal_Paradigm_vue_vue_type_script_lang_js___["a" /* default */],
+  render,
+  staticRenderFns,
   false,
   null,
   null,
@@ -97,41 +102,25 @@ if (false) {
   if (api.compatible) {
     module.hot.accept()
     if (!module.hot.data) {
-      api.createRecord('15298f0d', component.options)
+      api.createRecord('ef303c88', component.options)
     } else {
-      api.reload('15298f0d', component.options)
+      api.reload('ef303c88', component.options)
     }
-    module.hot.accept("./Delete-Button.vue?vue&type=template&id=15298f0d&", function () {
-      api.rerender('15298f0d', {
-        render: render,
-        staticRenderFns: staticRenderFns
-      })
-    })
+    
   }
 }
-component.options.__file = "resources/assets/js/components/Delete-Button.vue"
+component.options.__file = "resources/assets/js/components/forms/search/Nominal-Paradigm.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/Delete-Button.vue?vue&type=script&lang=js&":
+/***/ "./resources/assets/js/components/forms/search/Nominal-Paradigm.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Delete_Button_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Delete-Button.vue?vue&type=script&lang=js&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Nominal_Paradigm_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/search/Nominal-Paradigm.vue?vue&type=script&lang=js&");
 /* unused harmony namespace reexport */
- /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Delete_Button_vue_vue_type_script_lang_js___["a" /* default */]); 
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/Delete-Button.vue?vue&type=template&id=15298f0d&":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Delete_Button_vue_vue_type_template_id_15298f0d___ = __webpack_require__("./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Delete-Button.vue?vue&type=template&id=15298f0d&");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Delete_Button_vue_vue_type_template_id_15298f0d___["a"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Delete_Button_vue_vue_type_template_id_15298f0d___["b"]; });
-
+ /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Nominal_Paradigm_vue_vue_type_script_lang_js___["a" /* default */]); 
 
 /***/ })
 

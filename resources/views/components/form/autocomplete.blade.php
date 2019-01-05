@@ -4,6 +4,8 @@
 $list     = $list     ?? str_plural($name);
 $required = $required ?? 'false';
 $field    = $field    ?? 'name';
+$async    = $async    ?? false;
+$asyncParams = $asyncParams ?? '{}';
 $path = 'data';
 $placeholderSet = isset($placeholder);
 
@@ -20,12 +22,21 @@ if (isset($goesThrough)) {
 @section('inner-field')
 <b-autocomplete id="{{ $name }}-input"
                 name="{{ $name }}"
-                v-validate="{required: {{ $required }}, exists: [lists.{{ $list }}, '{{ $field }}']}"
                 :open-on-focus="true"
                 @select="obj => {{ $path }}.{{ $name }}.id = obj ? obj.id : 0"
                 v-model="{{ $path }}.{{ $name }}.{{ $field }}"
-                :data="filteredLists.{{ $list }}"
                 field="{{ $field }}"
+
+                :data="filteredLists.{{ $list }}"
+
+                @if($async)
+                @keyup.native="getAsyncData('{{ $list }}', $event, {{ $asyncParams }})"
+                :loading="asyncLoading.{{ $list }}"
+                v-validate="{required: {{ $required }}}"
+                @else
+                @input="filterList('{{ $list }}', $event)"
+                v-validate="{required: {{ $required }}, exists: [lists.{{ $list }}, '{{ $field }}']}"
+                @endif
 
                 @if($required && $required != 'false')
                 required
@@ -35,6 +46,5 @@ if (isset($goesThrough)) {
                 placeholder="{{ $placeholder }}"
                 @endif
 
-                @input="filterList('{{ $list }}', $event)">
-</b-autocomplete>
+></b-autocomplete>
 @overwrite

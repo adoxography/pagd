@@ -1,14 +1,14 @@
 @extends('components.form.field')
 
 @php
-    $name = isset($name) ? $name : 'morphemes';
+$name = $name ?? 'morphemes';
 @endphp
 
-@section("{$name}_control")
+@section("inner-field")
     <alg-morpheme-tag-input
         source="/autocomplete/morphemes"
         name="{{ $name }}"
-        id="{{ $id ?? $name }}"
+        id="{{ $name }}-input"
         :classes="{'is-danger': errors.has('{{ $name }}')}"
         :language="{{ $language }}"
         :allow-duplicates="true"
@@ -37,4 +37,4 @@
             @input="errors.clear('{{ $name }}')"
         @endisset
     ></alg-morpheme-tag-input>
-@endsection
+@overwrite

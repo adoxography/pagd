@@ -1,5 +1,5 @@
 <alg-form method="{{ $method }}" action="{{ $action }}">
-    <alg-model-form :lists="{languages: {{ $languages }}, features: {{ $arguments }}, classes: {{ $classes }}, orders: {{ $orders }}, modes: {{ $modes }}, definitenesses: ['absolute', 'objective', 'N/A']}"
+    <alg-model-form :lists="{languages: {{ $languages }}, features: {{ $arguments }}, classes: {{ $classes }}, orders: {{ $orders }}, modes: {{ $modes }}, definitenesses: ['absolute', 'objective', 'N/A'], parents: '/autocomplete/formParents' }"
                     :template="{{ App\Models\Verbs\Form::fieldTemplate() }}"
                     @isset($form)
                     :initial="{{ $form->toJson() }}"
@@ -114,6 +114,18 @@
             </div>
 
             {{--TODO: Definitenesses--}}
+
+            {{--Morphemes--}}
+            {{--@include('components.form.morpheme-tags', [--}}
+                {{--'language' => 'data.language.id'--}}
+            {{--])--}}
+
+            {{--Parent--}}
+            @include('components.form.autocomplete', [
+                'name' => 'parent',
+                'async' => true,
+                'asyncParams' => '{language: data.language.id, type: "verbs"}'
+            ])
         </div>
     </alg-model-form>
 </alg-form>

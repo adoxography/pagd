@@ -21,7 +21,8 @@ class Form extends WordForm
         'name' => '',
         'empty' => false,
         'language' => Language::class,
-        'structure' => Structure::class
+        'structure' => Structure::class,
+        'parent' => Form::class
     ];
 
     public static function boot()

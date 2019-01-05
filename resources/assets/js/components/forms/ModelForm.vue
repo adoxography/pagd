@@ -1,25 +1,51 @@
 <script>
+/**
+ * Validator that checks if the value of a field exists in an array
+ *
+ * @param value  The value to check
+ * @param arr    The array to look in
+ * @param key    If provided, a property to access on each element of *arr*
+ *               when checking
+ * @return boolean
+ */
 function existsValidator(value, [arr, key]) {
   return arr.some(el => (key ? el[key] : el) === value);
 }
 
+/**
+ * Fills in the fields of *data* based on the values of *initial*. A *fields*
+ * attribute in the *data* object tells the function which fields to look for
+ * in the *initial* object; *fields* should correspond to an object where the
+ * keys are the field to look for, and the value is the default to use if the
+ * property is not contained in *initial*. This function is recursive, so
+ * fields other than *field* will trigger an update based on the corresponding
+ * object (on both the *data* and *initial* objects).
+ */
 function updateData(data, initial) {
   if (data !== null) {
     for (let [key, v] of Object.entries(data)) {
       if (key == 'fields') {
+        // If this is the *fields* property of the data object, check the
+        // *initial* object for each property in the associated object.
         for (let [field, value] of Object.entries(v)) {
           if (initial && initial.hasOwnProperty(field)) {
             value = initial[field];
           }
+          // Have to use Vue.set so that the properties are reactive.
           Vue.set(data, field, value);
         }
       } else if (data.hasOwnProperty(key)) {
+        // For properties other than *fields*, recursively update their data
+        // as well.
         updateData(v, initial ? initial[key] : null);
       }
     }
   }
 }
 
+/**
+ * Interacts directly with the DOM to disable browser-level autocompletes
+ */
 function turnOffAutocompletes(parent) {
   let inputs = parent.getElementsByTagName('input');
   for (let input of inputs) {
@@ -27,6 +53,11 @@ function turnOffAutocompletes(parent) {
   }
 }
 
+/**
+ * Interacts directly with the DOM to fix wysiwyg elements
+ *
+ * tabindex is set to null, to conform to accessibility standards.
+ */
 function normalizeTextareas(parent) {
   let wysiwygs = parent.getElementsByClassName('editr');
 
@@ -36,6 +67,13 @@ function normalizeTextareas(parent) {
   }
 }
 
+/**
+ * Interacts directly with the DOM to fix radio elements
+ *
+ * Buefy gives both the radio itself and the label a tabindex, which makes for
+ * unintuitive tabbing. This function removes the tabindex from the radio
+ * element.
+ */
 function normalizeRadios(parent) {
   let els = parent.getElementsByClassName('radio');
   for (let el of els) {
@@ -45,20 +83,9 @@ function normalizeRadios(parent) {
 
 export default {
   props: {
-    lists: {
-      type: Object,
-      default: () => {}
-    },
-
-    initial: {
-      type: Object,
-      default: () => {}
-    },
-
-    template: {
-      type: Object,
-      default: () => {}
-    },
+    lists: { type: Object },
+    initial: { type: Object },
+    template: { type: Object },
 
     oldErrors: {},
     oldValues: {}
@@ -68,21 +95,15 @@ export default {
 		return {
       data: {},
       filteredLists: {},
+      asyncLoading: {},
       stringifiedData: ''
 		};
 	},
 
 	created() {
-    this.filteredLists = JSON.parse(JSON.stringify(this.lists));
-
-    this.$validator.extend('exists', existsValidator);
-
-    this.data = this.template;
-    if (this.oldValues) {
-      updateData(this.data, this.oldValues);
-    } else {
-      updateData(this.data, this.initial);
-    }
+    initLists();
+    initValidator();
+    initData();
 	},
 
   mounted() {
@@ -96,17 +117,90 @@ export default {
   },
 
   methods: {
-    filterList(listName, query) {
-      query = query.toLowerCase();
-      this.filteredLists[listName] = this.lists[listName].filter(item => item.name.toLowerCase().includes(query));
+    /**
+     * Initializes the in-memory and asychronous list structures based on the
+     * provided *lists* prop
+     */
+    initLists() {
+      if (this.lists) {
+        for (let [name, list] of Object.entries(this.lists)) {
+          if (Array.isArray(list)) {
+            this.filteredLists[name] = list.clone();
+          } else {
+            this.filteredLists[name] = [];
+            this.$set(this.asyncLoading, name, false);
+          }
+        }
+      }
     },
 
+    /**
+     * Initializes the validator by adding any required custom rules
+     */
+    initValidator() {
+      this.$validator.extend('exists', existsValidator);
+    },
+
+    /**
+     * Initializes the *data* attribute based on the *template* prop, then
+     * fills it in based on the *oldValue* prop if it was passed in, or the
+     * *initial* prop if it was not
+     */
+    initData() {
+      this.data = this.template;
+      updateData(this.data, this.oldValues || this.initial);
+    },
+
+    /**
+     * Updates the error bag based on a list of errors
+     */
     updateErrors(errorList) {
       for (let [field, errors] of Object.entries(errorList)) {
         errors.forEach(msg => this.errors.add({field, msg}));
       }
     },
 
+    /**
+     * Filters an in-memory list based on a query
+     *
+     * @param listName  The name (key) of the list
+     * @param query     The string to filter the list by
+     */
+    filterList(listName, query) {
+      let q = query.toLowerCase();
+      let list = this.lists[listName];
+      this.filteredLists[listName] = list.filter(x => x.name.toLowerCase().includes(q));
+    },
+
+    /**
+     * Updates an asynchronous list based on a query
+     *
+     * @param listName  The name (key) of the list
+     * @param query     The string to filter the list by
+     * @param options   Any additional options to send in the request
+     */
+    getAsyncData: _.debounce(function(listName, query, options) {
+      this.asyncLoading[listName] = true;
+      axios.get(this.lists[listName], {
+        params: {
+          term: query,
+          options: options
+        }
+      }).then(response => {
+        this.filteredLists[listName] = response.data;
+        this.asyncLoading[listName] = false;
+      }).catch(error => {
+        console.error(error);
+      });
+    }),
+
+    /**
+     * Hook that is called before the form is submitted.
+     *
+     * Bundles the *data* attribute into a string and sends it along with the
+     * request to the server, so that the original data structure is preserved
+     * if an error occurs.
+     */
     beforeSubmit() {
       this.stringifiedData = JSON.stringify(this.data);
     }

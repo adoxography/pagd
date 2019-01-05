@@ -38,10 +38,6 @@ if (isset($goesThrough)) {
                 v-validate="{required: {{ $required }}, exists: [lists.{{ $list }}, '{{ $field }}']}"
                 @endif
 
-                @if($required && $required != 'false')
-                required
-                @endif
-
                 @if($placeholderSet)
                 placeholder="{{ $placeholder }}"
                 @endif

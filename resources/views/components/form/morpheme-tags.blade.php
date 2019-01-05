@@ -16,6 +16,8 @@ $name = $name ?? 'morphemes';
         :allow-periods="false"
         :allow-hyphens="false"
 
+        v-model="data.morphemes"
+
         @isset ($placeholder)
             placeholder="{{ $placeholder }}"
         @endisset
@@ -26,7 +28,7 @@ $name = $name ?? 'morphemes';
 
         data-vv-value-path="tags"
 
-        :tags="morphemes"
+        :tags="filteredLists.morphemes"
         ref="morphemes"
 
         @isset ($on)

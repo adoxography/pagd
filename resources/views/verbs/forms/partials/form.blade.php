@@ -1,15 +1,14 @@
 <alg-form method="{{ $method }}" action="{{ $action }}">
-    <alg-model-form :lists="{languages: {{ $languages }}, features: {{ $arguments }}, classes: {{ $classes }}, orders: {{ $orders }}, modes: {{ $modes }}, definitenesses: ['absolute', 'objective', 'N/A'], parents: '/autocomplete/formParents' }"
-                    :template="{{ App\Models\Verbs\Form::fieldTemplate() }}"
-                    @isset($form)
-                    :initial="{{ $form->toJson() }}"
-                    @endisset
+    <alg-model-form :lists="{{ $lists }}"
+                    :template="{{ $template }}"
+
                     inline-template
-                    :old-errors="{{ $errors->toJson() }}"
-                    @if(old('data'))
-                    :old-values="{{ old('data') }}"
-                    @endif
-                    v-cloak>
+                    v-cloak
+
+                    :old-errors="{{ $errors }}"
+                    @isset($form) :initial="{{ $form }}" @endisset
+                    @if(old('data')) :old-values="{{ old('data') }}" @endif
+    >
         <div class="details">
             {{--Status--}}
             <div class="detail-row">
@@ -113,18 +112,70 @@
                 </div>
             </div>
 
-            {{--TODO: Definitenesses--}}
+            {{--Definitenesses--}}
+            @include('components.form.select', [
+                'name' => 'is_absolute',
+                'label' => 'definiteness',
+                'list' => 'definitenesses',
+                'goesThrough' => 'structure'
+            ])
 
-            {{--Morphemes--}}
-            {{--@include('components.form.morpheme-tags', [--}}
-                {{--'language' => 'data.language.id'--}}
-            {{--])--}}
+            {{--Head--}}
+            @include('components.form.select', [
+                'name' => 'head',
+                'goesThrough' => 'structure'
+            ])
 
             {{--Parent--}}
             @include('components.form.autocomplete', [
                 'name' => 'parent',
                 'async' => true,
                 'asyncParams' => '{language: data.language.id, type: "verbs"}'
+            ])
+
+            @include('components.form.autocomplete', [
+                'name' => 'change_type'
+            ])
+
+            {{--Morphemes--}}
+            {{--@component('components.form.field', [--}}
+                {{--'name' => 'morphemes'--}}
+            {{--])--}}
+                {{--@section('inner-field')--}}
+                    {{--<b-taginput v-model="data.morphemes"--}}
+                                {{--:data="filteredLists.morphemes"--}}
+                                {{--@keyup.native="getAsyncData('morphemes', $event.target.value, {language: data.language.id})"--}}
+                                {{--field="name"--}}
+                                {{--:open-on-focus="true"--}}
+                                {{--:loading="asyncLoading.morphemes"--}}
+                    {{-->--}}
+                        {{--<template slot-scope="props">--}}
+                            {{--@{{ props.option.name }}<sup>@{{ props.option.disambiguator }}</sup> (<span class="gloss">@{{ props.option.gloss }}</span>)--}}
+                        {{--</template>--}}
+                    {{--</b-taginput>--}}
+                {{--@overwrite--}}
+            {{--@endcomponent--}}
+            @include('components.form.morpheme-tags', [
+                'language' => 'data.language.id'
+            ])
+
+            @include('components.form.textarea', [
+                'name' => 'historical_notes',
+                'label' => 'history'
+            ])
+
+            @include('components.form.textarea', [
+                'name' => 'allomorphy_notes',
+                'label' => 'allomorphy'
+            ])
+
+            @include('components.form.textarea', [
+                'name' => 'usage_notes',
+                'label' => 'usage'
+            ])
+
+            @include('components.form.textarea', [
+                'name' => 'private_notes'
             ])
         </div>
     </alg-model-form>

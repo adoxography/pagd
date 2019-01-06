@@ -2,8 +2,8 @@
 
 namespace App\Models\Phonology;
 
+use App\Models\Model;
 use App\Models\Phonology\VowelType;
-use Illuminate\Database\Eloquent\Model;
 
 class Height extends Model
 {

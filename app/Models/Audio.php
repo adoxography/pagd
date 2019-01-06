@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use App\Models\Language;
+use App\Models\Model;
 use App\Events\Audio\Deleting;
 use App\Events\FileOrphaned;
 use App\Presenters\AudioPresenter;
 use App\Traits\Bookmarkable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Storage;
 

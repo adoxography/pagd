@@ -2,7 +2,7 @@
 
 namespace App\Models\Users;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Model;
 
 class UserRole extends Model
 {

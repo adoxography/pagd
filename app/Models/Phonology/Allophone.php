@@ -2,8 +2,8 @@
 
 namespace App\Models\Phonology;
 
+use App\Models\Model;
 use App\Traits\Reconstructable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 class Allophone extends Model

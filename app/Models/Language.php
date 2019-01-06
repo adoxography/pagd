@@ -3,6 +3,7 @@ namespace App\Models;
 
 use DB;
 use App\Models\Location;
+use App\Models\Model;
 use App\Models\Rules\Rule;
 use App\Models\Morphology\Morpheme;
 use App\Models\Phonology\Inventory;
@@ -16,7 +17,6 @@ use App\Traits\HasChildren;
 use App\Traits\Locatable;
 use App\Traits\Nominals\HasNominals;
 use App\Traits\Verbs\HasVerbs;
-use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
 

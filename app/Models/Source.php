@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Interfaces\NominalFormRepositoryInterface;
 use App\Interfaces\VerbFormRepositoryInterface;
+use App\Models\Model;
 use App\Models\Morphology\Morpheme;
 use App\Models\Nominals\Form as NominalForm;
 use App\Models\Phonology\Phoneme;
@@ -17,7 +18,6 @@ use App\Presenters\AlgPresenter;
 use App\Traits\Bookmarkable;
 use App\Traits\Disambiguatable;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
 

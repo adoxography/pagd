@@ -2,8 +2,8 @@
 
 namespace App\Models\Morphology;
 
+use App\Models\Model;
 use App\Traits\Disambiguatable;
-use Illuminate\Database\Eloquent\Model;
 
 class InitialChange extends Model
 {

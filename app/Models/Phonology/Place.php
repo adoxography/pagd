@@ -2,8 +2,8 @@
 
 namespace App\Models\Phonology;
 
+use App\Models\Model;
 use App\Models\Phonology\ConsonantType;
-use Illuminate\Database\Eloquent\Model;
 
 class Place extends Model
 {

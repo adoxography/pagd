@@ -5,6 +5,7 @@ namespace App\Models\Words;
 use App\Interfaces\Morphemes\HasMorphemesInterface;
 use App\Interfaces\PhonemeableInterface;
 use App\Models\Language;
+use App\Models\Model;
 use App\Models\Words\Form;
 use App\Presenters\Words\ExamplePresenter;
 use App\Traits\BacksUp;
@@ -14,7 +15,6 @@ use App\Traits\Morphemes\HasMorphemes;
 use App\Traits\Phonology\Phonemeable;
 use App\Traits\Reconstructable;
 use App\Traits\Sourceable;
-use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
 

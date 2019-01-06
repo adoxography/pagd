@@ -2,7 +2,7 @@
 
 namespace App\Models\Rules;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Model;
 
 class RuleType extends Model
 {

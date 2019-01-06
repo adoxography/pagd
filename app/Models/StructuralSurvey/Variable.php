@@ -29,9 +29,4 @@ class Variable extends Model
     {
     	return $this->hasMany(Datapoint::class);
     }
-
-    public function present(string $method = 'name')
-    {
-        return new AlgPresenter($this, $method);
-    }
 }

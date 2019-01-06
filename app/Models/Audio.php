@@ -21,6 +21,8 @@ class Audio extends Model
 
     protected $fillable = ['name', 'comments', 'language_id'];
 
+    public $presenter = AudioPresenter::class;
+
     protected $events = [
         'deleting' => Deleting::class
     ];
@@ -89,11 +91,6 @@ class Audio extends Model
         }
 
         return $link;
-    }
-
-    public function present(string $method = 'name')
-    {
-        return new AudioPresenter($this, $method);
     }
 
     public function getDisk()

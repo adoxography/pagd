@@ -11,11 +11,6 @@ class Order extends Model
 
     protected $fillable = ['name', 'description'];
 
-    public function present(string $method = 'name')
-    {
-    	return new AlgPresenter($this, $method);
-    }
-
     public function structures()
     {
         return $this->hasMany(Structure::class, 'order_id');

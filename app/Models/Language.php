@@ -68,6 +68,8 @@ class Language extends Model
         return array_only($array, ['id', 'alternate_names', 'name', 'iso', 'algo_code', 'notes']);
     }
 
+    public $presenter = LanguagePresenter::class;
+
     /*
     |--------------------------------------------------------------------------
     | Revision variables
@@ -174,11 +176,6 @@ class Language extends Model
         }]);
 
         return $sources;
-    }
-
-    public function present(string $method = 'name')
-    {
-        return new LanguagePresenter($this, $method);
     }
 
     public function phonology($includeNull = false, $constraint = null)

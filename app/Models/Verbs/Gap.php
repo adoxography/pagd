@@ -13,6 +13,8 @@ class Gap extends WordGap
 
     public $uri = 'verbs/gaps';
 
+    public $presenter = GapPresenter::class;
+
     public static function boot()
     {
         parent::boot();
@@ -21,10 +23,5 @@ class Gap extends WordGap
         static::addGlobalScope('verb', function (Builder $builder) {
             $builder->where('structure_type', 'verbStructures');
         });
-    }
-
-    public function present(string $method = 'name')
-    {
-        return new GapPresenter($this, $method);
     }
 }

@@ -12,6 +12,6 @@ trait Presentable
     public function present($method = null)
     {
         $method = $method ?? $this->presenterDefaultMethod;
-        return new $presenter($this, $method);
+        return new $this->presenter($this, $method);
     }
 }

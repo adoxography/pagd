@@ -13,12 +13,6 @@ class Model extends BaseModel
 
     protected static $template = ['name' => '', 'id' => 0];
 
-    public function __construct(array $attributes=[])
-    {
-        parent::__construct($attributes);
-        $this->adaptToConnection();
-    }
-
     public static function fieldTemplate(bool $root = true) : Collection
     {
         $fields = collect();
@@ -37,4 +31,6 @@ class Model extends BaseModel
 
         return $template;
     }
+=======
+>>>>>>> Make presentable a trait on the base model class
 }

@@ -2,7 +2,7 @@
 
 namespace App\Models\Tickets;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Model;
 
 class TicketType extends Model
 {

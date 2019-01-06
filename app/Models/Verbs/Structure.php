@@ -1,9 +1,10 @@
 <?php
 
+
 namespace App\Models\Verbs;
 
+use App\Models\Model;
 use App\Presenters\Verbs\StructurePresenter;
-use Illuminate\Database\Eloquent\Model;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 /**

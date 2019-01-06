@@ -2,9 +2,9 @@
 
 namespace App\Models\Morphology;
 
-use App\Traits\Bookmarkable;
 use App\Models\Closed;
 use App\Presenters\SlotPresenter;
+use App\Traits\Bookmarkable;
 
 class Slot extends Closed
 {

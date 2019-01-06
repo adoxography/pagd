@@ -2,6 +2,8 @@
 
 namespace App\Models\Phonology;
 
+use App\Models\Phonology\PhonemeType;
+
 class ConsonantType extends PhonemeType
 {
     public $table = 'phon_consonants';

@@ -3,8 +3,8 @@
 namespace App\Models\IGT;
 
 use App\Models\Language;
+use App\Models\Model;
 use App\Models\IGT\IGTLine;
-use Illuminate\Database\Eloquent\Model;
 use App\Traits\Bookmarkable;
 use App\Traits\Sourceable;
 

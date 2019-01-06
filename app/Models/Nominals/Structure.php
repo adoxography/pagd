@@ -2,9 +2,9 @@
 
 namespace App\Models\Nominals;
 
-use App\Presenters\Nominals\StructurePresenter;
+use App\Models\Model;
 use App\Models\Words\Feature;
-use Illuminate\Database\Eloquent\Model;
+use App\Presenters\Nominals\StructurePresenter;
 
 class Structure extends Model
 {

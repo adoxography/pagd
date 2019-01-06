@@ -2,13 +2,13 @@
 
 namespace App\Models\Phonology;
 
+use App\Models\Language;
 use App\Models\Phonology\Backness;
 use App\Models\Phonology\Height;
 use App\Models\Phonology\Manner;
 use App\Models\Phonology\Phoneme;
 use App\Models\Phonology\Place;
 use App\Models\Phonology\Voicing;
-use App\Models\Language;
 use Illuminate\Contracts\Support\Jsonable;
 
 class Inventory implements Jsonable

@@ -2,9 +2,9 @@
 
 namespace App\Models\Verbs;
 
-use App\Presenters\AlgPresenter;
+use App\Models\Model;
 use App\Models\Verbs\Structure;
-use Illuminate\Database\Eloquent\Model;
+use App\Presenters\AlgPresenter;
 
 /**
  * A verb class, largely based on the verb form's argument structure

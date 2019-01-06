@@ -96,7 +96,7 @@ return [
             'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
-            'schema' => 'public',
+            'schema' => 'alglang',
             'sslmode' => 'prefer',
         ],
 

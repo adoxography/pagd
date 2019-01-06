@@ -2,12 +2,12 @@
 
 namespace App\Models\Nominals;
 
+use App\Models\Language;
+use App\Models\Model;
 use App\Models\ParadigmTablePresenter;
 use App\Presenters\Nominals\ParadigmPresenter;
 use App\Traits\Bookmarkable;
-use App\Models\Language;
 use App\Traits\Sourceable;
-use Illuminate\Database\Eloquent\Model;
 
 class Paradigm extends Model
 {

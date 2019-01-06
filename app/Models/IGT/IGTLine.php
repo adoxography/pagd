@@ -2,8 +2,8 @@
 
 namespace App\Models\IGT;
 
+use App\Models\Model;
 use App\Models\IGT\IGTLineType;
-use Illuminate\Database\Eloquent\Model;
 
 class IGTLine extends Model
 {

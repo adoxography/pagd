@@ -2,9 +2,11 @@
     $required = $required ?? 'false';
 @endphp
 
-@extends('components.form.field')
-
-@section('inner-field')
+@component('components.form.field', [
+    'name' => $name,
+    'label' => $label ?? null,
+    'standalone' => $standalone ?? null
+])
 <b-input id="{{ $name }}-input"
          name="{{ $name }}"
          v-validate="{required: {{ $required }}}"
@@ -17,4 +19,4 @@
          :disabled="{{ $disabled }}"
          @endisset
 ></b-input>
-@overwrite
+@endcomponent

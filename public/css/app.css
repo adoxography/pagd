@@ -20190,27 +20190,6 @@ a.tag:hover {
   color: #262626;
 }
 
-.editr--toolbar {
-  background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(#f0f0f0));
-  background-image: linear-gradient(white, #f0f0f0);
-}
-
-.editr--toolbar a[class^="vw-btn-"] {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.editr--toolbar a[class^="vw-btn-"]:not(:hover) {
-  color: #666666;
-}
-
 html,
 body,
 #body-wrapper {
@@ -20358,6 +20337,38 @@ blockquote {
   border-left: 6px solid #c72e00;
   margin: .5rem 6px;
   padding: .1rem 6px;
+}
+
+.editr .editr--toolbar {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(#f0f0f0));
+  background-image: linear-gradient(white, #f0f0f0);
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  height: inherit;
+}
+
+.editr .editr--toolbar a[class^="vw-btn-"] {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.editr .editr--toolbar a[class^="vw-btn-"]:not(:hover) {
+  color: #666666;
+}
+
+.editr .editr--toolbar a[class^="vw-btn-"] .vw-separator {
+  height: 1.75em;
+}
+
+.editr .editr--content[contenteditable=true]:empty:before {
+  cursor: text;
 }
 
 .argument-inputs .field .field:not(:last-child) {

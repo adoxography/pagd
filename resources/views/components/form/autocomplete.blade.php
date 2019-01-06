@@ -1,5 +1,3 @@
-@extends('components.form.field')
-
 @php
 $list     = $list     ?? str_plural($name);
 $required = $required ?? 'false';
@@ -15,11 +13,16 @@ if (isset($goesThrough)) {
 @endphp
 
 
-@section('outer-field')
-<input type="hidden" name="{{ $name }}_id" v-model="{{$path}}.{{ $name }}.id" />
-@overwrite
+@component('components.form.field', [
+    'name' => $name,
+    'label' => $label ?? null,
+    'standalone' => $standalone ?? null
+])
 
-@section('inner-field')
+@slot('outer')
+<input type="hidden" name="{{ $name }}_id" v-model="{{$path}}.{{ $name }}.id" />
+@endslot
+
 <b-autocomplete id="{{ $name }}-input"
                 name="{{ $name }}"
                 :open-on-focus="true"
@@ -43,4 +46,4 @@ if (isset($goesThrough)) {
                 @endif
 
 ></b-autocomplete>
-@overwrite
+@endcomponent

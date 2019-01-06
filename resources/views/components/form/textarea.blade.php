@@ -1,16 +1,17 @@
-@extends('components.form.field')
+@component('components.form.field', [
+    'name' => $name,
+    'label' => $field ?? null,
+    'standalone' => $standalone ?? null
+])
+    @slot('outer')
+        <input type="hidden" name="{{ $name }}" v-model="data.{{ $name }}" />
+    @endslot
 
-@section("outer-field")
-@overwrite
+	<wysiwyg id="{{ $name }}-input"
+             v-model="data.{{ $name }}"
 
-@section("inner-field")
-	<wysiwyg
-		name="{{ $name }}"
-        id="{{ $name }}-input"
-        v-model="data.{{ $name }}"
-
-		@isset($disabled)
-		:disabled="{{ $disabled }}"
-		@endisset
+	         @isset($disabled)
+	         :disabled="{{ $disabled }}"
+	         @endisset
   ></wysiwyg>
-@overwrite
+@endcomponent

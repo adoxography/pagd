@@ -3,6 +3,7 @@ namespace App\Models;
 
 use DB;
 use App\Models\Location;
+use App\Models\Model;
 use App\Models\Rules\Rule;
 use App\Models\Morphology\Morpheme;
 use App\Models\Phonology\Inventory;

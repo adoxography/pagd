@@ -39,8 +39,8 @@ class Model extends BaseModel
         $class = get_called_class();
 
         foreach ($class::$template as $field => $value) {
-            if (class_exists($value)) {
-                if ($root) {
+            if (is_string($value) && class_exists($value)) {
+                if ($root || $class != $value) {
                     $template[$field] = $value::fieldTemplate(false);
                 }
             } else {

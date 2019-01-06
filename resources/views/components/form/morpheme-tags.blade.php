@@ -1,10 +1,13 @@
-@extends('components.form.field')
 
 @php
 $name = $name ?? 'morphemes';
 @endphp
 
-@section("inner-field")
+@component('components.form.field', [
+    'name' => $name,
+    'label' => $label ?? null,
+    'standalone' => $standalone ?? null
+])
     <alg-morpheme-tag-input
         source="/autocomplete/morphemes"
         name="{{ $name }}"
@@ -39,4 +42,4 @@ $name = $name ?? 'morphemes';
             @input="errors.clear('{{ $name }}')"
         @endisset
     ></alg-morpheme-tag-input>
-@overwrite
+@endcomponent

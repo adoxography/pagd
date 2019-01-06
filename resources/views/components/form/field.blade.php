@@ -11,14 +11,14 @@ $label      = $label      ?? ucfirst(str_replace('_', ' ', $name));
     <label class="is-hidden-visual" for="{{ $name }}-input">{{ $label }}</label>
 @endif
 
-        @yield('outer-field')
+        {{ $outer ?? '' }}
         <b-field :type="{'is-danger': errors.has('{{ $name }}')}"
                  :message="errors.first('{{ $name }}')"
                  @if($standalone)
                  expanded
                  @endif
                  >
-            @yield('inner-field')
+            {{ $slot ?? '' }}
         </b-field>
 
 @if(!$standalone)

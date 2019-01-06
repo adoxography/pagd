@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<h4 class="subtitle is-4">Sources</h4>
 		<div class="columns">
 			<div class="column is-8">
 				<label for="old-source" class="label">Look up an existing source:</label>

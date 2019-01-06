@@ -159,6 +159,10 @@
                 'language' => 'data.language.id'
             ])
 
+            @include('components.form.sources', [
+                'name' => 'sources'
+            ])
+
             @include('components.form.textarea', [
                 'name' => 'historical_notes',
                 'label' => 'history'

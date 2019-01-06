@@ -101,11 +101,6 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
-    public function present($method = 'name')
-    {
-        return new AlgPresenter($this, $method);
-    }
-
     public function isSubscribedTo(SubscribeableInterface $subscription)
     {
         $subscribers = $subscription->subscribers->pluck('id');

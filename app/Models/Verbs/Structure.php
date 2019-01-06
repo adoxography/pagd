@@ -45,6 +45,9 @@ class Structure extends Model
         return $this->summary;
     }
 
+    public $presenter = StructurePresenter::class;
+    public $presenterDefaultMethod = 'summary';
+
     /*
     |--------------------------------------------------------------------------
     | Attribute modifiers
@@ -358,11 +361,6 @@ class Structure extends Model
     public function forms()
     {
         return $this->hasMany(Form::class, 'structure_id');
-    }
-
-    public function present(string $method = 'summary')
-    {
-        return new StructurePresenter($this, $method);
     }
 
     public function getModifiersAttribute()

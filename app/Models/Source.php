@@ -176,11 +176,6 @@ class Source extends Model implements VerbFormRepositoryInterface, NominalFormRe
         return $this->morphedByMany(Phoneme::class, 'sourceable')->withPivot('extra_info');
     }
 
-    public function present(string $method = 'name')
-    {
-        return new AlgPresenter($this, $method);
-    }
-
     public function scopeInUse($query)
     {
         return $query->has('forms')

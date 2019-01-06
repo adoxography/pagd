@@ -37,11 +37,6 @@ class Ticket extends Model implements SubscribeableInterface
         return $this->belongsTo(TicketType::class, 'ticketType_id');
     }
 
-    public function present(string $method = 'name')
-    {
-        return new AlgPresenter($this, $method);
-    }
-
     public function openedOn()
     {
         return $this->getTime($this->created_at);

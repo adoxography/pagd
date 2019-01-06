@@ -17,6 +17,9 @@ class Slot extends Closed
     public $singular = 'Slot';
     public $plural = 'Slots';
 
+    public $presenter = SlotPresenter::class;
+    public $presenterDefaultMethod = 'abv';
+
     public function identifiableName()
     {
         return $this->name;
@@ -25,10 +28,5 @@ class Slot extends Closed
     public function morphemes()
     {
     	return $this->hasMany(Morpheme::class);
-    }
-
-    public function present(string $method = 'abv')
-    {
-        return new SlotPresenter($this, $method);
     }
 }

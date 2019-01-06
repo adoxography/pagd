@@ -14,6 +14,9 @@ class Structure extends Model
 
     public $with = ['pronominalFeature', 'nominalFeature', 'paradigm'];
 
+    public $presenter = StructurePresenter::class;
+    public $presenterDefaultMethod = 'summary';
+
     public function getSummaryAttribute()
     {
         return $this->renderSummary();
@@ -56,10 +59,5 @@ class Structure extends Model
         $output .= " <a href='/nominals/paradigms/{$this->paradigm->id}'>{$this->paradigm->name}</a>";
 
         return $output;
-    }
-
-    public function present(string $method = 'summary')
-    {
-        return new StructurePresenter($this, $method);
     }
 }

@@ -22,6 +22,8 @@ class Paradigm extends Model
 
     public $with = ['type'];
 
+    public $presenter = ParadigmPresenter::class;
+
     public function paradigmType()
     {
         return $this->belongsTo(ParadigmType::class, 'paradigm_type_id');
@@ -59,10 +61,5 @@ class Paradigm extends Model
             ->whereHas('structure', function ($query) use ($id) {
                 $query->where('paradigm_id', $id);
             })->get();
-    }
-
-    public function present(string $method = 'name')
-    {
-        return new ParadigmPresenter($this, $method);
     }
 }

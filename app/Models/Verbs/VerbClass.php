@@ -32,9 +32,4 @@ class VerbClass extends Model
     {
         return $this->hasMany(Structure::class, 'class_id');
     }
-
-    public function present(string $method = 'name')
-    {
-    	return new AlgPresenter($this, $method);
-    }
 }

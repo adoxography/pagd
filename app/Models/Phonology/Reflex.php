@@ -59,9 +59,4 @@ class Reflex extends Model
     {
         return $this->belongsTo(Phoneme::class);
     }
-
-    public function present(string $method = 'name')
-    {
-        return new AlgPresenter($this, $method);
-    }
 }

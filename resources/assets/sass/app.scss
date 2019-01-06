@@ -24,21 +24,6 @@
 }
 
 @import "~vue-wysiwyg/dist/vueWysiwyg.css";
-.editr--toolbar {
-    background-image: linear-gradient(white, #f0f0f0);
-
-    a[class^="vw-btn-"] {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      &:not(:hover) {
-          color: $grey-darker;
-      }
-    }
-}
-
-
 // Modifications to bulma
 html, body, #body-wrapper {
     height: 100%;
@@ -169,6 +154,33 @@ blockquote {
     border-left: 6px solid $red;
     margin: .5rem 6px;
     padding: .1rem 6px;
+}
+
+// wysiwyg
+.editr {
+    .editr--toolbar {
+        background-image: linear-gradient(white, #f0f0f0);
+        flex-wrap: wrap;
+        height: inherit;
+
+        a[class^="vw-btn-"] {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          &:not(:hover) {
+              color: $grey-darker;
+          }
+
+          .vw-separator {
+              height: 1.75em;
+          }
+        }
+    }
+
+    .editr--content[contenteditable=true]:empty:before {
+        cursor: text;
+    }
 }
 
 .argument-inputs .field {

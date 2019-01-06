@@ -112,7 +112,6 @@ webpackJsonp([31],{
 //
 //
 //
-//
 
 
 
@@ -249,8 +248,6 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("h4", { staticClass: "subtitle is-4" }, [_vm._v("Sources")]),
-      _vm._v(" "),
       _c("div", { staticClass: "columns" }, [
         _c(
           "div",

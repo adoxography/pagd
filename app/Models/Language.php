@@ -248,24 +248,4 @@ class Language extends Model
 
         return min(1.0, $activity / 500);
     }
-
-    public static function fieldTemplate($root = true) {
-        $template = collect(['fields' => [
-            'id' => '0',
-            'name' => '',
-            'alternate_names' => '',
-            'algo_code' => '',
-            'iso' => '',
-            'reconstructed' => '0',
-            'notes' => '',
-        ]]);
-
-        if ($root) {
-            $template['group'] = Group::fieldTemplate(false);
-            $template['parent'] = Language::fieldTemplate(false);
-            $template['location'] = Location::fieldTemplate(false);
-        }
-
-        return $template;
-    }
 }

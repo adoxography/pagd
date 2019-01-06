@@ -31,6 +31,24 @@ class Model extends BaseModel
 
         return $template;
     }
-=======
->>>>>>> Make presentable a trait on the base model class
+
+    public static function fieldTemplate(bool $root = true) : Collection
+    {
+        $fields = collect();
+        $template = collect(['fields' => $fields]);
+        $class = get_called_class();
+
+        foreach ($class::$template as $field => $value) {
+            if (class_exists($value)) {
+                if ($root) {
+                    $template[$field] = $value::fieldTemplate(false);
+                }
+            } else {
+                $fields[$field] = $value;
+            }
+        }
+
+        return $template;
+    }
+>>>>>>> Move fieldTemplate into the base model class
 }

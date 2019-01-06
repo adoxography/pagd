@@ -35,6 +35,17 @@ class Structure extends Model
     protected $appends = ['summary'];
     public $with = ['mode', 'order', 'subject', 'primary_object', 'secondary_object'];
 
+    protected static $template = [
+        'is_negative' => false,
+        'is-is_diminutive' => false,
+        'subject' => Argument::class,
+        'primary_object' => Argument::class,
+        'secondary_object' => Argument::class,
+        'verb_class' => VerbClass::class,
+        'order' => Order::class,
+        'mode' => Mode::class
+    ];
+
     public static function boot()
     {
         parent::boot();
@@ -388,24 +399,5 @@ class Structure extends Model
         }
 
         return trim($output);
-    }
-
-    public static function fieldTemplate($root = true)
-    {
-        $argumentTemplate = Argument::fieldTemplate(false);
-
-        return collect([
-            'fields' => [
-                'is_negative' => false,
-                'is_diminutive' => false,
-                'is_absolute' => null,
-                'subject' => $argumentTemplate,
-                'primary_object' => $argumentTemplate,
-                'secondary_object' => $argumentTemplate,
-                'verb_class' => VerbClass::fieldTemplate(false),
-                'order' => Order::fieldTemplate(false),
-                'mode' => Mode::fieldTemplate(false),
-            ]
-        ]);
     }
 }

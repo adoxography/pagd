@@ -67,6 +67,8 @@ class Morpheme extends Model implements PhonemeableInterface
     protected $verbFormRepository = null;
     protected $nominalFormRepository = null;
 
+    public $presenter = MorphemePresenter::class;
+
     /*
     |--------------------------------------------------------------------------
     | Revision variables
@@ -386,11 +388,6 @@ class Morpheme extends Model implements PhonemeableInterface
                 $this->glosses()->attach($gloss);
             }
         }
-    }
-
-    public function present(string $method = 'name')
-    {
-        return new MorphemePresenter($this, $method);
     }
 
     public function getGlossArray()

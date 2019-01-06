@@ -71,6 +71,8 @@ class Example extends Model implements HasMorphemesInterface, PhonemeableInterfa
         'updated_at'
     ];
 
+    public $presenter = ExamplePresenter::class;
+
     public function identifiableName()
     {
         return $this->present('link');
@@ -160,10 +162,5 @@ class Example extends Model implements HasMorphemesInterface, PhonemeableInterfa
         $query->whereHas('form', function ($query) use ($type) {
             $query->where('structure_type', $type);
         });
-    }
-
-    public function present(string $method = 'name')
-    {
-        return new ExamplePresenter($this, $method);
     }
 }

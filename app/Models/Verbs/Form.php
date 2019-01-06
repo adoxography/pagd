@@ -13,6 +13,8 @@ class Form extends WordForm
 
     public $uri = 'verbs/forms';
 
+    public $presenter = FormPresenter::class;
+
     public static function boot()
     {
         parent::boot();
@@ -21,10 +23,5 @@ class Form extends WordForm
         static::addGlobalScope('verb', function (Builder $builder) {
             $builder->where('structure_type', 'verbStructures');
         });
-    }
-
-    public function present(string $method = 'name')
-    {
-        return new FormPresenter($this, $method);
     }
 }

@@ -75,6 +75,8 @@ class Form extends Model implements PhonemeableInterface, HasMorphemesInterface
         ]);
     }
 
+    public $presenter = FormPresenter::class;
+
     /*
     |--------------------------------------------------------------------------
     | Revision variables
@@ -249,10 +251,5 @@ class Form extends Model implements PhonemeableInterface, HasMorphemesInterface
     public function structure()
     {
         return $this->morphTo();
-    }
-
-    public function present(string $method = 'name')
-    {
-        return new FormPresenter($this, $method);
     }
 }

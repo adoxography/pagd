@@ -13,6 +13,8 @@ class Form extends WordForm
 
     public $uri = 'nominals/forms';
 
+    public $presenter = FormPresenter::class;
+
     public static function boot()
     {
         parent::boot();
@@ -30,10 +32,5 @@ class Form extends WordForm
         }
 
         return null;
-    }
-
-    public function present(string $method = 'name')
-    {
-        return new FormPresenter($this, $method);
     }
 }

@@ -126,11 +126,6 @@ class Group extends Model
         return $found;
     }
 
-    public function present(string $method = 'name')
-    {
-        return new AlgPresenter($this, $method);
-    }
-
     public static function fieldTemplate($root = true)
     {
         return collect([

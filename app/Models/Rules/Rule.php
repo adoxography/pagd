@@ -40,11 +40,6 @@ class Rule extends Model
         return $this->belongsTo(RuleType::class);
     }
 
-    public function present(string $method = 'name')
-    {
-        return new AlgPresenter($this, $method);
-    }
-
     protected function subscript($str)
     {
         return preg_replace_callback('/_(\d+)/', function ($matches) {

@@ -71,6 +71,8 @@ class Phoneme extends Model
         'updated_at'
     ];
 
+    public $presenter = PhonemePresenter::class;
+
     public function identifiableName()
     {
         return $this->name;
@@ -205,11 +207,6 @@ class Phoneme extends Model
 
             $query->where('featureable_type', $type);
         }
-    }
-
-    public function present(string $method = 'name')
-    {
-        return new PhonemePresenter($this, $method);
     }
 
     public function syncPaParents()

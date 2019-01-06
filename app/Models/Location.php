@@ -10,11 +10,5 @@ class Location extends Model
 
     protected $casts = ['position' => 'array'];
 
-    public static function fieldTemplate($root = true)
-    {
-        return collect([
-            'type' => null,
-            'position' => null
-        ]);
-    }
+    protected static $template = ['type' => null, 'position' => null];
 }

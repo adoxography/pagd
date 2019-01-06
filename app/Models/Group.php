@@ -125,14 +125,4 @@ class Group extends Model
 
         return $found;
     }
-
-    public static function fieldTemplate($root = true)
-    {
-        return collect([
-            'fields' => [
-                'name' => '',
-                'id' => 0
-            ]
-        ]);
-    }
 }

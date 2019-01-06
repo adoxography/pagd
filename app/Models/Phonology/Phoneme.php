@@ -2,17 +2,17 @@
 
 namespace App\Models\Phonology;
 
+use App\Models\Language;
+use App\Models\Model;
 use App\Models\Phonology\ReflexGraph;
-use App\Presenters\PhonemePresenter;
-use App\Traits\Phonology\HasAllophones;
-use App\Traits\Phonology\HasPhonemeType;
 use App\Models\Words\Example;
+use App\Presenters\PhonemePresenter;
 use App\Traits\BacksUp;
 use App\Traits\Bookmarkable;
-use App\Models\Language;
 use App\Traits\Reconstructable;
 use App\Traits\Sourceable;
-use Illuminate\Database\Eloquent\Model;
+use App\Traits\Phonology\HasAllophones;
+use App\Traits\Phonology\HasPhonemeType;
 use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
 

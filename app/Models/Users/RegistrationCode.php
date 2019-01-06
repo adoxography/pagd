@@ -2,8 +2,8 @@
 
 namespace App\Models\Users;
 
+use App\Models\Model;
 use App\Models\Users\User;
-use Illuminate\Database\Eloquent\Model;
 
 class RegistrationCode extends Model
 {

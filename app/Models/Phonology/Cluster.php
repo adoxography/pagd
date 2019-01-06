@@ -2,6 +2,7 @@
 
 namespace App\Models\Phonology;
 
+use App\Models\Phonology\Phoneme;
 use Illuminate\Database\Eloquent\Builder;
 
 class Cluster extends Phoneme

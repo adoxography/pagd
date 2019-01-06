@@ -2,7 +2,7 @@
 
 namespace App\Models\Nominals;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Model;
 
 class ParadigmType extends Model
 {

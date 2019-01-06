@@ -3,11 +3,11 @@
 namespace App\Models\Rules;
 
 use App\Models\Language;
+use App\Models\Model;
 use App\Models\Rules\RuleType;
 use App\Presenters\AlgPresenter;
 use App\Traits\Bookmarkable;
 use App\Traits\Sourceable;
-use Illuminate\Database\Eloquent\Model;
 
 class Rule extends Model
 {

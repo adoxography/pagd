@@ -7,9 +7,9 @@ use App\Traits\Bookmarkable;
 use App\Traits\Sourceable;
 use App\Traits\BacksUp;
 use App\Models\Language;
-use App\Presenters\AlgPresenter;
+use App\Models\Model;
 use App\Models\StructuralSurvey\Variable;
-use Illuminate\Database\Eloquent\Model;
+use App\Presenters\AlgPresenter;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 class Group extends Model

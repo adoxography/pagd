@@ -2,7 +2,7 @@
 
 namespace App\Models\StructuralSurvey;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Model;
 
 class Value extends Model
 {

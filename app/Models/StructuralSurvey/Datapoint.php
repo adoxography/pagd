@@ -3,10 +3,10 @@
 namespace App\Models\StructuralSurvey;
 
 use App\Models\Language;
+use App\Models\Model;
+use App\Presenters\AlgPresenter;
 use App\Traits\Sourceable;
 use App\Traits\Bookmarkable;
-use App\Presenters\AlgPresenter;
-use Illuminate\Database\Eloquent\Model;
 
 class Datapoint extends Model
 {

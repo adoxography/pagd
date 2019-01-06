@@ -2,11 +2,11 @@
 
 namespace App\Models\Phonology;
 
+use App\Models\Model;
 use App\Presenters\AlgPresenter;
 use App\Traits\BacksUp;
 use App\Traits\Bookmarkable;
 use App\Traits\Sourceable;
-use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
 

@@ -2,9 +2,9 @@
 
 namespace App\Models\Words;
 
+use App\Models\Model;
 use App\Models\Verbs\Structure as VerbStructure;
 use App\Models\Nominals\Structure as NominalStructure;
-use Illuminate\Database\Eloquent\Model;
 
 class Feature extends Model
 {

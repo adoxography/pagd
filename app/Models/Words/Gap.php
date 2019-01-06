@@ -3,9 +3,9 @@
 namespace App\Models\Words;
 
 use App\Models\Language;
+use App\Models\Model;
 use App\Traits\Bookmarkable;
 use App\Traits\Sourceable;
-use Illuminate\Database\Eloquent\Model;
 
 class Gap extends Model
 {

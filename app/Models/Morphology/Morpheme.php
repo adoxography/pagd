@@ -5,6 +5,7 @@ namespace App\Models\Morphology;
 use App\Interfaces\PhonemeableInterface;
 use App\Models\ChangeType;
 use App\Models\Language;
+use App\Models\Model;
 use App\Models\Nominals\Form as NominalForm;
 use App\Models\Verbs\Form as VerbForm;
 use App\Models\Words\Example;
@@ -17,7 +18,6 @@ use App\Traits\Reconstructable;
 use App\Traits\Sourceable;
 use App\Traits\Phonology\Phonemeable;
 use App\Presenters\MorphemePresenter;
-use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
 

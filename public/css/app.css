@@ -20201,7 +20201,6 @@ html {
 }
 
 body {
-  font-size: 18px;
   overflow: auto;
 }
 
@@ -20625,7 +20624,7 @@ table.table.details td {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: -.45em;
+  left: -.5em;
   display: block;
   width: 0;
   border-left: 1px solid #777;
@@ -20635,7 +20634,7 @@ table.table.details td {
 .tree .label:after {
   position: absolute;
   top: 0;
-  left: -1.6em;
+  left: -1.5em;
   display: block;
   height: 0.5em;
   width: 1em;

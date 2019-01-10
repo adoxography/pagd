@@ -1,8 +1,7 @@
 @extends('layout', ['title' => "Edit {$group->name}"])
 
 @section('title')
-	<label>Editing </label>
-	{{ $group->name }}
+    <h1 class="title is-4">Editing {!! $group->present() !!}</h1>
 @endsection
 
 @section('content')

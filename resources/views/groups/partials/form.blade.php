@@ -21,94 +21,44 @@ if(isset($group)) {
 
 @endphp
 
-<alg-group-form
-	inline-template
-	v-cloak
-	:old-errors="{{ json_encode($errors->messages()) }}"
+<alg-form method="{{ $method }}" action="{{ $action }}">
+    <alg-model-form :lists="{groups: {{ $parents }}}"
+                    :template="{{ App\Models\Group::fieldTemplate() }}"
+                    @isset($group)
+                    :initial="{{ $group }}"
+                    @endisset
+                    inline-template
+                    :old-errors="{{ $errors->toJson() }}"
+                    @if(old('data'))
+                    :old-values="{{ old('data') }}"
+                    @endif
+                    v-cloak>
+        <div class="details">
+            @include('components.form.text', [
+                'name' => 'name',
+                'required' => true
+            ])
 
-	@if(old('sources', 'not found') !== 'not found')
-	:old-sources="{{ json_encode(old('sources')) }}"
-	@elseif(isset($group))
-	:old-sources="{{ $group->sources }}"
-	@endif
->
-	@component('components.form', ['method' => $method, 'action' => $action, 'visible' => true])
-		<div class="columns is-multiline">
+            @include('components.form.tags', [
+                'name' => 'aliases'
+            ])
 
-			{{-- Name --}}
-			<div class="column is-half">
-				@component('components.form.text', [
-					'name'      => 'name',
-					'autofocus' => true, 
-					'rules'     => 'required'
-				])
-					@slot('value')
-						@if(isset($group))
-							{{ $group->name }}
-						@endif
-					@endslot
-				@endcomponent
-			</div>
+            @include('components.form.autocomplete', [
+                'name' => 'parent',
+                'list' => 'groups'
+            ])
 
-			{{-- Parent --}}
-			<div class="column is-half">
-				@component('components.form.datalist', [
-					'name'  => 'parent',
-					'list'  => $parents,
-					'rules' => 'required|exists'
-				])
-					@slot('value')
-						@if(isset($group) && $group->parent)
-							{{ $group->parent->name }}
-						@endif
-					@endslot
-				@endcomponent
-			</div>
+            @include('components.form.sources', [
+                'name' => 'sources'
+            ])
 
-			<div class="column is-half">
-				@component('components.form.text', [
-					'name' => 'aliases',
-					'placeholder' => 'Keywords for searching'
-				])
-				    @slot('value')
-				        @if (isset($group))
-				        	{{ $group->aliases }}
-				        @endif
-				    @endslot
-				@endcomponent
-			</div>
-		</div>
+            @include('components.form.textarea', [
+                'name' => 'public_notes'
+            ])
 
-		<hr>
-		<alg-sources v-model="sources"></alg-sources>
-
-		<hr>
-		<h4 class="subtitle is-4">Notes</h4>
-		<div class="columns">
-			<div class="column is-half">
-				@component('components.form.textarea', [
-					'name'  => 'publicNotes',
-					'label' => 'public notes'
-				])
-					@slot('value')
-						@if(isset($group))
-							{{ $group->publicNotes }}
-						@endif
-					@endslot
-				@endcomponent
-			</div>
-			<div class="column is-half">
-				@component('components.form.textarea', [
-					'name'  => 'privateNotes',
-					'label' => 'private notes'
-				])
-					@slot('value')
-						@if(isset($group))
-							{{ $group->privateNotes }}
-						@endif
-					@endslot
-				@endcomponent
-			</div>
-		</div>
-	@endcomponent
-</alg-group-form>
+            @include('components.form.textarea', [
+                'name' => 'private_notes'
+            ])
+        </div>
+    </alg-model-form>
+</alg-form>

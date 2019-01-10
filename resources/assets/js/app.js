@@ -9,8 +9,6 @@ require('./bootstrap');
 
 require('typeface-lato');
 
-require('./layout');
-
 require('./validation');
 
 /**
@@ -24,7 +22,6 @@ Vue.component('alg-datalist',       require('./components/DataList.vue').default
 Vue.component('alg-multi-datalist', resolve => { require(['./components/Multi-DataList.vue'], resolve); });
 Vue.component('alg-tabs',           resolve => { require(['./components/Tabs.vue'], resolve); });
 Vue.component('alg-tab',            resolve => { require(['./components/Tab.vue'], resolve); });
-Vue.component('alg-message',        resolve => { require(['./components/Message.vue'], resolve); });
 Vue.component('alg-radio-toggle',   resolve => { require(['./components/Radio-Toggle.vue'], resolve); });
 Vue.component('alg-form-search',    resolve => { require(['./components/Form-Search.vue'], resolve); });
 Vue.component('alg-ajaxlist',       require('./components/AJAX-List.vue').default);
@@ -37,31 +34,16 @@ Vue.component('alg-notification',   require('./components/Notification.vue').def
 Vue.component('alg-morpheme-alert', resolve => { require(['./components/Morpheme-Alert.vue'], resolve); });
 Vue.component('alg-initial-changes', resolve => { require(['./components/Initial-Changes.vue'], resolve); });
 Vue.component('alg-bookmark',        require('./components/Bookmark.vue').default);
-// Vue.component('alg-bookmark',        resolve => { require(['./components/Bookmark.vue'], resolve); });
 Vue.component('alg-modal',           resolve => { require(['./components/Modal.vue'], resolve); });
 Vue.component('alg-button',          require('./components/Button.vue').default);
 Vue.component('alg-map',             require('./components/Map.vue').default);
 Vue.component('alg-network',         resolve => { require(['./components/Network.vue'], resolve); });
 Vue.component('alg-file-upload',     resolve => { require(['./components/FileUpload.vue'], resolve); });
-Vue.component('alg-typeahead', resolve => { require(['./components/Typeahead.vue'], resolve ); });
 Vue.component('alg-typewriter', resolve => { require(['./components/Typewriter.vue'], resolve); });
 Vue.component('alg-preview', resolve => { require(['./components/Preview.vue'], resolve); });
 
 Vue.component('alg-form',           resolve => { require(['./components/forms/Form.vue'], resolve); });
 Vue.component('alg-model-form',  resolve => { require(['./components/forms/ModelForm.vue'], resolve); });
-Vue.component('alg-group-form',     resolve => { require(['./components/forms/Group.vue'], resolve); });
-Vue.component('alg-morpheme-form',  resolve => { require(['./components/forms/Morpheme.vue'], resolve); });
-Vue.component('alg-example-form',   resolve => { require(['./components/forms/Example.vue'], resolve); });
-Vue.component('alg-rule-form',      resolve => { require(['./components/forms/Rule.vue'], resolve); });
-Vue.component('alg-datapoint-form', resolve => { require(['./components/forms/Datapoint.vue'], resolve); });
-Vue.component('alg-paradigm-form',  resolve => { require(['./components/forms/Paradigm.vue'], resolve); });
-Vue.component('alg-nominal-form-form',  resolve => { require(['./components/forms/NominalForm.vue'], resolve); });
-Vue.component('alg-phoneme-form',  resolve => { require(['./components/forms/Phoneme.vue'], resolve); });
-Vue.component('alg-allophone-form',  resolve => { require(['./components/forms/Allophone.vue'], resolve); });
-Vue.component('alg-reflex-form',  resolve => { require(['./components/forms/Reflex.vue'], resolve); });
-Vue.component('alg-audio-form',  resolve => { require(['./components/forms/Audio.vue'], resolve); });
-Vue.component('alg-phoneme-example-form',  resolve => { require(['./components/forms/PhonemeExample.vue'], resolve); });
-Vue.component('alg-igt-form', resolve => { require(['./components/forms/IGT.vue'], resolve); });
 
 Vue.component('alg-order', resolve => { require(['./components/Order.vue'], resolve); });
 Vue.component('alg-tag-input', resolve => { require(['./components/Tag-Input.vue'], resolve); });
@@ -75,7 +57,6 @@ Vue.component('alg-advanced-paradigm-search', resolve => { require(['./component
 Vue.component('alg-nominal-paradigm-search',  resolve => { require(['./components/forms/search/Nominal-Paradigm.vue'], resolve); });
 Vue.component('alg-phoneme-search',           resolve => { require(['./components/forms/search/Phoneme.vue'], resolve); });
 
-Vue.component('alg-delete-button', resolve => { require(['./components/Delete-Button.vue'], resolve); });
 Vue.component('alg-source-index', resolve => { require(['./components/Source-Index.vue'], resolve); });
 Vue.component('alg-pagination-limited', resolve => { require(['./components/Pagination-Limited.vue'], resolve); });
 Vue.component('alg-pagination-full', resolve => { require(['./components/Pagination-Full.vue'], resolve); });

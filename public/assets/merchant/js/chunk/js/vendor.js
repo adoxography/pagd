@@ -1,3 +1,4 @@
+<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 <<<<<<< HEAD
 <<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["/js/vendor"],{
@@ -7,6 +8,9 @@ webpackJsonp([51],{
 =======
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["/js/vendor"],{
 >>>>>>> Bump npm dependencies
+=======
+webpackJsonp([35],{
+>>>>>>> Remove unneeded components:public/js/vendor.js
 
 /***/ "./node_modules/axios-retry/index.js":
 /*!*******************************************!*\

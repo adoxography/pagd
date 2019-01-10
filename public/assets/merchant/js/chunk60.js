@@ -1,15 +1,18 @@
 <<<<<<< HEAD:public/assets/merchant/js/chunk60.js
+<<<<<<< HEAD:public/assets/merchant/js/chunk60.js
 webpackJsonp([60,72],{
 =======
 webpackJsonp([7,18],{
 >>>>>>> Adapt async autocomplete into Buefy component:public/assets/merchant/js/chunk7.js
+=======
+webpackJsonp([7],{
+>>>>>>> Remove unneeded components:public/assets/merchant/js/chunk7.js
 
-/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Form.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Radio-Toggle.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_OldErrors__ = __webpack_require__("./resources/assets/js/mixins/OldErrors.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_OldSources__ = __webpack_require__("./resources/assets/js/mixins/OldSources.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Datalist_js__ = __webpack_require__("./resources/assets/js/Datalist.js");
 //
 //
 //
@@ -27,60 +30,35 @@ webpackJsonp([7,18],{
 //
 //
 //
-
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_OldSources__["a" /* default */]],
-  props: ['method', 'action'],
+  props: ['languages', 'oldLanguages'],
   data: function data() {
     return {
-      sources: [],
-      csrfToken: Laravel.csrfToken
+      disabled: true,
+      selections: [new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]()]
     };
   },
-  methods: {
-    validateBeforeSubmit: function validateBeforeSubmit(event) {
-      var _this = this;
+  created: function created() {
+    if (this.oldLanguages) {
+      var languages = [];
 
-      this.$validator.validateAll().then(function (result) {
-        if (result) {
-          _this.$children.forEach(function (child) {
-            if (child.beforeSubmit) {
-              child.beforeSubmit();
-            }
-          });
+      for (var i = 0; i < this.oldLanguages.length; i += 2) {
+        languages.push(new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */](this.oldLanguages[i], this.oldLanguages[i + 1]));
+      }
 
-          _this.$nextTick(function () {
-            return _this.$refs.form.submit();
-          });
-        }
-      });
+      this.disabled = false;
+      this.selections = languages;
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/PhonemeExample.vue?vue&type=script&lang=js&":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form__ = __webpack_require__("./resources/assets/js/components/forms/Form.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Datalist_js__ = __webpack_require__("./resources/assets/js/Datalist.js");
-
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-  extends: __WEBPACK_IMPORTED_MODULE_0__Form__["default"],
-  data: function data() {
-    return {
-      language: new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */]()
-    };
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Form.vue?vue&type=template&id=68350a1b&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Radio-Toggle.vue?vue&type=template&id=59a77c3d&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -90,49 +68,78 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "form",
-    {
-      ref: "form",
-      attrs: {
-        method: _vm.method == "GET" ? _vm.method : "POST",
-        action: _vm.action
-      },
-      on: {
-        submit: function($event) {
-          $event.preventDefault()
-          _vm.validateBeforeSubmit($event)
-        }
-      }
-    },
-    [
-      _c("input", {
-        attrs: { name: "_token", type: "hidden" },
-        domProps: { value: _vm.csrfToken }
-      }),
-      _vm._v(" "),
-      _vm.method != "POST" && _vm.method != "GET"
-        ? _c("input", {
-            attrs: { type: "hidden", name: "_method" },
-            domProps: { value: _vm.method }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _vm._t("default"),
-      _vm._v(" "),
-      _c("div", { staticClass: "field" }, [
-        _c(
-          "button",
-          {
-            staticClass: "button is-primary has-text-grey-dark",
-            attrs: { type: "submit", disabled: _vm.errors.any() }
-          },
-          [_vm._v("Submit")]
-        )
+  return _c("div", [
+    _c("p", { staticClass: "control" }, [
+      _c("label", { staticClass: "radio" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.disabled,
+              expression: "disabled"
+            }
+          ],
+          staticClass: "radio",
+          attrs: { name: "searchAll", type: "radio" },
+          domProps: { value: true, checked: _vm._q(_vm.disabled, true) },
+          on: {
+            change: function($event) {
+              _vm.disabled = true
+            }
+          }
+        }),
+        _vm._v("\n\t\t\tAll languages\n\t\t")
       ])
-    ],
-    2
-  )
+    ]),
+    _vm._v(" "),
+    _c("p", { staticClass: "control" }, [
+      _c("label", { staticClass: "radio" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.disabled,
+              expression: "disabled"
+            }
+          ],
+          staticClass: "radio",
+          attrs: { name: "searchAll", type: "radio" },
+          domProps: { value: false, checked: _vm._q(_vm.disabled, false) },
+          on: {
+            change: function($event) {
+              _vm.disabled = false
+            }
+          }
+        }),
+        _vm._v("\n\t\t\tThe following languages...\n\t\t")
+      ])
+    ]),
+    _c(
+      "div",
+      { staticClass: "box" },
+      [
+        _c("alg-multi-datalist", {
+          attrs: {
+            list: _vm.languages,
+            name: "languages[]",
+            disabled: _vm.disabled
+          },
+          model: {
+            value: _vm.selections,
+            callback: function($$v) {
+              _vm.selections = $$v
+            },
+            expression: "selections"
+          }
+        })
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("p")
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -183,13 +190,13 @@ function () {
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/forms/Form.vue":
+/***/ "./resources/assets/js/components/Radio-Toggle.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form_vue_vue_type_template_id_68350a1b___ = __webpack_require__("./resources/assets/js/components/forms/Form.vue?vue&type=template&id=68350a1b&");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Form_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/forms/Form.vue?vue&type=script&lang=js&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Radio_Toggle_vue_vue_type_template_id_59a77c3d___ = __webpack_require__("./resources/assets/js/components/Radio-Toggle.vue?vue&type=template&id=59a77c3d&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Radio_Toggle_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/Radio-Toggle.vue?vue&type=script&lang=js&");
 /* empty harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_componentNormalizer_js__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -200,9 +207,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* normalize component */
 
 var component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_componentNormalizer_js__["a" /* default */])(
-  __WEBPACK_IMPORTED_MODULE_1__Form_vue_vue_type_script_lang_js___["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_0__Form_vue_vue_type_template_id_68350a1b___["a" /* render */],
-  __WEBPACK_IMPORTED_MODULE_0__Form_vue_vue_type_template_id_68350a1b___["b" /* staticRenderFns */],
+  __WEBPACK_IMPORTED_MODULE_1__Radio_Toggle_vue_vue_type_script_lang_js___["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_0__Radio_Toggle_vue_vue_type_template_id_59a77c3d___["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_0__Radio_Toggle_vue_vue_type_template_id_59a77c3d___["b" /* staticRenderFns */],
   false,
   null,
   null,
@@ -217,147 +224,41 @@ if (false) {
   if (api.compatible) {
     module.hot.accept()
     if (!module.hot.data) {
-      api.createRecord('68350a1b', component.options)
+      api.createRecord('59a77c3d', component.options)
     } else {
-      api.reload('68350a1b', component.options)
+      api.reload('59a77c3d', component.options)
     }
-    module.hot.accept("./Form.vue?vue&type=template&id=68350a1b&", function () {
-      api.rerender('68350a1b', {
+    module.hot.accept("./Radio-Toggle.vue?vue&type=template&id=59a77c3d&", function () {
+      api.rerender('59a77c3d', {
         render: render,
         staticRenderFns: staticRenderFns
       })
     })
   }
 }
-component.options.__file = "resources/assets/js/components/forms/Form.vue"
+component.options.__file = "resources/assets/js/components/Radio-Toggle.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/forms/Form.vue?vue&type=script&lang=js&":
+/***/ "./resources/assets/js/components/Radio-Toggle.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Form.vue?vue&type=script&lang=js&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Radio_Toggle_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Radio-Toggle.vue?vue&type=script&lang=js&");
 /* unused harmony namespace reexport */
- /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_script_lang_js___["a" /* default */]); 
+ /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Radio_Toggle_vue_vue_type_script_lang_js___["a" /* default */]); 
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/forms/Form.vue?vue&type=template&id=68350a1b&":
+/***/ "./resources/assets/js/components/Radio-Toggle.vue?vue&type=template&id=59a77c3d&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_68350a1b___ = __webpack_require__("./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Form.vue?vue&type=template&id=68350a1b&");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_68350a1b___["a"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_68350a1b___["b"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Radio_Toggle_vue_vue_type_template_id_59a77c3d___ = __webpack_require__("./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Radio-Toggle.vue?vue&type=template&id=59a77c3d&");
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Radio_Toggle_vue_vue_type_template_id_59a77c3d___["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Radio_Toggle_vue_vue_type_template_id_59a77c3d___["b"]; });
 
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/forms/PhonemeExample.vue":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__PhonemeExample_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/forms/PhonemeExample.vue?vue&type=script&lang=js&");
-/* empty harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_componentNormalizer_js__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
-
-
-
-
-/* normalize component */
-
-var component = Object(__WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_runtime_componentNormalizer_js__["a" /* default */])(
-  __WEBPACK_IMPORTED_MODULE_0__PhonemeExample_vue_vue_type_script_lang_js___["a" /* default */],
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) {
-  var api = require("/etc/httpd/docs/alglang.localhost/node_modules/vue-hot-reload-api/dist/index.js")
-  api.install(require('vue'))
-  if (api.compatible) {
-    module.hot.accept()
-    if (!module.hot.data) {
-      api.createRecord('1583d99b', component.options)
-    } else {
-      api.reload('1583d99b', component.options)
-    }
-    
-  }
-}
-component.options.__file = "resources/assets/js/components/forms/PhonemeExample.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/forms/PhonemeExample.vue?vue&type=script&lang=js&":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PhonemeExample_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/PhonemeExample.vue?vue&type=script&lang=js&");
-/* unused harmony namespace reexport */
- /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PhonemeExample_vue_vue_type_script_lang_js___["a" /* default */]); 
-
-/***/ }),
-
-/***/ "./resources/assets/js/mixins/OldErrors.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony default export */ var _unused_webpack_default_export = ({
-  props: ['oldErrors'],
-  mounted: function mounted() {
-    var _this = this;
-
-    if (this.oldErrors) {
-      _.forEach(this.oldErrors, function (errors, field) {
-        errors.forEach(function (message) {
-          return _this.$root.errors.add({
-            field: field,
-            msg: message
-          });
-        });
-      });
-    }
-
-    ;
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/assets/js/mixins/OldSources.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = ({
-  props: ['oldSources'],
-  created: function created() {
-    var _this = this;
-
-    if (this.oldSources) {
-      this.oldSources.forEach(function (source) {
-        _this.sources.push({
-          short: source.display ? source.display : source.short,
-          id: source.id,
-          long: source.long,
-          extraInfo: source.pivot ? source.pivot.extraInfo : source.extraInfo,
-          description: source.pivot ? source.pivot.description : source.description
-        });
-      });
-    }
-  }
-});
 
 /***/ })
 

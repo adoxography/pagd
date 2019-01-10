@@ -17,14 +17,14 @@
 				</p>
 				<label class="label">Full Citation</label>
 				<p class="control">
-					<textarea class="textarea" v-model="long"></textarea>
+          <wysiwyg v-model="long"></wysiwyg>
 				</p>
 				<label class="label">URL</label>
 				<p class="control">
 					<input type="url" class="input" autocomplete="off" v-model="url" />
 				</p>
 				<label class="label">Notes</label>
-				<alg-textarea v-model="notes"></alg-textarea>
+        <wysiwyg v-model="long"></wysiwyg>
     		</section>
     		<footer class="modal-card-foot">
       			<a class="button is-primary" :class="{'is-loading': loading, 'is-disabled': disabled}" @click="submit">Submit</a>

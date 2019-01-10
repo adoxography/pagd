@@ -1,7 +1,7 @@
 @extends('layout', ['title' => "Add group"])
 
 @section('title')
-	Add group
+    <h1 class="title is-4">Add group</h1>
 @endsection
 
 @section('content')

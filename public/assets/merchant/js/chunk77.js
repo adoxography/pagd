@@ -218,28 +218,22 @@ var render = function() {
               _vm._v(" "),
               _c("label", { staticClass: "label" }, [_vm._v("Full Citation")]),
               _vm._v(" "),
-              _c("p", { staticClass: "control" }, [
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
+              _c(
+                "p",
+                { staticClass: "control" },
+                [
+                  _c("wysiwyg", {
+                    model: {
                       value: _vm.long,
+                      callback: function($$v) {
+                        _vm.long = $$v
+                      },
                       expression: "long"
                     }
-                  ],
-                  staticClass: "textarea",
-                  domProps: { value: _vm.long },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.long = $event.target.value
-                    }
-                  }
-                })
-              ]),
+                  })
+                ],
+                1
+              ),
               _vm._v(" "),
               _c("label", { staticClass: "label" }, [_vm._v("URL")]),
               _vm._v(" "),
@@ -269,13 +263,13 @@ var render = function() {
               _vm._v(" "),
               _c("label", { staticClass: "label" }, [_vm._v("Notes")]),
               _vm._v(" "),
-              _c("alg-textarea", {
+              _c("wysiwyg", {
                 model: {
-                  value: _vm.notes,
+                  value: _vm.long,
                   callback: function($$v) {
-                    _vm.notes = $$v
+                    _vm.long = $$v
                   },
-                  expression: "notes"
+                  expression: "long"
                 }
               })
             ],

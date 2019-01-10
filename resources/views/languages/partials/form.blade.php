@@ -123,12 +123,12 @@
                         :message="errors.first('reconstructed')">
                         <b-radio v-model="data.reconstructed"
                                  name="reconstructed"
-                                 :native-value="false">
+                                 :native-value="0">
                             Attested
                         </b-radio>
                         <b-radio v-model="data.reconstructed"
                                  name="reconstructed"
-                                 :native-value="true">
+                                 :native-value="1">
                             Reconstructed
                         </b-radio>
                     </b-field>

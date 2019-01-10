@@ -4,147 +4,145 @@ webpackJsonp([103],{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Filter = function () {
-	function Filter(name, value, operator) {
-		_classCallCheck(this, Filter);
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-		this.keys = name.split('.');
-		this.operator = operator;
-		this.setValue(value);
-	}
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-	_createClass(Filter, [{
-		key: 'allows',
-		value: function allows(item) {
-			var itemValue = this.getValue(item);
-			var rc = false;
+var Filter =
+/*#__PURE__*/
+function () {
+  function Filter(name, value, operator) {
+    _classCallCheck(this, Filter);
 
-			if (this.value == 'null') {
-				return itemValue == null;
-			} else if (!this.value) {
-				rc = true;
-			} else if (itemValue === null) {
-				rc = false;
-			} else if (this.operator == 'like') {
-				var val = itemValue.toLowerCase();
+    this.keys = name.split('.');
+    this.operator = operator;
+    this.setValue(value);
+  }
 
-				if (val.includes(this.value) || val.replace(/\(|\)/g, '').includes(this.value)) {
-					rc = true;
-				}
-			} else if (itemValue == this.value) {
-				rc = true;
-			}
+  _createClass(Filter, [{
+    key: "allows",
+    value: function allows(item) {
+      var itemValue = this.getValue(item);
+      var rc = false;
 
-			return rc;
-		}
-	}, {
-		key: 'update',
-		value: function update(newValue) {
-			this.setValue(newValue);
-		}
-	}, {
-		key: 'getValue',
-		value: function getValue(item) {
-			var found = true;
+      if (this.value == 'null') {
+        return itemValue == null;
+      } else if (!this.value) {
+        rc = true;
+      } else if (itemValue === null) {
+        rc = false;
+      } else if (this.operator == 'like') {
+        var val = itemValue.toLowerCase();
 
-			if (item.form) {
-				item = item.form;
-			}
+        if (val.includes(this.value) || val.replace(/\(|\)/g, '').includes(this.value)) {
+          rc = true;
+        }
+      } else if (itemValue == this.value) {
+        rc = true;
+      }
 
-			for (var i = 0; i < this.keys.length && found; i++) {
-				var key = this.keys[i];
+      return rc;
+    }
+  }, {
+    key: "update",
+    value: function update(newValue) {
+      this.setValue(newValue);
+    }
+  }, {
+    key: "getValue",
+    value: function getValue(item) {
+      var found = true;
 
-				if (item.hasOwnProperty(key)) {
-					item = item[key];
-				} else {
-					item = null;
-					found = false;
-				}
-			}
+      if (item.form) {
+        item = item.form;
+      }
 
-			return item;
-		}
-	}, {
-		key: 'setValue',
-		value: function setValue(newValue) {
-			if (typeof newValue === 'string') {
-				this.value = newValue.toLowerCase();
-			} else {
-				this.value = newValue;
-			}
-		}
-	}]);
+      for (var i = 0; i < this.keys.length && found; i++) {
+        var key = this.keys[i];
 
-	return Filter;
+        if (item.hasOwnProperty(key)) {
+          item = item[key];
+        } else {
+          item = null;
+          found = false;
+        }
+      }
+
+      return item;
+    }
+  }, {
+    key: "setValue",
+    value: function setValue(newValue) {
+      if (typeof newValue === 'string') {
+        this.value = newValue.toLowerCase();
+      } else {
+        this.value = newValue;
+      }
+    }
+  }]);
+
+  return Filter;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ["lists"],
+  props: ["lists"],
+  data: function data() {
+    return {
+      filteredLists: [],
+      filters: {}
+    };
+  },
+  created: function created() {
+    this.filteredLists = this.lists;
+  },
+  methods: {
+    onInput: function onInput(event) {
+      var name = event.target.name;
+      var value = event.target.value;
+      var operator = event.target.dataset.operator;
 
-	data: function data() {
-		return {
-			filteredLists: [],
-			filters: {}
-		};
-	},
-	created: function created() {
-		this.filteredLists = this.lists;
-	},
+      if (this.filters[name]) {
+        this.filters[name].update(value);
+      } else {
+        this.filters[name] = new Filter(name, value, operator);
+      }
 
+      this.filter();
+    },
+    filter: function filter() {
+      var _this = this;
 
-	methods: {
-		onInput: function onInput(event) {
-			var name = event.target.name;
-			var value = event.target.value;
-			var operator = event.target.dataset.operator;
+      var tempLists = {};
 
-			if (this.filters[name]) {
-				this.filters[name].update(value);
-			} else {
-				this.filters[name] = new Filter(name, value, operator);
-			}
+      _.each(this.lists, function (list, key) {
+        if (Array.isArray(list)) {
+          var tempList = [];
+          list.forEach(function (item) {
+            if (!_this.isFiltered(item)) {
+              tempList.push(item);
+            }
+          });
+          tempLists[key] = tempList;
+        }
+      });
 
-			this.filter();
-		},
-		filter: function filter() {
-			var _this = this;
+      this.filteredLists = tempLists;
+    },
+    isFiltered: function isFiltered(item) {
+      var rc = false;
 
-			var tempLists = {};
+      _.forEach(this.filters, function (filter) {
+        if (!filter.allows(item)) {
+          rc = true;
+          return false;
+        }
+      });
 
-			_.each(this.lists, function (list, key) {
-
-				if (Array.isArray(list)) {
-					var tempList = [];
-
-					list.forEach(function (item) {
-						if (!_this.isFiltered(item)) {
-							tempList.push(item);
-						}
-					});
-
-					tempLists[key] = tempList;
-				}
-			});
-
-			this.filteredLists = tempLists;
-		},
-		isFiltered: function isFiltered(item) {
-			var rc = false;
-
-			_.forEach(this.filters, function (filter) {
-				if (!filter.allows(item)) {
-					rc = true;
-					return false;
-				}
-			});
-
-			return rc;
-		}
-	}
+      return rc;
+    }
+  }
 });
 
 /***/ }),

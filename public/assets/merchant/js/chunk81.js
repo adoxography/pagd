@@ -56,118 +56,104 @@ webpackJsonp([81],{
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['list', 'initial'],
+  props: ['list', 'initial'],
+  data: function data() {
+    return {
+      valueText: '',
+      values: [],
+      usedValues: []
+    };
+  },
+  computed: {
+    filteredValues: function filteredValues() {
+      var _this = this;
 
-	data: function data() {
-		return {
-			valueText: '',
-			values: [],
-			usedValues: []
-		};
-	},
+      var unchecked = [];
+      var checked = [];
+      this.values.forEach(function (value) {
+        if (value.name.toLowerCase().includes(_this.valueText.toLowerCase())) {
+          if (value.checked) {
+            checked.push(value);
+          } else {
+            unchecked.push(value);
+          }
+        }
+      });
+      return checked.concat(unchecked);
+    },
+    selectedValues: function selectedValues() {
+      var values = [];
+      this.values.forEach(function (value) {
+        if (value.checked) {
+          values.unshift({
+            id: value.id,
+            name: value.name
+          });
+        }
+      });
+      return values;
+    }
+  },
+  created: function created() {
+    var _this2 = this;
 
+    for (var i = 0; i < this.list.length; i++) {
+      this.values.push({
+        id: this.list[i].id,
+        name: this.list[i].name,
+        checked: false,
+        used: false
+      });
+    }
 
-	computed: {
-		filteredValues: function filteredValues() {
-			var _this = this;
+    if (this.initial) {
+      this.initial.forEach(function (value) {
+        var index = _this2.selectItemInList(value.name, _this2.values);
 
-			var unchecked = [];
-			var checked = [];
+        if (value.used) {
+          _this2.values[index].used = true;
 
-			this.values.forEach(function (value) {
-				if (value.name.toLowerCase().includes(_this.valueText.toLowerCase())) {
+          _this2.usedValues.push(value.name);
+        }
+      });
+    }
+  },
+  methods: {
+    onEnter: function onEnter(event) {
+      if (this.valueText.length > 0) {
+        event.preventDefault(); // this.errors.clear('values');
 
-					if (value.checked) {
-						checked.push(value);
-					} else {
-						unchecked.push(value);
-					}
-				}
-			});
+        if (this.selectItemInList(event.target.value, this.values) < 0) {
+          this.values.push({
+            id: 0,
+            name: event.target.value,
+            checked: true
+          });
+        }
 
-			return checked.concat(unchecked);
-		},
-		selectedValues: function selectedValues() {
-			var values = [];
+        this.valueText = '';
+      }
+    },
+    removeValue: function removeValue(name) {
+      var index = this.values.findIndex(function (value) {
+        return value.name == name;
+      });
+      this.values.splice(index, 1);
+    },
+    selectItemInList: function selectItemInList(lookup, array) {
+      var found = -1;
 
-			this.values.forEach(function (value) {
-				if (value.checked) {
-					values.unshift({
-						id: value.id,
-						name: value.name
-					});
-				}
-			});
+      for (var i = 0; i < array.length && found < 0; i++) {
+        if (array[i].name.toLowerCase() == lookup.toLowerCase()) {
+          found = i;
+          array[i].checked = true;
+        }
+      }
 
-			return values;
-		}
-	},
-
-	created: function created() {
-		var _this2 = this;
-
-		for (var i = 0; i < this.list.length; i++) {
-			this.values.push({
-				id: this.list[i].id,
-				name: this.list[i].name,
-				checked: false,
-				used: false
-			});
-		}
-
-		if (this.initial) {
-			this.initial.forEach(function (value) {
-				var index = _this2.selectItemInList(value.name, _this2.values);
-
-				if (value.used) {
-					_this2.values[index].used = true;
-					_this2.usedValues.push(value.name);
-				}
-			});
-		}
-	},
-
-
-	methods: {
-		onEnter: function onEnter(event) {
-
-			if (this.valueText.length > 0) {
-				event.preventDefault();
-				// this.errors.clear('values');
-
-				if (this.selectItemInList(event.target.value, this.values) < 0) {
-					this.values.push({
-						id: 0,
-						name: event.target.value,
-						checked: true
-					});
-				}
-
-				this.valueText = '';
-			}
-		},
-		removeValue: function removeValue(name) {
-			var index = this.values.findIndex(function (value) {
-				return value.name == name;
-			});
-
-			this.values.splice(index, 1);
-		},
-		selectItemInList: function selectItemInList(lookup, array) {
-			var found = -1;
-
-			for (var i = 0; i < array.length && found < 0; i++) {
-				if (array[i].name.toLowerCase() == lookup.toLowerCase()) {
-					found = i;
-					array[i].checked = true;
-				}
-			}
-
-			return found;
-		}
-	}
+      return found;
+    }
+  }
 });
 
 /***/ }),

@@ -30,46 +30,40 @@ webpackJsonp([93],{
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: {
-		title: {
-			default: ""
-		},
+  props: {
+    title: {
+      default: ""
+    },
+    content: {
+      default: ""
+    },
+    footer: {
+      default: ""
+    }
+  },
+  data: function data() {
+    return {
+      active: false
+    };
+  },
+  methods: {
+    open: function open() {
+      this.active = true;
+    },
+    close: function close() {
+      this.active = false;
+    },
+    onClickOutside: function onClickOutside() {
+      var _this = this;
 
-		content: {
-			default: ""
-		},
-
-		footer: {
-			default: ""
-		}
-	},
-
-	data: function data() {
-		return {
-			active: false
-		};
-	},
-
-
-	methods: {
-		open: function open() {
-			this.active = true;
-		},
-		close: function close() {
-			this.active = false;
-		},
-		onClickOutside: function onClickOutside() {
-			var _this = this;
-
-			Vue.nextTick(function () {
-				if (_this.active) {
-					_this.close();
-				}
-			});
-		}
-	}
+      Vue.nextTick(function () {
+        if (_this.active) {
+          _this.close();
+        }
+      });
+    }
+  }
 });
 
 /***/ }),

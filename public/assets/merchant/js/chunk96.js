@@ -23,46 +23,40 @@ webpackJsonp([96],{
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['list', 'filteroptions'],
+  props: ['list', 'filteroptions'],
+  data: function data() {
+    return {
+      parsedList: [],
+      parsedFilterOptions: [],
+      filteredList: [],
+      selected: ''
+    };
+  },
+  created: function created() {
+    this.parsedList = JSON.parse(this.list);
+    this.parsedFilterOptions = JSON.parse(this.filteroptions);
+    this.filteredList = this.parsedList;
+  },
+  methods: {
+    filter: function filter() {
+      var _this = this;
 
-	data: function data() {
-		return {
-			parsedList: [],
-			parsedFilterOptions: [],
-			filteredList: [],
-			selected: ''
-		};
-	},
-	created: function created() {
-		this.parsedList = JSON.parse(this.list);
-		this.parsedFilterOptions = JSON.parse(this.filteroptions);
+      // console.log(this.$refs.pages);
+      this.$refs.pages.selected = 0;
 
-		this.filteredList = this.parsedList;
-	},
-
-
-	methods: {
-		filter: function filter() {
-			var _this = this;
-
-			// console.log(this.$refs.pages);
-			this.$refs.pages.selected = 0;
-
-			if (this.selected == '') {
-				this.filteredList = this.parsedList;
-			} else {
-				this.filteredList = [];
-
-				this.parsedList.forEach(function (item) {
-					if (item.slot_id == _this.selected) {
-						_this.filteredList.push(item);
-					}
-				});
-			}
-		}
-	}
+      if (this.selected == '') {
+        this.filteredList = this.parsedList;
+      } else {
+        this.filteredList = [];
+        this.parsedList.forEach(function (item) {
+          if (item.slot_id == _this.selected) {
+            _this.filteredList.push(item);
+          }
+        });
+      }
+    }
+  }
 });
 
 /***/ }),

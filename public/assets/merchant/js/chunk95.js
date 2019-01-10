@@ -117,95 +117,88 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //
 //
 //
-
 var Line = function Line() {
-	var _this = this;
+  var _this = this;
 
-	var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-	_classCallCheck(this, Line);
+  _classCallCheck(this, Line);
 
-	var defaults = {
-		verbClass: 1,
-		subject: 1,
-		primaryObject: 0,
-		secondaryObject: 0,
-		order: 1,
-		mode: 1,
-		isNegative: false,
-		isDiminutive: false
-	};
+  var defaults = {
+    verbClass: 1,
+    subject: 1,
+    primaryObject: 0,
+    secondaryObject: 0,
+    order: 1,
+    mode: 1,
+    isNegative: false,
+    isDiminutive: false
+  };
 
-	_.forEach(defaults, function (value, key) {
-		if (options[key]) {
-			_this[key] = options[key];
-		} else {
-			_this[key] = value;
-		}
-	});
+  _.forEach(defaults, function (value, key) {
+    if (options[key]) {
+      _this[key] = options[key];
+    } else {
+      _this[key] = value;
+    }
+  });
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['args', 'classes', 'modes', 'orders', 'oldValues'],
+  props: ['args', 'classes', 'modes', 'orders', 'oldValues'],
+  data: function data() {
+    return {
+      lines: [new Line()]
+    };
+  },
+  computed: {
+    numLines: function numLines() {
+      return this.lines.length;
+    }
+  },
+  methods: {
+    addLine: function addLine() {
+      if (this.numLines < 10) {
+        // Clone the last line
+        var newLine = JSON.parse(JSON.stringify(this.lines[this.lines.length - 1])); // Push it onto the list
 
-	data: function data() {
-		return {
-			lines: [new Line()]
-		};
-	},
+        this.lines.push(newLine);
+      }
+    },
+    removeLine: function removeLine() {
+      if (this.numLines > 1) {
+        this.lines.pop();
+      }
+    }
+  },
+  created: function created() {
+    if (this.oldValues) {
+      var lines = [];
 
+      for (var i = 0; i < this.oldValues.classes.length; i++) {
+        var line = new Line({
+          verbClass: this.oldValues.classes[i],
+          subject: this.oldValues.subjects[i],
+          primaryObject: this.oldValues.primaryObjects[i],
+          secondaryObject: this.oldValues.secondaryObjects[i],
+          order: this.oldValues.orders[i],
+          mode: this.oldValues.modes[i]
+        });
 
-	computed: {
-		numLines: function numLines() {
-			return this.lines.length;
-		}
-	},
+        if (this.oldValues.isNegative) {
+          line.isNegative = this.oldValues.isNegative[i];
+        }
 
-	methods: {
-		addLine: function addLine() {
-			if (this.numLines < 10) {
-				// Clone the last line
-				var newLine = JSON.parse(JSON.stringify(this.lines[this.lines.length - 1]));
+        if (this.oldValues.isDiminutive) {
+          line.isDiminutive = this.oldValues.isDiminutive[i];
+        }
 
-				// Push it onto the list
-				this.lines.push(newLine);
-			}
-		},
-		removeLine: function removeLine() {
-			if (this.numLines > 1) {
-				this.lines.pop();
-			}
-		}
-	},
+        lines.push(line);
+      }
 
-	created: function created() {
-		if (this.oldValues) {
-			var lines = [];
-
-			for (var i = 0; i < this.oldValues.classes.length; i++) {
-				var line = new Line({
-					verbClass: this.oldValues.classes[i],
-					subject: this.oldValues.subjects[i],
-					primaryObject: this.oldValues.primaryObjects[i],
-					secondaryObject: this.oldValues.secondaryObjects[i],
-					order: this.oldValues.orders[i],
-					mode: this.oldValues.modes[i]
-				});
-
-				if (this.oldValues.isNegative) {
-					line.isNegative = this.oldValues.isNegative[i];
-				}
-
-				if (this.oldValues.isDiminutive) {
-					line.isDiminutive = this.oldValues.isDiminutive[i];
-				}
-
-				lines.push(line);
-			}
-
-			this.lines = lines;
-		}
-	}
+      this.lines = lines;
+    }
+  }
 });
 
 /***/ }),
@@ -275,7 +268,8 @@ var render = function() {
                           { domProps: { value: verbClass.id } },
                           [_vm._v(_vm._s(verbClass.name))]
                         )
-                      })
+                      }),
+                      0
                     )
                   ])
                 ]
@@ -338,7 +332,8 @@ var render = function() {
                             { domProps: { value: argument.id } },
                             [_vm._v(_vm._s(argument.name))]
                           )
-                        })
+                        }),
+                        0
                       )
                     ])
                   ]),
@@ -505,7 +500,8 @@ var render = function() {
                         return _c("option", { domProps: { value: order.id } }, [
                           _vm._v(_vm._s(order.name))
                         ])
-                      })
+                      }),
+                      0
                     )
                   ])
                 ]
@@ -559,7 +555,8 @@ var render = function() {
                         return _c("option", { domProps: { value: mode.id } }, [
                           _vm._v(_vm._s(mode.name))
                         ])
-                      })
+                      }),
+                      0
                     )
                   ])
                 ]

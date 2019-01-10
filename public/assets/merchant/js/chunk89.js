@@ -27,39 +27,32 @@ webpackJsonp([89],{
 //
 //
 
-
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['list'],
+  props: ['list'],
+  components: {
+    draggable: __WEBPACK_IMPORTED_MODULE_0_vuedraggable___default.a
+  },
+  data: function data() {
+    return {
+      listArray: []
+    };
+  },
+  methods: {
+    renderName: function renderName(item) {
+      var name = item.name;
 
-	components: {
-		draggable: __WEBPACK_IMPORTED_MODULE_0_vuedraggable___default.a
-	},
+      if (item.type == 'App\\Group') {
+        name += " languages";
+      }
 
-	data: function data() {
-		return {
-			listArray: []
-		};
-	},
-
-
-	methods: {
-		renderName: function renderName(item) {
-			var name = item.name;
-
-			if (item.type == 'App\\Group') {
-				name += " languages";
-			}
-
-			return name;
-		}
-	},
-
-	created: function created() {
-		this.listArray = _.sortBy(this.list, function (item) {
-			return item.position;
-		});
-	}
+      return name;
+    }
+  },
+  created: function created() {
+    this.listArray = _.sortBy(this.list, function (item) {
+      return item.position;
+    });
+  }
 });
 
 /***/ }),
@@ -137,7 +130,8 @@ var render = function() {
               ]
             )
           ])
-        })
+        }),
+        0
       )
     ],
     1

@@ -29,21 +29,15 @@ webpackJsonp([1,18],{
 //
 
 
-
-
 /* harmony default export */ __webpack_exports__["a"] = ({
   mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_OldSources__["a" /* default */]],
-
   props: ['method', 'action'],
-
   data: function data() {
     return {
       sources: [],
       csrfToken: Laravel.csrfToken
     };
   },
-
-
   methods: {
     validateBeforeSubmit: function validateBeforeSubmit(event) {
       var _this = this;
@@ -77,149 +71,137 @@ webpackJsonp([1,18],{
 
 
 
-
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-	extends: __WEBPACK_IMPORTED_MODULE_0__Form__["default"],
+  extends: __WEBPACK_IMPORTED_MODULE_0__Form__["default"],
+  props: ['pronominalFeatures', 'nominalFeatures', 'paradigms', 'oldParadigm', 'oldNominalFeature', 'oldPronominalFeature', 'oldTranslation'],
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_HasMorphemes__["a" /* default */]],
+  data: function data() {
+    return {
+      language: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
+      pronominalFeature: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
+      nominalFeature: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
+      paradigm: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
+      mode: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
+      parent: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
+      translation: '',
+      validations: {
+        nominalFeature: 'datalist_required|datalist_exists',
+        pronominalFeature: 'datalist_required|datalist_exists'
+      }
+    };
+  },
+  computed: {
+    filteredParadigms: function filteredParadigms() {
+      var _this = this;
 
-	props: ['pronominalFeatures', 'nominalFeatures', 'paradigms', 'oldParadigm', 'oldNominalFeature', 'oldPronominalFeature', 'oldTranslation'],
+      return this.paradigms.filter(function (paradigm) {
+        return paradigm.language_id == _this.language.id;
+      });
+    },
+    translationRequired: function translationRequired() {
+      return this.morphemes.length == 0 || !this.morphemesContainStem;
+    },
+    translationRules: function translationRules() {
+      if (this.morphemes.length == 0 || this.morphemesContainStem) {
+        return '';
+      }
 
-	mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_HasMorphemes__["a" /* default */]],
+      return 'required';
+    },
+    paradigmHasPronominalFeature: function paradigmHasPronominalFeature() {
+      var paradigm = this.getParadigm();
+      var result = false;
 
-	data: function data() {
-		return {
-			language: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
-			pronominalFeature: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
-			nominalFeature: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
-			paradigm: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
-			mode: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
-			parent: new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */](),
-			translation: '',
-			validations: {
-				nominalFeature: 'datalist_required|datalist_exists',
-				pronominalFeature: 'datalist_required|datalist_exists'
-			}
-		};
-	},
+      if (paradigm) {
+        result = paradigm.type.hasPronominalFeature;
+      }
 
+      return result;
+    },
+    paradigmHasNominalFeature: function paradigmHasNominalFeature() {
+      var paradigm = this.getParadigm();
+      var result = false;
 
-	computed: {
-		filteredParadigms: function filteredParadigms() {
-			var _this = this;
+      if (paradigm) {
+        result = paradigm.type.hasNominalFeature;
+      }
 
-			return this.paradigms.filter(function (paradigm) {
-				return paradigm.language_id == _this.language.id;
-			});
-		},
-		translationRequired: function translationRequired() {
-			return this.morphemes.length == 0 || !this.morphemesContainStem;
-		},
-		translationRules: function translationRules() {
-			if (this.morphemes.length == 0 || this.morphemesContainStem) {
-				return '';
-			}
+      return result;
+    },
+    morphemesContainStem: function morphemesContainStem() {
+      var stems = ['V', 'N'];
+      var result = this.morphemes.find(function (item) {
+        return stems.includes(item.name.replace(/[-*]/g, ''));
+      });
+      return typeof result !== 'undefined';
+    }
+  },
+  watch: {
+    language: function language() {
+      this.paradigm = new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */]();
+    },
+    paradigm: function paradigm() {
+      this.pronominalFeature = new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */]();
+      this.nominalFeature = new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */]();
 
-			return 'required';
-		},
-		paradigmHasPronominalFeature: function paradigmHasPronominalFeature() {
-			var paradigm = this.getParadigm();
-			var result = false;
+      if (this.paradigmHasPronominalFeature) {
+        this.validations.pronominalFeature = 'datalist_required|datalist_exists';
+      } else {
+        this.validations.pronominalFeature = '';
+      }
 
-			if (paradigm) {
-				result = paradigm.type.hasPronominalFeature;
-			}
+      if (this.paradigmHasNominalFeature) {
+        this.validations.nominalFeature = 'datalist_required|datalist_exists';
+      } else {
+        this.validations.nominalFeature = '';
+      }
+    },
+    translationRequired: function translationRequired(value) {
+      if (!value) {
+        this.translation = '';
+      }
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
 
-			return result;
-		},
-		paradigmHasNominalFeature: function paradigmHasNominalFeature() {
-			var paradigm = this.getParadigm();
-			var result = false;
+    if (this.oldParadigm) {
+      Vue.nextTick(function () {
+        _this2.$refs.paradigm.update(_this2.oldParadigm);
 
-			if (paradigm) {
-				result = paradigm.type.hasNominalFeature;
-			}
+        if (_this2.oldPronominalFeature) {
+          Vue.nextTick(function () {
+            _this2.$refs.pronominalFeature.update(_this2.oldPronominalFeature);
+          });
+        }
 
-			return result;
-		},
-		morphemesContainStem: function morphemesContainStem() {
-			var stems = ['V', 'N'];
+        if (_this2.oldNominalFeature) {
+          Vue.nextTick(function () {
+            _this2.$refs.nominalFeature.update(_this2.oldNominalFeature);
+          });
+        }
+      });
+    }
+  },
+  created: function created() {
+    if (this.oldTranslation) {
+      this.translation = this.oldTranslation;
+    }
+  },
+  methods: {
+    getParadigm: function getParadigm() {
+      var id = this.paradigm.id;
+      var lookup = null;
 
-			var result = this.morphemes.find(function (item) {
-				return stems.includes(item.name.replace(/[-*]/g, ''));
-			});
+      if (id) {
+        lookup = this.paradigms.find(function (paradigm) {
+          return paradigm.id == id;
+        });
+      }
 
-			return typeof result !== 'undefined';
-		}
-	},
-
-	watch: {
-		language: function language() {
-			this.paradigm = new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */]();
-		},
-		paradigm: function paradigm() {
-			this.pronominalFeature = new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */]();
-			this.nominalFeature = new __WEBPACK_IMPORTED_MODULE_2__Datalist_js__["a" /* Datalist */]();
-
-			if (this.paradigmHasPronominalFeature) {
-				this.validations.pronominalFeature = 'datalist_required|datalist_exists';
-			} else {
-				this.validations.pronominalFeature = '';
-			}
-
-			if (this.paradigmHasNominalFeature) {
-				this.validations.nominalFeature = 'datalist_required|datalist_exists';
-			} else {
-				this.validations.nominalFeature = '';
-			}
-		},
-		translationRequired: function translationRequired(value) {
-			if (!value) {
-				this.translation = '';
-			}
-		}
-	},
-
-	mounted: function mounted() {
-		var _this2 = this;
-
-		if (this.oldParadigm) {
-			Vue.nextTick(function () {
-				_this2.$refs.paradigm.update(_this2.oldParadigm);
-				if (_this2.oldPronominalFeature) {
-					Vue.nextTick(function () {
-						_this2.$refs.pronominalFeature.update(_this2.oldPronominalFeature);
-					});
-				}
-
-				if (_this2.oldNominalFeature) {
-					Vue.nextTick(function () {
-						_this2.$refs.nominalFeature.update(_this2.oldNominalFeature);
-					});
-				}
-			});
-		}
-	},
-	created: function created() {
-		if (this.oldTranslation) {
-			this.translation = this.oldTranslation;
-		}
-	},
-
-
-	methods: {
-		getParadigm: function getParadigm() {
-			var id = this.paradigm.id;
-			var lookup = null;
-
-			if (id) {
-				lookup = this.paradigms.find(function (paradigm) {
-					return paradigm.id == id;
-				});
-			}
-
-			return lookup;
-		}
-	}
+      return lookup;
+    }
+  }
 });
 
 /***/ }),
@@ -290,33 +272,37 @@ render._withStripped = true
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Datalist; });
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Datalist = function () {
-    function Datalist() {
-        var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
-        var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
-        var extra = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-        _classCallCheck(this, Datalist);
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-        this.text = text;
-        this.id = id;
-        this.extra = extra;
+var Datalist =
+/*#__PURE__*/
+function () {
+  function Datalist() {
+    var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+    var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+    var extra = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
+
+    _classCallCheck(this, Datalist);
+
+    this.text = text;
+    this.id = id;
+    this.extra = extra;
+  }
+
+  _createClass(Datalist, [{
+    key: "reset",
+    value: function reset() {
+      this.text = "";
+      this.id = "";
+      this.extra = "";
     }
+  }]);
 
-    _createClass(Datalist, [{
-        key: "reset",
-        value: function reset() {
-            this.text = "";
-            this.id = "";
-            this.extra = "";
-        }
-    }]);
-
-    return Datalist;
+  return Datalist;
 }();
 
 
@@ -454,20 +440,18 @@ component.options.__file = "resources/assets/js/components/forms/NominalForm.vue
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-    props: ['init-morphemes'],
-
-    data: function data() {
-        return {
-            morphemes: []
-        };
-    },
-    created: function created() {
-        if (this.initMorphemes) {
-            this.morphemes = this.initMorphemes;
-        }
+  props: ['init-morphemes'],
+  data: function data() {
+    return {
+      morphemes: []
+    };
+  },
+  created: function created() {
+    if (this.initMorphemes) {
+      this.morphemes = this.initMorphemes;
     }
+  }
 });
 
 /***/ }),
@@ -478,17 +462,21 @@ component.options.__file = "resources/assets/js/components/forms/NominalForm.vue
 "use strict";
 /* unused harmony default export */ var _unused_webpack_default_export = ({
   props: ['oldErrors'],
-
   mounted: function mounted() {
     var _this = this;
 
     if (this.oldErrors) {
       _.forEach(this.oldErrors, function (errors, field) {
         errors.forEach(function (message) {
-          return _this.$root.errors.add({ field: field, msg: message });
+          return _this.$root.errors.add({
+            field: field,
+            msg: message
+          });
         });
       });
-    };
+    }
+
+    ;
   }
 });
 
@@ -499,23 +487,22 @@ component.options.__file = "resources/assets/js/components/forms/NominalForm.vue
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['oldSources'],
+  props: ['oldSources'],
+  created: function created() {
+    var _this = this;
 
-	created: function created() {
-		var _this = this;
-
-		if (this.oldSources) {
-			this.oldSources.forEach(function (source) {
-				_this.sources.push({
-					short: source.display ? source.display : source.short,
-					id: source.id,
-					long: source.long,
-					extraInfo: source.pivot ? source.pivot.extraInfo : source.extraInfo,
-					description: source.pivot ? source.pivot.description : source.description
-				});
-			});
-		}
-	}
+    if (this.oldSources) {
+      this.oldSources.forEach(function (source) {
+        _this.sources.push({
+          short: source.display ? source.display : source.short,
+          id: source.id,
+          long: source.long,
+          extraInfo: source.pivot ? source.pivot.extraInfo : source.extraInfo,
+          description: source.pivot ? source.pivot.description : source.description
+        });
+      });
+    }
+  }
 });
 
 /***/ })

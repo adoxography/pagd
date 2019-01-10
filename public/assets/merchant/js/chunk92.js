@@ -24,15 +24,13 @@ webpackJsonp([92],{
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['title'],
-
-	data: function data() {
-		return {
-			showModal: false
-		};
-	}
+  props: ['title'],
+  data: function data() {
+    return {
+      showModal: false
+    };
+  }
 });
 
 /***/ }),

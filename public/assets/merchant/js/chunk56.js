@@ -9,10 +9,12 @@ webpackJsonp([3,18],{
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form__ = __webpack_require__("./resources/assets/js/components/forms/Form.vue");
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 //
 //
 //
@@ -58,71 +60,68 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //
 
 
+var Row =
+/*#__PURE__*/
+function () {
+  function Row() {
+    var allophone = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+    var environment = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
-var Row = function () {
-	function Row() {
-		var allophone = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-		var environment = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+    _classCallCheck(this, Row);
 
-		_classCallCheck(this, Row);
+    this.allophone = allophone;
+    this.environment = environment;
+  }
 
-		this.allophone = allophone;
-		this.environment = environment;
-	}
+  _createClass(Row, [{
+    key: "isEmpty",
+    value: function isEmpty() {
+      return this.allophone.length == 0 && this.environment.length == 0;
+    }
+  }, {
+    key: "clear",
+    value: function clear() {
+      this.allophone = '';
+      this.environment = '';
+    }
+  }]);
 
-	_createClass(Row, [{
-		key: 'isEmpty',
-		value: function isEmpty() {
-			return this.allophone.length == 0 && this.environment.length == 0;
-		}
-	}, {
-		key: 'clear',
-		value: function clear() {
-			this.allophone = '';
-			this.environment = '';
-		}
-	}]);
-
-	return Row;
+  return Row;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-	extends: __WEBPACK_IMPORTED_MODULE_0__Form__["default"],
+  extends: __WEBPACK_IMPORTED_MODULE_0__Form__["default"],
+  props: ['old'],
+  data: function data() {
+    return {
+      rows: []
+    };
+  },
+  created: function created() {
+    var _this = this;
 
-	props: ['old'],
+    if (this.old && this.old.length > 0) {
+      this.old.forEach(function (row) {
+        _this.rows.push(new Row(row.name.replace(/[\[\]\*]/g, ''), row.environment));
+      });
+    }
 
-	data: function data() {
-		return {
-			rows: []
-		};
-	},
-	created: function created() {
-		var _this = this;
-
-		if (this.old && this.old.length > 0) {
-			this.old.forEach(function (row) {
-				_this.rows.push(new Row(row.name.replace(/[\[\]\*]/g, ''), row.environment));
-			});
-		}
-
-		this.rows.push(new Row());
-	},
-
-
-	methods: {
-		onInput: function onInput(index) {
-			if (index == this.rows.length - 1) {
-				this.rows.push(new Row());
-			}
-		},
-		onDelete: function onDelete(index) {
-			if (this.rows.length > 1) {
-				this.rows.splice(index, 1);
-			} else {
-				this.rows[0].clear();
-			}
-		}
-	}
+    this.rows.push(new Row());
+  },
+  methods: {
+    onInput: function onInput(index) {
+      if (index == this.rows.length - 1) {
+        this.rows.push(new Row());
+      }
+    },
+    onDelete: function onDelete(index) {
+      if (this.rows.length > 1) {
+        this.rows.splice(index, 1);
+      } else {
+        this.rows[0].clear();
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -152,21 +151,15 @@ var Row = function () {
 //
 
 
-
-
 /* harmony default export */ __webpack_exports__["a"] = ({
   mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_OldSources__["a" /* default */]],
-
   props: ['method', 'action'],
-
   data: function data() {
     return {
       sources: [],
       csrfToken: Laravel.csrfToken
     };
   },
-
-
   methods: {
     validateBeforeSubmit: function validateBeforeSubmit(event) {
       var _this = this;
@@ -298,7 +291,8 @@ var render = function() {
           )
         ])
       ])
-    })
+    }),
+    0
   )
 }
 var staticRenderFns = [
@@ -528,17 +522,21 @@ component.options.__file = "resources/assets/js/components/forms/Form.vue"
 "use strict";
 /* unused harmony default export */ var _unused_webpack_default_export = ({
   props: ['oldErrors'],
-
   mounted: function mounted() {
     var _this = this;
 
     if (this.oldErrors) {
       _.forEach(this.oldErrors, function (errors, field) {
         errors.forEach(function (message) {
-          return _this.$root.errors.add({ field: field, msg: message });
+          return _this.$root.errors.add({
+            field: field,
+            msg: message
+          });
         });
       });
-    };
+    }
+
+    ;
   }
 });
 
@@ -549,23 +547,22 @@ component.options.__file = "resources/assets/js/components/forms/Form.vue"
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['oldSources'],
+  props: ['oldSources'],
+  created: function created() {
+    var _this = this;
 
-	created: function created() {
-		var _this = this;
-
-		if (this.oldSources) {
-			this.oldSources.forEach(function (source) {
-				_this.sources.push({
-					short: source.display ? source.display : source.short,
-					id: source.id,
-					long: source.long,
-					extraInfo: source.pivot ? source.pivot.extraInfo : source.extraInfo,
-					description: source.pivot ? source.pivot.description : source.description
-				});
-			});
-		}
-	}
+    if (this.oldSources) {
+      this.oldSources.forEach(function (source) {
+        _this.sources.push({
+          short: source.display ? source.display : source.short,
+          id: source.id,
+          long: source.long,
+          extraInfo: source.pivot ? source.pivot.extraInfo : source.extraInfo,
+          description: source.pivot ? source.pivot.description : source.description
+        });
+      });
+    }
+  }
 });
 
 /***/ })

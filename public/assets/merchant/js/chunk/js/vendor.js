@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 <<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["/js/vendor"],{
 =======
 webpackJsonp([51],{
 >>>>>>> Adapt async autocomplete into Buefy component:public/js/vendor.js
+=======
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["/js/vendor"],{
+>>>>>>> Bump npm dependencies
 
 /***/ "./node_modules/axios-retry/index.js":
 /*!*******************************************!*\
@@ -28481,6 +28485,17 @@ var install = VeeValidate$1.install;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
+/* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
+ * Vue.js v2.5.21
+ * (c) 2014-2018 Evan You
+ * Released under the MIT License.
+ */
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 
 var Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -28488,21 +28503,64 @@ Vue = 'default' in Vue ? Vue['default'] : Vue;
 
 var version = '2.2.2';
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 var compatible = (/^2\./).test(Vue.version);
 if (!compatible) {
   Vue.util.warn('VueClickaway ' + version + ' only supports Vue 2.x, and does not support Vue ' + Vue.version);
+========
+// These helpers produce better VM code in JS engines due to their
+// explicitness and function inlining.
+function isUndef (v) {
+  return v === undefined || v === null
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+var compatible = (/^2\./).test(Vue.version);
+if (!compatible) {
+  Vue.util.warn('VueClickaway ' + version + ' only supports Vue 2.x, and does not support Vue ' + Vue.version);
+>>>>>>> Bump npm dependencies
 }
 
 
 
 // @SECTION: implementation
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 var HANDLER = '_vue_clickaway_handler';
+========
+/**
+ * Check if value is primitive.
+ */
+function isPrimitive (value) {
+  return (
+    typeof value === 'string' ||
+    typeof value === 'number' ||
+    // $flow-disable-line
+    typeof value === 'symbol' ||
+    typeof value === 'boolean'
+  )
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+var HANDLER = '_vue_clickaway_handler';
+>>>>>>> Bump npm dependencies
 
 function bind(el, binding, vnode) {
   unbind(el);
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
   var vm = vnode.context;
+========
+/**
+ * Get the raw type string of a value, e.g., [object Object].
+ */
+var _toString = Object.prototype.toString;
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+  var vm = vnode.context;
+>>>>>>> Bump npm dependencies
 
   var callback = binding.value;
   if (typeof callback !== 'function') {
@@ -28548,6 +28606,10 @@ function unbind(el) {
   delete el[HANDLER];
 }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 var directive = {
   bind: bind,
   update: function(el, binding) {
@@ -28556,6 +28618,19 @@ var directive = {
   },
   unbind: unbind,
 };
+<<<<<<< HEAD
+========
+/**
+ * Convert an input value to a number for persistence.
+ * If the conversion fails, return original string.
+ */
+function toNumber (val) {
+  var n = parseFloat(val);
+  return isNaN(n) ? val : n
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 var mixin = {
   directives: { onClickaway: directive },
@@ -28565,6 +28640,10 @@ exports.version = version;
 exports.directive = directive;
 exports.mixin = mixin;
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 /***/ }),
 
 /***/ "./node_modules/vue-focus/dist/vue-focus.common.js":
@@ -28575,6 +28654,35 @@ exports.mixin = mixin;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
+========
+/**
+ * Check if an attribute is a reserved attribute.
+ */
+var isReservedAttribute = makeMap('key,ref,slot,slot-scope,is');
+
+/**
+ * Remove an item from an array.
+ */
+function remove (arr, item) {
+  if (arr.length) {
+    var index = arr.indexOf(item);
+    if (index > -1) {
+      return arr.splice(index, 1)
+    }
+  }
+}
+
+/**
+ * Check whether an object has the property.
+ */
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+function hasOwn (obj, key) {
+  return hasOwnProperty.call(obj, key)
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 
 var Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -28605,11 +28713,27 @@ var focus = {
   },
 };
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 var mixin = {
   directives: {
     focus: focus,
   },
 };
+<<<<<<< HEAD
+========
+/**
+ * Simple bind polyfill for environments that do not support it,
+ * e.g., PhantomJS 1.x. Technically, we don't need this anymore
+ * since native bind is now performant enough in most browsers.
+ * But removing it would mean breaking code that was able to run in
+ * PhantomJS 1.x, so this must be kept for backward compatibility.
+ */
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 exports.version = version;
 exports.focus = focus;
@@ -28788,11 +28912,30 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
 };
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 /***/ }),
+========
+/* eslint-disable no-unused-vars */
+
+/**
+ * Perform no operation.
+ * Stubbing args to make Flow happy without leaving useless transpiled code
+ * with ...rest (https://flow.org/blog/2017/05/07/Strict-Function-Call-Arity/).
+ */
+function noop (a, b, c) {}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+/***/ }),
+>>>>>>> Bump npm dependencies
 
 /***/ "0bfb":
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 "use strict";
 
 // 21.2.5.3 get RegExp.prototype.flags
@@ -28810,6 +28953,77 @@ module.exports = function () {
 
 
 /***/ }),
+<<<<<<< HEAD
+========
+/* eslint-enable no-unused-vars */
+
+/**
+ * Return the same value.
+ */
+var identity = function (_) { return _; };
+
+/**
+ * Generate a string containing static keys from compiler modules.
+ */
+function genStaticKeys (modules) {
+  return modules.reduce(function (keys, m) {
+    return keys.concat(m.staticKeys || [])
+  }, []).join(',')
+}
+
+/**
+ * Check if two values are loosely equal - that is,
+ * if they are plain objects, do they have the same shape?
+ */
+function looseEqual (a, b) {
+  if (a === b) { return true }
+  var isObjectA = isObject(a);
+  var isObjectB = isObject(b);
+  if (isObjectA && isObjectB) {
+    try {
+      var isArrayA = Array.isArray(a);
+      var isArrayB = Array.isArray(b);
+      if (isArrayA && isArrayB) {
+        return a.length === b.length && a.every(function (e, i) {
+          return looseEqual(e, b[i])
+        })
+      } else if (a instanceof Date && b instanceof Date) {
+        return a.getTime() === b.getTime()
+      } else if (!isArrayA && !isArrayB) {
+        var keysA = Object.keys(a);
+        var keysB = Object.keys(b);
+        return keysA.length === keysB.length && keysA.every(function (key) {
+          return looseEqual(a[key], b[key])
+        })
+      } else {
+        /* istanbul ignore next */
+        return false
+      }
+    } catch (e) {
+      /* istanbul ignore next */
+      return false
+    }
+  } else if (!isObjectA && !isObjectB) {
+    return String(a) === String(b)
+  } else {
+    return false
+  }
+}
+
+/**
+ * Return the first index at which a loosely equal value can be
+ * found in the array (if value is a plain object, the array must
+ * contain an object of the same shape), or -1 if it is not present.
+ */
+function looseIndexOf (arr, val) {
+  for (var i = 0; i < arr.length; i++) {
+    if (looseEqual(arr[i], val)) { return i }
+  }
+  return -1
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 /***/ "0d58":
 /***/ (function(module, exports, __webpack_require__) {
@@ -28825,8 +29039,24 @@ module.exports = Object.keys || function keys(O) {
 
 /***/ }),
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 /***/ "11e9":
 /***/ (function(module, exports, __webpack_require__) {
+========
+
+
+var config = ({
+  /**
+   * Option merge strategies (used in core/util/options)
+   */
+  // $flow-disable-line
+  optionMergeStrategies: Object.create(null),
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+/***/ "11e9":
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> Bump npm dependencies
 
 var pIE = __webpack_require__("52a7");
 var createDesc = __webpack_require__("4630");
@@ -28883,8 +29113,27 @@ if (typeof window !== 'undefined') {
 
 /***/ }),
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 /***/ "230e":
 /***/ (function(module, exports, __webpack_require__) {
+========
+  /**
+   * Perform updates asynchronously. Intended to be used by Vue Test Utils
+   * This will significantly reduce performance if set to false.
+   */
+  async: true,
+
+  /**
+   * Exposed for legacy reasons
+   */
+  _lifecycleHooks: LIFECYCLE_HOOKS
+});
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+/***/ "230e":
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> Bump npm dependencies
 
 var isObject = __webpack_require__("d3f4");
 var document = __webpack_require__("7726").document;
@@ -29018,6 +29267,10 @@ __webpack_require__("8378").inspectSource = function (it) {
 
 /***/ }),
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 /***/ "2aeb":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -29061,6 +29314,26 @@ module.exports = Object.create || function create(O, Properties) {
     result[IE_PROTO] = O;
   } else result = createDict();
   return Properties === undefined ? result : dPs(result, Properties);
+<<<<<<< HEAD
+========
+// this needs to be lazy-evaled because vue may be required before
+// vue-server-renderer can set VUE_ENV
+var _isServer;
+var isServerRendering = function () {
+  if (_isServer === undefined) {
+    /* istanbul ignore if */
+    if (!inBrowser && !inWeex && typeof global !== 'undefined') {
+      // detect presence of vue-server-renderer and avoid
+      // Webpack shimming the process
+      _isServer = global['process'] && global['process'].env.VUE_ENV === 'server';
+    } else {
+      _isServer = false;
+    }
+  }
+  return _isServer
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 };
 
 
@@ -29069,10 +29342,39 @@ module.exports = Object.create || function create(O, Properties) {
 /***/ "2b4c":
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 var store = __webpack_require__("5537")('wks');
 var uid = __webpack_require__("ca5a");
 var Symbol = __webpack_require__("7726").Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
+<<<<<<< HEAD
+========
+var _Set;
+/* istanbul ignore if */ // $flow-disable-line
+if (typeof Set !== 'undefined' && isNative(Set)) {
+  // use native Set when available.
+  _Set = Set;
+} else {
+  // a non-standard Set polyfill that only works with primitive keys.
+  _Set = /*@__PURE__*/(function () {
+    function Set () {
+      this.set = Object.create(null);
+    }
+    Set.prototype.has = function has (key) {
+      return this.set[key] === true
+    };
+    Set.prototype.add = function add (key) {
+      this.set[key] = true;
+    };
+    Set.prototype.clear = function clear () {
+      this.set = Object.create(null);
+    };
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 var $exports = module.exports = function (name) {
   return store[name] || (store[name] =
@@ -29102,10 +29404,20 @@ module.exports = function (it) {
 };
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 /***/ }),
 
 /***/ "32e9":
 /***/ (function(module, exports, __webpack_require__) {
+<<<<<<< HEAD
+========
+var uid = 0;
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 var dP = __webpack_require__("86cc");
 var createDesc = __webpack_require__("4630");
@@ -29122,6 +29434,10 @@ module.exports = __webpack_require__("9e1e") ? function (object, key, value) {
 /***/ "38fd":
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 var has = __webpack_require__("69a8");
 var toObject = __webpack_require__("4bf8");
@@ -29134,9 +29450,30 @@ module.exports = Object.getPrototypeOf || function (O) {
   if (typeof O.constructor == 'function' && O instanceof O.constructor) {
     return O.constructor.prototype;
   } return O instanceof Object ? ObjectProto : null;
+<<<<<<< HEAD
+========
+Dep.prototype.notify = function notify () {
+  // stabilize the subscriber list first
+  var subs = this.subs.slice();
+  if ("development" !== 'production' && !config.async) {
+    // subs aren't sorted in scheduler if not running async
+    // we need to sort them now to make sure they fire in correct
+    // order
+    subs.sort(function (a, b) { return a.id - b.id; });
+  }
+  for (var i = 0, l = subs.length; i < l; i++) {
+    subs[i].update();
+  }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
 };
 
 
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+};
+
+
+>>>>>>> Bump npm dependencies
 /***/ }),
 
 /***/ "3b2b":
@@ -29182,6 +29519,19 @@ if (__webpack_require__("9e1e") && (!CORRECT_NEW || __webpack_require__("79e5")(
   proto.constructor = $RegExp;
   $RegExp.prototype = proto;
   __webpack_require__("2aba")(global, 'RegExp', $RegExp);
+<<<<<<< HEAD
+========
+function pushTarget (target) {
+  targetStack.push(target);
+  Dep.target = target;
+}
+
+function popTarget () {
+  targetStack.pop();
+  Dep.target = targetStack[targetStack.length - 1];
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 }
 
 __webpack_require__("7a56")('RegExp');
@@ -29208,7 +29558,43 @@ module.exports = function (Constructor, NAME, next) {
 };
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 /***/ }),
+========
+// optimized shallow clone
+// used for static nodes and slot nodes because they may be reused across
+// multiple renders, cloning them avoids errors when DOM manipulations rely
+// on their elm reference.
+function cloneVNode (vnode) {
+  var cloned = new VNode(
+    vnode.tag,
+    vnode.data,
+    // #7975
+    // clone children array to avoid mutating original in case of cloning
+    // a child.
+    vnode.children && vnode.children.slice(),
+    vnode.text,
+    vnode.elm,
+    vnode.context,
+    vnode.componentOptions,
+    vnode.asyncFactory
+  );
+  cloned.ns = vnode.ns;
+  cloned.isStatic = vnode.isStatic;
+  cloned.key = vnode.key;
+  cloned.isComment = vnode.isComment;
+  cloned.fnContext = vnode.fnContext;
+  cloned.fnOptions = vnode.fnOptions;
+  cloned.fnScopeId = vnode.fnScopeId;
+  cloned.asyncMeta = vnode.asyncMeta;
+  cloned.isCloned = true;
+  return cloned
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+/***/ }),
+>>>>>>> Bump npm dependencies
 
 /***/ "456d":
 /***/ (function(module, exports, __webpack_require__) {
@@ -29239,6 +29625,10 @@ module.exports = function (it) {
 
 /***/ }),
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 /***/ "4630":
 /***/ (function(module, exports) {
 
@@ -29249,6 +29639,44 @@ module.exports = function (bitmap, value) {
     writable: !(bitmap & 4),
     value: value
   };
+<<<<<<< HEAD
+========
+/**
+ * Observer class that is attached to each observed
+ * object. Once attached, the observer converts the target
+ * object's property keys into getter/setters that
+ * collect dependencies and dispatch updates.
+ */
+var Observer = function Observer (value) {
+  this.value = value;
+  this.dep = new Dep();
+  this.vmCount = 0;
+  def(value, '__ob__', this);
+  if (Array.isArray(value)) {
+    if (hasProto) {
+      protoAugment(value, arrayMethods);
+    } else {
+      copyAugment(value, arrayMethods, arrayKeys);
+    }
+    this.observeArray(value);
+  } else {
+    this.walk(value);
+  }
+};
+
+/**
+ * Walk through all properties and convert them into
+ * getter/setters. This method should only be called when
+ * value type is Object.
+ */
+Observer.prototype.walk = function walk (obj) {
+  var keys = Object.keys(obj);
+  for (var i = 0; i < keys.length; i++) {
+    defineReactive$$1(obj, keys[i]);
+  }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 };
 
 
@@ -29297,6 +29725,10 @@ function listToStyles (parentId, list) {
   Modified by Evan You @yyx990803
 */
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 
 var hasDocument = typeof document !== 'undefined'
@@ -29373,6 +29805,30 @@ function addStylesClient (parentId, list, _isProduction, _options) {
         delete stylesInDom[domStyle.id]
       }
     }
+<<<<<<< HEAD
+========
+/**
+ * Augment a target Object or Array by intercepting
+ * the prototype chain using __proto__
+ */
+function protoAugment (target, src) {
+  /* eslint-disable no-proto */
+  target.__proto__ = src;
+  /* eslint-enable no-proto */
+}
+
+/**
+ * Augment a target Object or Array by defining
+ * hidden properties.
+ */
+/* istanbul ignore next */
+function copyAugment (target, src, keys) {
+  for (var i = 0, l = keys.length; i < l; i++) {
+    var key = keys[i];
+    def(target, key, src[key]);
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
   }
 }
 
@@ -29458,8 +29914,27 @@ function addStyle (obj /* StyleObjectPart */) {
   }
 }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 var replaceText = (function () {
   var textStore = []
+========
+/**
+ * Define a reactive property on an Object.
+ */
+function defineReactive$$1 (
+  obj,
+  key,
+  val,
+  customSetter,
+  shallow
+) {
+  var dep = new Dep();
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+var replaceText = (function () {
+  var textStore = []
+>>>>>>> Bump npm dependencies
 
   return function (index, replacement) {
     textStore[index] = replacement
@@ -29467,6 +29942,10 @@ var replaceText = (function () {
   }
 })()
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 function applyToSingletonTag (styleElement, index, remove, obj) {
   var css = remove ? '' : obj.css
 
@@ -29488,6 +29967,57 @@ function applyToTag (styleElement, obj) {
   var css = obj.css
   var media = obj.media
   var sourceMap = obj.sourceMap
+<<<<<<< HEAD
+========
+  // cater for pre-defined getter/setters
+  var getter = property && property.get;
+  var setter = property && property.set;
+  if ((!getter || setter) && arguments.length === 2) {
+    val = obj[key];
+  }
+
+  var childOb = !shallow && observe(val);
+  Object.defineProperty(obj, key, {
+    enumerable: true,
+    configurable: true,
+    get: function reactiveGetter () {
+      var value = getter ? getter.call(obj) : val;
+      if (Dep.target) {
+        dep.depend();
+        if (childOb) {
+          childOb.dep.depend();
+          if (Array.isArray(value)) {
+            dependArray(value);
+          }
+        }
+      }
+      return value
+    },
+    set: function reactiveSetter (newVal) {
+      var value = getter ? getter.call(obj) : val;
+      /* eslint-disable no-self-compare */
+      if (newVal === value || (newVal !== newVal && value !== value)) {
+        return
+      }
+      /* eslint-enable no-self-compare */
+      if ("development" !== 'production' && customSetter) {
+        customSetter();
+      }
+      // #7981: for accessor properties without setter
+      if (getter && !setter) { return }
+      if (setter) {
+        setter.call(obj, newVal);
+      } else {
+        val = newVal;
+      }
+      childOb = !shallow && observe(newVal);
+      dep.notify();
+    }
+  });
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
   if (media) {
     styleElement.setAttribute('media', media)
@@ -29495,6 +30025,16 @@ function applyToTag (styleElement, obj) {
   if (options.ssrId) {
     styleElement.setAttribute(ssrIdKey, obj.id)
   }
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
+  defineReactive$$1(ob.value, key, val);
+  ob.dep.notify();
+  return val
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
   if (sourceMap) {
     // https://developer.chrome.com/devtools/docs/javascript-debugging
@@ -29520,11 +30060,43 @@ function applyToTag (styleElement, obj) {
 /***/ "4bf8":
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 // 7.1.13 ToObject(argument)
 var defined = __webpack_require__("be13");
 module.exports = function (it) {
   return Object(defined(it));
 };
+<<<<<<< HEAD
+========
+/**
+ * Helper that recursively merges two data objects together.
+ */
+function mergeData (to, from) {
+  if (!from) { return to }
+  var key, toVal, fromVal;
+  var keys = Object.keys(from);
+  for (var i = 0; i < keys.length; i++) {
+    key = keys[i];
+    toVal = to[key];
+    fromVal = from[key];
+    if (!hasOwn(to, key)) {
+      set(to, key, fromVal);
+    } else if (
+      toVal !== fromVal &&
+      isPlainObject(toVal) &&
+      isPlainObject(fromVal)
+    ) {
+      mergeData(toVal, fromVal);
+    }
+  }
+  return to
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 
 /***/ }),
@@ -29689,18 +30261,167 @@ module.exports = function (it) {
   return IObject(defined(it));
 };
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
+  normalizeProps(child, vm);
+  normalizeInject(child, vm);
+  normalizeDirectives(child);
+  
+  // Apply extends and mixins on the child options,
+  // but only if it is a raw options object that isn't
+  // the result of another mergeOptions call.
+  // Only merged options has the _base property.
+  if (!child._base) {
+    if (child.extends) {
+      parent = mergeOptions(parent, child.extends, vm);
+    }
+    if (child.mixins) {
+      for (var i = 0, l = child.mixins.length; i < l; i++) {
+        parent = mergeOptions(parent, child.mixins[i], vm);
+      }
+    }
+  }
+
+  var options = {};
+  var key;
+  for (key in parent) {
+    mergeField(key);
+  }
+  for (key in child) {
+    if (!hasOwn(parent, key)) {
+      mergeField(key);
+    }
+  }
+  function mergeField (key) {
+    var strat = strats[key] || defaultStrat;
+    options[key] = strat(parent[key], child[key], vm, key);
+  }
+  return options
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 /***/ }),
 
 /***/ "6900":
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+exports = module.exports = __webpack_require__("2350")(false);
+// imports
+========
+
+
+function validateProp (
+  key,
+  propOptions,
+  propsData,
+  vm
+) {
+  var prop = propOptions[key];
+  var absent = !hasOwn(propsData, key);
+  var value = propsData[key];
+  // boolean casting
+  var booleanIndex = getTypeIndex(Boolean, prop.type);
+  if (booleanIndex > -1) {
+    if (absent && !hasOwn(prop, 'default')) {
+      value = false;
+    } else if (value === '' || value === hyphenate(key)) {
+      // only cast empty string / same name to boolean if
+      // boolean has higher priority
+      var stringIndex = getTypeIndex(String, prop.type);
+      if (stringIndex < 0 || booleanIndex < stringIndex) {
+        value = true;
+      }
+    }
+  }
+  // check default value
+  if (value === undefined) {
+    value = getPropDefaultValue(vm, prop, key);
+    // since the default value is a fresh copy,
+    // make sure to observe it.
+    var prevShouldObserve = shouldObserve;
+    toggleObserving(true);
+    observe(value);
+    toggleObserving(prevShouldObserve);
+  }
+  if (
+    true
+  ) {
+    assertProp(prop, key, value, vm, absent);
+  }
+  return value
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+
+
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+// module
+exports.push([module.i, "\n.vue-input-tag-wrapper{-webkit-appearance:textfield;background-color:#fff;border:1px solid #ccc;cursor:text;display:flex;flex-wrap:wrap;overflow:hidden;padding-left:4px;padding-top:4px;text-align:left\n}\n.vue-input-tag-wrapper .input-tag{background-color:#cde69c;border:1px solid #a5d24a;border-radius:2px;color:#638421;display:inline-block;font-size:13px;font-weight:400;margin-bottom:4px;margin-right:4px;padding:3px\n}\n.vue-input-tag-wrapper .input-tag .remove{color:#638421;cursor:pointer;font-weight:700\n}\n.vue-input-tag-wrapper .input-tag .remove:hover{text-decoration:none\n}\n.vue-input-tag-wrapper .input-tag .remove:before{content:\" x\"\n}\n.vue-input-tag-wrapper .new-tag{background:transparent;border:0;color:#777;flex-grow:1;font-size:13px;font-weight:400;margin-bottom:6px;margin-top:1px;outline:none;padding:4px 4px 4px 0\n}\n.vue-input-tag-wrapper.read-only{cursor:default\n}", ""]);
+========
+/**
+ * Assert whether a prop is valid.
+ */
+function assertProp (
+  prop,
+  name,
+  value,
+  vm,
+  absent
+) {
+  if (prop.required && absent) {
+    warn(
+      'Missing required prop: "' + name + '"',
+      vm
+    );
+    return
+  }
+  if (value == null && !prop.required) {
+    return
+  }
+  var type = prop.type;
+  var valid = !type || type === true;
+  var expectedTypes = [];
+  if (type) {
+    if (!Array.isArray(type)) {
+      type = [type];
+    }
+    for (var i = 0; i < type.length && !valid; i++) {
+      var assertedType = assertType(value, type[i]);
+      expectedTypes.push(assertedType.expectedType || '');
+      valid = assertedType.valid;
+    }
+  }
+
+  if (!valid) {
+    warn(
+      getInvalidTypeMessage(name, value, expectedTypes),
+      vm
+    );
+    return
+  }
+  var validator = prop.validator;
+  if (validator) {
+    if (!validator(value)) {
+      warn(
+        'Invalid prop: custom validator check failed for prop "' + name + '".',
+        vm
+      );
+    }
+  }
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
 exports = module.exports = __webpack_require__("2350")(false);
 // imports
 
 
 // module
 exports.push([module.i, "\n.vue-input-tag-wrapper{-webkit-appearance:textfield;background-color:#fff;border:1px solid #ccc;cursor:text;display:flex;flex-wrap:wrap;overflow:hidden;padding-left:4px;padding-top:4px;text-align:left\n}\n.vue-input-tag-wrapper .input-tag{background-color:#cde69c;border:1px solid #a5d24a;border-radius:2px;color:#638421;display:inline-block;font-size:13px;font-weight:400;margin-bottom:4px;margin-right:4px;padding:3px\n}\n.vue-input-tag-wrapper .input-tag .remove{color:#638421;cursor:pointer;font-weight:700\n}\n.vue-input-tag-wrapper .input-tag .remove:hover{text-decoration:none\n}\n.vue-input-tag-wrapper .input-tag .remove:before{content:\" x\"\n}\n.vue-input-tag-wrapper .new-tag{background:transparent;border:0;color:#777;flex-grow:1;font-size:13px;font-weight:400;margin-bottom:6px;margin-top:1px;outline:none;padding:4px 4px 4px 0\n}\n.vue-input-tag-wrapper.read-only{cursor:default\n}", ""]);
+>>>>>>> Bump npm dependencies
 
 // exports
 
@@ -29715,6 +30436,56 @@ module.exports = function (it, key) {
   return hasOwnProperty.call(it, key);
 };
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
+function getInvalidTypeMessage (name, value, expectedTypes) {
+  var message = "Invalid prop: type check failed for prop \"" + name + "\"." +
+    " Expected " + (expectedTypes.map(capitalize).join(', '));
+  var expectedType = expectedTypes[0];
+  var receivedType = toRawType(value);
+  var expectedValue = styleValue(value, expectedType);
+  var receivedValue = styleValue(value, receivedType);
+  // check if we need to specify expected value
+  if (expectedTypes.length === 1 &&
+      isExplicable(expectedType) &&
+      !isBoolean(expectedType, receivedType)) {
+    message += " with value " + expectedValue;
+  }
+  message += ", got " + receivedType + " ";
+  // check if we need to specify received value
+  if (isExplicable(receivedType)) {
+    message += "with value " + receivedValue + ".";
+  }
+  return message
+}
+
+function styleValue (value, type) {
+  if (type === 'String') {
+    return ("\"" + value + "\"")
+  } else if (type === 'Number') {
+    return ("" + (Number(value)))
+  } else {
+    return ("" + value)
+  }
+}
+
+function isExplicable (value) {
+  var explicitTypes = ['string', 'number', 'boolean'];
+  return explicitTypes.some(function (elem) { return value.toLowerCase() === elem; })
+}
+
+function isBoolean () {
+  var args = [], len = arguments.length;
+  while ( len-- ) args[ len ] = arguments[ len ];
+
+  return args.some(function (elem) { return elem.toLowerCase() === 'boolean'; })
+}
+
+/*  */
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 /***/ }),
 
@@ -29734,6 +30505,13 @@ module.exports = function (it, S) {
   throw TypeError("Can't convert object to primitive value");
 };
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
+/*  */
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 /***/ }),
 
@@ -29750,8 +30528,30 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
 /***/ }),
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 /***/ "77f1":
 /***/ (function(module, exports, __webpack_require__) {
+========
+/**
+ * Wrap a function so that if any code inside triggers state change,
+ * the changes are queued using a (macro) task instead of a microtask.
+ */
+function withMacroTask (fn) {
+  return fn._withTask || (fn._withTask = function () {
+    useMacroTask = true;
+    try {
+      return fn.apply(null, arguments)
+    } finally {
+      useMacroTask = false;    
+    }
+  })
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+/***/ "77f1":
+/***/ (function(module, exports, __webpack_require__) {
+>>>>>>> Bump npm dependencies
 
 var toInteger = __webpack_require__("4588");
 var max = Math.max;
@@ -29783,10 +30583,31 @@ module.exports = function (exec) {
 
 "use strict";
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 var global = __webpack_require__("7726");
 var dP = __webpack_require__("86cc");
 var DESCRIPTORS = __webpack_require__("9e1e");
 var SPECIES = __webpack_require__("2b4c")('species');
+<<<<<<< HEAD
+========
+  var warnReservedPrefix = function (target, key) {
+    warn(
+      "Property \"" + key + "\" must be accessed with \"$data." + key + "\" because " +
+      'properties starting with "$" or "_" are not proxied in the Vue instance to ' +
+      'prevent conflicts with Vue internals' +
+      'See: https://vuejs.org/v2/api/#data',
+      target
+    );
+  };
+
+  var hasProxy =
+    typeof Proxy !== 'undefined' && isNative(Proxy);
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 module.exports = function (KEY) {
   var C = global[KEY];
@@ -29796,8 +30617,38 @@ module.exports = function (KEY) {
   });
 };
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 
 /***/ }),
+========
+  var hasHandler = {
+    has: function has (target, key) {
+      var has = key in target;
+      var isAllowed = allowedGlobals(key) ||
+        (typeof key === 'string' && key.charAt(0) === '_' && !(key in target.$data));
+      if (!has && !isAllowed) {
+        if (key in target.$data) { warnReservedPrefix(target, key); }
+        else { warnNonPresent(target, key); }
+      }
+      return has || !isAllowed
+    }
+  };
+
+  var getHandler = {
+    get: function get (target, key) {
+      if (typeof key === 'string' && !(key in target)) {
+        if (key in target.$data) { warnReservedPrefix(target, key); }
+        else { warnNonPresent(target, key); }
+      }
+      return target[key]
+    }
+  };
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+
+/***/ }),
+>>>>>>> Bump npm dependencies
 
 /***/ "7f20":
 /***/ (function(module, exports, __webpack_require__) {
@@ -29822,8 +30673,54 @@ if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 /***/ }),
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 /***/ "84f2":
 /***/ (function(module, exports) {
+========
+function updateListeners (
+  on,
+  oldOn,
+  add,
+  remove$$1,
+  createOnceHandler,
+  vm
+) {
+  var name, def$$1, cur, old, event;
+  for (name in on) {
+    def$$1 = cur = on[name];
+    old = oldOn[name];
+    event = normalizeEvent(name);
+    if (isUndef(cur)) {
+      "development" !== 'production' && warn(
+        "Invalid handler for event \"" + (event.name) + "\": got " + String(cur),
+        vm
+      );
+    } else if (isUndef(old)) {
+      if (isUndef(cur.fns)) {
+        cur = on[name] = createFnInvoker(cur);
+      }
+      if (isTrue(event.once)) {
+        cur = on[name] = createOnceHandler(event.name, cur, event.capture);
+      }
+      add(event.name, cur, event.capture, event.passive, event.params);
+    } else if (cur !== old) {
+      old.fns = cur;
+      on[name] = old;
+    }
+  }
+  for (name in oldOn) {
+    if (isUndef(on[name])) {
+      event = normalizeEvent(name);
+      remove$$1(event.name, oldOn[name], event.capture);
+    }
+  }
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+/***/ "84f2":
+/***/ (function(module, exports) {
+>>>>>>> Bump npm dependencies
 
 module.exports = {};
 
@@ -29913,6 +30810,10 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 /***/ "9b43":
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 // optional / simple context binding
 var aFunction = __webpack_require__("d8e8");
 module.exports = function (fn, that, length) {
@@ -29921,6 +30822,19 @@ module.exports = function (fn, that, length) {
   switch (length) {
     case 1: return function (a) {
       return fn.call(that, a);
+<<<<<<< HEAD
+========
+    var forceRender = function (renderCompleted) {
+      for (var i = 0, l = contexts.length; i < l; i++) {
+        contexts[i].$forceUpdate();
+      }
+
+      if (renderCompleted) {
+        contexts.length = 0;
+      }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
     };
     case 2: return function (a, b) {
       return fn.call(that, a, b);
@@ -29934,8 +30848,36 @@ module.exports = function (fn, that, length) {
   };
 };
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 
 /***/ }),
+========
+    var resolve = once(function (res) {
+      // cache resolved
+      factory.resolved = ensureCtor(res, baseCtor);
+      // invoke callbacks only if this is not a synchronous resolve
+      // (async resolves are shimmed as synchronous during SSR)
+      if (!sync) {
+        forceRender(true);
+      }
+    });
+
+    var reject = once(function (reason) {
+      "development" !== 'production' && warn(
+        "Failed to resolve async component: " + (String(factory)) +
+        (reason ? ("\nReason: " + reason) : '')
+      );
+      if (isDef(factory.errorComp)) {
+        factory.error = true;
+        forceRender(true);
+      }
+    });
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+
+/***/ }),
+>>>>>>> Bump npm dependencies
 
 /***/ "9c6c":
 /***/ (function(module, exports, __webpack_require__) {
@@ -29949,7 +30891,27 @@ module.exports = function (key) {
 };
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 /***/ }),
+========
+        if (isDef(res.loading)) {
+          factory.loadingComp = ensureCtor(res.loading, baseCtor);
+          if (res.delay === 0) {
+            factory.loading = true;
+          } else {
+            setTimeout(function () {
+              if (isUndef(factory.resolved) && isUndef(factory.error)) {
+                factory.loading = true;
+                forceRender(false);
+              }
+            }, res.delay || 200);
+          }
+        }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+/***/ }),
+>>>>>>> Bump npm dependencies
 
 /***/ "9def":
 /***/ (function(module, exports, __webpack_require__) {
@@ -29997,6 +30959,10 @@ var exporter = function (KEY, exec, ALIAS) {
   $export($export.P + $export.F * FORCE, 'String', exp);
 };
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 // 1 -> String#trimLeft
 // 2 -> String#trimRight
 // 3 -> String#trim
@@ -30087,9 +31053,20 @@ for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++
     Iterators[NAME] = ArrayValues;
     if (explicit) for (key in $iterators) if (!proto[key]) redefine(proto, key, $iterators[key], true);
   }
+<<<<<<< HEAD
+========
+function add (event, fn) {
+  target.$on(event, fn);
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
 }
 
 
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+}
+
+
+>>>>>>> Bump npm dependencies
 /***/ }),
 
 /***/ "be13":
@@ -30100,8 +31077,54 @@ module.exports = function (it) {
   if (it == undefined) throw TypeError("Can't call method on  " + it);
   return it;
 };
+<<<<<<< HEAD
+========
+function createOnceHandler (event, fn) {
+  var _target = target;
+  return function onceHandler () {
+    var res = fn.apply(null, arguments);
+    if (res !== null) {
+      _target.$off(event, onceHandler);
+    }
+  }
+}
+
+function updateComponentListeners (
+  vm,
+  listeners,
+  oldListeners
+) {
+  target = vm;
+  updateListeners(listeners, oldListeners || {}, add, remove$1, createOnceHandler, vm);
+  target = undefined;
+}
+
+function eventsMixin (Vue) {
+  var hookRE = /^hook:/;
+  Vue.prototype.$on = function (event, fn) {
+    var vm = this;
+    if (Array.isArray(event)) {
+      for (var i = 0, l = event.length; i < l; i++) {
+        vm.$on(event[i], fn);
+      }
+    } else {
+      (vm._events[event] || (vm._events[event] = [])).push(fn);
+      // optimize hook:event cost by using a boolean flag marked at registration
+      // instead of a hash lookup
+      if (hookRE.test(event)) {
+        vm._hasHookEvent = true;
+      }
+    }
+    return vm
+  };
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
 
 
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+
+
+>>>>>>> Bump npm dependencies
 /***/ }),
 
 /***/ "c366":
@@ -30128,6 +31151,47 @@ module.exports = function (IS_INCLUDES) {
     } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
       if (O[index] === el) return IS_INCLUDES || index || 0;
     } return !IS_INCLUDES && -1;
+<<<<<<< HEAD
+========
+  Vue.prototype.$off = function (event, fn) {
+    var vm = this;
+    // all
+    if (!arguments.length) {
+      vm._events = Object.create(null);
+      return vm
+    }
+    // array of events
+    if (Array.isArray(event)) {
+      for (var i = 0, l = event.length; i < l; i++) {
+        vm.$off(event[i], fn);
+      }
+      return vm
+    }
+    // specific event
+    var cbs = vm._events[event];
+    if (!cbs) {
+      return vm
+    }
+    if (!fn) {
+      vm._events[event] = null;
+      return vm
+    }
+    if (fn) {
+      // specific handler
+      var cb;
+      var i$1 = cbs.length;
+      while (i$1--) {
+        cb = cbs[i$1];
+        if (cb === fn || cb.fn === fn) {
+          cbs.splice(i$1, 1);
+          break
+        }
+      }
+    }
+    return vm
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
   };
 };
 
@@ -30230,6 +31294,22 @@ module.exports = function (key) {
   return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
 };
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
+function setActiveInstance(vm) {
+  var prevActiveInstance = activeInstance;
+  activeInstance = vm;
+  return function () {
+    activeInstance = prevActiveInstance;
+  }
+}
+
+function initLifecycle (vm) {
+  var options = vm.$options;
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 /***/ }),
 
@@ -30272,6 +31352,43 @@ addToUnscopables('keys');
 addToUnscopables('values');
 addToUnscopables('entries');
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
+function lifecycleMixin (Vue) {
+  Vue.prototype._update = function (vnode, hydrating) {
+    var vm = this;
+    var prevEl = vm.$el;
+    var prevVnode = vm._vnode;
+    var restoreActiveInstance = setActiveInstance(vm);
+    vm._vnode = vnode;
+    // Vue.prototype.__patch__ is injected in entry points
+    // based on the rendering backend used.
+    if (!prevVnode) {
+      // initial render
+      vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false /* removeOnly */);
+    } else {
+      // updates
+      vm.$el = vm.__patch__(prevVnode, vnode);
+    }
+    restoreActiveInstance();
+    // update __vue__ reference
+    if (prevEl) {
+      prevEl.__vue__ = null;
+    }
+    if (vm.$el) {
+      vm.$el.__vue__ = vm;
+    }
+    // if parent is an HOC, update its $el as well
+    if (vm.$vnode && vm.$parent && vm.$vnode === vm.$parent._vnode) {
+      vm.$parent.$el = vm.$el;
+    }
+    // updated hook is called by the scheduler to ensure that children are
+    // updated in a parent's updated hook.
+  };
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 /***/ }),
 
@@ -30395,10 +31512,30 @@ function _typeof(obj) {
     };
   }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
   return _typeof(obj);
 }
 // EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom.iterable.js
 var web_dom_iterable = __webpack_require__("ac6a");
+<<<<<<< HEAD
+========
+  // we set this to vm._watcher inside the watcher's constructor
+  // since the watcher's initial patch may call $forceUpdate (e.g. inside child
+  // component's mounted hook), which relies on vm._watcher being already defined
+  new Watcher(vm, updateComponent, noop, {
+    before: function before () {
+      if (vm._isMounted && !vm._isDestroyed) {
+        callHook(vm, 'beforeUpdate');
+      }
+    }
+  }, true /* isRenderWatcher */);
+  hydrating = false;
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.object.keys.js
 var es6_object_keys = __webpack_require__("456d");
@@ -30676,13 +31813,25 @@ function normalizeComponent (
 
 // CONCATENATED MODULE: ./src/components/InputTag.vue
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 
+========
+var MAX_UPDATE_COUNT = 100;
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+
+>>>>>>> Bump npm dependencies
 
 
 
 
 /* normalize component */
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 var component = normalizeComponent(
   components_InputTagvue_type_script_lang_js_,
   render,
@@ -30693,6 +31842,37 @@ var component = normalizeComponent(
   null
   
 )
+<<<<<<< HEAD
+========
+  // do not cache length because more watchers might be pushed
+  // as we run existing watchers
+  for (index = 0; index < queue.length; index++) {
+    watcher = queue[index];
+    if (watcher.before) {
+      watcher.before();
+    }
+    id = watcher.id;
+    has[id] = null;
+    watcher.run();
+    // in dev build, check and stop circular updates.
+    if ("development" !== 'production' && has[id] != null) {
+      circular[id] = (circular[id] || 0) + 1;
+      if (circular[id] > MAX_UPDATE_COUNT) {
+        warn(
+          'You may have an infinite update loop ' + (
+            watcher.user
+              ? ("in watcher with expression \"" + (watcher.expression) + "\"")
+              : "in a component render function."
+          ),
+          watcher.vm
+        );
+        break
+      }
+    }
+  }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 component.options.__file = "InputTag.vue"
 /* harmony default export */ var InputTag = (component.exports);
@@ -30841,6 +32021,10 @@ var render = function() {
 var staticRenderFns = []
 render._withStripped = true
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 
 /***/ }),
@@ -30861,6 +32045,20 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [_c("div", { ref: "flyaway" }, [_vm._t("default")], 2)])
+<<<<<<< HEAD
+========
+function callUpdatedHooks (queue) {
+  var i = queue.length;
+  while (i--) {
+    var watcher = queue[i];
+    var vm = watcher.vm;
+    if (vm._watcher === watcher && vm._isMounted && !vm._isDestroyed) {
+      callHook(vm, 'updated');
+    }
+  }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -31061,12 +32259,32 @@ function normalizeComponent (
         hook.call(context)
         return originalRender(h, context)
       }
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
     } else {
       // inject component registration as beforeCreate hook
       var existing = options.beforeCreate
       options.beforeCreate = existing
         ? [].concat(existing, hook)
         : [hook]
+<<<<<<< HEAD
+========
+      queue.splice(i + 1, 0, watcher);
+    }
+    // queue the flush
+    if (!waiting) {
+      waiting = true;
+
+      if ("development" !== 'production' && !config.async) {
+        flushSchedulerQueue();
+        return
+      }
+      nextTick(flushSchedulerQueue);
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
     }
   }
 
@@ -31077,7 +32295,17 @@ function normalizeComponent (
 }
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 /***/ }),
+========
+
+
+var uid$1 = 0;
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+/***/ }),
+>>>>>>> Bump npm dependencies
 
 /***/ "./node_modules/vue-resource/dist/vue-resource.esm.js":
 /*!************************************************************!*\
@@ -31096,6 +32324,64 @@ __webpack_require__.r(__webpack_exports__);
  * https://github.com/pagekit/vue-resource
  * Released under the MIT License.
  */
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
+var Watcher = function Watcher (
+  vm,
+  expOrFn,
+  cb,
+  options,
+  isRenderWatcher
+) {
+  this.vm = vm;
+  if (isRenderWatcher) {
+    vm._watcher = this;
+  }
+  vm._watchers.push(this);
+  // options
+  if (options) {
+    this.deep = !!options.deep;
+    this.user = !!options.user;
+    this.lazy = !!options.lazy;
+    this.sync = !!options.sync;
+    this.before = options.before;
+  } else {
+    this.deep = this.user = this.lazy = this.sync = false;
+  }
+  this.cb = cb;
+  this.id = ++uid$1; // uid for batching
+  this.active = true;
+  this.dirty = this.lazy; // for lazy watchers
+  this.deps = [];
+  this.newDeps = [];
+  this.depIds = new _Set();
+  this.newDepIds = new _Set();
+  this.expression =  true
+    ? expOrFn.toString()
+    : '';
+  // parse expression for getter
+  if (typeof expOrFn === 'function') {
+    this.getter = expOrFn;
+  } else {
+    this.getter = parsePath(expOrFn);
+    if (!this.getter) {
+      this.getter = noop;
+      "development" !== 'production' && warn(
+        "Failed watching path: \"" + expOrFn + "\" " +
+        'Watcher only accepts simple dot-delimited paths. ' +
+        'For full control, use a function instead.',
+        vm
+      );
+    }
+  }
+  this.value = this.lazy
+    ? undefined
+    : this.get();
+};
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 /**
  * Promises/A+ polyfill v1.1.4 (https://github.com/bramstein/promis)
@@ -31136,6 +32422,10 @@ Promise$1.resolve = function (x) {
     });
 };
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 Promise$1.all = function all(iterable) {
     return new Promise$1(function (resolve, reject) {
         var count = 0, result = [];
@@ -31159,6 +32449,30 @@ Promise$1.all = function all(iterable) {
             Promise$1.resolve(iterable[i]).then(resolver(i), reject);
         }
     });
+<<<<<<< HEAD
+========
+/**
+ * Clean up for dependency collection.
+ */
+Watcher.prototype.cleanupDeps = function cleanupDeps () {
+  var i = this.deps.length;
+  while (i--) {
+    var dep = this.deps[i];
+    if (!this.newDepIds.has(dep.id)) {
+      dep.removeSub(this);
+    }
+  }
+  var tmp = this.depIds;
+  this.depIds = this.newDepIds;
+  this.newDepIds = tmp;
+  this.newDepIds.clear();
+  tmp = this.deps;
+  this.deps = this.newDeps;
+  this.newDeps = tmp;
+  this.newDeps.length = 0;
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 };
 
 Promise$1.race = function race(iterable) {
@@ -31226,6 +32540,10 @@ p.reject = function reject(reason) {
     }
 };
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 p.notify = function notify() {
     var promise = this;
 
@@ -31271,11 +32589,28 @@ p.then = function then(onResolved, onRejected) {
 
 p.catch = function (onRejected) {
     return this.then(undefined, onRejected);
+<<<<<<< HEAD
+========
+/**
+ * Depend on all deps collected by this watcher.
+ */
+Watcher.prototype.depend = function depend () {
+  var i = this.deps.length;
+  while (i--) {
+    this.deps[i].depend();
+  }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 };
 
 /**
  * Promise adapter.
  */
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 if (typeof Promise === 'undefined') {
     window.Promise = Promise$1;
@@ -31287,6 +32622,22 @@ function PromiseObj(executor, context) {
         this.promise = executor;
     } else {
         this.promise = new Promise(executor.bind(context));
+<<<<<<< HEAD
+========
+Watcher.prototype.teardown = function teardown () {
+  if (this.active) {
+    // remove self from vm's watcher list
+    // this is a somewhat expensive operation so we skip it
+    // if the vm is being destroyed.
+    if (!this.vm._isBeingDestroyed) {
+      remove(this.vm._watchers, this);
+    }
+    var i = this.deps.length;
+    while (i--) {
+      this.deps[i].removeSub(this);
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
     }
 
     this.context = context;
@@ -31310,6 +32661,10 @@ PromiseObj.race = function (iterable, context) {
 
 var p$1 = PromiseObj.prototype;
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 p$1.bind = function (context) {
     this.context = context;
     return this;
@@ -31319,6 +32674,48 @@ p$1.then = function (fulfilled, rejected) {
 
     if (fulfilled && fulfilled.bind && this.context) {
         fulfilled = fulfilled.bind(this.context);
+<<<<<<< HEAD
+========
+function initProps (vm, propsOptions) {
+  var propsData = vm.$options.propsData || {};
+  var props = vm._props = {};
+  // cache prop keys so that future props updates can iterate using Array
+  // instead of dynamic object key enumeration.
+  var keys = vm.$options._propKeys = [];
+  var isRoot = !vm.$parent;
+  // root instance props should be converted
+  if (!isRoot) {
+    toggleObserving(false);
+  }
+  var loop = function ( key ) {
+    keys.push(key);
+    var value = validateProp(key, propsOptions, propsData, vm);
+    /* istanbul ignore else */
+    if (true) {
+      var hyphenatedKey = hyphenate(key);
+      if (isReservedAttribute(hyphenatedKey) ||
+          config.isReservedAttr(hyphenatedKey)) {
+        warn(
+          ("\"" + hyphenatedKey + "\" is a reserved attribute and cannot be used as component prop."),
+          vm
+        );
+      }
+      defineReactive$$1(props, key, value, function () {
+        if (!isRoot && !isUpdatingChildComponent) {
+          warn(
+            "Avoid mutating a prop directly since the value will be " +
+            "overwritten whenever the parent component re-renders. " +
+            "Instead, use a data or computed property based on the prop's " +
+            "value. Prop being mutated: \"" + key + "\"",
+            vm
+          );
+        }
+      });
+    } else {
+      defineReactive$$1(props, key, value);
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
     }
 
     if (rejected && rejected.bind && this.context) {
@@ -31402,18 +32799,96 @@ function trimEnd(str, chars) {
     return str.replace(new RegExp(("[" + chars + "]+$")), '');
 }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 function toLower(str) {
     return str ? str.toLowerCase() : '';
+========
+function defineComputed (
+  target,
+  key,
+  userDef
+) {
+  var shouldCache = !isServerRendering();
+  if (typeof userDef === 'function') {
+    sharedPropertyDefinition.get = shouldCache
+      ? createComputedGetter(key)
+      : createGetterInvoker(userDef);
+    sharedPropertyDefinition.set = noop;
+  } else {
+    sharedPropertyDefinition.get = userDef.get
+      ? shouldCache && userDef.cache !== false
+        ? createComputedGetter(key)
+        : createGetterInvoker(userDef.get)
+      : noop;
+    sharedPropertyDefinition.set = userDef.set || noop;
+  }
+  if ("development" !== 'production' &&
+      sharedPropertyDefinition.set === noop) {
+    sharedPropertyDefinition.set = function () {
+      warn(
+        ("Computed property \"" + key + "\" was assigned to but it has no setter."),
+        this
+      );
+    };
+  }
+  Object.defineProperty(target, key, sharedPropertyDefinition);
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+function toLower(str) {
+    return str ? str.toLowerCase() : '';
+>>>>>>> Bump npm dependencies
 }
 
 function toUpper(str) {
     return str ? str.toUpperCase() : '';
 }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 var isArray = Array.isArray;
 
 function isString(val) {
     return typeof val === 'string';
+<<<<<<< HEAD
+========
+function createGetterInvoker(fn) {
+  return function computedGetter () {
+    return fn.call(this, this)
+  }
+}
+
+function initMethods (vm, methods) {
+  var props = vm.$options.props;
+  for (var key in methods) {
+    if (true) {
+      if (typeof methods[key] !== 'function') {
+        warn(
+          "Method \"" + key + "\" has type \"" + (typeof methods[key]) + "\" in the component definition. " +
+          "Did you reference the function correctly?",
+          vm
+        );
+      }
+      if (props && hasOwn(props, key)) {
+        warn(
+          ("Method \"" + key + "\" has already been defined as a prop."),
+          vm
+        );
+      }
+      if ((key in vm) && isReserved(key)) {
+        warn(
+          "Method \"" + key + "\" conflicts with an existing Vue instance method. " +
+          "Avoid defining component methods that start with _ or $."
+        );
+      }
+    }
+    vm[key] = typeof methods[key] !== 'function' ? noop : bind(methods[key], vm);
+  }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 }
 
 function isFunction(val) {
@@ -31424,14 +32899,49 @@ function isObject(obj) {
     return obj !== null && typeof obj === 'object';
 }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 function isPlainObject(obj) {
     return isObject(obj) && Object.getPrototypeOf(obj) == Object.prototype;
 }
+========
+function stateMixin (Vue) {
+  // flow somehow has problems with directly declared definition object
+  // when using Object.defineProperty, so we have to procedurally build up
+  // the object here.
+  var dataDef = {};
+  dataDef.get = function () { return this._data };
+  var propsDef = {};
+  propsDef.get = function () { return this._props };
+  if (true) {
+    dataDef.set = function () {
+      warn(
+        'Avoid replacing instance root $data. ' +
+        'Use nested data properties instead.',
+        this
+      );
+    };
+    propsDef.set = function () {
+      warn("$props is readonly.", this);
+    };
+  }
+  Object.defineProperty(Vue.prototype, '$data', dataDef);
+  Object.defineProperty(Vue.prototype, '$props', propsDef);
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+function isPlainObject(obj) {
+    return isObject(obj) && Object.getPrototypeOf(obj) == Object.prototype;
+}
+>>>>>>> Bump npm dependencies
 
 function isBlob(obj) {
     return typeof Blob !== 'undefined' && obj instanceof Blob;
 }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 function isFormData(obj) {
     return typeof FormData !== 'undefined' && obj instanceof FormData;
 }
@@ -31442,6 +32952,29 @@ function when(value, fulfilled, rejected) {
 
     if (arguments.length < 2) {
         return promise;
+<<<<<<< HEAD
+========
+  Vue.prototype.$watch = function (
+    expOrFn,
+    cb,
+    options
+  ) {
+    var vm = this;
+    if (isPlainObject(cb)) {
+      return createWatcher(vm, expOrFn, cb, options)
+    }
+    options = options || {};
+    options.user = true;
+    var watcher = new Watcher(vm, expOrFn, cb, options);
+    if (options.immediate) {
+      try {
+        cb.call(vm, watcher.value);
+      } catch (error) {
+        handleError(error, vm, ("callback for immediate watcher \"" + (watcher.expression) + "\""));
+      }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
     }
 
     return promise.then(fulfilled, rejected);
@@ -31477,6 +33010,10 @@ function each(obj, iterator) {
     return obj;
 }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 var assign = Object.assign || _assign;
 
 function merge(target) {
@@ -31485,6 +33022,29 @@ function merge(target) {
 
     args.forEach(function (source) {
         _merge(target, source, true);
+<<<<<<< HEAD
+========
+function initInjections (vm) {
+  var result = resolveInject(vm.$options.inject, vm);
+  if (result) {
+    toggleObserving(false);
+    Object.keys(result).forEach(function (key) {
+      /* istanbul ignore else */
+      if (true) {
+        defineReactive$$1(vm, key, result[key], function () {
+          warn(
+            "Avoid mutating an injected value directly since the changes will be " +
+            "overwritten whenever the provided component re-renders. " +
+            "injection being mutated: \"" + key + "\"",
+            vm
+          );
+        });
+      } else {
+        defineReactive$$1(vm, key, result[key]);
+      }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
     });
 
     return target;
@@ -31545,6 +33105,19 @@ function root (options$$1, next) {
     if (isString(options$$1.root) && !/^(https?:)?\//.test(url)) {
         url = trimEnd(options$$1.root, '/') + '/' + url;
     }
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
+  }
+  if (!isDef(ret)) {
+    ret = [];
+  }
+  (ret)._isVList = true;
+  return ret
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
     return url;
 }
@@ -31552,6 +33125,10 @@ function root (options$$1, next) {
 /**
  * Query Parameter Transform.
  */
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 function query (options$$1, next) {
 
@@ -31568,6 +33145,34 @@ function query (options$$1, next) {
     if (query) {
         url += (url.indexOf('?') == -1 ? '?' : '&') + query;
     }
+<<<<<<< HEAD
+========
+function renderSlot (
+  name,
+  fallback,
+  props,
+  bindObject
+) {
+  var scopedSlotFn = this.$scopedSlots[name];
+  var nodes;
+  if (scopedSlotFn) { // scoped slot
+    props = props || {};
+    if (bindObject) {
+      if ("development" !== 'production' && !isObject(bindObject)) {
+        warn(
+          'slot v-bind without argument expects an Object',
+          this
+        );
+      }
+      props = extend(extend({}, bindObject), props);
+    }
+    nodes = scopedSlotFn(props) || fallback;
+  } else {
+    nodes = this.$slots[name] || fallback;
+  }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
     return url;
 }
@@ -31647,6 +33252,10 @@ function getValues(context, operator, key, modifier) {
 
             result.push(encodeValue(operator, value, isKeyOperator(operator) ? key : null));
         } else {
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
             if (modifier === '*') {
                 if (Array.isArray(value)) {
                     value.filter(isDefined).forEach(function (value) {
@@ -31681,6 +33290,26 @@ function getValues(context, operator, key, modifier) {
                     result.push(tmp.join(','));
                 }
             }
+<<<<<<< HEAD
+========
+          var type = data.attrs && data.attrs.type;
+          hash = asProp || config.mustUseProp(tag, type, key)
+            ? data.domProps || (data.domProps = {})
+            : data.attrs || (data.attrs = {});
+        }
+        var camelizedKey = camelize(key);
+        if (!(key in hash) && !(camelizedKey in hash)) {
+          hash[key] = value[key];
+
+          if (isSync) {
+            var on = data.on || (data.on = {});
+            on[("update:" + camelizedKey)] = function ($event) {
+              value[key] = $event;
+            };
+          }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
         }
     } else {
         if (operator === ';') {
@@ -31820,13 +33449,32 @@ Url.params = function (obj) {
 
 Url.parse = function (url) {
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
     var el = document.createElement('a');
 
     if (document.documentMode) {
         el.href = url;
         url = el.href;
+<<<<<<< HEAD
+========
+  if (vnode instanceof VNode) {
+    return cloneAndMarkFunctionalResult(vnode, data, renderContext.parent, options, renderContext)
+  } else if (Array.isArray(vnode)) {
+    var vnodes = normalizeChildren(vnode) || [];
+    var res = new Array(vnodes.length);
+    for (var i = 0; i < vnodes.length; i++) {
+      res[i] = cloneAndMarkFunctionalResult(vnodes[i], data, renderContext.parent, options, renderContext);
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
     }
 
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+    }
+
+>>>>>>> Bump npm dependencies
     el.href = url;
 
     return {
@@ -31845,6 +33493,25 @@ function factory(handler, next, vm) {
     return function (options$$1) {
         return handler.call(vm, options$$1, next);
     };
+<<<<<<< HEAD
+========
+function cloneAndMarkFunctionalResult (vnode, data, contextVm, options, renderContext) {
+  // #7817 clone node before setting fnContext, otherwise if the node is reused
+  // (e.g. it was from a cached normal slot) the fnContext causes named slots
+  // that should not be matched to match.
+  var clone = cloneVNode(vnode);
+  clone.fnContext = contextVm;
+  clone.fnOptions = options;
+  if (true) {
+    (clone.devtoolsMeta = clone.devtoolsMeta || {}).renderContext = renderContext;
+  }
+  if (data.slot) {
+    (clone.data || (clone.data = {})).slot = data.slot;
+  }
+  return clone
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 }
 
 function serialize(params, obj, scope) {
@@ -31873,6 +33540,10 @@ function serialize(params, obj, scope) {
  * XDomain client (Internet Explorer).
  */
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 function xdrClient (request) {
     return new PromiseObj(function (resolve) {
 
@@ -31907,12 +33578,46 @@ function xdrClient (request) {
         xdr.send(request.getBody());
     });
 }
+<<<<<<< HEAD
+========
+/*  */
+
+/*  */
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 /**
  * CORS Interceptor.
  */
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 var SUPPORTS_CORS = inBrowser && 'withCredentials' in new XMLHttpRequest();
+========
+// inline hooks to be invoked on component VNodes during patch
+var componentVNodeHooks = {
+  init: function init (vnode, hydrating) {
+    if (
+      vnode.componentInstance &&
+      !vnode.componentInstance._isDestroyed &&
+      vnode.data.keepAlive
+    ) {
+      // kept-alive components, treat as a patch
+      var mountedNode = vnode; // work around flow
+      componentVNodeHooks.prepatch(mountedNode, mountedNode);
+    } else {
+      var child = vnode.componentInstance = createComponentInstanceForVnode(
+        vnode,
+        activeInstance
+      );
+      child.$mount(hydrating ? vnode.elm : undefined, hydrating);
+    }
+  },
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+var SUPPORTS_CORS = inBrowser && 'withCredentials' in new XMLHttpRequest();
+>>>>>>> Bump npm dependencies
 
 function cors (request) {
 
@@ -31991,6 +33696,10 @@ function isJson(str) {
     var start = str.match(/^\s*(\[|\{)/);
     var end = {'[': /]\s*$/, '{': /}\s*$/};
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
     return start && end[start[1]].test(str);
 }
 
@@ -32070,6 +33779,74 @@ function before (request) {
         request.before.call(this, request);
     }
 
+<<<<<<< HEAD
+========
+  return vnode
+}
+
+function createComponentInstanceForVnode (
+  vnode, // we know it's MountedComponentVNode but flow doesn't
+  parent // activeInstance in lifecycle state
+) {
+  var options = {
+    _isComponent: true,
+    _parentVnode: vnode,
+    parent: parent
+  };
+  // check inline-template render functions
+  var inlineTemplate = vnode.data.inlineTemplate;
+  if (isDef(inlineTemplate)) {
+    options.render = inlineTemplate.render;
+    options.staticRenderFns = inlineTemplate.staticRenderFns;
+  }
+  return new vnode.componentOptions.Ctor(options)
+}
+
+function installComponentHooks (data) {
+  var hooks = data.hook || (data.hook = {});
+  for (var i = 0; i < hooksToMerge.length; i++) {
+    var key = hooksToMerge[i];
+    var existing = hooks[key];
+    var toMerge = componentVNodeHooks[key];
+    if (existing !== toMerge && !(existing && existing._merged)) {
+      hooks[key] = existing ? mergeHook$1(toMerge, existing) : toMerge;
+    }
+  }
+}
+
+function mergeHook$1 (f1, f2) {
+  var merged = function (a, b) {
+    // flow complains about extra args which is why we use any
+    f1(a, b);
+    f2(a, b);
+  };
+  merged._merged = true;
+  return merged
+}
+
+// transform component v-model info (value and callback) into
+// prop and event handler respectively.
+function transformModel (options, data) {
+  var prop = (options.model && options.model.prop) || 'value';
+  var event = (options.model && options.model.event) || 'input'
+  ;(data.props || (data.props = {}))[prop] = data.model.value;
+  var on = data.on || (data.on = {});
+  var existing = on[event];
+  var callback = data.model.callback;
+  if (isDef(existing)) {
+    if (
+      Array.isArray(existing)
+        ? existing.indexOf(callback) === -1
+        : existing !== callback
+    ) {
+      on[event] = [callback].concat(existing);
+    }
+  } else {
+    on[event] = callback;
+  }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 }
 
 /**
@@ -32095,6 +33872,83 @@ function header (request) {
         !request.crossOrigin ? Http.headers.custom : {},
         Http.headers[toLower(request.method)]
     );
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
+    return createEmptyVNode()
+  }
+  // object syntax in v-bind
+  if (isDef(data) && isDef(data.is)) {
+    tag = data.is;
+  }
+  if (!tag) {
+    // in case of component :is set to falsy value
+    return createEmptyVNode()
+  }
+  // warn against non-primitive key
+  if ("development" !== 'production' &&
+    isDef(data) && isDef(data.key) && !isPrimitive(data.key)
+  ) {
+    {
+      warn(
+        'Avoid using non-primitive value as key, ' +
+        'use string/number value instead.',
+        context
+      );
+    }
+  }
+  // support single function children as default scoped slot
+  if (Array.isArray(children) &&
+    typeof children[0] === 'function'
+  ) {
+    data = data || {};
+    data.scopedSlots = { default: children[0] };
+    children.length = 0;
+  }
+  if (normalizationType === ALWAYS_NORMALIZE) {
+    children = normalizeChildren(children);
+  } else if (normalizationType === SIMPLE_NORMALIZE) {
+    children = simpleNormalizeChildren(children);
+  }
+  var vnode, ns;
+  if (typeof tag === 'string') {
+    var Ctor;
+    ns = (context.$vnode && context.$vnode.ns) || config.getTagNamespace(tag);
+    if (config.isReservedTag(tag)) {
+      // platform built-in elements
+      vnode = new VNode(
+        config.parsePlatformTagName(tag), data, children,
+        undefined, undefined, context
+      );
+    } else if ((!data || !data.pre) && isDef(Ctor = resolveAsset(context.$options, 'components', tag))) {
+      // component
+      vnode = createComponent(Ctor, data, context, children, tag);
+    } else {
+      // unknown or unlisted namespaced elements
+      // check at runtime because it may get assigned a namespace when its
+      // parent normalizes children
+      vnode = new VNode(
+        tag, data, children,
+        undefined, undefined, context
+      );
+    }
+  } else {
+    // direct component options / constructor
+    vnode = createComponent(tag, data, context, children);
+  }
+  if (Array.isArray(vnode)) {
+    return vnode
+  } else if (isDef(vnode)) {
+    if (isDef(ns)) { applyNS(vnode, ns); }
+    if (isDef(data)) { registerDeepBindings(data); }
+    return vnode
+  } else {
+    return createEmptyVNode()
+  }
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
     each(headers, function (value, name) {
         if (!request.headers.has(name)) {
@@ -32184,6 +34038,10 @@ function nodeClient (request) {
 
     var client = __webpack_require__(/*! got */ 1);
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
     return new PromiseObj(function (resolve) {
 
         var url = request.getUrl();
@@ -32210,6 +34068,23 @@ function nodeClient (request) {
 
         }, function (error$$1) { return handler(error$$1.response); });
     });
+<<<<<<< HEAD
+========
+  /* istanbul ignore else */
+  if (true) {
+    defineReactive$$1(vm, '$attrs', parentData && parentData.attrs || emptyObject, function () {
+      !isUpdatingChildComponent && warn("$attrs is readonly.", vm);
+    }, true);
+    defineReactive$$1(vm, '$listeners', options._parentListeners || emptyObject, function () {
+      !isUpdatingChildComponent && warn("$listeners is readonly.", vm);
+    }, true);
+  } else {
+    defineReactive$$1(vm, '$attrs', parentData && parentData.attrs || emptyObject, null, true);
+    defineReactive$$1(vm, '$listeners', options._parentListeners || emptyObject, null, true);
+  }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 }
 
 /**
@@ -32220,6 +34095,10 @@ function Client (context) {
 
     var reqHandlers = [sendRequest], resHandlers = [];
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
     if (!isObject(context)) {
         context = null;
     }
@@ -32256,6 +34135,33 @@ function Client (context) {
             } else {
                 warn(("Invalid interceptor of type " + (typeof handler) + ", must be a function"));
             }
+<<<<<<< HEAD
+========
+    if (_parentVnode) {
+      vm.$scopedSlots = _parentVnode.data.scopedSlots || emptyObject;
+    }
+
+    // set parent vnode. this allows render functions to have access
+    // to the data on the placeholder node.
+    vm.$vnode = _parentVnode;
+    // render self
+    var vnode;
+    try {
+      vnode = render.call(vm._renderProxy, vm.$createElement);
+    } catch (e) {
+      handleError(e, vm, "render");
+      // return error render result,
+      // or previous vnode to prevent render error causing blank component
+      /* istanbul ignore else */
+      if ("development" !== 'production' && vm.$options.renderError) {
+        try {
+          vnode = vm.$options.renderError.call(vm._renderProxy, vm.$createElement, e);
+        } catch (e) {
+          handleError(e, vm, "renderError");
+          vnode = vm._vnode;
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
         }
     }
 
@@ -32416,9 +34322,24 @@ function blobText(body) {
     });
 }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 function isBlobText(body) {
     return body.type.indexOf('text') === 0 || body.type.indexOf('json') !== -1;
 }
+========
+function initInternalComponent (vm, options) {
+  var opts = vm.$options = Object.create(vm.constructor.options);
+  // doing this because it's faster than dynamic enumeration.
+  var parentVnode = options._parentVnode;
+  opts.parent = options.parent;
+  opts._parentVnode = parentVnode;
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+function isBlobText(body) {
+    return body.type.indexOf('text') === 0 || body.type.indexOf('json') !== -1;
+}
+>>>>>>> Bump npm dependencies
 
 /**
  * HTTP Request.
@@ -42382,11 +44303,26 @@ function findPrevElement (children) {
   }
 }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 function addIfCondition (el, condition) {
   if (!el.ifConditions) {
     el.ifConditions = [];
   }
   el.ifConditions.push(condition);
+<<<<<<< HEAD
+========
+/*  */
+
+
+
+function getComponentName (opts) {
+  return opts && (opts.Ctor.options.name || opts.tag)
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 }
 
 function processOnce (el) {
@@ -42455,6 +44391,10 @@ function processComponent (el) {
   }
 }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 function processAttrs (el) {
   var list = el.attrsList;
   var i, l, name, rawName, value, modifiers, isProp;
@@ -42468,6 +44408,62 @@ function processAttrs (el) {
       modifiers = parseModifiers(name);
       if (modifiers) {
         name = name.replace(modifierRE, '');
+<<<<<<< HEAD
+========
+var patternTypes = [String, RegExp, Array];
+
+var KeepAlive = {
+  name: 'keep-alive',
+  abstract: true,
+
+  props: {
+    include: patternTypes,
+    exclude: patternTypes,
+    max: [String, Number]
+  },
+
+  created: function created () {
+    this.cache = Object.create(null);
+    this.keys = [];
+  },
+
+  destroyed: function destroyed () {
+    for (var key in this.cache) {
+      pruneCacheEntry(this.cache, key, this.keys);
+    }
+  },
+
+  mounted: function mounted () {
+    var this$1 = this;
+
+    this.$watch('include', function (val) {
+      pruneCache(this$1, function (name) { return matches(val, name); });
+    });
+    this.$watch('exclude', function (val) {
+      pruneCache(this$1, function (name) { return !matches(val, name); });
+    });
+  },
+
+  render: function render () {
+    var slot = this.$slots.default;
+    var vnode = getFirstComponentChild(slot);
+    var componentOptions = vnode && vnode.componentOptions;
+    if (componentOptions) {
+      // check pattern
+      var name = getComponentName(componentOptions);
+      var ref = this;
+      var include = ref.include;
+      var exclude = ref.exclude;
+      if (
+        // not included
+        (include && (!name || !matches(include, name))) ||
+        // excluded
+        (exclude && name && matches(exclude, name))
+      ) {
+        return vnode
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
       }
       if (bindRE.test(name)) { // v-bind
         name = name.replace(bindRE, '');
@@ -42544,8 +44540,14 @@ function processAttrs (el) {
       }
     }
   }
+<<<<<<< HEAD
+};
+
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
 }
 
+>>>>>>> Bump npm dependencies
 function checkInFor (el) {
   var parent = el;
   while (parent) {
@@ -42556,6 +44558,14 @@ function checkInFor (el) {
   }
   return false
 }
+<<<<<<< HEAD
+========
+var builtInComponents = {
+  KeepAlive: KeepAlive
+};
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 function parseModifiers (name) {
   var match = name.match(modifierRE);
@@ -42566,6 +44576,10 @@ function parseModifiers (name) {
   }
 }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 function makeAttrsMap (attrs) {
   var map = {};
   for (var i = 0, l = attrs.length; i < l; i++) {
@@ -42579,6 +44593,20 @@ function makeAttrsMap (attrs) {
   }
   return map
 }
+<<<<<<< HEAD
+========
+  // exposed util methods.
+  // NOTE: these are not considered part of the public API - avoid relying on
+  // them unless you are aware of the risk.
+  Vue.util = {
+    warn: warn,
+    extend: extend,
+    mergeOptions: mergeOptions,
+    defineReactive: defineReactive$$1
+  };
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 // for script (e.g. type="x/template") or style, do not decode content
 function isTextTag (el) {
@@ -42680,11 +44708,21 @@ function preTransformNode (el, options) {
         block: branch2
       });
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
       if (hasElse) {
         branch0.else = true;
       } else if (elseIfCondition) {
         branch0.elseif = elseIfCondition;
       }
+<<<<<<< HEAD
+========
+Vue.version = '2.5.21';
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
       return branch0
     }
@@ -43044,6 +45082,10 @@ var baseDirectives = {
 
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 var CodegenState = function CodegenState (options) {
   this.options = options;
   this.warn = options.warn || baseWarn;
@@ -43057,6 +45099,25 @@ var CodegenState = function CodegenState (options) {
   this.pre = false;
 };
 
+<<<<<<< HEAD
+========
+var nodeOps = /*#__PURE__*/Object.freeze({
+  createElement: createElement$1,
+  createElementNS: createElementNS,
+  createTextNode: createTextNode,
+  createComment: createComment,
+  insertBefore: insertBefore,
+  removeChild: removeChild,
+  appendChild: appendChild,
+  parentNode: parentNode,
+  nextSibling: nextSibling,
+  tagName: tagName,
+  setTextContent: setTextContent,
+  setStyleScope: setStyleScope
+});
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 
 function generate (
@@ -43069,7 +45130,11 @@ function generate (
     render: ("with(this){return " + code + "}"),
     staticRenderFns: state.staticRenderFns
   }
+<<<<<<< HEAD
+};
+=======
 }
+>>>>>>> Bump npm dependencies
 
 function genElement (el, state) {
   if (el.parent) {
@@ -43162,6 +45227,10 @@ function genIf (
   return genIfConditions(el.ifConditions.slice(), state, altGen, altEmpty)
 }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 function genIfConditions (
   conditions,
   state,
@@ -43170,6 +45239,19 @@ function genIfConditions (
 ) {
   if (!conditions.length) {
     return altEmpty || '_e()'
+<<<<<<< HEAD
+========
+  function createRmCb (childElm, listeners) {
+    function remove$$1 () {
+      if (--remove$$1.listeners === 0) {
+        removeNode(childElm);
+      }
+    }
+    remove$$1.listeners = listeners;
+    return remove$$1
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
   }
 
   var condition = conditions.shift();
@@ -43264,6 +45346,10 @@ function genData$2 (el, state) {
   if (el.events) {
     data += (genHandlers(el.events, false)) + ",";
   }
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
   if (el.nativeEvents) {
     data += (genHandlers(el.nativeEvents, true)) + ",";
   }
@@ -43285,6 +45371,31 @@ function genData$2 (el, state) {
     var inlineTemplate = genInlineTemplate(el, state);
     if (inlineTemplate) {
       data += inlineTemplate + ",";
+<<<<<<< HEAD
+========
+
+  function createComponent (vnode, insertedVnodeQueue, parentElm, refElm) {
+    var i = vnode.data;
+    if (isDef(i)) {
+      var isReactivated = isDef(vnode.componentInstance) && i.keepAlive;
+      if (isDef(i = i.hook) && isDef(i = i.init)) {
+        i(vnode, false /* hydrating */);
+      }
+      // after calling the init hook, if the vnode is a child component
+      // it should've created a child instance and mounted it. the child
+      // component also has set the placeholder vnode's elm.
+      // in that case we can just return the element and be done.
+      if (isDef(vnode.componentInstance)) {
+        initComponent(vnode, insertedVnodeQueue);
+        insert(parentElm, vnode.elm, refElm);
+        if (isTrue(isReactivated)) {
+          reactivateComponent(vnode, insertedVnodeQueue, parentElm, refElm);
+        }
+        return true
+      }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
     }
   }
   data = data.replace(/,$/, '') + '}';
@@ -43324,12 +45435,31 @@ function genDirectives (el, state) {
   }
 }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 function genInlineTemplate (el, state) {
   var ast = el.children[0];
   if ( true && (
     el.children.length !== 1 || ast.type !== 1
   )) {
     state.warn('Inline-template components must have exactly one child element.');
+<<<<<<< HEAD
+========
+  function insert (parent, elm, ref$$1) {
+    if (isDef(parent)) {
+      if (isDef(ref$$1)) {
+        if (nodeOps.parentNode(ref$$1) === parent) {
+          nodeOps.insertBefore(parent, elm, ref$$1);
+        }
+      } else {
+        nodeOps.appendChild(parent, elm);
+      }
+    }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
   }
   if (ast.type === 1) {
     var inlineRenderFns = generate(ast, state.options);
@@ -43593,6 +45723,10 @@ function checkIdentifier (
   }
 }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 function checkExpression (exp, text, errors) {
   try {
     new Function(("return " + exp));
@@ -43609,6 +45743,60 @@ function checkExpression (exp, text, errors) {
         "    " + exp + "\n\n" +
         "  Raw expression: " + (text.trim()) + "\n"
       );
+<<<<<<< HEAD
+========
+    while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+      if (isUndef(oldStartVnode)) {
+        oldStartVnode = oldCh[++oldStartIdx]; // Vnode has been moved left
+      } else if (isUndef(oldEndVnode)) {
+        oldEndVnode = oldCh[--oldEndIdx];
+      } else if (sameVnode(oldStartVnode, newStartVnode)) {
+        patchVnode(oldStartVnode, newStartVnode, insertedVnodeQueue, newCh, newStartIdx);
+        oldStartVnode = oldCh[++oldStartIdx];
+        newStartVnode = newCh[++newStartIdx];
+      } else if (sameVnode(oldEndVnode, newEndVnode)) {
+        patchVnode(oldEndVnode, newEndVnode, insertedVnodeQueue, newCh, newEndIdx);
+        oldEndVnode = oldCh[--oldEndIdx];
+        newEndVnode = newCh[--newEndIdx];
+      } else if (sameVnode(oldStartVnode, newEndVnode)) { // Vnode moved right
+        patchVnode(oldStartVnode, newEndVnode, insertedVnodeQueue, newCh, newEndIdx);
+        canMove && nodeOps.insertBefore(parentElm, oldStartVnode.elm, nodeOps.nextSibling(oldEndVnode.elm));
+        oldStartVnode = oldCh[++oldStartIdx];
+        newEndVnode = newCh[--newEndIdx];
+      } else if (sameVnode(oldEndVnode, newStartVnode)) { // Vnode moved left
+        patchVnode(oldEndVnode, newStartVnode, insertedVnodeQueue, newCh, newStartIdx);
+        canMove && nodeOps.insertBefore(parentElm, oldEndVnode.elm, oldStartVnode.elm);
+        oldEndVnode = oldCh[--oldEndIdx];
+        newStartVnode = newCh[++newStartIdx];
+      } else {
+        if (isUndef(oldKeyToIdx)) { oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx); }
+        idxInOld = isDef(newStartVnode.key)
+          ? oldKeyToIdx[newStartVnode.key]
+          : findIdxInOld(newStartVnode, oldCh, oldStartIdx, oldEndIdx);
+        if (isUndef(idxInOld)) { // New element
+          createElm(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.elm, false, newCh, newStartIdx);
+        } else {
+          vnodeToMove = oldCh[idxInOld];
+          if (sameVnode(vnodeToMove, newStartVnode)) {
+            patchVnode(vnodeToMove, newStartVnode, insertedVnodeQueue, newCh, newStartIdx);
+            oldCh[idxInOld] = undefined;
+            canMove && nodeOps.insertBefore(parentElm, vnodeToMove.elm, oldStartVnode.elm);
+          } else {
+            // same key but different element. treat as new element
+            createElm(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.elm, false, newCh, newStartIdx);
+          }
+        }
+        newStartVnode = newCh[++newStartIdx];
+      }
+    }
+    if (oldStartIdx > oldEndIdx) {
+      refElm = isUndef(newCh[newEndIdx + 1]) ? null : newCh[newEndIdx + 1].elm;
+      addVnodes(parentElm, refElm, newCh, newStartIdx, newEndIdx, insertedVnodeQueue);
+    } else if (newStartIdx > newEndIdx) {
+      removeVnodes(parentElm, oldCh, oldStartIdx, oldEndIdx);
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
     }
   }
 }
@@ -43664,6 +45852,10 @@ function createCompileToFunctionFn (compile) {
       return cache[key]
     }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
     // compile
     var compiled = compile(template, options);
 
@@ -43688,6 +45880,29 @@ function createCompileToFunctionFn (compile) {
     res.staticRenderFns = compiled.staticRenderFns.map(function (code) {
       return createFunction(code, fnGenErrors)
     });
+<<<<<<< HEAD
+========
+  function patchVnode (
+    oldVnode,
+    vnode,
+    insertedVnodeQueue,
+    ownerArray,
+    index,
+    removeOnly
+  ) {
+    if (oldVnode === vnode) {
+      return
+    }
+
+    if (isDef(vnode.elm) && isDef(ownerArray)) {
+      // clone reused vnode
+      vnode = ownerArray[index] = cloneVNode(vnode);
+    }
+
+    var elm = vnode.elm = oldVnode.elm;
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
     // check function generation errors.
     // this should only happen if there is a bug in the compiler itself.
@@ -43748,9 +45963,37 @@ function createCompilerCreator (baseCompile) {
         }
       }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
       var compiled = baseCompile(template, finalOptions);
       if (true) {
         errors.push.apply(errors, detectErrors(compiled.ast));
+========
+    var oldCh = oldVnode.children;
+    var ch = vnode.children;
+    if (isDef(data) && isPatchable(vnode)) {
+      for (i = 0; i < cbs.update.length; ++i) { cbs.update[i](oldVnode, vnode); }
+      if (isDef(i = data.hook) && isDef(i = i.update)) { i(oldVnode, vnode); }
+    }
+    if (isUndef(vnode.text)) {
+      if (isDef(oldCh) && isDef(ch)) {
+        if (oldCh !== ch) { updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly); }
+      } else if (isDef(ch)) {
+        if (true) {
+          checkDuplicateKeys(ch);
+        }
+        if (isDef(oldVnode.text)) { nodeOps.setTextContent(elm, ''); }
+        addVnodes(elm, null, ch, 0, ch.length - 1, insertedVnodeQueue);
+      } else if (isDef(oldCh)) {
+        removeVnodes(elm, oldCh, 0, oldCh.length - 1);
+      } else if (isDef(oldVnode.text)) {
+        nodeOps.setTextContent(elm, '');
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+      var compiled = baseCompile(template, finalOptions);
+      if (true) {
+        errors.push.apply(errors, detectErrors(compiled.ast));
+>>>>>>> Bump npm dependencies
       }
       compiled.errors = errors;
       compiled.tips = tips;
@@ -43882,6 +46125,10 @@ Vue.prototype.$mount = function (
   return mount.call(this, el, hydrating)
 };
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 /**
  * Get outerHTML of elements, taking care
  * of SVG elements in IE as well.
@@ -43895,9 +46142,23 @@ function getOuterHTML (el) {
     return container.innerHTML
   }
 }
+<<<<<<< HEAD
+========
+  return function patch (oldVnode, vnode, hydrating, removeOnly) {
+    if (isUndef(vnode)) {
+      if (isDef(oldVnode)) { invokeDestroyHook(oldVnode); }
+      return
+    }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
 
 Vue.compile = compileToFunctions;
 
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+
+Vue.compile = compileToFunctions;
+
+>>>>>>> Bump npm dependencies
 module.exports = Vue;
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../../timers-browserify/main.js */ "./node_modules/timers-browserify/main.js").setImmediate))
@@ -43916,12 +46177,95 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _autocomplete_vue_vue_type_template_id_2c922d06___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./autocomplete.vue?vue&type=template&id=2c922d06& */ "./node_modules/vue2-google-maps/dist/components/autocomplete.vue?vue&type=template&id=2c922d06&");
 /* harmony import */ var _autocomplete_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./autocomplete.vue?vue&type=script&lang=js& */ "./node_modules/vue2-google-maps/dist/components/autocomplete.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+<<<<<<< HEAD
+========
+    if (isUndef(oldVnode)) {
+      // empty mount (likely as component), create new root element
+      isInitialPatch = true;
+      createElm(vnode, insertedVnodeQueue);
+    } else {
+      var isRealElement = isDef(oldVnode.nodeType);
+      if (!isRealElement && sameVnode(oldVnode, vnode)) {
+        // patch existing root node
+        patchVnode(oldVnode, vnode, insertedVnodeQueue, null, null, removeOnly);
+      } else {
+        if (isRealElement) {
+          // mounting to a real element
+          // check if this is server-rendered content and if we can perform
+          // a successful hydration.
+          if (oldVnode.nodeType === 1 && oldVnode.hasAttribute(SSR_ATTR)) {
+            oldVnode.removeAttribute(SSR_ATTR);
+            hydrating = true;
+          }
+          if (isTrue(hydrating)) {
+            if (hydrate(oldVnode, vnode, insertedVnodeQueue)) {
+              invokeInsertHook(vnode, insertedVnodeQueue, true);
+              return oldVnode
+            } else if (true) {
+              warn(
+                'The client-side rendered virtual DOM tree is not matching ' +
+                'server-rendered content. This is likely caused by incorrect ' +
+                'HTML markup, for example nesting block-level elements inside ' +
+                '<p>, or missing <tbody>. Bailing hydration and performing ' +
+                'full client-side render.'
+              );
+            }
+          }
+          // either not server-rendered, or hydration failed.
+          // create an empty node and replace it
+          oldVnode = emptyNodeAt(oldVnode);
+        }
+
+        // replacing existing element
+        var oldElm = oldVnode.elm;
+        var parentElm = nodeOps.parentNode(oldElm);
+
+        // create new node
+        createElm(
+          vnode,
+          insertedVnodeQueue,
+          // extremely rare edge case: do not insert if old element is in a
+          // leaving transition. Only happens when combining transition +
+          // keep-alive + HOCs. (#4590)
+          oldElm._leaveCb ? null : parentElm,
+          nodeOps.nextSibling(oldElm)
+        );
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+
+
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
+        // destroy old node
+        if (isDef(parentElm)) {
+          removeVnodes(parentElm, [oldVnode], 0, 0);
+        } else if (isDef(oldVnode.tag)) {
+          invokeDestroyHook(oldVnode);
+        }
+      }
+    }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+
+
+
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+/* normalize component */
+========
+var directives = {
+  create: updateDirectives,
+  update: updateDirectives,
+  destroy: function unbindDirectives (vnode) {
+    updateDirectives(vnode, emptyNode);
+  }
+};
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
 
 
 
 
 
 /* normalize component */
+>>>>>>> Bump npm dependencies
 
 var component = Object(_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _autocomplete_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -44061,8 +46405,20 @@ exports.default = {
     });
   },
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
   props: _extends({}, (0, _mapElementFactory.mappedPropsToVueProps)(mappedProps), props)
 };
+========
+var baseModules = [
+  ref,
+  directives
+];
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+  props: _extends({}, (0, _mapElementFactory.mappedPropsToVueProps)(mappedProps), props)
+};
+>>>>>>> Bump npm dependencies
 
 /***/ }),
 
@@ -44076,11 +46432,49 @@ exports.default = {
 "use strict";
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
 var _mapElementFactory = __webpack_require__(/*! ./mapElementFactory */ "./node_modules/vue2-google-maps/dist/components/mapElementFactory.js");
+<<<<<<< HEAD
+========
+function baseSetAttr (el, key, value) {
+  if (isFalsyAttrValue(value)) {
+    el.removeAttribute(key);
+  } else {
+    // #7138: IE10 & 11 fires input event when setting placeholder on
+    // <textarea>... block the first input event and remove the blocker
+    // immediately.
+    /* istanbul ignore if */
+    if (
+      isIE && !isIE9 &&
+      (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') &&
+      key === 'placeholder' && !el.__ieph
+    ) {
+      var blocker = function (e) {
+        e.stopImmediatePropagation();
+        el.removeEventListener('input', blocker);
+      };
+      el.addEventListener('input', blocker);
+      // $flow-disable-line
+      el.__ieph = true; /* IE placeholder patched */
+    }
+    el.setAttribute(key, value);
+  }
+}
+
+var attrs = {
+  create: updateAttrs,
+  update: updateAttrs
+};
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
 
@@ -44123,12 +46517,25 @@ exports.default = (0, _mapElementFactory2.default)({
 
 /***/ }),
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 /***/ "./node_modules/vue2-google-maps/dist/components/infoWindow.vue":
 /*!**********************************************************************!*\
   !*** ./node_modules/vue2-google-maps/dist/components/infoWindow.vue ***!
   \**********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
+<<<<<<< HEAD
+========
+var klass = {
+  create: updateClass,
+  update: updateClass
+};
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -44190,6 +46597,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 /***/ }),
 
 /***/ "./node_modules/vue2-google-maps/dist/components/infoWindowImpl.js":
@@ -44200,6 +46611,45 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
+========
+  // normalize click.right and click.middle since they don't actually fire
+  // this is technically browser-specific, but at least for now browsers are
+  // the only target envs that have right/middle clicks.
+  if (name === 'click') {
+    if (modifiers.right) {
+      name = 'contextmenu';
+      delete modifiers.right;
+    } else if (modifiers.middle) {
+      name = 'mouseup';
+    }
+  }
+
+  // check capture modifier
+  if (modifiers.capture) {
+    delete modifiers.capture;
+    name = '!' + name; // mark the event as captured
+  }
+  if (modifiers.once) {
+    delete modifiers.once;
+    name = '~' + name; // mark the event as once
+  }
+  /* istanbul ignore if */
+  if (modifiers.passive) {
+    delete modifiers.passive;
+    name = '&' + name; // mark the event as passive
+  }
+
+  var events;
+  if (modifiers.native) {
+    delete modifiers.native;
+    events = el.nativeEvents || (el.nativeEvents = {});
+  } else {
+    events = el.events || (el.events = {});
+  }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -44311,9 +46761,28 @@ __webpack_require__.r(__webpack_exports__);
 /* empty/unused harmony star reexport *//* harmony import */ var _map_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./map.vue?vue&type=style&index=0&lang=css& */ "./node_modules/vue2-google-maps/dist/components/map.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
+  el.model = {
+    value: ("(" + value + ")"),
+    expression: JSON.stringify(value),
+    callback: ("function (" + baseValueExpression + ") {" + assignment + "}")
+  };
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
 
 
 
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
+var len, str, chr, index$1, expressionPos, expressionEndPos;
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+
+
+
+>>>>>>> Bump npm dependencies
 
 
 /* normalize component */
@@ -44490,6 +46959,10 @@ var _mapElementMixin2 = _interopRequireDefault(_mapElementMixin);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -44541,6 +47014,35 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 function assert(v, message) {
   if (!v) throw new Error(message);
+<<<<<<< HEAD
+========
+function createOnceHandler$1 (event, handler, capture) {
+  var _target = target$1; // save current target element in closure
+  return function onceHandler () {
+    var res = handler.apply(null, arguments);
+    if (res !== null) {
+      remove$2(event, onceHandler, capture, _target);
+    }
+  }
+}
+
+function add$1 (
+  event,
+  handler,
+  capture,
+  passive
+) {
+  handler = withMacroTask(handler);
+  target$1.addEventListener(
+    event,
+    handler,
+    supportsPassive
+      ? { capture: capture, passive: passive }
+      : capture
+  );
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 }
 
 /**
@@ -44618,6 +47120,10 @@ exports.default = {
 
     return {};
   }
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 };
 
 /***/ }),
@@ -44653,6 +47159,23 @@ var _TwoWayBindingWrapper = __webpack_require__(/*! ../utils/TwoWayBindingWrappe
 var _TwoWayBindingWrapper2 = _interopRequireDefault(_TwoWayBindingWrapper);
 
 var _WatchPrimitiveProperties = __webpack_require__(/*! ../utils/WatchPrimitiveProperties.js */ "./node_modules/vue2-google-maps/dist/utils/WatchPrimitiveProperties.js");
+<<<<<<< HEAD
+========
+  var on = vnode.data.on || {};
+  var oldOn = oldVnode.data.on || {};
+  target$1 = vnode.elm;
+  normalizeEvents(on);
+  updateListeners(on, oldOn, add$1, remove$2, createOnceHandler$1, vnode.context);
+  target$1 = undefined;
+}
+
+var events = {
+  create: updateDOMListeners,
+  update: updateDOMListeners
+};
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 var _WatchPrimitiveProperties2 = _interopRequireDefault(_WatchPrimitiveProperties);
 
@@ -44767,8 +47290,20 @@ exports.default = {
     }
   },
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
   mounted: function mounted() {
     var _this2 = this;
+========
+var domProps = {
+  create: updateDOMProps,
+  update: updateDOMProps
+};
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+  mounted: function mounted() {
+    var _this2 = this;
+>>>>>>> Bump npm dependencies
 
     return this.$gmapApiPromiseLazy().then(function () {
       // getting the DOM element where to create the map
@@ -44987,6 +47522,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 var component = Object(_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _placeInputImpl_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _placeInput_vue_vue_type_template_id_c1ab87be___WEBPACK_IMPORTED_MODULE_0__["render"],
@@ -44997,12 +47536,25 @@ var component = Object(_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_I
   null
   
 )
+<<<<<<< HEAD
+========
+var style = {
+  create: updateStyle,
+  update: updateStyle
+};
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "node_modules/vue2-google-maps/dist/components/placeInput.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 /***/ }),
 
 /***/ "./node_modules/vue2-google-maps/dist/components/placeInput.vue?vue&type=template&id=c1ab87be&":
@@ -45011,15 +47563,98 @@ component.options.__file = "node_modules/vue2-google-maps/dist/components/placeI
   \*****************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
+<<<<<<< HEAD
+========
+var whitespaceRE = /\s+/;
+
+/**
+ * Add class with compatibility for SVG since classList is not supported on
+ * SVG elements in IE
+ */
+function addClass (el, cls) {
+  /* istanbul ignore if */
+  if (!cls || !(cls = cls.trim())) {
+    return
+  }
+
+  /* istanbul ignore else */
+  if (el.classList) {
+    if (cls.indexOf(' ') > -1) {
+      cls.split(whitespaceRE).forEach(function (c) { return el.classList.add(c); });
+    } else {
+      el.classList.add(cls);
+    }
+  } else {
+    var cur = " " + (el.getAttribute('class') || '') + " ";
+    if (cur.indexOf(' ' + cls + ' ') < 0) {
+      el.setAttribute('class', (cur + cls).trim());
+    }
+  }
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_placeInput_vue_vue_type_template_id_c1ab87be___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../vue-loader/lib??vue-loader-options!./placeInput.vue?vue&type=template&id=c1ab87be& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./node_modules/vue2-google-maps/dist/components/placeInput.vue?vue&type=template&id=c1ab87be&");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_placeInput_vue_vue_type_template_id_c1ab87be___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_placeInput_vue_vue_type_template_id_c1ab87be___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+========
+  /* istanbul ignore else */
+  if (el.classList) {
+    if (cls.indexOf(' ') > -1) {
+      cls.split(whitespaceRE).forEach(function (c) { return el.classList.remove(c); });
+    } else {
+      el.classList.remove(cls);
+    }
+    if (!el.classList.length) {
+      el.removeAttribute('class');
+    }
+  } else {
+    var cur = " " + (el.getAttribute('class') || '') + " ";
+    var tar = ' ' + cls + ' ';
+    while (cur.indexOf(tar) >= 0) {
+      cur = cur.replace(tar, ' ');
+    }
+    cur = cur.trim();
+    if (cur) {
+      el.setAttribute('class', cur);
+    } else {
+      el.removeAttribute('class');
+    }
+  }
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+
+
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
+function resolveTransition (def$$1) {
+  if (!def$$1) {
+    return
+  }
+  /* istanbul ignore else */
+  if (typeof def$$1 === 'object') {
+    var res = {};
+    if (def$$1.css !== false) {
+      extend(res, autoCssTransition(def$$1.name || 'v'));
+    }
+    extend(res, def$$1);
+    return res
+  } else if (typeof def$$1 === 'string') {
+    return autoCssTransition(def$$1)
+  }
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _vue_loader_lib_loaders_templateLoader_js_vue_loader_options_vue_loader_lib_index_js_vue_loader_options_placeInput_vue_vue_type_template_id_c1ab87be___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+>>>>>>> Bump npm dependencies
 
 /***/ }),
 
@@ -45045,7 +47680,23 @@ var _simulateArrowDown2 = _interopRequireDefault(_simulateArrowDown);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+========
+function getTransitionInfo (el, expectedType) {
+  var styles = window.getComputedStyle(el);
+  // JSDOM may return undefined for transition properties
+  var transitionDelays = (styles[transitionProp + 'Delay'] || '').split(', ');
+  var transitionDurations = (styles[transitionProp + 'Duration'] || '').split(', ');
+  var transitionTimeout = getTimeout(transitionDelays, transitionDurations);
+  var animationDelays = (styles[animationProp + 'Delay'] || '').split(', ');
+  var animationDurations = (styles[animationProp + 'Duration'] || '').split(', ');
+  var animationTimeout = getTimeout(animationDelays, animationDurations);
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+>>>>>>> Bump npm dependencies
 
 var props = {
   bounds: {
@@ -45091,11 +47742,27 @@ exports.default = {
 
     var input = this.$refs.input;
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
     // Allow default place to be set
     input.value = this.defaultPlace;
     this.$watch('defaultPlace', function () {
       input.value = _this.defaultPlace;
     });
+<<<<<<< HEAD
+========
+// Old versions of Chromium (below 61.0.3163.100) formats floating pointer numbers
+// in a locale-dependent way, using a comma instead of a dot.
+// If comma is not replaced with a dot, the input will be rounded down (i.e. acting
+// as a floor function) causing unexpected behaviors
+function toMs (s) {
+  return Number(s.slice(0, -1).replace(',', '.')) * 1000
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
     this.$gmapApiPromiseLazy().then(function () {
       var options = (0, _bindProps.getPropsValues)(_this, props);
@@ -45354,8 +48021,49 @@ exports.default = (0, _mapElementFactory2.default)({
     return google.maps.Polyline;
   },
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
   afterCreate: function afterCreate() {
     var _this = this;
+========
+  function performLeave () {
+    // the delayed leave may have already been cancelled
+    if (cb.cancelled) {
+      return
+    }
+    // record leaving element
+    if (!vnode.data.show && el.parentNode) {
+      (el.parentNode._pending || (el.parentNode._pending = {}))[(vnode.key)] = vnode;
+    }
+    beforeLeave && beforeLeave(el);
+    if (expectsCSS) {
+      addTransitionClass(el, leaveClass);
+      addTransitionClass(el, leaveActiveClass);
+      nextFrame(function () {
+        removeTransitionClass(el, leaveClass);
+        if (!cb.cancelled) {
+          addTransitionClass(el, leaveToClass);
+          if (!userWantsControl) {
+            if (isValidDuration(explicitLeaveDuration)) {
+              setTimeout(cb, explicitLeaveDuration);
+            } else {
+              whenTransitionEnds(el, type, cb);
+            }
+          }
+        }
+      });
+    }
+    leave && leave(el, cb);
+    if (!expectsCSS && !userWantsControl) {
+      cb();
+    }
+  }
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+  afterCreate: function afterCreate() {
+    var _this = this;
+>>>>>>> Bump npm dependencies
 
     var clearEvents = function () {};
 
@@ -45393,9 +48101,28 @@ exports.default = (0, _mapElementFactory2.default)({
       immediate: true
     });
   }
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 });
 
 /***/ }),
+========
+} : {};
+
+var platformModules = [
+  attrs,
+  klass,
+  events,
+  domProps,
+  style,
+  transition
+];
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+});
+
+/***/ }),
+>>>>>>> Bump npm dependencies
 
 /***/ "./node_modules/vue2-google-maps/dist/components/rectangle.js":
 /*!********************************************************************!*\
@@ -45706,7 +48433,18 @@ exports.default = {
   }
 };
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 /***/ }),
+========
+var platformDirectives = {
+  model: directive,
+  show: show
+};
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+/***/ }),
+>>>>>>> Bump npm dependencies
 
 /***/ "./node_modules/vue2-google-maps/dist/main.js":
 /*!****************************************************!*\
@@ -45715,8 +48453,33 @@ exports.default = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 "use strict";
 
+========
+var transitionProps = {
+  name: String,
+  appear: Boolean,
+  css: Boolean,
+  mode: String,
+  type: String,
+  enterClass: String,
+  leaveClass: String,
+  enterToClass: String,
+  leaveToClass: String,
+  enterActiveClass: String,
+  leaveActiveClass: String,
+  appearClass: String,
+  appearActiveClass: String,
+  appearToClass: String,
+  duration: [Number, String, Object]
+};
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+"use strict";
+
+>>>>>>> Bump npm dependencies
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -45909,7 +48672,22 @@ function gmapApi() {
   return GmapApi.gmapApi && window.google;
 }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 /***/ }),
+========
+var isNotTextNode = function (c) { return c.tag || isAsyncPlaceholder(c); };
+
+var isVShowDirective = function (d) { return d.name === 'show'; };
+
+var Transition = {
+  name: 'transition',
+  props: transitionProps,
+  abstract: true,
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+/***/ }),
+>>>>>>> Bump npm dependencies
 
 /***/ "./node_modules/vue2-google-maps/dist/manager.js":
 /*!*******************************************************!*\
@@ -45920,6 +48698,18 @@ function gmapApi() {
 
 "use strict";
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
+    // filter out text nodes (possible whitespaces)
+    children = children.filter(isNotTextNode);
+    /* istanbul ignore if */
+    if (!children.length) {
+      return
+    }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -45983,8 +48773,20 @@ var loadGmapApi = exports.loadGmapApi = function (options, loadCn) {
 
     var baseUrl = 'https://maps.googleapis.com/';
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
     if (typeof loadCn === 'boolean' && loadCn === true) {
       baseUrl = 'http://maps.google.cn/';
+========
+    // mark v-show
+    // so that the transition module can hand over the control to the directive
+    if (child.data.directives && child.data.directives.some(isVShowDirective)) {
+      child.data.show = true;
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+    if (typeof loadCn === 'boolean' && loadCn === true) {
+      baseUrl = 'http://maps.google.cn/';
+>>>>>>> Bump npm dependencies
     }
 
     var url = baseUrl + 'maps/api/js?' + Object.keys(options).map(function (key) {
@@ -46002,6 +48804,10 @@ var loadGmapApi = exports.loadGmapApi = function (options, loadCn) {
 
 /***/ }),
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 /***/ "./node_modules/vue2-google-maps/dist/utils/TwoWayBindingWrapper.js":
 /*!**************************************************************************!*\
   !*** ./node_modules/vue2-google-maps/dist/utils/TwoWayBindingWrapper.js ***!
@@ -46011,6 +48817,15 @@ var loadGmapApi = exports.loadGmapApi = function (options, loadCn) {
 
 "use strict";
 
+<<<<<<< HEAD
+========
+var props = extend({
+  tag: String,
+  moveClass: String
+}, transitionProps);
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -46067,7 +48882,40 @@ function TwoWayBindingWrapper(fn) {
   });
 }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 /***/ }),
+========
+  beforeMount: function beforeMount () {
+    var this$1 = this;
+
+    var update = this._update;
+    this._update = function (vnode, hydrating) {
+      var restoreActiveInstance = setActiveInstance(this$1);
+      // force removing pass
+      this$1.__patch__(
+        this$1._vnode,
+        this$1.kept,
+        false, // hydrating
+        true // removeOnly (!important, avoids unnecessary moves)
+      );
+      this$1._vnode = this$1.kept;
+      restoreActiveInstance();
+      update.call(this$1, vnode, hydrating);
+    };
+  },
+
+  render: function render (h) {
+    var tag = this.tag || this.$vnode.data.tag || 'span';
+    var map = Object.create(null);
+    var prevChildren = this.prevChildren = this.children;
+    var rawChildren = this.$slots.default || [];
+    var children = this.children = [];
+    var transitionData = extractTransitionData(this);
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+/***/ }),
+>>>>>>> Bump npm dependencies
 
 /***/ "./node_modules/vue2-google-maps/dist/utils/WatchPrimitiveProperties.js":
 /*!******************************************************************************!*\
@@ -46079,6 +48927,10 @@ function TwoWayBindingWrapper(fn) {
 "use strict";
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -46094,6 +48946,17 @@ function WatchPrimitiveProperties(vueInst, propertiesToTrack, handler) {
   var immediate = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
 
   var isHandled = false;
+<<<<<<< HEAD
+========
+  updated: function updated () {
+    var children = this.prevChildren;
+    var moveClass = this.moveClass || ((this.name || 'v') + '-move');
+    if (!children.length || !this.hasMove(children[0].elm, moveClass)) {
+      return
+    }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
   function requestHandle() {
     if (!isHandled) {
@@ -46109,9 +48972,37 @@ function WatchPrimitiveProperties(vueInst, propertiesToTrack, handler) {
   var _didIteratorError = false;
   var _iteratorError = undefined;
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
   try {
     for (var _iterator = propertiesToTrack[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
       var prop = _step.value;
+========
+    children.forEach(function (c) {
+      if (c.data.moved) {
+        var el = c.elm;
+        var s = el.style;
+        addTransitionClass(el, moveClass);
+        s.transform = s.WebkitTransform = s.transitionDuration = '';
+        el.addEventListener(transitionEndEvent, el._moveCb = function cb (e) {
+          if (e && e.target !== el) {
+            return
+          }
+          if (!e || /transform$/.test(e.propertyName)) {
+            el.removeEventListener(transitionEndEvent, cb);
+            el._moveCb = null;
+            removeTransitionClass(el, moveClass);
+          }
+        });
+      }
+    });
+  },
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+  try {
+    for (var _iterator = propertiesToTrack[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var prop = _step.value;
+>>>>>>> Bump npm dependencies
 
       vueInst.$watch(prop, requestHandle, { immediate: immediate });
     }
@@ -46129,7 +49020,11 @@ function WatchPrimitiveProperties(vueInst, propertiesToTrack, handler) {
       }
     }
   }
+<<<<<<< HEAD
+};
+=======
 }
+>>>>>>> Bump npm dependencies
 
 /***/ }),
 
@@ -46282,7 +49177,18 @@ function bindProps(vueInst, googleMapsInst, props) {
   }
 }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 /***/ }),
+========
+var platformComponents = {
+  Transition: Transition,
+  TransitionGroup: TransitionGroup
+};
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+/***/ }),
+>>>>>>> Bump npm dependencies
 
 /***/ "./node_modules/vue2-google-maps/dist/utils/lazyValue.js":
 /*!***************************************************************!*\
@@ -46315,7 +49221,16 @@ exports.default = function (fn) {
   };
 };
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 /***/ }),
+========
+var defaultTagRE = /\{\{((?:.|\r?\n)+?)\}\}/g;
+var regexEscapeRE = /[-.*+?^${}()|[\]\/\\]/g;
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+/***/ }),
+>>>>>>> Bump npm dependencies
 
 /***/ "./node_modules/vue2-google-maps/dist/utils/mountableMixin.js":
 /*!********************************************************************!*\
@@ -46391,7 +49306,19 @@ exports.default = {
   }
 };
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 /***/ }),
+========
+var klass$1 = {
+  staticKeys: ['staticClass'],
+  transformNode: transformNode,
+  genData: genData
+};
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+/***/ }),
+>>>>>>> Bump npm dependencies
 
 /***/ "./node_modules/vue2-google-maps/dist/utils/simulateArrowDown.js":
 /*!***********************************************************************!*\
@@ -46438,12 +49365,26 @@ exports.default = function (input) {
 
 /***/ }),
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 /***/ "./node_modules/vuebar/vuebar.js":
 /*!***************************************!*\
   !*** ./node_modules/vuebar/vuebar.js ***!
   \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
+<<<<<<< HEAD
+========
+var style$1 = {
+  staticKeys: ['staticStyle'],
+  transformNode: transformNode$1,
+  genData: genData$1
+};
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 /*
 
@@ -46466,7 +49407,21 @@ exports.default = function (input) {
   TODO: Check again if all references (this.ins/this.state/this.config) were refactored properly
   TODO: Check if events are removed properly on destroy method
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 */
+========
+var he = {
+  decode: function decode (html) {
+    decoder = decoder || document.createElement('div');
+    decoder.innerHTML = html;
+    return decoder.textContent
+  }
+};
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+*/
+>>>>>>> Bump npm dependencies
 
 
 
@@ -46479,6 +49434,10 @@ exports.default = function (input) {
   \*------------------------------------*/
   function Vuebar(Vue, el, binding, vnode, oldVnode){
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 
     /*------------------------------------*\
@@ -46498,6 +49457,28 @@ exports.default = function (input) {
       scrollingPhantomDelay: 1000,
       draggingPhantomDelay: 1000,
       preventParentScroll: false,
+<<<<<<< HEAD
+========
+// Regular Expressions for parsing tags and attributes
+var attribute = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
+// could use https://www.w3.org/TR/1999/REC-xml-names-19990114/#NT-QName
+// but for Vue templates we can enforce a simple charset
+var ncname = '[a-zA-Z_][\\w\\-\\.]*';
+var qnameCapture = "((?:" + ncname + "\\:)?" + ncname + ")";
+var startTagOpen = new RegExp(("^<" + qnameCapture));
+var startTagClose = /^\s*(\/?)>/;
+var endTag = new RegExp(("^<\\/" + qnameCapture + "[^>]*>"));
+var doctype = /^<!DOCTYPE [^>]+>/i;
+// #7298: escape - to avoid being pased as HTML comment when inlined in page
+var comment = /^<!\--/;
+var conditionalComment = /^<!\[/;
+
+// Special Elements (can contain anything)
+var isPlainTextElement = makeMap('script,style,textarea', true);
+var reCache = {};
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
       el1Class: 'vb',
       el1ScrollVisibleClass: 'vb-visible',
@@ -46531,8 +49512,26 @@ exports.default = function (input) {
     \*------------------------------------*/
     this.ins = {
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
       // reference to binding
       binding: null,
+========
+        // Start tag:
+        var startTagMatch = parseStartTag();
+        if (startTagMatch) {
+          handleStartTag(startTagMatch);
+          if (shouldIgnoreFirstNewline(startTagMatch.tagName, html)) {
+            advance(1);
+          }
+          continue
+        }
+      }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+      // reference to binding
+      binding: null,
+>>>>>>> Bump npm dependencies
 
       // references to directive DOM elements
       el1: null,
@@ -46626,6 +49625,10 @@ exports.default = function (input) {
     }
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 
 
@@ -46645,6 +49648,23 @@ exports.default = function (input) {
       for (var key in options){
         this.config[key] = options[key];
       }
+<<<<<<< HEAD
+========
+    var l = match.attrs.length;
+    var attrs = new Array(l);
+    for (var i = 0; i < l; i++) {
+      var args = match.attrs[i];
+      var value = args[3] || args[4] || args[5] || '';
+      var shouldDecodeNewlines = tagName === 'a' && args[1] === 'href'
+        ? options.shouldDecodeNewlinesForHref
+        : options.shouldDecodeNewlines;
+      attrs[i] = {
+        name: args[1],
+        value: decodeAttr(value, shouldDecodeNewlines)
+      };
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
     }
 
 
@@ -46655,6 +49675,10 @@ exports.default = function (input) {
       this.ins.y.barMousedown = this.barMousedown('y');
       this.ins.x.barMousedown = this.barMousedown('x');
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
       this.ins.y.documentMousemove = this.documentMousemove('y');
       this.ins.x.documentMousemove = this.documentMousemove('x');
 
@@ -46676,6 +49700,22 @@ exports.default = function (input) {
       // - resize event is only needed when resizeRefresh option is enabled
       this.config.resizeRefresh ? window.addEventListener('resize', this.ins.windowResize, 0) : null;
 
+<<<<<<< HEAD
+========
+    // Find the closest opened tag of the same type
+    if (tagName) {
+      lowerCasedTagName = tagName.toLowerCase();
+      for (pos = stack.length - 1; pos >= 0; pos--) {
+        if (stack[pos].lowerCasedTag === lowerCasedTagName) {
+          break
+        }
+      }
+    } else {
+      // If no tag name is provided, clean shop
+      pos = 0;
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
     }
 
 
@@ -46734,9 +49774,23 @@ exports.default = function (input) {
     }
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
     // mutation observer for content changes outside Vue state
     this.initializeMutationObserver = function(){
       if (typeof MutationObserver === typeof void 0) { return null }
+========
+var onRE = /^@|^v-on:/;
+var dirRE = /^v-|^@|^:/;
+var forAliasRE = /([\s\S]*?)\s+(?:in|of)\s+([\s\S]*)/;
+var forIteratorRE = /,([^,\}\]]*)(?:,([^,\}\]]*))?$/;
+var stripParensRE = /^\(|\)$/g;
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+    // mutation observer for content changes outside Vue state
+    this.initializeMutationObserver = function(){
+      if (typeof MutationObserver === typeof void 0) { return null }
+>>>>>>> Bump npm dependencies
 
       var observer = new MutationObserver(this.util.throttle(function(mutations) {
         this.refresh();
@@ -46827,10 +49881,56 @@ exports.default = function (input) {
       this.util.rC(this.ins.el1, this.config.el1ScrollingPhantomClass);
       this.util.rC(this.ins.el1, this.config.el1DraggingClass);
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
       // clear el1 styles
       if (!options.skipStyles) {
         this.ins.el1.style.position = '';
         this.ins.el1.style.overflow = '';
+<<<<<<< HEAD
+========
+      // tree management
+      if (!root) {
+        root = element;
+        checkRootConstraints(root);
+      } else if (!stack.length) {
+        // allow root elements with v-if, v-else-if and v-else
+        if (root.if && (element.elseif || element.else)) {
+          checkRootConstraints(element);
+          addIfCondition(root, {
+            exp: element.elseif,
+            block: element
+          });
+        } else if (true) {
+          warnOnce(
+            "Component template should contain exactly one root element. " +
+            "If you are using v-if on multiple elements, " +
+            "use v-else-if to chain them instead."
+          );
+        }
+      }
+      if (currentParent && !element.forbidden) {
+        if (element.elseif || element.else) {
+          processIfConditions(element, currentParent);
+        } else if (element.slotScope) { // scoped slot
+          currentParent.plain = false;
+          var name = element.slotTarget || '"default"'
+          ;(currentParent.scopedSlots || (currentParent.scopedSlots = {}))[name] = element;
+        } else {
+          currentParent.children.push(element);
+          element.parent = currentParent;
+        }
+      }
+      if (!unary) {
+        currentParent = element;
+        stack.push(element);
+      } else {
+        closeElement(element);
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
       }
 
       // clear el2 classes
@@ -46871,6 +49971,10 @@ exports.default = function (input) {
 
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
     /*------------------------------------*\
       Refresh Scrollbar
@@ -46894,12 +49998,38 @@ exports.default = function (input) {
         this.computeBarBaseWidth();
         this.updateDraggers();
       }.bind(this));
+<<<<<<< HEAD
+========
+function processKey (el) {
+  var exp = getBindingAttr(el, 'key');
+  if (exp) {
+    if (true) {
+      if (el.tag === 'template') {
+        warn$2("<template> cannot be keyed. Place the key on real elements instead.");
+      }
+      if (el.for) {
+        var iterator = el.iterator2 || el.iterator1;
+        var parent = el.parent;
+        if (iterator && iterator === exp && parent && parent.tag === 'transition-group') {
+          warn$2(
+            "Do not use v-for index as key on <transition-group> children, " +
+            "this is the same as not using keys."
+          );
+        }
+      }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
     }
 
 
 
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 
 
@@ -46916,6 +50046,23 @@ exports.default = function (input) {
     this.computeVisibleRatios = function(){
       this.state.y.visibleRatio = (this.ins.el2.clientHeight / this.ins.el2.scrollHeight);
       this.state.x.visibleRatio = (this.ins.el2.clientWidth / this.ins.el2.scrollWidth);
+<<<<<<< HEAD
+========
+function parseFor (exp) {
+  var inMatch = exp.match(forAliasRE);
+  if (!inMatch) { return }
+  var res = {};
+  res.for = inMatch[2].trim();
+  var alias = inMatch[1].trim().replace(stripParensRE, '');
+  var iteratorMatch = alias.match(forIteratorRE);
+  if (iteratorMatch) {
+    res.alias = alias.replace(forIteratorRE, '').trim();
+    res.iterator1 = iteratorMatch[1].trim();
+    if (iteratorMatch[2]) {
+      res.iterator2 = iteratorMatch[2].trim();
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
     }
 
 
@@ -47021,6 +50168,10 @@ exports.default = function (input) {
     }
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
     this.computeBarLeftOnDrag = function(event){
 
@@ -47033,6 +50184,76 @@ exports.default = function (input) {
       // if bar is trying to go over top
       if (relativeMouseX <= this.state.x.barClickOffset) {
         this.state.x.barLeft = 0;
+<<<<<<< HEAD
+========
+function processAttrs (el) {
+  var list = el.attrsList;
+  var i, l, name, rawName, value, modifiers, isProp;
+  for (i = 0, l = list.length; i < l; i++) {
+    name = rawName = list[i].name;
+    value = list[i].value;
+    if (dirRE.test(name)) {
+      // mark element as dynamic
+      el.hasBindings = true;
+      // modifiers
+      modifiers = parseModifiers(name);
+      if (modifiers) {
+        name = name.replace(modifierRE, '');
+      }
+      if (bindRE.test(name)) { // v-bind
+        name = name.replace(bindRE, '');
+        value = parseFilters(value);
+        isProp = false;
+        if (
+          "development" !== 'production' &&
+          value.trim().length === 0
+        ) {
+          warn$2(
+            ("The value for a v-bind expression cannot be empty. Found in \"v-bind:" + name + "\"")
+          );
+        }
+        if (modifiers) {
+          if (modifiers.prop) {
+            isProp = true;
+            name = camelize(name);
+            if (name === 'innerHtml') { name = 'innerHTML'; }
+          }
+          if (modifiers.camel) {
+            name = camelize(name);
+          }
+          if (modifiers.sync) {
+            addHandler(
+              el,
+              ("update:" + (camelize(name))),
+              genAssignmentCode(value, "$event")
+            );
+          }
+        }
+        if (isProp || (
+          !el.component && platformMustUseProp(el.tag, el.attrsMap.type, name)
+        )) {
+          addProp(el, name, value);
+        } else {
+          addAttr(el, name, value);
+        }
+      } else if (onRE.test(name)) { // v-on
+        name = name.replace(onRE, '');
+        addHandler(el, name, value, modifiers, false, warn$2);
+      } else { // normal directives
+        name = name.replace(dirRE, '');
+        // parse arg
+        var argMatch = name.match(argRE);
+        var arg = argMatch && argMatch[1];
+        if (arg) {
+          name = name.slice(0, -(arg.length + 1));
+        }
+        addDirective(el, name, rawName, value, arg, modifiers);
+        if ("development" !== 'production' && name === 'model') {
+          checkForAliasModel(el, value);
+        }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
       }
 
       // if bar is moving between top and bottom
@@ -47068,12 +50289,27 @@ exports.default = function (input) {
     }
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
     this.computeBarLeftOnScroll = function(){
       var el2ClientWidth = this.ins.el2.clientWidth;
       var el2ScrollWidth = this.ins.el2.scrollWidth;
       var el2ScrollLeft = this.ins.el2.scrollLeft;
       var draggerXOffsetWidth = this.ins.draggerX.offsetWidth;
+<<<<<<< HEAD
+========
+function preTransformNode (el, options) {
+  if (el.tag === 'input') {
+    var map = el.attrsMap;
+    if (!map['v-model']) {
+      return
+    }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
       var scrollPercent = el2ScrollLeft / (el2ScrollWidth - el2ClientWidth);
       var availablePixels = (el2ClientWidth - draggerXOffsetWidth);
@@ -47129,6 +50365,10 @@ exports.default = function (input) {
       }
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
       if (scrollbarYWanted || scrollbarXWanted) {
         this.util.rC(this.ins.el1, this.config.el1ScrollInvisibleClass);
         this.util.aC(this.ins.el1, this.config.el1ScrollVisibleClass);
@@ -47139,6 +50379,20 @@ exports.default = function (input) {
         return;
       }
 
+<<<<<<< HEAD
+========
+var model$1 = {
+  preTransformNode: preTransformNode
+};
+
+var modules$1 = [
+  klass$1,
+  style$1,
+  model$1
+];
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
       // setting dragger styles
       this.ins.draggerY.style.height = parseInt(Math.round(this.state.y.barBaseHeight)) + 'px';
@@ -47151,6 +50405,17 @@ exports.default = function (input) {
       //this.ins.draggerY.style.top = Math.ceil( this.state.y.barTop ) + 'px';
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
+var directives$1 = {
+  model: model,
+  text: text,
+  html: html
+};
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
       if (options.withScrollingClasses) {
 
@@ -47328,6 +50593,28 @@ exports.default = function (input) {
 
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
+// KeyboardEvent.key aliases
+var keyNames = {
+  // #7880: IE11 and Edge use `Esc` for Escape key name.
+  esc: ['Esc', 'Escape'],
+  tab: 'Tab',
+  enter: 'Enter',
+  // #9112: IE11 uses `Spacebar` for Space key name.
+  space: [' ', 'Spacebar'],
+  // #7806: IE11 uses key names without `Arrow` prefix for arrow keys.
+  up: ['Up', 'ArrowUp'],
+  left: ['Left', 'ArrowLeft'],
+  right: ['Right', 'ArrowRight'],
+  down: ['Down', 'ArrowDown'],
+  // #9112: IE11 uses `Del` for Delete key name.
+  'delete': ['Backspace', 'Delete', 'Del']
+};
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 
     this.windowResize = function(){
@@ -47336,10 +50623,30 @@ exports.default = function (input) {
       }.bind(this), this.config.resizeDebounce);
     }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
+function genHandlers (
+  events,
+  isNative
+) {
+  var res = isNative ? 'nativeOn:{' : 'on:{';
+  for (var name in events) {
+    res += "\"" + name + "\":" + (genHandler(name, events[name])) + ",";
+  }
+  return res.slice(0, -1) + '}'
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 
 
@@ -47365,6 +50672,55 @@ exports.default = function (input) {
         this.ins.el2.scrollLeft = positionX;
       }
     }
+<<<<<<< HEAD
+========
+  if (!handler.modifiers) {
+    if (isMethodPath || isFunctionExpression) {
+      return handler.value
+    }
+    return ("function($event){" + (handler.value) + "}") // inline statement
+  } else {
+    var code = '';
+    var genModifierCode = '';
+    var keys = [];
+    for (var key in handler.modifiers) {
+      if (modifierCode[key]) {
+        genModifierCode += modifierCode[key];
+        // left/right
+        if (keyCodes[key]) {
+          keys.push(key);
+        }
+      } else if (key === 'exact') {
+        var modifiers = (handler.modifiers);
+        genModifierCode += genGuard(
+          ['ctrl', 'shift', 'alt', 'meta']
+            .filter(function (keyModifier) { return !modifiers[keyModifier]; })
+            .map(function (keyModifier) { return ("$event." + keyModifier + "Key"); })
+            .join('||')
+        );
+      } else {
+        keys.push(key);
+      }
+    }
+    if (keys.length) {
+      code += genKeyFilter(keys);
+    }
+    // Make sure modifiers like prevent and stop get executed after key filtering
+    if (genModifierCode) {
+      code += genModifierCode;
+    }
+    var handlerCode = isMethodPath
+      ? ("return " + (handler.value) + "($event)")
+      : isFunctionExpression
+        ? ("return (" + (handler.value) + ")($event)")
+        : handler.value;
+    return ("function($event){" + code + handlerCode + "}")
+  }
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+
+=======
+>>>>>>> Bump npm dependencies
 
 
 
@@ -47372,10 +50728,43 @@ exports.default = function (input) {
 
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
+var baseDirectives = {
+  on: on,
+  bind: bind$1,
+  cloak: noop
+};
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+
+
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
 
 
 
 
+var CodegenState = function CodegenState (options) {
+  this.options = options;
+  this.warn = options.warn || baseWarn;
+  this.transforms = pluckModuleFunction(options.modules, 'transformCode');
+  this.dataGenFns = pluckModuleFunction(options.modules, 'genData');
+  this.directives = extend(extend({}, baseDirectives), options.directives);
+  var isReservedTag = options.isReservedTag || no;
+  this.maybeComponent = function (el) { return !(isReservedTag(el.tag) && !el.component); };
+  this.onceId = 0;
+  this.staticRenderFns = [];
+  this.pre = false;
+};
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+
+=======
+
+
+
+
+>>>>>>> Bump npm dependencies
     /*------------------------------------*\
       Utils
     \*------------------------------------*/
@@ -47390,8 +50779,44 @@ exports.default = function (input) {
         return Vue.util && Vue.util.warn ? Vue.util.warn(message) : window.console.warn(message);
       },
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
+function genElement (el, state) {
+  if (el.parent) {
+    el.pre = el.pre || el.parent.pre;
+  }
+
+  if (el.staticRoot && !el.staticProcessed) {
+    return genStatic(el, state)
+  } else if (el.once && !el.onceProcessed) {
+    return genOnce(el, state)
+  } else if (el.for && !el.forProcessed) {
+    return genFor(el, state)
+  } else if (el.if && !el.ifProcessed) {
+    return genIf(el, state)
+  } else if (el.tag === 'template' && !el.slotTarget && !state.pre) {
+    return genChildren(el, state) || 'void 0'
+  } else if (el.tag === 'slot') {
+    return genSlot(el, state)
+  } else {
+    // component or element
+    var code;
+    if (el.component) {
+      code = genComponent(el.component, el, state);
+    } else {
+      var data;
+      if (!el.plain || (el.pre && state.maybeComponent(el))) {
+        data = genData$2(el, state);
+      }
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
 
 
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+
+
+>>>>>>> Bump npm dependencies
       /*------------------------------------*\
         Debounce Helper
         https://remysharp.com/2010/07/21/throttling-function-calls
@@ -47406,6 +50831,25 @@ exports.default = function (input) {
           }, delay);
         };
       },
+<<<<<<< HEAD
+========
+// hoist static sub-trees out
+function genStatic (el, state) {
+  el.staticProcessed = true;
+  // Some elements (templates) need to behave differently inside of a v-pre
+  // node.  All pre nodes are static roots, so we can use this as a location to
+  // wrap a state change and reset it upon exiting the pre node.
+  var originalPreState = state.pre;
+  if (el.pre) {
+    state.pre = el.pre;
+  }
+  state.staticRenderFns.push(("with(this){return " + (genElement(el, state)) + "}"));
+  state.pre = originalPreState;
+  return ("_m(" + (state.staticRenderFns.length - 1) + (el.staticInFor ? ',true' : '') + ")")
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
 
 
@@ -47458,11 +50902,89 @@ exports.default = function (input) {
         https://plainjs.com/javascript/attributes/adding-removing-and-testing-for-classes-9/
       \*------------------------------------*/
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
       // hasClass
       hC: function(el, classToCheck) {
         if (el.classLists) { return el.classList.contains(classToCheck); }
         else { return (new RegExp('\\b'+ classToCheck+'\\b')).test(el.className); }
       },
+<<<<<<< HEAD
+========
+  // key
+  if (el.key) {
+    data += "key:" + (el.key) + ",";
+  }
+  // ref
+  if (el.ref) {
+    data += "ref:" + (el.ref) + ",";
+  }
+  if (el.refInFor) {
+    data += "refInFor:true,";
+  }
+  // pre
+  if (el.pre) {
+    data += "pre:true,";
+  }
+  // record original tag name for components using "is" attribute
+  if (el.component) {
+    data += "tag:\"" + (el.tag) + "\",";
+  }
+  // module data generation functions
+  for (var i = 0; i < state.dataGenFns.length; i++) {
+    data += state.dataGenFns[i](el);
+  }
+  // attributes
+  if (el.attrs) {
+    data += "attrs:{" + (genProps(el.attrs)) + "},";
+  }
+  // DOM props
+  if (el.props) {
+    data += "domProps:{" + (genProps(el.props)) + "},";
+  }
+  // event handlers
+  if (el.events) {
+    data += (genHandlers(el.events, false)) + ",";
+  }
+  if (el.nativeEvents) {
+    data += (genHandlers(el.nativeEvents, true)) + ",";
+  }
+  // slot target
+  // only for non-scoped slots
+  if (el.slotTarget && !el.slotScope) {
+    data += "slot:" + (el.slotTarget) + ",";
+  }
+  // scoped slots
+  if (el.scopedSlots) {
+    data += (genScopedSlots(el.scopedSlots, state)) + ",";
+  }
+  // component v-model
+  if (el.model) {
+    data += "model:{value:" + (el.model.value) + ",callback:" + (el.model.callback) + ",expression:" + (el.model.expression) + "},";
+  }
+  // inline-template
+  if (el.inlineTemplate) {
+    var inlineTemplate = genInlineTemplate(el, state);
+    if (inlineTemplate) {
+      data += inlineTemplate + ",";
+    }
+  }
+  data = data.replace(/,$/, '') + '}';
+  // v-bind data wrap
+  if (el.wrapData) {
+    data = el.wrapData(data);
+  }
+  // v-on data wrap
+  if (el.wrapListeners) {
+    data = el.wrapListeners(data);
+  }
+  return data
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
       // addClass
       aC: function(el, classToAdd) {
@@ -47478,8 +51000,33 @@ exports.default = function (input) {
       },
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+========
+function genScopedSlot (
+  key,
+  el,
+  state
+) {
+  if (el.for && !el.forProcessed) {
+    return genForScopedSlot(key, el, state)
+  }
+  var fn = "function(" + (String(el.slotScope)) + "){" +
+    "return " + (el.tag === 'template'
+      ? el.if
+        ? ("(" + (el.if) + ")?" + (genChildren(el, state) || 'undefined') + ":undefined")
+        : genChildren(el, state) || 'undefined'
+      : genElement(el, state)) + "}";
+  return ("{key:" + key + ",fn:" + fn + "}")
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
 
 
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+
+
+>>>>>>> Bump npm dependencies
       /*------------------------------------*\
         Calculate scrollbar size (width) in element
         - if the size is 0 it means the scrollbar is floated/overlayed
@@ -47525,13 +51072,62 @@ exports.default = function (input) {
         return barWidth;
       },
 
+<<<<<<< HEAD
+========
+function genChildren (
+  el,
+  state,
+  checkSkip,
+  altGenElement,
+  altGenNode
+) {
+  var children = el.children;
+  if (children.length) {
+    var el$1 = children[0];
+    // optimize single v-for
+    if (children.length === 1 &&
+      el$1.for &&
+      el$1.tag !== 'template' &&
+      el$1.tag !== 'slot'
+    ) {
+      var normalizationType = checkSkip
+        ? state.maybeComponent(el$1) ? ",1" : ",0"
+        : "";
+      return ("" + ((altGenElement || genElement)(el$1, state)) + normalizationType)
+    }
+    var normalizationType$1 = checkSkip
+      ? getNormalizationType(children, state.maybeComponent)
+      : 0;
+    var gen = altGenNode || genNode;
+    return ("[" + (children.map(function (c) { return gen(c, state); }).join(',')) + "]" + (normalizationType$1 ? ("," + normalizationType$1) : ''))
+  }
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
     }
 
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 
 
 
+========
+function genNode (node, state) {
+  if (node.type === 1) {
+    return genElement(node, state)
+  } else if (node.type === 3 && node.isComment) {
+    return genComment(node)
+  } else {
+    return genText(node)
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+
+
+
+>>>>>>> Bump npm dependencies
   }
 
 
@@ -47636,10 +51232,31 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     return object;
   }
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
   function buildDraggable(Sortable) {
     function removeNode(node) {
       node.parentElement.removeChild(node);
     }
+<<<<<<< HEAD
+========
+/*  */
+
+
+
+function createFunction (code, errors) {
+  try {
+    return new Function(code)
+  } catch (err) {
+    errors.push({ err: err, code: code });
+    return noop
+  }
+}
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+>>>>>>> Bump npm dependencies
 
     function insertNodeAt(fatherNode, node, position) {
       var refNode = position === 0 ? fatherNode.children[0] : fatherNode.children[position - 1].nextSibling;
@@ -47822,8 +51439,19 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
             }
           },
 
+<<<<<<< HEAD
+<<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
           deep: true
         },
+========
+var ref$1 = createCompiler(baseOptions);
+var compile = ref$1.compile;
+var compileToFunctions = ref$1.compileToFunctions;
+>>>>>>>> Bump npm dependencies:public/js/vendor.js
+=======
+          deep: true
+        },
+>>>>>>> Bump npm dependencies
 
         realList: function realList() {
           this.computeIndexes();

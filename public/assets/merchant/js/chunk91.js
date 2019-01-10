@@ -43,76 +43,68 @@ webpackJsonp([91],{
 //
 //
 
-
-
 /* harmony default export */ __webpack_exports__["a"] = ({
+  props: ['open'],
+  data: function data() {
+    return {
+      author: '',
+      year: '',
+      long: '',
+      url: '',
+      notes: '',
+      loading: false
+    };
+  },
+  directives: {
+    onClickaway: __WEBPACK_IMPORTED_MODULE_0_vue_clickaway__["directive"]
+  },
+  computed: {
+    disabled: function disabled() {
+      return this.author.length == 0 || this.year.length == 0 || this.long.length == 0;
+    }
+  },
+  methods: {
+    close: function close() {
+      this.author = '';
+      this.year = '';
+      this.long = '';
+      this.url = '';
+      this.notes = '';
+      this.$emit('close');
+    },
+    clickOutside: function clickOutside(event) {
+      if (event.srcElement.id != 'new-source-button') {
+        this.close();
+      }
+    },
+    onEnter: function onEnter(event) {
+      if (this.open) {
+        event.preventDefault();
 
-	props: ['open'],
+        if (!this.disabled) {
+          this.submit();
+        }
+      }
+    },
+    submit: function submit() {
+      var _this = this;
 
-	data: function data() {
-		return {
-			author: '',
-			year: '',
-			long: '',
-			url: '',
-			notes: '',
-			loading: false
-		};
-	},
+      this.loading = true;
+      axios.post('/sources/ajax', {
+        author: this.author,
+        year: this.year,
+        long: this.long,
+        url: this.url,
+        notes: this.notes
+      }).then(function (response) {
+        _this.$emit('input', response.data);
 
+        _this.loading = false;
 
-	directives: {
-		onClickaway: __WEBPACK_IMPORTED_MODULE_0_vue_clickaway__["directive"]
-	},
-
-	computed: {
-		disabled: function disabled() {
-			return this.author.length == 0 || this.year.length == 0 || this.long.length == 0;
-		}
-	},
-
-	methods: {
-		close: function close() {
-			this.author = '';
-			this.year = '';
-			this.long = '';
-			this.url = '';
-			this.notes = '';
-
-			this.$emit('close');
-		},
-		clickOutside: function clickOutside(event) {
-			if (event.srcElement.id != 'new-source-button') {
-				this.close();
-			}
-		},
-		onEnter: function onEnter(event) {
-			if (this.open) {
-				event.preventDefault();
-
-				if (!this.disabled) {
-					this.submit();
-				}
-			}
-		},
-		submit: function submit() {
-			var _this = this;
-
-			this.loading = true;
-
-			axios.post('/sources/ajax', {
-				author: this.author,
-				year: this.year,
-				long: this.long,
-				url: this.url,
-				notes: this.notes
-			}).then(function (response) {
-				_this.$emit('input', response.data);
-				_this.loading = false;
-				_this.close();
-			});
-		}
-	}
+        _this.close();
+      });
+    }
+  }
 });
 
 /***/ }),

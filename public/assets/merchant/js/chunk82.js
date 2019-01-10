@@ -20,45 +20,40 @@ webpackJsonp([82],{
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['active'],
+  props: ['active'],
+  data: function data() {
+    return {
+      tabs: []
+    };
+  },
+  created: function created() {
+    this.tabs = this.$children;
+  },
+  mounted: function mounted() {
+    if (!this.active) {
+      var hash = location.hash;
 
-	data: function data() {
-		return {
-			tabs: []
-		};
-	},
-	created: function created() {
-		this.tabs = this.$children;
-	},
-	mounted: function mounted() {
-		if (!this.active) {
-			var hash = location.hash;
-
-			if (hash != '') {
-				this.tabs.forEach(function (tab) {
-					tab.isActive = tab.href == location.hash;
-				});
-			}
-		} else {
-			this.selectTabByName(this.active);
-		}
-	},
-
-
-	methods: {
-		selectTab: function selectTab(targetTab) {
-			this.selectTabByName(targetTab.name);
-
-			this.$emit('tabChanged', targetTab.name);
-		},
-		selectTabByName: function selectTabByName(name) {
-			this.tabs.forEach(function (tab) {
-				tab.isActive = tab.name === name;
-			});
-		}
-	}
+      if (hash != '') {
+        this.tabs.forEach(function (tab) {
+          tab.isActive = tab.href == location.hash;
+        });
+      }
+    } else {
+      this.selectTabByName(this.active);
+    }
+  },
+  methods: {
+    selectTab: function selectTab(targetTab) {
+      this.selectTabByName(targetTab.name);
+      this.$emit('tabChanged', targetTab.name);
+    },
+    selectTabByName: function selectTabByName(name) {
+      this.tabs.forEach(function (tab) {
+        tab.isActive = tab.name === name;
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -99,7 +94,8 @@ var render = function() {
               )
             ]
           )
-        })
+        }),
+        0
       )
     ]),
     _vm._v(" "),

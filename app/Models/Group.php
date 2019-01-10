@@ -16,20 +16,29 @@ class Group extends Model
 {
     use HasChildren, Bookmarkable, Sourceable, RevisionableTrait, BacksUp;
 
-    protected $fillable = ['name', 'parent_id', 'publicNotes', 'privateNotes', 'aliases'];
+    protected $fillable = ['name', 'parent_id', 'public_notes', 'private_notes', 'aliases'];
 
     protected $revisionEnabled = true;
     protected $revisionCreationsEnabled = true;
     protected $revisionNullString = 'none';
     protected $revisionFormattedFieldNames = [
-        'privateNotes' => 'private notes',
-        'publicNotes'  => 'public notes'
+        'private_notes' => 'private notes',
+        'public_notes'  => 'public notes'
     ];
     protected $dontKeepRevisionOf = [
         'id',
         'position',
         'created_at',
         'updated_at'
+    ];
+
+    protected static $template = [
+        'name' => '',
+        'id' => 0,
+        'aliases' => [],
+        'public_notes' => '',
+        'private_notes' => '',
+        'parent' => Group::class
     ];
 
     public function identifiableName()

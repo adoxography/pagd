@@ -25,21 +25,15 @@ webpackJsonp([0,18],{
 //
 
 
-
-
 /* harmony default export */ __webpack_exports__["a"] = ({
   mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_OldSources__["a" /* default */]],
-
   props: ['method', 'action'],
-
   data: function data() {
     return {
       sources: [],
       csrfToken: Laravel.csrfToken
     };
   },
-
-
   methods: {
     validateBeforeSubmit: function validateBeforeSubmit(event) {
       var _this = this;
@@ -73,7 +67,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 
-
 /**
  * Datatype that holds information on IGT lines
  */
@@ -97,9 +90,7 @@ function IGTLine() {
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   extends: __WEBPACK_IMPORTED_MODULE_0__Form__["default"],
-
   props: ['lineTypes', 'oldLines'],
-
   data: function data() {
     return {
       language: new __WEBPACK_IMPORTED_MODULE_1__Datalist_js__["a" /* Datalist */](),
@@ -115,22 +106,20 @@ function IGTLine() {
         var type = _this.lineTypes.find(function (type) {
           return type.id == line.type_id;
         });
+
         return new IGTLine(line.text, type);
       });
-    }
+    } // Ensure that all lines have a type
 
-    // Ensure that all lines have a type
+
     this.lines.forEach(function (line) {
       if (!line.type) {
         line.type = _this.lineTypes[0];
       }
-    });
+    }); // Make sure that everything is aligned properly to start off with
 
-    // Make sure that everything is aligned properly to start off with
     this.align();
   },
-
-
   methods: {
     /**
      * Adds a line to the IGT
@@ -143,14 +132,12 @@ function IGTLine() {
       var _this2 = this;
 
       var newIndex = index + 1;
-      this.lines.splice(newIndex, 0, new IGTLine('', this.lineTypes[0]));
+      this.lines.splice(newIndex, 0, new IGTLine('', this.lineTypes[0])); // Wait for the page to re-render before focusing the new element
 
-      // Wait for the page to re-render before focusing the new element
       Vue.nextTick(function () {
         return _this2.$refs["line-" + newIndex][0].focus();
       });
     },
-
 
     /**
      * Removes a line of IGT
@@ -166,15 +153,12 @@ function IGTLine() {
 
       if (this.lines.length > 1) {
         this.lines.splice(index, 1);
-
         var remainingLine = Math.max(index - 1, 0);
-
         Vue.nextTick(function () {
           return _this3.$refs["line-" + remainingLine][0].focus();
         });
       }
     },
-
 
     /**
      * Lines up all of the aligning lines in the IGT
@@ -185,7 +169,9 @@ function IGTLine() {
       var horizontal = this.lines.map(function (line) {
         return line.text.split(/\s+/);
       });
+
       var vertical = _.zip.apply(_, horizontal);
+
       var exclude = [];
 
       for (var i = 0; i < this.lines.length; i++) {
@@ -204,7 +190,6 @@ function IGTLine() {
       }
     },
 
-
     /**
      * Ensures all members of an array are the same length by padding them
      * with a given character
@@ -216,7 +201,6 @@ function IGTLine() {
      */
     __padArray: function __padArray(arr, str) {
       var exclude = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-
       exclude = exclude || [];
       var size = 0;
 
@@ -230,6 +214,7 @@ function IGTLine() {
       for (var _i2 = 0; _i2 < arr.length; _i2++) {
         if (!exclude.includes(_i2)) {
           var _token = arr[_i2] || '';
+
           var addon = str.repeat(size - _token.length);
           arr[_i2] = _token + addon;
         }
@@ -355,33 +340,37 @@ render._withStripped = true
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Datalist; });
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Datalist = function () {
-    function Datalist() {
-        var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
-        var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
-        var extra = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-        _classCallCheck(this, Datalist);
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-        this.text = text;
-        this.id = id;
-        this.extra = extra;
+var Datalist =
+/*#__PURE__*/
+function () {
+  function Datalist() {
+    var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+    var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+    var extra = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
+
+    _classCallCheck(this, Datalist);
+
+    this.text = text;
+    this.id = id;
+    this.extra = extra;
+  }
+
+  _createClass(Datalist, [{
+    key: "reset",
+    value: function reset() {
+      this.text = "";
+      this.id = "";
+      this.extra = "";
     }
+  }]);
 
-    _createClass(Datalist, [{
-        key: "reset",
-        value: function reset() {
-            this.text = "";
-            this.id = "";
-            this.extra = "";
-        }
-    }]);
-
-    return Datalist;
+  return Datalist;
 }();
 
 
@@ -534,17 +523,21 @@ component.options.__file = "resources/assets/js/components/forms/IGT.vue"
 "use strict";
 /* unused harmony default export */ var _unused_webpack_default_export = ({
   props: ['oldErrors'],
-
   mounted: function mounted() {
     var _this = this;
 
     if (this.oldErrors) {
       _.forEach(this.oldErrors, function (errors, field) {
         errors.forEach(function (message) {
-          return _this.$root.errors.add({ field: field, msg: message });
+          return _this.$root.errors.add({
+            field: field,
+            msg: message
+          });
         });
       });
-    };
+    }
+
+    ;
   }
 });
 
@@ -555,23 +548,22 @@ component.options.__file = "resources/assets/js/components/forms/IGT.vue"
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['oldSources'],
+  props: ['oldSources'],
+  created: function created() {
+    var _this = this;
 
-	created: function created() {
-		var _this = this;
-
-		if (this.oldSources) {
-			this.oldSources.forEach(function (source) {
-				_this.sources.push({
-					short: source.display ? source.display : source.short,
-					id: source.id,
-					long: source.long,
-					extraInfo: source.pivot ? source.pivot.extraInfo : source.extraInfo,
-					description: source.pivot ? source.pivot.description : source.description
-				});
-			});
-		}
-	}
+    if (this.oldSources) {
+      this.oldSources.forEach(function (source) {
+        _this.sources.push({
+          short: source.display ? source.display : source.short,
+          id: source.id,
+          long: source.long,
+          extraInfo: source.pivot ? source.pivot.extraInfo : source.extraInfo,
+          description: source.pivot ? source.pivot.description : source.description
+        });
+      });
+    }
+  }
 });
 
 /***/ })

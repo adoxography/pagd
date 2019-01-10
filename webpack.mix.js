@@ -11,10 +11,6 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
  | file for your application, as well as bundling up your JS files.
  |
  */
-mix.autoload({
-   jquery: ['$', 'window.jQuery']
-});
-
 mix.webpackConfig({
   output: {
     publicPath: "/",
@@ -35,7 +31,6 @@ mix.webpackConfig({
 
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
-   //.copy('resources/assets/libs/font-awesome/fonts', 'public/build/fonts')
    .extract(['vue', 'axios', 'axios-retry', 'lodash', 'vee-validate'])
    .version();
 

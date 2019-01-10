@@ -16,22 +16,18 @@ webpackJsonp([41],{
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['title'],
-
-	data: function data() {
-		return {
-			isVisible: true
-		};
-	},
-
-
-	methods: {
-		hide: function hide() {
-			this.isVisible = false;
-		}
-	}
+  props: ['title'],
+  data: function data() {
+    return {
+      isVisible: true
+    };
+  },
+  methods: {
+    hide: function hide() {
+      this.isVisible = false;
+    }
+  }
 });
 
 /***/ }),

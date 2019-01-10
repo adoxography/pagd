@@ -43,28 +43,25 @@ webpackJsonp([33],{
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['pages', 'value', 'alpha'],
-
-	computed: {
-		mid: function mid() {
-			return Math.max(Math.min(this.value, this.pages - 3), 2);
-		}
-	},
-
-	methods: {
-		onClick: function onClick(newValue) {
-			this.$emit('input', newValue);
-		},
-		printLabel: function printLabel(index) {
-			if (this.alpha) {
-				return (index + 10).toString(36).toUpperCase();
-			} else {
-				return index + 1;
-			}
-		}
-	}
+  props: ['pages', 'value', 'alpha'],
+  computed: {
+    mid: function mid() {
+      return Math.max(Math.min(this.value, this.pages - 3), 2);
+    }
+  },
+  methods: {
+    onClick: function onClick(newValue) {
+      this.$emit('input', newValue);
+    },
+    printLabel: function printLabel(index) {
+      if (this.alpha) {
+        return (index + 10).toString(36).toUpperCase();
+      } else {
+        return index + 1;
+      }
+    }
+  }
 });
 
 /***/ }),

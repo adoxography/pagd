@@ -41,45 +41,39 @@ webpackJsonp([35],{
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['list'],
+  props: ['list'],
+  data: function data() {
+    return {
+      selected: 0
+    };
+  },
+  computed: {
+    pages: function pages() {
+      var pages = [];
 
-	data: function data() {
-		return {
-			selected: 0
-		};
-	},
+      for (var i = 0; i < this.list.length; i += 10) {
+        pages.push(this.list.slice(i, i + 10));
+      }
 
-
-	computed: {
-		pages: function pages() {
-			var pages = [];
-
-			for (var i = 0; i < this.list.length; i += 10) {
-				pages.push(this.list.slice(i, i + 10));
-			}
-
-			return pages;
-		},
-		mid: function mid() {
-			return Math.max(Math.min(this.selected, this.pages.length - 3), 2);
-			// return Math.min(Math.max(this.selected, 2), this.pages.length - 3);
-		}
-	},
-
-	methods: {
-		previousPage: function previousPage() {
-			if (this.selected > 0) {
-				this.selected--;
-			}
-		},
-		nextPage: function nextPage() {
-			if (this.selected < this.pages.length - 1) {
-				this.selected++;
-			}
-		}
-	}
+      return pages;
+    },
+    mid: function mid() {
+      return Math.max(Math.min(this.selected, this.pages.length - 3), 2); // return Math.min(Math.max(this.selected, 2), this.pages.length - 3);
+    }
+  },
+  methods: {
+    previousPage: function previousPage() {
+      if (this.selected > 0) {
+        this.selected--;
+      }
+    },
+    nextPage: function nextPage() {
+      if (this.selected < this.pages.length - 1) {
+        this.selected++;
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -312,9 +306,11 @@ var render = function() {
                 _vm._v(")")
               ])
             ])
-          })
+          }),
+          0
         )
-      })
+      }),
+      0
     )
   ])
 }

@@ -38,55 +38,46 @@ webpackJsonp([24],{
 //
 //
 
-
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['value', 'list', 'name', 'disabled'],
-
-	data: function data() {
-		return {
-			numFields: 1,
-			suggestions: {
-				cree: [new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Plains Cree', 2), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Woods Cree', 35), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Swampy Cree', 59), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Moose Cree', 5), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Atikamekw', 36), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Southern East Cree', 37), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Northern East Cree', 38), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Sheshatshiu Innu', 39)],
-
-				ojibwe: [new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Saulteaux', 27), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Southwestern Ojibwe', 21), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Oji-Cree', 28), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Odawa', 29), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Nishnaabemwin', 22), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Nipissing', 31), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Old Algonquin', 32), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Lac Simon Algonquin', 33), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Golden Lake Algonquin', 34)]
-			}
-		};
-	},
-
-
-	methods: {
-		addField: function addField() {
-			if (this.value.length < 5) {
-				var temp = this.value;
-				temp.push({
-					text: '',
-					id: ''
-				});
-
-				this.$emit('input', temp);
-			}
-		},
-		removeField: function removeField() {
-			if (this.value.length > 1) {
-				var temp = this.value;
-				temp.pop();
-				this.$emit('input', temp);
-			}
-		},
-		suggest: function suggest(key) {
-			var newLists = [];
-
-			this.suggestions[key].forEach(function (suggestion) {
-				newLists.push({
-					text: suggestion.text,
-					id: suggestion.id
-				});
-			});
-
-			this.$emit('input', newLists);
-		}
-	}
+  props: ['value', 'list', 'name', 'disabled'],
+  data: function data() {
+    return {
+      numFields: 1,
+      suggestions: {
+        cree: [new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Plains Cree', 2), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Woods Cree', 35), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Swampy Cree', 59), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Moose Cree', 5), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Atikamekw', 36), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Southern East Cree', 37), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Northern East Cree', 38), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Sheshatshiu Innu', 39)],
+        ojibwe: [new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Saulteaux', 27), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Southwestern Ojibwe', 21), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Oji-Cree', 28), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Odawa', 29), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Nishnaabemwin', 22), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Nipissing', 31), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Old Algonquin', 32), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Lac Simon Algonquin', 33), new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */]('Golden Lake Algonquin', 34)]
+      }
+    };
+  },
+  methods: {
+    addField: function addField() {
+      if (this.value.length < 5) {
+        var temp = this.value;
+        temp.push({
+          text: '',
+          id: ''
+        });
+        this.$emit('input', temp);
+      }
+    },
+    removeField: function removeField() {
+      if (this.value.length > 1) {
+        var temp = this.value;
+        temp.pop();
+        this.$emit('input', temp);
+      }
+    },
+    suggest: function suggest(key) {
+      var newLists = [];
+      this.suggestions[key].forEach(function (suggestion) {
+        newLists.push({
+          text: suggestion.text,
+          id: suggestion.id
+        });
+      });
+      this.$emit('input', newLists);
+    }
+  }
 });
 
 /***/ }),
@@ -223,33 +214,37 @@ render._withStripped = true
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Datalist; });
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Datalist = function () {
-    function Datalist() {
-        var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
-        var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
-        var extra = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-        _classCallCheck(this, Datalist);
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-        this.text = text;
-        this.id = id;
-        this.extra = extra;
+var Datalist =
+/*#__PURE__*/
+function () {
+  function Datalist() {
+    var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+    var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+    var extra = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
+
+    _classCallCheck(this, Datalist);
+
+    this.text = text;
+    this.id = id;
+    this.extra = extra;
+  }
+
+  _createClass(Datalist, [{
+    key: "reset",
+    value: function reset() {
+      this.text = "";
+      this.id = "";
+      this.extra = "";
     }
+  }]);
 
-    _createClass(Datalist, [{
-        key: "reset",
-        value: function reset() {
-            this.text = "";
-            this.id = "";
-            this.extra = "";
-        }
-    }]);
-
-    return Datalist;
+  return Datalist;
 }();
 
 

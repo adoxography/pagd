@@ -112,7 +112,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //
 //
 //
-
 var Filter = function Filter(label, options) {
   _classCallCheck(this, Filter);
 
@@ -145,7 +144,6 @@ var Filter = function Filter(label, options) {
     },
     'formUri': {}
   },
-
   data: function data() {
     return {
       forms: null,
@@ -156,22 +154,18 @@ var Filter = function Filter(label, options) {
       filters: []
     };
   },
-
-
   computed: {
     addURI: function addURI() {
       if (this.language) {
-        return '/languages/' + this.language;
+        return "/languages/".concat(this.language);
       }
     }
   },
-
   watch: {
     page: function page() {
       this.getForms();
     }
   },
-
   created: function created() {
     if (this.languages) {
       this.filters.push(new Filter('Language', this.languages));
@@ -183,14 +177,11 @@ var Filter = function Filter(label, options) {
       this.filters.push(new Filter(filterName, this.filterData[filterName]));
     }
   },
-
-
   methods: {
     getForms: function getForms() {
       var _this = this;
 
       this.forms = null;
-
       var params = {
         'perPage': this.perPage,
         'page': this.page,
@@ -216,7 +207,6 @@ var Filter = function Filter(label, options) {
       try {
         for (var _iterator = this.filters[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var filter = _step.value;
-
           params[_.camelCase(filter.label)] = filter.value;
         }
       } catch (err) {
@@ -224,7 +214,7 @@ var Filter = function Filter(label, options) {
         _iteratorError = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion && _iterator.return) {
+          if (!_iteratorNormalCompletion && _iterator.return != null) {
             _iterator.return();
           }
         } finally {
@@ -242,13 +232,13 @@ var Filter = function Filter(label, options) {
 
         _this.forms.forEach(function (form) {
           if (form.examples.length == 0) {
-            form.examples.push({ html: '<p class="table-note">No examples in the database</p>' });
+            form.examples.push({
+              html: '<p class="table-note">No examples in the database</p>'
+            });
           }
         });
       });
     },
-
-
     debounceGetForms: _.debounce(function (e) {
       this.getForms();
     }, 300)
@@ -379,7 +369,8 @@ var render = function() {
                       [_vm._v(_vm._s(i))]
                     )
                   ])
-                })
+                }),
+                0
               )
             : _vm._e()
         ]
@@ -621,7 +612,8 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", [_vm._v("No examples in the database")])
                         ])
-                  })
+                  }),
+                  0
                 )
               })
             ],

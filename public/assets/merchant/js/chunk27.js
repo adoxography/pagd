@@ -195,185 +195,211 @@ webpackJsonp([27],{
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['method', 'action', 'orders', 'modes', 'languages', 'preset'],
+  props: ['method', 'action', 'orders', 'modes', 'languages', 'preset'],
+  data: function data() {
+    return {
+      form: {
+        modeSelect: 'indicativeOnly',
+        languages: [{
+          text: 'Proto-Algonquian',
+          id: '1'
+        }],
+        affirmative: true,
+        negative: false,
+        nonDiminutive: true,
+        diminutive: false,
+        classes: {
+          AI: {
+            id: 1,
+            checked: false
+          },
+          II: {
+            id: 2,
+            checked: false
+          },
+          TI: {
+            id: 4,
+            checked: false
+          },
+          TA: {
+            id: 3,
+            checked: true
+          },
+          AIO: {
+            id: 5,
+            checked: false
+          },
+          TAO: {
+            id: 6,
+            checked: false
+          }
+        },
+        subclasses: [{
+          id: 'Local',
+          checked: true
+        }, {
+          id: 'Mixed',
+          checked: true
+        }, {
+          id: 'Non-local',
+          checked: true
+        }, {
+          id: 'Inanimate',
+          checked: false
+        }, {
+          id: 'Impersonal',
+          checked: false
+        }, {
+          id: 'Obviative',
+          checked: false
+        }],
+        orders: [],
+        modes: [],
+        showMorphology: false
+      }
+    };
+  },
+  methods: {
+    getData: function getData() {
+      return this.form;
+    },
+    importData: function importData(data) {
+      var _this = this;
 
-	data: function data() {
-		return {
-			form: {
-				modeSelect: 'indicativeOnly',
-				languages: [{
-					text: 'Proto-Algonquian',
-					id: '1'
-				}],
-				affirmative: true,
-				negative: false,
-				nonDiminutive: true,
-				diminutive: false,
-				classes: {
-					AI: { id: 1, checked: false },
-					II: { id: 2, checked: false },
-					TI: { id: 4, checked: false },
-					TA: { id: 3, checked: true },
-					AIO: { id: 5, checked: false },
-					TAO: { id: 6, checked: false }
-				},
-				subclasses: [{ id: 'Local', checked: true }, { id: 'Mixed', checked: true }, { id: 'Non-local', checked: true }, { id: 'Inanimate', checked: false }, { id: 'Impersonal', checked: false }, { id: 'Obviative', checked: false }],
-				orders: [],
-				modes: [],
-				showMorphology: false
-			}
-		};
-	},
+      if (data.class) {
+        _.forEach(this.form.classes, function (theClass) {
+          theClass.checked = theClass.id == data.class;
+        });
 
+        this.form.subclasses.forEach(function (subclass) {
+          subclass.checked = _this.form.classes.TA.checked;
+        });
+      }
 
-	methods: {
-		getData: function getData() {
-			return this.form;
-		},
-		importData: function importData(data) {
-			var _this = this;
+      if (data.orders.length > 0) {
+        var found = false;
+        this.form.orders.forEach(function (order) {
+          found = false;
 
-			if (data.class) {
-				_.forEach(this.form.classes, function (theClass) {
-					theClass.checked = theClass.id == data.class;
-				});
+          for (var i = 0; i < data.orders.length && !found; i++) {
+            found = order.id == data.orders[i];
+          }
 
-				this.form.subclasses.forEach(function (subclass) {
-					subclass.checked = _this.form.classes.TA.checked;
-				});
-			}
+          order.checked = found;
+        });
+      }
 
-			if (data.orders.length > 0) {
-				var found = false;
+      if (data.language.text.length > 0) {
+        this.form.languages = [data.language];
+      }
+    },
+    onSelectSubclass: function onSelectSubclass(checked) {
+      if (checked) {
+        this.form.classes.TA.checked = true;
+      } else {
+        var found = false;
 
-				this.form.orders.forEach(function (order) {
-					found = false;
+        for (var i = 0; i < this.form.subclasses.length && !found; i++) {
+          if (this.form.subclasses[i].checked) {
+            found = true;
+          }
+        }
 
-					for (var i = 0; i < data.orders.length && !found; i++) {
-						found = order.id == data.orders[i];
-					}
+        this.form.classes.TA.checked = found;
+      }
+    },
+    onSelectAI: function onSelectAI(checked) {
+      this.form.subclasses.forEach(function (subclass) {
+        subclass.checked = checked;
+      });
+    },
+    loadCheck: function loadCheck(array, field) {
+      var _this2 = this;
 
-					order.checked = found;
-				});
-			}
+      if (field.constructor === Array) {
+        field.forEach(function (value) {
+          _this2.loadCheck(array, value);
+        });
+      } else {
+        this.form[field] = typeof array[field] !== 'undefined' && array[field] && array[field] != '0';
+      }
+    },
+    loadSeries: function loadSeries(array, field) {
+      var _this3 = this;
 
-			if (data.language.text.length > 0) {
-				this.form.languages = [data.language];
-			}
-		},
-		onSelectSubclass: function onSelectSubclass(checked) {
-			if (checked) {
-				this.form.classes.TA.checked = true;
-			} else {
-				var found = false;
+      if (field.constructor === Array) {
+        field.forEach(function (value) {
+          _this3.loadSeries(array, value);
+        });
+      } else {
+        this.form[field].forEach(function (value) {
+          value.checked = false;
+        });
 
-				for (var i = 0; i < this.form.subclasses.length && !found; i++) {
-					if (this.form.subclasses[i].checked) {
-						found = true;
-					}
-				}
+        if (array[field]) {
+          array[field].forEach(function (value) {
+            var found = false;
 
-				this.form.classes.TA.checked = found;
-			}
-		},
-		onSelectAI: function onSelectAI(checked) {
-			this.form.subclasses.forEach(function (subclass) {
-				subclass.checked = checked;
-			});
-		},
-		loadCheck: function loadCheck(array, field) {
-			var _this2 = this;
+            for (var i = 0; i < _this3.form[field].length && !found; i++) {
+              if (_this3.form[field][i].id == value) {
+                _this3.form[field][i].checked = true;
+                found = true;
+              }
+            }
+          });
+        }
+      }
+    }
+  },
+  created: function created() {
+    var _this4 = this;
 
-			if (field.constructor === Array) {
-				field.forEach(function (value) {
-					_this2.loadCheck(array, value);
-				});
-			} else {
-				this.form[field] = typeof array[field] !== 'undefined' && array[field] && array[field] != '0';
-			}
-		},
-		loadSeries: function loadSeries(array, field) {
-			var _this3 = this;
+    this.form.orders = this.orders;
+    this.form.modes = this.modes;
+    var unmarkedIndex = this.form.modes.findIndex(function (mode) {
+      return mode.name == 'Unmarked';
+    });
+    this.form.modes.splice(unmarkedIndex, 1);
+    var indicativeIndex = this.form.modes.findIndex(function (mode) {
+      return mode.name == 'Indicative';
+    });
+    this.form.modes[indicativeIndex].name = "Indicative/Unmarked";
 
-			if (field.constructor === Array) {
-				field.forEach(function (value) {
-					_this3.loadSeries(array, value);
-				});
-			} else {
-				this.form[field].forEach(function (value) {
-					value.checked = false;
-				});
+    if (this.preset) {
+      this.loadCheck(this.preset, ['affirmative', 'negative', 'nonDiminutive', 'diminutive', 'showMorphology']);
+      this.loadSeries(this.preset, ['orders', 'modes', 'subclasses']);
+      this.form.modeSelect = this.preset.modeSelect;
 
-				if (array[field]) {
-					array[field].forEach(function (value) {
-						var found = false;
-						for (var i = 0; i < _this3.form[field].length && !found; i++) {
-							if (_this3.form[field][i].id == value) {
-								_this3.form[field][i].checked = true;
-								found = true;
-							}
-						}
-					});
-				}
-			}
-		}
-	},
+      if (this.preset.classes) {
+        _.forEach(this.form.classes, function (value) {
+          value.checked = false;
+        });
 
-	created: function created() {
-		var _this4 = this;
+        this.preset.classes.forEach(function (formClass) {
+          _.forEach(_this4.form.classes, function (value) {
+            if (value.id == formClass) {
+              value.checked = true;
+              return false;
+            }
+          });
+        });
+      }
 
-		this.form.orders = this.orders;
-		this.form.modes = this.modes;
+      if (this.preset.languages) {
+        var temp = [];
 
-		var unmarkedIndex = this.form.modes.findIndex(function (mode) {
-			return mode.name == 'Unmarked';
-		});
+        for (var i = 0; i < this.preset.languages.length; i += 2) {
+          temp.push({
+            text: this.preset.languages[i],
+            id: this.preset.languages[i + 1]
+          });
+        }
 
-		this.form.modes.splice(unmarkedIndex, 1);
-
-		var indicativeIndex = this.form.modes.findIndex(function (mode) {
-			return mode.name == 'Indicative';
-		});
-
-		this.form.modes[indicativeIndex].name = "Indicative/Unmarked";
-
-		if (this.preset) {
-			this.loadCheck(this.preset, ['affirmative', 'negative', 'nonDiminutive', 'diminutive', 'showMorphology']);
-			this.loadSeries(this.preset, ['orders', 'modes', 'subclasses']);
-
-			this.form.modeSelect = this.preset.modeSelect;
-
-			if (this.preset.classes) {
-				_.forEach(this.form.classes, function (value) {
-					value.checked = false;
-				});
-
-				this.preset.classes.forEach(function (formClass) {
-					_.forEach(_this4.form.classes, function (value) {
-						if (value.id == formClass) {
-							value.checked = true;
-							return false;
-						}
-					});
-				});
-			}
-
-			if (this.preset.languages) {
-				var temp = [];
-
-				for (var i = 0; i < this.preset.languages.length; i += 2) {
-					temp.push({
-						text: this.preset.languages[i],
-						id: this.preset.languages[i + 1]
-					});
-				}
-
-				this.form.languages = temp;
-			}
-		}
-	}
+        this.form.languages = temp;
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -663,7 +689,8 @@ var render = function() {
                   )
                 ])
               ])
-            })
+            }),
+            0
           ),
           _vm._v(" "),
           _c("div", { staticClass: "field is-grouped" }, [
@@ -976,7 +1003,8 @@ var render = function() {
                   )
                 ])
               ])
-            })
+            }),
+            0
           )
         ]),
         _vm._v(" "),

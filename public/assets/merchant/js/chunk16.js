@@ -16,41 +16,34 @@ webpackJsonp([16],{
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-    props: ['preview'],
-
-    data: function data() {
-        return {
-            show: true,
-            overflowing: false
-        };
+  props: ['preview'],
+  data: function data() {
+    return {
+      show: true,
+      overflowing: false
+    };
+  },
+  computed: {
+    height: function height() {
+      return this.show ? '100%' : this.preview;
     },
-
-
-    computed: {
-        height: function height() {
-            return this.show ? '100%' : this.preview;
-        },
-        toggleText: function toggleText() {
-            return this.show ? 'Show less...' : 'Show more...';
-        },
-        previewHeight: function previewHeight() {
-            return (/\d+/.exec(this.preview)[0]
-            );
-        }
+    toggleText: function toggleText() {
+      return this.show ? 'Show less...' : 'Show more...';
     },
-
-    methods: {
-        toggle: function toggle() {
-            this.show = !this.show;
-        }
-    },
-
-    mounted: function mounted() {
-        this.overflowing = this.$refs.slot.offsetHeight > this.previewHeight;
-        this.show = false;
+    previewHeight: function previewHeight() {
+      return /\d+/.exec(this.preview)[0];
     }
+  },
+  methods: {
+    toggle: function toggle() {
+      this.show = !this.show;
+    }
+  },
+  mounted: function mounted() {
+    this.overflowing = this.$refs.slot.offsetHeight > this.previewHeight;
+    this.show = false;
+  }
 });
 
 /***/ }),

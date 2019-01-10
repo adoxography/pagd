@@ -22,46 +22,39 @@ webpackJsonp([25],{
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['languages', 'orders', 'modes', 'preset', 'active'],
+  props: ['languages', 'orders', 'modes', 'preset', 'active'],
+  data: function data() {
+    return {
+      activeTab: ''
+    };
+  },
+  methods: {
+    onTabChanged: function onTabChanged(searchName) {
+      var oldSearchName;
+      var oldSearch;
+      var newSearch; // Figure out which searches are which
 
-	data: function data() {
-		return {
-			activeTab: ''
-		};
-	},
+      if (searchName === 'Basic') {
+        oldSearchName = 'Advanced';
+      } else {
+        oldSearchName = 'Basic';
+      } // Recall the searches
 
 
-	methods: {
-		onTabChanged: function onTabChanged(searchName) {
-			var oldSearchName = void 0;
-			var oldSearch = void 0;
-			var newSearch = void 0;
+      oldSearch = this.$refs[oldSearchName];
+      newSearch = this.$refs[searchName]; // Load the data from the old search into the new one
 
-			// Figure out which searches are which
-			if (searchName === 'Basic') {
-				oldSearchName = 'Advanced';
-			} else {
-				oldSearchName = 'Basic';
-			}
-
-			// Recall the searches
-			oldSearch = this.$refs[oldSearchName];
-			newSearch = this.$refs[searchName];
-
-			// Load the data from the old search into the new one
-			newSearch.importData(oldSearch.getData());
-		}
-	},
-
-	created: function created() {
-		if (this.active) {
-			this.activeTab = this.active;
-		} else {
-			this.activeTab = 'Basic';
-		}
-	}
+      newSearch.importData(oldSearch.getData());
+    }
+  },
+  created: function created() {
+    if (this.active) {
+      this.activeTab = this.active;
+    } else {
+      this.activeTab = 'Basic';
+    }
+  }
 });
 
 /***/ }),

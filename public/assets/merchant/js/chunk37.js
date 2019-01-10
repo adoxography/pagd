@@ -10,39 +10,35 @@ webpackJsonp([37],{
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-	data: function data() {
-		return {
-			list: {
-				text: '',
-				id: ''
-			},
-			short: '',
-			id: ''
-		};
-	},
-
-
-	methods: {
-		add: function add() {
-			if (this.id) {
-				this.$emit('input', this.$data);
-				this.$refs.ajaxlist.text = '';
-				this.$refs.ajaxlist.value = '';
-			}
-		},
-		reset: function reset() {
-			this.list.text = '';
-			this.list.id = '';
-		},
-		onChange: function onChange(event) {
-			if (this.$refs.datalist.showCheck) {
-				this.reset();
-			}
-		}
-	}
-
+  data: function data() {
+    return {
+      list: {
+        text: '',
+        id: ''
+      },
+      short: '',
+      id: ''
+    };
+  },
+  methods: {
+    add: function add() {
+      if (this.id) {
+        this.$emit('input', this.$data);
+        this.$refs.ajaxlist.text = '';
+        this.$refs.ajaxlist.value = '';
+      }
+    },
+    reset: function reset() {
+      this.list.text = '';
+      this.list.id = '';
+    },
+    onChange: function onChange(event) {
+      if (this.$refs.datalist.showCheck) {
+        this.reset();
+      }
+    }
+  }
 });
 
 /***/ }),

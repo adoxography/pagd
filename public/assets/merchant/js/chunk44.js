@@ -4,164 +4,164 @@ webpackJsonp([44],{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-var Errors = function () {
-	function Errors() {
-		_classCallCheck(this, Errors);
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-		this.errors = [];
-	}
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var Errors =
+/*#__PURE__*/
+function () {
+  function Errors() {
+    _classCallCheck(this, Errors);
 
-	_createClass(Errors, [{
-		key: 'any',
-		value: function any() {
-			return this.errors.length > 0;
-		}
-	}, {
-		key: 'record',
-		value: function record(error) {
-			this.errors.push(error);
-		}
-	}, {
-		key: 'clear',
-		value: function clear() {
-			this.errors = [];
-		}
-	}, {
-		key: 'first',
-		value: function first() {
-			return this.errors[0];
-		}
-	}]);
+    this.errors = [];
+  }
 
-	return Errors;
+  _createClass(Errors, [{
+    key: "any",
+    value: function any() {
+      return this.errors.length > 0;
+    }
+  }, {
+    key: "record",
+    value: function record(error) {
+      this.errors.push(error);
+    }
+  }, {
+    key: "clear",
+    value: function clear() {
+      this.errors = [];
+    }
+  }, {
+    key: "first",
+    value: function first() {
+      return this.errors[0];
+    }
+  }]);
+
+  return Errors;
 }();
 
-var File = function () {
-	function File() {
-		var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+var File =
+/*#__PURE__*/
+function () {
+  function File() {
+    var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 
-		_classCallCheck(this, File);
+    _classCallCheck(this, File);
 
-		this.text = text;
-		this.isEmpty = text.length == 0;
-		this.errors = new Errors();
-	}
+    this.text = text;
+    this.isEmpty = text.length == 0;
+    this.errors = new Errors();
+  }
 
-	_createClass(File, [{
-		key: 'buttonText',
-		value: function buttonText() {
-			if (this.isEmpty) {
-				return 'Upload new file';
-			} else {
-				return 'File is ready!';
-			}
-		}
-	}, {
-		key: 'reset',
-		value: function reset() {
-			this.text = '';
-			this.isEmpty = true;
-		}
-	}, {
-		key: 'store',
-		value: function store(file) {
-			var valid = this.validate(file);
-			var pattern = /(.*)\.([^\.]*$)/;
+  _createClass(File, [{
+    key: "buttonText",
+    value: function buttonText() {
+      if (this.isEmpty) {
+        return 'Upload new file';
+      } else {
+        return 'File is ready!';
+      }
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      this.text = '';
+      this.isEmpty = true;
+    }
+  }, {
+    key: "store",
+    value: function store(file) {
+      var valid = this.validate(file);
+      var pattern = /(.*)\.([^\.]*$)/;
 
-			if (valid) {
-				this.text = file.name.match(pattern)[1];
-				this.errors.clear();
-				this.isEmpty = false;
-			} else {
-				this.errors.record("That file type is not allowed.");
-			}
+      if (valid) {
+        this.text = file.name.match(pattern)[1];
+        this.errors.clear();
+        this.isEmpty = false;
+      } else {
+        this.errors.record("That file type is not allowed.");
+      }
 
-			return valid;
-		}
-	}, {
-		key: 'validate',
-		value: function validate(file) {
-			var pattern = /^audio\/.*/;
+      return valid;
+    }
+  }, {
+    key: "validate",
+    value: function validate(file) {
+      var pattern = /^audio\/.*/;
+      return file && file.type && file.type.match(pattern);
+    }
+  }, {
+    key: "hasErrors",
+    value: function hasErrors() {
+      return this.error.length > 0;
+    }
+  }]);
 
-			return file && file.type && file.type.match(pattern);
-		}
-	}, {
-		key: 'hasErrors',
-		value: function hasErrors() {
-			return this.error.length > 0;
-		}
-	}]);
-
-	return File;
+  return File;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['multi', 'name', 'showText', 'accept'],
+  props: ['multi', 'name', 'showText', 'accept'],
+  data: function data() {
+    return {
+      rows: []
+    };
+  },
+  methods: {
+    onFileChange: function onFileChange(files, row) {
+      if (row.store(files[0])) {
+        this.$emit('upload', {
+          name: row.text
+        });
 
-	data: function data() {
-		return {
-			rows: []
-		};
-	},
+        if (this.multi) {
+          this.rows.push(new File());
+        }
+      }
+    },
+    onDelete: function onDelete(index) {
+      this.rows.splice(index, 1);
 
-
-	methods: {
-		onFileChange: function onFileChange(files, row) {
-			if (row.store(files[0])) {
-				this.$emit('upload', {
-					name: row.text
-				});
-
-				if (this.multi) {
-					this.rows.push(new File());
-				}
-			}
-		},
-		onDelete: function onDelete(index) {
-			this.rows.splice(index, 1);
-
-			if (this.rows.length == 0) {
-				this.rows.push(new File());
-			}
-		}
-	},
-
-	created: function created() {
-		this.rows.push(new File());
-	}
+      if (this.rows.length == 0) {
+        this.rows.push(new File());
+      }
+    }
+  },
+  created: function created() {
+    this.rows.push(new File());
+  }
 });
 
 /***/ }),
@@ -276,7 +276,8 @@ var render = function() {
             ])
           : _vm._e()
       ])
-    })
+    }),
+    0
   )
 }
 var staticRenderFns = []

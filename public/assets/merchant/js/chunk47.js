@@ -7,86 +7,76 @@ webpackJsonp([47],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuebar__ = __webpack_require__("./node_modules/vuebar/vuebar.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuebar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuebar__);
 
-
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vuebar___default.a);
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['morphemesOn', 'hasMorphemes'],
+  props: ['morphemesOn', 'hasMorphemes'],
+  data: function data() {
+    return {
+      show: false
+    };
+  },
+  methods: {
+    toggleShow: function toggleShow() {
+      this.show = !this.show;
+    }
+  },
+  created: function created() {
+    if (this.morphemesOn) {
+      this.show = this.hasMorphemes && this.morphemesOn;
+    }
+  },
+  mounted: function mounted() {
+    var table = this.$refs.table;
+    Vue.nextTick(function () {
+      table.style.width = table.firstChild.scrollWidth + 'px'; //console.log(table.style.width);
+    });
+    var header = table.firstChild;
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
 
-	data: function data() {
-		return {
-			show: false
-		};
-	},
+    try {
+      for (var _iterator = header.children[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var row = _step.value;
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
 
-
-	methods: {
-		toggleShow: function toggleShow() {
-			this.show = !this.show;
-		}
-	},
-
-	created: function created() {
-		if (this.morphemesOn) {
-			this.show = this.hasMorphemes && this.morphemesOn;
-		}
-	},
-	mounted: function mounted() {
-		var table = this.$refs.table;
-
-		Vue.nextTick(function () {
-			table.style.width = table.firstChild.scrollWidth + 'px';
-			//console.log(table.style.width);
-		});
-
-		var header = table.firstChild;
-		var _iteratorNormalCompletion = true;
-		var _didIteratorError = false;
-		var _iteratorError = undefined;
-
-		try {
-			for (var _iterator = header.children[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-				var row = _step.value;
-				var _iteratorNormalCompletion2 = true;
-				var _didIteratorError2 = false;
-				var _iteratorError2 = undefined;
-
-				try {
-					for (var _iterator2 = row.children[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-						var cell = _step2.value;
-
-						cell.style.top = cell.offsetTop + 'px';
-					}
-				} catch (err) {
-					_didIteratorError2 = true;
-					_iteratorError2 = err;
-				} finally {
-					try {
-						if (!_iteratorNormalCompletion2 && _iterator2.return) {
-							_iterator2.return();
-						}
-					} finally {
-						if (_didIteratorError2) {
-							throw _iteratorError2;
-						}
-					}
-				}
-			}
-		} catch (err) {
-			_didIteratorError = true;
-			_iteratorError = err;
-		} finally {
-			try {
-				if (!_iteratorNormalCompletion && _iterator.return) {
-					_iterator.return();
-				}
-			} finally {
-				if (_didIteratorError) {
-					throw _iteratorError;
-				}
-			}
-		}
-	}
+        try {
+          for (var _iterator2 = row.children[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var cell = _step2.value;
+            cell.style.top = cell.offsetTop + 'px';
+          }
+        } catch (err) {
+          _didIteratorError2 = true;
+          _iteratorError2 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+              _iterator2.return();
+            }
+          } finally {
+            if (_didIteratorError2) {
+              throw _iteratorError2;
+            }
+          }
+        }
+      }
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator.return != null) {
+          _iterator.return();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
+      }
+    }
+  }
 });
 
 /***/ }),

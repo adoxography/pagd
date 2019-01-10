@@ -10,24 +10,20 @@ webpackJsonp([45],{
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['href'],
-
-	data: function data() {
-		return {
-			classes: {}
-		};
-	},
-
-
-	methods: {
-		onClick: function onClick() {
-			axios.delete(this.href).then(function (response) {
-				alert('Deleted');
-			});
-		}
-	}
+  props: ['href'],
+  data: function data() {
+    return {
+      classes: {}
+    };
+  },
+  methods: {
+    onClick: function onClick() {
+      axios.delete(this.href).then(function (response) {
+        alert('Deleted');
+      });
+    }
+  }
 });
 
 /***/ }),

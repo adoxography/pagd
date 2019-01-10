@@ -11,11 +11,8 @@ webpackJsonp([23],{
 //
 //
 
-
-
 /* harmony default export */ __webpack_exports__["a"] = ({
   props: ['nodes', 'edges'],
-
   data: function data() {
     return {
       network: null,
@@ -44,26 +41,20 @@ webpackJsonp([23],{
       }
     };
   },
-
-
   computed: {
     networkCanvas: function networkCanvas() {
       return this.$refs.network.getElementsByTagName("canvas")[0];
     }
   },
-
   mounted: function mounted() {
     var _this = this;
 
     var container = this.$refs.network;
-
     var data = {
       nodes: new __WEBPACK_IMPORTED_MODULE_0_vis___default.a.DataSet(this.nodes),
       edges: new __WEBPACK_IMPORTED_MODULE_0_vis___default.a.DataSet(this.edges)
     };
-
     this.network = new __WEBPACK_IMPORTED_MODULE_0_vis___default.a.Network(container, data, this.options);
-
     this.network.on("click", function (params) {
       if (params.nodes.length == 1) {
         _this.redirect(params.nodes[0], _this.nodes);
@@ -71,23 +62,18 @@ webpackJsonp([23],{
         _this.redirect(params.edges[0], _this.edges);
       }
     });
-
     this.network.on("showPopup", function () {
       _this.changeCursor("pointer");
     });
-
     this.network.on("hidePopup", function () {
       _this.changeCursor("default");
     });
   },
-
-
   methods: {
     redirect: function redirect(id, items) {
       var selected = items.find(function (item) {
         return item.id == id;
       });
-
       window.location = selected.href;
     },
     changeCursor: function changeCursor(newCursorStyle) {

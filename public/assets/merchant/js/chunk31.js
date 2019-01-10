@@ -113,124 +113,113 @@ webpackJsonp([31],{
 //
 //
 
-
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['value', 'disabled'],
+  props: ['value', 'disabled'],
+  data: function data() {
+    return {
+      showModal: false,
+      showDescription: false,
+      focusedSource: {
+        index: 0,
+        description: ''
+      },
+      oldSource: {
+        text: '',
+        id: ''
+      }
+    };
+  },
+  computed: {
+    hasDuplicates: function hasDuplicates() {
+      var sources = this.value;
+      var found = false;
 
-	data: function data() {
-		return {
-			showModal: false,
+      for (var i = 0; i < sources.length && !found; i++) {
+        found = this.duplicateSource(sources[i].id);
+      }
 
-			showDescription: false,
-			focusedSource: { index: 0, description: '' },
+      return found;
+    }
+  },
+  directives: {
+    focus: __WEBPACK_IMPORTED_MODULE_0_vue_focus__["focus"]
+  },
+  methods: {
+    open: function open() {
+      this.showModal = true;
+    },
+    close: function close() {
+      this.showModal = false;
+    },
+    add: function add(data) {
+      var _this = this;
 
-			oldSource: {
-				text: '',
-				id: ''
-			}
-		};
-	},
+      var newSources = this.value;
+      newSources.push({
+        short: data.display,
+        id: data.id,
+        long: data.long,
+        extraInfo: ''
+      });
+      this.$emit('input', newSources);
+      Vue.nextTick(function () {
+        _this.$refs.extrainfo[_this.value.length - 1].focus();
+      });
+    },
+    remove: function remove(index) {
+      var sources = this.value;
+      sources.splice(index, 1);
+      this.$emit('input', sources);
+    },
+    openDescriptionModal: function openDescriptionModal(index) {
+      var sources = this.value;
+      this.focusedSource.description = sources[index].description;
+      this.focusedSource.index = index;
+      this.showDescription = true;
+    },
+    saveDescription: function saveDescription() {
+      var sources = this.value;
+      sources[this.focusedSource.index].description = this.focusedSource.description;
+      this.showDescription = false;
+      this.$emit('input', sources);
+    },
+    duplicateSource: function duplicateSource(index) {
+      var sources = this.value;
+      var found = false;
+      var duplicate = false;
 
+      if (sources) {
+        sources.forEach(function (source) {
+          if (source.id == index) {
+            if (!found) {
+              found = true;
+            } else {
+              duplicate = true;
+            }
+          }
+        });
+      }
 
-	computed: {
-		hasDuplicates: function hasDuplicates() {
-			var sources = this.value;
-			var found = false;
+      return duplicate;
+    },
+    handleOldSourceInput: function handleOldSourceInput() {
+      var _this2 = this;
 
-			for (var i = 0; i < sources.length && !found; i++) {
-				found = this.duplicateSource(sources[i].id);
-			}
+      Vue.nextTick(function () {
+        if (_this2.$refs.oldSource.showCheck) {
+          _this2.add({
+            display: _this2.oldSource.extra,
+            id: _this2.oldSource.id,
+            long: _this2.oldSource.text
+          });
 
-			return found;
-		}
-	},
-
-	directives: {
-		focus: __WEBPACK_IMPORTED_MODULE_0_vue_focus__["focus"]
-	},
-
-	methods: {
-		open: function open() {
-			this.showModal = true;
-		},
-		close: function close() {
-			this.showModal = false;
-		},
-		add: function add(data) {
-			var _this = this;
-
-			var newSources = this.value;
-			newSources.push({
-				short: data.display,
-				id: data.id,
-				long: data.long,
-				extraInfo: ''
-			});
-
-			this.$emit('input', newSources);
-
-			Vue.nextTick(function () {
-				_this.$refs.extrainfo[_this.value.length - 1].focus();
-			});
-		},
-		remove: function remove(index) {
-			var sources = this.value;
-			sources.splice(index, 1);
-
-			this.$emit('input', sources);
-		},
-		openDescriptionModal: function openDescriptionModal(index) {
-			var sources = this.value;
-			this.focusedSource.description = sources[index].description;
-			this.focusedSource.index = index;
-
-			this.showDescription = true;
-		},
-		saveDescription: function saveDescription() {
-			var sources = this.value;
-			sources[this.focusedSource.index].description = this.focusedSource.description;
-			this.showDescription = false;
-
-			this.$emit('input', sources);
-		},
-		duplicateSource: function duplicateSource(index) {
-			var sources = this.value;
-			var found = false;
-			var duplicate = false;
-
-			if (sources) {
-				sources.forEach(function (source) {
-					if (source.id == index) {
-						if (!found) {
-							found = true;
-						} else {
-							duplicate = true;
-						}
-					}
-				});
-			}
-
-			return duplicate;
-		},
-		handleOldSourceInput: function handleOldSourceInput() {
-			var _this2 = this;
-
-			Vue.nextTick(function () {
-				if (_this2.$refs.oldSource.showCheck) {
-					_this2.add({
-						display: _this2.oldSource.extra,
-						id: _this2.oldSource.id,
-						long: _this2.oldSource.text
-					});
-
-					_this2.oldSource.text = '';
-					_this2.oldSource.id = '';
-					_this2.oldSource.extra = '';
-				}
-			});
-		}
-	}
+          _this2.oldSource.text = '';
+          _this2.oldSource.id = '';
+          _this2.oldSource.extra = '';
+        }
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -491,7 +480,8 @@ var render = function() {
               ])
             ])
           ])
-        })
+        }),
+        0
       ),
       _vm._v(" "),
       _c(

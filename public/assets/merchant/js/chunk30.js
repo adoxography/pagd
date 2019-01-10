@@ -12,29 +12,28 @@ webpackJsonp([30],{
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: {
-		name: { required: true },
-		selected: { default: false }
-	},
-
-	data: function data() {
-		return {
-			isActive: false
-		};
-	},
-
-
-	computed: {
-		href: function href() {
-			return '#' + this.name.toLowerCase().replace(/ /g, '-');
-		}
-	},
-
-	mounted: function mounted() {
-		this.isActive = this.selected;
-	}
+  props: {
+    name: {
+      required: true
+    },
+    selected: {
+      default: false
+    }
+  },
+  data: function data() {
+    return {
+      isActive: false
+    };
+  },
+  computed: {
+    href: function href() {
+      return '#' + this.name.toLowerCase().replace(/ /g, '-');
+    }
+  },
+  mounted: function mounted() {
+    this.isActive = this.selected;
+  }
 });
 
 /***/ }),

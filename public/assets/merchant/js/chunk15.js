@@ -42,96 +42,85 @@ webpackJsonp([15],{
 //
 
 
-
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-	extends: __WEBPACK_IMPORTED_MODULE_0_vue_typeahead___default.a,
+  extends: __WEBPACK_IMPORTED_MODULE_0_vue_typeahead___default.a,
+  props: ['list'],
+  components: {
+    InputTag: __WEBPACK_IMPORTED_MODULE_1_vue_input_tag___default.a,
+    editable: {
+      props: ['value'],
+      template: "\n\t\t\t\t<div\n\t\t\t\t\tcontenteditable=\"true\"\n\t\t\t\t\tclass=\"input\"\n\t\t\t\t\t:innerHTML=\"value\"\n\t\t\t\t\t@input=\"update($event)\"\n\t\t\t\t\t@keydown=\"keydown($event)\"\n\t\t\t\t>{{ value }}</div>\n\t\t\t",
+      // mounted() {
+      // 	if (this.value) {
+      // 		this.$el.innerHTML = "<p>" + this.value + "</p>";
+      // 	}
+      // },
+      methods: {
+        update: function update(event) {
+          console.log(this.clearUselessTags(event.target.innerHTML));
+          this.$emit('input', this.clearUselessTags(event.target.innerHTML));
+        },
+        clearUselessTags: function clearUselessTags(str) {
+          return str.replace(/<[^>]*>{2}/, '');
+        },
+        keydown: function keydown(event) {
+          this.$emit('keydown', event);
+        }
+      }
+    }
+  },
+  data: function data() {
+    return {
+      queryParamName: 'term',
+      id: '',
+      tagsArray: []
+    };
+  },
+  methods: {
+    onHit: function onHit(item) {
+      this.query = item.name;
+      this.id = item.id;
+      this.items = [];
+    },
+    triggerUpdate: function triggerUpdate() {
+      if (Array.isArray(this.list)) {
+        this.filter();
+      } else {
+        this.update();
+      }
+    },
+    filter: function filter() {
+      var _this = this;
 
-	props: ['list'],
+      this.items = this.list.filter(function (item) {
+        return item.name.toLowerCase().includes(_this.query.toLowerCase());
+      });
+    },
+    onDown: function onDown() {
+      this.filter();
 
-	components: {
-		InputTag: __WEBPACK_IMPORTED_MODULE_1_vue_input_tag___default.a,
+      if (!this.hasItems) {
+        this.items = this.list;
+      }
+    },
+    enter: function enter(event) {
+      if (this.current >= 0) {
+        event.preventDefault();
+        this.hit();
+      }
+    },
+    toggleList: function toggleList() {
+      if (this.hasItems) {
+        this.items = [];
+      } else {
+        this.filter();
 
-		editable: {
-			props: ['value'],
-
-			template: '\n\t\t\t\t<div\n\t\t\t\t\tcontenteditable="true"\n\t\t\t\t\tclass="input"\n\t\t\t\t\t:innerHTML="value"\n\t\t\t\t\t@input="update($event)"\n\t\t\t\t\t@keydown="keydown($event)"\n\t\t\t\t>{{ value }}</div>\n\t\t\t',
-
-			// mounted() {
-			// 	if (this.value) {
-			// 		this.$el.innerHTML = "<p>" + this.value + "</p>";
-			// 	}
-			// },
-
-			methods: {
-				update: function update(event) {
-					console.log(this.clearUselessTags(event.target.innerHTML));
-					this.$emit('input', this.clearUselessTags(event.target.innerHTML));
-				},
-				clearUselessTags: function clearUselessTags(str) {
-					return str.replace(/<[^>]*>{2}/, '');
-				},
-				keydown: function keydown(event) {
-					this.$emit('keydown', event);
-				}
-			}
-		}
-	},
-
-	data: function data() {
-		return {
-			queryParamName: 'term',
-			id: '',
-			tagsArray: []
-		};
-	},
-
-
-	methods: {
-		onHit: function onHit(item) {
-			this.query = item.name;
-			this.id = item.id;
-			this.items = [];
-		},
-		triggerUpdate: function triggerUpdate() {
-			if (Array.isArray(this.list)) {
-				this.filter();
-			} else {
-				this.update();
-			}
-		},
-		filter: function filter() {
-			var _this = this;
-
-			this.items = this.list.filter(function (item) {
-				return item.name.toLowerCase().includes(_this.query.toLowerCase());
-			});
-		},
-		onDown: function onDown() {
-			this.filter();
-
-			if (!this.hasItems) {
-				this.items = this.list;
-			}
-		},
-		enter: function enter(event) {
-			if (this.current >= 0) {
-				event.preventDefault();
-				this.hit();
-			}
-		},
-		toggleList: function toggleList() {
-			if (this.hasItems) {
-				this.items = [];
-			} else {
-				this.filter();
-
-				if (!this.hasItems) {
-					this.items = this.list;
-				}
-			}
-		}
-	}
+        if (!this.hasItems) {
+          this.items = this.list;
+        }
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -242,7 +231,8 @@ var render = function() {
             },
             [_c("span", { domProps: { textContent: _vm._s(item.name) } })]
           )
-        })
+        }),
+        0
       )
     ],
     1

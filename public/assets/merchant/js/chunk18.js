@@ -25,21 +25,15 @@ webpackJsonp([18],{
 //
 
 
-
-
 /* harmony default export */ __webpack_exports__["a"] = ({
   mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_OldSources__["a" /* default */]],
-
   props: ['method', 'action'],
-
   data: function data() {
     return {
       sources: [],
       csrfToken: Laravel.csrfToken
     };
   },
-
-
   methods: {
     validateBeforeSubmit: function validateBeforeSubmit(event) {
       var _this = this;
@@ -202,17 +196,21 @@ component.options.__file = "resources/assets/js/components/forms/Form.vue"
 "use strict";
 /* unused harmony default export */ var _unused_webpack_default_export = ({
   props: ['oldErrors'],
-
   mounted: function mounted() {
     var _this = this;
 
     if (this.oldErrors) {
       _.forEach(this.oldErrors, function (errors, field) {
         errors.forEach(function (message) {
-          return _this.$root.errors.add({ field: field, msg: message });
+          return _this.$root.errors.add({
+            field: field,
+            msg: message
+          });
         });
       });
-    };
+    }
+
+    ;
   }
 });
 
@@ -223,23 +221,22 @@ component.options.__file = "resources/assets/js/components/forms/Form.vue"
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['oldSources'],
+  props: ['oldSources'],
+  created: function created() {
+    var _this = this;
 
-	created: function created() {
-		var _this = this;
-
-		if (this.oldSources) {
-			this.oldSources.forEach(function (source) {
-				_this.sources.push({
-					short: source.display ? source.display : source.short,
-					id: source.id,
-					long: source.long,
-					extraInfo: source.pivot ? source.pivot.extraInfo : source.extraInfo,
-					description: source.pivot ? source.pivot.description : source.description
-				});
-			});
-		}
-	}
+    if (this.oldSources) {
+      this.oldSources.forEach(function (source) {
+        _this.sources.push({
+          short: source.display ? source.display : source.short,
+          id: source.id,
+          long: source.long,
+          extraInfo: source.pivot ? source.pivot.extraInfo : source.extraInfo,
+          description: source.pivot ? source.pivot.description : source.description
+        });
+      });
+    }
+  }
 });
 
 /***/ })

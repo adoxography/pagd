@@ -53,57 +53,49 @@ webpackJsonp([22],{
 //
 //
 
-
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-    props: ['language', 'old'],
-
-    data: function data() {
-        return {
-            lookup: new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */](),
-            examples: []
-        };
-    },
-
-
-    computed: {
-        autocompleteData: function autocompleteData() {
-            return {
-                language: this.language ? this.language.id : null
-            };
-        }
-    },
-
-    methods: {
-        onUpdateLookup: function onUpdateLookup(example) {
-            if (example.text && this.$refs.lookup.showCheck) {
-                this.examples.push({
-                    name: example.text,
-                    id: example.id,
-                    comment: ''
-                });
-
-                this.$refs.lookup.reset();
-            }
-        },
-        onDelete: function onDelete(index) {
-            this.examples.splice(index, 1);
-        }
-    },
-
-    created: function created() {
-        var _this = this;
-
-        if (this.old) {
-            this.old.forEach(function (example) {
-                _this.examples.push({
-                    name: example.name,
-                    id: example.id,
-                    comments: example.pivot.comments
-                });
-            });
-        }
+  props: ['language', 'old'],
+  data: function data() {
+    return {
+      lookup: new __WEBPACK_IMPORTED_MODULE_0__Datalist_js__["a" /* Datalist */](),
+      examples: []
+    };
+  },
+  computed: {
+    autocompleteData: function autocompleteData() {
+      return {
+        language: this.language ? this.language.id : null
+      };
     }
+  },
+  methods: {
+    onUpdateLookup: function onUpdateLookup(example) {
+      if (example.text && this.$refs.lookup.showCheck) {
+        this.examples.push({
+          name: example.text,
+          id: example.id,
+          comment: ''
+        });
+        this.$refs.lookup.reset();
+      }
+    },
+    onDelete: function onDelete(index) {
+      this.examples.splice(index, 1);
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    if (this.old) {
+      this.old.forEach(function (example) {
+        _this.examples.push({
+          name: example.name,
+          id: example.id,
+          comments: example.pivot.comments
+        });
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -252,33 +244,37 @@ render._withStripped = true
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Datalist; });
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Datalist = function () {
-    function Datalist() {
-        var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
-        var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
-        var extra = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-        _classCallCheck(this, Datalist);
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-        this.text = text;
-        this.id = id;
-        this.extra = extra;
+var Datalist =
+/*#__PURE__*/
+function () {
+  function Datalist() {
+    var text = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+    var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+    var extra = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
+
+    _classCallCheck(this, Datalist);
+
+    this.text = text;
+    this.id = id;
+    this.extra = extra;
+  }
+
+  _createClass(Datalist, [{
+    key: "reset",
+    value: function reset() {
+      this.text = "";
+      this.id = "";
+      this.extra = "";
     }
+  }]);
 
-    _createClass(Datalist, [{
-        key: "reset",
-        value: function reset() {
-            this.text = "";
-            this.id = "";
-            this.extra = "";
-        }
-    }]);
-
-    return Datalist;
+  return Datalist;
 }();
 
 

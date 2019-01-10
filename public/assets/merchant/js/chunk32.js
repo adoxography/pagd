@@ -4,7 +4,6 @@ webpackJsonp([32],{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function($) {//
 //
 //
 //
@@ -12,21 +11,19 @@ webpackJsonp([32],{
 //
 //
 //
-
+//
 /* harmony default export */ __webpack_exports__["a"] = ({
-    computed: {
-        checkboxes: function checkboxes() {
-            return $("#select-all-section input:checkbox");
-        }
-    },
-
-    methods: {
-        toggle: function toggle(setting) {
-            this.checkboxes.prop("checked", setting);
-        }
+  computed: {
+    checkboxes: function checkboxes() {
+      return $("#select-all-section input:checkbox");
     }
+  },
+  methods: {
+    toggle: function toggle(setting) {
+      this.checkboxes.prop("checked", setting);
+    }
+  }
 });
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
 

@@ -42,84 +42,82 @@ webpackJsonp([26],{
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['languages'],
+  props: ['languages'],
+  data: function data() {
+    return {
+      values: {
+        class: '',
+        orders: [],
+        language: {
+          text: 'Proto-Algonquian',
+          id: '1'
+        },
+        orderValue: ''
+      }
+    };
+  },
+  methods: {
+    onOrderChange: function onOrderChange(value) {
+      var tokens = value.split(',');
+      var temp = [];
+      tokens.forEach(function (token) {
+        temp.push(token);
+      });
+      this.values.orders = temp;
+    },
+    getData: function getData() {
+      return this.values;
+    },
+    importData: function importData(data) {
+      var _this = this;
 
-	data: function data() {
-		return {
-			values: {
-				class: '',
-				orders: [],
-				language: {
-					text: 'Proto-Algonquian',
-					id: '1'
-				},
-				orderValue: ''
-			}
-		};
-	},
+      var found = false;
 
+      _.forEach(data.classes, function (theClass) {
+        if (theClass.checked && theClass.id <= 4) {
+          _this.values.class = theClass.id;
+          found = true;
+          return false;
+        }
+      });
 
-	methods: {
-		onOrderChange: function onOrderChange(value) {
-			var tokens = value.split(',');
-			var temp = [];
+      if (!found) {
+        this.values.class = '';
+      }
 
-			tokens.forEach(function (token) {
-				temp.push(token);
-			});
+      this.values.orders = [];
+      this.values.orderValue = '';
+      found = false;
 
-			this.values.orders = temp;
-		},
-		getData: function getData() {
-			return this.values;
-		},
-		importData: function importData(data) {
-			var _this = this;
+      for (var i = 0; i < data.orders.length && !found; i++) {
+        found = false;
 
-			var found = false;
-			_.forEach(data.classes, function (theClass) {
-				if (theClass.checked && theClass.id <= 4) {
-					_this.values.class = theClass.id;
-					found = true;
-					return false;
-				}
-			});
-			if (!found) {
-				this.values.class = '';
-			}
+        if (data.orders[i].checked) {
+          if (data.orders[i].id != 1) {
+            found = true;
+          }
 
-			this.values.orders = [];
-			this.values.orderValue = '';
-			found = false;
-			for (var i = 0; i < data.orders.length && !found; i++) {
-				found = false;
-				if (data.orders[i].checked) {
-					if (data.orders[i].id != 1) {
-						found = true;
-					}
+          if (data.orders[i].id != 3 || this.values.orders.length == 0) {
+            this.values.orders = [data.orders[i].id];
+            this.values.orderValue = data.orders[i].id;
+          } else {
+            this.values.orders = [1, 3];
+            this.values.orderValue = '1,3';
+          }
+        }
+      }
 
-					if (data.orders[i].id != 3 || this.values.orders.length == 0) {
-						this.values.orders = [data.orders[i].id];
-						this.values.orderValue = data.orders[i].id;
-					} else {
-						this.values.orders = [1, 3];
-						this.values.orderValue = '1,3';
-					}
-				}
-			}
-
-			if (data.languages.length > 0) {
-				this.values.language = data.languages[0];
-			} else {
-				this.values.language = {
-					text: '',
-					id: ''
-				};
-			}
-		}
-	}
+      if (data.languages.length > 0) {
+        this.values.language = data.languages[0];
+      } else {
+        this.values.language = {
+          text: '',
+          id: ''
+        };
+      }
+    }
+  }
 });
 
 /***/ }),

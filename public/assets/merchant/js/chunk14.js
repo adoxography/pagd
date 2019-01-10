@@ -37,143 +37,137 @@ webpackJsonp([14],{
 //
 //
 
-
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-    props: {
-        disabled: { default: false },
-
-        startHidden: { default: false },
-
-        typewriterId: { default: null },
-
-        options: {
-            default: function _default() {
-                return { size: 1 };
-            }
-        }
+  props: {
+    disabled: {
+      default: false
     },
-
-    data: function data() {
+    startHidden: {
+      default: false
+    },
+    typewriterId: {
+      default: null
+    },
+    options: {
+      default: function _default() {
         return {
-            show: false,
-            turnedOff: false,
-
-            chars: __WEBPACK_IMPORTED_MODULE_0__util_SpecialCharacters__["a" /* dictionary */],
-
-            keys: []
+          size: 1
         };
-    },
-
-
-    computed: {
-        inputField: function inputField() {
-            var defaultSlot = this.$slots.default[0].elm;
-
-            if (defaultSlot.className.includes("input")) {
-                return defaultSlot;
-            }
-
-            return defaultSlot.getElementsByClassName("input")[0];
-        },
-        shouldShow: function shouldShow() {
-            return this.show && !this.disabled && !this.turnedOff;
-        },
-        portalName: function portalName() {
-            var name = 'typewriter-toggle';
-
-            if (this.typewriterId !== null) {
-                name += '-' + this.typewriterId;
-            }
-
-            return name;
-        }
-    },
-
-    created: function created() {
-        if (this.startHidden) {
-            this.turnedOff = true;
-        }
-    },
-
-
-    methods: {
-        onFocusIn: function onFocusIn() {
-            this.show = true;
-        },
-        onFocusOut: function onFocusOut() {
-            this.show = false;
-        },
-        toggle: function toggle() {
-            this.inputField.focus();
-            if (this.shouldShow) {
-                this.turnedOff = true;
-            } else {
-                this.turnedOff = false;
-                this.show = true;
-            }
-        },
-        getPosition: function getPosition() {
-            if (this.inputField.tagName == 'DIV') {
-                this.cursorPosition = window.getSelection().anchorOffset;
-            } else {
-                this.cursorPosition = this.inputField.selectionStart;
-            }
-        },
-        insertCharacter: function insertCharacter(char) {
-            var event = new Event('input', {
-                'bubbles': true,
-                'cancelable': true
-            });
-
-            if (this.inputField.tagName == 'DIV') {
-                var initialLength = this.inputField.innerHTML.length;
-                this.inputField.innerHTML = this.insertCharacterIntoString(this.inputField.innerHTML, char, this.cursorPosition);
-                this.cursorPosition += this.inputField.innerHTML.length - initialLength;
-            } else {
-                var _initialLength = this.inputField.value.length;
-                this.inputField.value = this.insertCharacterIntoString(this.inputField.value, char, this.cursorPosition);
-                this.cursorPosition += this.inputField.value.length - _initialLength;
-            }
-
-            this.inputField.dispatchEvent(event);
-
-            if (this.inputField.tagName == 'DIV') {
-                var range = document.createRange();
-                var selection = window.getSelection();
-                var line = this.inputField.childNodes[0];
-
-                range.setStart(line, this.cursorPosition);
-                range.setEnd(line, this.cursorPosition);
-
-                selection.removeAllRanges();
-                selection.addRange(range);
-            } else {
-                this.inputField.selectionStart = this.cursorPosition;
-                this.inputField.selectionEnd = this.cursorPosition;
-            }
-        },
-        insertCharacterIntoString: function insertCharacterIntoString(oldText, char, index) {
-            var merged = char.insertInto(oldText, index);
-            return merged;
-        },
-        onKeyDown: function onKeyDown(event) {
-            if (event.altKey) {
-                var triggered = null;
-
-                for (var i = 0; i < this.chars.length && !triggered; i++) {
-                    triggered = this.chars[i].find(function (char) {
-                        return char.triggeredBy(event.key);
-                    });
-                }
-
-                if (triggered) {
-                    event.preventDefault();
-                    this.insertCharacter(triggered);
-                }
-            }
-        }
+      }
     }
+  },
+  data: function data() {
+    return {
+      show: false,
+      turnedOff: false,
+      chars: __WEBPACK_IMPORTED_MODULE_0__util_SpecialCharacters__["a" /* dictionary */],
+      keys: []
+    };
+  },
+  computed: {
+    inputField: function inputField() {
+      var defaultSlot = this.$slots.default[0].elm;
+
+      if (defaultSlot.className.includes("input")) {
+        return defaultSlot;
+      }
+
+      return defaultSlot.getElementsByClassName("input")[0];
+    },
+    shouldShow: function shouldShow() {
+      return this.show && !this.disabled && !this.turnedOff;
+    },
+    portalName: function portalName() {
+      var name = 'typewriter-toggle';
+
+      if (this.typewriterId !== null) {
+        name += '-' + this.typewriterId;
+      }
+
+      return name;
+    }
+  },
+  created: function created() {
+    if (this.startHidden) {
+      this.turnedOff = true;
+    }
+  },
+  methods: {
+    onFocusIn: function onFocusIn() {
+      this.show = true;
+    },
+    onFocusOut: function onFocusOut() {
+      this.show = false;
+    },
+    toggle: function toggle() {
+      this.inputField.focus();
+
+      if (this.shouldShow) {
+        this.turnedOff = true;
+      } else {
+        this.turnedOff = false;
+        this.show = true;
+      }
+    },
+    getPosition: function getPosition() {
+      if (this.inputField.tagName == 'DIV') {
+        this.cursorPosition = window.getSelection().anchorOffset;
+      } else {
+        this.cursorPosition = this.inputField.selectionStart;
+      }
+    },
+    insertCharacter: function insertCharacter(char) {
+      var event = new Event('input', {
+        'bubbles': true,
+        'cancelable': true
+      });
+
+      if (this.inputField.tagName == 'DIV') {
+        var initialLength = this.inputField.innerHTML.length;
+        this.inputField.innerHTML = this.insertCharacterIntoString(this.inputField.innerHTML, char, this.cursorPosition);
+        this.cursorPosition += this.inputField.innerHTML.length - initialLength;
+      } else {
+        var _initialLength = this.inputField.value.length;
+        this.inputField.value = this.insertCharacterIntoString(this.inputField.value, char, this.cursorPosition);
+        this.cursorPosition += this.inputField.value.length - _initialLength;
+      }
+
+      this.inputField.dispatchEvent(event);
+
+      if (this.inputField.tagName == 'DIV') {
+        var range = document.createRange();
+        var selection = window.getSelection();
+        var line = this.inputField.childNodes[0];
+        range.setStart(line, this.cursorPosition);
+        range.setEnd(line, this.cursorPosition);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      } else {
+        this.inputField.selectionStart = this.cursorPosition;
+        this.inputField.selectionEnd = this.cursorPosition;
+      }
+    },
+    insertCharacterIntoString: function insertCharacterIntoString(oldText, char, index) {
+      var merged = char.insertInto(oldText, index);
+      return merged;
+    },
+    onKeyDown: function onKeyDown(event) {
+      if (event.altKey) {
+        var triggered = null;
+
+        for (var i = 0; i < this.chars.length && !triggered; i++) {
+          triggered = this.chars[i].find(function (char) {
+            return char.triggeredBy(event.key);
+          });
+        }
+
+        if (triggered) {
+          event.preventDefault();
+          this.insertCharacter(triggered);
+        }
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -290,9 +284,11 @@ var render = function() {
                     )
                   ]
                 )
-              })
+              }),
+              0
             )
-          })
+          }),
+          0
         )
       ]),
       _vm._v(" "),

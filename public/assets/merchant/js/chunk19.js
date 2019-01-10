@@ -100,66 +100,61 @@ webpackJsonp([19],{
 //
 //
 
-
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-	props: ['languages', 'changes'],
+  props: ['languages', 'changes'],
+  data: function data() {
+    return {
+      rows: [],
+      loading: false,
+      deleting: 0,
+      form: new __WEBPACK_IMPORTED_MODULE_0__utilities_Form__["a" /* default */]({
+        language: {
+          text: '',
+          id: ''
+        },
+        morpheme: {
+          text: '',
+          id: ''
+        },
+        change: ''
+      })
+    };
+  },
+  methods: {
+    onSubmit: function onSubmit() {
+      var _this = this;
 
-	data: function data() {
-		return {
-			rows: [],
-			loading: false,
-			deleting: 0,
-			form: new __WEBPACK_IMPORTED_MODULE_0__utilities_Form__["a" /* default */]({
-				language: {
-					text: '',
-					id: ''
-				},
-				morpheme: {
-					text: '',
-					id: ''
-				},
-				change: ''
-			})
-		};
-	},
+      this.loading = true;
+      this.form.post("/changes").then(function (response) {
+        _this.loading = false;
 
+        _this.rows.push(response);
+      }).catch(function (error) {
+        _this.loading = false;
+      });
+    },
+    deleteRow: function deleteRow(row, index) {
+      var _this2 = this;
 
-	methods: {
-		onSubmit: function onSubmit() {
-			var _this = this;
+      this.deleting = row.id;
+      axios.delete("/changes/" + row.id).then(function (response) {
+        _this2.deleting = 0;
 
-			this.loading = true;
-
-			this.form.post("/changes").then(function (response) {
-				_this.loading = false;
-				_this.rows.push(response);
-			}).catch(function (error) {
-				_this.loading = false;
-			});
-		},
-		deleteRow: function deleteRow(row, index) {
-			var _this2 = this;
-
-			this.deleting = row.id;
-			axios.delete("/changes/" + row.id).then(function (response) {
-				_this2.deleting = 0;
-				_this2.rows.splice(index, 1);
-			}).catch(function (error) {
-				_this2.deleting = 0;
-			});
-		},
-		onLanguageInput: function onLanguageInput() {
-			this.form.morpheme = {
-				text: '',
-				id: ''
-			};
-		}
-	},
-
-	created: function created() {
-		this.rows = this.changes;
-	}
+        _this2.rows.splice(index, 1);
+      }).catch(function (error) {
+        _this2.deleting = 0;
+      });
+    },
+    onLanguageInput: function onLanguageInput() {
+      this.form.morpheme = {
+        text: '',
+        id: ''
+      };
+    }
+  },
+  created: function created() {
+    this.rows = this.changes;
+  }
 });
 
 /***/ }),
@@ -225,7 +220,8 @@ var render = function() {
               ])
             ])
           ])
-        })
+        }),
+        0
       )
     ]),
     _vm._v(" "),
@@ -519,85 +515,89 @@ component.options.__file = "resources/assets/js/components/Initial-Changes.vue"
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Errors = function () {
-	function Errors() {
-		_classCallCheck(this, Errors);
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-		this.errors = {};
-	}
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-	_createClass(Errors, [{
-		key: "get",
-		value: function get(field) {
-			if (this.errors[field]) {
-				if (Array.isArray(this.errors[field][0])) {
-					return this.errors[field][0][0];
-				} else {
-					return this.errors[field][0];
-				}
-			}
-		}
-	}, {
-		key: "clear",
-		value: function clear(field) {
-			if (field) {
-				delete this.errors[field];
-				delete this.errors[field + "_id"];
-				delete this.errors[field + "_text"];
-			} else {
-				this.errors = {};
-			}
-		}
-	}, {
-		key: "record",
-		value: function record(errors) {
-			var _this = this;
+var Errors =
+/*#__PURE__*/
+function () {
+  function Errors() {
+    _classCallCheck(this, Errors);
 
-			this.errors = {};
+    this.errors = {};
+  }
 
-			if (errors) {
-				_.forEach(errors, function (value, key) {
-					var realKey = key;
+  _createClass(Errors, [{
+    key: "get",
+    value: function get(field) {
+      if (this.errors[field]) {
+        if (Array.isArray(this.errors[field][0])) {
+          return this.errors[field][0][0];
+        } else {
+          return this.errors[field][0];
+        }
+      }
+    }
+  }, {
+    key: "clear",
+    value: function clear(field) {
+      if (field) {
+        delete this.errors[field];
+        delete this.errors[field + "_id"];
+        delete this.errors[field + "_text"];
+      } else {
+        this.errors = {};
+      }
+    }
+  }, {
+    key: "record",
+    value: function record(errors) {
+      var _this = this;
 
-					if (typeof key === 'string' || key instanceof String) {
-						realKey = key.split(".")[0];
-					}
+      this.errors = {};
 
-					if (!_this.errors[realKey]) {
-						_this.errors[realKey] = [];
-					}
+      if (errors) {
+        _.forEach(errors, function (value, key) {
+          var realKey = key;
 
-					_this.errors[realKey].push(value);
-				});
-			}
-		}
-	}, {
-		key: "has",
-		value: function has(field) {
-			var _this2 = this;
+          if (typeof key === 'string' || key instanceof String) {
+            realKey = key.split(".")[0];
+          }
 
-			if (Array.isArray(field)) {
-				var result = false;
+          if (!_this.errors[realKey]) {
+            _this.errors[realKey] = [];
+          }
 
-				field.forEach(function (value) {
-					result = result || _this2.has(value);
-				});
-				return result;
-			}
-			return this.errors.hasOwnProperty(field);
-		}
-	}, {
-		key: "any",
-		value: function any() {
-			return Object.keys(this.errors).length > 0;
-		}
-	}]);
+          _this.errors[realKey].push(value);
+        });
+      }
+    }
+  }, {
+    key: "has",
+    value: function has(field) {
+      var _this2 = this;
 
-	return Errors;
+      if (Array.isArray(field)) {
+        var result = false;
+        field.forEach(function (value) {
+          result = result || _this2.has(value);
+        });
+        return result;
+      }
+
+      return this.errors.hasOwnProperty(field);
+    }
+  }, {
+    key: "any",
+    value: function any() {
+      return Object.keys(this.errors).length > 0;
+    }
+  }]);
+
+  return Errors;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Errors);
@@ -609,106 +609,108 @@ var Errors = function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Errors__ = __webpack_require__("./resources/assets/js/utilities/Errors.js");
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 
-var Form = function () {
-	function Form(data) {
-		_classCallCheck(this, Form);
 
-		this.originalData = data;
+var Form =
+/*#__PURE__*/
+function () {
+  function Form(data) {
+    _classCallCheck(this, Form);
 
-		for (var field in data) {
-			this[field] = data[field];
-		}
+    this.originalData = data;
 
-		this.errors = new __WEBPACK_IMPORTED_MODULE_0__Errors__["a" /* default */]();
-	}
+    for (var field in data) {
+      this[field] = data[field];
+    }
 
-	_createClass(Form, [{
-		key: 'data',
-		value: function data() {
-			var data = {};
+    this.errors = new __WEBPACK_IMPORTED_MODULE_0__Errors__["a" /* default */]();
+  }
 
-			for (var property in this.originalData) {
-				data[property] = this[property];
-			}
+  _createClass(Form, [{
+    key: "data",
+    value: function data() {
+      var data = {};
 
-			return data;
-		}
-	}, {
-		key: 'reset',
-		value: function reset() {
-			for (var field in this.originalData) {
-				this[field] = '';
-			}
+      for (var property in this.originalData) {
+        data[property] = this[property];
+      }
 
-			this.errors.clear();
-		}
-	}, {
-		key: 'get',
-		value: function get(url) {
-			return this.submit('get', url);
-		}
-	}, {
-		key: 'post',
-		value: function post(url) {
-			return this.submit('post', url);
-		}
-	}, {
-		key: 'patch',
-		value: function patch(url) {
-			return this.submit('patch', url);
-		}
-	}, {
-		key: 'submit',
-		value: function submit(requestType, url) {
-			var _this = this;
+      return data;
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      for (var field in this.originalData) {
+        this[field] = '';
+      }
 
-			var attempt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+      this.errors.clear();
+    }
+  }, {
+    key: "get",
+    value: function get(url) {
+      return this.submit('get', url);
+    }
+  }, {
+    key: "post",
+    value: function post(url) {
+      return this.submit('post', url);
+    }
+  }, {
+    key: "patch",
+    value: function patch(url) {
+      return this.submit('patch', url);
+    }
+  }, {
+    key: "submit",
+    value: function submit(requestType, url) {
+      var _this = this;
 
-			return new Promise(function (resolve, reject) {
-				axios[requestType](url, _this.data()).then(function (response) {
-					_this.onSuccess(response.data);
+      var attempt = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+      return new Promise(function (resolve, reject) {
+        axios[requestType](url, _this.data()).then(function (response) {
+          _this.onSuccess(response.data);
 
-					resolve(response.data);
-				}).catch(function (error) {
-					if (error.response) {
-						if (error.response.status == 422) {
-							_this.onFail(error.response.data);
-						} else if (error.response.status == 500) {
-							alert('System error. Please submit a bug report including what you were doing and when.');
-						} else if (error.response.status == 400) {
-							console.log("Error 400");
-						} else {
-							alert("Network error " + error.response.status + ". Please try again.");
-						}
+          resolve(response.data);
+        }).catch(function (error) {
+          if (error.response) {
+            if (error.response.status == 422) {
+              _this.onFail(error.response.data);
+            } else if (error.response.status == 500) {
+              alert('System error. Please submit a bug report including what you were doing and when.');
+            } else if (error.response.status == 400) {
+              console.log("Error 400");
+            } else {
+              alert("Network error " + error.response.status + ". Please try again.");
+            }
 
-						reject(error.response.data);
-					} else {
-						alert('Network error. Please submit a bug report including what you were doing and when.');
-						console.log(error);
-						reject({});
-					}
-				});
-			});
-		}
-	}, {
-		key: 'onSuccess',
-		value: function onSuccess(data) {
-			// this.reset();
-		}
-	}, {
-		key: 'onFail',
-		value: function onFail(errors) {
-			this.errors.record(errors);
-		}
-	}]);
+            reject(error.response.data);
+          } else {
+            alert('Network error. Please submit a bug report including what you were doing and when.');
+            console.log(error);
+            reject({});
+          }
+        });
+      });
+    }
+  }, {
+    key: "onSuccess",
+    value: function onSuccess(data) {// this.reset();
+    }
+  }, {
+    key: "onFail",
+    value: function onFail(errors) {
+      this.errors.record(errors);
+    }
+  }]);
 
-	return Form;
+  return Form;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Form);

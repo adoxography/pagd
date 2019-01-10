@@ -37,9 +37,9 @@
             @include('layout.footer')
         </div>
 
-		<script src="{{ mix("/js/manifest.js") }}"></script>
-		<script src="{{ mix("/js/vendor.js") }}"></script>
-		<script src="{{ mix("/js/app.js") }}"></script>
+		<script src="{{ mix('/js/manifest.js') }}"></script>
+        <script src="{{ mix('/js/vendor.js') }}"></script>
+        <script src="{{ mix('/js/app.js') }}"></script>
         {{--<script>--}}
             {{--if ('serviceWorker' in navigator) {--}}
                 {{--navigator.serviceWorker.register('service-worker.js')--}}

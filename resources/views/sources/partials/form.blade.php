@@ -1,77 +1,40 @@
-<alg-form
-	inline-template
-	v-cloak
-	:old-errors="{{ json_encode($errors->messages()) }}"
->
-	@component('components.form', ['method' => $method, 'action' => $action, 'visible' => true])
-		<div class="columns">
-			<div class="column">
-				@component('components.form.text', [
-					'name'      => 'author',
-					'autofocus' => true,
-					'rules'     => 'required'
-				])
-					@slot('value')
-						@if(isset($source))
-							{{ $source->author }}
-						@endif
-					@endslot
-				@endcomponent
-			</div>
-			<div class="column">
-				@component('components.form.text', [
-					'name'  => 'year',
-					'rules' => 'required'
-				])
-					@slot('value')
-						@if(isset($source))
-							{{ $source->year }}
-						@endif
-					@endslot
-				@endcomponent
-			</div>
-		</div>
-		@component('components.form.textarea', [
-			'name'  => 'long',
-			'label' => 'full citation',
-			'rules' => 'required'
-		])
-			@slot('value')
-				@if(isset($source))
-					{{ $source->long }}
-				@endif
-			@endslot
-		@endcomponent
+<alg-form method="{{ $method}}" action="{{ $action }}">
+    <alg-model-form :lists="{}"
+                    :template="{{ App\Models\Source::fieldTemplate() }}"
+                    @isset($source) :initial="{{ $source }}" @endisset
+                    inline-template
+                    :old-errors="{{ $errors }}"
+                    @if(old('data')) :old-values="{{ old('data') }}" @endif
+                    v-cloak>
+        <div class="details">
+            @include('components.form.text', [
+                'name' => 'author',
+                'required' => true
+            ])
 
-		@component('components.form.text', [
-			'name'  => 'url',
-			'rules' => 'url'
-		])
-			@slot('value')
-				@if(isset($source))
-					{{ $source->url }}
-				@endif
-			@endslot
-		@endcomponent
+            @include('components.form.text', [
+                'name' => 'year',
+                'required' => true
+            ])
 
-		@component('components.form.textarea', [
-			'name'  => 'summary'
-		])
-			@slot('value')
-				@if(isset($source))
-					{{ $source->summary }}
-				@endif
-			@endslot
-		@endcomponent
+            @include('components.form.textarea', [
+                'name' => 'long',
+                'label' => 'Full citation',
+                'required' => true
+            ])
 
-		@component('components.form.textarea', [
-			'name'  => 'notes'
-		])
-			@slot('value')
-				@if(isset($source))
-					{{ $source->notes }}
-				@endif
-			@endslot
-		@endcomponent
-	@endcomponent
+            @include('components.form.text', [
+                'name' => 'url',
+                'label' => 'URL'
+            ])
+
+            @include('components.form.textarea', [
+                'name' => 'summary',
+            ])
+
+            @include('components.form.textarea', [
+                'name' => 'notes',
+            ])
+        </div>
+    </alg-model-form>
 </alg-form>

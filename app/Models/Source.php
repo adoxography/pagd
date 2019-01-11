@@ -53,6 +53,15 @@ class Source extends Model implements VerbFormRepositoryInterface, NominalFormRe
         'updated_at'
     ];
 
+    protected static $template = [
+        'author' => '',
+        'year' => '',
+        'long' => '',
+        'url' => '',
+        'summary' => '',
+        'notes' => ''
+    ];
+
     public function identifiableName()
     {
         return $this->present('link');

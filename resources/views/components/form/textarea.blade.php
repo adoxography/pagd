@@ -1,10 +1,18 @@
+@php
+    $required = isset($required) && $required ? 'true' : 'false';
+@endphp
+
 @component('components.form.field', [
     'name' => $name,
-    'label' => $field ?? null,
+    'label' => $label ?? null,
     'standalone' => $standalone ?? null
 ])
     @slot('outer')
-        <input type="hidden" name="{{ $name }}" v-model="data.{{ $name }}" />
+        <input type="hidden"
+               name="{{ $name }}"
+               v-model="data.{{ $name }}"
+               v-validate="{ required: {{ $required }}}"
+        />
     @endslot
 
 	<wysiwyg id="{{ $name }}-input"

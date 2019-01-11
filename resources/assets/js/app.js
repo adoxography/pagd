@@ -17,6 +17,7 @@ require('./validation');
  * the application, or feel free to tweak this setup for your needs.
  */
 
+Vue.component('alg-floating-typewriter', resolve => { require(['./components/FloatingTypewriter.vue'], resolve); });
 Vue.component('alg-form-filter',    resolve => { require(['./components/FormFilter.vue'], resolve); });
 Vue.component('alg-datalist',       require('./components/DataList.vue').default);
 Vue.component('alg-multi-datalist', resolve => { require(['./components/Multi-DataList.vue'], resolve); });

@@ -25,8 +25,6 @@ Vue.component('alg-tab',            resolve => { require(['./components/Tab.vue'
 Vue.component('alg-radio-toggle',   resolve => { require(['./components/Radio-Toggle.vue'], resolve); });
 Vue.component('alg-form-search',    resolve => { require(['./components/Form-Search.vue'], resolve); });
 Vue.component('alg-ajaxlist',       require('./components/AJAX-List.vue').default);
-Vue.component('alg-new-source',     resolve => { require(['./components/New-Source.vue'], resolve); });
-Vue.component('alg-old-source',     resolve => { require(['./components/Old-Source.vue'], resolve); });
 Vue.component('alg-sources',        resolve => { require(['./components/Sources.vue'], resolve); });
 Vue.component('alg-paginated-list', resolve => { require(['./components/Paginated-List.vue'], resolve); });
 Vue.component('alg-filter-list',    resolve => { require(['./components/Filter-List.vue'], resolve); });

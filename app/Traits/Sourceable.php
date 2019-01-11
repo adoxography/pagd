@@ -44,13 +44,13 @@ trait Sourceable
             $newSources = [];
 
             foreach ($dirty['sources'] as $source) {
-                $id          = $source['id']          ?? Source::create($source);
-                $extraInfo   = $source['extraInfo']   ?? null;
+                $id          = $source['id'];
+                $extra_info  = $source['extra_info']  ?? null;
                 $description = $source['description'] ?? null;
 
                 $newSources[] = [
                     'id'          => $id,
-                    'extraInfo'   => $extraInfo,
+                    'extra_info'   => $extra_info,
                     'description' => $description
                 ];
             }
@@ -67,7 +67,7 @@ trait Sourceable
         if ($source) {
             $options = [
                 'sourceable_type' => $type,
-                'extraInfo'       => $source['extraInfo']   ?? null,
+                'extra_info'      => $source['extra_info']  ?? null,
                 'description'     => $source['description'] ?? null
             ];
 

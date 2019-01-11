@@ -22,7 +22,7 @@ if(isset($group)) {
 @endphp
 
 <alg-form method="{{ $method }}" action="{{ $action }}">
-    <alg-model-form :lists="{groups: {{ $parents }}}"
+    <alg-model-form :lists="{groups: {{ $parents }}, sources: '/autocomplete/sources' }"
                     :template="{{ App\Models\Group::fieldTemplate() }}"
                     @isset($group)
                     :initial="{{ $group }}"

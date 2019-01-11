@@ -41,7 +41,8 @@ class GroupController extends AlgModelController
 		$group->load([
 			'parent',
 			'allChildren',
-			'allChildren.languages'
+            'allChildren.languages',
+            'sources'
 		]);
 
 		return view('groups.edit', compact('group'));

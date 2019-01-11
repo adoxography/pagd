@@ -92,9 +92,11 @@ function recursiveRender($group) {
             </div>
         </div>
 
-        <div class="field">
-            <span class="label">Sources</span>
-            @include('components.model.sourcelist', ['sources' => $group->sources])
+        <div class="detail-row">
+            <label class="detail-label">Sources</label>
+            <div class="detail-value">
+                @include('components.model.sourcelist', ['sources' => $group->sources])
+            </div>
         </div>
     </div>
 </div>

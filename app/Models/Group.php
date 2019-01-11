@@ -38,7 +38,8 @@ class Group extends Model
         'aliases' => [],
         'public_notes' => '',
         'private_notes' => '',
-        'parent' => Group::class
+        'parent' => Group::class,
+        'sources' => []
     ];
 
     public function identifiableName()

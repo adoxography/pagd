@@ -3,5 +3,5 @@
     'label' => $label ?? null,
     'standalone' => $standalone ?? null
 ])
-    <alg-sources value="{{ $value ?? '' }}"></alg-sources>
+<alg-sources v-model="data.{{ $name }}"></alg-sources>
 @endcomponent

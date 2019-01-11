@@ -22,17 +22,17 @@
     </b-field>
 
     <ol class="source-list" style="margin-left: 1rem;">
-      <li v-for="(source, i) in sources">
+      <li v-for="(source, i) in value">
         <div class="source-entry">
-          <input type="hidden" name="sources[][id]" :value="source.id" />
-          <input type="hidden" name="sources[][description]" :value="source.description" />
-          <p class="source-long" v-html="source.long" :title="source.hover"></p>
+          <input type="hidden" :name="'sources['+i+'][id]'" :value="source.id" />
+          <input type="hidden" :name="'sources['+i+'][description]'" :value="source.pivot.description" />
+          <p class="source-long" v-html="removeTags(source.long)" :title="removeTags(source.long, true)"></p>
           <b-input class="source-extra-info"
-                   name="sources[][extra_info]"
-                   v-model="source.extra_info">
+                   :name="'sources['+i+'][extra_info]'"
+                   v-model="source.pivot.extra_info">
           </b-input>
           <a class="button"
-             :class="{'is-info': source.description.length > 0}"
+             :class="{'is-info': source.pivot.description && source.pivot.description.length > 0}"
              title="Add description"
              @click="openDescriptionModal(source)">
             <span class="icon">
@@ -51,8 +51,7 @@
     </ol>
 
     <b-modal :active.sync="isDescriptionModalOpen" has-modal-card>
-      <description-modal v-bind="descriptionSource">
-      </description-modal>
+      <description-modal v-bind="descriptionSource"></description-modal>
     </b-modal>
 
     <b-modal :active.sync="isNewSourceModalOpen" has-modal-card>
@@ -178,12 +177,12 @@ const DescriptionModal = {
   `,
 
   created() {
-    this.description = this.source.description;
+    this.description = this.source.pivot.description;
   },
 
   methods: {
     onSubmit() {
-      this.source.description = this.description;
+      this.source.pivot.description = this.description;
       this.$parent.close();
     }
   }
@@ -235,28 +234,32 @@ export default {
       if (source) {
         // Give the source extra_info and description fields, and make them
         // reactive
-        this.$set(source, 'extra_info', '');
-        this.$set(source, 'description', '');
+        let pivot = {extra_info: '', description: ''};
+        this.$set(source, 'pivot', pivot);
 
-        // The long form probably comes with its own <p> tag, but since it will
-        // be inserted as the innerHTML of a <p> tag, take out the wrapping tag
-        source.long = source.long.replace(/^<p[^>]*>|<\/p>$/gi, '');
-        // The hover text shouldn't have any tags in it at all
-        source.hover = source.long.replace(/<[^>]*>/g, '')
-                                  .replace('&nbsp;', ' ');
-
-        this.sources.push(source);
-        this.emitInputEvent();
+        let newValue = this.value.clone();
+        newValue.push(source);
+        this.$emit('input', newValue);
       }
     },
 
-    removeSource(index) {
-      this.sources.splice(index, 1);
-      this.emitInputEvent();
+    removeTags(string, all=false) {
+      if (all) {
+        string = string.replace(/<[^>]+>/g, '');
+      } else {
+        let match = string.match(/<([^\s>]+)[^>]*>(.*)<\/\1>/)
+        if (match) {
+          string = match[2];
+        }
+      }
+
+      return string.replace('&nbsp;', ' ');
     },
 
-    emitInputEvent() {
-      this.$emit('input', this.sources);
+    removeSource(index) {
+      let newValue = this.value.clone();
+      newValue.splice(index, 1);
+      this.$emit('input', newValue);
     },
 
     openDescriptionModal(source) {
@@ -288,7 +291,7 @@ export default {
     }
 
     .source-extra-info {
-      flex: 4;
+      flex: 2;
     }
   }
 }

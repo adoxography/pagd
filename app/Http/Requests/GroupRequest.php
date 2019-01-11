@@ -27,19 +27,19 @@ class GroupRequest extends FormRequest
     {
         $rules = [
             'name'      => ['required'],
-            'parent'    => ['nullable','exists:Groups,name'],
-            'parent_id' => ['nullable','integer','exists:Groups,id'],
+            'parent'    => ['nullable','exists:groups,name'],
+            'parent_id' => ['nullable','integer','exists:groups,id'],
             'aliases'   => ['nullable', 'string']
         ];
 
         switch($this->method()){
             case 'POST':
-                $rules['name'][] = 'unique:Groups,name';
+                $rules['name'][] = 'unique:groups,name';
                 break;
             case 'PATCH':
                 $group = $this->route('group');
 
-                $rules['name'][]      = Rule::unique('Groups','name')->ignore($group->id);
+                $rules['name'][]      = Rule::unique('groups','name')->ignore($group->id);
                 $rules['parent_id'][] = "nomatch:{$group->id}";
                 break;
             default:

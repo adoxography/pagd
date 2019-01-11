@@ -181,6 +181,7 @@
             @include('components.form.textarea', [
                 'name' => 'private_notes'
             ])
+            <alg-floating-typewriter></alg-floating-typewriter>
         </div>
     </alg-model-form>
 </alg-form>

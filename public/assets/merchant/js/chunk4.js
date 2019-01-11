@@ -4,8 +4,6 @@ webpackJsonp([4],{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_OldErrors__ = __webpack_require__("./resources/assets/js/mixins/OldErrors.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_OldSources__ = __webpack_require__("./resources/assets/js/mixins/OldSources.js");
 //
 //
 //
@@ -23,31 +21,43 @@ webpackJsonp([4],{
 //
 //
 //
-
-
 /* harmony default export */ __webpack_exports__["a"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_OldSources__["a" /* default */]],
-  props: ['method', 'action'],
+  props: ['method', 'action', 'oldErrors'],
   data: function data() {
     return {
-      sources: [],
       csrfToken: Laravel.csrfToken
     };
   },
+  mounted: function mounted() {
+    var _this = this;
+
+    if (this.oldErrors) {
+      _.forEach(this.oldErrors, function (errors, field) {
+        errors.forEach(function (message) {
+          return _this.$root.errors.add({
+            field: field,
+            msg: message
+          });
+        });
+      });
+    }
+
+    ;
+  },
   methods: {
     validateBeforeSubmit: function validateBeforeSubmit(event) {
-      var _this = this;
+      var _this2 = this;
 
       this.$validator.validateAll().then(function (result) {
         if (result) {
-          _this.$children.forEach(function (child) {
+          _this2.$children.forEach(function (child) {
             if (child.beforeSubmit) {
               child.beforeSubmit();
             }
           });
 
-          _this.$nextTick(function () {
-            return _this.$refs.form.submit();
+          _this2.$nextTick(function () {
+            return _this2.$refs.form.submit();
           });
         }
       });
@@ -187,57 +197,6 @@ component.options.__file = "resources/assets/js/components/forms/Form.vue"
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_68350a1b___["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_68350a1b___["b"]; });
 
-
-/***/ }),
-
-/***/ "./resources/assets/js/mixins/OldErrors.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony default export */ var _unused_webpack_default_export = ({
-  props: ['oldErrors'],
-  mounted: function mounted() {
-    var _this = this;
-
-    if (this.oldErrors) {
-      _.forEach(this.oldErrors, function (errors, field) {
-        errors.forEach(function (message) {
-          return _this.$root.errors.add({
-            field: field,
-            msg: message
-          });
-        });
-      });
-    }
-
-    ;
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/assets/js/mixins/OldSources.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = ({
-  props: ['oldSources'],
-  created: function created() {
-    var _this = this;
-
-    if (this.oldSources) {
-      this.oldSources.forEach(function (source) {
-        _this.sources.push({
-          short: source.display ? source.display : source.short,
-          id: source.id,
-          long: source.long,
-          extraInfo: source.pivot ? source.pivot.extraInfo : source.extraInfo,
-          description: source.pivot ? source.pivot.description : source.description
-        });
-      });
-    }
-  }
-});
 
 /***/ })
 

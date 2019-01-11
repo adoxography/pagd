@@ -16,19 +16,21 @@
 </template>
 
 <script>
-import oldErrors from '../../mixins/OldErrors';
-import oldSources from '../../mixins/OldSources';
-
 export default {
-  mixins: [oldSources],
-
-  props: ['method', 'action'],
+  props: ['method', 'action', 'oldErrors'],
 
   data() {
     return {
-      sources: [],
       csrfToken: Laravel.csrfToken
     }
+  },
+
+  mounted() {
+		if(this.oldErrors) {
+      _.forEach(this.oldErrors, (errors, field) => {
+        errors.forEach(message => this.$root.errors.add({field: field, msg: message}));
+      });
+    };
   },
 
   methods: {

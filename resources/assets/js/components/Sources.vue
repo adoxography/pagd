@@ -1,230 +1,295 @@
 <template>
-	<div>
-		<div class="columns">
-			<div class="column is-8">
-				<label for="old-source" class="label">Look up an existing source:</label>
-				<alg-ajaxlist v-model="oldSource"
-							  uri="/autocomplete/sources"
-							  placeholder="Search for an existing source"
-							  name="old-source"
-							  id="old-source"
-							  @input="handleOldSourceInput"
-							  ref="oldSource"
-							  :disabled="disabled">
-				</alg-ajaxlist>
-			</div>
+  <div>
+    <b-field>
+      <b-autocomplete :data="ajaxList"
+                      @keyup.native="onAutocompleteKeyUp($event)"
+                      field="long"
+                      :loading="loading"
+                      @select="addSource"
+                      :clear-on-select="true"
+                      expanded
+                      placeholder="Look up an existing source">
+      </b-autocomplete>
+      <p class="control">
+        <a class="button is-info"
+           title="Add a new source"
+           @click="isNewSourceModalOpen = true">
+          <span class="icon">
+            <i class="fas fa-ellipsis-h"></i>
+          </span>
+        </a>
+      </p>
+    </b-field>
 
-			<div class="column" style="display: flex; justify-content: center;">
-				<a class="button"
-				   @click="open"
-				   :class="{ 'is-disabled': disabled }"
-				   id="new-source-button"
-				   style="margin-top: 2rem;">
-				   	Add a new source
-			    </a>
-			</div>
-		</div>
+    <ol class="source-list" style="margin-left: 1rem;">
+      <li v-for="(source, i) in sources">
+        <div class="source-entry">
+          <input type="hidden" name="sources[][id]" :value="source.id" />
+          <input type="hidden" name="sources[][description]" :value="source.description" />
+          <p class="source-long" v-html="source.long" :title="source.hover"></p>
+          <b-input class="source-extra-info"
+                   name="sources[][extra_info]"
+                   v-model="source.extra_info">
+          </b-input>
+          <a class="button"
+             :class="{'is-info': source.description.length > 0}"
+             title="Add description"
+             @click="openDescriptionModal(source)">
+            <span class="icon">
+              <i class="fas fa-align-justify"></i>
+            </span>
+          </a>
+          <a class="button is-danger"
+             title="Remove source"
+             @click="removeSource(i)">
+            <span class="icon">
+              <i class="fas fa-times"></i>
+            </span>
+          </a>
+        </div>
+      </li>
+    </ol>
 
-		<ul>
-			<div v-for="(source, index) in value">
-				<div class="columns">
-					<input type="hidden"
-						   v-model="source.id"
-						   :name="'sources['+index+'][id]'" />
-					<input
-						type="hidden"
-						v-model="source.short"
-						:name="'sources['+index+'][short]'" />
-					<input
-						type="hidden"
-						v-model="source.long"
-						:name="'sources['+index+'][long]'" />
-          <input
-            type="hidden"
-            v-model="source.description"
-            :name="'sources['+index+'][description]'"
-          />
-					<div class="column is-one-quarter">
-						<div>
-							<p :title="source.long">{{ index + 1 }}. {{ source.short }}</p>
-							<span class="help is-danger"
-								v-show="duplicateSource(source.id)" 
-								v-text="'This source is already listed'">
-							</span>
-						</div>
-					</div>
-					<div class="column is-7">
-						<p class="control">
-							<input type="text"
-								   class="input is-expanded"
-								   :name="'sources['+index+'][extraInfo]'"
-								   v-model="source.extraInfo"
-								   placeholder="chapter, page number, etc..."
-								   ref="extrainfo"
-								   :disabled="disabled"
-								   autocomplete="off" />
-						</p>
-					</div>
-          <div class="column is-1">
-            <a class="button"
-               @click="openDescriptionModal(index)"
-               :class="{'is-primary': source.description && source.description.length > 0}"
-            > Desc </a>
-          </div>
-					<div class="column is-1">
-						<a class="button"
-						   @click="remove(index)"
-						   :disabled="disabled">Remove</a>
-					</div>
-				</div>
-			</div>
-		</ul>
+    <b-modal :active.sync="isDescriptionModalOpen" has-modal-card>
+      <description-modal v-bind="descriptionSource">
+      </description-modal>
+    </b-modal>
 
-    <div class="modal is-active" v-show="showDescription">
-      <div class="modal-background"></div>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">Description</p>
-        </header>
-        <section class="modal-card-body">
-          <textarea class="textarea" v-model="focusedSource.description"></textarea>
-        </section>
-        <footer class="modal-card-foot">
-          <a class="button is-success" @click="saveDescription">Save</a>
-          <a class="button is-danger" @click="showDescription=false">Cancel</a>
-        </footer>
-      </div>
-    </div>
-
-		<alg-new-source v-show="showModal"
-						@close="close"
-						:open="showModal"
-						@input="add($event)">
-		</alg-new-source>
-	</div>
+    <b-modal :active.sync="isNewSourceModalOpen" has-modal-card>
+      <new-source @change="addSource"></new-source>
+    </b-modal>
+  </div>
 </template>
 
 <script>
-	import  { focus } from 'vue-focus';
+const NewSource = {
+  template: `
+    <div class="modal-card" style="width: auto">
+      <header class="modal-card-head" style="margin-bottom: 0;">
+        <p class="modal-card-title">Add new source</p>
+      </header>
+      <section class="modal-card-body">
+        <b-field label="Author"
+                 :type="{'is-danger': errors.has('source-author')}"
+                 :message="errors.first('source-author')">
+          <b-input v-model="formData.author"
+                   name="source-author"
+                   v-validate="'required'"
+                   data-vv-as="author">
+          </b-input>
+        </b-field>
+        <b-field label="Year"
+                 :type="{'is-danger': errors.has('source-year')}"
+                 :message="errors.first('source-year')">
+          <b-input v-model="formData.year"
+                   name="source-year"
+                   v-validate="'required'"
+                   data-vv-as="year">
+          </b-input>
+        </b-field>
+        <input type="hidden"
+               v-model="formData.long"
+               name="source-long"
+               v-validate="'required'"
+               data-vv-as="full citation"
+        />
+        <b-field label="Full citation"
+                 :type="{'is-danger': errors.has('source-long')}"
+                 :message="errors.first('source-long')">
+          <wysiwyg v-model="formData.long"></wysiwyg>
+        </b-field>
+        <b-field label="URL">
+          <b-input v-model="formData.url"></b-input>
+        </b-field>
+        <b-field label="Notes">
+          <wysiwyg v-model="formData.notes"></wysiwyg>
+        </b-field>
+        <footer class="modal-card-foot">
+          <a class="button is-primary has-text-grey-dark"
+             @click="onSubmit"
+             :disabled="errors.any()">
+             Submit
+          </a>
+          <a class="button is-danger" @click="$parent.close()">Cancel</a>
+        </footer>
+      </section>
+    </div>
+  `,
 
-	export default {
-		props: ['value', 'disabled'],
+  data() {
+    return {
+      formData: {
+        author: '',
+        year: '',
+        long: '',
+        url: '',
+        notes: ''
+      }
+    }
+  },
 
-		data() {
-			return {
-				showModal: false,
+  $_veeValidate: {
+    validator: 'new'
+  },
 
-        showDescription: false,
-        focusedSource: { index: 0, description: ''},
+  methods: {
+    onSubmit() {
+      this.$validator.validateAll();
 
-				oldSource: {
-					text: '',
-					id: ''
-				}
-			};
-		},
+      if (!this.errors.any()) {
+        axios.post('/sources', this.formData)
+        .then(response => {
+          this.$emit('change', response.data);
+          this.$parent.close();
+        })
+        .catch(error => {
+          console.error(error);
+        });
+      }
+    }
+  }
+};
 
-		computed: {
-			hasDuplicates() {
-				let sources = this.value;
-				let found = false;
+const DescriptionModal = {
+  props: ['source'],
 
-				for(let i = 0; i < sources.length && !found; i++) {
-					found = this.duplicateSource(sources[i].id);
-				}
+  data() {
+    return {
+      description: ''
+    };
+  },
 
-				return found;
-			}
-		},
+  template: `
+    <div class="modal-card" style="width: auto">
+      <header class="modal-card-head" style="margin-bottom: 0;">
+        <p class="modal-card-title">Description of {{ source.author }} ({{ source.year }})</p>
+      </header>
+      <section class="modal-card-body">
+        <wysiwyg v-model="description"></wysiwyg>
+        <footer class="modal-card-foot">
+          <a class="button is-primary has-text-grey-dark"
+             @click="onSubmit">
+             Save
+          </a>
+          <a class="button is-danger" @click="$parent.close()">Cancel</a>
+        </footer>
+      </section>
+    </div>
+  `,
 
-		directives: {
-			focus: focus
-		},
+  created() {
+    this.description = this.source.description;
+  },
 
-		methods: {
-			open() {
-				this.showModal = true;
-			},
+  methods: {
+    onSubmit() {
+      this.source.description = this.description;
+      this.$parent.close();
+    }
+  }
+};
 
-			close() {
-				this.showModal = false;
-			},
+export default {
+  components: {
+    NewSource,
+    DescriptionModal
+  },
 
-			add(data) {
-				let newSources = this.value;
-				newSources.push({
-					short: data.display,
-					id:    data.id,
-					long:  data.long,
-					extraInfo: ''					
-				});
+  props: ['value'],
 
-				this.$emit('input', newSources);
+  data() {
+    return {
+      sources: [],
 
-				Vue.nextTick(() => {
-					this.$refs.extrainfo[this.value.length - 1].focus();
-				});
-			},
+      ajaxList: [],
+      loading: false,
 
-			remove(index) {
-				let sources = this.value;
-				sources.splice(index, 1);
+      isNewSourceModalOpen: false,
+      isDescriptionModalOpen: false,
+      descriptionSource: { source: {} }
+    };
+  },
 
-				this.$emit('input', sources);
-			},
+  methods: {
+    onAutocompleteKeyUp(event) {
+      if (event.key.length == 1) {
+        this.loadSources(event.target.value);
+      }
+    },
 
-      openDescriptionModal(index) {
-        let sources = this.value;
-        this.focusedSource.description = sources[index].description;
-        this.focusedSource.index = index;
+    loadSources: _.debounce(function(query) {
+      this.loading = true;
+      axios.get('/autocomplete/sources', {
+        params: {
+          term: query
+        }
+      }).then(response => {
+        this.loading = false;
+        this.ajaxList = response.data;
+      }).catch(error => {
+        console.error(error);
+      });
+    }, 500),
 
-        this.showDescription = true;
-      },
+    addSource(source) {
+      if (source) {
+        // Give the source extra_info and description fields, and make them
+        // reactive
+        this.$set(source, 'extra_info', '');
+        this.$set(source, 'description', '');
 
-      saveDescription() {
-        let sources = this.value;
-        sources[this.focusedSource.index].description = this.focusedSource.description;
-        this.showDescription = false;
+        // The long form probably comes with its own <p> tag, but since it will
+        // be inserted as the innerHTML of a <p> tag, take out the wrapping tag
+        source.long = source.long.replace(/^<p[^>]*>|<\/p>$/gi, '');
+        // The hover text shouldn't have any tags in it at all
+        source.hover = source.long.replace(/<[^>]*>/g, '')
+                                  .replace('&nbsp;', ' ');
 
-        this.$emit('input', sources);
-      },
+        this.sources.push(source);
+        this.emitInputEvent();
+      }
+    },
 
-			duplicateSource(index) {
-				let sources = this.value;
-				let found = false;
-				let duplicate = false;
+    removeSource(index) {
+      this.sources.splice(index, 1);
+      this.emitInputEvent();
+    },
 
-				if(sources) {
-					sources.forEach(source => {
-						if(source.id == index) {
-							if(!found) {
-								found = true;
-							}
-							else {
-								duplicate = true;
-							}
-						}
-					});
-				}
+    emitInputEvent() {
+      this.$emit('input', this.sources);
+    },
 
-				return duplicate;
-			},
-
-			handleOldSourceInput() {
-				Vue.nextTick(() => {
-					if(this.$refs.oldSource.showCheck) {
-						this.add({
-							display: this.oldSource.extra,
-							id:      this.oldSource.id,
-							long:    this.oldSource.text
-						});
-
-						this.oldSource.text = '';
-						this.oldSource.id = '';
-						this.oldSource.extra = '';
-					}
-				});
-			}
-		}
-	}
+    openDescriptionModal(source) {
+      this.descriptionSource.source = source;
+      this.isDescriptionModalOpen = true;
+    }
+  }
+}
 </script>
+
+<style lang="sass">
+.source-list {
+  margin-left: 1rem;
+
+  li:not(:first-child) {
+    margin-top: .75rem;
+  }
+
+  .source-entry {
+    display: flex;
+
+    .source-long {
+      flex: 1;
+      max-width: 15rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-right: 1rem;
+    }
+
+    .source-extra-info {
+      flex: 4;
+    }
+  }
+}
+</style>

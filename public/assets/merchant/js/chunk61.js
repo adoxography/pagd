@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< HEAD:public/assets/merchant/js/chunk61.js
 <<<<<<< HEAD:public/assets/merchant/js/chunk61.js
 webpackJsonp([61,72],{
@@ -43,6 +44,14 @@ webpackJsonp([8],{
 //
 //
 //
+=======
+webpackJsonp([61],{
+
+/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Modal.vue?vue&type=script&lang=js&":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+>>>>>>> Update sources component
 //
 //
 //
@@ -60,6 +69,7 @@ webpackJsonp([8],{
 //
 //
 //
+<<<<<<< HEAD
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   props: ['language', 'old'],
@@ -101,6 +111,48 @@ webpackJsonp([8],{
           id: example.id,
           comments: example.pivot.comments
         });
+=======
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["a"] = ({
+  props: {
+    title: {
+      default: ""
+    },
+    content: {
+      default: ""
+    },
+    footer: {
+      default: ""
+    }
+  },
+  data: function data() {
+    return {
+      active: false
+    };
+  },
+  methods: {
+    open: function open() {
+      this.active = true;
+    },
+    close: function close() {
+      this.active = false;
+    },
+    onClickOutside: function onClickOutside() {
+      var _this = this;
+
+      Vue.nextTick(function () {
+        if (_this.active) {
+          _this.close();
+        }
+>>>>>>> Update sources component
       });
     }
   }
@@ -108,7 +160,11 @@ webpackJsonp([8],{
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Phoneme-Examples.vue?vue&type=template&id=bda815f2&":
+=======
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Modal.vue?vue&type=template&id=6e8d36f4&":
+>>>>>>> Update sources component
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -120,6 +176,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+<<<<<<< HEAD
     [
       _c("div", { staticClass: "field" }, [
         _c(
@@ -229,6 +286,51 @@ var render = function() {
       })
     ],
     2
+=======
+    { staticClass: "modal", class: { "is-active": _vm.active } },
+    [
+      _c("div", { staticClass: "modal-background", on: { click: _vm.close } }),
+      _vm._v(" "),
+      _c("div", { staticClass: "modal-card" }, [
+        _c("header", { staticClass: "modal-card-head" }, [
+          _c(
+            "p",
+            { staticClass: "modal-card-title" },
+            [
+              _vm._t("title", [
+                _c("div", { domProps: { innerHTML: _vm._s(_vm.title) } })
+              ])
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c("button", { staticClass: "delete", on: { click: _vm.close } })
+        ]),
+        _vm._v(" "),
+        _c(
+          "section",
+          { staticClass: "modal-card-body" },
+          [
+            _vm._t("default", [
+              _c("div", { domProps: { innerHTML: _vm._s(_vm.content) } })
+            ])
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _c(
+          "footer",
+          { staticClass: "modal-card-foot" },
+          [
+            _vm._t("footer", [
+              _c("div", { domProps: { innerHTML: _vm._s(_vm.footer) } })
+            ])
+          ],
+          2
+        )
+      ])
+    ]
+>>>>>>> Update sources component
   )
 }
 var staticRenderFns = [
@@ -247,6 +349,7 @@ render._withStripped = true
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./resources/assets/js/Datalist.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -290,12 +393,20 @@ function () {
 /***/ }),
 
 /***/ "./resources/assets/js/components/Phoneme-Examples.vue":
+=======
+/***/ "./resources/assets/js/components/Modal.vue":
+>>>>>>> Update sources component
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Phoneme_Examples_vue_vue_type_template_id_bda815f2___ = __webpack_require__("./resources/assets/js/components/Phoneme-Examples.vue?vue&type=template&id=bda815f2&");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Phoneme_Examples_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/Phoneme-Examples.vue?vue&type=script&lang=js&");
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Modal_vue_vue_type_template_id_6e8d36f4___ = __webpack_require__("./resources/assets/js/components/Modal.vue?vue&type=template&id=6e8d36f4&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Modal_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/Modal.vue?vue&type=script&lang=js&");
+>>>>>>> Update sources component
 /* empty harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_componentNormalizer_js__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -306,9 +417,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* normalize component */
 
 var component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_componentNormalizer_js__["a" /* default */])(
+<<<<<<< HEAD
   __WEBPACK_IMPORTED_MODULE_1__Phoneme_Examples_vue_vue_type_script_lang_js___["a" /* default */],
   __WEBPACK_IMPORTED_MODULE_0__Phoneme_Examples_vue_vue_type_template_id_bda815f2___["a" /* render */],
   __WEBPACK_IMPORTED_MODULE_0__Phoneme_Examples_vue_vue_type_template_id_bda815f2___["b" /* staticRenderFns */],
+=======
+  __WEBPACK_IMPORTED_MODULE_1__Modal_vue_vue_type_script_lang_js___["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_0__Modal_vue_vue_type_template_id_6e8d36f4___["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_0__Modal_vue_vue_type_template_id_6e8d36f4___["b" /* staticRenderFns */],
+>>>>>>> Update sources component
   false,
   null,
   null,
@@ -323,23 +440,37 @@ if (false) {
   if (api.compatible) {
     module.hot.accept()
     if (!module.hot.data) {
+<<<<<<< HEAD
       api.createRecord('bda815f2', component.options)
     } else {
       api.reload('bda815f2', component.options)
     }
     module.hot.accept("./Phoneme-Examples.vue?vue&type=template&id=bda815f2&", function () {
       api.rerender('bda815f2', {
+=======
+      api.createRecord('6e8d36f4', component.options)
+    } else {
+      api.reload('6e8d36f4', component.options)
+    }
+    module.hot.accept("./Modal.vue?vue&type=template&id=6e8d36f4&", function () {
+      api.rerender('6e8d36f4', {
+>>>>>>> Update sources component
         render: render,
         staticRenderFns: staticRenderFns
       })
     })
   }
 }
+<<<<<<< HEAD
 component.options.__file = "resources/assets/js/components/Phoneme-Examples.vue"
+=======
+component.options.__file = "resources/assets/js/components/Modal.vue"
+>>>>>>> Update sources component
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./resources/assets/js/components/Phoneme-Examples.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -357,6 +488,25 @@ component.options.__file = "resources/assets/js/components/Phoneme-Examples.vue"
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Phoneme_Examples_vue_vue_type_template_id_bda815f2___ = __webpack_require__("./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Phoneme-Examples.vue?vue&type=template&id=bda815f2&");
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Phoneme_Examples_vue_vue_type_template_id_bda815f2___["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Phoneme_Examples_vue_vue_type_template_id_bda815f2___["b"]; });
+=======
+/***/ "./resources/assets/js/components/Modal.vue?vue&type=script&lang=js&":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Modal_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Modal.vue?vue&type=script&lang=js&");
+/* unused harmony namespace reexport */
+ /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Modal_vue_vue_type_script_lang_js___["a" /* default */]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Modal.vue?vue&type=template&id=6e8d36f4&":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Modal_vue_vue_type_template_id_6e8d36f4___ = __webpack_require__("./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Modal.vue?vue&type=template&id=6e8d36f4&");
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Modal_vue_vue_type_template_id_6e8d36f4___["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Modal_vue_vue_type_template_id_6e8d36f4___["b"]; });
+>>>>>>> Update sources component
 
 
 /***/ })

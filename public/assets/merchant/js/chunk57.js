@@ -1,16 +1,15 @@
+<<<<<<< HEAD
 <<<<<<< HEAD:public/assets/merchant/js/chunk57.js
 <<<<<<< HEAD:public/assets/merchant/js/chunk57.js
 webpackJsonp([57,72],{
+=======
+webpackJsonp([57],{
+>>>>>>> Update sources component
 
-/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Allophone.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Pagination-Full.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form__ = __webpack_require__("./resources/assets/js/components/forms/Form.vue");
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 //
 //
 //
@@ -33,27 +32,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+<<<<<<< HEAD
 
 
 
@@ -165,30 +144,33 @@ webpackJsonp([4],{
       csrfToken: Laravel.csrfToken
     };
   },
+=======
+/* harmony default export */ __webpack_exports__["a"] = ({
+  props: ['pages', 'value', 'alpha', 'labels'],
+>>>>>>> Update sources component
   methods: {
-    validateBeforeSubmit: function validateBeforeSubmit(event) {
-      var _this = this;
-
-      this.$validator.validateAll().then(function (result) {
-        if (result) {
-          _this.$children.forEach(function (child) {
-            if (child.beforeSubmit) {
-              child.beforeSubmit();
-            }
-          });
-
-          _this.$nextTick(function () {
-            return _this.$refs.form.submit();
-          });
-        }
-      });
+    onClick: function onClick(newValue) {
+      this.$emit('input', newValue);
+    },
+    printLabel: function printLabel(index) {
+      if (this.labels) {
+        return this.labels[index];
+      } else if (this.alpha) {
+        return (index + 10).toString(36).toUpperCase();
+      } else {
+        return index + 1;
+      }
     }
   }
 });
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Form.vue?vue&type=template&id=68350a1b&":
+=======
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Pagination-Full.vue?vue&type=template&id=f07829ca&":
+>>>>>>> Update sources component
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -198,6 +180,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+<<<<<<< HEAD
   return _c(
     "form",
     {
@@ -217,30 +200,60 @@ var render = function() {
       _c("input", {
         attrs: { name: "_token", type: "hidden" },
         domProps: { value: _vm.csrfToken }
+=======
+  return _c("nav", { staticClass: "alg-pagination-full" }, [
+    _c(
+      "a",
+      {
+        staticClass: "pagination-previous",
+        attrs: { disabled: _vm.value == 0 },
+        on: {
+          click: function($event) {
+            _vm.onClick(_vm.value - 1)
+          }
+        }
+      },
+      [_vm._v("\n\t\t\tPrevious\n\t")]
+    ),
+    _vm._v(" "),
+    _c(
+      "a",
+      {
+        staticClass: "pagination-next",
+        attrs: { disabled: _vm.value == _vm.pages - 1 },
+        on: {
+          click: function($event) {
+            _vm.onClick(_vm.value + 1)
+          }
+        }
+      },
+      [_vm._v("\n\t\t\tNext\n\t")]
+    ),
+    _vm._v(" "),
+    _c(
+      "ul",
+      { staticClass: "pagination-list" },
+      _vm._l(_vm.pages, function(n) {
+        return _c("li", [
+          _c(
+            "a",
+            {
+              staticClass: "pagination-link",
+              attrs: { disabled: _vm.value == n - 1 },
+              on: {
+                click: function($event) {
+                  _vm.onClick(n - 1)
+                }
+              }
+            },
+            [_vm._v(_vm._s(_vm.printLabel(n - 1)))]
+          )
+        ])
+>>>>>>> Update sources component
       }),
-      _vm._v(" "),
-      _vm.method != "POST" && _vm.method != "GET"
-        ? _c("input", {
-            attrs: { type: "hidden", name: "_method" },
-            domProps: { value: _vm.method }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _vm._t("default"),
-      _vm._v(" "),
-      _c("div", { staticClass: "field" }, [
-        _c(
-          "button",
-          {
-            staticClass: "button is-primary has-text-grey-dark",
-            attrs: { type: "submit", disabled: _vm.errors.any() }
-          },
-          [_vm._v("Submit")]
-        )
-      ])
-    ],
-    2
-  )
+      0
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -249,13 +262,22 @@ render._withStripped = true
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./resources/assets/js/components/forms/Form.vue":
+=======
+/***/ "./resources/assets/js/components/Pagination-Full.vue":
+>>>>>>> Update sources component
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form_vue_vue_type_template_id_68350a1b___ = __webpack_require__("./resources/assets/js/components/forms/Form.vue?vue&type=template&id=68350a1b&");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Form_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/forms/Form.vue?vue&type=script&lang=js&");
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Pagination_Full_vue_vue_type_template_id_f07829ca___ = __webpack_require__("./resources/assets/js/components/Pagination-Full.vue?vue&type=template&id=f07829ca&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Pagination_Full_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/Pagination-Full.vue?vue&type=script&lang=js&");
+>>>>>>> Update sources component
 /* empty harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_componentNormalizer_js__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -266,9 +288,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* normalize component */
 
 var component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_componentNormalizer_js__["a" /* default */])(
+<<<<<<< HEAD
   __WEBPACK_IMPORTED_MODULE_1__Form_vue_vue_type_script_lang_js___["a" /* default */],
   __WEBPACK_IMPORTED_MODULE_0__Form_vue_vue_type_template_id_68350a1b___["a" /* render */],
   __WEBPACK_IMPORTED_MODULE_0__Form_vue_vue_type_template_id_68350a1b___["b" /* staticRenderFns */],
+=======
+  __WEBPACK_IMPORTED_MODULE_1__Pagination_Full_vue_vue_type_script_lang_js___["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_0__Pagination_Full_vue_vue_type_template_id_f07829ca___["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_0__Pagination_Full_vue_vue_type_template_id_f07829ca___["b" /* staticRenderFns */],
+>>>>>>> Update sources component
   false,
   null,
   null,
@@ -283,23 +311,37 @@ if (false) {
   if (api.compatible) {
     module.hot.accept()
     if (!module.hot.data) {
+<<<<<<< HEAD
       api.createRecord('68350a1b', component.options)
     } else {
       api.reload('68350a1b', component.options)
     }
     module.hot.accept("./Form.vue?vue&type=template&id=68350a1b&", function () {
       api.rerender('68350a1b', {
+=======
+      api.createRecord('f07829ca', component.options)
+    } else {
+      api.reload('f07829ca', component.options)
+    }
+    module.hot.accept("./Pagination-Full.vue?vue&type=template&id=f07829ca&", function () {
+      api.rerender('f07829ca', {
+>>>>>>> Update sources component
         render: render,
         staticRenderFns: staticRenderFns
       })
     })
   }
 }
+<<<<<<< HEAD
 component.options.__file = "resources/assets/js/components/forms/Form.vue"
+=======
+component.options.__file = "resources/assets/js/components/Pagination-Full.vue"
+>>>>>>> Update sources component
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./resources/assets/js/components/forms/Form.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -369,6 +411,26 @@ component.options.__file = "resources/assets/js/components/forms/Form.vue"
     }
   }
 });
+=======
+/***/ "./resources/assets/js/components/Pagination-Full.vue?vue&type=script&lang=js&":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_Full_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Pagination-Full.vue?vue&type=script&lang=js&");
+/* unused harmony namespace reexport */
+ /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_Full_vue_vue_type_script_lang_js___["a" /* default */]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Pagination-Full.vue?vue&type=template&id=f07829ca&":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_Full_vue_vue_type_template_id_f07829ca___ = __webpack_require__("./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Pagination-Full.vue?vue&type=template&id=f07829ca&");
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_Full_vue_vue_type_template_id_f07829ca___["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_Full_vue_vue_type_template_id_f07829ca___["b"]; });
+
+>>>>>>> Update sources component
 
 /***/ })
 

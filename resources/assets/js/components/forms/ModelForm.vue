@@ -180,7 +180,6 @@ export default {
      * @param options   Any additional options to send in the request
      */
     getAsyncData: _.debounce(function(listName, query, options) {
-      console.log(query);
       this.asyncLoading[listName] = true;
       axios.get(this.lists[listName], {
         params: {
@@ -188,7 +187,6 @@ export default {
           options: options
         }
       }).then(response => {
-        console.log(response);
         this.filteredLists[listName] = response.data;
         this.asyncLoading[listName] = false;
       }).catch(error => {

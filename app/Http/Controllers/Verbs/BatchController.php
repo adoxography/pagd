@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Verbs;
 use DB;
 use Log;
 use App\Http\Controllers\Controller;
+use App\Models\BatchUpload;
+use App\Models\Batchable;
 use App\Models\Language;
 use App\Models\Source;
 use App\Models\Verbs\Form;
@@ -61,8 +63,13 @@ class BatchController extends Controller
      */
     protected function upload(array $data)
     {
-        DB::beginTransaction();
+        $batch = BatchUpload::create([
+            'user_id' => auth()->user()->id,
+            'batch_type' => 'verbForms'
+        ]);
         $forms = [];
+
+        DB::beginTransaction();
 
         try {
             foreach ($data as $index => $row) {
@@ -112,6 +119,17 @@ class BatchController extends Controller
                 // Create the form
                 $forms[] = Form::create($formData);
             }
+
+            // Connect the new forms to the batch
+            Batchable::insert(array_map(function ($form) use ($batch) {
+                return [
+                    'batch_upload_id' => $batch->id,
+                    'batchable_id' => $form->id
+                ];
+            }, $forms));
+            $batch->success = true;
+            $batch->save();
+
         } catch (\Exception $e) {
             // If anything goes wrong, rollback the database and throw an error
             DB::rollback();

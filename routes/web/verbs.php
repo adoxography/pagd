@@ -1,4 +1,7 @@
 <?php
+Route::get('/batch', 'BatchController@show');
+Route::post('/batch', 'BatchController@store');
+
 Route::get('/gaps/{verbGap}', 'GapController@show');
 Route::delete('/gaps/{verbGap}', 'GapController@destroy');
 Route::patch('/gaps/{verbGap}', 'GapController@update');

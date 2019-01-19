@@ -46,17 +46,6 @@ class Structure extends Model
         'mode' => Mode::class
     ];
 
-    protected static $template = [
-        'is_negative' => false,
-        'is_diminutive' => false,
-        'subject' => Argument::class,
-        'primary_object' => Argument::class,
-        'secondary_object' => Argument::class,
-        'verb_class' => VerbClass::class,
-        'order' => Order::class,
-        'mode' => Mode::class
-    ];
-
     public static function boot()
     {
         parent::boot();

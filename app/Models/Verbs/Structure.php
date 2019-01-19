@@ -37,7 +37,7 @@ class Structure extends Model
 
     protected static $template = [
         'is_negative' => false,
-        'is-is_diminutive' => false,
+        'is_diminutive' => false,
         'subject' => Argument::class,
         'primary_object' => Argument::class,
         'secondary_object' => Argument::class,

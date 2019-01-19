@@ -87,7 +87,6 @@ function recursiveRender($group) {
         <div class="detail-row">
             <label class="detail-label">Map</label>
             <div class="detail-value">
-                <em>(Centre of the area in which the language has most recently been spoken)</em>
                 <alg-map :markers="{{ $group->allLanguages()->toJson() }}"></alg-map>
             </div>
         </div>

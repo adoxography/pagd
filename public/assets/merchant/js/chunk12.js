@@ -1,9 +1,10 @@
 webpackJsonp([12],{
 
-/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Form.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Paradigm-Search.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+//
 //
 //
 //
@@ -22,52 +23,43 @@ webpackJsonp([12],{
 //
 //
 /* harmony default export */ __webpack_exports__["a"] = ({
-  props: ['method', 'action', 'oldErrors'],
+  props: ['languages', 'orders', 'modes', 'preset', 'active'],
   data: function data() {
     return {
-      csrfToken: Laravel.csrfToken
+      activeTab: ''
     };
   },
-  mounted: function mounted() {
-    var _this = this;
-
-    if (this.oldErrors) {
-      _.forEach(this.oldErrors, function (errors, field) {
-        errors.forEach(function (message) {
-          return _this.$root.errors.add({
-            field: field,
-            msg: message
-          });
-        });
-      });
-    }
-
-    ;
-  },
   methods: {
-    validateBeforeSubmit: function validateBeforeSubmit(event) {
-      var _this2 = this;
+    onTabChanged: function onTabChanged(searchName) {
+      var oldSearchName;
+      var oldSearch;
+      var newSearch; // Figure out which searches are which
 
-      this.$validator.validateAll().then(function (result) {
-        if (result) {
-          _this2.$children.forEach(function (child) {
-            if (child.beforeSubmit) {
-              child.beforeSubmit();
-            }
-          });
+      if (searchName === 'Basic') {
+        oldSearchName = 'Advanced';
+      } else {
+        oldSearchName = 'Basic';
+      } // Recall the searches
 
-          _this2.$nextTick(function () {
-            return _this2.$refs.form.submit();
-          });
-        }
-      });
+
+      oldSearch = this.$refs[oldSearchName];
+      newSearch = this.$refs[searchName]; // Load the data from the old search into the new one
+
+      newSearch.importData(oldSearch.getData());
+    }
+  },
+  created: function created() {
+    if (this.active) {
+      this.activeTab = this.active;
+    } else {
+      this.activeTab = 'Basic';
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Form.vue?vue&type=template&id=68350a1b&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Paradigm-Search.vue?vue&type=template&id=71b77d43&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -78,47 +70,46 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "form",
+    "alg-tabs",
     {
-      ref: "form",
-      attrs: {
-        method: _vm.method == "GET" ? _vm.method : "POST",
-        action: _vm.action
-      },
+      attrs: { active: _vm.activeTab },
       on: {
-        submit: function($event) {
-          $event.preventDefault()
-          _vm.validateBeforeSubmit($event)
+        tabChanged: function($event) {
+          _vm.onTabChanged($event)
         }
       }
     },
     [
-      _c("input", {
-        attrs: { name: "_token", type: "hidden" },
-        domProps: { value: _vm.csrfToken }
-      }),
-      _vm._v(" "),
-      _vm.method != "POST" && _vm.method != "GET"
-        ? _c("input", {
-            attrs: { type: "hidden", name: "_method" },
-            domProps: { value: _vm.method }
+      _c(
+        "alg-tab",
+        { attrs: { name: "Basic" } },
+        [
+          _c("alg-basic-paradigm-search", {
+            ref: "Basic",
+            attrs: { languages: _vm.languages }
           })
-        : _vm._e(),
+        ],
+        1
+      ),
       _vm._v(" "),
-      _vm._t("default"),
-      _vm._v(" "),
-      _c("div", { staticClass: "field" }, [
-        _c(
-          "button",
-          {
-            staticClass: "button is-primary has-text-grey-dark",
-            attrs: { type: "submit", disabled: _vm.errors.any() }
-          },
-          [_vm._v("Submit")]
-        )
-      ])
+      _c(
+        "alg-tab",
+        { attrs: { name: "Advanced" } },
+        [
+          _c("alg-advanced-paradigm-search", {
+            ref: "Advanced",
+            attrs: {
+              orders: _vm.orders,
+              modes: _vm.modes,
+              languages: _vm.languages,
+              preset: _vm.preset
+            }
+          })
+        ],
+        1
+      )
     ],
-    2
+    1
   )
 }
 var staticRenderFns = []
@@ -128,13 +119,13 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/forms/Form.vue":
+/***/ "./resources/assets/js/components/forms/Paradigm-Search.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form_vue_vue_type_template_id_68350a1b___ = __webpack_require__("./resources/assets/js/components/forms/Form.vue?vue&type=template&id=68350a1b&");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Form_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/forms/Form.vue?vue&type=script&lang=js&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Paradigm_Search_vue_vue_type_template_id_71b77d43___ = __webpack_require__("./resources/assets/js/components/forms/Paradigm-Search.vue?vue&type=template&id=71b77d43&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Paradigm_Search_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/forms/Paradigm-Search.vue?vue&type=script&lang=js&");
 /* empty harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_componentNormalizer_js__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -145,9 +136,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* normalize component */
 
 var component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_componentNormalizer_js__["a" /* default */])(
-  __WEBPACK_IMPORTED_MODULE_1__Form_vue_vue_type_script_lang_js___["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_0__Form_vue_vue_type_template_id_68350a1b___["a" /* render */],
-  __WEBPACK_IMPORTED_MODULE_0__Form_vue_vue_type_template_id_68350a1b___["b" /* staticRenderFns */],
+  __WEBPACK_IMPORTED_MODULE_1__Paradigm_Search_vue_vue_type_script_lang_js___["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_0__Paradigm_Search_vue_vue_type_template_id_71b77d43___["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_0__Paradigm_Search_vue_vue_type_template_id_71b77d43___["b" /* staticRenderFns */],
   false,
   null,
   null,
@@ -162,40 +153,40 @@ if (false) {
   if (api.compatible) {
     module.hot.accept()
     if (!module.hot.data) {
-      api.createRecord('68350a1b', component.options)
+      api.createRecord('71b77d43', component.options)
     } else {
-      api.reload('68350a1b', component.options)
+      api.reload('71b77d43', component.options)
     }
-    module.hot.accept("./Form.vue?vue&type=template&id=68350a1b&", function () {
-      api.rerender('68350a1b', {
+    module.hot.accept("./Paradigm-Search.vue?vue&type=template&id=71b77d43&", function () {
+      api.rerender('71b77d43', {
         render: render,
         staticRenderFns: staticRenderFns
       })
     })
   }
 }
-component.options.__file = "resources/assets/js/components/forms/Form.vue"
+component.options.__file = "resources/assets/js/components/forms/Paradigm-Search.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/forms/Form.vue?vue&type=script&lang=js&":
+/***/ "./resources/assets/js/components/forms/Paradigm-Search.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Form.vue?vue&type=script&lang=js&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Paradigm_Search_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Paradigm-Search.vue?vue&type=script&lang=js&");
 /* unused harmony namespace reexport */
- /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_script_lang_js___["a" /* default */]); 
+ /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Paradigm_Search_vue_vue_type_script_lang_js___["a" /* default */]); 
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/forms/Form.vue?vue&type=template&id=68350a1b&":
+/***/ "./resources/assets/js/components/forms/Paradigm-Search.vue?vue&type=template&id=71b77d43&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_68350a1b___ = __webpack_require__("./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Form.vue?vue&type=template&id=68350a1b&");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_68350a1b___["a"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_68350a1b___["b"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Paradigm_Search_vue_vue_type_template_id_71b77d43___ = __webpack_require__("./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Paradigm-Search.vue?vue&type=template&id=71b77d43&");
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Paradigm_Search_vue_vue_type_template_id_71b77d43___["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Paradigm_Search_vue_vue_type_template_id_71b77d43___["b"]; });
 
 
 /***/ })

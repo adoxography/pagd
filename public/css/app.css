@@ -20652,6 +20652,7 @@ nav.detail-menu a.is-active {
 
   .details .detail-row label.detail-label,
   .details .detail-row .detail-value {
+    vertical-align: top;
     display: table-cell;
     padding: .5em .75em;
   }

@@ -289,6 +289,7 @@ nav.detail-menu {
             display: table-row;
 
             label.detail-label, .detail-value {
+                vertical-align: top;
                 display: table-cell;
                 padding: .5em .75em;
             }

@@ -208,7 +208,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.source-list {\n  margin-left: 1rem;\n}\n.source-list li:not(:first-child) {\n    margin-top: .75rem;\n}\n.source-list .source-entry {\n    display: flex;\n}\n.source-list .source-entry .source-long {\n      flex: 1;\n      max-width: 15rem;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n      margin-right: 1rem;\n}\n.source-list .source-entry .source-extra-info {\n      flex: 2;\n}\n", ""]);
+exports.push([module.i, ".source-list {\n  margin-left: 1rem;\n}\n.source-list li:not(:first-child) {\n    margin-top: .75rem;\n}\n.source-list .source-entry {\n    display: flex;\n}\n.source-list .source-entry .source-long {\n      flex: 1;\n      max-width: 15rem;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n      margin-right: 1rem;\n}\n.source-list .source-entry .source-extra-info {\n      flex: 2;\n}\n", ""]);
 
 // exports
 

@@ -209,7 +209,7 @@ class BatchController extends Controller
                 'primary object' => 'primary object',
                 'secondary object' => 'secondary object'
             ], true),
-            new ModelTransformer(13, Source::class, true, 'id'),
+            new ModelTransformer(13, Source::class, true, 'id', 'intval'),
             new TextTransformer(14, true, true),
             new TextTransformer(15, true, true)
         ];
@@ -304,10 +304,11 @@ class TextTransformer extends Transformer
 
 class ModelTransformer extends Transformer
 {
-    public function __construct(int $col, string $class, $nullable=false, string $field='name')
+    public function __construct(int $col, string $class, $nullable=false, string $field='name', $castFunc=null)
     {
         $this->class = $class;
         $this->field = $field;
+        $this->castFunc = $castFunc;
         $this->models = null;
 
         parent::__construct($col, $nullable, true);
@@ -316,6 +317,11 @@ class ModelTransformer extends Transformer
     protected function prepare(array $data)
     {
         $values = array_pluck($data, $this->col);
+
+        if ($this->castFunc) {
+            $values = array_map($this->castFunc, $values);
+        }
+
         $this->models = $this->class::whereIn($this->field, $values)->get();
     }
 

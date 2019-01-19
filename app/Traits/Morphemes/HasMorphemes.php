@@ -32,7 +32,7 @@ trait HasMorphemes
 
         return $this->belongsToMany(
             Morpheme::class,
-            'Morph_Morphemeables',
+            'morph_morphemeables',
             'morphemeable_id'
         )->where('morphemeable_type', $type)->orderBy('position')->withPivot('position');
     }
@@ -67,7 +67,7 @@ trait HasMorphemes
         $type = $this->getMorphType();
         $id = $this->id;
 
-        DB::table('Morph_Morphemeables')
+        DB::table('morph_morphemeables')
             ->where('morphemeable_type', $type)
             ->where('morphemeable_id', $id)
             ->delete();

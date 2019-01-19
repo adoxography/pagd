@@ -10,7 +10,7 @@
     <ul>
         @foreach ($forms as $form)
         <li>
-            {!! $form->present('link') !!}
+            {!! $form->present('link')->with('language')->as('link') !!}
         </li>
         @endforeach
     </ul>

@@ -102,7 +102,8 @@ class BatchController extends Controller
 
                 // Ensure the form doesn't already exist
                 if (Form::where($formData)->first()) {
-                    throw new UploadException("The form as given on row $index already exists.");
+                    $oneBasedIndex = $index + 1;
+                    throw new UploadException("The form as given on row $oneBasedIndex already exists.");
                 }
 
                 // If a source was provided, add it to the form data
@@ -272,7 +273,8 @@ abstract class Transformer
                 }
             } catch (TransformationException $e) {
                 $message = $e->getMessage();
-                throw new TransformationException("Error on row $rowIndex, column $col: $message");
+                $oneBasedRowIndex = $rowIndex + 1;
+                throw new TransformationException("Error on row $oneBasedRowIndex, column $col: $message");
             }
         }
     }

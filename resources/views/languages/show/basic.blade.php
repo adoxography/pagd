@@ -69,9 +69,7 @@
     <div class="detail-row">
         <label class="detail-label">Location</label>
         <div class="detail-value">
-            <em>(Centre of the area in which the language has most recently been spoken)</em>
             <alg-map :markers="{{ $language->toJson() }}"></alg-map>
-
         </div>
     </div>
     @endisset

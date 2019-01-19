@@ -20,6 +20,8 @@
                 @include('layout.header')
 
                 <section class="section has-background-grey" id="main-content">
+                    @include('partials.flash')
+
                     <div class="content-container has-background-white">
                         <header class="main-content-header is-flex">
                             <div>

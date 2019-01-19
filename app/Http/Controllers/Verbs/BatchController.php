@@ -76,21 +76,21 @@ class BatchController extends Controller
                 // Extract the data for building the structure
                 $structureData = [
                     'subject_id' => $row[2],
-                    'primaryObject_id' => $row[3],
-                    'secondaryObject_id' => $row[4],
+                    'primary_object_id' => $row[3],
+                    'secondary_object_id' => $row[4],
                     'class_id' => $row[6],
                     'order_id' => $row[7],
                     'mode_id' => $row[8],
-                    'isNegative' => $row[9],
-                    'isDiminutive' => $row[10],
-                    'isAbsolute' => $row[11],
+                    'is_negative' => $row[9],
+                    'is_diminutive' => $row[10],
+                    'is_absolute' => $row[11],
                     'head' => $row[12]
                 ];
 
                 // Extract the data for building the form
                 $formData = [
                     'name' => $row[0],
-                    'phonemicForm' => $row[1],
+                    'phonemic_form' => $row[1],
                     'language_id' => $row[5],
                     'structure_type' => 'verbStructures'
                 ];
@@ -111,7 +111,7 @@ class BatchController extends Controller
                     $formData['sources'] = [
                         [
                             'id' => $row[13],
-                            'extraInfo' => $row[14],
+                            'extra_info' => $row[14],
                             'description' => $row[15]
                         ]
                     ];

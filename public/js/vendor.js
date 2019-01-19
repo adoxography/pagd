@@ -19518,8 +19518,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ValidationObserver", function() { return ValidationObserver; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "withValidation", function() { return withValidation; });
 /**
-  * vee-validate v2.1.4
-  * (c) 2018 Abdelrahman Awad
+  * vee-validate v2.1.5
+  * (c) 2019 Abdelrahman Awad
   * @license MIT
   */
 // 
@@ -20605,10 +20605,12 @@ ErrorBag.prototype.remove = function remove (field, scope, vmId) {
   var selector = isNullOrUndefined(scope) ? String(field) : (scope + "." + field);
   var ref = this._makeCandidateFilters(selector);
     var isPrimary = ref.isPrimary;
+    var isAlt = ref.isAlt;
+  var matches = function (item) { return isPrimary(item) || isAlt(item); };
   var shouldRemove = function (item) {
-    if (isNullOrUndefined(vmId)) { return isPrimary(item); }
+    if (isNullOrUndefined(vmId)) { return matches(item); }
 
-    return isPrimary(item) && item.vmId === vmId;
+    return matches(item) && item.vmId === vmId;
   };
 
   for (var i = 0; i < this.items.length; ++i) {
@@ -20724,15 +20726,28 @@ function findModel (vnode) {
   return !!(vnode.data.directives) && find(vnode.data.directives, function (d) { return d.name === 'model'; });
 }
 
+function extractChildren (vnode) {
+  if (Array.isArray(vnode)) {
+    return vnode;
+  }
+
+  if (Array.isArray(vnode.children)) {
+    return vnode.children;
+  }
+
+  if (vnode.componentOptions && Array.isArray(vnode.componentOptions.children)) {
+    return vnode.componentOptions.children;
+  }
+
+  return [];
+}
+
 function extractVNodes (vnode) {
   if (findModel(vnode)) {
     return [vnode];
   }
 
-  var children = Array.isArray(vnode) ? vnode : vnode.children;
-  if (!Array.isArray(children)) {
-    return [];
-  }
+  var children = extractChildren(vnode);
 
   return children.reduce(function (nodes, node) {
     var candidates = extractVNodes(node);
@@ -21484,7 +21499,7 @@ Field.prototype.reset = function reset () {
 
   this.addValueListeners();
   this.addActionListeners();
-  this.updateClasses();
+  this.updateClasses(true);
   this.updateAriaAttrs();
   this.updateCustomValidity();
 };
@@ -21601,8 +21616,9 @@ Field.prototype.unwatch = function unwatch (tag) {
 /**
  * Updates the element classes depending on each field flag status.
  */
-Field.prototype.updateClasses = function updateClasses () {
+Field.prototype.updateClasses = function updateClasses (isReset) {
     var this$1 = this;
+    if ( isReset === void 0 ) isReset = false;
 
   if (!this.classes || this.isDisabled) { return; }
   var applyClasses = function (el) {
@@ -21610,6 +21626,13 @@ Field.prototype.updateClasses = function updateClasses () {
     toggleClass(el, this$1.classNames.pristine, this$1.flags.pristine);
     toggleClass(el, this$1.classNames.touched, this$1.flags.touched);
     toggleClass(el, this$1.classNames.untouched, this$1.flags.untouched);
+
+    // remove valid/invalid classes on reset.
+    if (isReset) {
+      toggleClass(el, this$1.classNames.valid, false);
+      toggleClass(el, this$1.classNames.invalid, false);
+    }
+
     // make sure we don't set any classes if the state is undetermined.
     if (!isNullOrUndefined(this$1.flags.valid) && this$1.flags.validated) {
       toggleClass(el, this$1.classNames.valid, this$1.flags.valid);
@@ -22112,12 +22135,8 @@ ScopedValidator.prototype.remove = function remove (ruleName) {
   return this._base.remove(ruleName);
 };
 
-ScopedValidator.prototype.detach = function detach () {
-    var ref;
-
-    var args = [], len = arguments.length;
-    while ( len-- ) args[ len ] = arguments[ len ];
-  return (ref = this._base).detach.apply(ref, args.concat( [this.id] ));
+ScopedValidator.prototype.detach = function detach (name, scope) {
+  return this._base.detach(name, scope, this.id);
 };
 
 ScopedValidator.prototype.extend = function extend () {
@@ -23227,6 +23246,8 @@ var mapFields = function (fields) {
 
 var $validator = null;
 
+var PROVIDER_COUNTER = 0;
+
 function createValidationCtx (ctx) {
   return {
     errors: ctx.messages,
@@ -23234,11 +23255,12 @@ function createValidationCtx (ctx) {
     classes: ctx.classes,
     valid: ctx.isValid,
     reset: function () { return ctx.reset(); },
-    validate: function (e) {
-      ctx.syncValue(e);
+    validate: function () {
+      var args = [], len = arguments.length;
+      while ( len-- ) args[ len ] = arguments[ len ];
 
-      return ctx.validate().then(ctx.applyResult);
-    },
+      return ctx.validate.apply(ctx, args);
+  },
     aria: {
       'aria-invalid': ctx.flags.invalid ? 'true' : 'false',
       'aria-required': ctx.isRequired ? 'true' : 'false'
@@ -23271,7 +23293,7 @@ function onRenderUpdate (model) {
     };
 
     this.value = model.value;
-    this.validate().then(this.immediate || shouldRevalidate ? this.applyResult : silentHandler);
+    this.validateSilent().then(this.immediate || shouldRevalidate ? this.applyResult : silentHandler);
   }
 
   this._needsValidation = false;
@@ -23339,22 +23361,20 @@ function createValuesLookup (ctx) {
     }
 
     acc[depName] = providers[depName].value;
-    var watcherName = "$__" + depName;
-    if (!isCallable(ctx[watcherName])) {
-      ctx[watcherName] = providers[depName].$watch('value', function () {
-        ctx.validate(ctx.value).then(ctx.applyResult);
-        ctx[watcherName]();
-      });
-    }
 
     return acc;
   }, {});
 }
 
 function updateRenderingContextRefs (ctx) {
+  // IDs should not be nullable.
+  if (isNullOrUndefined(ctx.id) && ctx.id === ctx.vid) {
+    ctx.id = PROVIDER_COUNTER;
+    PROVIDER_COUNTER++;
+  }
+
   var id = ctx.id;
   var vid = ctx.vid;
-
   // Nothing has changed.
   if (id === vid && ctx.$_veeObserver.refs[id]) {
     return;
@@ -23381,8 +23401,6 @@ function createObserver () {
   };
 }
 
-var id$1 = 0;
-
 var ValidationProvider = {
   $__veeInject: false,
   inject: {
@@ -23401,8 +23419,9 @@ var ValidationProvider = {
     vid: {
       type: [String, Number],
       default: function () {
-        id$1++;
-        return id$1;
+        PROVIDER_COUNTER++;
+
+        return PROVIDER_COUNTER;
       }
     },
     name: {
@@ -23465,10 +23484,24 @@ var ValidationProvider = {
       this._waiting = null;
       this.initialValue = this.value;
       var flags = createFlags();
-      flags.changed = false;
       this.setFlags(flags);
     },
     validate: function validate () {
+      var this$1 = this;
+      var args = [], len = arguments.length;
+      while ( len-- ) args[ len ] = arguments[ len ];
+
+      if (args[0]) {
+        this.syncValue(args[0]);
+      }
+
+      return this.validateSilent().then(function (result) {
+        this$1.applyResult(result);
+
+        return result;
+      });
+    },
+    validateSilent: function validateSilent () {
       var this$1 = this;
 
       this.setFlags({ pending: true });
@@ -23514,10 +23547,21 @@ var ValidationProvider = {
       return this.flags.valid;
     },
     fieldDeps: function fieldDeps () {
+      var this$1 = this;
+
       var rules = normalizeRules(this.rules);
+      var providers = this.$_veeObserver.refs;
 
       return Object.keys(rules).filter(RuleContainer.isTargetRule).map(function (rule) {
-        return rules[rule][0];
+        var depName = rules[rule][0];
+        var watcherName = "$__" + depName;
+        if (!isCallable(this$1[watcherName])) {
+          this$1[watcherName] = providers[depName].$watch('value', function () {
+            this$1.validate();
+          });
+        }
+
+        return depName;
       });
     },
     normalizedEvents: function normalizedEvents () {
@@ -23542,6 +23586,18 @@ var ValidationProvider = {
       var names = VeeValidate$1.config.classNames;
       return Object.keys(this.flags).reduce(function (classes, flag) {
         var className = (names && names[flag]) || flag;
+        if (flag === 'invalid') {
+          classes[className] = !!this$1.messages.length;
+
+          return classes;
+        }
+
+        if (flag === 'valid') {
+          classes[className] = !this$1.messages.length;
+
+          return classes;
+        }
+
         if (className) {
           classes[className] = this$1.flags[flag];
         }
@@ -23620,18 +23676,12 @@ var ValidationObserver = {
       this.refs = Object.assign({}, this.refs);
     },
     validate: function validate () {
-      return Promise.all(values(this.refs).map(function (ref) {
-        return ref.validate().then(function (result) {
-          ref.applyResult(result);
-
-          return result;
-        });
-      })).then(function (results) { return results.every(function (r) { return r.valid; }); });
+      return Promise.all(
+        values(this.refs).map(function (ref) { return ref.validate(); })
+      ).then(function (results) { return results.every(function (r) { return r.valid; }); });
     },
     reset: function reset () {
-      return values(this.refs).forEach(function (ref) {
-        ref.reset();
-      });
+      return values(this.refs).forEach(function (ref) { return ref.reset(); });
     }
   },
   computed: {
@@ -23810,11 +23860,16 @@ I18nDictionary.prototype.setDateFormat = function setDateFormat (locale, value) 
 
 I18nDictionary.prototype.getMessage = function getMessage (_, key, data) {
   var path = (this.rootKey) + ".messages." + key;
-  var result = this.i18n.t(path, data);
-  if (result !== path) {
-    return result;
+  if (this.i18n.te(path)) {
+    return this.i18n.t(path, data);
   }
 
+  // fallback to the fallback message
+  if (this.i18n.te(path, this.i18n.fallbackLocale)) {
+    return this.i18n.t(path, this.i18n.fallbackLocale, data);
+  }
+
+  // fallback to the root message
   return this.i18n.t(((this.rootKey) + ".messages._default"), data);
 };
 
@@ -23822,9 +23877,8 @@ I18nDictionary.prototype.getAttribute = function getAttribute (_, key, fallback)
     if ( fallback === void 0 ) fallback = '';
 
   var path = (this.rootKey) + ".attributes." + key;
-  var result = this.i18n.t(path);
-  if (result !== path) {
-    return result;
+  if (this.i18n.te(path)) {
+    return this.i18n.t(path);
   }
 
   return fallback;
@@ -23832,9 +23886,8 @@ I18nDictionary.prototype.getAttribute = function getAttribute (_, key, fallback)
 
 I18nDictionary.prototype.getFieldMessage = function getFieldMessage (_, field, key, data) {
   var path = (this.rootKey) + ".custom." + field + "." + key;
-  var result = this.i18n.t(path, data);
-  if (result !== path) {
-    return result;
+  if (this.i18n.te(path)) {
+    return this.i18n.t(path, data);
   }
 
   return this.getMessage(_, key, data);
@@ -24038,7 +24091,7 @@ VeeValidate$1.prototype.resolveConfig = function resolveConfig (ctx) {
 Object.defineProperties( VeeValidate$1.prototype, prototypeAccessors$6 );
 Object.defineProperties( VeeValidate$1, staticAccessors$2 );
 
-VeeValidate$1.version = '2.1.4';
+VeeValidate$1.version = '2.1.5';
 VeeValidate$1.mixin = mixin;
 VeeValidate$1.directive = directive;
 VeeValidate$1.Validator = Validator;
@@ -26878,6 +26931,7 @@ var alpha = {
   ru: /^[А-ЯЁ]*$/i,
   sk: /^[A-ZÁÄČĎÉÍĹĽŇÓŔŠŤÚÝŽ]*$/i,
   sr: /^[A-ZČĆŽŠĐ]*$/i,
+  sv: /^[A-ZÅÄÖ]*$/i,
   tr: /^[A-ZÇĞİıÖŞÜ]*$/i,
   uk: /^[А-ЩЬЮЯЄІЇҐ]*$/i,
   ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]*$/
@@ -26898,6 +26952,7 @@ var alphaSpaces = {
   ru: /^[А-ЯЁ\s]*$/i,
   sk: /^[A-ZÁÄČĎÉÍĹĽŇÓŔŠŤÚÝŽ\s]*$/i,
   sr: /^[A-ZČĆŽŠĐ\s]*$/i,
+  sv: /^[A-ZÅÄÖ\s]*$/i,
   tr: /^[A-ZÇĞİıÖŞÜ\s]*$/i,
   uk: /^[А-ЩЬЮЯЄІЇҐ\s]*$/i,
   ar: /^[ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ\s]*$/
@@ -26918,6 +26973,7 @@ var alphanumeric = {
   ru: /^[0-9А-ЯЁ]*$/i,
   sk: /^[0-9A-ZÁÄČĎÉÍĹĽŇÓŔŠŤÚÝŽ]*$/i,
   sr: /^[0-9A-ZČĆŽŠĐ]*$/i,
+  sv: /^[0-9A-ZÅÄÖ]*$/i,
   tr: /^[0-9A-ZÇĞİıÖŞÜ]*$/i,
   uk: /^[0-9А-ЩЬЮЯЄІЇҐ]*$/i,
   ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ]*$/
@@ -26938,6 +26994,7 @@ var alphaDash = {
   ru: /^[0-9А-ЯЁ_-]*$/i,
   sk: /^[0-9A-ZÁÄČĎÉÍĹĽŇÓŔŠŤÚÝŽ_-]*$/i,
   sr: /^[0-9A-ZČĆŽŠĐ_-]*$/i,
+  sv: /^[0-9A-ZÅÄÖ_-]*$/i,
   tr: /^[0-9A-ZÇĞİıÖŞÜ_-]*$/i,
   uk: /^[0-9А-ЩЬЮЯЄІЇҐ_-]*$/i,
   ar: /^[٠١٢٣٤٥٦٧٨٩0-9ءآأؤإئابةتثجحخدذرزسشصضطظعغفقكلمنهوىيًٌٍَُِّْٰ_-]*$/
@@ -28227,7 +28284,7 @@ var Rules = /*#__PURE__*/Object.freeze({
   url: url
 });
 
-var version = '2.1.4';
+var version = '2.1.5';
 
 Object.keys(Rules).forEach(function (rule) {
   Validator.extend(rule, Rules[rule].validate, assign({}, Rules[rule].options, { paramNames: Rules[rule].paramNames }));
@@ -28249,8 +28306,8 @@ var install = VeeValidate$1.install;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
- * Vue.js v2.5.21
- * (c) 2014-2018 Evan You
+ * Vue.js v2.5.22
+ * (c) 2014-2019 Evan You
  * Released under the MIT License.
  */
 
@@ -28879,7 +28936,7 @@ if (true) {
       ? vm.options
       : vm._isVue
         ? vm.$options || vm.constructor.options
-        : vm || {};
+        : vm;
     var name = options.name || options._componentTag;
     var file = options.__file;
     if (!name && file) {
@@ -28974,9 +29031,9 @@ Dep.prototype.notify = function notify () {
   }
 };
 
-// the current target watcher being evaluated.
-// this is globally unique because there could be only one
-// watcher being evaluated at any time.
+// The current target watcher being evaluated.
+// This is globally unique because only one watcher
+// can be evaluated at a time.
 Dep.target = null;
 var targetStack = [];
 
@@ -29504,13 +29561,26 @@ function mergeHook (
   parentVal,
   childVal
 ) {
-  return childVal
+  var res = childVal
     ? parentVal
       ? parentVal.concat(childVal)
       : Array.isArray(childVal)
         ? childVal
         : [childVal]
-    : parentVal
+    : parentVal;
+  return res
+    ? dedupeHooks(res)
+    : res
+}
+
+function dedupeHooks (hooks) {
+  var res = [];
+  for (var i = 0; i < hooks.length; i++) {
+    if (res.indexOf(hooks[i]) === -1) {
+      res.push(hooks[i]);
+    }
+  }
+  return res
 }
 
 LIFECYCLE_HOOKS.forEach(function (hook) {
@@ -29746,7 +29816,7 @@ function mergeOptions (
   normalizeProps(child, vm);
   normalizeInject(child, vm);
   normalizeDirectives(child);
-  
+
   // Apply extends and mixins on the child options,
   // but only if it is a raw options object that isn't
   // the result of another mergeOptions call.
@@ -30679,6 +30749,8 @@ function resolveAsyncComponent (
       // (async resolves are shimmed as synchronous during SSR)
       if (!sync) {
         forceRender(true);
+      } else {
+        contexts.length = 0;
       }
     });
 
@@ -30846,8 +30918,8 @@ function eventsMixin (Vue) {
     }
     // array of events
     if (Array.isArray(event)) {
-      for (var i = 0, l = event.length; i < l; i++) {
-        vm.$off(event[i], fn);
+      for (var i$1 = 0, l = event.length; i$1 < l; i$1++) {
+        vm.$off(event[i$1], fn);
       }
       return vm
     }
@@ -30860,16 +30932,14 @@ function eventsMixin (Vue) {
       vm._events[event] = null;
       return vm
     }
-    if (fn) {
-      // specific handler
-      var cb;
-      var i$1 = cbs.length;
-      while (i$1--) {
-        cb = cbs[i$1];
-        if (cb === fn || cb.fn === fn) {
-          cbs.splice(i$1, 1);
-          break
-        }
+    // specific handler
+    var cb;
+    var i = cbs.length;
+    while (i--) {
+      cb = cbs[i];
+      if (cb === fn || cb.fn === fn) {
+        cbs.splice(i, 1);
+        break
       }
     }
     return vm
@@ -33039,34 +33109,14 @@ function resolveConstructorOptions (Ctor) {
 function resolveModifiedOptions (Ctor) {
   var modified;
   var latest = Ctor.options;
-  var extended = Ctor.extendOptions;
   var sealed = Ctor.sealedOptions;
   for (var key in latest) {
     if (latest[key] !== sealed[key]) {
       if (!modified) { modified = {}; }
-      modified[key] = dedupe(latest[key], extended[key], sealed[key]);
+      modified[key] = latest[key];
     }
   }
   return modified
-}
-
-function dedupe (latest, extended, sealed) {
-  // compare latest and sealed to ensure lifecycle hooks won't be duplicated
-  // between merges
-  if (Array.isArray(latest)) {
-    var res = [];
-    sealed = Array.isArray(sealed) ? sealed : [sealed];
-    extended = Array.isArray(extended) ? extended : [extended];
-    for (var i = 0; i < latest.length; i++) {
-      // push original options and not sealed options to exclude duplicated options
-      if (extended.indexOf(latest[i]) >= 0 || sealed.indexOf(latest[i]) < 0) {
-        res.push(latest[i]);
-      }
-    }
-    return res
-  } else {
-    return latest
-  }
 }
 
 function Vue (options) {
@@ -33437,7 +33487,7 @@ Object.defineProperty(Vue, 'FunctionalRenderContext', {
   value: FunctionalRenderContext
 });
 
-Vue.version = '2.5.21';
+Vue.version = '2.5.22';
 
 /*  */
 

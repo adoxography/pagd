@@ -11,11 +11,11 @@
         {{ csrf_field() }}
         <div class="field">
             <div id="file-wrapper" class="file has-name is-boxed">
-                <label class="file-label" style="margin: auto;">
+                <label class="file-label">
                     <input id="file-input" class="file-input" type="file" name="tsv" />
                     <span class="file-cta">
                         <span class="file-icon">
-                            <i class="fa fa-upload"></i>
+                            <i class="fas fa-upload"></i>
                         </span>
                         <span class="file-label">
                             Choose a file...
@@ -26,8 +26,8 @@
             </div>
         </div>
 
-        <div class="field has-text-centered">
-            <button id="batch-submit-button" class="button" type="submit" disabled="disabled" style="width: 13em;">Upload</button>
+        <div class="field">
+            <button id="batch-submit-button" class="button" type="submit" disabled="disabled" style="width: 12.25em;">Upload</button>
         </div>
     </form>
 @endsection

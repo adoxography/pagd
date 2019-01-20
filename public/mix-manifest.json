@@ -1,5 +1,6 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "/js/app.js": "/js/app.js?id=bab1d7624172ffebeee6",
     "/css/app.css": "/css/app.css?id=e92d12db8298d0f728d5",
     "/js/vendor.js": "/js/vendor.js?id=7a0fcb16daa4f31dae42",
@@ -9,4 +10,10 @@
     "/js/vendor.js": "/js/vendor.js?id=be31cfea4fd594c56d72",
 >>>>>>> Move gloss rendering into the GlossLine class
     "/js/manifest.js": "/js/manifest.js?id=361fab92417fb3b17ab3"
+=======
+    "/js/app.js": "/js/app.js?id=7074a17e8051c1f7d37e",
+    "/css/app.css": "/css/app.css?id=48ec5f0abd935efb30ab",
+    "/js/vendor.js": "/js/vendor.js?id=e89158684803356a8d06",
+    "/js/manifest.js": "/js/manifest.js?id=5128965f3c81be39539e"
+>>>>>>> Start working on initial change
 }

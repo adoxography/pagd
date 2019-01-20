@@ -643,7 +643,11 @@
 }@charset "UTF-8";
 
 /*!
+<<<<<<< HEAD
  * Font Awesome Free 5.6.1 by @fontawesome - https://fontawesome.com
+=======
+ * Font Awesome Free 5.6.3 by @fontawesome - https://fontawesome.com
+>>>>>>> Start working on initial change
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 
@@ -651,8 +655,13 @@
   font-family: 'Font Awesome 5 Free';
   font-style: normal;
   font-weight: 400;
+<<<<<<< HEAD
   src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.eot?ec813c5b36705e64ba121073b315cb52);
   src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.eot?ec813c5b36705e64ba121073b315cb52?#iefix) format("embedded-opentype"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff2?569693c9f5d42d769c7f87b90856219a) format("woff2"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff?06b3153d3d537a854dc839652018bb87) format("woff"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.ttf?323b749d60730fa9ab61ff2d70e1cc32) format("truetype"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.svg?e54c6ae126dd37d48c47dc1aa75cb54e#fontawesome) format("svg");
+=======
+  src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.eot?8e9f0ee6d016526776c27f91fea55cca);
+  src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.eot?8e9f0ee6d016526776c27f91fea55cca?#iefix) format("embedded-opentype"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff2?e65d96d04378217b8b5caff2fb1b62cb) format("woff2"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff?fc5252e568503bfb163233ec63b8a2ce) format("woff"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.ttf?deb8619e67992d3fa088b5dcbb8cff36) format("truetype"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.svg?734248d027cbaac7f03c0d931ec95593#fontawesome) format("svg");
+>>>>>>> Start working on initial change
 }
 
 .far {
@@ -661,7 +670,11 @@
 }
 
 /*!
+<<<<<<< HEAD
  * Font Awesome Free 5.6.1 by @fontawesome - https://fontawesome.com
+=======
+ * Font Awesome Free 5.6.3 by @fontawesome - https://fontawesome.com
+>>>>>>> Start working on initial change
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 
@@ -669,8 +682,13 @@
   font-family: 'Font Awesome 5 Free';
   font-style: normal;
   font-weight: 900;
+<<<<<<< HEAD
   src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.eot?f9103ae53b2dbcb0a14605eebc90a2ce);
   src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.eot?f9103ae53b2dbcb0a14605eebc90a2ce?#iefix) format("embedded-opentype"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff2?59ea9019c9b9bc4d83ab9783e830735c) format("woff2"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff?686e245a4f1a9894d10a576655e932dd) format("woff"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.ttf?b9c86e3abec102a2c9910dfac85c1c17) format("truetype"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.svg?1eba168c1b8603ab4dd282f5633d4650#fontawesome) format("svg");
+=======
+  src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.eot?f72d546abcc27880adf8428792c72519);
+  src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.eot?f72d546abcc27880adf8428792c72519?#iefix) format("embedded-opentype"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff2?8086e197694282b26c7b729945ecc377) format("woff2"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff?52b8345b6d8e11988d8db917c366b4da) format("woff"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.ttf?1709a2810c3752483683f3f7d287aa89) format("truetype"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.svg?27603739fe78fee587c7b84873475b61#fontawesome) format("svg");
+>>>>>>> Start working on initial change
 }
 
 .fa,
@@ -680,7 +698,11 @@
 }
 
 /*!
+<<<<<<< HEAD
  * Font Awesome Free 5.6.1 by @fontawesome - https://fontawesome.com
+=======
+ * Font Awesome Free 5.6.3 by @fontawesome - https://fontawesome.com
+>>>>>>> Start working on initial change
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 
@@ -2732,6 +2754,13 @@ readers do not read off random characters that represent icons */
   content: "\F06D";
 }
 
+<<<<<<< HEAD
+=======
+.fa-fire-alt:before {
+  content: "\F7E4";
+}
+
+>>>>>>> Start working on initial change
 .fa-fire-extinguisher:before {
   content: "\F134";
 }
@@ -18036,6 +18065,13 @@ a.tag:hover {
   border-bottom: 1px solid #dbdbdb;
 }
 
+<<<<<<< HEAD
+=======
+.datepicker .datepicker-body {
+  min-height: 16.25rem;
+}
+
+>>>>>>> Start working on initial change
 .datepicker .datepicker-footer {
   padding-top: 0.875rem;
   border-top: 1px solid #dbdbdb;
@@ -18191,12 +18227,26 @@ a.tag:hover {
 }
 
 @media screen and (min-width: 769px) and (max-width: 1087px) {
+<<<<<<< HEAD
+=======
+  .datepicker .datepicker-body {
+    min-height: 19.75rem;
+  }
+
+>>>>>>> Start working on initial change
   .datepicker .datepicker-table .datepicker-cell {
     padding: 0.75rem 1rem;
   }
 }
 
 @media screen and (max-width: 768px) {
+<<<<<<< HEAD
+=======
+  .datepicker .datepicker-body {
+    min-height: 12.75rem;
+  }
+
+>>>>>>> Start working on initial change
   .datepicker .datepicker-table .datepicker-cell {
     padding: 0.25rem 0.5rem;
   }
@@ -18780,6 +18830,21 @@ a.tag:hover {
           justify-content: normal;
 }
 
+<<<<<<< HEAD
+=======
+.pagination.is-simple.is-centered {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.pagination.is-simple.is-right {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+>>>>>>> Start working on initial change
 .pagination .is-current {
   pointer-events: none;
   cursor: not-allowed;
@@ -19105,7 +19170,15 @@ a.tag:hover {
 }
 
 .switch input[type=checkbox] {
+<<<<<<< HEAD
   display: none;
+=======
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  outline: none;
+  z-index: -1;
+>>>>>>> Start working on initial change
 }
 
 .switch input[type=checkbox] + .check {
@@ -19751,15 +19824,24 @@ a.tag:hover {
   font-size: 1.5rem;
 }
 
+<<<<<<< HEAD
 .tooltip {
+=======
+.b-tooltip {
+>>>>>>> Start working on initial change
   position: relative;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
 }
 
+<<<<<<< HEAD
 .tooltip.is-top:before,
 .tooltip.is-top:after {
+=======
+.b-tooltip.is-top:before,
+.b-tooltip.is-top:after {
+>>>>>>> Start working on initial change
   top: auto;
   right: auto;
   bottom: calc(100% + 5px + 2px);
@@ -19768,76 +19850,117 @@ a.tag:hover {
           transform: translateX(-50%);
 }
 
+<<<<<<< HEAD
 .tooltip.is-top.is-white:before {
+=======
+.b-tooltip.is-top.is-white:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid #ffffff;
   border-right: 5px solid transparent;
   border-left: 5px solid transparent;
   bottom: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-top.is-black:before {
+=======
+.b-tooltip.is-top.is-black:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid #0a0a0a;
   border-right: 5px solid transparent;
   border-left: 5px solid transparent;
   bottom: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-top.is-light:before {
+=======
+.b-tooltip.is-top.is-light:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid whitesmoke;
   border-right: 5px solid transparent;
   border-left: 5px solid transparent;
   bottom: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-top.is-dark:before {
+=======
+.b-tooltip.is-top.is-dark:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid #666666;
   border-right: 5px solid transparent;
   border-left: 5px solid transparent;
   bottom: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-top.is-primary:before {
+=======
+.b-tooltip.is-top.is-primary:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid #fee414;
   border-right: 5px solid transparent;
   border-left: 5px solid transparent;
   bottom: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-top.is-link:before {
+=======
+.b-tooltip.is-top.is-link:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid #046efc;
   border-right: 5px solid transparent;
   border-left: 5px solid transparent;
   bottom: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-top.is-info:before {
+=======
+.b-tooltip.is-top.is-info:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid #209cee;
   border-right: 5px solid transparent;
   border-left: 5px solid transparent;
   bottom: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-top.is-success:before {
+=======
+.b-tooltip.is-top.is-success:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid #23d160;
   border-right: 5px solid transparent;
   border-left: 5px solid transparent;
   bottom: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-top.is-warning:before {
+=======
+.b-tooltip.is-top.is-warning:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid #fee414;
   border-right: 5px solid transparent;
   border-left: 5px solid transparent;
   bottom: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-top.is-danger:before {
+=======
+.b-tooltip.is-top.is-danger:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid #c72e00;
   border-right: 5px solid transparent;
   border-left: 5px solid transparent;
   bottom: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-top.is-multiline.is-small:after {
   width: 180px;
 }
@@ -19852,6 +19975,22 @@ a.tag:hover {
 
 .tooltip.is-right:before,
 .tooltip.is-right:after {
+=======
+.b-tooltip.is-top.is-multiline.is-small:after {
+  width: 180px;
+}
+
+.b-tooltip.is-top.is-multiline.is-medium:after {
+  width: 240px;
+}
+
+.b-tooltip.is-top.is-multiline.is-large:after {
+  width: 300px;
+}
+
+.b-tooltip.is-right:before,
+.b-tooltip.is-right:after {
+>>>>>>> Start working on initial change
   top: 50%;
   right: auto;
   bottom: auto;
@@ -19860,76 +19999,117 @@ a.tag:hover {
           transform: translateY(-50%);
 }
 
+<<<<<<< HEAD
 .tooltip.is-right.is-white:before {
+=======
+.b-tooltip.is-right.is-white:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid transparent;
   border-right: 5px solid #ffffff;
   border-bottom: 5px solid transparent;
   left: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-right.is-black:before {
+=======
+.b-tooltip.is-right.is-black:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid transparent;
   border-right: 5px solid #0a0a0a;
   border-bottom: 5px solid transparent;
   left: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-right.is-light:before {
+=======
+.b-tooltip.is-right.is-light:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid transparent;
   border-right: 5px solid whitesmoke;
   border-bottom: 5px solid transparent;
   left: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-right.is-dark:before {
+=======
+.b-tooltip.is-right.is-dark:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid transparent;
   border-right: 5px solid #666666;
   border-bottom: 5px solid transparent;
   left: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-right.is-primary:before {
+=======
+.b-tooltip.is-right.is-primary:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid transparent;
   border-right: 5px solid #fee414;
   border-bottom: 5px solid transparent;
   left: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-right.is-link:before {
+=======
+.b-tooltip.is-right.is-link:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid transparent;
   border-right: 5px solid #046efc;
   border-bottom: 5px solid transparent;
   left: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-right.is-info:before {
+=======
+.b-tooltip.is-right.is-info:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid transparent;
   border-right: 5px solid #209cee;
   border-bottom: 5px solid transparent;
   left: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-right.is-success:before {
+=======
+.b-tooltip.is-right.is-success:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid transparent;
   border-right: 5px solid #23d160;
   border-bottom: 5px solid transparent;
   left: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-right.is-warning:before {
+=======
+.b-tooltip.is-right.is-warning:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid transparent;
   border-right: 5px solid #fee414;
   border-bottom: 5px solid transparent;
   left: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-right.is-danger:before {
+=======
+.b-tooltip.is-right.is-danger:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid transparent;
   border-right: 5px solid #c72e00;
   border-bottom: 5px solid transparent;
   left: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-right.is-multiline.is-small:after {
   width: 180px;
 }
@@ -19944,6 +20124,22 @@ a.tag:hover {
 
 .tooltip.is-bottom:before,
 .tooltip.is-bottom:after {
+=======
+.b-tooltip.is-right.is-multiline.is-small:after {
+  width: 180px;
+}
+
+.b-tooltip.is-right.is-multiline.is-medium:after {
+  width: 240px;
+}
+
+.b-tooltip.is-right.is-multiline.is-large:after {
+  width: 300px;
+}
+
+.b-tooltip.is-bottom:before,
+.b-tooltip.is-bottom:after {
+>>>>>>> Start working on initial change
   top: calc(100% + 5px + 2px);
   right: auto;
   bottom: auto;
@@ -19952,76 +20148,117 @@ a.tag:hover {
           transform: translateX(-50%);
 }
 
+<<<<<<< HEAD
 .tooltip.is-bottom.is-white:before {
+=======
+.b-tooltip.is-bottom.is-white:before {
+>>>>>>> Start working on initial change
   border-right: 5px solid transparent;
   border-bottom: 5px solid #ffffff;
   border-left: 5px solid transparent;
   top: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-bottom.is-black:before {
+=======
+.b-tooltip.is-bottom.is-black:before {
+>>>>>>> Start working on initial change
   border-right: 5px solid transparent;
   border-bottom: 5px solid #0a0a0a;
   border-left: 5px solid transparent;
   top: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-bottom.is-light:before {
+=======
+.b-tooltip.is-bottom.is-light:before {
+>>>>>>> Start working on initial change
   border-right: 5px solid transparent;
   border-bottom: 5px solid whitesmoke;
   border-left: 5px solid transparent;
   top: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-bottom.is-dark:before {
+=======
+.b-tooltip.is-bottom.is-dark:before {
+>>>>>>> Start working on initial change
   border-right: 5px solid transparent;
   border-bottom: 5px solid #666666;
   border-left: 5px solid transparent;
   top: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-bottom.is-primary:before {
+=======
+.b-tooltip.is-bottom.is-primary:before {
+>>>>>>> Start working on initial change
   border-right: 5px solid transparent;
   border-bottom: 5px solid #fee414;
   border-left: 5px solid transparent;
   top: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-bottom.is-link:before {
+=======
+.b-tooltip.is-bottom.is-link:before {
+>>>>>>> Start working on initial change
   border-right: 5px solid transparent;
   border-bottom: 5px solid #046efc;
   border-left: 5px solid transparent;
   top: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-bottom.is-info:before {
+=======
+.b-tooltip.is-bottom.is-info:before {
+>>>>>>> Start working on initial change
   border-right: 5px solid transparent;
   border-bottom: 5px solid #209cee;
   border-left: 5px solid transparent;
   top: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-bottom.is-success:before {
+=======
+.b-tooltip.is-bottom.is-success:before {
+>>>>>>> Start working on initial change
   border-right: 5px solid transparent;
   border-bottom: 5px solid #23d160;
   border-left: 5px solid transparent;
   top: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-bottom.is-warning:before {
+=======
+.b-tooltip.is-bottom.is-warning:before {
+>>>>>>> Start working on initial change
   border-right: 5px solid transparent;
   border-bottom: 5px solid #fee414;
   border-left: 5px solid transparent;
   top: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-bottom.is-danger:before {
+=======
+.b-tooltip.is-bottom.is-danger:before {
+>>>>>>> Start working on initial change
   border-right: 5px solid transparent;
   border-bottom: 5px solid #c72e00;
   border-left: 5px solid transparent;
   top: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-bottom.is-multiline.is-small:after {
   width: 180px;
 }
@@ -20036,6 +20273,22 @@ a.tag:hover {
 
 .tooltip.is-left:before,
 .tooltip.is-left:after {
+=======
+.b-tooltip.is-bottom.is-multiline.is-small:after {
+  width: 180px;
+}
+
+.b-tooltip.is-bottom.is-multiline.is-medium:after {
+  width: 240px;
+}
+
+.b-tooltip.is-bottom.is-multiline.is-large:after {
+  width: 300px;
+}
+
+.b-tooltip.is-left:before,
+.b-tooltip.is-left:after {
+>>>>>>> Start working on initial change
   top: 50%;
   right: calc(100% + 5px + 2px);
   bottom: auto;
@@ -20044,76 +20297,117 @@ a.tag:hover {
           transform: translateY(-50%);
 }
 
+<<<<<<< HEAD
 .tooltip.is-left.is-white:before {
+=======
+.b-tooltip.is-left.is-white:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-left: 5px solid #ffffff;
   right: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-left.is-black:before {
+=======
+.b-tooltip.is-left.is-black:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-left: 5px solid #0a0a0a;
   right: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-left.is-light:before {
+=======
+.b-tooltip.is-left.is-light:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-left: 5px solid whitesmoke;
   right: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-left.is-dark:before {
+=======
+.b-tooltip.is-left.is-dark:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-left: 5px solid #666666;
   right: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-left.is-primary:before {
+=======
+.b-tooltip.is-left.is-primary:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-left: 5px solid #fee414;
   right: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-left.is-link:before {
+=======
+.b-tooltip.is-left.is-link:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-left: 5px solid #046efc;
   right: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-left.is-info:before {
+=======
+.b-tooltip.is-left.is-info:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-left: 5px solid #209cee;
   right: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-left.is-success:before {
+=======
+.b-tooltip.is-left.is-success:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-left: 5px solid #23d160;
   right: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-left.is-warning:before {
+=======
+.b-tooltip.is-left.is-warning:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-left: 5px solid #fee414;
   right: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-left.is-danger:before {
+=======
+.b-tooltip.is-left.is-danger:before {
+>>>>>>> Start working on initial change
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-left: 5px solid #c72e00;
   right: calc(100% + 2px);
 }
 
+<<<<<<< HEAD
 .tooltip.is-left.is-multiline.is-small:after {
   width: 180px;
 }
@@ -20128,6 +20422,22 @@ a.tag:hover {
 
 .tooltip:before,
 .tooltip:after {
+=======
+.b-tooltip.is-left.is-multiline.is-small:after {
+  width: 180px;
+}
+
+.b-tooltip.is-left.is-multiline.is-medium:after {
+  width: 240px;
+}
+
+.b-tooltip.is-left.is-multiline.is-large:after {
+  width: 300px;
+}
+
+.b-tooltip:before,
+.b-tooltip:after {
+>>>>>>> Start working on initial change
   position: absolute;
   content: "";
   opacity: 0;
@@ -20135,11 +20445,19 @@ a.tag:hover {
   pointer-events: none;
 }
 
+<<<<<<< HEAD
 .tooltip:before {
   z-index: 889;
 }
 
 .tooltip:after {
+=======
+.b-tooltip:before {
+  z-index: 889;
+}
+
+.b-tooltip:after {
+>>>>>>> Start working on initial change
   content: attr(data-label);
   width: auto;
   padding: 0.35rem 0.75rem;
@@ -20152,85 +20470,152 @@ a.tag:hover {
   white-space: nowrap;
 }
 
+<<<<<<< HEAD
 .tooltip:not([data-label=""]):hover:before,
 .tooltip:not([data-label=""]):hover:after {
+=======
+.b-tooltip:not([data-label=""]):hover:before,
+.b-tooltip:not([data-label=""]):hover:after {
+>>>>>>> Start working on initial change
   opacity: 1;
   visibility: visible;
 }
 
+<<<<<<< HEAD
 .tooltip.is-white:after {
+=======
+.b-tooltip.is-white:after {
+>>>>>>> Start working on initial change
   background: #ffffff;
   color: #0a0a0a;
 }
 
+<<<<<<< HEAD
 .tooltip.is-black:after {
+=======
+.b-tooltip.is-black:after {
+>>>>>>> Start working on initial change
   background: #0a0a0a;
   color: #ffffff;
 }
 
+<<<<<<< HEAD
 .tooltip.is-light:after {
+=======
+.b-tooltip.is-light:after {
+>>>>>>> Start working on initial change
   background: whitesmoke;
   color: #666666;
 }
 
+<<<<<<< HEAD
 .tooltip.is-dark:after {
+=======
+.b-tooltip.is-dark:after {
+>>>>>>> Start working on initial change
   background: #666666;
   color: whitesmoke;
 }
 
+<<<<<<< HEAD
 .tooltip.is-primary:after {
+=======
+.b-tooltip.is-primary:after {
+>>>>>>> Start working on initial change
   background: #fee414;
   color: #fff;
 }
 
+<<<<<<< HEAD
 .tooltip.is-link:after {
+=======
+.b-tooltip.is-link:after {
+>>>>>>> Start working on initial change
   background: #046efc;
   color: #fff;
 }
 
+<<<<<<< HEAD
 .tooltip.is-info:after {
+=======
+.b-tooltip.is-info:after {
+>>>>>>> Start working on initial change
   background: #209cee;
   color: #fff;
 }
 
+<<<<<<< HEAD
 .tooltip.is-success:after {
+=======
+.b-tooltip.is-success:after {
+>>>>>>> Start working on initial change
   background: #23d160;
   color: #fff;
 }
 
+<<<<<<< HEAD
 .tooltip.is-warning:after {
+=======
+.b-tooltip.is-warning:after {
+>>>>>>> Start working on initial change
   background: #fee414;
   color: rgba(0, 0, 0, 0.7);
 }
 
+<<<<<<< HEAD
 .tooltip.is-danger:after {
+=======
+.b-tooltip.is-danger:after {
+>>>>>>> Start working on initial change
   background: #c72e00;
   color: #fff;
 }
 
+<<<<<<< HEAD
 .tooltip:not([data-label=""]).is-always:before,
 .tooltip:not([data-label=""]).is-always:after {
+=======
+.b-tooltip:not([data-label=""]).is-always:before,
+.b-tooltip:not([data-label=""]).is-always:after {
+>>>>>>> Start working on initial change
   opacity: 1;
   visibility: visible;
 }
 
+<<<<<<< HEAD
 .tooltip.is-multiline:after {
+=======
+.b-tooltip.is-multiline:after {
+>>>>>>> Start working on initial change
   display: flex-block;
   text-align: center;
   white-space: normal;
 }
 
+<<<<<<< HEAD
 .tooltip.is-dashed {
+=======
+.b-tooltip.is-dashed {
+>>>>>>> Start working on initial change
   border-bottom: 1px dashed #f2f2f2;
   cursor: default;
 }
 
+<<<<<<< HEAD
 .tooltip.is-square:after {
   border-radius: 0;
 }
 
 .tooltip.is-animated:before,
 .tooltip.is-animated:after {
+=======
+.b-tooltip.is-square:after {
+  border-radius: 0;
+}
+
+.b-tooltip.is-animated:before,
+.b-tooltip.is-animated:after {
+>>>>>>> Start working on initial change
   -webkit-transition: opacity 86ms ease-out, visibility 86ms ease-out;
   transition: opacity 86ms ease-out, visibility 86ms ease-out;
 }
@@ -20664,6 +21049,10 @@ nav.detail-menu a.is-active {
 
   .details .detail-row label.detail-label,
   .details .detail-row .detail-value {
+<<<<<<< HEAD
+=======
+    vertical-align: top;
+>>>>>>> Start working on initial change
     display: table-cell;
     padding: .5em .75em;
   }
@@ -20716,6 +21105,27 @@ table.table.details td {
   padding-right: 0;
 }
 
+<<<<<<< HEAD
+=======
+.gloss {
+  font-variant: small-caps;
+}
+
+.morpheme-input .tag {
+  cursor: -webkit-grab;
+  cursor: grab;
+  margin-bottom: calc(0.275em - 1px);
+  font-size: 1em;
+  height: 1.7em;
+  background-color: #fee414;
+  color: #262626;
+}
+
+.morpheme-input .tag:not(:last-child) {
+  margin-right: 0.275rem;
+}
+
+>>>>>>> Start working on initial change
 #fontSizeWrapper {
   font-size: 16px;
 }

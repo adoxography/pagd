@@ -11,7 +11,7 @@ class Model extends BaseModel
 {
     use AdaptsToConnections, Presentable;
 
-    protected static $template = ['name' => '', 'id' => 0];
+    protected static $template = ['name' => '', 'id' => ''];
 
     public function __construct(array $attributes=[])
     {

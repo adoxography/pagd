@@ -16,21 +16,16 @@ class FormRequest extends Request
         $rules = parent::rules();
 
         $rules += [
-            'morphemicForm' => ['nullable','has:V'],
-
             'subject'            => ['required'],
-            'subject_id'         => ['required','exists:Word_Features,id'],
-            'primaryObject'      => ['nullable','exists:Word_Features,name'],
-            'primaryObject_id'   => ['nullable','integer','exists:Word_Features,id'],
-            'secondaryObject'    => ['nullable','exists:Word_Features,name'],
-            'secondaryObject_id' => ['nullable','integer','exists:Word_Features,id'],
-            'verbClass'          => ['required'],
-            'verbClass_id'       => ['required','integer','exists:Verb_Classes,id'],
+            'subject_id'         => ['required','exists:word_features,id'],
+            'primary_object_id'   => ['nullable','integer','exists:word_features,id'],
+            'secondary_object_id' => ['nullable','integer','exists:word_features,id'],
+            'verb_class_id'       => ['required','integer','exists:verb_classes,id'],
             'order'              => ['required'],
-            'order_id'           => ['required','integer','exists:Verb_Orders,id'],
+            'order_id'           => ['required','integer','exists:verb_orders,id'],
             'mode'               => ['required'],
-            'mode_id'            => ['required','exists:Verb_Modes,id'],
-            'isAbsolute'         => ['nullable']
+            'mode_id'            => ['required','exists:verb_modes,id'],
+            'is_absolute'         => ['nullable']
         ];
 
         return $rules;
@@ -43,13 +38,8 @@ class FormRequest extends Request
         $messages += [
             'subject.required' => 'Please enter a subject.',
             'subject_id.required' => 'There is no subject by that name in the database.',
-            'primaryObject.exists' => 'There is no primary object by that name in the database',
-            'secondaryObject.exists' => 'There is no secondary object by that name in the database',
-            'class.required' => 'Please enter a class.',
             'class_id.required'   => 'There is no class by that name in the database.',
-            'order.required' => 'Please enter a order.',
             'order_id.required'   => 'There is no order by that name in the database.',
-            'mode.required' => 'Please enter a mode.',
             'mode_id.required'   => 'There is no mode by that name in the database.'
         ];
 

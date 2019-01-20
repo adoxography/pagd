@@ -33,11 +33,11 @@ class Structure extends Model
         'is_diminutive'
     ];
     protected $appends = ['summary'];
-    public $with = ['mode', 'order', 'subject', 'primary_object', 'secondary_object'];
+    public $with = ['mode', 'order', 'subject', 'primaryObject', 'secondaryObject'];
 
     protected static $template = [
         'is_negative' => false,
-        'is-is_diminutive' => false,
+        'is_diminutive' => false,
         'subject' => Argument::class,
         'primary_object' => Argument::class,
         'secondary_object' => Argument::class,

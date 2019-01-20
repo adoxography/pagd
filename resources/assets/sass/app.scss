@@ -362,7 +362,23 @@ table.table.details {
     }
 }
 
+.gloss {
+    font-variant: small-caps;
+}
 
+.morpheme-input {
+    .tag {
+        &:not(:last-child) {
+            margin-right: 0.275rem;
+        }
+        cursor: grab;
+        margin-bottom: calc(0.275em - 1px);
+        font-size: 1em;
+        height: 1.7em;
+        background-color: $primary;
+        color: $grey-dark;
+    }
+}
 
 //@import "bulma-mods";
 

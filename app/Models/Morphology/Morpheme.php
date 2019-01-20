@@ -131,7 +131,7 @@ class Morpheme extends Model implements PhonemeableInterface
 
     public function getUniqueNameAttribute()
     {
-        return "{$this->name} (".$this->renderGloss(false, false).')';
+        return "{$this->name} (<span class=\"gloss\">".$this->gloss.'</span>)';
     }
 
     public function getDisplayAttribute()

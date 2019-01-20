@@ -78,8 +78,6 @@ export default {
         this.lastFocus = input;
       });
     }
-
-    console.log(inputs);
   }
 }
 </script>

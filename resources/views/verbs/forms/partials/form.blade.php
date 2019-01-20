@@ -138,26 +138,28 @@
             ])
 
             {{--Morphemes--}}
-            {{--@component('components.form.field', [--}}
-                {{--'name' => 'morphemes'--}}
-            {{--])--}}
-                {{--@section('inner-field')--}}
-                    {{--<b-taginput v-model="data.morphemes"--}}
-                                {{--:data="filteredLists.morphemes"--}}
-                                {{--@keyup.native="getAsyncData('morphemes', $event.target.value, {language: data.language.id})"--}}
-                                {{--field="name"--}}
-                                {{--:open-on-focus="true"--}}
-                                {{--:loading="asyncLoading.morphemes"--}}
-                    {{-->--}}
-                        {{--<template slot-scope="props">--}}
-                            {{--@{{ props.option.name }}<sup>@{{ props.option.disambiguator }}</sup> (<span class="gloss">@{{ props.option.gloss }}</span>)--}}
-                        {{--</template>--}}
-                    {{--</b-taginput>--}}
-                {{--@overwrite--}}
-            {{--@endcomponent--}}
-            @include('components.form.morpheme-tags', [
-                'language' => 'data.language.id'
+            @component('components.form.field', [
+                'name' => 'morphemes'
             ])
+                @slot('outer')
+                    <input type="hidden" name="morphemic_form" :value="data.morphemes.map(m => typeof m === 'string' ? m : m.id).join('-')" />
+                @endslot
+                <alg-taginput v-model="data.morphemes"
+                              class="morpheme-input"
+                              :data="filteredLists.morphemes"
+                              @keyup.native="getAsyncData('morphemes', $event.target.value, {language: data.language.id})"
+                              field="name"
+                              autocomplete
+                              :open-on-focus="true"
+                              :allow-duplicates="true"
+                              :allow-new="true"
+                              :field="'uniqueName'"
+                              :loading="asyncLoading.morphemes">
+                    <template slot-scope="props">
+                        @{{ props.option.name }} (<span class="gloss">@{{ props.option.gloss }}</span>)
+                    </template>
+                </alg-taginput>
+            @endcomponent
 
             @include('components.form.sources', [
                 'name' => 'sources'

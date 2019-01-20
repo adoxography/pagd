@@ -52,14 +52,14 @@ trait HasStructure
     private function parseStructureData($attributes)
     {
         $data['subject_id']         = $attributes['subject_id'];
-        $data['primaryObject_id']   = $attributes['primaryObject_id'];
-        $data['secondaryObject_id'] = $attributes['secondaryObject_id'];
+        $data['primary_object_id']   = $attributes['primary_object_id'];
+        $data['secondary_object_id'] = $attributes['secondary_object_id'];
         $data['mode_id']            = $attributes['mode_id'];
-        $data['class_id']           = $attributes['verbClass_id'];
+        $data['class_id']           = $attributes['verb_class_id'];
         $data['order_id']           = $attributes['order_id'];
-        $data['isNegative']         = isset($attributes['isNegative']) ? 1 : 0;
-        $data['isDiminutive']       = isset($attributes['isDiminutive']) ? 1 : 0;
-        $data['isAbsolute']         = isset($attributes['isAbsolute']) ? $attributes['isAbsolute'] : null;
+        $data['is_negative']         = isset($attributes['is_negative']) ? 1 : 0;
+        $data['is_diminutive']       = isset($attributes['is_diminutive']) ? 1 : 0;
+        $data['is_absolute']         = isset($attributes['is_absolute']) ? $attributes['is_absolute'] : null;
         $data['head']               = isset($attributes['head']) ? $attributes['head'] : null;
 
         return $data;

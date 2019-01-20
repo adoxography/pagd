@@ -42,7 +42,6 @@ class CreateWordFormsTable extends Migration
 
             // Constraints
             $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
-            $table->foreign('change_type_id')->references('id')->on('change_types');
             $table->unique(['name', 'language_id', 'structure_type', 'structure_id'], 'word_forms_unique');
         });
     }

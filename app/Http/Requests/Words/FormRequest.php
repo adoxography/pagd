@@ -31,8 +31,8 @@ class FormRequest extends Request
 
             //Language Info
             'language'    => ['required'],
-            'language_id' => ['required','integer','exists:Languages,id'],
-            'parent_id'   => ['nullable','exists:Word_Forms,id']
+            'language_id' => ['required','integer','exists:languages,id'],
+            'parent_id'   => ['nullable','exists:word_forms,id']
         ];
 
         switch ($this->method()) {

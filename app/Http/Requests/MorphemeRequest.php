@@ -28,10 +28,10 @@ class MorphemeRequest extends FormRequest
             'name'            => ['required','isMorpheme'],
             'gloss'           => ['required'],
             'slot'            => ['required'],
-            'slot_id'         => ['required','integer','exists:Morph_Slots,id'],
+            'slot_id'         => ['required','integer','exists:morph_slots,id'],
             'language'        => ['required'],
-            'language_id'     => ['required','integer','exists:Languages,id'],
-            'parent_id'       => ['nullable','integer','exists:Morph_Morphemes,id'],
+            'language_id'     => ['required','integer','exists:languages,id'],
+            'parent_id'       => ['nullable','integer','exists:morph_morphemes,id'],
             'allomorphyNotes' => ['nullable'],
             'historicalNotes' => ['nullable'],
             'privateNotes'    => ['nullable']

@@ -22,7 +22,7 @@
                   :ellipsis="ellipsis"
                   :closable="closable"
                   @close="removeTag(index)">
-                <span v-html="getNormalizedTagText(tag)"></span>
+                <span @click="tagClicked(tag)" v-html="getNormalizedTagText(tag)"></span>
               </alg-tag>
             </draggable>
 
@@ -79,9 +79,18 @@ import draggable from 'vuedraggable';
 export default {
   extends: Taginput,
   components: { draggable },
+  props: ['onClickTag'],
   methods: {
     onDrag() {
       this.$emit('input', this.tags);
+    },
+
+    tagClicked(tag) {
+      if (this.onClickTag) {
+        this.onClickTag(tag);
+        console.log(tag);
+        this.$emit('input', this.tags);
+      }
     }
   }
 };

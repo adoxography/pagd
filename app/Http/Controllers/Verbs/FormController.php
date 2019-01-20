@@ -77,6 +77,7 @@ class FormController extends AlgModelController
             'parent',
             'parent.language',
             'morphemes',
+            'morphemes.initialChanges',
             'structure',
             'structure.subject',
             'structure.primaryObject',

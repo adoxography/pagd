@@ -151,6 +151,7 @@
                               field="name"
                               autocomplete
                               :open-on-focus="true"
+                              :on-click-tag="tag => tag.ic = !tag.ic"
                               :allow-duplicates="true"
                               :allow-new="true"
                               :field="'uniqueName'"

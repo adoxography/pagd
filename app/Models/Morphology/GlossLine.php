@@ -19,6 +19,13 @@ class GlossLine
     protected $nodes;
 
     /**
+     * The original string version of the line
+     *
+     * @var string
+     */
+    protected $repr;
+
+    /**
      * Initializes the line
      *
      * @param string      The string version of the gloss line
@@ -26,7 +33,13 @@ class GlossLine
      */
     public function __construct(string $repr, Collection $glosses)
     {
+        $this->repr = $repr;
         $this->nodes = $this->buildNodes($repr, $glosses);
+    }
+
+    public function __toString() : string
+    {
+        return $this->repr;
     }
 
     /**

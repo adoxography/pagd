@@ -157,6 +157,18 @@ blockquote {
     padding: .1rem 6px;
 }
 
+a.is-danger {
+    color: $danger;
+}
+
+.gloss {
+    font-variant: small-caps;
+
+    a {
+        color: $grey-dark;
+    }
+}
+
 // wysiwyg
 .editr {
     .editr--toolbar {

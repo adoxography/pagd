@@ -1,4 +1,4 @@
-webpackJsonp([24],{
+webpackJsonp([62],{
 
 /***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Morpheme-Alert.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -25,12 +25,7 @@ webpackJsonp([24],{
 //
 //
 /* harmony default export */ __webpack_exports__["a"] = ({
-  props: {
-    'title': {},
-    'display': {
-      default: 'block'
-    }
-  },
+  props: ['title'],
   data: function data() {
     return {
       showModal: false
@@ -50,7 +45,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { style: { display: _vm.display } }, [
+  return _c("div", [
     _c(
       "div",
       {

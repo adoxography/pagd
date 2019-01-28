@@ -1,5 +1,5 @@
 <template>
-	<div>
+  <div :style="{display: display}">
 		<div class="alg-morpheme-alert" v-show="showModal" @mouseleave="showModal = false">
 			<article class="message is-primary">
 				<div class="message-header">
@@ -20,7 +20,12 @@
 
 <script>
 export default {
-	props: ['title'],
+  props: {
+    'title': {},
+    'display': {
+      default: 'block'
+    }
+  },
 
 	data() {
 		return {

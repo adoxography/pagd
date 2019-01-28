@@ -19,6 +19,6 @@ class Gloss extends Closed
 
     public function morphemes()
     {
-    	return $this->belongsToMany(Morpheme::class, 'Morph_Glosses_Morphemes', 'gloss_id', 'morpheme_id');
+    	return $this->belongsToMany(Morpheme::class, 'morph_glosses_morphemes', 'gloss_id', 'morpheme_id');
     }
 }

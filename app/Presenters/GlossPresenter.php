@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Models\Morphology\Morpheme;
+namespace App\Presenters;
 
 use App\Presenters\AlgPresenter;
 
 class GlossPresenter extends AlgPresenter
 {
-	// public function abv(string $format = '')
-	// {
-	// 	return $this->model->
-	// }
+    public function link(string $addon = '', string $format = '', $withColor = false)
+    {
+
+    }
 }

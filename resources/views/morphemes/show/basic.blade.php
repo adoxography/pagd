@@ -1,72 +1,115 @@
 @extends('morphemes.show')
 
 @section('details')
-	<div class="columns">
-		<div class="column">
-			<div class="columns">
-				<div class="column">
-					<div class="field">
-						<span class="label">Gloss</span>
-						{!! $morpheme->renderGlossWithDescription() !!}
-					</div>
-				</div>
-				<div class="column">
-					<div class="field">
-						<span class="label">Slot</span>
-						{!! $morpheme->slot->present()->as('link', '', 'coloured') !!}
-					</div>
-				</div>
-			</div>
-			<div class="field">
-				<span class="label">Phonemic representation</span>
-				{!! $morpheme->present('phonemicForm') !!}
-			</div>
-			@if($morpheme->initialChanges->count() > 0)
-				<div class="field">
-					<span class="label">Initial change form{{ $morpheme->initialChanges->count() > 1 ? 's' : '' }}</span>
-					<ul>
-						@foreach($morpheme->initialChanges as $change)
-							<li>{{ $change->change }}</li>
-						@endforeach
-					</ul>
-				</div>
-			@endif
-		</div>
-		<div class="column">
-			@if($morpheme->allomorphyNotes)
-				<div class="field">
-					<span class="label">Allomorphy</span>
-					{!! replaceTags($morpheme->allomorphyNotes, $morpheme->language_id) !!}
-				</div>
-			@endif
-			@if($morpheme->usageNotes)
-				<div class="field">
-					<span class="label">Usage notes</span>
-					{!! replaceTags($morpheme->usageNotes, $morpheme->language_id) !!}
-				</div>
-			@endif
-			@if($morpheme->parent || $morpheme->historicalNotes)
-				<div class="field">
-					<span class="label">Historical notes</span>
-					@if($morpheme->parent)
-						<em>Parent: </em>{!! $morpheme->parent->present()->as('unique', 'link')->then('language')->as('link', 'morphemes') !!}
-					@endif
+<div class="details">
+    {{--Language--}}
+    <div class="detail-row">
+        <label class="detail-label">Language</label>
+        <div class="detail-value">{!! $morpheme->language->present('link') !!}</div>
+    </div>
 
-					@if($morpheme->historicalNotes)
-						{!! replaceTags($morpheme->historicalNotes, $morpheme->language_id) !!}
-					@endif
-				</div>
-			@endif
-			@if(Auth::user() && Auth::user()->hasPermissionTo('add content') && $morpheme->privateNotes)
-				<div class="field">
-					<span class="label">Private notes</span>
-					{!! replaceTags($morpheme->privateNotes, $morpheme->language_id) !!}
-				</div>
-			@endif
-		</div>
-	</div>
-	<div class="field">
-		<span class="label">Sources</span>
-		@include('components.model.sourcelist', ['sources' => $morpheme->sources])
-	</div>
+    {{--Gloss--}}
+    <div class="detail-row">
+        <label class="detail-label">Gloss</label>
+        <div class="detail-value">
+            {!! $morpheme->gloss->present('glosses', true) !!}
+            {!! $morpheme->gloss->present('description') !!}
+        </div>
+    </div>
+
+    {{--Slot--}}
+    <div class="detail-row">
+        <label class="detail-label">Slot</label>
+        <div class="detail-value">
+            {!! $morpheme->slot->present()->as('link', '', 'coloured') !!}
+        </div>
+    </div>
+
+    {{--Phonemic representation--}}
+    <div class="detail-row">
+        <label class="detail-label">Phonemic representation</label>
+        <div class="detail-value">{!! $morpheme->present('phonemicForm') !!}</div>
+    </div>
+
+    {{--Initial changes--}}
+    @if ($morpheme->initialChanges->count() > 0)
+        <div class="detail-row">
+            <label class="detail-label">Initial change forms</label>
+            <div class="detail-value">
+                <ul>
+                    @foreach ($morpheme->initialChanges as $change)
+                    <li>{{ $change->change }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    @endif
+
+    {{--Allomorphy notes--}}
+    @isset ($morpheme->allomorphy_notes)
+    <div class="detail-row">
+        <label class="detail-label">Allomorphy notes</label>
+        <div class="detail-value">
+            {!! replaceTags($morpheme->allomorphy_notes, $morpheme->language_id) !!}
+        </div>
+    </div>
+    @endisset
+
+    {{--Usage notes--}}
+    @isset ($morpheme->usage_notes)
+    <div class="detail-row">
+        <label class="detail-label">Usage notes</label>
+        <div class="detail-value">
+            {!! replaceTags($morpheme->usage_notes, $morpheme->language_id) !!}
+        </div>
+    </div>
+    @endisset
+
+    {{--Parent--}}
+    @isset ($morpheme->parent)
+    <div class="detail-row">
+        <label class="detail-label">Parent</label>
+        <div class="detail-value">
+            {!! $morpheme->parent->present()->as('unique', 'link')->then('language')->as('link', 'morphemes') !!}
+        </div>
+    </div>
+    @endisset
+
+    {{--Historical notes--}}
+    @isset ($morpheme->historical_notes)
+    <div class="detail-row">
+        <label class="detail-label">Historical notes</label>
+        <div class="detail-value">
+            {!! replaceTags($morpheme->historical_notes, $morpheme->language_id) !!}
+        </div>
+    </div>
+    @endisset
+
+    {{--Private notes--}}
+    @if (isset($morpheme->private_notes) && Auth::user() && Auth::user()->hasPermissionTo('add content'))
+    <div class="detail-row">
+        <label class="detail-label">Private notes</label>
+        <div class="detail-value">
+            {!! replaceTags($morpheme->private_notes, $morpheme->language_id) !!}
+        </div>
+    </div>
+    @endif
+
+    {{--Sources--}}
+    @if ($morpheme->sources->count() > 0)
+    <div class="detail-row">
+        <label class="detail-label">Sources</label>
+        <div class="detail-value">
+            @foreach ($morpheme->sources as $source)
+            <p>
+                {!! $source->present('link') !!}
+                @isset ($source->pivot->extra_info)
+                : {{ $source->pivot->extra_info }}
+                @endisset
+            </p>
+            @endforeach
+        </div>
+    </div>
+    @endif
+</div>
 @endsection

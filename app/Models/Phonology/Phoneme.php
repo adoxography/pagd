@@ -25,18 +25,18 @@ class Phoneme extends Model
     public $uri = '/phonemes';
 
     protected $fillable = [
-        'algoName',
-        'ipaName',
-        'orthoName',
-        'phoneticNotes',
-        'orthoNotes',
-        'privateNotes',
-        'isMarginal',
+        'algo_name',
+        'ipa_name',
+        'ortho_name',
+        'phonetic_notes',
+        'ortho_notes',
+        'private_notes',
+        'is_marginal',
         'language_id',
         'featureable_type',
         'featureable_id',
-        'isArchiphoneme',
-        'archiphonemeDescription',
+        'is_archiphoneme',
+        'archiphoneme_description',
         'allophones'
     ];
 
@@ -44,7 +44,16 @@ class Phoneme extends Model
     {
         $array = $this->toArray();
 
-        return array_only($array, ['id', 'algoName', 'ipaName', 'orthoName', 'phoneticNotes', 'orthoNotes', 'privateNotes', 'archiphonemeDescription']);
+        return array_only($array, [
+            'id',
+            'algo_name',
+            'ipa_name',
+            'ortho_name',
+            'phonetic_notes',
+            'ortho_notes',
+            'private_notes',
+            'archiphoneme_description'
+        ]);
     }
 
     protected $revisionCreationsEnabled = true;
@@ -53,17 +62,17 @@ class Phoneme extends Model
         'isMarginal' => 'boolean:fully fledged|marginal'
     ];
     protected $revisionFormattedFieldNames = [
-        'algoName'         => 'algonquianist transcription',
-        'ipaName'          => 'IPA transcription',
-        'orthoName'        => 'orthographic transcription',
-        'phoneticNotes'    => 'phonetic notes',
-        'orthoNotes'       => 'orthography notes',
-        'privateNotes'     => 'private notes',
-        'isMarginal'       => 'marginal',
-        'phonemeable_type' => 'phoneme type',
-        'phonemeable_id'   => 'features',
-        'featureable_id'   => 'features',
-        'archiphonemeDescription' => 'archiphoneme description'
+        'algo_name'         => 'algonquianist transcription',
+        'ipa_name'          => 'IPA transcription',
+        'ortho_name'        => 'orthographic transcription',
+        'phonetic_notes'    => 'phonetic notes',
+        'ortho_notes'       => 'orthography notes',
+        'private_notes'     => 'private notes',
+        'is_marginal'       => 'marginal',
+        'phonemeable_type'  => 'phoneme type',
+        'phonemeable_id'    => 'features',
+        'featureable_id'    => 'features',
+        'archiphoneme_description' => 'archiphoneme description'
     ];
     protected $dontKeepRevisionOf = [
         'id',
@@ -80,7 +89,7 @@ class Phoneme extends Model
 
     public function getNameAttribute()
     {
-        return $this->algoName;
+        return $this->algo_name;
     }
 
     public function getAlgoNameAttribute($value)

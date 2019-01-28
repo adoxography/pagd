@@ -3,7 +3,7 @@
 namespace App\Presenters;
 
 use App\Exceptions\PresenterException;
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
 
 abstract class Presenter
 {
@@ -19,7 +19,7 @@ abstract class Presenter
 
     protected $lastWasBefore = false;
 
-    public function __construct(Model $model, string $method)
+    public function __construct($model, string $method)
     {
         $this->model = $model;
         $this->method = $method;

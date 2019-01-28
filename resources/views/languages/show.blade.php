@@ -21,6 +21,7 @@
                 'showParadigms' => 'Paradigms',
                 'showVerbs' => 'Verbs',
                 'showNominals' => 'Nominals',
+                'showMorphemes' => 'Morphemes',
                 'showPhonemes' => 'Phonemes',
                 'showClusters' => 'Clusters',
                 'showRules' => 'Rules',

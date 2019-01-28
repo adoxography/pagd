@@ -38,15 +38,10 @@ class MorphemePresenter extends AlgPresenter
 
     public function unique(string $method = 'name', string $format = '')
     {
-        $coloured = strpos($format, 'coloured') !== false;
+        $modelHTML = $this->model->present($method);
+        $glossNameHTML = $this->model->gloss->present();
 
-        $output = $this->model->present($method) . '&nbsp(' . $this->gloss($coloured, false) . ')';
-
-        if (strlen($format) > 0) {
-            $output = $this->format($output, $format);
-        }
-
-        return $output;
+        return "$modelHTML ($glossNameHTML)";
     }
 
     public function stub()

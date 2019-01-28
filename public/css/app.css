@@ -20503,6 +20503,18 @@ blockquote {
   padding: .1rem 6px;
 }
 
+a.is-danger {
+  color: #c72e00;
+}
+
+.gloss {
+  font-variant: small-caps;
+}
+
+.gloss a {
+  color: #262626;
+}
+
 .editr .editr--toolbar {
   background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(#f0f0f0));
   background-image: linear-gradient(white, #f0f0f0);

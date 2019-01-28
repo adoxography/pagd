@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< HEAD:public/assets/merchant/js/chunk63.js
 <<<<<<< HEAD:public/assets/merchant/js/chunk63.js
 webpackJsonp([63,72],{
@@ -18,6 +19,14 @@ webpackJsonp([10],{
 //
 //
 //
+=======
+webpackJsonp([63],{
+
+/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Modal.vue?vue&type=script&lang=js&":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+>>>>>>> Move gloss rendering into the GlossLine class
 //
 //
 //
@@ -29,6 +38,7 @@ webpackJsonp([10],{
 //
 //
 //
+<<<<<<< HEAD
 =======
 webpackJsonp([63],{
 
@@ -37,6 +47,8 @@ webpackJsonp([63],{
 
 "use strict";
 >>>>>>> Update sources component
+=======
+>>>>>>> Move gloss rendering into the GlossLine class
 //
 //
 //
@@ -52,6 +64,7 @@ webpackJsonp([63],{
 //
 //
 //
+<<<<<<< HEAD
 //
 //
 <<<<<<< HEAD
@@ -130,6 +143,40 @@ webpackJsonp([63],{
         });
       }
 >>>>>>> Update sources component
+=======
+/* harmony default export */ __webpack_exports__["a"] = ({
+  props: {
+    title: {
+      default: ""
+    },
+    content: {
+      default: ""
+    },
+    footer: {
+      default: ""
+    }
+  },
+  data: function data() {
+    return {
+      active: false
+    };
+  },
+  methods: {
+    open: function open() {
+      this.active = true;
+    },
+    close: function close() {
+      this.active = false;
+    },
+    onClickOutside: function onClickOutside() {
+      var _this = this;
+
+      Vue.nextTick(function () {
+        if (_this.active) {
+          _this.close();
+        }
+      });
+>>>>>>> Move gloss rendering into the GlossLine class
     }
   }
 });
@@ -137,10 +184,14 @@ webpackJsonp([63],{
 /***/ }),
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Multi-DataList.vue?vue&type=template&id=3d68a993&":
 =======
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Filter-List.vue?vue&type=template&id=04b3280c&":
 >>>>>>> Update sources component
+=======
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Modal.vue?vue&type=template&id=6e8d36f4&":
+>>>>>>> Move gloss rendering into the GlossLine class
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -152,6 +203,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+<<<<<<< HEAD
 <<<<<<< HEAD
     [
       _vm._l(_vm.value, function(line, n) {
@@ -325,12 +377,61 @@ var staticRenderFns = [
     ])
   }
 ]
+=======
+    { staticClass: "modal", class: { "is-active": _vm.active } },
+    [
+      _c("div", { staticClass: "modal-background", on: { click: _vm.close } }),
+      _vm._v(" "),
+      _c("div", { staticClass: "modal-card" }, [
+        _c("header", { staticClass: "modal-card-head" }, [
+          _c(
+            "p",
+            { staticClass: "modal-card-title" },
+            [
+              _vm._t("title", [
+                _c("div", { domProps: { innerHTML: _vm._s(_vm.title) } })
+              ])
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c("button", { staticClass: "delete", on: { click: _vm.close } })
+        ]),
+        _vm._v(" "),
+        _c(
+          "section",
+          { staticClass: "modal-card-body" },
+          [
+            _vm._t("default", [
+              _c("div", { domProps: { innerHTML: _vm._s(_vm.content) } })
+            ])
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _c(
+          "footer",
+          { staticClass: "modal-card-foot" },
+          [
+            _vm._t("footer", [
+              _c("div", { domProps: { innerHTML: _vm._s(_vm.footer) } })
+            ])
+          ],
+          2
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+>>>>>>> Move gloss rendering into the GlossLine class
 render._withStripped = true
 
 
 
 /***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ "./resources/assets/js/Datalist.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -378,10 +479,14 @@ function () {
 =======
 /***/ "./resources/assets/js/components/Filter-List.vue":
 >>>>>>> Update sources component
+=======
+/***/ "./resources/assets/js/components/Modal.vue":
+>>>>>>> Move gloss rendering into the GlossLine class
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+<<<<<<< HEAD
 <<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Multi_DataList_vue_vue_type_template_id_3d68a993___ = __webpack_require__("./resources/assets/js/components/Multi-DataList.vue?vue&type=template&id=3d68a993&");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Multi_DataList_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/Multi-DataList.vue?vue&type=script&lang=js&");
@@ -389,6 +494,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Filter_List_vue_vue_type_template_id_04b3280c___ = __webpack_require__("./resources/assets/js/components/Filter-List.vue?vue&type=template&id=04b3280c&");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Filter_List_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/Filter-List.vue?vue&type=script&lang=js&");
 >>>>>>> Update sources component
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Modal_vue_vue_type_template_id_6e8d36f4___ = __webpack_require__("./resources/assets/js/components/Modal.vue?vue&type=template&id=6e8d36f4&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Modal_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/Modal.vue?vue&type=script&lang=js&");
+>>>>>>> Move gloss rendering into the GlossLine class
 /* empty harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_componentNormalizer_js__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -400,6 +509,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 var component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_componentNormalizer_js__["a" /* default */])(
 <<<<<<< HEAD
+<<<<<<< HEAD
   __WEBPACK_IMPORTED_MODULE_1__Multi_DataList_vue_vue_type_script_lang_js___["a" /* default */],
   __WEBPACK_IMPORTED_MODULE_0__Multi_DataList_vue_vue_type_template_id_3d68a993___["a" /* render */],
   __WEBPACK_IMPORTED_MODULE_0__Multi_DataList_vue_vue_type_template_id_3d68a993___["b" /* staticRenderFns */],
@@ -408,6 +518,11 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_
   __WEBPACK_IMPORTED_MODULE_0__Filter_List_vue_vue_type_template_id_04b3280c___["a" /* render */],
   __WEBPACK_IMPORTED_MODULE_0__Filter_List_vue_vue_type_template_id_04b3280c___["b" /* staticRenderFns */],
 >>>>>>> Update sources component
+=======
+  __WEBPACK_IMPORTED_MODULE_1__Modal_vue_vue_type_script_lang_js___["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_0__Modal_vue_vue_type_template_id_6e8d36f4___["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_0__Modal_vue_vue_type_template_id_6e8d36f4___["b" /* staticRenderFns */],
+>>>>>>> Move gloss rendering into the GlossLine class
   false,
   null,
   null,
@@ -423,6 +538,7 @@ if (false) {
     module.hot.accept()
     if (!module.hot.data) {
 <<<<<<< HEAD
+<<<<<<< HEAD
       api.createRecord('3d68a993', component.options)
     } else {
       api.reload('3d68a993', component.options)
@@ -437,6 +553,14 @@ if (false) {
     module.hot.accept("./Filter-List.vue?vue&type=template&id=04b3280c&", function () {
       api.rerender('04b3280c', {
 >>>>>>> Update sources component
+=======
+      api.createRecord('6e8d36f4', component.options)
+    } else {
+      api.reload('6e8d36f4', component.options)
+    }
+    module.hot.accept("./Modal.vue?vue&type=template&id=6e8d36f4&", function () {
+      api.rerender('6e8d36f4', {
+>>>>>>> Move gloss rendering into the GlossLine class
         render: render,
         staticRenderFns: staticRenderFns
       })
@@ -444,14 +568,19 @@ if (false) {
   }
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 component.options.__file = "resources/assets/js/components/Multi-DataList.vue"
 =======
 component.options.__file = "resources/assets/js/components/Filter-List.vue"
 >>>>>>> Update sources component
+=======
+component.options.__file = "resources/assets/js/components/Modal.vue"
+>>>>>>> Move gloss rendering into the GlossLine class
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ "./resources/assets/js/components/Multi-DataList.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -489,6 +618,25 @@ component.options.__file = "resources/assets/js/components/Filter-List.vue"
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Filter_List_vue_vue_type_template_id_04b3280c___["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Filter_List_vue_vue_type_template_id_04b3280c___["b"]; });
 >>>>>>> Update sources component
+=======
+/***/ "./resources/assets/js/components/Modal.vue?vue&type=script&lang=js&":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Modal_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Modal.vue?vue&type=script&lang=js&");
+/* unused harmony namespace reexport */
+ /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Modal_vue_vue_type_script_lang_js___["a" /* default */]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Modal.vue?vue&type=template&id=6e8d36f4&":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Modal_vue_vue_type_template_id_6e8d36f4___ = __webpack_require__("./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Modal.vue?vue&type=template&id=6e8d36f4&");
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Modal_vue_vue_type_template_id_6e8d36f4___["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Modal_vue_vue_type_template_id_6e8d36f4___["b"]; });
+>>>>>>> Move gloss rendering into the GlossLine class
 
 
 /***/ })

@@ -10,14 +10,14 @@ class PhonemePresenter extends AlgPresenter
     public function name(string $format = '')
     {
         if ($this->model->isNull()) {
-            return $this->model->algoName;
+            return $this->model->algo_name;
         }
 
         $name = parent::name($format);
 
         $name = sprintf('<i>%s</i>', $name);
 
-        if ($this->model->isMarginal) {
+        if ($this->model->is_marginal) {
             $name = "($name)";
         }
 
@@ -32,8 +32,12 @@ class PhonemePresenter extends AlgPresenter
 
         $link = parent::link($addon, $format);
 
-        if ($this->model->isMarginal) {
-            $link = preg_replace('`^(<a href=".*">)(\()(.*)(\))(</a>)`', '$2$1$3$5$4', $link);
+        if ($this->model->is_marginal) {
+            $link = preg_replace(
+                '`^(<a href=".*">)(\()(.*)(\))(</a>)`',
+                '$2$1$3$5$4',
+                $link
+            );
         }
 
         return $link;
@@ -42,7 +46,7 @@ class PhonemePresenter extends AlgPresenter
     public function transcription($attribute = '')
     {
         if (strlen($attribute) == 0) {
-            $name = $this->model->ipaName ?: $this->model->algoName;
+            $name = $this->model->ipa_name ?: $this->model->algo_name;
         } else {
             $name = $this->model->$attribute;
         }

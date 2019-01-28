@@ -38,7 +38,7 @@ trait PhonemeablePresentation
     {
         return preg_replace_callback("/(?<!<)(?:$pattern)(?!>)/", function ($symbol) use ($phonemes) {
             $phoneme = $phonemes->filter(function ($phoneme) use ($symbol) {
-                return str_replace('*', '', $phoneme->algoName) == $symbol[0];
+                return str_replace('*', '', $phoneme->algo_name) == $symbol[0];
             })->first();
             return str_replace('*', '', $phoneme->present('link'));
         }, $str);

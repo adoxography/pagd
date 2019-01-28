@@ -6,6 +6,10 @@ use App\Interfaces\PhonemeableInterface;
 use App\Models\ChangeType;
 use App\Models\Language;
 use App\Models\Model;
+use App\Models\Morphology\Gloss;
+use App\Models\Morphology\GlossLine;
+use App\Models\Morphology\InitialChange;
+use App\Models\Morphology\Slot;
 use App\Models\Nominals\Form as NominalForm;
 use App\Models\Verbs\Form as VerbForm;
 use App\Models\Words\Example;
@@ -113,6 +117,11 @@ class Morpheme extends Model implements PhonemeableInterface
     {
         $name = isset($this->altName) ? $this->altName : $value;
         return $this->modifyIfReconstructed($name);
+    }
+
+    public function getGlossAttribute($value)
+    {
+        return new GlossLine($value, $this->glosses);
     }
 
     public function getPhonemicFormAttribute()

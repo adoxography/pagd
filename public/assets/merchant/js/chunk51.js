@@ -1,6 +1,10 @@
 webpackJsonp([51],{
 
+<<<<<<< HEAD
 /***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Basic-Paradigm-Search.vue?vue&type=script&lang=js&":
+=======
+/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Form.vue?vue&type=script&lang=js&":
+>>>>>>> Move gloss rendering into the GlossLine class
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21,6 +25,7 @@ webpackJsonp([51],{
 //
 //
 //
+<<<<<<< HEAD
 //
 //
 //
@@ -116,13 +121,59 @@ webpackJsonp([51],{
           id: ''
         };
       }
+=======
+/* harmony default export */ __webpack_exports__["a"] = ({
+  props: ['method', 'action', 'oldErrors'],
+  data: function data() {
+    return {
+      csrfToken: Laravel.csrfToken
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    if (this.oldErrors) {
+      _.forEach(this.oldErrors, function (errors, field) {
+        errors.forEach(function (message) {
+          return _this.$root.errors.add({
+            field: field,
+            msg: message
+          });
+        });
+      });
+    }
+
+    ;
+  },
+  methods: {
+    validateBeforeSubmit: function validateBeforeSubmit(event) {
+      var _this2 = this;
+
+      this.$validator.validateAll().then(function (result) {
+        if (result) {
+          _this2.$children.forEach(function (child) {
+            if (child.beforeSubmit) {
+              child.beforeSubmit();
+            }
+          });
+
+          _this2.$nextTick(function () {
+            return _this2.$refs.form.submit();
+          });
+        }
+      });
+>>>>>>> Move gloss rendering into the GlossLine class
     }
   }
 });
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Basic-Paradigm-Search.vue?vue&type=template&id=6fdd8f78&":
+=======
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Form.vue?vue&type=template&id=68350a1b&":
+>>>>>>> Move gloss rendering into the GlossLine class
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -134,6 +185,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "form",
+<<<<<<< HEAD
     { attrs: { action: "/verbs/search/paradigm/results", method: "GET" } },
     [
       _c("input", {
@@ -315,19 +367,73 @@ var staticRenderFns = [
     ])
   }
 ]
+=======
+    {
+      ref: "form",
+      attrs: {
+        method: _vm.method == "GET" ? _vm.method : "POST",
+        action: _vm.action
+      },
+      on: {
+        submit: function($event) {
+          $event.preventDefault()
+          _vm.validateBeforeSubmit($event)
+        }
+      }
+    },
+    [
+      _c("input", {
+        attrs: { name: "_token", type: "hidden" },
+        domProps: { value: _vm.csrfToken }
+      }),
+      _vm._v(" "),
+      _vm.method != "POST" && _vm.method != "GET"
+        ? _c("input", {
+            attrs: { type: "hidden", name: "_method" },
+            domProps: { value: _vm.method }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm._t("default"),
+      _vm._v(" "),
+      _c("div", { staticClass: "field" }, [
+        _c(
+          "button",
+          {
+            staticClass: "button is-primary has-text-grey-dark",
+            attrs: { type: "submit", disabled: _vm.errors.any() }
+          },
+          [_vm._v("Submit")]
+        )
+      ])
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+>>>>>>> Move gloss rendering into the GlossLine class
 render._withStripped = true
 
 
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./resources/assets/js/components/forms/Basic-Paradigm-Search.vue":
+=======
+/***/ "./resources/assets/js/components/forms/Form.vue":
+>>>>>>> Move gloss rendering into the GlossLine class
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Basic_Paradigm_Search_vue_vue_type_template_id_6fdd8f78___ = __webpack_require__("./resources/assets/js/components/forms/Basic-Paradigm-Search.vue?vue&type=template&id=6fdd8f78&");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Basic_Paradigm_Search_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/forms/Basic-Paradigm-Search.vue?vue&type=script&lang=js&");
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form_vue_vue_type_template_id_68350a1b___ = __webpack_require__("./resources/assets/js/components/forms/Form.vue?vue&type=template&id=68350a1b&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Form_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/forms/Form.vue?vue&type=script&lang=js&");
+>>>>>>> Move gloss rendering into the GlossLine class
 /* empty harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_componentNormalizer_js__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -338,9 +444,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* normalize component */
 
 var component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_componentNormalizer_js__["a" /* default */])(
+<<<<<<< HEAD
   __WEBPACK_IMPORTED_MODULE_1__Basic_Paradigm_Search_vue_vue_type_script_lang_js___["a" /* default */],
   __WEBPACK_IMPORTED_MODULE_0__Basic_Paradigm_Search_vue_vue_type_template_id_6fdd8f78___["a" /* render */],
   __WEBPACK_IMPORTED_MODULE_0__Basic_Paradigm_Search_vue_vue_type_template_id_6fdd8f78___["b" /* staticRenderFns */],
+=======
+  __WEBPACK_IMPORTED_MODULE_1__Form_vue_vue_type_script_lang_js___["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_0__Form_vue_vue_type_template_id_68350a1b___["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_0__Form_vue_vue_type_template_id_68350a1b___["b" /* staticRenderFns */],
+>>>>>>> Move gloss rendering into the GlossLine class
   false,
   null,
   null,
@@ -355,23 +467,37 @@ if (false) {
   if (api.compatible) {
     module.hot.accept()
     if (!module.hot.data) {
+<<<<<<< HEAD
       api.createRecord('6fdd8f78', component.options)
     } else {
       api.reload('6fdd8f78', component.options)
     }
     module.hot.accept("./Basic-Paradigm-Search.vue?vue&type=template&id=6fdd8f78&", function () {
       api.rerender('6fdd8f78', {
+=======
+      api.createRecord('68350a1b', component.options)
+    } else {
+      api.reload('68350a1b', component.options)
+    }
+    module.hot.accept("./Form.vue?vue&type=template&id=68350a1b&", function () {
+      api.rerender('68350a1b', {
+>>>>>>> Move gloss rendering into the GlossLine class
         render: render,
         staticRenderFns: staticRenderFns
       })
     })
   }
 }
+<<<<<<< HEAD
 component.options.__file = "resources/assets/js/components/forms/Basic-Paradigm-Search.vue"
+=======
+component.options.__file = "resources/assets/js/components/forms/Form.vue"
+>>>>>>> Move gloss rendering into the GlossLine class
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
+<<<<<<< HEAD
 /***/ "./resources/assets/js/components/forms/Basic-Paradigm-Search.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -389,6 +515,25 @@ component.options.__file = "resources/assets/js/components/forms/Basic-Paradigm-
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Basic_Paradigm_Search_vue_vue_type_template_id_6fdd8f78___ = __webpack_require__("./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Basic-Paradigm-Search.vue?vue&type=template&id=6fdd8f78&");
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Basic_Paradigm_Search_vue_vue_type_template_id_6fdd8f78___["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Basic_Paradigm_Search_vue_vue_type_template_id_6fdd8f78___["b"]; });
+=======
+/***/ "./resources/assets/js/components/forms/Form.vue?vue&type=script&lang=js&":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Form.vue?vue&type=script&lang=js&");
+/* unused harmony namespace reexport */
+ /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_script_lang_js___["a" /* default */]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/forms/Form.vue?vue&type=template&id=68350a1b&":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_68350a1b___ = __webpack_require__("./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/forms/Form.vue?vue&type=template&id=68350a1b&");
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_68350a1b___["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_68350a1b___["b"]; });
+>>>>>>> Move gloss rendering into the GlossLine class
 
 
 /***/ })

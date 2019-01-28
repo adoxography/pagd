@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< HEAD:public/assets/merchant/js/chunk55.js
 <<<<<<< HEAD:public/assets/merchant/js/chunk55.js
 webpackJsonp([55,72],{
@@ -61,20 +62,32 @@ webpackJsonp([55],{
 >>>>>>> Update sources component
 
 /***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/SelectAll.vue?vue&type=script&lang=js&":
+=======
+webpackJsonp([55],{
+
+/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Tabs.vue?vue&type=script&lang=js&":
+>>>>>>> Move gloss rendering into the GlossLine class
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 //
 //
 //
+<<<<<<< HEAD
 =======
 >>>>>>> Remove unneeded components:public/assets/merchant/js/chunk2.js
+=======
+>>>>>>> Move gloss rendering into the GlossLine class
 //
 //
 //
 //
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+//
+>>>>>>> Move gloss rendering into the GlossLine class
 //
 //
 //
@@ -83,6 +96,7 @@ webpackJsonp([55],{
 //
 //
 /* harmony default export */ __webpack_exports__["a"] = ({
+<<<<<<< HEAD
   props: ['preview'],
   data: function data() {
     return {
@@ -120,11 +134,46 @@ webpackJsonp([55],{
   mounted: function mounted() {
     this.overflowing = this.$refs.slot.offsetHeight > this.previewHeight;
     this.show = false;
+=======
+  props: ['active'],
+  data: function data() {
+    return {
+      tabs: []
+    };
+  },
+  created: function created() {
+    this.tabs = this.$children;
+  },
+  mounted: function mounted() {
+    if (!this.active) {
+      var hash = location.hash;
+
+      if (hash != '') {
+        this.tabs.forEach(function (tab) {
+          tab.isActive = tab.href == location.hash;
+        });
+      }
+    } else {
+      this.selectTabByName(this.active);
+    }
+  },
+  methods: {
+    selectTab: function selectTab(targetTab) {
+      this.selectTabByName(targetTab.name);
+      this.$emit('tabChanged', targetTab.name);
+    },
+    selectTabByName: function selectTabByName(name) {
+      this.tabs.forEach(function (tab) {
+        tab.isActive = tab.name === name;
+      });
+    }
+>>>>>>> Move gloss rendering into the GlossLine class
   }
 });
 
 /***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Preview.vue?vue&type=style&index=0&lang=scss&":
 /***/ (function(module, exports, __webpack_require__) {
@@ -177,6 +226,9 @@ if(false) {
 =======
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/SelectAll.vue?vue&type=template&id=3dd2905e&":
 >>>>>>> Update sources component
+=======
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Tabs.vue?vue&type=template&id=971a3596&":
+>>>>>>> Move gloss rendering into the GlossLine class
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -186,6 +238,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+<<<<<<< HEAD
   return _c(
     "div",
 <<<<<<< HEAD
@@ -265,6 +318,41 @@ var render = function() {
     2
 >>>>>>> Update sources component
   )
+=======
+  return _c("div", [
+    _c("div", { class: { tabs: _vm.tabs.length > 0 } }, [
+      _c(
+        "ul",
+        _vm._l(_vm.tabs, function(tab) {
+          return _c(
+            "li",
+            {
+              class: { "is-active": tab.isActive },
+              staticStyle: { "margin-top": "0" }
+            },
+            [
+              _c(
+                "a",
+                {
+                  attrs: { href: tab.href },
+                  on: {
+                    click: function($event) {
+                      _vm.selectTab(tab)
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(tab.name))]
+              )
+            ]
+          )
+        }),
+        0
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "tabs-details" }, [_vm._t("default")], 2)
+  ])
+>>>>>>> Move gloss rendering into the GlossLine class
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -274,14 +362,19 @@ render._withStripped = true
 /***/ }),
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /***/ "./resources/assets/js/components/Preview.vue":
 =======
 /***/ "./resources/assets/js/components/SelectAll.vue":
 >>>>>>> Update sources component
+=======
+/***/ "./resources/assets/js/components/Tabs.vue":
+>>>>>>> Move gloss rendering into the GlossLine class
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+<<<<<<< HEAD
 <<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Preview_vue_vue_type_template_id_1760483e___ = __webpack_require__("./resources/assets/js/components/Preview.vue?vue&type=template&id=1760483e&");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Preview_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/Preview.vue?vue&type=script&lang=js&");
@@ -293,6 +386,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Preview_vue_vue_type_style_index_0_lang_scss___ = __webpack_require__("./resources/assets/js/components/Preview.vue?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_vue_loader_lib_runtime_componentNormalizer_js__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Tabs_vue_vue_type_template_id_971a3596___ = __webpack_require__("./resources/assets/js/components/Tabs.vue?vue&type=template&id=971a3596&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Tabs_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/Tabs.vue?vue&type=script&lang=js&");
+/* empty harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_componentNormalizer_js__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+>>>>>>> Move gloss rendering into the GlossLine class
 
 
 
@@ -300,6 +399,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* normalize component */
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 var component = Object(__WEBPACK_IMPORTED_MODULE_3__node_modules_vue_loader_lib_runtime_componentNormalizer_js__["a" /* default */])(
   __WEBPACK_IMPORTED_MODULE_1__Preview_vue_vue_type_script_lang_js___["a" /* default */],
@@ -311,6 +411,12 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_
   __WEBPACK_IMPORTED_MODULE_0__SelectAll_vue_vue_type_template_id_3dd2905e___["a" /* render */],
   __WEBPACK_IMPORTED_MODULE_0__SelectAll_vue_vue_type_template_id_3dd2905e___["b" /* staticRenderFns */],
 >>>>>>> Update sources component
+=======
+var component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_componentNormalizer_js__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_1__Tabs_vue_vue_type_script_lang_js___["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_0__Tabs_vue_vue_type_template_id_971a3596___["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_0__Tabs_vue_vue_type_template_id_971a3596___["b" /* staticRenderFns */],
+>>>>>>> Move gloss rendering into the GlossLine class
   false,
   null,
   null,
@@ -326,6 +432,7 @@ if (false) {
     module.hot.accept()
     if (!module.hot.data) {
 <<<<<<< HEAD
+<<<<<<< HEAD
       api.createRecord('1760483e', component.options)
     } else {
       api.reload('1760483e', component.options)
@@ -340,6 +447,14 @@ if (false) {
     module.hot.accept("./SelectAll.vue?vue&type=template&id=3dd2905e&", function () {
       api.rerender('3dd2905e', {
 >>>>>>> Update sources component
+=======
+      api.createRecord('971a3596', component.options)
+    } else {
+      api.reload('971a3596', component.options)
+    }
+    module.hot.accept("./Tabs.vue?vue&type=template&id=971a3596&", function () {
+      api.rerender('971a3596', {
+>>>>>>> Move gloss rendering into the GlossLine class
         render: render,
         staticRenderFns: staticRenderFns
       })
@@ -347,14 +462,19 @@ if (false) {
   }
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 component.options.__file = "resources/assets/js/components/Preview.vue"
 =======
 component.options.__file = "resources/assets/js/components/SelectAll.vue"
 >>>>>>> Update sources component
+=======
+component.options.__file = "resources/assets/js/components/Tabs.vue"
+>>>>>>> Move gloss rendering into the GlossLine class
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ "./resources/assets/js/components/Preview.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -403,6 +523,25 @@ component.options.__file = "resources/assets/js/components/SelectAll.vue"
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SelectAll_vue_vue_type_template_id_3dd2905e___["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SelectAll_vue_vue_type_template_id_3dd2905e___["b"]; });
 >>>>>>> Update sources component
+=======
+/***/ "./resources/assets/js/components/Tabs.vue?vue&type=script&lang=js&":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Tabs_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Tabs.vue?vue&type=script&lang=js&");
+/* unused harmony namespace reexport */
+ /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Tabs_vue_vue_type_script_lang_js___["a" /* default */]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Tabs.vue?vue&type=template&id=971a3596&":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Tabs_vue_vue_type_template_id_971a3596___ = __webpack_require__("./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Tabs.vue?vue&type=template&id=971a3596&");
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Tabs_vue_vue_type_template_id_971a3596___["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Tabs_vue_vue_type_template_id_971a3596___["b"]; });
+>>>>>>> Move gloss rendering into the GlossLine class
 
 
 /***/ })

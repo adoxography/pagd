@@ -1,10 +1,10 @@
 <?php
 namespace App\Models\Users;
 
-use App\Interfaces\SubscribeableInterface;
 use App\Models\Tickets\Comment;
-use App\Presenters\AlgPresenter;
+use App\Interfaces\SubscribeableInterface;
 use App\Traits\AdaptsToConnections;
+use App\Traits\Presentable;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Mail\Mailable;
@@ -16,7 +16,7 @@ use Venturecraft\Revisionable\Revision;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles, HasSlug, AdaptsToConnections;
+    use Notifiable, HasRoles, HasSlug, AdaptsToConnections, Presentable;
     /**
      * The attributes that are mass assignable.
      *

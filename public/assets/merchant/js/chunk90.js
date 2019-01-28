@@ -25,7 +25,12 @@ webpackJsonp([90],{
 //
 //
 /* harmony default export */ __webpack_exports__["a"] = ({
-  props: ['title'],
+  props: {
+    'title': {},
+    'display': {
+      default: 'block'
+    }
+  },
   data: function data() {
     return {
       showModal: false
@@ -45,7 +50,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { style: { display: _vm.display } }, [
     _c(
       "div",
       {

@@ -4,11 +4,10 @@ namespace App\Presenters;
 
 use App\Presenters\Presenter;
 use App\Presenters\PresenterInterface;
-use Illuminate\Database\Eloquent\Model;
 
 class AlgPresenter extends Presenter implements PresenterInterface
 {
-    public function __construct(Model $model, string $method = 'name')
+    public function __construct($model, string $method = 'name')
     {
         parent::__construct($model, $method);
     }

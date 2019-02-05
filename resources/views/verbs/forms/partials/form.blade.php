@@ -130,7 +130,7 @@
             @include('components.form.autocomplete', [
                 'name' => 'parent',
                 'async' => true,
-                'asyncParams' => '{language: data.language.id, type: "verbs"}'
+                'asyncParams' => '{language: data.language.id, type: "verb"}'
             ])
 
             @include('components.form.autocomplete', [
@@ -156,8 +156,14 @@
                               :allow-new="true"
                               :field="'uniqueName'"
                               :loading="asyncLoading.morphemes">
-                    <template slot-scope="props">
-                        @{{ props.option.name }} (<span class="gloss">@{{ props.option.gloss }}</span>)
+                    <template slot-scope="{ option }">
+                        @{{ option.name }}
+                        (<span :class="{gloss: option.gloss[0]!=='{{ '"' }}'}">@{{ option.gloss }}</span>)
+                    </template>
+                    <template slot="tagDisplay"
+                              slot-scope="{ tag }">
+                        @{{ tag.name }}@{{ tag.ic ? '.IC' : '' }}
+                        (<span :class="{gloss: tag.gloss[0]!=='{{ '"' }}'}">@{{ tag.gloss }}</span>)
                     </template>
                 </alg-taginput>
             @endcomponent

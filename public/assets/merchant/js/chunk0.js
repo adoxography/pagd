@@ -81,6 +81,10 @@ webpackJsonp([0],{
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -2551,16 +2555,30 @@ var render = function() {
                   }
                 },
                 [
-                  _c("span", {
-                    domProps: {
-                      innerHTML: _vm._s(_vm.getNormalizedTagText(tag))
-                    },
-                    on: {
-                      click: function($event) {
-                        _vm.tagClicked(tag)
+                  _c(
+                    "span",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.onClickTag(tag)
+                        }
                       }
-                    }
-                  })
+                    },
+                    [
+                      _vm._t(
+                        "tagDisplay",
+                        [
+                          _vm._v(
+                            "\n                  " +
+                              _vm._s(_vm.getNormalizedTagText(tag)) +
+                              "\n                "
+                          )
+                        ],
+                        { tag: tag }
+                      )
+                    ],
+                    2
+                  )
                 ]
               )
             }),

@@ -317,7 +317,7 @@ function normalizeRadios(parent) {
       }).catch(function (error) {
         console.error(error);
       });
-    }, 2500),
+    }, 500),
 
     /**
      * Hook that is called before the form is submitted.

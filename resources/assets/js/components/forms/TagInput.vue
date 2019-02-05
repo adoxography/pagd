@@ -22,7 +22,11 @@
                   :ellipsis="ellipsis"
                   :closable="closable"
                   @close="removeTag(index)">
-                <span @click="tagClicked(tag)" v-html="getNormalizedTagText(tag)"></span>
+                  <span @click="onClickTag(tag)">
+                    <slot name="tagDisplay" :tag="tag">
+                      {{ getNormalizedTagText(tag) }}
+                    </slot>
+                  </span>
               </alg-tag>
             </draggable>
 

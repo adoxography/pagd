@@ -2,6 +2,7 @@
 
 namespace App\Models\Morphology;
 
+use JsonSerializable;
 use App\Models\Morphology\Gloss;
 use Illuminate\Support\Collection;
 
@@ -9,7 +10,7 @@ use Illuminate\Support\Collection;
  * Stores a gloss string and a list of known glosses as a list of gloss nodes and
  * converts them to HTML when requested.
  */
-class GlossLine
+class GlossLine implements JsonSerializable
 {
     /**
      * The gloss nodes represented by the line
@@ -40,6 +41,11 @@ class GlossLine
     public function __toString() : string
     {
         return $this->repr;
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->__toString();
     }
 
     /**

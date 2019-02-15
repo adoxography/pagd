@@ -12,7 +12,7 @@
 			<div class="field">
 				<span class="label">Morphology</span>
 				{!! $example->present('phonemicForm') !!}
-				{!! $example->printMorphemes() !!}
+				{!! $example->present('morphemes') !!}
 			</div>
 			<div class="field">
 				<span class="label">Translation</span>

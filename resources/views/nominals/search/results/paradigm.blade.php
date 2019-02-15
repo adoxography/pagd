@@ -62,7 +62,7 @@
 
 														@if($form instanceof App\Models\Nominals\Form)
 															<div v-show="show">
-																{!! $form->printMorphemes() !!}
+																{!! $form->present('morphemes') !!}
 															</div>
 														@endif
 													@endforeach

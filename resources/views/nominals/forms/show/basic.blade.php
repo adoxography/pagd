@@ -27,14 +27,14 @@
 			<div class="field">
 				<span class="label">Morphology</span>
 				{!! $form->present('phonemicForm') !!}
-				{!! $form->printMorphemes() !!}
+				{!! $form->present('morphemes') !!}
 			</div>
 
 			@if($form->parent)
 				<div class="field">
 					<span class="label">Historical parent form</span>
 					{!! $form->parent->present()->as('link')->then('language')->as('link', 'verbs') !!}
-					{!! $form->parent->printMorphemes() !!}
+					{!! $form->parent->present('morphemes') !!}
 				</div>
 			@endif
 

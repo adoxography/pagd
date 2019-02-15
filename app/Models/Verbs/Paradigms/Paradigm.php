@@ -922,7 +922,7 @@ class Paradigm
 
         if ($form instanceof HasMorphemesInterface) {
             $html .= '<div v-show="show">';
-            $html .= $form->printMorphemes();
+            $html .= $form->present('morphemes');
             $html .= '</div>';
         }
 

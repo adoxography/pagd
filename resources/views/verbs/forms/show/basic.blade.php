@@ -50,7 +50,6 @@
         <div class="detail-value">
             @isset($form->parent)
             {!! $form->parent->present('link')->then('language', 'link') !!}
-            {!! $form->parent->present('morphemes') !!}
             @else
             Not recorded in the database
             @endisset

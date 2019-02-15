@@ -1,45 +1,31 @@
-
-@php
-$name = $name ?? 'morphemes';
-@endphp
-
 @component('components.form.field', [
-    'name' => $name,
-    'label' => $label ?? null,
-    'standalone' => $standalone ?? null
+    'name' => 'morphemes'
 ])
-    <alg-morpheme-tag-input
-        source="/autocomplete/morphemes"
-        name="{{ $name }}"
-        id="{{ $name }}-input"
-        :classes="{'is-danger': errors.has('{{ $name }}')}"
-        :language="{{ $language }}"
-        :allow-duplicates="true"
-        :allow-new="true"
-        :allow-periods="false"
-        :allow-hyphens="false"
-
-        v-model="data.morphemes"
-
-        @isset ($placeholder)
-            placeholder="{{ $placeholder }}"
-        @endisset
-
-        @isset ($rules)
-            v-validate="'{{ $rules }}'"
-        @endisset
-
-        data-vv-value-path="tags"
-
-        :tags="filteredLists.morphemes"
-        ref="morphemes"
-
-        @isset ($on)
-            @foreach ($on as $event => $listener)
-                {{ '@' . $event }}="{{ $listener }}"
-            @endforeach
-        @else
-            @input="errors.clear('{{ $name }}')"
-        @endisset
-    ></alg-morpheme-tag-input>
+    @slot('outer')
+        <input type="hidden" name="morphemic_form" :value="data.morphemes.map(m => (m.id || m.name) + (m.ic ? '.0' : '')).join('-')" />
+    @endslot
+    <alg-taginput v-model="data.morphemes"
+                  class="morpheme-input"
+                  :data="filteredLists.morphemes"
+                  @keyup.native="getAsyncData('morphemes', $event, {language: data.language.id})"
+                  field="name"
+                  autocomplete
+                  :open-on-focus="true"
+                  :on-click-tag="tag => tag.ic = !tag.ic"
+                  :allow-duplicates="true"
+                  :allow-new="true"
+                  :field="'name'"
+                  :loading="asyncLoading.morphemes">
+        <template slot-scope="{ option }">
+            @{{ option.name }}
+            (<span :class="{gloss: option.gloss[0]!=='{{ '"' }}'}">@{{ option.gloss }}</span>)
+        </template>
+        <template slot="tagDisplay"
+                  slot-scope="{ tag }">
+            @{{ tag.name }}@{{ tag.ic ? '.IC' : '' }}
+            <span v-if="tag.gloss">
+                (<span :class="{gloss: tag.gloss[0]!=='{{ '"' }}'}">@{{ tag.gloss }}</span>)
+            </span>
+        </template>
+    </alg-taginput>
 @endcomponent

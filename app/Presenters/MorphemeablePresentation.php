@@ -56,8 +56,7 @@ trait MorphemeablePresentation
         $morphemeHTML .= "<p style='color: $colour;'>$glossHTML</p>";
 
         if ($morpheme['assumed'] && $alerts) {
-            [$title, $options] = $this->createMorphemeAssumptionAlert($morpheme, $index, $alerts);
-            $morphemeHTML .= "<alg-morpheme-alert title='$title'>$options</alg-morpheme-alert>";
+            $morphemeHTML .= $this->createMorphemeAssumptionAlert($morpheme, $index);
         }
 
         return $morphemeHTML;
@@ -79,12 +78,29 @@ trait MorphemeablePresentation
         return preg_replace('/[^A-Z]+/', '<i>$0</i>', $morpheme);
     }
 
+    protected function createMorphemeAlert($title, $body)
+    {
+        return <<<HTML
+<v-popover trigger="hover">
+    <a class="icon is-danger">
+        <span class="icon is-small">
+            <i class="fas fa-exclamation-triangle"></i>
+        </span>
+    </a>
+    <template slot="popover">
+        <p>$title</p>
+        $body
+    </template>
+</v-popover>
+HTML;
+    }
+
     protected function createMorphemeAssumptionAlert($morpheme, int $index)
     {
         $model = $this->getModel();
 
         $title = 'Morpheme assumed';
-        $options = "<form method='POST' action='/$model/{$this->model->id}/disambiguate'>".
+        $body = "<form method='POST' action='/$model/{$this->model->id}/disambiguate'>".
                     "<input type='hidden' name='index' value='$index' />".
                     csrf_field().
                     method_field('PATCH').
@@ -92,32 +108,29 @@ trait MorphemeablePresentation
                     "<button class='button is-text'>Confirm</button>".
                     "</form>";
 
-        return [$title, $options];
+        return $this->createMorphemeAlert($title, $body);
     }
 
     protected function createUnknownMorphemeAlert($morpheme, int $index)
     {
         if (count($morpheme['possibilities']) > 0) {
-            [$title, $options] = $this->createDisambiguationAlert($morpheme, $index);
-        } else {
-            [$title, $options] = $this->createMissingMorphemeAlert($morpheme, $index);
+            return $this->createDisambiguationAlert($morpheme, $index);
         }
-
-        return "<alg-morpheme-alert title='$title'>$options</alg-morpheme-alert>";
+        return $this->createMissingMorphemeAlert($morpheme, $index);
     }
 
     protected function createDisambiguationAlert($morpheme, int $index)
     {
         $title = 'Disambiguation required';
         $model = $this->getModel();
-        $options = '';
+        $body = '';
 
         foreach ($morpheme['possibilities'] as $possibility) {
             // Determine what the gloss should be
             $gloss = $possibility->gloss;
 
             // Create a button (disguised as a link) that will instruct the website to disambiguate the morpheme
-            $options .= "<li>".
+            $body .= "<li>".
                 "<form method='POST' action='/$model/{$this->model->id}/disambiguate'>".
                     "<input type='hidden' name='index' value='{$index}' />".
                     csrf_field().
@@ -131,22 +144,22 @@ trait MorphemeablePresentation
         }
 
         // Wrap everything in an unordered list
-        $options = "<ul>$options</ul>";
+        $body = "<ul>$body</ul>";
 
-        return [$title, $options];
+        return $this->createMorphemeAlert($title, $body);
     }
 
     protected function createMissingMorphemeAlert($morpheme, int $index)
     {
         if ($this->model->morphemic_form && $this->model->morphemic_form != '') {
             $title = "Morpheme missing";
-            $options = "<a href='/morphemes/create?name={$morpheme['name']}&language={$this->model->language->name}'>Add (-){$morpheme['name']}(-)</a>";
+            $body = "<a href='/morphemes/create?name={$morpheme['name']}&language={$this->model->language->name}'>Add (-){$morpheme['name']}(-)</a>";
         } else {
             $title = "Morphemic form undeclared";
-            $options = "<a href='/".strtolower(isset($this->model->uri) ? $this->model->uri : $this->model->table)."/{$this->model->id}/edit'>Declare a morphemic form</a>";
+            $body = "<a href='/".strtolower(isset($this->model->uri) ? $this->model->uri : $this->model->table)."/{$this->model->id}/edit'>Declare a morphemic form</a>";
         }
 
-        return [$title, $options];
+        return $this->createMorphemeAlert($title, $body);
     }
 
     protected function getModel()

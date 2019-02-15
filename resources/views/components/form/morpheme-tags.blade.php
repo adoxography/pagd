@@ -1,5 +1,6 @@
 @component('components.form.field', [
-    'name' => 'morpheme_sequence'
+    'name' => 'morpheme_sequence',
+    'label' => 'morphemes'
 ])
     @slot('outer')
         <input type="hidden"

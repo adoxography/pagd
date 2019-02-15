@@ -33,7 +33,7 @@ if (isset($goesThrough)) {
                 :data="filteredLists.{{ $list }}"
 
                 @if($async)
-                @keyup.native="getAsyncData('{{ $list }}', $event.target.value, {{ $asyncParams }})"
+                @keyup.native="getAsyncData('{{ $list }}', $event, {{ $asyncParams }})"
                 :loading="asyncLoading.{{ $list }}"
                 v-validate="{required: {{ $required }}}"
                 @else

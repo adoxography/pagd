@@ -48,7 +48,8 @@ class ExampleController extends AlgModelController
      */
     public function clone(Example $example)
     {
-        $example->load(['form', 'form.language', 'sources']);
+        $example->load(['form', 'form.language', 'sources', 'morphemes']);
+        $example['morpheme_sequence'] = $example->morphemeSequence(false);
 
         return view('words.examples.create', compact('example'));
     }
@@ -61,7 +62,8 @@ class ExampleController extends AlgModelController
      */
     public function edit(Example $example)
     {
-        $example->load(['form', 'form.language', 'sources']);
+        $example->load(['form', 'form.language', 'sources', 'morphemes']);
+        $example['morpheme_sequence'] = $example->morphemeSequence(false);
 
         return view('words.examples.edit', compact('example'));
     }

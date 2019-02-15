@@ -121,7 +121,7 @@ class Morpheme extends Model implements PhonemeableInterface
 
     public function getGlossAttribute($value)
     {
-        return new GlossLine($value, $this->glosses);
+        return new GlossLine($value ?? '', $this->glosses);
     }
 
     public function getPhonemicFormAttribute()

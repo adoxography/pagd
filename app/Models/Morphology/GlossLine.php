@@ -35,7 +35,12 @@ class GlossLine implements JsonSerializable
     public function __construct(string $repr, Collection $glosses)
     {
         $this->repr = $repr;
-        $this->nodes = $this->buildNodes($repr, $glosses);
+
+        if ($repr === '') {
+            $this->nodes = collect();
+        } else {
+            $this->nodes = $this->buildNodes($repr, $glosses);
+        }
     }
 
     public function __toString() : string

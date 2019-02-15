@@ -1,10 +1,13 @@
 @component('components.form.field', [
-    'name' => 'morphemes'
+    'name' => 'morpheme_sequence'
 ])
     @slot('outer')
-        <input type="hidden" name="morphemic_form" :value="data.morphemes.map(m => (m.id || m.name) + (m.ic ? '.0' : '')).join('-')" />
+        <input type="hidden"
+               name="morphemic_form"
+               :value="data.morpheme_sequence.map(m => (m.id || m.name.replace(/[*-]/g, '')) + (m.ic ? '.0' : '')).join('-')"
+        />
     @endslot
-    <alg-taginput v-model="data.morphemes"
+    <alg-taginput v-model="data.morpheme_sequence"
                   class="morpheme-input"
                   :data="filteredLists.morphemes"
                   @keyup.native="getAsyncData('morphemes', $event, {language: data.language.id})"

@@ -29,7 +29,7 @@ class Form extends WordForm
         'structure' => Structure::class,
         'parent' => Form::class,
         'change_type' => ChangeType::class,
-        'morphemes' => [],
+        'morpheme_sequence' => [],
         'morphemic_form' => '',
         'phonemic_form' => ''
     ];

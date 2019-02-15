@@ -43,8 +43,22 @@ class Example extends Model implements HasMorphemesInterface, PhonemeableInterfa
     {
         $array = $this->toArray();
 
-        return array_only($array, ['id', 'name', 'translation', 'publicNotes', 'privateNotes']);
+        return array_only($array, ['id', 'name', 'translation', 'public_notes', 'private_notes']);
     }
+
+    public static $template = [
+        'name' => '',
+        'id' => '',
+        'phonemic_form' => '',
+        'language' => Language::class,
+        'translation' => '',
+        'form' => Form::class,
+        'morpheme_sequence' => [],
+        'parent' => Example::class,
+        'sources' => [],
+        'public_nots' => '',
+        'private_notes' => ''
+    ];
 
     /*
     |--------------------------------------------------------------------------
@@ -59,8 +73,8 @@ class Example extends Model implements HasMorphemesInterface, PhonemeableInterfa
     protected $revisionNullString = 'none';
     protected $revisionFormattedFieldNames = [
         'name'          => 'example',
-        'privateNotes'  => 'private comments',
-        'publicNotes'   => 'public notes',
+        'private_notes'  => 'private comments',
+        'public_notes'   => 'public notes',
         'morphemic_form' => 'morphemes',
         'created_at'    => '[created]'
     ];
@@ -85,12 +99,12 @@ class Example extends Model implements HasMorphemesInterface, PhonemeableInterfa
     */
     public function getCommentsAttribute()
     {
-        return $this->privateNotes;
+        return $this->private_notes;
     }
 
     public function getNotesAttribute()
     {
-        return $this->publicNotes;
+        return $this->public_notes;
     }
 
     /**

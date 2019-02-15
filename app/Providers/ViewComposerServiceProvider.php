@@ -32,6 +32,8 @@ use App\Models\Verbs\Mode;
 use App\Models\Verbs\Order;
 use App\Models\Verbs\VerbClass;
 
+use App\Models\Words\Example;
+
 use Illuminate\Support\ServiceProvider;
 
 class ViewComposerServiceProvider extends ServiceProvider
@@ -283,10 +285,18 @@ class ViewComposerServiceProvider extends ServiceProvider
     private function composeExampleForm()
     {
         view()->composer('words.examples.partials.form', function ($view) {
+            $lists = [
+                'languages' => Language::select('id', 'name')->get(),
+                'forms'     => '/autocomplete/forms',
+                'parents'   => '/autocomplete/exampleParents',
+                'morphemes' => '/autocomplete/morphemes'
+            ];
 
             $data = [
-                'languages' => Language::select('id', 'name')->get()
+                'lists' => json_encode($lists),
+                'template' => Example::fieldTemplate()
             ];
+
             $view->with($data);
         });
     }

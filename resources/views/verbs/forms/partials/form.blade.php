@@ -132,7 +132,6 @@
                 'name' => 'parent',
                 'async' => true,
                 'asyncParams' => '{language: data.language.id, type: "verb", markup: false}',
-                'cleanMarkup' => true
             ])
 
             @include('components.form.autocomplete', [

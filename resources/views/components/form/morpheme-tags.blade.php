@@ -19,6 +19,7 @@
                   :allow-duplicates="true"
                   :allow-new="true"
                   :field="'name'"
+                  :disabled="!data.language.id"
                   :loading="asyncLoading.morphemes">
         <template slot-scope="{ option }">
             @{{ option.name }}

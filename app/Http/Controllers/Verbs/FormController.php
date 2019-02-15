@@ -66,6 +66,8 @@ class FormController extends AlgModelController
             'sources'
         ]);
 
+        $form['morpheme_sequence'] = $form->morphemeSequence(false);
+
         return view('verbs.forms.create', compact('form'));
     }
 
@@ -86,6 +88,8 @@ class FormController extends AlgModelController
             'structure.order',
             'sources'
         ]);
+
+        $form['morpheme_sequence'] = $form->morphemeSequence(false);
 
         return view('verbs.forms.edit', compact('form'));
     }

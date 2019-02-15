@@ -149,7 +149,7 @@ trait HasMorphemes
      *
      * @return Collection
      */
-    public function morphemeSequence()
+    public function morphemeSequence($guess = true)
     {
         if (!$this->morphemic_form) {
             return null;
@@ -158,9 +158,10 @@ trait HasMorphemes
         $data = $this->morphemes;
         $tokens = collect(explode('-', str_replace('*', '', $this->morphemic_form)));
 
-        return $tokens->map(function ($token) use ($data) {
-            $morpheme = $data->first(function ($morpheme) use ($token) {
-                return $morpheme->id == $token || str_replace(['*', '-'], '', $morpheme->name) == $token;
+        return $tokens->map(function ($token) use ($data, $guess) {
+            $morpheme = $data->first(function ($morpheme) use ($token, $guess) {
+                return $morpheme->id == $token ||
+                    $guess && str_replace(['*', '-'], '', $morpheme->name) == $token;
             });
 
             if ($morpheme) {

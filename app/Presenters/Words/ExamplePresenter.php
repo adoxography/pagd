@@ -31,7 +31,7 @@ class ExamplePresenter extends AlgPresenter
         $name = $this->model->present('phonemicForm');
         $uri = $this->getURI();
 
-        return "<blockquote><a href='/$uri/{$this->model->id}'>$name</a>{$this->model->printMorphemes()}<span>{$this->model->translation}</span></blockquote>";
+        return "<blockquote><a href='/$uri/{$this->model->id}'>$name</a>{$this->model->present('morphemes')}<span>{$this->model->translation}</span></blockquote>";
     }
 
     public function unique(string $method = 'name', string $format = '')

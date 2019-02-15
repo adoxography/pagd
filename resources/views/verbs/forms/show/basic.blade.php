@@ -10,7 +10,7 @@
         <label class="detail-label">Morphology</label>
         <div class="detail-value">
             {!! $form->present('phonemicForm') !!}
-            {!! $form->printMorphemes() !!}
+            {!! $form->present('morphemes') !!}
         </div>
     </div>
     <div class="detail-row">
@@ -50,7 +50,7 @@
         <div class="detail-value">
             @isset($form->parent)
             {!! $form->parent->present('link')->then('language', 'link') !!}
-            {!! $form->parent->printMorphemes() !!}
+            {!! $form->parent->present('morphemes') !!}
             @else
             Not recorded in the database
             @endisset

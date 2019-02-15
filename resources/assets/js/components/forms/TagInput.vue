@@ -122,6 +122,22 @@ export default {
         console.log(tag);
         this.$emit('input', this.tags);
       }
+    },
+
+    keydown(event) {
+      if (this.removeOnKeys.indexOf(event.keyCode) !== -1 && !this.newTag.length) {
+        this.removeLastTag();
+      }
+
+      // Stop if is to accept select only
+      if (this.autocomplete && !this.allowNew) {
+        return;
+      }
+
+      if (this.confirmKeyCodes.indexOf(event.keyCode) >= 0 && this.newTag.length) {
+        event.preventDefault();
+        this.addTag();
+      }
     }
   }
 };

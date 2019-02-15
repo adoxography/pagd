@@ -156,7 +156,7 @@ class AutocompleteController extends Controller
         $sources = $sources->toArray();
 
         foreach ($sources as &$source) {
-            $source['name'] = $source['long'];
+            $source['name'] = str_replace('&nbsp', ' ', strip_tags($source['long']));
             $source['extra'] = $source['display'];
         }
 

@@ -90,8 +90,8 @@
             @foreach($form->sources as $source)
             <p>
                 {!! $source->present('link') !!}
-                @isset($source->pivot->extraInfo)
-                : {{ $source->pivot->extraInfo }}
+                @isset($source->pivot->extra_info)
+                : {{ $source->pivot->extra_info }}
                 @endisset
             </p>
             @endforeach

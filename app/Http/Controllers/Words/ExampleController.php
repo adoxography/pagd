@@ -78,7 +78,7 @@ class ExampleController extends AlgModelController
     public function store(ExampleRequest $request)
     {
         $data = $request->all();
-        $data['morphemicForm'] = $this->convertMorphemes();
+        $data['morphemic_form'] = $this->convertMorphemes();
         $example = Example::create($data);
 
         flash("{$example->name} created successfully", 'is-success');
@@ -95,7 +95,7 @@ class ExampleController extends AlgModelController
     public function update(ExampleRequest $request, Example $example)
     {
         $data = $request->all();
-        $data['morphemicForm'] = $this->convertMorphemes();
+        $data['morphemic_form'] = $this->convertMorphemes();
         $example->update($data);
 
         flash("{$example->name} updated successfully", 'is-success');

@@ -189,11 +189,11 @@ function array_toList($arr) : string
 
 function tagExamples($languageId, $morphemeString, $morphemeReplacement) {
     Auth::login(User::first());
-    $examples = Example::whereNull('morphemicForm')
+    $examples = Example::whereNull('morphemic_form')
                        ->where('name', 'LIKE', "%$morphemeString%")
                        ->where('language_id', $languageId)
                        ->whereHas('form', function ($query) {
-                           $query->whereNotNull('morphemicForm');
+                           $query->whereNotNull('morphemic_form');
                        })
                        ->get();
 
@@ -205,7 +205,7 @@ function tagExamples($languageId, $morphemeString, $morphemeReplacement) {
     $newMorphemeId = $morphemeReplacement->id;
 
     foreach ($examples as $example) {
-        $morphemes = explode('-', $example->form->morphemicForm);
+        $morphemes = explode('-', $example->form->morphemic_form);
         $newMorphemes = [];
 
         foreach ($morphemes as $morpheme) {
@@ -216,7 +216,7 @@ function tagExamples($languageId, $morphemeString, $morphemeReplacement) {
             }
         }
 
-        $example->morphemicForm = implode('-', $newMorphemes);
+        $example->morphemic_form = implode('-', $newMorphemes);
         $example->save();
     }
 }

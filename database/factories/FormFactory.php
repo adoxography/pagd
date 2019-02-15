@@ -37,7 +37,7 @@ $factory->define(WordForm::class, function (Faker $faker) {
     $data = [
         'name'          => $faker->unique()->word,
         'language_id'   => $language->id,
-        'morphemicForm' => function (array $form) use ($faker, $classes, $type) {
+        'morphemic_form' => function (array $form) use ($faker, $classes, $type) {
             $morpheme1 = factory(Morpheme::class)->create([
                 'language_id' => $form['language_id']
             ]);

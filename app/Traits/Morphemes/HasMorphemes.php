@@ -11,7 +11,7 @@ use App\Models\Morphology\Morpheme;
 /**
  * Assignable trait to classes that need to deal with morphemes.
  *
- * Requires that the model has a morphemicForm property and a pivot table to connect the model to the Morphemes table
+ * Requires that the model has a morphemic_form property and a pivot table to connect the model to the Morphemes table
  */
 trait HasMorphemes
 {
@@ -38,9 +38,9 @@ trait HasMorphemes
     }
 
     /**
-     * Connects morphemes by looking at the morphemicForm
+     * Connects morphemes by looking at the morphemic_form
      *
-     * Connects all unambiguous matches of each token in the morphemicForm to the name of a morpheme in the database
+     * Connects all unambiguous matches of each token in the morphemic_form to the name of a morpheme in the database
      *
      * @return void
      */
@@ -50,8 +50,8 @@ trait HasMorphemes
         $this->detachMorphemes();
         $type = $this->getMorphType();
 
-        if ($this->morphemicForm) {
-            $morphemes = explode('-', $this->morphemicForm);
+        if ($this->morphemic_form) {
+            $morphemes = explode('-', $this->morphemic_form);
 
             foreach ($morphemes as $position => $morpheme) {
                 $this->connectMorpheme($morpheme, $position, $type);
@@ -151,12 +151,12 @@ trait HasMorphemes
      */
     public function morphemeSequence()
     {
-        if (!$this->morphemicForm) {
+        if (!$this->morphemic_form) {
             return null;
         }
 
         $data = $this->morphemes;
-        $tokens = collect(explode('-', str_replace('*', '', $this->morphemicForm)));
+        $tokens = collect(explode('-', str_replace('*', '', $this->morphemic_form)));
 
         return $tokens->map(function ($token) use ($data) {
             $morpheme = $data->first(function ($morpheme) use ($token) {
@@ -175,7 +175,7 @@ trait HasMorphemes
     }
 
     /**
-     * Generate a list of morphemes using the morphemicForm to temporarily fill in any missing morphemes
+     * Generate a list of morphemes using the morphemic_form to temporarily fill in any missing morphemes
      *
      * @return array
      * @deprecated
@@ -185,7 +185,7 @@ trait HasMorphemes
         $output = [];
         $savedMorphemes = $this->morphemes; // The morphemes that are already connected
         $curr = 0; // The number of pre-connected morphemes that have been addressed already
-        $slots = $this->morphemicForm ? explode('-', $this->morphemicForm) : [];
+        $slots = $this->morphemic_form ? explode('-', $this->morphemic_form) : [];
 
         foreach ($slots as $index => $slot) {
             $tokens = explode('.', $slot);
@@ -310,7 +310,7 @@ trait HasMorphemes
         } else {
             // There is no matching morpheme in the database
 
-            if (count($this->morphemicForm) > 0) {
+            if (count($this->morphemic_form) > 0) {
                 $title = "Morpheme missing";
                 $options = "<a href='/morphemes/create?name={$morpheme['name']}&language={$this->language->name}'>Add (-){$morpheme['name']}(-)</a>";
             } else {
@@ -323,7 +323,7 @@ trait HasMorphemes
     }
 
     /**
-     * Disambiguate a morpheme by replacing the appropriate segment of the morphemicForm with an ID
+     * Disambiguate a morpheme by replacing the appropriate segment of the morphemic_form with an ID
      *
      * @param $index
      * @param $id
@@ -331,7 +331,7 @@ trait HasMorphemes
      */
     public function disambiguate(int $index, int $id)
     {
-        $morphemes = explode('-', $this->morphemicForm);
+        $morphemes = explode('-', $this->morphemic_form);
 
         if (count($morphemes) > $index && !$this->morphemeIsDisambiguated($morphemes[$index])) {
 
@@ -342,8 +342,8 @@ trait HasMorphemes
 
             $morphemes[$index] = implode('.', $tokens);
 
-            // Put the morphemicForm back together and save it
-            $this->morphemicForm = implode('-', $morphemes);
+            // Put the morphemic_form back together and save it
+            $this->morphemic_form = implode('-', $morphemes);
             $this->save();
         }
     }
@@ -376,17 +376,17 @@ trait HasMorphemes
             $lookup = $morpheme->name;
         }
 
-        return preg_match("/$lookup/", $this->morphemicForm);
+        return preg_match("/$lookup/", $this->morphemic_form);
     }
 
     public function morphemesToJson()
     {
         $arr = [];
 
-        if ($this->morphemicForm) {
+        if ($this->morphemic_form) {
             $this->morphemes;
 
-            foreach (explode('-', $this->morphemicForm) as $morpheme) {
+            foreach (explode('-', $this->morphemic_form) as $morpheme) {
                 $morph = null;
 
                 $tokens = explode('.', $morpheme);

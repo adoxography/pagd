@@ -44,7 +44,7 @@ class AutocompleteController extends Controller
 
     protected function queryVerbForms($term, $language)
     {
-        return VerbForm::select('id', 'name', 'language_id', 'morphemicForm', 'structure_id', 'structure_type')
+        return VerbForm::select('id', 'name', 'language_id', 'morphemic_form', 'structure_id', 'structure_type')
             ->with('language')
             ->with('structure')
             ->with('structure.subject')
@@ -61,7 +61,7 @@ class AutocompleteController extends Controller
             'id',
             'name',
             'language_id',
-            'morphemicForm',
+            'morphemic_form',
             'structure_id',
             'structure_type'
         )

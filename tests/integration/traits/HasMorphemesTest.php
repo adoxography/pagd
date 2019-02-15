@@ -14,7 +14,7 @@ class HasMorphemesTest extends TestCase
     public function morphemes_do_not_have_to_be_added()
     {
         $form = factory(Form::class)->create([
-            'morphemicForm' => ''
+            'morphemic_form' => ''
         ]);
 
         $this->assertCount(0, $form->morphemes()->get());
@@ -29,7 +29,7 @@ class HasMorphemesTest extends TestCase
 
         $form = factory(Form::class)->create([
             'language_id' => $morpheme->language->id,
-            'morphemicForm' => 'test-V'
+            'morphemic_form' => 'test-V'
         ]);
 
         $this->assertCount(2, $form->morphemes()->get());
@@ -40,7 +40,7 @@ class HasMorphemesTest extends TestCase
     public function a_non_existing_morpheme_can_be_linked()
     {
         $form = factory(Form::class)->create([
-            'morphemicForm' => 'test-V'
+            'morphemic_form' => 'test-V'
         ]);
 
         $this->assertCount(1, $form->morphemes()->get());
@@ -59,7 +59,7 @@ class HasMorphemesTest extends TestCase
 
         $form = factory(Form::class)->create([
             'language_id' => $language->id,
-            'morphemicForm' => 'test-V'
+            'morphemic_form' => 'test-V'
         ]);
 
         $this->assertCount(1, $form->morphemes()->get());
@@ -75,7 +75,7 @@ class HasMorphemesTest extends TestCase
 
         $form = factory(Form::class)->create([
             'language_id' => $morpheme->language_id,
-            'morphemicForm' => 'test.1-V'
+            'morphemic_form' => 'test.1-V'
         ]);
 
         $this->assertCount(2, $form->morphemes()->get());
@@ -91,7 +91,7 @@ class HasMorphemesTest extends TestCase
 
         $form = factory(Form::class)->create([
             'language_id' => $morpheme->language_id,
-            'morphemicForm' => 'test-test-V'
+            'morphemic_form' => 'test-test-V'
         ]);
 
         $this->assertCount(3, $form->morphemes()->get());
@@ -106,7 +106,7 @@ class HasMorphemesTest extends TestCase
 
         $form = factory(Form::class)->create([
             'language_id' => $morpheme->language_id,
-            'morphemicForm' => '(test)-V'
+            'morphemic_form' => '(test)-V'
         ]);
 
         $this->assertCount(2, $form->morphemes()->get());
@@ -121,7 +121,7 @@ class HasMorphemesTest extends TestCase
 
         $form = factory(Form::class)->create([
             'language_id' => $morpheme->language_id,
-            'morphemicForm' => '(t)est-V'
+            'morphemic_form' => '(t)est-V'
         ]);
 
         $this->assertCount(1, $form->morphemes()->get());
@@ -136,7 +136,7 @@ class HasMorphemesTest extends TestCase
 
         $form = factory(Form::class)->create([
             'language_id' => $morpheme->language_id,
-            'morphemicForm' => 'test-V-test'
+            'morphemic_form' => 'test-V-test'
         ]);
 
         $this->assertCount(3, $form->morphemes()->get());
@@ -151,7 +151,7 @@ class HasMorphemesTest extends TestCase
 
         $form = factory(Form::class)->create([
             'language_id' => $morpheme->language_id,
-            'morphemicForm' => 'test-V-test'
+            'morphemic_form' => 'test-V-test'
         ]);
 
         $this->assertCount(3, $form->morphemes()->get());
@@ -166,7 +166,7 @@ class HasMorphemesTest extends TestCase
 
         $form = factory(Form::class)->create([
             'language_id' => $morpheme->language_id,
-            'morphemicForm' => 'test-V-test'
+            'morphemic_form' => 'test-V-test'
         ]);
 
         $this->assertCount(3, $form->morphemes()->get());
@@ -181,7 +181,7 @@ class HasMorphemesTest extends TestCase
 
         $form = factory(Form::class)->create([
             'language_id' => $morpheme->language_id,
-            'morphemicForm' => 'test-V'
+            'morphemic_form' => 'test-V'
         ]);
 
         factory(Morpheme::class)->create([
@@ -202,7 +202,7 @@ class HasMorphemesTest extends TestCase
 
         $form = factory(Form::class)->create([
             'language_id' => $morpheme->language_id,
-            'morphemicForm' => 'test.1-V'
+            'morphemic_form' => 'test.1-V'
         ]);
 
         factory(Morpheme::class)->create([
@@ -226,7 +226,7 @@ class HasMorphemesTest extends TestCase
 
         $form = factory(Form::class)->create([
             'language_id' => $language->id,
-            'morphemicForm' => 'test-V'
+            'morphemic_form' => 'test-V'
         ]);
 
         $form->disambiguate(0, 1);
@@ -238,7 +238,7 @@ class HasMorphemesTest extends TestCase
     public function if_not_all_morphemes_are_present_the_model_is_marked_as_incomplete()
     {
         $form = factory(Form::class)->create([
-            'morphemicForm' => 'test-V'
+            'morphemic_form' => 'test-V'
         ]);
 
         $this->assertEquals(0, Form::find($form->id)->complete);
@@ -253,7 +253,7 @@ class HasMorphemesTest extends TestCase
 
         $form = factory(Form::class)->create([
             'language_id' => $morpheme->language_id,
-            'morphemicForm' => 'test-V'
+            'morphemic_form' => 'test-V'
         ]);
 
         $this->assertEquals(1, Form::find($form->id)->complete);
@@ -271,7 +271,7 @@ class HasMorphemesTest extends TestCase
 
         $form = factory(Form::class)->create([
             'language_id' => $language->id,
-            'morphemicForm' => 'test-V'
+            'morphemic_form' => 'test-V'
         ]);
 
         $this->assertEquals(0, Form::find($form->id)->complete);
@@ -281,7 +281,7 @@ class HasMorphemesTest extends TestCase
     public function an_incomplete_model_is_marked_as_complete_when_completed()
     {
         $form = factory(Form::class)->create([
-            'morphemicForm' => 'test-V'
+            'morphemic_form' => 'test-V'
         ]);
 
         $morpheme = factory(Morpheme::class)->create([
@@ -301,7 +301,7 @@ class HasMorphemesTest extends TestCase
 
         $form = factory(Form::class)->create([
             'language_id' => $morpheme->language_id,
-            'morphemicForm' => 'test-V'
+            'morphemic_form' => 'test-V'
         ]);
 
         $morpheme->delete();
@@ -318,7 +318,7 @@ class HasMorphemesTest extends TestCase
 
         $form = factory(Form::class)->create([
             'language_id' => $morpheme->language_id,
-            'morphemicForm' => 'test-V'
+            'morphemic_form' => 'test-V'
         ]);
 
         factory(Morpheme::class)->create([
@@ -341,7 +341,7 @@ class HasMorphemesTest extends TestCase
 
         $form = factory(Form::class)->create([
             'language_id' => $language->id,
-            'morphemicForm' => 'test-V'
+            'morphemic_form' => 'test-V'
         ]);
 
         $form->disambiguate(0, 1);
@@ -358,13 +358,13 @@ class HasMorphemesTest extends TestCase
 
         $formData = factory(Form::class)->raw([
             'id' => 1000,
-            'morphemicForm' => 'test-V',
+            'morphemic_form' => 'test-V',
             'language_id' => $morpheme->language_id
         ]);
 
         $exampleData = factory(Example::class)->raw([
             'id' => 1000,
-            'morphemicForm' => 'test-V',
+            'morphemic_form' => 'test-V',
             'language_id' => $morpheme->language_id
         ]);
 

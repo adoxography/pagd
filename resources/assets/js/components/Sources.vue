@@ -3,7 +3,7 @@
     <b-field>
       <b-autocomplete :data="ajaxList"
                       @keyup.native="onAutocompleteKeyUp($event)"
-                      field="long"
+                      field="name"
                       :loading="loading"
                       @select="addSource"
                       :clear-on-select="true"
@@ -219,9 +219,7 @@ export default {
     loadSources: _.debounce(function(query) {
       this.loading = true;
       axios.get('/autocomplete/sources', {
-        params: {
-          term: query
-        }
+        params: { term: query }
       }).then(response => {
         this.loading = false;
         this.ajaxList = response.data;

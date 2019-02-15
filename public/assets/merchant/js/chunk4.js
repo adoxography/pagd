@@ -800,7 +800,7 @@ var render = function() {
           _c("b-autocomplete", {
             attrs: {
               data: _vm.ajaxList,
-              field: "long",
+              field: "name",
               loading: _vm.loading,
               "clear-on-select": true,
               expanded: "",

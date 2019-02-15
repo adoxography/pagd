@@ -99,14 +99,19 @@ HTML;
     {
         $model = $this->getModel();
 
+        $csrfField = csrf_field();
+        $methodField = method_field('PATCH');
+
         $title = 'Morpheme assumed';
-        $body = "<form method='POST' action='/$model/{$this->model->id}/disambiguate'>".
-                    "<input type='hidden' name='index' value='$index' />".
-                    csrf_field().
-                    method_field('PATCH').
-                    "<input type='hidden' name='id' value='{$morpheme->id}' />".
-                    "<button class='button is-text'>Confirm</button>".
-                    "</form>";
+        $body = <<<HTML
+<form method="POST" action="/$model/{$this->model->id}/disambiguate">
+    $csrfField
+    $methodField
+    <input type="hidden" name="index" value="$index" />
+    <input type="hidden" name="id" value="{$morpheme->id}/disambiguate" />
+    <button class="button is-text">Confirm</button>
+</form>
+HTML;
 
         return $this->createMorphemeAlert($title, $body);
     }
@@ -121,8 +126,11 @@ HTML;
 
     protected function createDisambiguationAlert($morpheme, int $index)
     {
-        $title = 'Disambiguation required';
+        $csrfField = csrf_field();
+        $methodField = method_field('PATCH');
         $model = $this->getModel();
+
+        $title = 'Disambiguation required';
         $body = '';
 
         foreach ($morpheme['possibilities'] as $possibility) {
@@ -130,20 +138,23 @@ HTML;
             $gloss = $possibility->gloss;
 
             // Create a button (disguised as a link) that will instruct the website to disambiguate the morpheme
-            $body .= "<li>".
-                "<form method='POST' action='/$model/{$this->model->id}/disambiguate'>".
-                    "<input type='hidden' name='index' value='{$index}' />".
-                    csrf_field().
-                    method_field("PATCH").
-                    "<input type='hidden' name='id' value='{$possibility->id}' />".
-                    "<button class='button is-text'>".
-                        "{$possibility->name}<sup>{$possibility->disambiguator}</sup> ($gloss)".
-                    "</button>".
-                "</form>".
-            "</li>";
+            $option = <<<HTML
+<li>
+    <form method="POST" action="/$model/{$this->model->id}/disambiguate">
+        <input type="hidden" name="index" value="$index" />
+        $csrfField
+        $methodField
+        <input type="hidden" name="id" value="{$possibility->id}" />
+        <button class="button is-text">
+            {$possibility->name}<sup>{$possibility->disambiguator}</sup> ($gloss)
+        </button>
+    </form>
+</li>
+HTML;
+
+            $body .= $option;
         }
 
-        // Wrap everything in an unordered list
         $body = "<ul>$body</ul>";
 
         return $this->createMorphemeAlert($title, $body);

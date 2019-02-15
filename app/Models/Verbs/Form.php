@@ -30,7 +30,8 @@ class Form extends WordForm
         'parent' => Form::class,
         'change_type' => ChangeType::class,
         'morphemes' => [],
-        'morphemic_form' => ''
+        'morphemic_form' => '',
+        'phonemic_form' => ''
     ];
 
     public static function boot()

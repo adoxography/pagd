@@ -86,6 +86,10 @@ export default {
     lists: { type: Object },
     initial: { type: Object },
     template: { type: Object },
+    filterProto: {
+      type: Array,
+      default: () => []
+    },
 
     oldErrors: {},
     oldValues: {}
@@ -149,6 +153,20 @@ export default {
     initData() {
       this.data = this.template;
       updateData(this.data, this.oldValues || this.initial);
+
+      // Filter the asterisks out of any fields marked as proto fields
+      for (let keyString of this.filterProto) {
+        let data = this.data;
+        let keys = keyString.split('.');
+
+        keys.forEach((key, i) => {
+          if (i < keys.length - 1) {
+            data = data[key];
+          } else {
+            data[key] = data[key].replace('*', '');
+          }
+        });
+      }
     },
 
     /**
@@ -182,7 +200,6 @@ export default {
      * @param options   Any additional options to send in the request
      */
     getAsyncData(listName, event, options) {
-      console.log(event);
       if (event.code && (event.code.includes('Arrow') || event.code === 'Tab')) {
         return;
       }

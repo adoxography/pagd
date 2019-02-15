@@ -187,6 +187,12 @@ function normalizeRadios(parent) {
     template: {
       type: Object
     },
+    filterProto: {
+      type: Array,
+      default: function _default() {
+        return [];
+      }
+    },
     oldErrors: {},
     oldValues: {}
   },
@@ -251,25 +257,63 @@ function normalizeRadios(parent) {
      * *initial* prop if it was not
      */
     initData: function initData() {
+      var _this = this;
+
       this.data = this.template;
-      updateData(this.data, this.oldValues || this.initial);
+      updateData(this.data, this.oldValues || this.initial); // Filter the asterisks out of any fields marked as proto fields
+
+      var _iteratorNormalCompletion4 = true;
+      var _didIteratorError4 = false;
+      var _iteratorError4 = undefined;
+
+      try {
+        var _loop = function _loop() {
+          var keyString = _step4.value;
+          var data = _this.data;
+          var keys = keyString.split('.');
+          keys.forEach(function (key, i) {
+            if (i < keys.length - 1) {
+              data = data[key];
+            } else {
+              data[key] = data[key].replace('*', '');
+            }
+          });
+        };
+
+        for (var _iterator4 = this.filterProto[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+          _loop();
+        }
+      } catch (err) {
+        _didIteratorError4 = true;
+        _iteratorError4 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion4 && _iterator4.return != null) {
+            _iterator4.return();
+          }
+        } finally {
+          if (_didIteratorError4) {
+            throw _iteratorError4;
+          }
+        }
+      }
     },
 
     /**
      * Updates the error bag based on a list of errors
      */
     updateErrors: function updateErrors(errorList) {
-      var _this = this;
+      var _this2 = this;
 
       var _arr5 = Object.entries(errorList);
 
-      var _loop = function _loop() {
+      var _loop2 = function _loop2() {
         var _arr5$_i = _slicedToArray(_arr5[_i5], 2),
             field = _arr5$_i[0],
             errors = _arr5$_i[1];
 
         errors.forEach(function (msg) {
-          return _this.errors.add({
+          return _this2.errors.add({
             field: field,
             msg: msg
           });
@@ -277,7 +321,7 @@ function normalizeRadios(parent) {
       };
 
       for (var _i5 = 0; _i5 < _arr5.length; _i5++) {
-        _loop();
+        _loop2();
       }
     },
 
@@ -305,8 +349,6 @@ function normalizeRadios(parent) {
      * @param options   Any additional options to send in the request
      */
     getAsyncData: function getAsyncData(listName, event, options) {
-      console.log(event);
-
       if (event.code && (event.code.includes('Arrow') || event.code === 'Tab')) {
         return;
       }
@@ -314,7 +356,7 @@ function normalizeRadios(parent) {
       this._getAsyncData(listName, event.target.value, options);
     },
     _getAsyncData: _.debounce(function (listName, query, options) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.asyncLoading[listName] = true;
       axios.get(this.lists[listName], {
@@ -323,8 +365,8 @@ function normalizeRadios(parent) {
           options: options
         }
       }).then(function (response) {
-        _this2.filteredLists[listName] = response.data;
-        _this2.asyncLoading[listName] = false;
+        _this3.filteredLists[listName] = response.data;
+        _this3.asyncLoading[listName] = false;
       }).catch(function (error) {
         console.error(error);
       });

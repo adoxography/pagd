@@ -41,10 +41,10 @@ trait MorphemeablePresentation
         $morphemeHTML = str_replace(['-', '*'], '', $morpheme->name);
         $morphemeHTML = $this->formatMorpheme($morphemeHTML);
         $glossHTML = '';
-        $colour = $morpheme->slot->colour;
+        $color = $morpheme->slot->colour;
 
         if (!$morpheme->isStem()) {
-            $morphemeHTML = "<a href='/morphemes/{$morpheme->id}' style='color: $colour;'>$morphemeHTML</a>";
+            $morphemeHTML = "<a href='/morphemes/{$morpheme->id}' style='color: $color;'>$morphemeHTML</a>";
         }
 
         if ($morpheme->initialChanged()) {
@@ -53,7 +53,7 @@ trait MorphemeablePresentation
 
         $glossHTML .= $morpheme->renderGloss();
 
-        $morphemeHTML .= "<p style='color: $colour;'>$glossHTML</p>";
+        $morphemeHTML .= "<p style='color: $color;'>$glossHTML</p>";
 
         if ($morpheme['assumed'] && $alerts) {
             $morphemeHTML .= $this->createMorphemeAssumptionAlert($morpheme, $index);

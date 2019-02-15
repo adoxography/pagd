@@ -335,7 +335,7 @@ class Morpheme extends Model implements PhonemeableInterface
         $colourHTML = '';
 
         if ($colour) {
-            $colourHTML = 'style="colour:inherit;" ';
+            $colourHTML = 'style="color:inherit;" ';
         }
 
         foreach ($glosses as $glossText) {

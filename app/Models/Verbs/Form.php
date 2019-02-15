@@ -20,6 +20,7 @@ class Form extends WordForm
 
     public static $template = [
         'name' => '',
+        'id' => '',
         'historical_notes' => '',
         'allomorphy_notes' => '',
         'usage_notes' => '',

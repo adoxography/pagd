@@ -26,7 +26,7 @@ class FormRequest extends WordFormRequest
     {
         $rules = parent::rules();
 
-        if(request()->morphemicForm && !preg_match('/N|V/', request()->morphemicForm)) {
+        if(request()->morphemic_form && !preg_match('/N|V/', request()->morphemic_form)) {
             $rules += ['translation' => 'required'];
         }
 

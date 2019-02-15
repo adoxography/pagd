@@ -105,7 +105,7 @@ class FormController extends AlgModelController
             return redirect("/verbs/gaps/{$form->id}");
         } else {
             $data = $request->all();
-            $data['morphemicForm'] = $this->convertMorphemes();
+            $data['morphemic_form'] = $this->convertMorphemes();
             $form = Form::create($data);
             flash("{$form->name} created successfully.", 'is-success');
             return redirect("/verbs/forms/{$form->id}");
@@ -122,7 +122,7 @@ class FormController extends AlgModelController
     public function update(FormRequest $request, Form $form)
     {
         $data = $request->all();
-        $data['morphemicForm'] = $this->convertMorphemes();
+        $data['morphemic_form'] = $this->convertMorphemes();
 
         $form->update($data);
 

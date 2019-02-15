@@ -159,9 +159,9 @@ class MorphemeController extends AlgModelController
         $matches = collect();
         $types = [Form::class, Example::class];
         foreach ($types as $type) {
-            $results = $type::where('language_id', $morpheme->language_id)->where('morphemicForm', 'LIKE', "%$name%")->get();
+            $results = $type::where('language_id', $morpheme->language_id)->where('morphemic_form', 'LIKE', "%$name%")->get();
             $results = $results->filter(function ($result) use ($name) {
-                $morphemes = explode('-', $result->morphemicForm);
+                $morphemes = explode('-', $result->morphemic_form);
                 return in_array($name, $morphemes);
             });
             $matches = $matches->concat($results);
@@ -179,7 +179,7 @@ class MorphemeController extends AlgModelController
         if ($matches) {
             foreach ($matches as $key => $type) {
                 $model = $type::find($key);
-                $model->morphemicForm = preg_replace($pattern, $morpheme->id, $model->morphemicForm);
+                $model->morphemic_form = preg_replace($pattern, $morpheme->id, $model->morphemic_form);
                 $model->save();
             }
 
@@ -195,11 +195,11 @@ class MorphemeController extends AlgModelController
         $formQuery = DB::table('Word_Forms')
             ->select('id')
             ->where('language_id', $morpheme->language->id)
-            ->where('morphemicForm', 'LIKE', "%$name%");
+            ->where('morphemic_form', 'LIKE', "%$name%");
         $matches = DB::table('Word_Examples')
             ->select('id')
             ->where('language_id', $morpheme->language->id)
-            ->where('morphemicForm', 'LIKE', "%$name%")
+            ->where('morphemic_form', 'LIKE', "%$name%")
             ->union($formQuery)
             ->get();
 

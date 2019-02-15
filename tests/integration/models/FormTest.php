@@ -23,7 +23,7 @@ class FormTest extends TestCase
         $form = Form::create([
             'name' => 'testform',
             'phonemicForm' => '[ɑæəɛɪŋɾʃ]',
-            'morphemicForm' => 'a-b-c',
+            'morphemic_form' => 'a-b-c',
             'language_id' => $language->id,
             'structure_id' => $type->id,
             'structure_type' => Structure::class,
@@ -38,7 +38,7 @@ class FormTest extends TestCase
         $this->assertNotNull($form->id);
         $this->assertEquals('testform', $form->name);
         $this->assertEquals('[ɑæəɛɪŋɾʃ]', $form->phonemicForm);
-        $this->assertEquals('a-b-c', $form->morphemicForm);
+        $this->assertEquals('a-b-c', $form->morphemic_form);
         $this->assertEquals($language->id, $form->language_id);
         $this->assertEquals($type->id, $form->structure_id);
         $this->assertEquals(Structure::class, $form->structure_type);
@@ -67,11 +67,11 @@ class FormTest extends TestCase
         // Create the form
         $form = factory(Form::class)->create([
             'language_id'   => $language->id,
-            'morphemicForm' => 'a-b-V'
+            'morphemic_form' => 'a-b-V'
         ]);
 
         $this->assertCount(3, $form->morphemes); // +1 for the Vstem
-        $this->assertEquals($form->morphemes[0]->name.$form->morphemes[1]->name.$form->morphemes[2]->name, $form->morphemicForm . '-'); // 'a-b-V'
+        $this->assertEquals($form->morphemes[0]->name.$form->morphemes[1]->name.$form->morphemes[2]->name, $form->morphemic_form . '-'); // 'a-b-V'
     }
 
     /** @test */

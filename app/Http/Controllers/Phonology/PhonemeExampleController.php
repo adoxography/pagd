@@ -20,7 +20,7 @@ class PhonemeExampleController extends Controller
     public function store(ExampleRequest $request, Phoneme $phoneme)
     {
         $data = $request->all();
-        $data['morphemicForm'] = $this->convertMorphemes();
+        $data['morphemic_form'] = $this->convertMorphemes();
         $example = Example::create($data);
 
         $phoneme->examples()->attach($example);

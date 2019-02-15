@@ -61,7 +61,7 @@ class Example extends Model implements HasMorphemesInterface, PhonemeableInterfa
         'name'          => 'example',
         'privateNotes'  => 'private comments',
         'publicNotes'   => 'public notes',
-        'morphemicForm' => 'morphemes',
+        'morphemic_form' => 'morphemes',
         'created_at'    => '[created]'
     ];
     protected $dontKeepRevisionOf = [

@@ -32,10 +32,10 @@ class ConnectData extends Command
     {
         $morphemes = Morpheme::all();
         $forms = Form::whereNotNull('language_id')
-                           ->whereNotNull('morphemicForm')
+                           ->whereNotNull('morphemic_form')
                            ->get();
         $examples = Example::whereNotNull('language_id')
-                                 ->whereNotNull('morphemicForm')
+                                 ->whereNotNull('morphemic_form')
                                  ->get();
 
         $morphemes->each(function ($morpheme) {

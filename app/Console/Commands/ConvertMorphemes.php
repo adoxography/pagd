@@ -44,11 +44,11 @@ class ConvertMorphemes extends Command
     public function handle()
     {
         // foreach ($this->types as $type) {
-        // $models = $type::whereNotNull('morphemicForm')->get();
+        // $models = $type::whereNotNull('morphemic_form')->get();
 
         foreach ($this->ids as $id) {
             $model = Form::find($id);
-            $slots = explode('-', $model->morphemicForm);
+            $slots = explode('-', $model->morphemic_form);
 
             for ($i = 0; $i < count($slots); $i++) {
                 $slot = $slots[$i];
@@ -78,7 +78,7 @@ class ConvertMorphemes extends Command
                 $slots[$i] = $newSlot;
             }
 
-            $model->morphemicForm = implode('-', $slots);
+            $model->morphemic_form = implode('-', $slots);
             $model->save();
         }
         // }

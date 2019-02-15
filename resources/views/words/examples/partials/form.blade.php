@@ -98,7 +98,7 @@
 
 			<div class="column is-12">
 
-				<!-- morphemicForm -->
+				<!-- morphemic_form -->
 				@include('components.form.morpheme-tags', [
 					'placeholder' => 'Look up or insert morphemes to add to the morphemic form',
 					'language'    => 'language.id',

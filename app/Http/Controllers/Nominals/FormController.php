@@ -75,7 +75,7 @@ class FormController extends Controller
     public function store(FormRequest $request)
     {
         $data = $request->all();
-        $data['morphemicForm'] = $this->convertMorphemes();
+        $data['morphemic_form'] = $this->convertMorphemes();
         $nominalForm = Form::create($data);
 
         return redirect("/nominals/forms/{$nominalForm->id}");
@@ -84,7 +84,7 @@ class FormController extends Controller
     public function update(FormRequest $request, Form $nominalForm)
     {
         $data = $request->all();
-        $data['morphemicForm'] = $this->convertMorphemes();
+        $data['morphemic_form'] = $this->convertMorphemes();
 
         $nominalForm->update($data);
 

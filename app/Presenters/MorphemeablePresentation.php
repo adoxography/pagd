@@ -138,7 +138,7 @@ trait MorphemeablePresentation
 
     protected function createMissingMorphemeAlert($morpheme, int $index)
     {
-        if ($this->model->morphemicForm && $this->model->morphemicForm != '') {
+        if ($this->model->morphemic_form && $this->model->morphemic_form != '') {
             $title = "Morpheme missing";
             $options = "<a href='/morphemes/create?name={$morpheme['name']}&language={$this->model->language->name}'>Add (-){$morpheme['name']}(-)</a>";
         } else {

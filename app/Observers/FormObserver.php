@@ -8,14 +8,14 @@ class FormObserver
 {
     public function created(Form $form)
     {
-        if ((!$form->morphemicForm || $this->isStemless($form)) && request()->translation) {
+        if ((!$form->morphemic_form || $this->isStemless($form)) && request()->translation) {
             $this->createExample($form, request()->translation);
         }
     }
 
     public function updated(Form $form)
     {
-        if ((!$form->morphemicForm || $this->isStemless($form)) && request()->translation) {
+        if ((!$form->morphemic_form || $this->isStemless($form)) && request()->translation) {
             if ($form->examples()->count() == 0) {
                 $this->createExample($form, request()->translation);
             } else {
@@ -42,7 +42,7 @@ class FormObserver
 
     protected function isStemless(Form $form)
     {
-        return !preg_match('/N|V/', $form->morphemicForm);
+        return !preg_match('/N|V/', $form->morphemic_form);
     }
 
     protected function createExample(Form $form, string $translation)
@@ -55,7 +55,7 @@ class FormObserver
         $example = $form->examples()->first();
 
         $example->name          = str_replace('*', '', $form->name);
-        $example->morphemicForm = $form->morphemicForm;
+        $example->morphemic_form = $form->morphemic_form;
         $example->translation   = $translation;
 
         if ($form->phonemicForm) {

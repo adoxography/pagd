@@ -33,14 +33,14 @@ class ExampleRequest extends FormRequest
             'translation'   => ['required'],
             'comments'      => ['nullable'],
             'notes'         => ['nullable'],
-            'morphemicForm' => ['nullable', 'notHas:V']
+            'morphemic_form' => ['nullable', 'notHas:V']
         ];
     }
 
     public function messages()
     {
         return [
-            'morphemicForm.not_has' => 'Please replace the vStem placeholder with a morpheme.'
+            'morphemic_form.not_has' => 'Please replace the vStem placeholder with a morpheme.'
         ];
     }
 }

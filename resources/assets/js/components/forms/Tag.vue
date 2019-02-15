@@ -43,6 +43,12 @@
 import Tag from 'buefy/src/components/tag/Tag.vue';
 import { invertColour } from '../../util/Colour.js';
 
+/**
+ * Tag component
+ *
+ * Subclass of Buefy's Tag component, which adds some extra functionality:
+ *  - Adds props for background and text colour
+ */
 export default {
   extends: Tag,
   props: ['backgroundColor', 'textColor'],

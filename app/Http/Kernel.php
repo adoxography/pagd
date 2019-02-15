@@ -57,6 +57,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'checkbox' => \App\Http\Middleware\ConvertNullsToFalse::class,
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
-        'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class
+        'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        'normalize_request' => \App\Http\Middleware\NormalizeRequest::class
     ];
 }

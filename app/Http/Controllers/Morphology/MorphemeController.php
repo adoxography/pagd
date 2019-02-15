@@ -20,6 +20,7 @@ class MorphemeController extends AlgModelController
     public function __construct()
     {
         $this->middleware('auth')->except('index', 'show');
+        parent::__construct();
     }
 
     /**

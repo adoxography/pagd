@@ -23,6 +23,7 @@ class FormController extends AlgModelController
     public function __construct()
     {
         $this->middleware('auth')->except('show', 'async');
+        parent::__construct();
     }
 
     public function show(Form $verbForm)

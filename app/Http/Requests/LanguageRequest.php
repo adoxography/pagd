@@ -30,7 +30,7 @@ class LanguageRequest extends FormRequest
             'group_id'      => ['required','integer','exists:groups,id'],
             'parent'        => ['nullable','exists:languages,name'],
             'parent_id'     => ['nullable','integer','exists:languages,id'],
-            'reconstructed' => ['required','in:true,false'],
+            'reconstructed' => ['required','boolean'],
             'name'          => ['required'],
             'iso'           => ['nullable', 'size:3'],
             'algo_code'     => ['required', 'between:1,5'],

@@ -19,6 +19,7 @@ class FormController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except('show', 'async');
+        parent::__construct();
     }
 
     public function show(Form $nominalForm)

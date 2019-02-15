@@ -49,6 +49,10 @@ function updateData(data, initial) {
 function turnOffAutocompletes(parent) {
   let inputs = parent.getElementsByTagName('input');
   for (let input of inputs) {
+    if (input.name && input.name.length && input.name[0] !== '_') {
+      input.name = 'alg-' + input.name;
+    }
+
     input.autocomplete = 'off';
   }
 }
@@ -68,16 +72,16 @@ function normalizeTextareas(parent) {
 }
 
 /**
- * Interacts directly with the DOM to fix radio elements
+ * Interacts directly with the DOM to fix radio and checkbox elements
  *
  * Buefy gives both the radio itself and the label a tabindex, which makes for
  * unintuitive tabbing. This function removes the tabindex from the radio
  * element.
  */
 function normalizeRadios(parent) {
-  let els = parent.getElementsByClassName('radio');
+  let els = parent.querySelectorAll('input[type=radio], input[type=checkbox]')
   for (let el of els) {
-    el.getElementsByTagName('input')[0].tabIndex = -1;
+    el.tabIndex = -1;
   }
 }
 

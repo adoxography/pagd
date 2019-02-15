@@ -80,9 +80,23 @@
 import Taginput from 'buefy/src/components/taginput/Taginput.vue';
 import draggable from 'vuedraggable';
 
+/**
+ * TagInput component
+ *
+ * Subclass of Buefy's Taginput component, which adds some extra functionality:
+ *  - If the component is dealing with objects, new tags that are inserted will
+ *    automatically be converted into objects
+ *  - Tags can be reordered by clicking and dragging
+ *  - A callback function can be provided for when a tag is clicked (and not
+ *    dragged)
+ *  - Uses a subclassed version of Buefy's Tag component
+ *  - Wraps the tag text into a slot to allow HTML
+ */
 export default {
   extends: Taginput,
+
   components: { draggable },
+
   props: ['onClickTag'],
 
   watch: {
@@ -112,10 +126,24 @@ export default {
   },
 
   methods: {
+    /**
+     * Callback for when tags have been dragged
+     *
+     * Emits an input event to let the parent component know it needs to update
+     * its value
+     */
     onDrag() {
       this.$emit('input', this.tags);
     },
 
+    /**
+     * Callback for when tags have been clicked
+     *
+     * Calls a user defined onClickTag function if available and emits an input
+     * event.
+     *
+     * @param tag  The tag object associated with the tag that was clicked on
+     */
     tagClicked(tag) {
       if (this.onClickTag) {
         this.onClickTag(tag);
@@ -124,6 +152,13 @@ export default {
       }
     },
 
+    /**
+     * Shadows the parent's keydown method to allow keys in confirmKeyCodes to
+     * pass through if the newTag is empty - esp. Enter and Tab
+     *
+     * Most of the method is unchanged from the parent, other than modifications
+     * to fit the project's coding style.
+     */
     keydown(event) {
       if (this.removeOnKeys.indexOf(event.keyCode) !== -1 && !this.newTag.length) {
         this.removeLastTag();

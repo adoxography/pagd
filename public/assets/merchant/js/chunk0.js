@@ -141,22 +141,79 @@ webpackJsonp([0],{
 >>>>>>> Bugfixes
 
 
+/**
+ * TagInput component
+ *
+ * Subclass of Buefy's Taginput component, which adds some extra functionality:
+ *  - If the component is dealing with objects, new tags that are inserted will
+ *    automatically be converted into objects
+ *  - Tags can be reordered by clicking and dragging
+ *  - A callback function can be provided for when a tag is clicked (and not
+ *    dragged)
+ *  - Uses a subclassed version of Buefy's Tag component
+ *  - Wraps the tag text into a slot to allow HTML
+ */
+
 /* harmony default export */ __webpack_exports__["a"] = ({
   extends: __WEBPACK_IMPORTED_MODULE_0_buefy_src_components_taginput_Taginput_vue__["a" /* default */],
   components: {
     draggable: __WEBPACK_IMPORTED_MODULE_1_vuedraggable___default.a
   },
   props: ['onClickTag'],
+  watch: {
+    /**
+     * Watch the tags object for new strings
+     */
+    tags: function tags(newTags) {
+      var _this = this;
+
+      // If the component doesn't allow new elements, isn't dealing with
+      // objects, or there are no strings in the tags, exit early
+      if (!this.allowNew || !this.field || newTags.every(function (tag) {
+        return typeof tag !== 'string';
+      })) {
+        return;
+      } // Convert any strings in the tags to objects
+
+
+      this.tags = newTags.map(function (tag) {
+        if (typeof tag !== 'string') {
+          return tag;
+        }
+
+        var replacementTag = {};
+        replacementTag[_this.field] = tag;
+        return replacementTag;
+      });
+      this.$emit('input', this.tags);
+    }
+  },
   methods: {
+    /**
+     * Callback for when tags have been dragged
+     *
+     * Emits an input event to let the parent component know it needs to update
+     * its value
+     */
     onDrag: function onDrag() {
       this.$emit('input', this.tags);
     },
+
+    /**
+     * Callback for when tags have been clicked
+     *
+     * Calls a user defined onClickTag function if available and emits an input
+     * event.
+     *
+     * @param tag  The tag object associated with the tag that was clicked on
+     */
     tagClicked: function tagClicked(tag) {
       if (this.onClickTag) {
         this.onClickTag(tag);
         console.log(tag);
         this.$emit('input', this.tags);
       }
+<<<<<<< HEAD
 >>>>>>> Start working on initial change
     }
   }
@@ -260,6 +317,31 @@ webpackJsonp([0],{
       _.each(this.phonemes, function (_, key) {
         _this2.phonemes[key] = setting;
       });
+=======
+    },
+
+    /**
+     * Shadows the parent's keydown method to allow keys in confirmKeyCodes to
+     * pass through if the newTag is empty - esp. Enter and Tab
+     *
+     * Most of the method is unchanged from the parent, other than modifications
+     * to fit the project's coding style.
+     */
+    keydown: function keydown(event) {
+      if (this.removeOnKeys.indexOf(event.keyCode) !== -1 && !this.newTag.length) {
+        this.removeLastTag();
+      } // Stop if is to accept select only
+
+
+      if (this.autocomplete && !this.allowNew) {
+        return;
+      }
+
+      if (this.confirmKeyCodes.indexOf(event.keyCode) >= 0 && this.newTag.length) {
+        event.preventDefault();
+        this.addTag();
+      }
+>>>>>>> Stop arrow and tab keys from triggering async autocomplete
     }
   }
 });
@@ -2911,7 +2993,7 @@ var render = function() {
                     {
                       on: {
                         click: function($event) {
-                          _vm.onClickTag(tag)
+                          _vm.tagClicked(tag)
                         }
                       }
                     },

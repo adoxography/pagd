@@ -298,11 +298,22 @@ function normalizeRadios(parent) {
     /**
      * Updates an asynchronous list based on a query
      *
+     * Filters out any events that were caused by pressing an arrow key
+     *
      * @param listName  The name (key) of the list
-     * @param query     The string to filter the list by
+     * @param event     The event that was fired to trigger the fetch
      * @param options   Any additional options to send in the request
      */
-    getAsyncData: _.debounce(function (listName, query, options) {
+    getAsyncData: function getAsyncData(listName, event, options) {
+      console.log(event);
+
+      if (event.code && (event.code.includes('Arrow') || event.code === 'Tab')) {
+        return;
+      }
+
+      this._getAsyncData(listName, event.target.value, options);
+    },
+    _getAsyncData: _.debounce(function (listName, query, options) {
       var _this2 = this;
 
       this.asyncLoading[listName] = true;

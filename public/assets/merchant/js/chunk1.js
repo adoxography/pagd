@@ -49,6 +49,13 @@ webpackJsonp([1],{
 //
 
 
+/**
+ * Tag component
+ *
+ * Subclass of Buefy's Tag component, which adds some extra functionality:
+ *  - Adds props for background and text colour
+ */
+
 /* harmony default export */ __webpack_exports__["a"] = ({
   extends: __WEBPACK_IMPORTED_MODULE_0_buefy_src_components_tag_Tag_vue__["a" /* default */],
   props: ['backgroundColor', 'textColor'],

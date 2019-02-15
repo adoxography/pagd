@@ -24,7 +24,8 @@ class AutocompleteController extends Controller
         $term     = request()->term;
         $options  = json_decode(request()->options, true);
         $language = $options['language'];
-        $type     = isset($options['type']) ? $options['type'] : 'all';
+        $type     = $options['type'] ?? 'all';
+        $markup   = $options['markup'] ?? true;
 
         if ($type == 'verb') {
             $results = $this->queryVerbForms($term, $language);
@@ -35,8 +36,13 @@ class AutocompleteController extends Controller
         }
 
         foreach ($results as $result) {
-            $result->extra = $result->morphemesToJson();
-            $result->name = str_replace('*', '', $result->present('unique'));
+            // $result->extra = $result->morphemesToJson();
+            $result->uniqueName = str_replace('*', '', $result->present('unique'));
+
+            if (!$markup) {
+                $result->uniqueName = preg_replace('/<.*?>/', '', $result->uniqueName);
+                $result->uniqueName = str_replace('&nbsp', ' ', $result->uniqueName);
+            }
         }
 
         return $results->toJson();
@@ -192,11 +198,12 @@ class AutocompleteController extends Controller
         $term = request()->term;
         $options = json_decode(request()->options, true);
         $language_id = $options['language'];
+        $markup      = $options['markup'] ?? true;
 
         $language = Language::with('parent')
             ->find($language_id);
 
-        $results = $this->findParents($language, $term, 'examples', 'Word_Examples.name', true);
+        $results = $this->findParents($language, $term, 'examples', 'word_examples.name', $markup);
 
         return json_encode($results);
     }
@@ -212,11 +219,12 @@ class AutocompleteController extends Controller
         $term        = request()->term;
         $options = json_decode(request()->options, true);
         $language_id = $options['language'];
+        $markup      = $options['markup'] ?? true;
 
         $language = Language::with('parent')
             ->find($language_id);
 
-        $results  = $this->findParents($language, $term, 'morphemes', 'name', true);
+        $results  = $this->findParents($language, $term, 'morphemes', 'name', $markup);
 
         return Response::json($results);
     }
@@ -226,11 +234,12 @@ class AutocompleteController extends Controller
         $term = request()->term;
         $options = json_decode(request()->options, true);
         $language_id = $options['language'];
+        $markup      = $options['markup'] ?? true;
 
         $language = Language::with('parent')
             ->find($language_id);
 
-        $results = $this->findParents($language, $term, 'phonemes', 'algoName', true);
+        $results = $this->findParents($language, $term, 'phonemes', 'algoName', $markup);
 
         return Response::json($results);
     }

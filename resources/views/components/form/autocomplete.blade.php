@@ -44,6 +44,10 @@ if (isset($goesThrough)) {
                 @if($placeholderSet)
                 placeholder="{{ $placeholder }}"
                 @endif
+
+                @isset($disabled)
+                :disabled="{{ $disabled }}"
+                @endisset
 >
 </b-autocomplete>
 @endcomponent

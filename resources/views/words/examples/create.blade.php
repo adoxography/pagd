@@ -1,7 +1,7 @@
 @extends('layout', ['title' => 'Add an example'])
 
 @section('title')
-	Add example
+	<h1 class="title is-4">Add example</h1>
 @endsection
 
 @section('content')

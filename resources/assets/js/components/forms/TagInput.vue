@@ -84,6 +84,33 @@ export default {
   extends: Taginput,
   components: { draggable },
   props: ['onClickTag'],
+
+  watch: {
+    /**
+     * Watch the tags object for new strings
+     */
+    tags: function (newTags) {
+      // If the component doesn't allow new elements, isn't dealing with
+      // objects, or there are no strings in the tags, exit early
+      if (!this.allowNew || !this.field || newTags.every(tag => typeof tag !== 'string')) {
+        return;
+      }
+
+      // Convert any strings in the tags to objects
+      this.tags = newTags.map(tag => {
+        if (typeof tag !== 'string') {
+          return tag;
+        }
+        
+        let replacementTag = {};
+        replacementTag[this.field] = tag;
+        return replacementTag;
+      });
+
+      this.$emit('input', this.tags);
+    }
+  },
+
   methods: {
     onDrag() {
       this.$emit('input', this.tags);

@@ -1,6 +1,7 @@
 <alg-form method="{{ $method }}" action="{{ $action }}">
     <alg-model-form :lists="{{ $lists }}"
                     :template="{{ $template }}"
+                    :filter-proto="[ 'name', 'phonemic_form' ]"
 
                     inline-template
                     v-cloak

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Verbs;
 use App\Http\Requests\Verbs\FormRequest;
 use App\Models\Verbs\Form;
 use App\Models\Verbs\Gap;
-use App\Traits\ConvertsMorphemes;
 use App\Traits\HandlesAsyncFormRequests;
 use App\Http\Controllers\AlgModelController;
 
@@ -14,7 +13,7 @@ use App\Http\Controllers\AlgModelController;
  */
 class FormController extends AlgModelController
 {
-    use ConvertsMorphemes, HandlesAsyncFormRequests;
+    use HandlesAsyncFormRequests;
 
     protected $asyncData = ['class', 'mode', 'order', 'subject', 'primaryObject', 'secondaryObject'];
 
@@ -105,7 +104,6 @@ class FormController extends AlgModelController
             return redirect("/verbs/gaps/{$form->id}");
         } else {
             $data = $request->all();
-            $data['morphemic_form'] = $this->convertMorphemes();
             $form = Form::create($data);
             flash("{$form->name} created successfully.", 'is-success');
             return redirect("/verbs/forms/{$form->id}");
@@ -122,8 +120,6 @@ class FormController extends AlgModelController
     public function update(FormRequest $request, Form $form)
     {
         $data = $request->all();
-        $data['morphemic_form'] = $this->convertMorphemes();
-
         $form->update($data);
 
         flash("{$form->surfaceForm} updated successfully", 'is-success');

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Words;
 
 use App\Http\Requests\Words\ExampleRequest;
 use App\Models\Words\Example;
-use App\Traits\ConvertsMorphemes;
 use App\Http\Controllers\AlgModelController;
 
 /**
@@ -12,8 +11,6 @@ use App\Http\Controllers\AlgModelController;
  */
 class ExampleController extends AlgModelController
 {
-    use ConvertsMorphemes;
-
     /**
      * Initialize middleware
      */
@@ -78,7 +75,6 @@ class ExampleController extends AlgModelController
     public function store(ExampleRequest $request)
     {
         $data = $request->all();
-        $data['morphemic_form'] = $this->convertMorphemes();
         $example = Example::create($data);
 
         flash("{$example->name} created successfully", 'is-success');
@@ -95,7 +91,6 @@ class ExampleController extends AlgModelController
     public function update(ExampleRequest $request, Example $example)
     {
         $data = $request->all();
-        $data['morphemic_form'] = $this->convertMorphemes();
         $example->update($data);
 
         flash("{$example->name} updated successfully", 'is-success');

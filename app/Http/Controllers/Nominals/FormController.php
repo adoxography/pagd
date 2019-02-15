@@ -4,13 +4,12 @@ namespace App\Http\Controllers\Nominals;
 
 use App\Http\Requests\Nominals\FormRequest;
 use App\Models\Nominals\Form;
-use App\Traits\ConvertsMorphemes;
 use App\Traits\HandlesAsyncFormRequests;
 use App\Http\Controllers\Controller;
 
 class FormController extends Controller
 {
-    use ConvertsMorphemes, HandlesAsyncFormRequests;
+    use HandlesAsyncFormRequests;
 
     protected $asyncData = ['nominalFeature', 'pronominalFeature', 'paradigm'];
 
@@ -75,7 +74,6 @@ class FormController extends Controller
     public function store(FormRequest $request)
     {
         $data = $request->all();
-        $data['morphemic_form'] = $this->convertMorphemes();
         $nominalForm = Form::create($data);
 
         return redirect("/nominals/forms/{$nominalForm->id}");
@@ -84,8 +82,6 @@ class FormController extends Controller
     public function update(FormRequest $request, Form $nominalForm)
     {
         $data = $request->all();
-        $data['morphemic_form'] = $this->convertMorphemes();
-
         $nominalForm->update($data);
 
         if ($request->translation) {

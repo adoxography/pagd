@@ -22,7 +22,7 @@
                   :ellipsis="ellipsis"
                   :closable="closable"
                   @close="removeTag(index)">
-                  <span @click="onClickTag(tag)">
+                  <span @click="tagClicked(tag)">
                     <slot name="tagDisplay" :tag="tag">
                       {{ getNormalizedTagText(tag) }}
                     </slot>

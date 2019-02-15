@@ -175,13 +175,14 @@ class AutocompleteController extends Controller
         $options     = json_decode(request()->options, true);
         $language_id = $options['language'];
         $type        = $options['type'];
+        $markup      = $options['markup'] ?? true;
 
         $type .= 'Forms';
 
         $language = Language::with('parent')
             ->find($language_id);
 
-        $results = $this->findParents($language, $term, $type, 'name');
+        $results = $this->findParents($language, $term, $type, 'name', $markup);
 
         return json_encode($results);
     }
@@ -195,7 +196,7 @@ class AutocompleteController extends Controller
         $language = Language::with('parent')
             ->find($language_id);
 
-        $results = $this->findParents($language, $term, 'examples', 'Word_Examples.name');
+        $results = $this->findParents($language, $term, 'examples', 'Word_Examples.name', true);
 
         return json_encode($results);
     }
@@ -215,7 +216,7 @@ class AutocompleteController extends Controller
         $language = Language::with('parent')
             ->find($language_id);
 
-        $results  = $this->findParents($language, $term, 'morphemes', 'name');
+        $results  = $this->findParents($language, $term, 'morphemes', 'name', true);
 
         return Response::json($results);
     }
@@ -229,7 +230,7 @@ class AutocompleteController extends Controller
         $language = Language::with('parent')
             ->find($language_id);
 
-        $results = $this->findParents($language, $term, 'phonemes', 'algoName');
+        $results = $this->findParents($language, $term, 'phonemes', 'algoName', true);
 
         return Response::json($results);
     }
@@ -245,7 +246,7 @@ class AutocompleteController extends Controller
      * @return  array
      */
 
-    private function findParents(Language $language, $term, $items, $field)
+    private function findParents(Language $language, $term, $items, $field, $markup)
     {
         $results = collect();
 
@@ -274,14 +275,21 @@ class AutocompleteController extends Controller
 
             // Store the members in the results array as id and name sets
             foreach ($parent->getAttribute($items) as $item) {
+                $name = $item->present('unique')->then('language')->__toString();
+
+                if (!$markup) {
+                    $name = preg_replace('`<.*?>`', '', $name);
+                    $name = str_replace('&nbsp', ' ', $name);
+                }
+
                 $results->push([
                     'id' => $item->id,
-                    'name' => $item->present('unique')->then('language')->__toString()
+                    'name' => $name
                 ]);
             }
 
             // Recursively find members in this language's parent
-            $results = $results->concat($this->findParents($parent, $term, $items, $field));
+            $results = $results->concat($this->findParents($parent, $term, $items, $field, $markup));
         }
         // Base case: the language has no parent
 

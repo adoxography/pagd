@@ -52,6 +52,6 @@ if (isset($goesThrough)) {
                 @if($placeholderSet)
                 placeholder="{{ $placeholder }}"
                 @endif
-
-></b-autocomplete>
+>
+</b-autocomplete>
 @endcomponent

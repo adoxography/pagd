@@ -186,6 +186,9 @@ function normalizeRadios(parent) {
     lists: {
       type: Object
     },
+    asyncRoutes: {
+      type: Object
+    },
     initial: {
       type: Object
     },
@@ -198,6 +201,9 @@ function normalizeRadios(parent) {
         return [];
       }
     },
+    prefetch: {
+      default: function _default() {}
+    },
     oldErrors: {},
     oldValues: {}
   },
@@ -205,6 +211,7 @@ function normalizeRadios(parent) {
     return {
       data: {},
       filteredLists: {},
+      prefetchLists: {},
       asyncLoading: {},
       stringifiedData: ''
     };
@@ -239,12 +246,40 @@ function normalizeRadios(parent) {
               name = _arr4$_i[0],
               list = _arr4$_i[1];
 
-          if (Array.isArray(list)) {
-            this.filteredLists[name] = list.clone();
-          } else {
-            this.filteredLists[name] = [];
-            this.$set(this.asyncLoading, name, false);
+          if (this.lists.hasOwnProperty(name) && Array.isArray(list)) {
+            this.$set(this.filteredLists, name, list.clone());
           }
+        }
+      }
+
+      if (this.asyncRoutes) {
+        var _arr5 = Object.entries(this.asyncRoutes);
+
+        for (var _i5 = 0; _i5 < _arr5.length; _i5++) {
+          var _arr5$_i = _slicedToArray(_arr5[_i5], 2),
+              name = _arr5$_i[0],
+              route = _arr5$_i[1];
+
+          this.$set(this.filteredLists, name, []);
+          this.$set(this.asyncLoading, name, false);
+        }
+      }
+
+      var _arr6 = Object.entries(this.prefetch);
+
+      for (var _i6 = 0; _i6 < _arr6.length; _i6++) {
+        var _arr6$_i = _slicedToArray(_arr6[_i6], 2),
+            name = _arr6$_i[0],
+            prefetches = _arr6$_i[1];
+
+        var _arr7 = Object.entries(prefetches);
+
+        for (var _i7 = 0; _i7 < _arr7.length; _i7++) {
+          var _arr7$_i = _slicedToArray(_arr7[_i7], 2),
+              prefetchName = _arr7$_i[0],
+              _2 = _arr7$_i[1];
+
+          this.prefetchLists[prefetchName] = [];
         }
       }
     },
@@ -279,7 +314,7 @@ function normalizeRadios(parent) {
           keys.forEach(function (key, i) {
             if (i < keys.length - 1) {
               data = data[key];
-            } else {
+            } else if (data[key]) {
               data[key] = data[key].replace('*', '');
             }
           });
@@ -310,12 +345,12 @@ function normalizeRadios(parent) {
     updateErrors: function updateErrors(errorList) {
       var _this2 = this;
 
-      var _arr5 = Object.entries(errorList);
+      var _arr8 = Object.entries(errorList);
 
       var _loop2 = function _loop2() {
-        var _arr5$_i = _slicedToArray(_arr5[_i5], 2),
-            field = _arr5$_i[0],
-            errors = _arr5$_i[1];
+        var _arr8$_i = _slicedToArray(_arr8[_i8], 2),
+            field = _arr8$_i[0],
+            errors = _arr8$_i[1];
 
         errors.forEach(function (msg) {
           return _this2.errors.add({
@@ -325,7 +360,7 @@ function normalizeRadios(parent) {
         });
       };
 
-      for (var _i5 = 0; _i5 < _arr5.length; _i5++) {
+      for (var _i8 = 0; _i8 < _arr8.length; _i8++) {
         _loop2();
       }
     },
@@ -338,10 +373,37 @@ function normalizeRadios(parent) {
      */
     filterList: function filterList(listName, query) {
       var q = query.toLowerCase();
-      var list = this.lists[listName];
+      var list = this.lists[listName] || this.prefetchLists[listName];
       this.filteredLists[listName] = list.filter(function (x) {
         return x.name.toLowerCase().includes(q);
       });
+
+      var _arr9 = Object.entries(this.prefetch);
+
+      for (var _i9 = 0; _i9 < _arr9.length; _i9++) {
+        var _arr9$_i = _slicedToArray(_arr9[_i9], 2),
+            key = _arr9$_i[0],
+            value = _arr9$_i[1];
+
+        if (listName === key) {
+          this.getPrefetched(listName);
+        }
+      }
+    },
+    getPrefetched: function getPrefetched(listName) {
+      var prefetches = this.prefetch[listName];
+
+      var _arr10 = Object.entries(prefetches);
+
+      for (var _i10 = 0; _i10 < _arr10.length; _i10++) {
+        var _arr10$_i = _slicedToArray(_arr10[_i10], 2),
+            _listName = _arr10$_i[0],
+            options = _arr10$_i[1];
+
+        if (prefetches.hasOwnProperty(_listName)) {
+          this._getAsyncData(_listName, '', options(this), true);
+        }
+      }
     },
 
     /**
@@ -360,17 +422,22 @@ function normalizeRadios(parent) {
 
       this._getAsyncData(listName, event.target.value, options);
     },
-    _getAsyncData: _.debounce(function (listName, query, options) {
+    _getAsyncData: _.debounce(function (listName, query, options, prefetch) {
       var _this3 = this;
 
       this.asyncLoading[listName] = true;
-      axios.get(this.lists[listName], {
+      axios.get(this.asyncRoutes[listName], {
         params: {
           term: query,
           options: options
         }
       }).then(function (response) {
-        _this3.filteredLists[listName] = response.data;
+        if (prefetch) {
+          _this3.prefetchLists[listName] = response.data; // this.filteredLists[listName] = this.lists[listName].clone();
+        } else {
+          _this3.filteredLists[listName] = response.data;
+        }
+
         _this3.asyncLoading[listName] = false;
       }).catch(function (error) {
         console.error(error);

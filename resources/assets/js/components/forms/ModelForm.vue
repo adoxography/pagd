@@ -88,11 +88,15 @@ function normalizeRadios(parent) {
 export default {
   props: {
     lists: { type: Object },
+    asyncRoutes: { type: Object },
     initial: { type: Object },
     template: { type: Object },
     filterProto: {
       type: Array,
       default: () => []
+    },
+    prefetch: {
+      default: () => {}
     },
 
     oldErrors: {},
@@ -103,6 +107,7 @@ export default {
 		return {
       data: {},
       filteredLists: {},
+      prefetchLists: {},
       asyncLoading: {},
       stringifiedData: ''
 		};
@@ -132,12 +137,22 @@ export default {
     initLists() {
       if (this.lists) {
         for (let [name, list] of Object.entries(this.lists)) {
-          if (Array.isArray(list)) {
-            this.filteredLists[name] = list.clone();
-          } else {
-            this.filteredLists[name] = [];
-            this.$set(this.asyncLoading, name, false);
+          if (this.lists.hasOwnProperty(name) && Array.isArray(list)) {
+            this.$set(this.filteredLists, name, list.clone());
           }
+        }
+      }
+
+      if (this.asyncRoutes) {
+        for (let [name, route] of Object.entries(this.asyncRoutes)) {
+          this.$set(this.filteredLists, name, []);
+          this.$set(this.asyncLoading, name, false);
+        }
+      }
+
+      for (let [name, prefetches] of Object.entries(this.prefetch)) {
+        for (let [prefetchName, _] of Object.entries(prefetches)) {
+          this.prefetchLists[prefetchName] = [];
         }
       }
     },
@@ -166,7 +181,7 @@ export default {
         keys.forEach((key, i) => {
           if (i < keys.length - 1) {
             data = data[key];
-          } else {
+          } else if (data[key]) {
             data[key] = data[key].replace('*', '');
           }
         });
@@ -190,8 +205,24 @@ export default {
      */
     filterList(listName, query) {
       let q = query.toLowerCase();
-      let list = this.lists[listName];
+      let list = this.lists[listName] || this.prefetchLists[listName];
       this.filteredLists[listName] = list.filter(x => x.name.toLowerCase().includes(q));
+
+      for (let [key, value] of Object.entries(this.prefetch)) {
+        if (listName === key) {
+          this.getPrefetched(listName);
+        }
+      }
+    },
+
+    getPrefetched(listName) {
+      let prefetches = this.prefetch[listName];
+
+      for (let [listName, options] of Object.entries(prefetches)) {
+        if (prefetches.hasOwnProperty(listName)) {
+          this._getAsyncData(listName, '', options(this), true);
+        }
+      }
     },
 
     /**
@@ -211,15 +242,20 @@ export default {
       this._getAsyncData(listName, event.target.value, options);
     },
 
-    _getAsyncData: _.debounce(function(listName, query, options) {
+    _getAsyncData: _.debounce(function(listName, query, options, prefetch) {
       this.asyncLoading[listName] = true;
-      axios.get(this.lists[listName], {
+      axios.get(this.asyncRoutes[listName], {
         params: {
           term: query,
           options: options
         }
       }).then(response => {
-        this.filteredLists[listName] = response.data;
+        if (prefetch) {
+          this.prefetchLists[listName] = response.data;
+          // this.filteredLists[listName] = this.lists[listName].clone();
+        } else {
+          this.filteredLists[listName] = response.data;
+        }
         this.asyncLoading[listName] = false;
       }).catch(error => {
         console.error(error);

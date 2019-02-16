@@ -48,7 +48,6 @@ Vue.component('alg-order', resolve => { require(['./components/Order.vue'], reso
 Vue.component('alg-tag-input', resolve => { require(['./components/Tag-Input.vue'], resolve); });  // Delete me
 Vue.component('alg-taginput', resolve => { require(['./components/forms/TagInput.vue'], resolve); });
 Vue.component('alg-tag', resolve => { require(['./components/forms/Tag.vue'], resolve); });
-Vue.component('alg-morpheme-tag-input', require('./components/Morpheme-Tag-Input.vue').default);
 Vue.component('alg-value-input', resolve => { require(['./components/Value-Input.vue'], resolve); });
 Vue.component('alg-phoneme-examples', resolve => { require(['./components/Phoneme-Examples.vue'], resolve); });
 

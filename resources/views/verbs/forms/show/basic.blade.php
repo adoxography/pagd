@@ -89,10 +89,7 @@
         <div class="detail-value">
             @foreach($form->sources as $source)
             <p>
-                {!! $source->present('link') !!}
-                @isset($source->pivot->extra_info)
-                : {{ $source->pivot->extra_info }}
-                @endisset
+                {!! $source->present('link') !!}@isset($source->pivot->extra_info): {{ $source->pivot->extra_info }}@endisset
             </p>
             @endforeach
         </div>

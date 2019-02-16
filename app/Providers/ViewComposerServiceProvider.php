@@ -269,13 +269,17 @@ class ViewComposerServiceProvider extends ServiceProvider
                     'subject' => 'subject',
                     'primary object' => 'primary object',
                     'secondary object' => 'secondary object'
-                ],
+                ]
+            ];
+
+            $asyncRoutes = [
                 'parents' => '/autocomplete/formParents',
                 'morphemes' => '/autocomplete/morphemes'
             ];
 
             $data = [
                 'lists' => json_encode($lists),
+                'asyncRoutes' => json_encode($asyncRoutes),
                 'template' => VerbForm::fieldTemplate()
             ];
             $view->with($data);
@@ -287,6 +291,9 @@ class ViewComposerServiceProvider extends ServiceProvider
         view()->composer('words.examples.partials.form', function ($view) {
             $lists = [
                 'languages' => Language::select('id', 'name')->get(),
+            ];
+
+            $asyncRoutes = [
                 'forms'     => '/autocomplete/forms',
                 'parents'   => '/autocomplete/exampleParents',
                 'morphemes' => '/autocomplete/morphemes'
@@ -294,6 +301,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
             $data = [
                 'lists' => json_encode($lists),
+                'asyncRoutes' => json_encode($asyncRoutes),
                 'template' => Example::fieldTemplate()
             ];
 

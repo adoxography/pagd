@@ -11,7 +11,7 @@
     <alg-taginput v-model="data.morpheme_sequence"
                   class="morpheme-input"
                   :data="filteredLists.morphemes"
-                  @keyup.native="getAsyncData('morphemes', $event, {language: data.language.id})"
+                  @keyup.native="filterList('morphemes', $event.target.value)"
                   field="name"
                   autocomplete
                   :open-on-focus="true"

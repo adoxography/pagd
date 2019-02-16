@@ -187,6 +187,25 @@ function array_toList($arr) : string
     return $output;
 }
 
+function popupAlert(string $title, string $body, $inline=false) : string
+{
+    $inlineClass = $inline ? 'inline' : '';
+
+return <<<HTML
+<v-popover trigger="hover">
+    <a class="icon is-danger $inlineClass">
+        <span class="icon is-small">
+            <i class="fas fa-exclamation-triangle"></i>
+        </span>
+    </a>
+    <template slot="popover">
+        <p>$title</p>
+        $body
+    </template>
+</v-popover>
+HTML;
+}
+
 function tagExamples($languageId, $morphemeString, $morphemeReplacement) {
     Auth::login(User::first());
     $examples = Example::whereNull('morphemic_form')

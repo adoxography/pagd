@@ -259,13 +259,13 @@ class AbvTextGlossNode extends TextGlossNode
         $html = "<span class=\"gloss\">{$this->gloss}</span>";
 
         if ($alert) {
-            $html .= <<<HTML
-<alg-morpheme-alert title="Gloss missing" display="inline">
-    <a href="/glosses/create?abv={$this->gloss}">
-        Add <span class="gloss">{$this->gloss}</span>
-    </a>
-</alg-morpheme-alert>
+            $title = 'Gloss missing';
+            $body = <<<HTML
+<a href="/glosses/create?abv={$this->gloss}">
+    Add <span class="gloss">{$this->gloss}</span>
+</a>
 HTML;
+            $html .= popupAlert($title, $body, true);
         }
 
         return $html;

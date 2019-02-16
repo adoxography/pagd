@@ -3,6 +3,7 @@
 <<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 <<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 <<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
+<<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 <<<<<<< HEAD
 <<<<<<< HEAD:public/assets/merchant/js/chunk/js/vendor.js
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["/js/vendor"],{
@@ -27,6 +28,9 @@ webpackJsonp([36],{
 =======
 webpackJsonp([37],{
 >>>>>>> Remove old morpheme tag input component:public/js/vendor.js
+=======
+webpackJsonp([36],{
+>>>>>>> Remove the morpheme alert component:public/js/vendor.js
 
 /***/ "./node_modules/axios-retry/index.js":
 /*!*******************************************!*\

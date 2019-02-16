@@ -79,7 +79,14 @@ class MorphemePresenter extends AlgPresenter
                         $currGloss = "<span class='gloss'>$glossText</span>";
 
                         if ($showAlert) {
-                            $currGloss .= "<alg-morpheme-alert title='Gloss missing'><a href='/glosses/create?abv=$glossText'>Add <span class='gloss'>$glossText</span></a></alg-morpheme-alert>";
+                            $alertTitle = 'Gloss missing';
+                            $alertBody = <<<HTML
+<a href="/glosses/create?abv=$glossText">
+    Add <span class="gloss">$glossText</span>
+</a>
+HTML;
+
+                            $currGloss .= popupAlert($alertTitle, $alertBody);
                         }
                     }
 

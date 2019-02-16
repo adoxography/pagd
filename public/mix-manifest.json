@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     "/js/app.js": "/js/app.js?id=bab1d7624172ffebeee6",
     "/css/app.css": "/css/app.css?id=e92d12db8298d0f728d5",
     "/js/vendor.js": "/js/vendor.js?id=7a0fcb16daa4f31dae42",
@@ -23,4 +24,10 @@
     "/js/vendor.js": "/js/vendor.js?id=953176e7aea9e5dc14b9",
     "/js/manifest.js": "/js/manifest.js?id=44f829812c5e2a8b4285"
 >>>>>>> Remove old morpheme tag input component
+=======
+    "/js/app.js": "/js/app.js?id=06a37e5da2e20a9a5bac",
+    "/css/app.css": "/css/app.css?id=48ec5f0abd935efb30ab",
+    "/js/vendor.js": "/js/vendor.js?id=e89158684803356a8d06",
+    "/js/manifest.js": "/js/manifest.js?id=5128965f3c81be39539e"
+>>>>>>> Remove the morpheme alert component
 }

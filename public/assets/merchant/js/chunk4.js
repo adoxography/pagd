@@ -1,6 +1,7 @@
 webpackJsonp([4],{
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/FormFilter.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -57,6 +58,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 "use strict";
 >>>>>>> Start working on initial change
 //
+=======
+/***/ "./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Typewriter.vue?vue&type=script&lang=js&":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_SpecialCharacters__ = __webpack_require__("./resources/assets/js/util/SpecialCharacters.js");
+>>>>>>> Remove old morpheme tag input component
 //
 //
 //
@@ -88,6 +96,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //
 //
 //
+<<<<<<< HEAD
 //
 //
 //
@@ -253,132 +262,138 @@ var Filter = function Filter(label, options) {
 =======
 var NewSource = {
   template: "\n    <div class=\"modal-card\" style=\"width: auto\">\n      <header class=\"modal-card-head\" style=\"margin-bottom: 0;\">\n        <p class=\"modal-card-title\">Add new source</p>\n      </header>\n      <section class=\"modal-card-body\">\n        <b-field label=\"Author\"\n                 :type=\"{'is-danger': errors.has('source-author')}\"\n                 :message=\"errors.first('source-author')\">\n          <b-input v-model=\"formData.author\"\n                   name=\"source-author\"\n                   v-validate=\"'required'\"\n                   data-vv-as=\"author\">\n          </b-input>\n        </b-field>\n        <b-field label=\"Year\"\n                 :type=\"{'is-danger': errors.has('source-year')}\"\n                 :message=\"errors.first('source-year')\">\n          <b-input v-model=\"formData.year\"\n                   name=\"source-year\"\n                   v-validate=\"'required'\"\n                   data-vv-as=\"year\">\n          </b-input>\n        </b-field>\n        <input type=\"hidden\"\n               v-model=\"formData.long\"\n               name=\"source-long\"\n               v-validate=\"'required'\"\n               data-vv-as=\"full citation\"\n        />\n        <b-field label=\"Full citation\"\n                 :type=\"{'is-danger': errors.has('source-long')}\"\n                 :message=\"errors.first('source-long')\">\n          <wysiwyg v-model=\"formData.long\"></wysiwyg>\n        </b-field>\n        <b-field label=\"URL\">\n          <b-input v-model=\"formData.url\"></b-input>\n        </b-field>\n        <b-field label=\"Notes\">\n          <wysiwyg v-model=\"formData.notes\"></wysiwyg>\n        </b-field>\n        <footer class=\"modal-card-foot\">\n          <a class=\"button is-primary has-text-grey-dark\"\n             @click=\"onSubmit\"\n             :disabled=\"errors.any()\">\n             Submit\n          </a>\n          <a class=\"button is-danger\" @click=\"$parent.close()\">Cancel</a>\n        </footer>\n      </section>\n    </div>\n  ",
-  data: function data() {
-    return {
-      formData: {
-        author: '',
-        year: '',
-        long: '',
-        url: '',
-        notes: ''
-      }
-    };
-  },
-  $_veeValidate: {
-    validator: 'new'
-  },
-  methods: {
-    onSubmit: function onSubmit() {
-      var _this = this;
+=======
 
-      this.$validator.validateAll();
-
-      if (!this.errors.any()) {
-        axios.post('/sources', this.formData).then(function (response) {
-          _this.$emit('change', response.data);
-
-          _this.$parent.close();
-        }).catch(function (error) {
-          console.error(error);
-        });
-      }
-    }
-  }
-};
-var DescriptionModal = {
-  props: ['source'],
-  data: function data() {
-    return {
-      description: ''
-    };
-  },
-  template: "\n    <div class=\"modal-card\" style=\"width: auto\">\n      <header class=\"modal-card-head\" style=\"margin-bottom: 0;\">\n        <p class=\"modal-card-title\">Description of {{ source.author }} ({{ source.year }})</p>\n      </header>\n      <section class=\"modal-card-body\">\n        <wysiwyg v-model=\"description\"></wysiwyg>\n        <footer class=\"modal-card-foot\">\n          <a class=\"button is-primary has-text-grey-dark\"\n             @click=\"onSubmit\">\n             Save\n          </a>\n          <a class=\"button is-danger\" @click=\"$parent.close()\">Cancel</a>\n        </footer>\n      </section>\n    </div>\n  ",
-  created: function created() {
-    this.description = this.source.pivot.description;
-  },
-  methods: {
-    onSubmit: function onSubmit() {
-      this.source.pivot.description = this.description;
-      this.$parent.close();
-    }
-  }
-};
 /* harmony default export */ __webpack_exports__["a"] = ({
-  components: {
-    NewSource: NewSource,
-    DescriptionModal: DescriptionModal
+  props: {
+    disabled: {
+      default: false
+    },
+    startHidden: {
+      default: false
+    },
+    typewriterId: {
+      default: null
+    },
+    options: {
+      default: function _default() {
+        return {
+          size: 1
+        };
+      }
+    }
   },
-  props: ['value'],
+>>>>>>> Remove old morpheme tag input component
   data: function data() {
     return {
-      sources: [],
-      ajaxList: [],
-      loading: false,
-      isNewSourceModalOpen: false,
-      isDescriptionModalOpen: false,
-      descriptionSource: {
-        source: {}
-      }
+      show: false,
+      turnedOff: false,
+      chars: __WEBPACK_IMPORTED_MODULE_0__util_SpecialCharacters__["a" /* dictionary */],
+      keys: []
     };
   },
+  computed: {
+    inputField: function inputField() {
+      var defaultSlot = this.$slots.default[0].elm;
+
+      if (defaultSlot.className.includes("input")) {
+        return defaultSlot;
+      }
+
+      return defaultSlot.getElementsByClassName("input")[0];
+    },
+    shouldShow: function shouldShow() {
+      return this.show && !this.disabled && !this.turnedOff;
+    },
+    portalName: function portalName() {
+      var name = 'typewriter-toggle';
+
+      if (this.typewriterId !== null) {
+        name += '-' + this.typewriterId;
+      }
+
+      return name;
+    }
+  },
+  created: function created() {
+    if (this.startHidden) {
+      this.turnedOff = true;
+    }
+  },
   methods: {
-    onAutocompleteKeyUp: function onAutocompleteKeyUp(event) {
-      if (event.key.length == 1) {
-        this.loadSources(event.target.value);
-      }
+    onFocusIn: function onFocusIn() {
+      this.show = true;
     },
-    loadSources: _.debounce(function (query) {
-      var _this2 = this;
-
-      this.loading = true;
-      axios.get('/autocomplete/sources', {
-        params: {
-          term: query
-        }
-      }).then(function (response) {
-        _this2.loading = false;
-        _this2.ajaxList = response.data;
-      }).catch(function (error) {
-        console.error(error);
-      });
-    }, 500),
-    addSource: function addSource(source) {
-      if (source) {
-        // Give the source extra_info and description fields, and make them
-        // reactive
-        var pivot = {
-          extra_info: '',
-          description: ''
-        };
-        this.$set(source, 'pivot', pivot);
-        var newValue = this.value.clone();
-        newValue.push(source);
-        this.$emit('input', newValue);
-      }
+    onFocusOut: function onFocusOut() {
+      this.show = false;
     },
-    removeTags: function removeTags(string) {
-      var all = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+    toggle: function toggle() {
+      this.inputField.focus();
 
-      if (all) {
-        string = string.replace(/<[^>]+>/g, '');
+      if (this.shouldShow) {
+        this.turnedOff = true;
       } else {
-        var match = string.match(/<([^\s>]+)[^>]*>(.*)<\/\1>/);
+        this.turnedOff = false;
+        this.show = true;
+      }
+    },
+    getPosition: function getPosition() {
+      if (this.inputField.tagName == 'DIV') {
+        this.cursorPosition = window.getSelection().anchorOffset;
+      } else {
+        this.cursorPosition = this.inputField.selectionStart;
+      }
+    },
+    insertCharacter: function insertCharacter(char) {
+      var event = new Event('input', {
+        'bubbles': true,
+        'cancelable': true
+      });
 
-        if (match) {
-          string = match[2];
-        }
+      if (this.inputField.tagName == 'DIV') {
+        var initialLength = this.inputField.innerHTML.length;
+        this.inputField.innerHTML = this.insertCharacterIntoString(this.inputField.innerHTML, char, this.cursorPosition);
+        this.cursorPosition += this.inputField.innerHTML.length - initialLength;
+      } else {
+        var _initialLength = this.inputField.value.length;
+        this.inputField.value = this.insertCharacterIntoString(this.inputField.value, char, this.cursorPosition);
+        this.cursorPosition += this.inputField.value.length - _initialLength;
       }
 
-      return string.replace('&nbsp;', ' ');
+      this.inputField.dispatchEvent(event);
+
+      if (this.inputField.tagName == 'DIV') {
+        var range = document.createRange();
+        var selection = window.getSelection();
+        var line = this.inputField.childNodes[0];
+        range.setStart(line, this.cursorPosition);
+        range.setEnd(line, this.cursorPosition);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      } else {
+        this.inputField.selectionStart = this.cursorPosition;
+        this.inputField.selectionEnd = this.cursorPosition;
+      }
     },
-    removeSource: function removeSource(index) {
-      var newValue = this.value.clone();
-      newValue.splice(index, 1);
-      this.$emit('input', newValue);
+    insertCharacterIntoString: function insertCharacterIntoString(oldText, char, index) {
+      var merged = char.insertInto(oldText, index);
+      return merged;
     },
-    openDescriptionModal: function openDescriptionModal(source) {
-      this.descriptionSource.source = source;
-      this.isDescriptionModalOpen = true;
+    onKeyDown: function onKeyDown(event) {
+      if (event.altKey) {
+        var triggered = null;
+
+        for (var i = 0; i < this.chars.length && !triggered; i++) {
+          triggered = this.chars[i].find(function (char) {
+            return char.triggeredBy(event.key);
+          });
+        }
+
+        if (triggered) {
+          event.preventDefault();
+          this.insertCharacter(triggered);
+        }
+      }
     }
 >>>>>>> Start working on initial change
   }
@@ -387,10 +402,14 @@ var DescriptionModal = {
 /***/ }),
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/FormFilter.vue?vue&type=style&index=0&lang=scss&":
 =======
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Sources.vue?vue&type=style&index=0&lang=sass&":
 >>>>>>> Start working on initial change
+=======
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Typewriter.vue?vue&type=style&index=0&lang=scss&":
+>>>>>>> Remove old morpheme tag input component
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
@@ -399,10 +418,14 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 // module
 <<<<<<< HEAD
+<<<<<<< HEAD
 exports.push([module.i, "\n.table tbody tr:last-child td {\n  border-bottom-width: thin;\n}\n.alg-form-filter .table-note {\n  font-style: italic;\n}\n.alg-form-filter .level {\n  margin-bottom: .5em;\n}\n.alg-form-filter .filter-panel {\n  margin-top: 1em;\n}\n", ""]);
 =======
 exports.push([module.i, ".source-list {\n  margin-left: 1rem;\n}\n.source-list li:not(:first-child) {\n    margin-top: .75rem;\n}\n.source-list .source-entry {\n    display: flex;\n}\n.source-list .source-entry .source-long {\n      flex: 1;\n      max-width: 15rem;\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n      margin-right: 1rem;\n}\n.source-list .source-entry .source-extra-info {\n      flex: 2;\n}\n", ""]);
 >>>>>>> Start working on initial change
+=======
+exports.push([module.i, ".alg-typewriter-wrapper {\n  position: relative;\n}\n.alg-typewriter-wrapper .alg-typewriter {\n    position: absolute;\n    z-index: 1000;\n    padding: .5rem;\n}\n.alg-typewriter-wrapper .alg-typewriter .alg-typewriter-button {\n      width: 2rem;\n      height: 2rem;\n}\n", ""]);
+>>>>>>> Remove old morpheme tag input component
 
 // exports
 
@@ -410,20 +433,28 @@ exports.push([module.i, ".source-list {\n  margin-left: 1rem;\n}\n.source-list l
 /***/ }),
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/FormFilter.vue?vue&type=style&index=0&lang=scss&":
 =======
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Sources.vue?vue&type=style&index=0&lang=sass&":
 >>>>>>> Start working on initial change
+=======
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Typewriter.vue?vue&type=style&index=0&lang=scss&":
+>>>>>>> Remove old morpheme tag input component
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
 <<<<<<< HEAD
+<<<<<<< HEAD
 var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/FormFilter.vue?vue&type=style&index=0&lang=scss&");
 =======
 var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Sources.vue?vue&type=style&index=0&lang=sass&");
 >>>>>>> Start working on initial change
+=======
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Typewriter.vue?vue&type=style&index=0&lang=scss&");
+>>>>>>> Remove old morpheme tag input component
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -438,12 +469,17 @@ if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FormFilter.vue?vue&type=style&index=0&lang=scss&", function() {
 			var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FormFilter.vue?vue&type=style&index=0&lang=scss&");
 =======
 		module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Sources.vue?vue&type=style&index=0&lang=sass&", function() {
 			var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Sources.vue?vue&type=style&index=0&lang=sass&");
 >>>>>>> Start working on initial change
+=======
+		module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Typewriter.vue?vue&type=style&index=0&lang=scss&", function() {
+			var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Typewriter.vue?vue&type=style&index=0&lang=scss&");
+>>>>>>> Remove old morpheme tag input component
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -455,10 +491,14 @@ if(false) {
 /***/ }),
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/FormFilter.vue?vue&type=template&id=311760d3&":
 =======
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Sources.vue?vue&type=template&id=3d461bd1&":
 >>>>>>> Start working on initial change
+=======
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Typewriter.vue?vue&type=template&id=32be61b8&":
+>>>>>>> Remove old morpheme tag input component
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -793,167 +833,86 @@ var render = function() {
 =======
   return _c(
     "div",
+    {
+      staticClass: "alg-typewriter-wrapper",
+      on: {
+        focusin: _vm.onFocusIn,
+        focusout: _vm.onFocusOut,
+        keydown: function($event) {
+          _vm.onKeyDown($event)
+        }
+      }
+    },
     [
-      _c(
-        "b-field",
-        [
-          _c("b-autocomplete", {
-            attrs: {
-              data: _vm.ajaxList,
-              field: "name",
-              loading: _vm.loading,
-              "clear-on-select": true,
-              expanded: "",
-              placeholder: "Look up an existing source"
-            },
-            on: { select: _vm.addSource },
-            nativeOn: {
-              keyup: function($event) {
-                _vm.onAutocompleteKeyUp($event)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("p", { staticClass: "control" }, [
-            _c(
-              "a",
+      _c("transition", { attrs: { name: "fade" } }, [
+        _c(
+          "ul",
+          {
+            directives: [
               {
-                staticClass: "button is-info",
-                attrs: { title: "Add a new source" },
-                on: {
-                  click: function($event) {
-                    _vm.isNewSourceModalOpen = true
-                  }
-                }
-              },
-              [
-                _c("span", { staticClass: "icon" }, [
-                  _c("i", { staticClass: "fas fa-ellipsis-h" })
-                ])
-              ]
-            )
-          ])
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "ol",
-        { staticClass: "source-list", staticStyle: { "margin-left": "1rem" } },
-        _vm._l(_vm.value, function(source, i) {
-          return _c("li", [
-            _c(
-              "div",
-              { staticClass: "source-entry" },
-              [
-                _c("input", {
-                  attrs: { type: "hidden", name: "sources[" + i + "][id]" },
-                  domProps: { value: source.id }
-                }),
-                _vm._v(" "),
-                _c("input", {
-                  attrs: {
-                    type: "hidden",
-                    name: "sources[" + i + "][description]"
-                  },
-                  domProps: { value: source.pivot.description }
-                }),
-                _vm._v(" "),
-                _c("p", {
-                  staticClass: "source-long",
-                  attrs: { title: _vm.removeTags(source.long, true) },
-                  domProps: { innerHTML: _vm._s(_vm.removeTags(source.long)) }
-                }),
-                _vm._v(" "),
-                _c("b-input", {
-                  staticClass: "source-extra-info",
-                  attrs: { name: "sources[" + i + "][extra_info]" },
-                  model: {
-                    value: source.pivot.extra_info,
-                    callback: function($$v) {
-                      _vm.$set(source.pivot, "extra_info", $$v)
-                    },
-                    expression: "source.pivot.extra_info"
-                  }
-                }),
-                _vm._v(" "),
-                _c(
+                name: "show",
+                rawName: "v-show",
+                value: _vm.shouldShow,
+                expression: "shouldShow"
+              }
+            ],
+            staticClass: "box alg-typewriter",
+            style: { bottom: _vm.options.size + "rem" }
+          },
+          _vm._l(_vm.chars, function(charset) {
+            return _c(
+              "li",
+              _vm._l(charset, function(char) {
+                return _c(
                   "a",
                   {
-                    staticClass: "button",
-                    class: {
-                      "is-info":
-                        source.pivot.description &&
-                        source.pivot.description.length > 0
-                    },
-                    attrs: { title: "Add description" },
+                    staticClass: "button alg-typewriter-button",
+                    attrs: { title: char.getCommand() },
                     on: {
                       click: function($event) {
-                        _vm.openDescriptionModal(source)
+                        _vm.insertCharacter(char)
+                      },
+                      mousedown: function($event) {
+                        $event.preventDefault()
+                        return _vm.getPosition($event)
                       }
                     }
                   },
-                  [_vm._m(0, true)]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "button is-danger",
-                    attrs: { title: "Remove source" },
-                    on: {
-                      click: function($event) {
-                        _vm.removeSource(i)
-                      }
-                    }
-                  },
-                  [_vm._m(1, true)]
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(char.symbol) +
+                        "\n                "
+                    )
+                  ]
                 )
-              ],
-              1
+              }),
+              0
             )
-          ])
-        }),
-        0
-      ),
+          }),
+          0
+        )
+      ]),
       _vm._v(" "),
-      _c(
-        "b-modal",
-        {
-          attrs: { active: _vm.isDescriptionModalOpen, "has-modal-card": "" },
-          on: {
-            "update:active": function($event) {
-              _vm.isDescriptionModalOpen = $event
-            }
-          }
-        },
-        [
-          _c(
-            "description-modal",
-            _vm._b({}, "description-modal", _vm.descriptionSource, false)
-          )
-        ],
-        1
-      ),
+      _vm._t("default"),
       _vm._v(" "),
-      _c(
-        "b-modal",
-        {
-          attrs: { active: _vm.isNewSourceModalOpen, "has-modal-card": "" },
-          on: {
-            "update:active": function($event) {
-              _vm.isNewSourceModalOpen = $event
-            }
-          }
-        },
-        [_c("new-source", { on: { change: _vm.addSource } })],
-        1
-      )
+      _c("portal", { attrs: { to: _vm.portalName } }, [
+        _c(
+          "a",
+          {
+            staticClass: "button",
+            attrs: { title: "Special characters" },
+            on: { click: _vm.toggle }
+          },
+          [_c("i", { staticClass: "fa fa-keyboard-o" })]
+        )
+      ])
     ],
-    1
+    2
   )
 >>>>>>> Start working on initial change
 }
+<<<<<<< HEAD
 var staticRenderFns = [
   function() {
     var _vm = this
@@ -995,6 +954,9 @@ var staticRenderFns = [
 >>>>>>> Start working on initial change
   }
 ]
+=======
+var staticRenderFns = []
+>>>>>>> Remove old morpheme tag input component
 render._withStripped = true
 
 
@@ -1002,14 +964,19 @@ render._withStripped = true
 /***/ }),
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /***/ "./resources/assets/js/components/FormFilter.vue":
 =======
 /***/ "./resources/assets/js/components/Sources.vue":
 >>>>>>> Start working on initial change
+=======
+/***/ "./resources/assets/js/components/Typewriter.vue":
+>>>>>>> Remove old morpheme tag input component
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+<<<<<<< HEAD
 <<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__FormFilter_vue_vue_type_template_id_311760d3___ = __webpack_require__("./resources/assets/js/components/FormFilter.vue?vue&type=template&id=311760d3&");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__FormFilter_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/FormFilter.vue?vue&type=script&lang=js&");
@@ -1021,6 +988,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* empty harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Sources_vue_vue_type_style_index_0_lang_sass___ = __webpack_require__("./resources/assets/js/components/Sources.vue?vue&type=style&index=0&lang=sass&");
 >>>>>>> Start working on initial change
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Typewriter_vue_vue_type_template_id_32be61b8___ = __webpack_require__("./resources/assets/js/components/Typewriter.vue?vue&type=template&id=32be61b8&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Typewriter_vue_vue_type_script_lang_js___ = __webpack_require__("./resources/assets/js/components/Typewriter.vue?vue&type=script&lang=js&");
+/* empty harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Typewriter_vue_vue_type_style_index_0_lang_scss___ = __webpack_require__("./resources/assets/js/components/Typewriter.vue?vue&type=style&index=0&lang=scss&");
+>>>>>>> Remove old morpheme tag input component
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_vue_loader_lib_runtime_componentNormalizer_js__ = __webpack_require__("./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1032,6 +1005,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 var component = Object(__WEBPACK_IMPORTED_MODULE_3__node_modules_vue_loader_lib_runtime_componentNormalizer_js__["a" /* default */])(
 <<<<<<< HEAD
+<<<<<<< HEAD
   __WEBPACK_IMPORTED_MODULE_1__FormFilter_vue_vue_type_script_lang_js___["a" /* default */],
   __WEBPACK_IMPORTED_MODULE_0__FormFilter_vue_vue_type_template_id_311760d3___["a" /* render */],
   __WEBPACK_IMPORTED_MODULE_0__FormFilter_vue_vue_type_template_id_311760d3___["b" /* staticRenderFns */],
@@ -1040,6 +1014,11 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_3__node_modules_vue_loader_lib_
   __WEBPACK_IMPORTED_MODULE_0__Sources_vue_vue_type_template_id_3d461bd1___["a" /* render */],
   __WEBPACK_IMPORTED_MODULE_0__Sources_vue_vue_type_template_id_3d461bd1___["b" /* staticRenderFns */],
 >>>>>>> Start working on initial change
+=======
+  __WEBPACK_IMPORTED_MODULE_1__Typewriter_vue_vue_type_script_lang_js___["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_0__Typewriter_vue_vue_type_template_id_32be61b8___["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_0__Typewriter_vue_vue_type_template_id_32be61b8___["b" /* staticRenderFns */],
+>>>>>>> Remove old morpheme tag input component
   false,
   null,
   null,
@@ -1055,6 +1034,7 @@ if (false) {
     module.hot.accept()
     if (!module.hot.data) {
 <<<<<<< HEAD
+<<<<<<< HEAD
       api.createRecord('311760d3', component.options)
     } else {
       api.reload('311760d3', component.options)
@@ -1063,12 +1043,20 @@ if (false) {
       api.rerender('311760d3', {
 =======
       api.createRecord('3d461bd1', component.options)
+=======
+      api.createRecord('32be61b8', component.options)
+>>>>>>> Remove old morpheme tag input component
     } else {
-      api.reload('3d461bd1', component.options)
+      api.reload('32be61b8', component.options)
     }
+<<<<<<< HEAD
     module.hot.accept("./Sources.vue?vue&type=template&id=3d461bd1&", function () {
       api.rerender('3d461bd1', {
 >>>>>>> Start working on initial change
+=======
+    module.hot.accept("./Typewriter.vue?vue&type=template&id=32be61b8&", function () {
+      api.rerender('32be61b8', {
+>>>>>>> Remove old morpheme tag input component
         render: render,
         staticRenderFns: staticRenderFns
       })
@@ -1076,14 +1064,19 @@ if (false) {
   }
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 component.options.__file = "resources/assets/js/components/FormFilter.vue"
 =======
 component.options.__file = "resources/assets/js/components/Sources.vue"
 >>>>>>> Start working on initial change
+=======
+component.options.__file = "resources/assets/js/components/Typewriter.vue"
+>>>>>>> Remove old morpheme tag input component
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /***/ "./resources/assets/js/components/FormFilter.vue?vue&type=script&lang=js&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -1115,34 +1108,43 @@ component.options.__file = "resources/assets/js/components/Sources.vue"
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormFilter_vue_vue_type_template_id_311760d3___["b"]; });
 =======
 /***/ "./resources/assets/js/components/Sources.vue?vue&type=script&lang=js&":
+=======
+/***/ "./resources/assets/js/components/Typewriter.vue?vue&type=script&lang=js&":
+>>>>>>> Remove old morpheme tag input component
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Sources_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Sources.vue?vue&type=script&lang=js&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Typewriter_vue_vue_type_script_lang_js___ = __webpack_require__("./node_modules/babel-loader/lib/index.js??ref--4-0!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Typewriter.vue?vue&type=script&lang=js&");
 /* unused harmony namespace reexport */
- /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Sources_vue_vue_type_script_lang_js___["a" /* default */]); 
+ /* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Typewriter_vue_vue_type_script_lang_js___["a" /* default */]); 
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/Sources.vue?vue&type=style&index=0&lang=sass&":
+/***/ "./resources/assets/js/components/Typewriter.vue?vue&type=style&index=0&lang=scss&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Sources_vue_vue_type_style_index_0_lang_sass___ = __webpack_require__("./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Sources.vue?vue&type=style&index=0&lang=sass&");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Sources_vue_vue_type_style_index_0_lang_sass____default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Sources_vue_vue_type_style_index_0_lang_sass___);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Typewriter_vue_vue_type_style_index_0_lang_scss___ = __webpack_require__("./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Typewriter.vue?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Typewriter_vue_vue_type_style_index_0_lang_scss____default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Typewriter_vue_vue_type_style_index_0_lang_scss___);
 /* unused harmony reexport namespace */
- /* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0__node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Sources_vue_vue_type_style_index_0_lang_sass____default.a); 
+ /* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0__node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_node_modules_vue_loader_lib_index_js_vue_loader_options_Typewriter_vue_vue_type_style_index_0_lang_scss____default.a); 
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/Sources.vue?vue&type=template&id=3d461bd1&":
+/***/ "./resources/assets/js/components/Typewriter.vue?vue&type=template&id=32be61b8&":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Sources_vue_vue_type_template_id_3d461bd1___ = __webpack_require__("./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Sources.vue?vue&type=template&id=3d461bd1&");
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Sources_vue_vue_type_template_id_3d461bd1___["a"]; });
 /* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Sources_vue_vue_type_template_id_3d461bd1___["b"]; });
 >>>>>>> Start working on initial change
+=======
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Typewriter_vue_vue_type_template_id_32be61b8___ = __webpack_require__("./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/Typewriter.vue?vue&type=template&id=32be61b8&");
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Typewriter_vue_vue_type_template_id_32be61b8___["a"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Typewriter_vue_vue_type_template_id_32be61b8___["b"]; });
+>>>>>>> Remove old morpheme tag input component
 
 
 /***/ })

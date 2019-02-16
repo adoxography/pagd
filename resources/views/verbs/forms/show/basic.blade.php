@@ -2,6 +2,14 @@
 
 @section('details')
 <div class="details">
+    {{-- Language --}}
+    <div class="detail-row">
+        <label class="detail-label">Language</label>
+        <div class="detail-value">
+            {!! $form->language->present('link') !!}
+        </div>
+    </div>
+
     <div class="detail-row">
         <label class="detail-label">Features</label>
         <div class="detail-value">{!! $form->structure->present()->then('modifiers') !!} (<a href="/verbs/search/paradigm/results?languages%5B%5D={{ $form->language->name }}&languages%5B%5D_id={{ $form->language_id }}&classes[]={{ $form->structure->class_id }}&subclasses[]={{ urlencode($form->structure->subclass) }}&orders[]={{ $form->structure->order_id }}&affirmative={{ $form->structure->isNegative ? '0' : '1' }}&negative={{ $form->structure->isNegative or '0' }}&diminutive={{ $form->structure->isDiminutive or '0' }}&modeSelect=selectModes&modes[]={{ $form->structure->mode_id }}">view paradigm</a>)</div>
@@ -18,9 +26,13 @@
         <label class="detail-label">Examples</label>
         <div class="detail-value">
             @if($form->examples->count() > 0)
-            @foreach($form->examples as $example)
-            {!! $example->present('link') !!} {{ $example->translation }}
-            @endforeach
+            <ul>
+                @foreach($form->examples as $example)
+                <li>
+                {!! $example->present('link') !!} {{ $example->translation }}
+                </li>
+                @endforeach
+            </ul>
             @else
             None in the database
             @endif

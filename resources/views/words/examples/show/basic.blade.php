@@ -2,6 +2,14 @@
 
 @section('details')
 <div class="details">
+    {{-- Language --}}
+    <div class="detail-row">
+        <label class="detail-label">Language</label>
+        <div class="detail-value">
+            {!! $example->language->present('link') !!}
+        </div>
+    </div>
+
     {{-- Form --}}
     @if($example->form)
     <div class="detail-row">
@@ -25,19 +33,21 @@
     <div class="detail-row">
         <label class="detail-label">Translation</label>
         <div class="detail-value">
-            {{ $example->translation }}
+            "{{ $example->translation }}"
         </div>
     </div>
 
     {{-- Parent --}}
-    @if($example->parent)
     <div class="detail-row">
         <label class="detail-label">Parent</label>
         <div class="detail-value">
+            @if($example->parent)
             {{ $example->parent->present('link')->then('language')->as('link') }}
+            @else
+            Not recorded in the database
+            @endif
         </div>
     </div>
-    @endif
 
     {{-- Public notes --}}
     @isset($form->public_notes)

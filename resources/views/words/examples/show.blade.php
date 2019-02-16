@@ -3,7 +3,7 @@
 @section('title')
 <h2 class="subtitle is-5 is-uppercase has-text-grey-darker has-text-weight-bold">Example details</h2>
 <h1 class="title is-4">
-    {!! $example->present()->then('language')->as('link', optional($example->form)->structure_type == 'nominalStructure' ? 'nominals' : 'verbs') !!}
+    {!! $example->present() !!}
 </h1>
 @endsection
 

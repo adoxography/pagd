@@ -355,7 +355,7 @@ class Morpheme extends Model implements PhonemeableInterface
                     if (count($lookup) > 0) {
                         $currGloss = "<span class='gloss'><a href='/glosses/" . $lookup->first()->id . "' $colourHTML>" . $lookup->first()->abv . "</a></span>";
                     } elseif ($showAlert) {
-                        $currGloss = "<span class='gloss'>$glossText</span><alg-morpheme-alert title='Gloss missing'><a href='/glosses/create?abv=$glossText'>Add <span class='gloss'>$glossText</span></a></alg-morpheme-alert>";
+                        $currGloss = "<span class='gloss'>$glossText</span>" . popupAlert('Gloss missing', "<a href='/glosses/create?abv=$glossText'>Add <span class='gloss'>$glossText</span></a>");
                     } else {
                         $currGloss = "<span class='gloss'>$glossText</span>";
                     }

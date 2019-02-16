@@ -320,7 +320,7 @@ trait HasMorphemes
             }
         }
 
-        return "<alg-morpheme-alert title='$title'>$options</alg-morpheme-alert>";
+        return popupAlert($title, $options);
     }
 
     /**

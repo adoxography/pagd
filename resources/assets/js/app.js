@@ -30,7 +30,6 @@ Vue.component('alg-sources',        resolve => { require(['./components/Sources.
 Vue.component('alg-paginated-list', resolve => { require(['./components/Paginated-List.vue'], resolve); });
 Vue.component('alg-filter-list',    resolve => { require(['./components/Filter-List.vue'], resolve); });
 Vue.component('alg-notification',   require('./components/Notification.vue').default);
-Vue.component('alg-morpheme-alert', resolve => { require(['./components/Morpheme-Alert.vue'], resolve); });
 Vue.component('alg-initial-changes', resolve => { require(['./components/Initial-Changes.vue'], resolve); });
 Vue.component('alg-bookmark',        require('./components/Bookmark.vue').default);
 Vue.component('alg-modal',           resolve => { require(['./components/Modal.vue'], resolve); });

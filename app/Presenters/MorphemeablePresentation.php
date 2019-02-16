@@ -78,23 +78,6 @@ trait MorphemeablePresentation
         return preg_replace('/[^A-Z]+/', '<i>$0</i>', $morpheme);
     }
 
-    protected function createMorphemeAlert($title, $body)
-    {
-        return <<<HTML
-<v-popover trigger="hover">
-    <a class="icon is-danger">
-        <span class="icon is-small">
-            <i class="fas fa-exclamation-triangle"></i>
-        </span>
-    </a>
-    <template slot="popover">
-        <p>$title</p>
-        $body
-    </template>
-</v-popover>
-HTML;
-    }
-
     protected function createMorphemeAssumptionAlert($morpheme, int $index)
     {
         $model = $this->getModel();
@@ -113,7 +96,7 @@ HTML;
 </form>
 HTML;
 
-        return $this->createMorphemeAlert($title, $body);
+        return popupAlert($title, $body);
     }
 
     protected function createUnknownMorphemeAlert($morpheme, int $index)
@@ -157,7 +140,7 @@ HTML;
 
         $body = "<ul>$body</ul>";
 
-        return $this->createMorphemeAlert($title, $body);
+        return popupAlert($title, $body);
     }
 
     protected function createMissingMorphemeAlert($morpheme, int $index)
@@ -170,7 +153,7 @@ HTML;
             $body = "<a href='/".strtolower(isset($this->model->uri) ? $this->model->uri : $this->model->table)."/{$this->model->id}/edit'>Declare a morphemic form</a>";
         }
 
-        return $this->createMorphemeAlert($title, $body);
+        return popupAlert($title, $body);
     }
 
     protected function getModel()

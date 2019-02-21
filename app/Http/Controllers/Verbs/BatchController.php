@@ -87,6 +87,9 @@ class BatchController extends Controller
                     'head' => $row[12]
                 ];
 
+                // Ensure that the head value is in camelCase format
+                $structureData['head'] = lcfirst(str_replace(ucwords($structureData['head'])));
+
                 // Extract the data for building the form
                 $formData = [
                     'name' => $row[0],

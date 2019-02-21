@@ -265,21 +265,23 @@ function normalizeRadios(parent) {
         }
       }
 
-      var _arr6 = Object.entries(this.prefetch);
+      if (this.prefetch) {
+        var _arr6 = Object.entries(this.prefetch);
 
-      for (var _i6 = 0; _i6 < _arr6.length; _i6++) {
-        var _arr6$_i = _slicedToArray(_arr6[_i6], 2),
-            name = _arr6$_i[0],
-            prefetches = _arr6$_i[1];
+        for (var _i6 = 0; _i6 < _arr6.length; _i6++) {
+          var _arr6$_i = _slicedToArray(_arr6[_i6], 2),
+              name = _arr6$_i[0],
+              prefetches = _arr6$_i[1];
 
-        var _arr7 = Object.entries(prefetches);
+          var _arr7 = Object.entries(prefetches);
 
-        for (var _i7 = 0; _i7 < _arr7.length; _i7++) {
-          var _arr7$_i = _slicedToArray(_arr7[_i7], 2),
-              prefetchName = _arr7$_i[0],
-              _2 = _arr7$_i[1];
+          for (var _i7 = 0; _i7 < _arr7.length; _i7++) {
+            var _arr7$_i = _slicedToArray(_arr7[_i7], 2),
+                prefetchName = _arr7$_i[0],
+                _2 = _arr7$_i[1];
 
-          this.prefetchLists[prefetchName] = [];
+            this.prefetchLists[prefetchName] = [];
+          }
         }
       }
     },

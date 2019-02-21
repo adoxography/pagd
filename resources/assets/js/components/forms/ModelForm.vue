@@ -150,9 +150,11 @@ export default {
         }
       }
 
-      for (let [name, prefetches] of Object.entries(this.prefetch)) {
-        for (let [prefetchName, _] of Object.entries(prefetches)) {
-          this.prefetchLists[prefetchName] = [];
+      if (this.prefetch) {
+        for (let [name, prefetches] of Object.entries(this.prefetch)) {
+          for (let [prefetchName, _] of Object.entries(prefetches)) {
+            this.prefetchLists[prefetchName] = [];
+          }
         }
       }
     },

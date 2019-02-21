@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Nominals;
 use App\Http\Requests\Nominals\FormRequest;
 use App\Models\Nominals\Form;
 use App\Traits\HandlesAsyncFormRequests;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AlgModelController;
 
-class FormController extends Controller
+class FormController extends AlgModelController
 {
     use HandlesAsyncFormRequests;
 

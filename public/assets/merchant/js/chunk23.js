@@ -47,7 +47,7 @@ var render = function() {
           staticClass: "button",
           on: {
             click: function($event) {
-              _vm.toggle(true)
+              return _vm.toggle(true)
             }
           }
         },
@@ -60,7 +60,7 @@ var render = function() {
           staticClass: "button",
           on: {
             click: function($event) {
-              _vm.toggle(false)
+              return _vm.toggle(false)
             }
           }
         },

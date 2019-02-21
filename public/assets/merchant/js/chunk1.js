@@ -4328,7 +4328,7 @@ var render = function() {
             nativeOn: {
               keyup: function($event) {
                 if (
-                  !("button" in $event) &&
+                  !$event.type.indexOf("key") &&
                   _vm._k($event.keyCode, "esc", 27, $event.key, [
                     "Esc",
                     "Escape"
@@ -4342,7 +4342,7 @@ var render = function() {
               keydown: [
                 function($event) {
                   if (
-                    !("button" in $event) &&
+                    !$event.type.indexOf("key") &&
                     _vm._k($event.keyCode, "tab", 9, $event.key, "Tab")
                   ) {
                     return null
@@ -4351,7 +4351,7 @@ var render = function() {
                 },
                 function($event) {
                   if (
-                    !("button" in $event) &&
+                    !$event.type.indexOf("key") &&
                     _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
                   ) {
                     return null
@@ -4361,7 +4361,7 @@ var render = function() {
                 },
                 function($event) {
                   if (
-                    !("button" in $event) &&
+                    !$event.type.indexOf("key") &&
                     _vm._k($event.keyCode, "up", 38, $event.key, [
                       "Up",
                       "ArrowUp"
@@ -4370,11 +4370,11 @@ var render = function() {
                     return null
                   }
                   $event.preventDefault()
-                  _vm.keyArrows("up")
+                  return _vm.keyArrows("up")
                 },
                 function($event) {
                   if (
-                    !("button" in $event) &&
+                    !$event.type.indexOf("key") &&
                     _vm._k($event.keyCode, "down", 40, $event.key, [
                       "Down",
                       "ArrowDown"
@@ -4383,7 +4383,7 @@ var render = function() {
                     return null
                   }
                   $event.preventDefault()
-                  _vm.keyArrows("down")
+                  return _vm.keyArrows("down")
                 }
               ]
             },
@@ -4455,7 +4455,7 @@ var render = function() {
                       class: { "is-hovered": option === _vm.hovered },
                       on: {
                         click: function($event) {
-                          _vm.setSelected(option)
+                          return _vm.setSelected(option)
                         }
                       }
                     },
@@ -4672,11 +4672,11 @@ var render = function() {
           },
           on: {
             click: function($event) {
-              _vm.close()
+              return _vm.close()
             },
             keyup: function($event) {
               if (
-                !("button" in $event) &&
+                !$event.type.indexOf("key") &&
                 _vm._k($event.keyCode, "delete", [8, 46], $event.key, [
                   "Backspace",
                   "Delete",
@@ -4686,7 +4686,7 @@ var render = function() {
                 return null
               }
               $event.preventDefault()
-              _vm.close()
+              return _vm.close()
             }
           }
         })
@@ -4715,11 +4715,11 @@ var render = function() {
                 },
                 on: {
                   click: function($event) {
-                    _vm.close()
+                    return _vm.close()
                   },
                   keyup: function($event) {
                     if (
-                      !("button" in $event) &&
+                      !$event.type.indexOf("key") &&
                       _vm._k($event.keyCode, "delete", [8, 46], $event.key, [
                         "Backspace",
                         "Delete",
@@ -4729,7 +4729,7 @@ var render = function() {
                       return null
                     }
                     $event.preventDefault()
-                    _vm.close()
+                    return _vm.close()
                   }
                 }
               })
@@ -4788,7 +4788,7 @@ var render = function() {
                 },
                 on: {
                   close: function($event) {
-                    _vm.removeTag(index)
+                    return _vm.removeTag(index)
                   }
                 }
               },
@@ -4830,19 +4830,22 @@ var render = function() {
                         return _vm.keydown($event)
                       }
                     },
-                    scopedSlots: _vm._u([
-                      {
-                        key: _vm.defaultSlotName,
-                        fn: function(props) {
-                          return [
-                            _vm._t("default", null, {
-                              option: props.option,
-                              index: props.index
-                            })
-                          ]
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: _vm.defaultSlotName,
+                          fn: function(props) {
+                            return [
+                              _vm._t("default", null, {
+                                option: props.option,
+                                index: props.index
+                              })
+                            ]
+                          }
                         }
-                      }
-                    ]),
+                      ],
+                      true
+                    ),
                     model: {
                       value: _vm.newTag,
                       callback: function($$v) {
@@ -4862,6 +4865,7 @@ var render = function() {
                     [_vm._t("header")],
                     2
                   ),
+                  _vm._v(" "),
                   _vm._v(" "),
                   _c(
                     "template",
@@ -4893,16 +4897,16 @@ var render = function() {
                     )
                   ]
                 : _vm.maxtags
-                  ? [
-                      _vm._v(
-                        "\n            " +
-                          _vm._s(_vm.tagsLength) +
-                          " / " +
-                          _vm._s(_vm.maxtags) +
-                          "\n        "
-                      )
-                    ]
-                  : _vm._e()
+                ? [
+                    _vm._v(
+                      "\n            " +
+                        _vm._s(_vm.tagsLength) +
+                        " / " +
+                        _vm._s(_vm.maxtags) +
+                        "\n        "
+                    )
+                  ]
+                : _vm._e()
             ],
             2
           )
@@ -4977,7 +4981,7 @@ var render = function() {
                   },
                   on: {
                     close: function($event) {
-                      _vm.removeTag(index)
+                      return _vm.removeTag(index)
                     }
                   }
                 },
@@ -4987,7 +4991,7 @@ var render = function() {
                     {
                       on: {
                         click: function($event) {
-                          _vm.tagClicked(tag)
+                          return _vm.tagClicked(tag)
                         }
                       }
                     },
@@ -5040,19 +5044,22 @@ var render = function() {
                         return _vm.keydown($event)
                       }
                     },
-                    scopedSlots: _vm._u([
-                      {
-                        key: _vm.defaultSlotName,
-                        fn: function(props) {
-                          return [
-                            _vm._t("default", null, {
-                              option: props.option,
-                              index: props.index
-                            })
-                          ]
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: _vm.defaultSlotName,
+                          fn: function(props) {
+                            return [
+                              _vm._t("default", null, {
+                                option: props.option,
+                                index: props.index
+                              })
+                            ]
+                          }
                         }
-                      }
-                    ]),
+                      ],
+                      true
+                    ),
                     model: {
                       value: _vm.newTag,
                       callback: function($$v) {
@@ -5072,6 +5079,7 @@ var render = function() {
                     [_vm._t("header")],
                     2
                   ),
+                  _vm._v(" "),
                   _vm._v(" "),
                   _c(
                     "template",
@@ -5103,16 +5111,16 @@ var render = function() {
                     )
                   ]
                 : _vm.maxtags
-                  ? [
-                      _vm._v(
-                        "\n            " +
-                          _vm._s(_vm.tagsLength) +
-                          " / " +
-                          _vm._s(_vm.maxtags) +
-                          "\n        "
-                      )
-                    ]
-                  : _vm._e()
+                ? [
+                    _vm._v(
+                      "\n            " +
+                        _vm._s(_vm.tagsLength) +
+                        " / " +
+                        _vm._s(_vm.maxtags) +
+                        "\n        "
+                    )
+                  ]
+                : _vm._e()
             ],
             2
           )

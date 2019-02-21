@@ -84,7 +84,7 @@ var render = function() {
         class: { "is-disabled": _vm.value == 0 },
         on: {
           click: function($event) {
-            _vm.onClick(_vm.value - 1)
+            return _vm.onClick(_vm.value - 1)
           }
         }
       },
@@ -98,7 +98,7 @@ var render = function() {
         class: { "is-disabled": _vm.value == _vm.pages - 1 },
         on: {
           click: function($event) {
-            _vm.onClick(_vm.value + 1)
+            return _vm.onClick(_vm.value + 1)
           }
         }
       },
@@ -117,7 +117,7 @@ var render = function() {
               class: { "is-disabled": _vm.value == 0 },
               on: {
                 click: function($event) {
-                  _vm.onClick(0)
+                  return _vm.onClick(0)
                 }
               }
             },
@@ -161,7 +161,7 @@ var render = function() {
                   class: { "is-disabled": _vm.value == _vm.mid - 2 + n },
                   on: {
                     click: function($event) {
-                      _vm.onClick(_vm.mid - 2 + n)
+                      return _vm.onClick(_vm.mid - 2 + n)
                     }
                   }
                 },
@@ -212,7 +212,7 @@ var render = function() {
                 class: { "is-disabled": _vm.value == _vm.pages - 1 },
                 on: {
                   click: function($event) {
-                    _vm.onClick(_vm.pages - 1)
+                    return _vm.onClick(_vm.pages - 1)
                   }
                 }
               },

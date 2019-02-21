@@ -75,7 +75,7 @@ var render = function() {
       attrs: { active: _vm.activeTab },
       on: {
         tabChanged: function($event) {
-          _vm.onTabChanged($event)
+          return _vm.onTabChanged($event)
         }
       }
     },

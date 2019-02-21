@@ -86,7 +86,7 @@ var render = function() {
                   attrs: { href: tab.href },
                   on: {
                     click: function($event) {
-                      _vm.selectTab(tab)
+                      return _vm.selectTab(tab)
                     }
                   }
                 },

@@ -204,7 +204,7 @@ var render = function() {
                   },
                   on: {
                     change: function($event) {
-                      _vm.onFileChange($event.target.files, row)
+                      return _vm.onFileChange($event.target.files, row)
                     }
                   }
                 }),
@@ -258,7 +258,7 @@ var render = function() {
                         staticClass: "icon",
                         on: {
                           click: function($event) {
-                            _vm.onDelete(n)
+                            return _vm.onDelete(n)
                           }
                         }
                       },

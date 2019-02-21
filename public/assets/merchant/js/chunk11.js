@@ -156,7 +156,7 @@ var render = function() {
                 _vm.filter = $event.target.value
               },
               function($event) {
-                _vm.onFilter($event.target.value)
+                return _vm.onFilter($event.target.value)
               }
             ]
           }

@@ -234,7 +234,7 @@ var render = function() {
                           )
                         },
                         function($event) {
-                          _vm.onOrderChange($event.target.value)
+                          return _vm.onOrderChange($event.target.value)
                         }
                       ]
                     }

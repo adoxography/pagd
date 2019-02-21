@@ -420,7 +420,7 @@ var render = function() {
                           _vm.shape = $event.target.value
                         },
                         function($event) {
-                          _vm.debounceGetForms()
+                          return _vm.debounceGetForms()
                         }
                       ]
                     }
@@ -473,7 +473,7 @@ var render = function() {
                                 )
                               },
                               function($event) {
-                                _vm.getForms()
+                                return _vm.getForms()
                               }
                             ]
                           }
@@ -540,90 +540,88 @@ var render = function() {
     !_vm.forms
       ? _c("div", [_c("p", [_vm._v("Loading...")])])
       : _vm.forms.length > 0
-        ? _c(
-            "table",
-            { staticClass: "table" },
-            [
-              _c("thead", [
-                _c("tr", [
-                  _c("th", [
-                    _vm._v("\n          Forms\n          "),
-                    _c(
-                      "a",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.showAddButtons,
-                            expression: "showAddButtons"
-                          }
-                        ],
-                        staticClass: "icon add-icon",
-                        attrs: { href: _vm.addURI + _vm.formUri }
-                      },
-                      [_vm._m(1)]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("th", [
-                    _vm._v("\n          Examples\n          "),
-                    _c(
-                      "a",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.showAddButtons,
-                            expression: "showAddButtons"
-                          }
-                        ],
-                        staticClass: "icon add-icon",
-                        attrs: { href: _vm.addURI + "/addExample" }
-                      },
-                      [_vm._m(2)]
-                    )
-                  ])
+      ? _c(
+          "table",
+          { staticClass: "table" },
+          [
+            _c("thead", [
+              _c("tr", [
+                _c("th", [
+                  _vm._v("\n          Forms\n          "),
+                  _c(
+                    "a",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.showAddButtons,
+                          expression: "showAddButtons"
+                        }
+                      ],
+                      staticClass: "icon add-icon",
+                      attrs: { href: _vm.addURI + _vm.formUri }
+                    },
+                    [_vm._m(1)]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("th", [
+                  _vm._v("\n          Examples\n          "),
+                  _c(
+                    "a",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.showAddButtons,
+                          expression: "showAddButtons"
+                        }
+                      ],
+                      staticClass: "icon add-icon",
+                      attrs: { href: _vm.addURI + "/addExample" }
+                    },
+                    [_vm._m(2)]
+                  )
                 ])
-              ]),
-              _vm._v(" "),
-              _vm._l(_vm.forms, function(form) {
-                return _c(
-                  "tbody",
-                  _vm._l(form.examples, function(example, i) {
-                    return form.examples.length > 0
-                      ? _c("tr", [
-                          i == 0
-                            ? _c("td", {
-                                attrs: { rowspan: form.examples.length },
-                                domProps: { innerHTML: _vm._s(form.html) }
-                              })
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c("td", {
-                            domProps: { innerHTML: _vm._s(example.html) }
-                          })
-                        ])
-                      : _c("tr", [
-                          _c("td", {
-                            domProps: { innerHTML: _vm._s(form.html) }
-                          }),
-                          _vm._v(" "),
-                          _c("td", [_vm._v("No examples in the database")])
-                        ])
-                  }),
-                  0
-                )
-              })
-            ],
-            2
-          )
-        : _c("div", [
-            _c("p", [
-              _vm._v("No forms in the database match that description.")
-            ])
-          ])
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.forms, function(form) {
+              return _c(
+                "tbody",
+                _vm._l(form.examples, function(example, i) {
+                  return form.examples.length > 0
+                    ? _c("tr", [
+                        i == 0
+                          ? _c("td", {
+                              attrs: { rowspan: form.examples.length },
+                              domProps: { innerHTML: _vm._s(form.html) }
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("td", {
+                          domProps: { innerHTML: _vm._s(example.html) }
+                        })
+                      ])
+                    : _c("tr", [
+                        _c("td", {
+                          domProps: { innerHTML: _vm._s(form.html) }
+                        }),
+                        _vm._v(" "),
+                        _c("td", [_vm._v("No examples in the database")])
+                      ])
+                }),
+                0
+              )
+            })
+          ],
+          2
+        )
+      : _c("div", [
+          _c("p", [_vm._v("No forms in the database match that description.")])
+        ])
   ])
 }
 var staticRenderFns = [

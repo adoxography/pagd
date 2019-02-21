@@ -197,12 +197,12 @@ var render = function() {
               on: {
                 keydown: function($event) {
                   if (
-                    !("button" in $event) &&
+                    !$event.type.indexOf("key") &&
                     _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
                   ) {
                     return null
                   }
-                  _vm.onEnter($event)
+                  return _vm.onEnter($event)
                 },
                 input: function($event) {
                   if ($event.target.composing) {
@@ -326,7 +326,7 @@ var render = function() {
                     on: {
                       click: function($event) {
                         $event.preventDefault()
-                        _vm.removeValue(item.name)
+                        return _vm.removeValue(item.name)
                       }
                     }
                   })

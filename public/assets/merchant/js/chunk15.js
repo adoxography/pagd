@@ -130,7 +130,7 @@ var render = function() {
                 attrs: { disabled: _vm.value.length >= 5 || _vm.disabled },
                 on: {
                   click: function($event) {
-                    _vm.addField()
+                    return _vm.addField()
                   }
                 }
               },
@@ -146,7 +146,7 @@ var render = function() {
                 attrs: { disabled: _vm.value.length <= 1 || _vm.disabled },
                 on: {
                   click: function($event) {
-                    _vm.removeField()
+                    return _vm.removeField()
                   }
                 }
               },
@@ -163,7 +163,7 @@ var render = function() {
         {
           on: {
             click: function($event) {
-              _vm.suggest("cree")
+              return _vm.suggest("cree")
             }
           }
         },
@@ -175,7 +175,7 @@ var render = function() {
         {
           on: {
             click: function($event) {
-              _vm.suggest("ojibwe")
+              return _vm.suggest("ojibwe")
             }
           }
         },

@@ -126,7 +126,7 @@ var render = function() {
               },
               on: {
                 input: function($event) {
-                  _vm.onUpdateLookup($event)
+                  return _vm.onUpdateLookup($event)
                 }
               },
               model: {
@@ -208,7 +208,7 @@ var render = function() {
                     staticClass: "button is-danger",
                     on: {
                       click: function($event) {
-                        _vm.onDelete(index)
+                        return _vm.onDelete(index)
                       }
                     }
                   },

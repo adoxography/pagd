@@ -266,11 +266,11 @@ var render = function() {
           },
           on: {
             click: function($event) {
-              _vm.close()
+              return _vm.close()
             },
             keyup: function($event) {
               if (
-                !("button" in $event) &&
+                !$event.type.indexOf("key") &&
                 _vm._k($event.keyCode, "delete", [8, 46], $event.key, [
                   "Backspace",
                   "Delete",
@@ -280,7 +280,7 @@ var render = function() {
                 return null
               }
               $event.preventDefault()
-              _vm.close()
+              return _vm.close()
             }
           }
         })
@@ -309,11 +309,11 @@ var render = function() {
                 },
                 on: {
                   click: function($event) {
-                    _vm.close()
+                    return _vm.close()
                   },
                   keyup: function($event) {
                     if (
-                      !("button" in $event) &&
+                      !$event.type.indexOf("key") &&
                       _vm._k($event.keyCode, "delete", [8, 46], $event.key, [
                         "Backspace",
                         "Delete",
@@ -323,7 +323,7 @@ var render = function() {
                       return null
                     }
                     $event.preventDefault()
-                    _vm.close()
+                    return _vm.close()
                   }
                 }
               })
@@ -377,11 +377,11 @@ var render = function() {
           },
           on: {
             click: function($event) {
-              _vm.close()
+              return _vm.close()
             },
             keyup: function($event) {
               if (
-                !("button" in $event) &&
+                !$event.type.indexOf("key") &&
                 _vm._k($event.keyCode, "delete", [8, 46], $event.key, [
                   "Backspace",
                   "Delete",
@@ -391,7 +391,7 @@ var render = function() {
                 return null
               }
               $event.preventDefault()
-              _vm.close()
+              return _vm.close()
             }
           }
         })
@@ -421,11 +421,11 @@ var render = function() {
                 },
                 on: {
                   click: function($event) {
-                    _vm.close()
+                    return _vm.close()
                   },
                   keyup: function($event) {
                     if (
-                      !("button" in $event) &&
+                      !$event.type.indexOf("key") &&
                       _vm._k($event.keyCode, "delete", [8, 46], $event.key, [
                         "Backspace",
                         "Delete",
@@ -435,7 +435,7 @@ var render = function() {
                       return null
                     }
                     $event.preventDefault()
-                    _vm.close()
+                    return _vm.close()
                   }
                 }
               })

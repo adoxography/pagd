@@ -275,7 +275,7 @@ var render = function() {
             on: { select: _vm.addSource },
             nativeOn: {
               keyup: function($event) {
-                _vm.onAutocompleteKeyUp($event)
+                return _vm.onAutocompleteKeyUp($event)
               }
             }
           }),
@@ -355,7 +355,7 @@ var render = function() {
                     attrs: { title: "Add description" },
                     on: {
                       click: function($event) {
-                        _vm.openDescriptionModal(source)
+                        return _vm.openDescriptionModal(source)
                       }
                     }
                   },
@@ -369,7 +369,7 @@ var render = function() {
                     attrs: { title: "Remove source" },
                     on: {
                       click: function($event) {
-                        _vm.removeSource(i)
+                        return _vm.removeSource(i)
                       }
                     }
                   },

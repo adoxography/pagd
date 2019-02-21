@@ -839,7 +839,7 @@ var render = function() {
         focusin: _vm.onFocusIn,
         focusout: _vm.onFocusOut,
         keydown: function($event) {
-          _vm.onKeyDown($event)
+          return _vm.onKeyDown($event)
         }
       }
     },
@@ -870,7 +870,7 @@ var render = function() {
                     attrs: { title: char.getCommand() },
                     on: {
                       click: function($event) {
-                        _vm.insertCharacter(char)
+                        return _vm.insertCharacter(char)
                       },
                       mousedown: function($event) {
                         $event.preventDefault()

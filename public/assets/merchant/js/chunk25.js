@@ -64,7 +64,7 @@ var render = function() {
         attrs: { disabled: _vm.value == 0 },
         on: {
           click: function($event) {
-            _vm.onClick(_vm.value - 1)
+            return _vm.onClick(_vm.value - 1)
           }
         }
       },
@@ -78,7 +78,7 @@ var render = function() {
         attrs: { disabled: _vm.value == _vm.pages - 1 },
         on: {
           click: function($event) {
-            _vm.onClick(_vm.value + 1)
+            return _vm.onClick(_vm.value + 1)
           }
         }
       },
@@ -97,7 +97,7 @@ var render = function() {
               attrs: { disabled: _vm.value == n - 1 },
               on: {
                 click: function($event) {
-                  _vm.onClick(n - 1)
+                  return _vm.onClick(n - 1)
                 }
               }
             },

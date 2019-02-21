@@ -206,7 +206,7 @@ var render = function() {
                         attrs: { title: "delete" },
                         on: {
                           click: function($event) {
-                            _vm.deleteRow(row, index)
+                            return _vm.deleteRow(row, index)
                           }
                         }
                       },
@@ -234,7 +234,7 @@ var render = function() {
             return _vm.onSubmit($event)
           },
           keydown: function($event) {
-            _vm.form.errors.clear($event.target.name)
+            return _vm.form.errors.clear($event.target.name)
           }
         }
       },

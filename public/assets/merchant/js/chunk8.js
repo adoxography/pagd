@@ -211,7 +211,7 @@ var render = function() {
                         staticClass: "button",
                         on: {
                           click: function($event) {
-                            _vm.insertCharacter(char.symbol)
+                            return _vm.insertCharacter(char.symbol)
                           }
                         }
                       },

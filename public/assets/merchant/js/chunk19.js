@@ -623,7 +623,7 @@ var render = function() {
                       }
                     },
                     function($event) {
-                      _vm.onSelectAI($event.target.checked)
+                      return _vm.onSelectAI($event.target.checked)
                     }
                   ]
                 }
@@ -679,7 +679,7 @@ var render = function() {
                           }
                         },
                         function($event) {
-                          _vm.onSelectSubclass($event.target.checked)
+                          return _vm.onSelectSubclass($event.target.checked)
                         }
                       ]
                     }
@@ -878,7 +878,7 @@ var render = function() {
                 },
                 on: {
                   change: function($event) {
-                    _vm.$set(_vm.form, "modeSelect", "indicativeOnly")
+                    return _vm.$set(_vm.form, "modeSelect", "indicativeOnly")
                   }
                 }
               }),
@@ -901,7 +901,7 @@ var render = function() {
                 domProps: { checked: _vm._q(_vm.form.modeSelect, "allModes") },
                 on: {
                   change: function($event) {
-                    _vm.$set(_vm.form, "modeSelect", "allModes")
+                    return _vm.$set(_vm.form, "modeSelect", "allModes")
                   }
                 }
               }),
@@ -930,7 +930,7 @@ var render = function() {
                 },
                 on: {
                   change: function($event) {
-                    _vm.$set(_vm.form, "modeSelect", "selectModes")
+                    return _vm.$set(_vm.form, "modeSelect", "selectModes")
                   }
                 }
               }),

@@ -29806,19 +29806,19 @@ var render = function() {
             domProps: { innerHTML: _vm._s(_vm.value.text) },
             on: {
               input: function($event) {
-                _vm.onInput($event.target.textContent)
+                return _vm.onInput($event.target.textContent)
               },
               keyup: function($event) {
-                _vm.onKeyUp($event.keyCode)
+                return _vm.onKeyUp($event.keyCode)
               },
               keydown: function($event) {
                 if (
-                  !("button" in $event) &&
+                  !$event.type.indexOf("key") &&
                   _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
                 ) {
                   return null
                 }
-                _vm.onEnter($event)
+                return _vm.onEnter($event)
               }
             }
           }),
@@ -29856,10 +29856,10 @@ var render = function() {
                       domProps: { innerHTML: _vm._s(option.name) },
                       on: {
                         click: function($event) {
-                          _vm.selectItem(option.name)
+                          return _vm.selectItem(option.name)
                         },
                         mouseover: function($event) {
-                          _vm.onHover(option.name)
+                          return _vm.onHover(option.name)
                         }
                       }
                     })
@@ -30162,13 +30162,13 @@ var render = function() {
             domProps: { value: _vm.value.text },
             on: {
               keyup: function($event) {
-                _vm.onKeyUp($event.keyCode)
+                return _vm.onKeyUp($event.keyCode)
               },
               keydown: function($event) {
-                _vm.onKeyDown($event)
+                return _vm.onKeyDown($event)
               },
               input: function($event) {
-                _vm.update($event.target.value)
+                return _vm.update($event.target.value)
               },
               focus: _vm.onFocus,
               blur: _vm.onBlur
@@ -30214,10 +30214,10 @@ var render = function() {
                     class: { "is-highlighted": _vm.activeItem(index) },
                     on: {
                       click: function($event) {
-                        _vm.selectItem(option.name)
+                        return _vm.selectItem(option.name)
                       },
                       mouseover: function($event) {
-                        _vm.handleHover(option.name)
+                        return _vm.handleHover(option.name)
                       }
                     }
                   },
@@ -30338,7 +30338,7 @@ var render = function() {
           },
           on: {
             dragend: function($event) {
-              _vm.onRightClick($event)
+              return _vm.onRightClick($event)
             }
           }
         },
@@ -30356,7 +30356,7 @@ var render = function() {
               },
               on: {
                 click: function($event) {
-                  _vm.onClickMarker(zone, "area", $event)
+                  return _vm.onClickMarker(zone, "area", $event)
                 }
               }
             })
@@ -30375,7 +30375,7 @@ var render = function() {
             },
             on: {
               path_changed: function($event) {
-                _vm.updateEdited($event)
+                return _vm.updateEdited($event)
               }
             }
           }),
@@ -30390,7 +30390,7 @@ var render = function() {
               },
               on: {
                 click: function($event) {
-                  _vm.onClickMarker(marker, "point")
+                  return _vm.onClickMarker(marker, "point")
                 }
               }
             })
@@ -30405,7 +30405,7 @@ var render = function() {
             },
             on: {
               dragend: function($event) {
-                _vm.onRightClick($event)
+                return _vm.onRightClick($event)
               }
             }
           }),
@@ -30510,7 +30510,7 @@ var render = function() {
               staticClass: "button",
               on: {
                 click: function($event) {
-                  _vm.insertCharacter(char)
+                  return _vm.insertCharacter(char)
                 }
               }
             },
@@ -34186,10 +34186,10 @@ var isApiSetUp = false;
  *                    `{ client: <YOUR-CLIENT-ID> }`.
  *                  You may pass the libraries and/or version (as `v`) parameter into
  *                  this parameter and skip the next two parameters
- * @param version   Google for Maps version
+ * @param version   Google Maps version
  * @param libraries Libraries to load (@see
  *                  https://developers.google.com/maps/documentation/javascript/libraries)
- * @param loadCn    Boolean. If set to true, the map will be loaded form goole maps China
+ * @param loadCn    Boolean. If set to true, the map will be loaded from google maps China
  *                  (@see https://developers.google.com/maps/documentation/javascript/basics#GoogleMapsChina)
  *
  * Example:
@@ -34235,7 +34235,7 @@ var loadGmapApi = exports.loadGmapApi = function (options, loadCn) {
     var baseUrl = 'https://maps.googleapis.com/';
 
     if (typeof loadCn === 'boolean' && loadCn === true) {
-      baseUrl = 'http://maps.google.cn/';
+      baseUrl = 'https://maps.google.cn/';
     }
 
     var url = baseUrl + 'maps/api/js?' + Object.keys(options).map(function (key) {

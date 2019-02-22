@@ -180,6 +180,14 @@ function normalizeRadios(parent) {
     }
   }
 }
+/**
+ * Adds a listener to elements which will fire when the element is disabled
+ *
+ * @param els  The elements to listen for being disabled
+ * @param callback  The function to run when the element is disabled. Should
+ *                  take one argument - the element that triggered the event
+ */
+
 
 function registerDisabledListeners(els, callback) {
   var config = {
@@ -288,14 +296,16 @@ function registerDisabledListeners(els, callback) {
       this.updateErrors(this.oldErrors);
     }
 
-    ;
+    ; // Register "disabled" event listeners on the text inputs
+
     var inputs = rootNode.querySelectorAll('input[type=text]');
     registerDisabledListeners(inputs, function (target) {
       var event = new Event('input', {
         'bubbles': true,
         'cancelable': true
       });
-      target.value = '';
+      target.value = ''; // Fire an input event to let Vue components know something has changed
+
       target.dispatchEvent(event);
     });
   },

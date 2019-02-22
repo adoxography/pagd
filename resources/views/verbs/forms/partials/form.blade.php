@@ -140,6 +140,7 @@
                 'asyncParams' => '{language: data.language.id, type: "verb", markup: false}',
             ])
 
+            {{-- Change type --}}
             @include('components.form.autocomplete', [
                 'name' => 'change_type'
             ])

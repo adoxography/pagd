@@ -203,6 +203,10 @@ a.is-danger {
     }
 }
 
+.input[disabled]::placeholder {
+    color: $grey-darker;
+}
+
 .logo {
     text-transform: none !important;
     font-size: 1.25em;
@@ -210,8 +214,6 @@ a.is-danger {
 }
 
 ul.is-horizontal-tablet {
-    //list-style: square;
-
     @media screen and (min-width: $tablet), print {
         li {
             float: left;

@@ -1,297 +1,118 @@
-@php
+<alg-form method="{{ $method }}" action="{{ $action }}">
+    <alg-model-form :lists="{{ $lists }}"
+                    :async-routes="{{ $asyncRoutes }}"
+                    :prefetch="{
+                        languages: {
+                            morphemes: vm => {return {language: vm.data.language.id}}
+                        }
+                    }"
+                    :template="{{ $template }}"
+                    :filter-proto="[ 'name', 'phonemic_form' ]"
+                    
+                    inline-template
+                    v-cloak
+                    
+                    :old-errors="{{ $errors }}"
+                    @isset($form) :initial="{{ $form }}" @endisset
+                    @if(old('data')) :old-values="{{ old('data') }}" @endif
+    >
+        <div class="details">
+            {{-- Language --}}
+            @include('components.form.autocomplete', [
+                'name' => 'language',
+                'required' => true
+            ])
 
-$languages = App\Models\Language::all();
-$pronominalFeatures = App\Models\Nominals\PronominalFeature::all();
-$nominalFeatures = App\Models\Nominals\NominalFeature::all();
-$paradigms = App\Models\Nominals\Paradigm::with('type')->get();
-$changeTypes = App\Models\ChangeType::all();
+            {{-- Shape --}}
+            @include('components.form.text', [
+                'name' => 'name',
+                'label' => 'Shape',
+                'required' => true,
+                'placeholder' => 'the form as written in a text'
+            ])
 
-@endphp
+            {{-- Translation --}}
+            @include('components.form.text', [
+                'name' => 'translation',
+                'placeholder' => 'Only required for stemless forms',
+                'disabled' => 'data.name.length > 0 && data.name.match(/(^|-)N($|-)/)'
+            ])
 
-<alg-nominal-form-form
-	inline-template
-	v-cloak
-	:old-errors="{{ json_encode($errors->messages()) }}"
+            {{-- Phonemic representation --}}
+            @include('components.form.text', [
+                'name' => 'phonemic_form',
+                'label' => 'Phonemic representation',
+                'placeholder' => 'the Algonquianist phonemic representation'
+            ])
 
-	:pronominal-features="{{ $pronominalFeatures }}"
-	:nominal-features="{{ $nominalFeatures }}"
-	:paradigms="{{ $paradigms }}"
+            {{-- Paradigm --}}
+            @include('components.form.autocomplete', [
+                'name' => 'paradigm',
+                'additionalFields' => ['type'],
+                'required' => true,
+                'disabled' => '!data.language.id',
+                'filter' => 'opt => opt.language_id === data.language.id',
+                'goesThrough' => 'structure'
+            ])
 
-	@isset($form)
-		:old-sources="{{ $form->sources }}"
-		:init-morphemes="{{ $form->morphemesToJson() }}"
-		old-translation="{{ $form->translation ?: '' }}"
-	@endisset
+            {{-- Pronominal feature --}}
+            @include('components.form.autocomplete', [
+                'name' => 'pronominal_feature',
+                'goesThrough' => 'structure',
+                'disabled' => '!data.language.id || !data.structure.paradigm.id || !data.structure.paradigm.type.has_pronominal_feature'
+            ])
 
-	@if(old('paradigm', 'not found') !== 'not found')
-		old-paradigm="{{ old('paradigm') }}"
-	@elseif(isset($form))
-		old-paradigm="{{ $form->structure->paradigm->name }}"
-	@endif
+            {{-- Nominal feature --}}
+            @include('components.form.autocomplete', [
+                'name' => 'nominal_feature',
+                'goesThrough' => 'structure',
+                'disabled' => '!data.language.id || !data.structure.paradigm.id || !data.structure.paradigm.type.has_nominal_feature'
+            ])
 
-	@if(old('pronominalFeature', 'not found') !== 'not found')
-		old-pronominal-feature="{{ old('pronominalFeature') }}"
-	@elseif(isset($form) && $form->structure->pronominalFeature)
-		old-pronominal-feature="{{ $form->structure->pronominalFeature->name }}"
-	@endif
+            {{-- Parent --}}
+            @include('components.form.autocomplete', [
+                'name' => 'parent',
+                'async' => true,
+                'asyncParams' => '{language: data.language.id, type: "nominal", markup: false}',
+                'disabled' => '!data.language.id'
+            ])
 
-	@if(old('nominalFeature', 'not found') !== 'not found')
-		old-nominal-feature="{{ old('nominalFeature') }}"
-	@elseif(isset($form) && $form->structure->nominalFeature)
-		old-nominal-feature="{{ $form->structure->nominalFeature->name }}"
-	@endif
->
-	@component('components.form', ['method' => $method, 'action' => $action, 'visible' => true])
-		<h4 class="subtitle is-4">Basic Details</h4>
-		<div class="columns is-multiline">
+            {{-- Change type --}}
+            @include('components.form.autocomplete', [
+                'name' => 'change_type'
+            ])
 
-			<!-- Name -->
-			<div class="column is-half">
-				@component('components.form.text', [
-					'name'        => 'name',
-					'label'       => 'surface form',
-					'autofocus'   => true,
-					'placeholder' => 'The form as written in a text',
-					'rules'       => 'required',
-					'typewriter'  => true
-				])
-					@slot('value')
-						@if(isset($form) && $form->name)
-							{{ str_replace('*', '', $form->name) }}
-						@endif
-					@endslot
-				@endcomponent
-			</div>
+            {{--Morphemes--}}
+            @include('components.form.morpheme-tags')
 
-			<!-- Language -->
-			<div class="column is-half">
-				@component('components.form.datalist', [
-					'name'  => 'language',
-					'list'  => $languages,
-					'rules' => 'required|exists'
-				])
-					@slot('value')
-						@if(isset($form))
-							{{ $form->language->name }}
-						@elseif(isset($language))
-							{{ $language->name }}
-						@endif
-					@endslot
-				@endcomponent
-			</div>
+            {{-- Sources --}}
+            @include('components.form.sources', [
+                'name' => 'sources'
+            ])
 
-			<div class="column is-half">
-				@component('components.form.datalist', [
-					'name' => 'paradigm',
-					'list' => 'filteredParadigms',
-					'rules' => 'required|exists',
-					'disabled' => 'filteredParadigms.length == 0'
-				])
-					@slot('value')
-						@if(isset($form))
-							{{ $form->structure->paradigm->name }}
-						@endif
-					@endslot
-				@endcomponent
-			</div>
+            {{-- History --}}
+            @include('components.form.textarea', [
+                'name' => 'historical_notes',
+                'label' => 'history'
+            ])
 
-			<div class="column is-one-quarter">
-				<div class="field">
-					<label for="pronominalFeature" class="label">
-						Pronominal Feature
-					</label>
+            {{-- Allomorphy --}}
+            @include('components.form.textarea', [
+                'name' => 'allomorphy_notes',
+                'label' => 'allomorphy'
+            ])
 
-					<div class="control">
-						<alg-datalist
-							v-model="pronominalFeature"
-							:list="pronominalFeatures"
-							name="pronominalFeature"
-							id="pronominalFeature"
-							:has-errors="errors.has('pronominalFeature')"
-							v-validate="validations.pronominalFeature"
-							data-vv-as="pronominal feature"
-							:disabled="!paradigmHasPronominalFeature"
-							ref="pronominalFeature"
-							initial="{{ old('pronominalFeature', 'not found') !== 'not found' ? old('pronominalFeature') : (isset($form) && $form->structure->pronominalFeature ? $form->structure->pronominalFeature->name : '') }}"
-						></alg-datalist>
-					</div>
-					<span
-						class="help is-danger"
-						v-show="errors.has('pronominalFeature')"
-						v-text="errors.first('pronominalFeature')"
-					></span>
-				</div>
-			</div>
+            {{-- Usage --}}
+            @include('components.form.textarea', [
+                'name' => 'usage_notes',
+                'label' => 'usage'
+            ])
 
-			<div class="column is-one-quarter">
-				<div class="field">
-					<label for="nominalFeature" class="label">
-						Nominal Feature
-					</label>
-
-					<div class="control">
-						<alg-datalist
-							v-model="nominalFeature"
-							:list="nominalFeatures"
-							name="nominalFeature"
-							id="nominalFeature"
-							:has-errors="errors.has('nominalFeature')"
-							v-validate="validations.nominalFeature"
-							data-vv-as="nominal feature"
-							:disabled="!paradigmHasNominalFeature"
-							ref="nominalFeature"
-							initial="{{ old('nominalFeature', 'not found') !== 'not found' ? old('nominalFeature') : (isset($form) && $form->structure->nominalFeature ? $form->structure->nominalFeature->name : '') }}"
-						></alg-datalist>
-					</div>
-					<span
-						class="help is-danger"
-						v-show="errors.has('nominalFeature')"
-						v-text="errors.first('nominalFeature')"
-					></span>
-				</div>
-			</div>
-		</div>
-
-		<hr>
-		<h4 class="subtitle is-4">Morphology</h4>
-
-			<!-- phonemicForm -->
-			@component('components.form.text', [
-				'name'        => 'phonemicForm',
-				'label'       => 'phonemic representation',
-				'placeholder' => 'The Algonquianist phonemic representation (Leave blank if unknown or unclear)',
-				'typewriter'  => true
-			])
-				@slot('value')
-					@if(isset($form) && $form->phonemicForm)
-						{{ str_replace('*', '', $form->phonemicForm) }}
-					@endif
-				@endslot
-			@endcomponent
-
-			<!-- morphemes -->
-			@include('components.form.morpheme-tags', [
-				'placeholder' => 'Look up or insert morphemes to add to the morphemic form',
-				'language'    => 'language.id'
-			])
-
-			@component('components.form.text', [
-				'name' => 'translation',
-				'model' => 'translation',
-				'placeholder' => 'Required only for stemless forms',
-				'disabled' => '!translationRequired',
-				'activeRules' => 'translationRules'
-			])
-				@slot('value')
-					@if(isset($form) && $form->isStemless() && $form->examples->count() > 0)
-						{{ $form->examples->first()->translation }}
-					@endif
-				@endslot
-			@endcomponent
-
-		<hr>
-		<h4 class="subtitle is-4">Lineage</h4>
-		<div class="columns">
-
-			<!-- Parent -->
-			<div class="column">
-				@component('components.form.ajaxlist', [
-					'name'        => 'parent',
-					'uri'         => '/autocomplete/formParents',
-					'with'        => '{ language: language.id, type: "nominal" }',
-					'disabled'    => '!language.id',
-					'placeholder' => 'Make sure to select the language first',
-					'rules'       => 'datalist_exists',
-					'typewriter'  => true
-				])
-					@slot('value')
-						@if(isset($form))
-							@if($form->parent)
-                                {{ '{ "text": "'.strip_tags(str_replace('*', '', $form->parent->present('unique')->then('language'))).'", "id": "'.$form->parent_id.'" }' }}
-							@endif
-						@endif
-					@endslot
-				@endcomponent
-			</div>
-
-			<!-- Change Type -->
-			<div class="column">
-				@include('components.form.select', [
-					'name' => 'changeType_id',
-					'label' => 'change type',
-					'disabled' => '!parent.id || !language.id',
-					'options' => $changeTypes,
-					'selected' => isset($form) && $form->changeType_id ? $form->changeType_id : ''
-				])
-			</div>
-		</div>
-
-		<hr>
-		<alg-sources v-model="sources"></alg-sources>
-
-		<hr>
-		<h4 class="subtitle is-4">Notes</h4>
-		<div class="columns is-multiline">
-
-			<!-- Usage Notes -->
-			<div class="column is-half">
-				@component('components.form.textarea', [
-					'name'        => 'usageNotes',
-					'label'       => 'usage notes',
-					'placeholder' => 'Enter notes about the usage of this form'
-				])
-					@slot('value')
-						@if(isset($form) && $form->usageNotes)
-							{{ $form->usageNotes }}
-						@endif
-					@endslot
-				@endcomponent
-			</div>
-
-			<!-- Allomorphy Notes -->
-			<div class="column is-half">
-				@component('components.form.textarea', [
-					'name'        => 'allomorphyNotes',
-					'label'       => 'allomorphy',
-					'placeholder' => 'Enter notes about this form\'s allomorphs'
-				])
-					@slot('value')
-						@if(isset($form) && $form->allomorphyNotes)
-							{{ $form->allomorphyNotes }}
-						@endif
-					@endslot
-				@endcomponent
-			</div>
-
-			<!-- Historical Notes -->
-			<div class="column is-half">
-				@component('components.form.textarea', [
-					'name'        => 'historicalNotes',
-					'label'       => 'historical notes',
-					'placeholder' => 'Enter historical information about this form'
-				])
-					@slot('value')
-						@if(isset($form))
-							{{ $form->historicalNotes }}
-						@endif
-					@endslot
-				@endcomponent
-			</div>
-
-			<!-- Comments -->
-			<div class="column is-half">
-				@component('components.form.textarea', [
-					'name'        => 'privateNotes',
-					'label'       => 'Comments',
-					'placeholder' => 'Comments here will not be available to the public'
-				])
-					@slot('value')
-						@if(isset($form))
-							{{ $form->privateNotes }}
-						@endif
-					@endslot
-				@endcomponent
-			</div>
-		</div>
-	@endcomponent
-</alg-nominal-form-form>
+            {{-- Private notes --}}
+            @include('components.form.textarea', [
+                'name' => 'private_notes'
+            ])
+            <alg-floating-typewriter></alg-floating-typewriter>
+        </div>
+    </alg-model-form>
+</alg-form>

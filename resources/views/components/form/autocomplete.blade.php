@@ -11,6 +11,8 @@ $list     = $list     ?? str_plural($name);
 $required = $required ?? 'false';
 $field    = $field    ?? 'name';
 $async    = $async    ?? false;
+$filter   = $filter   ?? 'null';
+$additionalFields = $additionalFields ?? [];
 $asyncParams = $asyncParams ?? '{}';
 $path = 'data';
 $placeholderSet = isset($placeholder);
@@ -34,7 +36,15 @@ if (isset($goesThrough)) {
 <b-autocomplete id="{{ $name }}-input"
                 name="{{ $name }}"
                 :open-on-focus="true"
-                @select="obj => {{ $path }}.{{ $name }}.id = obj ? obj.id : 0"
+
+                @select="obj => {
+                    {{ $path }}.{{ $name }}.id = obj ? obj.id : 0;
+
+                    @foreach($additionalFields as $additionalField)
+                    {{ $path }}.{{ $name }}.{{ $additionalField }} = obj ? obj.{{ $additionalField }} : null;
+                    @endforeach
+                }"
+
                 v-model="{{ $path }}.{{ $name }}.{{ $field }}"
                 field="{{ $field }}"
 
@@ -45,7 +55,8 @@ if (isset($goesThrough)) {
                 :loading="asyncLoading.{{ $list }}"
                 v-validate="{required: {{ $required }}}"
                 @else
-                @input="filterList('{{ $list }}', $event)"
+                @input="filterList('{{ $list }}', $event, {{ $filter }})"
+                @focus="filterList('{{ $list }}', $event.target.value, {{ $filter }})"
                 v-validate="{required: {{ $required }}, exists: [lists.{{ $list }}, '{{ $field }}']}"
                 @endif
 

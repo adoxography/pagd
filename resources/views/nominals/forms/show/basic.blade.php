@@ -1,94 +1,141 @@
 @extends('nominals.forms.show')
 
 @section('details')
-	<div class="columns">
-		<div class="column">
-			<div class="field">
-				<span class="is-one-line">
-					<span class="label">Paradigm:</span>
-					<a href="/nominals/paradigms/{{ $form->structure->paradigm_id }}">{{ $form->structure->paradigm->name }}</a>
-				</span>
+<div class="details">
+    {{-- Language --}}
+    <div class="detail-row">
+        <label class="detail-label">Language</label>
+        <div class="detail-value">
+            {!! $form->language->present('link') !!}
+        </div>
+    </div>
 
-				@if($form->structure->pronominalFeature)
-					<span class="is-one-line">
-						<span class="label">Pronominal feature:</span>
-						{{ $form->structure->pronominalFeature->name }}
-					</span>
-				@endif
+    {{-- Paradigm --}}
+    <div class="detail-row">
+        <label class="detail-label">Paradigm</label>
+        <div class="detail-value">
+            {!! $form->structure->paradigm->present('link') !!}
+        </div>
+    </div>
 
-				@if($form->structure->nominalFeature)
-					<span class="is-one-line">
-						<span class="label">Nominal feature:</span>
-						{{ $form->structure->nominalFeature->name }}
-					</span>
-				@endif
-			</div>
+    {{-- Pronominal feature --}}
+    @if($form->structure->pronominalFeature)
+    <div class="detail-row">
+        <label class="detail-label">Pronominal feature</label>
+        <div class="detail-value">
+            {!! $form->structure->pronominalFeature->present() !!}
+        </div>
+    </div>
+    @endif
 
-			<div class="field">
-				<span class="label">Morphology</span>
-				{!! $form->present('phonemicForm') !!}
-				{!! $form->present('morphemes') !!}
-			</div>
+    {{-- Nominal feature --}}
+    @if($form->structure->nominalFeature)
+    <div class="detail-row">
+        <label class="detail-label">Nominal feature</label>
+        <div class="detail-value">
+            {!! $form->structure->nominalFeature->present() !!}
+        </div>
+    </div>
+    @endif
 
-			@if($form->parent)
-				<div class="field">
-					<span class="label">Historical parent form</span>
-					{!! $form->parent->present()->as('link')->then('language')->as('link', 'verbs') !!}
-					{!! $form->parent->present('morphemes') !!}
-				</div>
-			@endif
+    {{-- Morphology --}}
+    <div class="detail-row">
+        <label class="detail-label">Morphology</label>
+        <div class="detail-value">
+            {!! $form->present('phonemicForm') !!}
+            {!! $form->present('morphemes') !!}
+        </div>
+    </div>
 
-			@if($form->historicalNotes)
-				<div class="field">
-					<span class="label">Historical notes</span>
-					{!! replaceTags($form->historicalNotes, $form->language_id) !!}
-				</div>
-			@endif
-		</div>
-		<div class="column">
-			<div class="field">
-				@if($form->isStemless() && $form->examples()->count() > 0)
-					<span class="label">Translation</span>
-					{{ $form->examples()->first()->translation }}
-				@else
-					<span class="label">Examples @component('components.model.add-icon', ['uri' => "/forms/{$form->id}/addExample"]) @endcomponent</span>
-					@if(count($form->examples) > 0)
-						<ul>
-							@foreach($form->examples as $example)
-								<li>{!! $example->present('link') !!} '{{ $example->translation }}'</li>
-							@endforeach
-						</ul>
-					@else
-						None
-					@endif
-				@endif
-			</div>
+    {{-- Examples --}}
+    <div class="detail-row">
+        @if($form->isStemless() && $form->examples->count() > 0)
+        <label class="detail-label">Translation</label>
+        <div class="detail-value">
+            {{ $form->examples->first()->translation }}
+        </div>
+        @else
+        {{-- "Add another" link? --}}
+        <label class="detail-label">Examples</label>
+        <div class="detail-value">
+            @if($form->examples->count() > 0)
+            <ul>
+                @foreach($form->examples as $example)
+                <li>
+                {!! $example->present('link') !!} {{ $example->translation }}
+                </li>
+                @endforeach
+            </ul>
+            @else
+            None in the database
+            @endif
+        </div>
+        @endif
+    </div>
 
-			@if($form->allomorphyNotes)
-				<div class="field">
-					<span class="label">Allomorphy</span>
-					{!! replaceTags($form->allomorphyNotes, $form->language_id) !!}
-				</div>
-			@endif
+    {{-- Allomorphy --}}
+    @isset($form->allomorphy_notes)
+    <div class="detail-row">
+        <label class="detail-label">Allomorphy</label>
+        <div class="detail-value">
+            {!! replaceTags($form->allomorphy_notes, $form->language_id) !!}
+        </div>
+    </div>
+    @endisset
 
-			@if($form->usageNotes)
-				<div class="field">
-					<span class="label">Usage notes</span>
-					{!! replaceTags($form->usageNotes, $form->language_id) !!}
-				</div>
-			@endif
+    {{-- Usage --}}
+    @isset($form->usage_notes)
+    <div class="detail-row">
+        <label class="detail-label">Usage notes</label>
+        <div class="detail-value">
+            {!! replaceTags($form->usage_notes, $form->language_id) !!}
+        </div>
+    </div>
+    @endisset
 
-			@if(Auth::user() && Auth::user()->hasPermissionTo('add content') && $form->privateNotes)
-				<div class="field">
-					<span class="label">Private notes</span>
-					{!! replaceTags($form->privateNotes, $form->language_id) !!}
-				</div>
-			@endif
+    {{-- Parent --}}
+    <div class="detail-row">
+        <label class="detail-label">Parent form</label>
+        <div class="detail-value">
+            @isset($form->parent)
+            {!! $form->parent->present('link')->then('language', 'link') !!}
+            @else
+            Not recorded in the database
+            @endisset
+        </div>
+    </div>
 
-			<div class="field">
-				<span class="label">Sources</span>
-				@include('components.model.sourcelist', ['sources' => $form->sources])
-			</div>
-		</div>
-	</div>
+    {{-- History --}}
+    @isset($form->historical_notes)
+    <div class="detail-row">
+        <label class="detail-label">History</label>
+        <div class="detail-value">
+            {!! replaceTags($form->historical_notes, $form->language_id) !!}
+        </div>
+    </div>
+    @endisset
+
+    {{-- Private notes --}}
+    @if(isset($form->private_notes) && Auth::user() && Auth::user()->hasPermissionTo('add content'))
+    <div class="detail-row">
+        <label class="detail-label">Private notes</label>
+        <div class="detail-value">
+            {!! replaceTags($form->private_notes, $form->language_id) !!}
+        </div>
+    </div>
+    @endif
+
+    @if($form->sources->count() > 0)
+    <div class="detail-row">
+        <label class="detail-label">Sources</label>
+        <div class="detail-value">
+            @foreach($form->sources as $source)
+            <p>
+                {!! $source->present('link') !!}@isset($source->pivot->extra_info): {{ $source->pivot->extra_info }}@endisset
+            </p>
+            @endforeach
+        </div>
+    </div>
+    @endif
+</div>
 @endsection

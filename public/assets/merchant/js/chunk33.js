@@ -181,6 +181,63 @@ function normalizeRadios(parent) {
   }
 }
 
+function registerDisabledListeners(els, callback) {
+  var config = {
+    attributes: true
+  };
+  var observer = new MutationObserver(function (mutations) {
+    var _iteratorNormalCompletion4 = true;
+    var _didIteratorError4 = false;
+    var _iteratorError4 = undefined;
+
+    try {
+      for (var _iterator4 = mutations[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+        var mutation = _step4.value;
+
+        if (mutation.attributeName === 'disabled') {
+          callback(mutation.target);
+        }
+      }
+    } catch (err) {
+      _didIteratorError4 = true;
+      _iteratorError4 = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion4 && _iterator4.return != null) {
+          _iterator4.return();
+        }
+      } finally {
+        if (_didIteratorError4) {
+          throw _iteratorError4;
+        }
+      }
+    }
+  });
+  var _iteratorNormalCompletion5 = true;
+  var _didIteratorError5 = false;
+  var _iteratorError5 = undefined;
+
+  try {
+    for (var _iterator5 = els[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+      var el = _step5.value;
+      observer.observe(el, config);
+    }
+  } catch (err) {
+    _didIteratorError5 = true;
+    _iteratorError5 = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion5 && _iterator5.return != null) {
+        _iterator5.return();
+      }
+    } finally {
+      if (_didIteratorError5) {
+        throw _iteratorError5;
+      }
+    }
+  }
+}
+
 /* harmony default export */ __webpack_exports__["a"] = ({
   props: {
     lists: {
@@ -222,15 +279,25 @@ function normalizeRadios(parent) {
     this.initData();
   },
   mounted: function mounted() {
-    turnOffAutocompletes(this.$vnode.elm);
-    normalizeTextareas(this.$vnode.elm);
-    normalizeRadios(this.$vnode.elm);
+    var rootNode = this.$vnode.elm;
+    turnOffAutocompletes(rootNode);
+    normalizeTextareas(rootNode);
+    normalizeRadios(rootNode);
 
     if (this.oldErrors) {
       this.updateErrors(this.oldErrors);
     }
 
     ;
+    var inputs = rootNode.querySelectorAll('input[type=text]');
+    registerDisabledListeners(inputs, function (target) {
+      var event = new Event('input', {
+        'bubbles': true,
+        'cancelable': true
+      });
+      target.value = '';
+      target.dispatchEvent(event);
+    });
   },
   methods: {
     /**
@@ -304,13 +371,13 @@ function normalizeRadios(parent) {
       this.data = this.template;
       updateData(this.data, this.oldValues || this.initial); // Filter the asterisks out of any fields marked as proto fields
 
-      var _iteratorNormalCompletion4 = true;
-      var _didIteratorError4 = false;
-      var _iteratorError4 = undefined;
+      var _iteratorNormalCompletion6 = true;
+      var _didIteratorError6 = false;
+      var _iteratorError6 = undefined;
 
       try {
         var _loop = function _loop() {
-          var keyString = _step4.value;
+          var keyString = _step6.value;
           var data = _this.data;
           var keys = keyString.split('.');
           keys.forEach(function (key, i) {
@@ -322,20 +389,20 @@ function normalizeRadios(parent) {
           });
         };
 
-        for (var _iterator4 = this.filterProto[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+        for (var _iterator6 = this.filterProto[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
           _loop();
         }
       } catch (err) {
-        _didIteratorError4 = true;
-        _iteratorError4 = err;
+        _didIteratorError6 = true;
+        _iteratorError6 = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion4 && _iterator4.return != null) {
-            _iterator4.return();
+          if (!_iteratorNormalCompletion6 && _iterator6.return != null) {
+            _iterator6.return();
           }
         } finally {
-          if (_didIteratorError4) {
-            throw _iteratorError4;
+          if (_didIteratorError6) {
+            throw _iteratorError6;
           }
         }
       }
@@ -372,38 +439,41 @@ function normalizeRadios(parent) {
      *
      * @param listName  The name (key) of the list
      * @param query     The string to filter the list by
+     * @param func      An optional function to specify additional constraints
+     *                  on the filtering
      */
-    filterList: function filterList(listName, query) {
-      var q = query.toLowerCase();
+    filterList: function filterList(listName, query, func) {
+      var q = query.toLowerCase(); // The list to filter may exist in the initial lists that were passed in,
+      // or it may be part of the lists which are prefetched when another
+      // value updates
+
       var list = this.lists[listName] || this.prefetchLists[listName];
       this.filteredLists[listName] = list.filter(function (x) {
-        return x.name.toLowerCase().includes(q);
-      });
+        return x.name.toLowerCase().includes(q) && (!func || func(x));
+      }); // If a prefetch call is registered to the updated list, run the prefetch
 
-      var _arr9 = Object.entries(this.prefetch);
+      if (this.prefetch.hasOwnProperty(listName)) {
+        this.getPrefetched(this.prefetch[listName]);
+      }
+    },
+
+    /**
+     * Prefetches a series of lists asynchronously
+     *
+     * @param prefetches  An object where the key is the name of the prefetched
+     *                    list, and the value is an object consisting of the
+     *                    parameters that should be sent along with the list
+     */
+    getPrefetched: function getPrefetched(prefetches) {
+      var _arr9 = Object.entries(prefetches);
 
       for (var _i9 = 0; _i9 < _arr9.length; _i9++) {
         var _arr9$_i = _slicedToArray(_arr9[_i9], 2),
-            key = _arr9$_i[0],
-            value = _arr9$_i[1];
+            listName = _arr9$_i[0],
+            options = _arr9$_i[1];
 
-        if (listName === key) {
-          this.getPrefetched(listName);
-        }
-      }
-    },
-    getPrefetched: function getPrefetched(listName) {
-      var prefetches = this.prefetch[listName];
-
-      var _arr10 = Object.entries(prefetches);
-
-      for (var _i10 = 0; _i10 < _arr10.length; _i10++) {
-        var _arr10$_i = _slicedToArray(_arr10[_i10], 2),
-            _listName = _arr10$_i[0],
-            options = _arr10$_i[1];
-
-        if (prefetches.hasOwnProperty(_listName)) {
-          this._getAsyncData(_listName, '', options(this), true);
+        if (prefetches.hasOwnProperty(listName)) {
+          this._getAsyncData(listName, '', options(this), true);
         }
       }
     },

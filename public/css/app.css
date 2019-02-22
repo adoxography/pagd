@@ -21293,6 +21293,21 @@ a.is-danger {
   margin-right: .75rem;
 }
 
+.input[disabled]::-webkit-input-placeholder,
+.taginput .taginput-container.is-focusable[disabled]::-webkit-input-placeholder {
+  color: #666666;
+}
+
+.input[disabled]::-ms-input-placeholder,
+.taginput .taginput-container.is-focusable[disabled]::-ms-input-placeholder {
+  color: #666666;
+}
+
+.input[disabled]::placeholder,
+.taginput .taginput-container.is-focusable[disabled]::placeholder {
+  color: #666666;
+}
+
 .logo {
   text-transform: none !important;
   font-size: 1.25em;

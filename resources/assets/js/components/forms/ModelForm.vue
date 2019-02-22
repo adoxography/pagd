@@ -85,6 +85,21 @@ function normalizeRadios(parent) {
   }
 }
 
+function registerDisabledListeners(els, callback) {
+  let config = {attributes: true};
+  let observer = new MutationObserver(mutations => {
+    for (let mutation of mutations) {
+      if (mutation.attributeName === 'disabled') {
+        callback(mutation.target);
+      }
+    }
+  });
+
+  for (let el of els) {
+    observer.observe(el, config);
+  }
+}
+
 export default {
   props: {
     lists: { type: Object },
@@ -120,13 +135,26 @@ export default {
 	},
 
   mounted() {
-    turnOffAutocompletes(this.$vnode.elm);
-    normalizeTextareas(this.$vnode.elm);
-    normalizeRadios(this.$vnode.elm);
+    let rootNode = this.$vnode.elm;
+
+    turnOffAutocompletes(rootNode);
+    normalizeTextareas(rootNode);
+    normalizeRadios(rootNode);
 
 		if (this.oldErrors) {
       this.updateErrors(this.oldErrors);
     };
+
+    let inputs = rootNode.querySelectorAll('input[type=text]');
+    registerDisabledListeners(inputs, target => {
+      let event = new Event('input', {
+          'bubbles': true,
+          'cancelable': true
+      });
+
+      target.value = '';
+      target.dispatchEvent(event)
+    });
   },
 
   methods: {
@@ -204,22 +232,35 @@ export default {
      *
      * @param listName  The name (key) of the list
      * @param query     The string to filter the list by
+     * @param func      An optional function to specify additional constraints
+     *                  on the filtering
      */
-    filterList(listName, query) {
+    filterList(listName, query, func) {
       let q = query.toLowerCase();
-      let list = this.lists[listName] || this.prefetchLists[listName];
-      this.filteredLists[listName] = list.filter(x => x.name.toLowerCase().includes(q));
 
-      for (let [key, value] of Object.entries(this.prefetch)) {
-        if (listName === key) {
-          this.getPrefetched(listName);
-        }
+      // The list to filter may exist in the initial lists that were passed in,
+      // or it may be part of the lists which are prefetched when another
+      // value updates
+      let list = this.lists[listName] || this.prefetchLists[listName];
+
+      this.filteredLists[listName] = list.filter(x => {
+        return x.name.toLowerCase().includes(q) && (!func || func(x));
+      });
+
+      // If a prefetch call is registered to the updated list, run the prefetch
+      if (this.prefetch.hasOwnProperty(listName)) {
+        this.getPrefetched(this.prefetch[listName]);
       }
     },
 
-    getPrefetched(listName) {
-      let prefetches = this.prefetch[listName];
-
+    /**
+     * Prefetches a series of lists asynchronously
+     *
+     * @param prefetches  An object where the key is the name of the prefetched
+     *                    list, and the value is an object consisting of the
+     *                    parameters that should be sent along with the list
+     */
+    getPrefetched(prefetches) {
       for (let [listName, options] of Object.entries(prefetches)) {
         if (prefetches.hasOwnProperty(listName)) {
           this._getAsyncData(listName, '', options(this), true);

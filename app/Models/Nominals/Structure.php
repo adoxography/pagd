@@ -2,6 +2,9 @@
 
 namespace App\Models\Nominals;
 
+use App\Models\Nominals\Paradigm;
+use App\Models\Nominals\PronominalFeature;
+use App\Models\Nominals\NominalFeature;
 use App\Models\Model;
 use App\Models\Words\Feature;
 use App\Presenters\Nominals\StructurePresenter;
@@ -13,6 +16,12 @@ class Structure extends Model
     protected $fillable = ['pronominal_feature_id', 'nominal_feature_id', 'paradigm_id'];
 
     public $with = ['pronominalFeature', 'nominalFeature', 'paradigm'];
+
+    public static $template = [
+        'paradigm' => Paradigm::class,
+        'pronominal_feature' => PronominalFeature::class,
+        'nominal_feature' => NominalFeature::class
+    ];
 
     public $presenter = StructurePresenter::class;
     public $presenterDefaultMethod = 'summary';

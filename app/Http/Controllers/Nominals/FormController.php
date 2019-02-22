@@ -55,6 +55,9 @@ class FormController extends AlgModelController
             'examples'
         ]);
 
+        $form['morpheme_sequence'] = $form->morphemeSequence(false);
+        $form['translation'] = $form->translation;
+
         return view('nominals.forms.create', compact('form'));
     }
 

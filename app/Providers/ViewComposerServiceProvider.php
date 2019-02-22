@@ -8,6 +8,7 @@ use App\Models\Language;
 use App\Models\Rules\RuleType;
 use App\Models\IGT\IGTLineType;
 
+use App\Models\Nominals\Form as NominalForm;
 use App\Models\Nominals\NominalFeature;
 use App\Models\Nominals\Paradigm;
 use App\Models\Nominals\PronominalFeature;
@@ -226,13 +227,28 @@ class ViewComposerServiceProvider extends ServiceProvider
     protected function composeNominalFormForm()
     {
         view()->composer('nominals.forms.partials.form', function ($view) {
-            $data = [
-                'languages'          => Language::select(['name', 'id'])->get(),
-                'pronominalFeatures' => PronominalFeature::all(),
-                'nominalFeatures'    => NominalFeature::all(),
-                'paradigms'          => Paradigm::with('type')->get(),
-                'changeTypes'        => ChangeType::all()
+            $lists = [
+                'languages'           => Language::select('id', 'name')->get(),
+                'paradigms'           => Paradigm::select('id', 'name', 'language_id', 'paradigm_type_id')
+                    ->with(['type' => function ($query) {
+                        $query->select('id', 'has_nominal_feature', 'has_pronominal_feature');
+                    }])->get(),
+                'pronominal_features' => PronominalFeature::select('id', 'name')->get(),
+                'nominal_features'    => NominalFeature::select('id', 'name')->get(),
+                'change_types'        => ChangeType::select('id', 'name')->get()
             ];
+
+            $asyncRoutes = [
+                'parents' => '/autocomplete/formParents',
+                'morphemes' => '/autocomplete/morphemes'
+            ];
+
+            $data = [
+                'lists' => json_encode($lists),
+                'asyncRoutes' => json_encode($asyncRoutes),
+                'template' => NominalForm::fieldTemplate()
+            ];
+
             $view->with($data);
         });
     }

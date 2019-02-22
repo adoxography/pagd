@@ -5,6 +5,7 @@ namespace App\Models\Nominals;
 use App\Models\Language;
 use App\Models\Model;
 use App\Models\ParadigmTablePresenter;
+use App\Models\Nominals\ParadigmType;
 use App\Presenters\Nominals\ParadigmPresenter;
 use App\Traits\Bookmarkable;
 use App\Traits\Sourceable;
@@ -17,6 +18,12 @@ class Paradigm extends Model
     public $table = 'nom_paradigms';
 
     protected $fillable = ['name', 'language_id', 'paradigm_type_id'];
+
+    public static $template = [
+        'id' => 0,
+        'name' => '',
+        'type' => ParadigmType::class
+    ];
 
     public $uri = 'nominals/paradigms';
 

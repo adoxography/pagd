@@ -39,20 +39,20 @@
         </div>
     </div>
 
-    @isset($form->allomorphyNotes)
+    @isset($form->allomorphy_notes)
     <div class="detail-row">
         <label class="detail-label">Allomorphy</label>
         <div class="detail-value">
-            {!! replaceTags($form->allomorphyNotes, $form->language_id) !!}
+            {!! replaceTags($form->allomorphy_notes, $form->language_id) !!}
         </div>
     </div>
     @endisset
 
-    @isset($form->usageNotes)
+    @isset($form->usage_notes)
     <div class="detail-row">
         <label class="detail-label">Usage notes</label>
         <div class="detail-value">
-            {!! replaceTags($form->usageNotes, $form->language_id) !!}
+            {!! replaceTags($form->usage_notes, $form->language_id) !!}
         </div>
     </div>
     @endisset
@@ -68,29 +68,20 @@
         </div>
     </div>
 
-    @isset($form->historicalNotes)
+    @isset($form->historical_notes)
     <div class="detail-row">
         <label class="detail-label">History</label>
         <div class="detail-value">
-            {!! replaceTags($form->historicalNotes, $form->language_id) !!}
+            {!! replaceTags($form->historical_notes, $form->language_id) !!}
         </div>
     </div>
     @endisset
 
-    @isset($form->comments)
-    <div class="detail-row">
-        <label class="detail-label">Comments</label>
-        <div class="detail-value">
-            {!! replaceTags($form->historicalNotes, $form->language_id) !!}
-        </div>
-    </div>
-    @endisset
-
-    @if(isset($form->privateNotes) && Auth::user() && Auth::user()->hasPermissionTo('add content'))
+    @if(isset($form->private_notes) && Auth::user() && Auth::user()->hasPermissionTo('add content'))
     <div class="detail-row">
         <label class="detail-label">Private notes</label>
         <div class="detail-value">
-            {!! replaceTags($form->privateNotes, $form->language_id) !!}
+            {!! replaceTags($form->private_notes, $form->language_id) !!}
         </div>
     </div>
     @endif

@@ -85,6 +85,13 @@ function normalizeRadios(parent) {
   }
 }
 
+/**
+ * Adds a listener to elements which will fire when the element is disabled
+ *
+ * @param els  The elements to listen for being disabled
+ * @param callback  The function to run when the element is disabled. Should
+ *                  take one argument - the element that triggered the event
+ */
 function registerDisabledListeners(els, callback) {
   let config = {attributes: true};
   let observer = new MutationObserver(mutations => {
@@ -145,6 +152,7 @@ export default {
       this.updateErrors(this.oldErrors);
     };
 
+    // Register "disabled" event listeners on the text inputs
     let inputs = rootNode.querySelectorAll('input[type=text]');
     registerDisabledListeners(inputs, target => {
       let event = new Event('input', {
@@ -153,6 +161,7 @@ export default {
       });
 
       target.value = '';
+      // Fire an input event to let Vue components know something has changed
       target.dispatchEvent(event)
     });
   },

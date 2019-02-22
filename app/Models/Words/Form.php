@@ -173,19 +173,10 @@ class Form extends Model implements PhonemeableInterface, HasMorphemesInterface
 
     public function isStemless()
     {
-        return $this->morphemic_form ? !$this->hasStem() : $this->hasIdenticalExample();
-    }
-
-    protected function hasStem()
-    {
-        foreach ($this->morphemes as $morpheme) {
-            $strippedMorpheme = str_replace(['*', '-'], '', $morpheme->name);
-            if ($strippedMorpheme == 'N' || $strippedMorpheme == 'V') {
-                return true;
-            }
+        if (preg_match('/(^|-)[NV]($|-)/', $this->name)) {
+            return false;
         }
-
-        return false;
+        return $this->hasIdenticalExample();
     }
 
     protected function hasIdenticalExample()

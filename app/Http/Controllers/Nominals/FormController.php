@@ -47,6 +47,7 @@ class FormController extends AlgModelController
         $form = $nominalForm->load([
             'language',
             'structure.paradigm',
+            'structure.paradigm.type',
             'structure.nominalFeature',
             'structure.pronominalFeature',
             'sources',
@@ -62,12 +63,16 @@ class FormController extends AlgModelController
         $form = $nominalForm->load([
             'language',
             'structure.paradigm',
+            'structure.paradigm.type',
             'structure.nominalFeature',
             'structure.pronominalFeature',
             'sources',
             'parent',
             'examples'
         ]);
+
+        $form['morpheme_sequence'] = $form->morphemeSequence(false);
+        $form['translation'] = $form->translation;
 
         return view('nominals.forms.edit', compact('form'));
     }

@@ -40,9 +40,9 @@ trait HasStructure {
     {
     	$data = [];
 
-        $data['pronominalFeature_id'] = $attributes['pronominalFeature_id'];
-        $data['nominalFeature_id']    = $attributes['nominalFeature_id'];
-        $data['paradigm_id']          = $attributes['paradigm_id'];
+        $data['pronominal_feature_id'] = $attributes['pronominal_feature_id'];
+        $data['nominal_feature_id']    = $attributes['nominal_feature_id'];
+        $data['paradigm_id']           = $attributes['paradigm_id'];
 
         return $data;
     }

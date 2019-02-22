@@ -32,11 +32,11 @@ class FormRequest extends WordFormRequest
 
         $rules += [
             'pronominalFeature'    => ['nullable'],
-            'pronominalFeature_id' => ['nullable','exists:Word_Features,id'], 
+            'pronominalFeature_id' => ['nullable','exists:word_features,id'], 
             'nominalFeature'       => ['nullable'],
-            'nominalFeature_id'    => ['nullable','exists:Word_Features,id'],
+            'nominalFeature_id'    => ['nullable','exists:word_features,id'],
             'paradigm'             => ['required'],
-            'paradigm_id'          => ['required','exists:Nom_Paradigms,id'], 
+            'paradigm_id'          => ['required','exists:nom_paradigms,id'], 
         ];
 
         return $rules;

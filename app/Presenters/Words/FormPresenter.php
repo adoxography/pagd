@@ -24,11 +24,10 @@ class FormPresenter extends AlgPresenter
 
     public function phonemicForm(string $format = '')
     {
-        if (!$this->model->phonemicForm) {
+        if (!$this->model->phonemic_form) {
             return $this->name();
-        } else {
-            return $this->convertToPhonemes('phonemicForm');
         }
+        return $this->convertToPhonemes('phonemic_form');
     }
 
     public function stub()

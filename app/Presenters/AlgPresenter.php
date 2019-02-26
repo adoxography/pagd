@@ -4,6 +4,7 @@ namespace App\Presenters;
 
 use App\Presenters\Presenter;
 use App\Presenters\PresenterInterface;
+use Illuminate\Support\Arr;
 
 class AlgPresenter extends Presenter implements PresenterInterface
 {
@@ -81,7 +82,7 @@ class AlgPresenter extends Presenter implements PresenterInterface
     {
         $table = $this->model->getTable();
 
-        $tableName = array_last(explode('_', $table));
+        $tableName = Arr::last(explode('_', $table));
 
         return strtolower($tableName);
     }

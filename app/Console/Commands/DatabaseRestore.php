@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
 use Storage;
 
 class DatabaseRestore extends Command
@@ -59,7 +60,7 @@ class DatabaseRestore extends Command
         $environment = $this->option('environment');
         $files = collect(Storage::disk('dropbox')->allFiles("backups/$environment"))
                 ->sortByDesc(function ($file) {
-                    return array_last(explode('_', $file));
+                    return Arr::last(explode('_', $file));
                 });
 
         return str_replace('backups', '', $files->first());

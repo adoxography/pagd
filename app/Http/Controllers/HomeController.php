@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Language;
 use App\Models\Verbs\Order;
 use App\Models\Verbs\VerbClass;
+use Illuminate\Support\Arr;
 use Storage;
 
 class HomeController extends PageController
@@ -23,7 +24,7 @@ class HomeController extends PageController
     {
         $pages = [];
 
-        $files = array_where(Storage::allFiles('pages'), function($value) {
+        $files = Arr::where(Storage::allFiles('pages'), function($value) {
             return preg_match('/.+\.php/', $value);
         });
 

@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use Illuminate\Support\Arr;
 use App\Models\StructuralSurvey\Datapoint;
 
 class DatapointObserver
@@ -45,7 +46,7 @@ class DatapointObserver
 
 					$childDatapoint->save();
 				} else if($childDatapoint->isExtension) {
-					$childDatapoint->update(array_except($datapoint->getAttributes(), ['id', 'created_at', 'updated_at', 'language_id', 'isExtension']));
+					$childDatapoint->update(Arr::except($datapoint->getAttributes(), ['id', 'created_at', 'updated_at', 'language_id', 'isExtension']));
 
 					$childDatapoint->connectSources(request()->sources);
 				}

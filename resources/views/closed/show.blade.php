@@ -1,7 +1,7 @@
 @extends('layout', ['title' => ($item->abv ? $item->abv : $item->name)])
 
 @php
-$namespace = strtolower(array_last(explode('_', $item->table)));
+$namespace = strtolower(Arr::last(explode('_', $item->table)));
 @endphp
 
 @section('title')

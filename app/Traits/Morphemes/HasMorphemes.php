@@ -7,6 +7,7 @@ use Auth;
 use App\Models\Words\Form;
 use App\Models\Words\Example;
 use App\Models\Morphology\Morpheme;
+use Illuminate\Support\Arr;
 
 /**
  * Assignable trait to classes that need to deal with morphemes.
@@ -200,13 +201,13 @@ trait HasMorphemes
 
                 if (count($tokens) > 1) {
                     // Initial change is at play here
-                    array_last($output)->initialChange($tokens[1]);
+                    Arr::last($output)->initialChange($tokens[1]);
                 }
 
-                array_last($output)['assumed'] = !is_numeric($tokens[0]);
+                Arr::last($output)['assumed'] = !is_numeric($tokens[0]);
             } else {
                 // Otherwise, we don't have the morpheme in the system; deal with the token directly
-                $realSlot = array_first($tokens);
+                $realSlot = Arr::first($tokens);
                 $temp = ['name' => $realSlot];
 
                 // The initial change table won't have a record for a morpheme that isn't in the database, so record

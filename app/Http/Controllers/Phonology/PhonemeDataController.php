@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Phonology;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 class PhonemeDataController extends Controller
 {
@@ -28,7 +29,7 @@ class PhonemeDataController extends Controller
 
     protected function getClass(string $name)
     {
-        $baseName = ucfirst(camel_case(str_singular($name)));
+        $baseName = ucfirst(Str::camel(Str::singular($name)));
         return 'App\\Models\\Phonology\\' . $baseName;
     }
 }

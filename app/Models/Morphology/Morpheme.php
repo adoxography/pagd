@@ -22,6 +22,7 @@ use App\Traits\Reconstructable;
 use App\Traits\Sourceable;
 use App\Traits\Phonology\Phonemeable;
 use App\Presenters\MorphemePresenter;
+use Illuminate\Support\Arr;
 use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
 
@@ -63,7 +64,7 @@ class Morpheme extends Model implements PhonemeableInterface
     {
         $array = $this->toArray();
 
-        return array_only($array, ['id', 'name', 'allomorphy_notes', 'historical_notes', 'usage_notes', 'comments']);
+        return Arr::only($array, ['id', 'name', 'allomorphy_notes', 'historical_notes', 'usage_notes', 'comments']);
     }
 
     protected $disambiguatableFields = ['name', 'language_id'];

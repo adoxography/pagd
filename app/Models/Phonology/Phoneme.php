@@ -13,6 +13,7 @@ use App\Traits\Reconstructable;
 use App\Traits\Sourceable;
 use App\Traits\Phonology\HasAllophones;
 use App\Traits\Phonology\HasPhonemeType;
+use Illuminate\Support\Arr;
 use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
 
@@ -44,7 +45,7 @@ class Phoneme extends Model
     {
         $array = $this->toArray();
 
-        return array_only($array, [
+        return Arr::only($array, [
             'id',
             'algo_name',
             'ipa_name',

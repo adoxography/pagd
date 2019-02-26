@@ -2,6 +2,7 @@
 
 namespace App\Modules\SmartSearch;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 class Dictionary
@@ -68,12 +69,12 @@ class Dictionary
             $stored = $this->dictionary[$lookup];
 
             if (strlen($category) > 0) {
-                $stored = array_where($stored, function ($val) use ($category) {
+                $stored = Arr::where($stored, function ($val) use ($category) {
                     return $val['category'] == $category;
                 });
             }
 
-            $values = array_pluck($stored, 'id');
+            $values = Arr::pluck($stored, 'id');
         }
 
         return $values;

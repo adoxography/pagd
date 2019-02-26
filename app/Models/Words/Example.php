@@ -15,6 +15,7 @@ use App\Traits\Morphemes\HasMorphemes;
 use App\Traits\Phonology\Phonemeable;
 use App\Traits\Reconstructable;
 use App\Traits\Sourceable;
+use Illuminate\Support\Arr;
 use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
 
@@ -43,7 +44,7 @@ class Example extends Model implements HasMorphemesInterface, PhonemeableInterfa
     {
         $array = $this->toArray();
 
-        return array_only($array, ['id', 'name', 'translation', 'public_notes', 'private_notes']);
+        return Arr::only($array, ['id', 'name', 'translation', 'public_notes', 'private_notes']);
     }
 
     public static $template = [

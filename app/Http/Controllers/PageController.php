@@ -8,6 +8,7 @@ use App\Models\Verbs\Form as VerbForm;
 use App\Models\Words\Example;
 use App\Models\Language;
 use App\Models\Morphology\Morpheme;
+use Illuminate\Support\Arr;
 use Storage;
 
 class PageController extends Controller
@@ -51,7 +52,7 @@ class PageController extends Controller
     	$files = [];
 
     	// Find all of the css file names
-    	$fileNames = array_where(Storage::files('css'), function($value) {
+    	$fileNames = Arr::where(Storage::files('css'), function($value) {
     		return preg_match('/.+\.css/', $value);
     	});
 

@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Traits\InteractsAcrossFilesystems;
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
 use Storage;
 
 class Aggregate extends Command
@@ -50,13 +51,13 @@ class Aggregate extends Command
 
             exec("mysqldump --skip-add-drop-table --no-create-info --insert-ignore --skip-add-locks algling sourceables >> aggregate.sql");
 
-            $this->delete(array_last(explode('/', $file)), 'local');
+            $this->delete(Arr::last(explode('/', $file)), 'local');
         }
     }
 
     protected function prepareBackup($path)
     {
-        $file = array_last(explode('/', $path));
+        $file = Arr::last(explode('/', $path));
 
         $this->copy($path, 'dropbox', 'local', $file);
 

@@ -3,7 +3,7 @@
 namespace App\Presenters;
 
 use App\Exceptions\PresenterException;
-//use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 abstract class Presenter
 {
@@ -113,8 +113,8 @@ abstract class Presenter
             $this->setArguments($arguments);
         } else {
             // Otherwise, set the method on the last presenter entered
-            array_last($with)->as($method)
-                ->setArguments($arguments);
+            Arr::last($with)->as($method)
+               ->setArguments($arguments);
         }
 
         return $this;

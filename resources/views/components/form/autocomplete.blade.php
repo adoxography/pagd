@@ -1,5 +1,5 @@
 @php
-$list     = $list     ?? str_plural($name);
+$list     = $list     ?? Str::plural($name);
 $required = $required ?? 'false';
 $field    = $field    ?? 'name';
 $async    = $async    ?? false;

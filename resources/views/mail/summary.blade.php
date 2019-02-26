@@ -7,7 +7,7 @@ Here is the activity summary for alglang.net over the past week:
 @foreach ($data as $label => $arr)
 @if (count($arr['newData']) > 0)
 ## New {{ $label }}: {{ count($arr['newData']) }}
-@if (method_exists(array_first($arr['newData']), 'language'))
+@if (method_exists(Arr::first($arr['newData']), 'language'))
 @component('mail::panel')
 @foreach ($arr['newData'] as $item)
 - {{ str_replace('&nbsp', ' ', (new App\Presenters\MarkdownPresenter($item, 'link'))->then('language')) }}

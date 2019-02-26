@@ -5,6 +5,7 @@ namespace App\Models\Verbs\Paradigms;
 use Config;
 use App\Interfaces\Morphemes\HasMorphemesInterface;
 use App\Models\Verbs\Paradigms\HeaderRow;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 
@@ -225,7 +226,7 @@ class Paradigm
         $span = 1;
 
         if ($header != null && $header->count() == 1) {
-            $span += $this->calculateHeaderRowspan(array_first($header));
+            $span += $this->calculateHeaderRowspan(Arr::first($header));
         }
 
         return $span;
@@ -341,7 +342,7 @@ class Paradigm
     {
         // Loop through each class
         foreach ($rows as $class => $argumentStructures) {
-            $keys = array_keys($argumentStructures);
+            $keys = Arr::keys($argumentStructures);
             $classHasForms = false;
 
             // Loop through each set of arguments
@@ -457,7 +458,7 @@ class Paradigm
         foreach ($possibleMatches as $possibleMatch) {
             if ($this->rowInUse($rows, $class, $possibleMatch)) {
                 $formsToMove = $rows[$class][$arguments];
-                $possibleMatchIDs = array_pluck($rows[$class][$possibleMatch], 'id');
+                $possibleMatchIDs = Arr::pluck($rows[$class][$possibleMatch], 'id');
 
                 foreach ($formsToMove as $formToMove) {
                     if (!in_array($formToMove->id, $possibleMatchIDs)) {

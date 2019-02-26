@@ -24,7 +24,7 @@
 					:orders="{{ $orders }}"
 
 					@if (isset($params))
-					:old-values={{ json_encode(array_except($params, ['languages'])) }}
+					:old-values={{ json_encode(Arr::except($params, ['languages'])) }}
 					@endif
 				></alg-form-search>
 			</div>

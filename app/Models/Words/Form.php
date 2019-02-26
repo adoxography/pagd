@@ -15,6 +15,7 @@ use App\Traits\Reconstructable;
 use App\Traits\Sourceable;
 use App\Traits\Morphemes\HasMorphemes;
 use App\Traits\Phonology\Phonemeable;
+use Illuminate\Support\Arr;
 use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
 
@@ -63,7 +64,7 @@ class Form extends Model implements PhonemeableInterface, HasMorphemesInterface
     {
         $array = $this->toArray();
 
-        return array_only($this->toArray(), [
+        return Arr::only($this->toArray(), [
             'id',
             'allomorphy_notes',
             'private_notes',

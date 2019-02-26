@@ -6,6 +6,7 @@ use App\Models\Phonology\Phoneme;
 use App\Models\Phonology\VowelType;
 use App\Models\Phonology\ClusterType;
 use App\Models\Phonology\ConsonantType;
+use Illuminate\Support\Arr;
 
 trait HasPhonemeType
 {
@@ -56,7 +57,7 @@ trait HasPhonemeType
 
     protected function parseVowelData($data)
     {
-        $rules = array_only($data, ['height_id', 'backness_id', 'length_id', 'isNasal', 'isRounded']);
+        $rules = Arr::only($data, ['height_id', 'backness_id', 'length_id', 'isNasal', 'isRounded']);
 
         if (!array_key_exists('length_id', $rules)) {
             $rules['length_id'] = null;
@@ -67,7 +68,7 @@ trait HasPhonemeType
 
     protected function parseConsonantData($data)
     {
-        $rules = array_only($data, ['place_id', 'manner_id', 'voicing_id', 'isRounded', 'isPalatalized', 'isGlottalized']);
+        $rules = Arr::only($data, ['place_id', 'manner_id', 'voicing_id', 'isRounded', 'isPalatalized', 'isGlottalized']);
 
         if (!array_key_exists('voicing_id', $rules)) {
             $rules['voicing_id'] = null;
@@ -78,6 +79,6 @@ trait HasPhonemeType
 
     protected function parseClusterData($data)
     {
-        return array_only($data, ['firstSegment_id', 'secondSegment_id']);
+        return Arr::only($data, ['firstSegment_id', 'secondSegment_id']);
     }
 }

@@ -10,8 +10,8 @@ return [
     | The database will be backed up after every __ save events.
     */
     'backup_cache_key'       => 'num_backups',
-    'backup_change_interval' => 5,
-    'backup_time_interval'   => 2,
+    'backup_change_interval' => 600,
+    'backup_time_interval'   => 120,
 
     /*
     |--------------------------------------------------------------------------

@@ -9,6 +9,8 @@ use App\Models\Verbs\VerbClass;
 use App\Models\Words\Feature;
 use App\Models\Group;
 use App\Models\Language;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class SmartSearch
 {
@@ -99,8 +101,8 @@ class SmartSearch
     {
         $template = '`(?<=[ ])(?<![not |aren\'t|isn\'t])(%s|not %s)(?=[, ])`';
 
-        $this->{camel_case($positive)} = preg_match(sprintf($template, $positive, $negative), $this->lookup) > 0;
-        $this->{camel_case($negative)} = preg_match(sprintf($template, $negative, $positive), $this->lookup) > 0;
+        $this->{Str::camel($positive)} = preg_match(sprintf($template, $positive, $negative), $this->lookup) > 0;
+        $this->{Str::camel($negative)} = preg_match(sprintf($template, $negative, $positive), $this->lookup) > 0;
     }
 
     protected function extractLanguages()
@@ -252,10 +254,10 @@ class SmartSearch
     {
         switch (count($features)) {
             case 3:
-                $this->secondaryObject = Feature::where(array_except($features[2], 'sign'))->first()->id;
+                $this->secondaryObject = Feature::where(Arr::except($features[2], 'sign'))->first()->id;
                 // no break
             case 2:
-                $feature = Feature::where(array_except($features[1], 'sign'))->first()->id;
+                $feature = Feature::where(Arr::except($features[1], 'sign'))->first()->id;
 
                 if ($features[1]['sign'] == '-') {
                     $this->primaryObject = $feature;
@@ -265,7 +267,7 @@ class SmartSearch
                 // no break
             case 1:
                 $this->hasFeatures = true;
-                $this->subject = Feature::where(array_except($features[0], 'sign'))->first()->id;
+                $this->subject = Feature::where(Arr::except($features[0], 'sign'))->first()->id;
                 break;
             default:
                 break;

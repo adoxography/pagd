@@ -5,6 +5,7 @@ namespace App\Presenters;
 use App\Presenters\Presenter;
 use App\Presenters\PresenterInterface;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class MarkdownPresenter extends Presenter implements PresenterInterface
 {
@@ -63,7 +64,7 @@ class MarkdownPresenter extends Presenter implements PresenterInterface
 	{
 		$table = $this->model->getTable();
 
-		$tableName = array_last(explode('_', $table));
+		$tableName = Arr::last(explode('_', $table));
 
 		return strtolower($tableName);		
 	}

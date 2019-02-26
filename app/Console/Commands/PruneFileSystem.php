@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Storage;
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
 
 class PruneFileSystem extends Command
 {
@@ -43,7 +44,7 @@ class PruneFileSystem extends Command
         $disk = Storage::disk($this->option('disk'));
         $files = collect($disk->files("backups/$environment/incremental"))
                 ->sortBy(function ($file) {
-                    return array_last(explode('_', $file));
+                    return Arr::last(explode('_', $file));
                 });
 
         $numToDelete = count($files) - $max;

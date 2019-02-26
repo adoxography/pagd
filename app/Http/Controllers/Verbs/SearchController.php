@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\Verbs;
 
 use App\Models\Language;
-use Illuminate\Http\Request;
 use App\Models\Verbs\Paradigms\Paradigm;
 use App\Models\Verbs\Gap;
 use App\Models\Verbs\Form;
 use App\Models\Verbs\Mode;
 use App\Models\Verbs\Order;
-use DB;
 use App\Models\Verbs\Argument;
 use App\Http\Controllers\Controller;
 use App\Models\Verbs\VerbClass;
+use DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class SearchController extends Controller
 {
@@ -97,7 +98,7 @@ class SearchController extends Controller
                 ->orderBy('Languages.position', 'asc')
                 ->get();
         } else {
-            $languageIds = array_filter($request->languages, function($language) {
+            $languageIds = Arr::filter($request->languages, function($language) {
                 return is_numeric($language);
             });
 
@@ -224,7 +225,7 @@ class SearchController extends Controller
 
     protected function getModel($array, $class)
     {
-        $ids = array_filter(array_wrap($array), 'is_numeric');
+        $ids = Arr::filter(Arr::wrap($array), 'is_numeric');
 
         return $class::whereIn('id', $ids)->get();
     }

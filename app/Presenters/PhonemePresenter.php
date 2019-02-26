@@ -4,6 +4,7 @@ namespace App\Presenters;
 
 use App\Models\Phonology\Phoneme;
 use App\Presenters\AlgPresenter;
+use Illuminate\Support\Arr;
 
 class PhonemePresenter extends AlgPresenter
 {
@@ -158,7 +159,7 @@ class PhonemePresenter extends AlgPresenter
         $output .= $this->model->present()->as('name', 'bold')
                     ->before('language');
 
-        $output .= array_last($parents)->present('environment');
+        $output .= Arr::last($parents)->present('environment');
 
         return sprintf('<li>%s</li>', $output);
     }

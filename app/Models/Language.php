@@ -17,6 +17,7 @@ use App\Traits\HasChildren;
 use App\Traits\Locatable;
 use App\Traits\Nominals\HasNominals;
 use App\Traits\Verbs\HasVerbs;
+use Illuminate\Support\Arr;
 use Laravel\Scout\Searchable;
 use Venturecraft\Revisionable\RevisionableTrait;
 
@@ -78,7 +79,7 @@ class Language extends Model
     {
         $array = $this->toArray();
 
-        return array_only($array, ['id', 'alternate_names', 'name', 'iso', 'algo_code', 'notes']);
+        return Arr::only($array, ['id', 'alternate_names', 'name', 'iso', 'algo_code', 'notes']);
     }
 
     public $presenter = LanguagePresenter::class;

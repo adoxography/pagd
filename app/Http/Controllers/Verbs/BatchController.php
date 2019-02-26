@@ -16,6 +16,7 @@ use App\Models\Verbs\Structure;
 use App\Models\Verbs\VerbClass;
 use App\Models\Words\Feature;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class BatchController extends Controller
 {
@@ -125,7 +126,7 @@ class BatchController extends Controller
             }
 
             // Connect the new forms to the batch
-            Batchable::insert(array_map(function ($form) use ($batch) {
+            Batchable::insert(Arr::map(function ($form) use ($batch) {
                 return [
                     'batch_upload_id' => $batch->id,
                     'batchable_id' => $form->id
@@ -156,7 +157,7 @@ class BatchController extends Controller
         foreach ($data as &$row) {
             $row = str_getcsv($row, "\t");
         }
-        array_shift($data);
+        Arr::shift($data);
         return $data;
     }
 
@@ -319,10 +320,10 @@ class ModelTransformer extends Transformer
 
     protected function prepare(array $data)
     {
-        $values = array_pluck($data, $this->col);
+        $values = Arr::pluck($data, $this->col);
 
         if ($this->castFunc) {
-            $values = array_map($this->castFunc, $values);
+            $values = Arr::map($this->castFunc, $values);
         }
 
         $this->models = $this->class::whereIn($this->field, $values)->get();
@@ -335,7 +336,7 @@ class ModelTransformer extends Transformer
 
         if (!$model) {
             $table = (new $this->class)->table;
-            $readableTable = array_last(explode('_', $table));
+            $readableTable = Arr::last(explode('_', $table));
             throw new TransformationException("The value '$value' is not contained in `$readableTable`.");
         }
 

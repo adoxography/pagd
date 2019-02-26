@@ -1,6 +1,6 @@
 @php
 if(!isset($uri)) {
-	$uri = '/'.strtolower(array_last(explode('_', $model->table))).'/';
+	$uri = '/'.strtolower(Arr::last(explode('_', $model->table))).'/';
 }
 @endphp
 

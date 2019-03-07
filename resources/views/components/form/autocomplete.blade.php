@@ -7,6 +7,7 @@
 =======
 >>>>>>> Put remaining UI elements into verb form form
 @php
+use Illuminate\Support\Str;
 $list     = $list     ?? Str::plural($name);
 $required = $required ?? 'false';
 $field    = $field    ?? 'name';

@@ -4,6 +4,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     "/js/app.js": "/js/app.js?id=bab1d7624172ffebeee6",
     "/css/app.css": "/css/app.css?id=e92d12db8298d0f728d5",
     "/js/vendor.js": "/js/vendor.js?id=7a0fcb16daa4f31dae42",
@@ -36,4 +37,10 @@
 >>>>>>> Bump composer dependencies and remove unused packages
     "/js/manifest.js": "/js/manifest.js?id=5128965f3c81be39539e"
 >>>>>>> Remove the morpheme alert component
+=======
+    "/js/app.js": "/js/app.js?id=820f6c5b53be1b0aeb92",
+    "/css/app.css": "/css/app.css?id=438f6d7320cec673905a",
+    "/js/vendor.js": "/js/vendor.js?id=7f9f73523193f147497c",
+    "/js/manifest.js": "/js/manifest.js?id=00ead3e33cec6059d2bd"
+>>>>>>> Bump npm packages
 }

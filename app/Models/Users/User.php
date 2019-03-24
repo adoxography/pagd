@@ -119,4 +119,9 @@ class User extends Authenticatable
     {
         \Mail::to($this)->send($mail);
     }
+
+    public static function contactAdmin()
+    {
+        return self::where('email', 'gstill@uw.edu')->first();
+    }
 }

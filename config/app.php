@@ -216,7 +216,18 @@ return [
         'Storage' => Illuminate\Support\Facades\Storage::class,
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
-        'View' => Illuminate\Support\Facades\View::class
+        'View' => Illuminate\Support\Facades\View::class,
+
+        'Cluster' => App\Models\Phonology\Cluster::class,
+        'Group' => App\Models\Group::class,
+        'Language' => App\Models\Language::class,
+        'Morpheme' => App\Models\Morphology\Morpheme::class,
+        'NominalForm' => App\Models\Norminals\Form::class,
+        'Phoneme' => App\Models\Phonology\Phoneme::class,
+        'User' => App\Models\Users\User::class,
+        'VerbForm' => App\Models\Verbs\Form::class,
+        'WordExample' => App\Models\Words\Example::class,
+        'WordForm' => App\Models\Words\Form::class
     ],
 
 ];

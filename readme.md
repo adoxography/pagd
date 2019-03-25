@@ -3,7 +3,7 @@ The Database of Algonquian Language Structures is a project to provide basic inf
 
 ## People
 ### Project leaders
-The principal investigator is (Will Oxford)[https://home.cc.umanitoba.ca/~oxfordwr/] (Department of Linguistics, University of Manitoba), and the web developer is Graham Still.
+The principal investigator is [Will Oxford](https://home.cc.umanitoba.ca/~oxfordwr/) (Department of Linguistics, University of Manitoba), and the web developer is Graham Still.
 
 ### Research assistants
 The database would not exist without the contributions of a large number of student research assistants. As of November 2017, the following RAs are working on the project in various capacities:

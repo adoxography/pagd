@@ -1,27 +1,29 @@
-# Laravel PHP Framework
+# Database of Algonquian Language Structures
+The Database of Algonquian Language Structures is a project to provide basic information about the sounds and grammar of the Algonquian languages in an easily searchable format.
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+## People
+### Project leaders
+The principal investigator is (Will Oxford)[https://home.cc.umanitoba.ca/~oxfordwr/] (Department of Linguistics, University of Manitoba), and the web developer is Graham Still.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+### Research assistants
+The database would not exist without the contributions of a large number of student research assistants. As of November 2017, the following RAs are working on the project in various capacities:
+- Nicole Brunette
+- Emily Comeau
+- Sarah Hoffman
+- Christopher Lansang
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+And the following students have contributed to the project in the past:
+- Samantha Frederick
+- Michele Lisanti
+- Charmaine Manalang
+- Izabela Matusz
+- Francis Newman
+- Mathieu Paillé
+- Vivian Xu
+- Jin Ho Yeum
 
-## Official Documentation
-
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+## Funding partners
+The project was made possible through funding from the following sources:
+- Social Sciences and Humanities Research Council of Canada: Insight Development Grant 430-2016-00680, Structure and Change in Direct-Inverse Systems, 2016-18 (PI Will Oxford, University of Manitoba; collaborator Heather Bliss, University of Victoria)
+- University of Manitoba Research Grants Program (URGP), Unifying Data and Theory in Comparative Algonquian Linguistics, 2014-15
+- University of Manitoba start-up grant, Resources for Algonquian Linguistic Research, 2013-15

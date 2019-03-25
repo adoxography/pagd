@@ -1,4 +1,4 @@
-# Database of Algonquian Language Structures
+# [Database of Algonquian Language Structures](www.alglang.net)
 The Database of Algonquian Language Structures is a project to provide basic information about the sounds and grammar of the Algonquian languages in an easily searchable format.
 
 ## People

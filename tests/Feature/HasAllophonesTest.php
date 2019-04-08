@@ -21,7 +21,7 @@ class HasAllophonesTest extends TestCase
     public function a_phonemes_default_allophone_is_its_ipa_name()
     {
         $phoneme = factory(Phoneme::class)->create([
-            'ipaName' => 'a'
+            'ipa_name' => 'a'
         ]);
 
         $this->assertEquals(
@@ -34,8 +34,8 @@ class HasAllophonesTest extends TestCase
     public function a_phonemes_default_allophone_is_its_algo_name_when_there_is_no_ipa_name()
     {
         $phoneme = factory(Phoneme::class)->create([
-            'ipaName' => null,
-            'algoName' => 'a'
+            'ipa_name' => null,
+            'algo_name' => 'a'
         ]);
 
         $this->assertEquals(
@@ -71,7 +71,7 @@ class HasAllophonesTest extends TestCase
     /** @test */
     public function changing_allophones_causes_a_revision_to_be_created()
     {
-        $phoneme = factory(Phoneme::class)->create(['ipaName' => 'p']);
+        $phoneme = factory(Phoneme::class)->create(['ipa_name' => 'p']);
 
         $phoneme->update(['allophones' => [[
             'name' => 't',

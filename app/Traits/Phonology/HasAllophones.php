@@ -85,7 +85,7 @@ trait HasAllophones
      */
     protected function generateDefaultAllophone()
     {
-        $name = $this->ipaName ?: $this->algoName;
+        $name = $this->ipa_name ?: $this->algo_name;
 
         return ['name' => str_replace(['*', '/', '[', ']'], '', $name)];
     }

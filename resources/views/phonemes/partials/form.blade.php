@@ -27,7 +27,7 @@
 				<div class="columns">
 					<div class="column is-one-third">
 						@component('components.form.text', [
-							'name'      => 'algoName',
+							'name'      => 'algo_name',
 							'autofocus' => true,
 							'rules'     => 'required',
 							'label'     => 'algonquianist transcription',
@@ -35,7 +35,7 @@
 						])
 							@slot('value')
 								@if(isset($phoneme))
-									{{ str_replace('*', '', $phoneme->algoName) }}
+									{{ str_replace('*', '', $phoneme->algo_name) }}
 								@endif
 							@endslot
 						@endcomponent
@@ -43,13 +43,13 @@
 
 					<div class="column is-one-third">
 						@component('components.form.text', [
-							'name'      => 'ipaName',
+							'name'      => 'ipa_name',
 							'label'     => 'IPA transcription',
 							'typewriter' => true
 						])
 							@slot('value')
 								@if(isset($phoneme))
-									{{ str_replace(['*', '/'], '', $phoneme->ipaName) }}
+									{{ str_replace(['*', '/'], '', $phoneme->ipa_name) }}
 								@endif
 							@endslot
 						@endcomponent
@@ -57,13 +57,13 @@
 
 					<div class="column is-one-third">
 						@component('components.form.text', [
-							'name'      => 'orthoName',
+							'name'      => 'ortho_name',
 							'label'     => 'community orthography',
 							'typewriter' => true
 						])
 							@slot('value')
 								@if(isset($phoneme))
-									{{ $phoneme->orthoName }}
+									{{ $phoneme->ortho_name }}
 								@endif
 							@endslot
 						@endcomponent

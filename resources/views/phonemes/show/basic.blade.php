@@ -4,19 +4,19 @@
 	<div class="columns">
 		<div class="column">
 
-			@if($phoneme->ipaName || $phoneme->orthoName)
+			@if($phoneme->ipa_name || $phoneme->ortho_name)
 				<div class="field">
-					@if($phoneme->ipaName)
+					@if($phoneme->ipa_name)
 					<span class="is-one-line">
 						<span class="label">IPA transcription:</span>
-						{{ $phoneme->present()->transcription('ipaName') }}
+						{{ $phoneme->present()->transcription('ipa_name') }}
 					</span>
 					@endif
 
-					@if($phoneme->orthoName)
+					@if($phoneme->ortho_name)
 					<span class="is-one-line">
 						<span class="label">Orthographic transcription:</span>
-						{{ $phoneme->orthoName }}
+						{{ $phoneme->ortho_name }}
 					</span>
 					@endif
 				</div>

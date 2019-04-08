@@ -13,7 +13,7 @@ class HasPhonemesTest extends TestCase
     public function a_phonemeable_connects_its_phonemes()
     {
         $phoneme = factory(Phoneme::class)->create([
-            'algoName' => 't'
+            'algo_name' => 't'
         ]);
 
         $form = factory(Form::class)->create([
@@ -38,7 +38,7 @@ class HasPhonemesTest extends TestCase
     public function phonemes_are_only_added_once()
     {
         $phoneme = factory(Phoneme::class)->create([
-            'algoName' => 't'
+            'algo_name' => 't'
         ]);
 
         $form = factory(Form::class)->create([
@@ -53,7 +53,7 @@ class HasPhonemesTest extends TestCase
     public function phonemeables_do_not_crosstalk()
     {
         $phoneme = factory(Phoneme::class)->create([
-            'algoName' => 't'
+            'algo_name' => 't'
         ]);
 
         $form = Form::forceCreate(factory(Form::class)->raw([
@@ -75,7 +75,7 @@ class HasPhonemesTest extends TestCase
     public function diacritics_are_connected_with_phonemes()
     {
         $phoneme = factory(Phoneme::class)->create([
-            'algoName' => 'ǽ'
+            'algo_name' => 'ǽ'
         ]);
 
         $form = factory(Form::class)->create([
@@ -90,7 +90,7 @@ class HasPhonemesTest extends TestCase
     public function updating_a_phonemeable_with_no_phonemic_form_removes_its_phonemes()
     {
         $phoneme = factory(Phoneme::class)->create([
-            'algoName' => 't'
+            'algo_name' => 't'
         ]);
 
         $form = factory(Form::class)->create([
@@ -112,7 +112,7 @@ class HasPhonemesTest extends TestCase
 
         $phoneme = factory(Phoneme::class)->create([
             'language_id' => $form->language_id,
-            'algoName' => 't'
+            'algo_name' => 't'
         ]);
 
         $this->assertCount(1, $form->phonemes()->get());
@@ -127,7 +127,7 @@ class HasPhonemesTest extends TestCase
 
         $phoneme = factory(Phoneme::class)->create([
             'language_id' => $form->language_id,
-            'algoName' => 'ǽ'
+            'algo_name' => 'ǽ'
         ]);
 
         $this->assertCount(1, $form->phonemes()->get());
@@ -142,21 +142,21 @@ class HasPhonemesTest extends TestCase
 
         $phoneme = factory(Phoneme::class)->create([
             'language_id' => $form->language_id,
-            'algoName' => 'p'
+            'algo_name' => 'p'
         ]);
 
         $this->assertCount(1, $form->phonemes()->get());
 
         $phoneme = factory(Phoneme::class)->create([
             'language_id' => $form->language_id,
-            'algoName' => 't'
+            'algo_name' => 't'
         ]);
 
         $this->assertCount(2, $form->phonemes()->get());
 
         $phoneme = factory(Phoneme::class)->create([
             'language_id' => $form->language_id,
-            'algoName' => 'k'
+            'algo_name' => 'k'
         ]);
 
         $this->assertCount(3, $form->phonemes()->get());

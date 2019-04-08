@@ -113,11 +113,11 @@ class AutocompleteController extends Controller
         $language = $options['language'];
         $type = isset($options['type']) ? $options['type'] : '';
 
-        $query = Phoneme::select('algoName', 'ipaName', 'orthoName', 'id', 'language_id')
+        $query = Phoneme::select('algo_name', 'ipa_name', 'ortho_name', 'id', 'language_id')
             ->where(function ($query) use ($term) {
-                $query->where('algoName', 'LIKE', "%$term%")
-                    ->orWhere('ipaName', 'LIKE', "%$term%")
-                    ->orWhere('orthoName', 'LIKE', "%$term%");
+                $query->where('algo_name', 'LIKE', "%$term%")
+                    ->orWhere('ipa_name', 'LIKE', "%$term%")
+                    ->orWhere('ortho_name', 'LIKE', "%$term%");
             })
             ->where('language_id', $language);
 
@@ -128,7 +128,7 @@ class AutocompleteController extends Controller
         $results = $query->get();
 
         foreach ($results as $result) {
-            $result->name = "/{$result->algoName}/";
+            $result->name = "/{$result->algo_name}/";
         }
 
         return $results->toJson();
@@ -239,7 +239,7 @@ class AutocompleteController extends Controller
         $language = Language::with('parent')
             ->find($language_id);
 
-        $results = $this->findParents($language, $term, 'phonemes', 'algoName', $markup);
+        $results = $this->findParents($language, $term, 'phonemes', 'algo_name', $markup);
 
         return Response::json($results);
     }

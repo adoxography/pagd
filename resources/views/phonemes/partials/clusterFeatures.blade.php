@@ -11,7 +11,7 @@
 ])
 	@slot('value')
 		@if(isset($phoneme) && $phoneme->type == 'Cluster')
-			{{ '{ "text": "'.str_replace('*', '', $phoneme->features->firstSegment->algoName).'", "id": "'.$phoneme->features->firstSegment_id.'" }' }}
+			{{ '{ "text": "'.str_replace('*', '', $phoneme->features->firstSegment->algo_name).'", "id": "'.$phoneme->features->first_segment_id.'" }' }}
 		@endif
 	@endslot
 @endcomponent
@@ -29,7 +29,7 @@
 ])
 	@slot('value')
 		@if(isset($phoneme) && $phoneme->type == 'Cluster')
-			{{ '{ "text": "'.str_replace('*', '', $phoneme->features->secondSegment->algoName).'", "id": "'.$phoneme->features->secondSegment_id.'" }' }}
+			{{ '{ "text": "'.str_replace('*', '', $phoneme->features->secondSegment->algo_name).'", "id": "'.$phoneme->features->second_segment_id.'" }' }}
 		@endif
 	@endslot
 @endcomponent

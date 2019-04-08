@@ -20,7 +20,7 @@ class HasPhonemesPresentationTest extends TestCase
     public function characters_are_hyperlinked_if_a_phoneme_exists()
     {
         $phoneme = factory(Phoneme::class)->create([
-            'algoName' => 't'
+            'algo_name' => 't'
         ]);
 
         $form = factory(Form::class)->create([
@@ -35,7 +35,7 @@ class HasPhonemesPresentationTest extends TestCase
     public function phonemes_with_diacritics_display_properly()
     {
         $phoneme = factory(Phoneme::class)->create([
-            'algoName' => 'ǽ'
+            'algo_name' => 'ǽ'
         ]);
 
         $form = factory(Form::class)->create([

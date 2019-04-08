@@ -11,8 +11,8 @@ class ClusterType extends PhonemeType
     public $name = 'Cluster';
 
     protected $fillable = [
-        'firstSegment_id',
-        'secondSegment_id'
+        'first_segment_id',
+        'second_segment_id'
     ];
 
     protected $with = [
@@ -34,12 +34,12 @@ class ClusterType extends PhonemeType
 
     public function firstSegment()
     {
-        return $this->segment('firstSegment_id');
+        return $this->segment('first_segment_id');
     }
 
     public function secondSegment()
     {
-        return $this->segment('secondSegment_id');
+        return $this->segment('second_segment_id');
     }
 
     protected function segment($foreign)

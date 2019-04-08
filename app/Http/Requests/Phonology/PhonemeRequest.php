@@ -27,7 +27,7 @@ class PhonemeRequest extends FormRequest
     {
         $rules = [
             // General phoneme rules
-            'algoName'         => ['required'],
+            'algo_name'        => ['required'],
             'language'         => ['required', 'exists:Languages,name'],
             'language_id'      => ['required', 'integer', 'exists:Languages,id'],
             'featureable_type' => ['required'],
@@ -43,10 +43,10 @@ class PhonemeRequest extends FormRequest
             'voicing_id' => ['nullable', 'exists:Phon_Voicings,id'],
 
             // Cluster rules
-            'firstSegment'     => ['required_if:featureable_type,clusters'],
-            'firstSegment_id'  => ['required_if:featureable_type,clusters', 'integer', 'exists:Phon_Phonemes,id'],
-            'secondSegment'    => ['required_if:featureable_type,clusters'],
-            'secondSegment_id' => ['required_if:featureable_type,clusters', 'integer', 'exists:Phon_Phonemes,id'],
+            'firstSegment'      => ['required_if:featureable_type,clusters'],
+            'first_segment_id'  => ['required_if:featureable_type,clusters', 'integer', 'exists:Phon_Phonemes,id'],
+            'secondSegment'     => ['required_if:featureable_type,clusters'],
+            'second_segment_id' => ['required_if:featureable_type,clusters', 'integer', 'exists:Phon_Phonemes,id'],
         ];
 
         if (!request()->isArchiphoneme) {
@@ -56,10 +56,10 @@ class PhonemeRequest extends FormRequest
                 'backness'    => ['required_if:featureable_type,vowels', 'exists:Phon_Backnesses,name'],
                 'backness_id' => ['required_if:featureable_type,vowels', 'integer', 'exists:Phon_Backnesses,id'],
 
-                'place'      => ['required_if:featureable_type,consonants', 'exists:Phon_Places,name'],
-                'place_id'   => ['required_if:featureable_type,consonants', 'integer', 'exists:Phon_Places,id'],
-                'manner'     => ['required_if:featureable_type,consonants', 'exists:Phon_Manners,name'],
-                'manner_id'  => ['required_if:featureable_type,consonants', 'integer', 'exists:Phon_Manners,id'],
+                'place'     => ['required_if:featureable_type,consonants', 'exists:Phon_Places,name'],
+                'place_id'  => ['required_if:featureable_type,consonants', 'integer', 'exists:Phon_Places,id'],
+                'manner'    => ['required_if:featureable_type,consonants', 'exists:Phon_Manners,name'],
+                'manner_id' => ['required_if:featureable_type,consonants', 'integer', 'exists:Phon_Manners,id'],
             ]);
 
             $rules['featureable_type'][] = Rule::in(['vowelTypes', 'consonantTypes', 'clusterTypes']);

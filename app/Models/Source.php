@@ -14,7 +14,7 @@ use App\Models\Words\Example;
 use App\Models\Words\Form;
 use App\Models\Words\FormRepository;
 use App\Models\Words\Gap;
-use App\Presenters\AlgPresenter;
+use App\Presenters\SourcePresenter;
 use App\Traits\Bookmarkable;
 use App\Traits\Disambiguatable;
 use Illuminate\Database\Eloquent\Builder;
@@ -61,6 +61,8 @@ class Source extends Model implements VerbFormRepositoryInterface, NominalFormRe
         'summary' => '',
         'notes' => ''
     ];
+
+    public $presenter = SourcePresenter::class;
 
     public function identifiableName()
     {

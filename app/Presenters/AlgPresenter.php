@@ -36,7 +36,7 @@ class AlgPresenter extends Presenter implements PresenterInterface
      * @param string $format the formatting to apply to the output
      * @return string
      */
-    public function link(string $addon = '', string $format = '')
+    public function link(string $addon = '', string $format = '') : string
     {
         if (strlen($addon) > 0) {
             $addon = '/' . $addon;
@@ -44,13 +44,12 @@ class AlgPresenter extends Presenter implements PresenterInterface
 
         $key = $this->model->getRouteKeyName();
 
-        return sprintf(
-            '<a href="/%s/%s%s">%s</a>',
-            $this->getURI(),
-            $this->model->$key,
-            $addon,
-            $this->model->present()
-        );
+        $uri = implode('/', array_filter([$this->getURI(), $this->model->$key, $addon]));
+        $options = json_encode($this->prepareTooltipOptions());
+
+        return <<<HTML
+<a v-tooltip='$options' href="/$uri">{$this->model->present()}</a>
+HTML;
     }
 
     /**
@@ -58,9 +57,39 @@ class AlgPresenter extends Presenter implements PresenterInterface
      *
      * @return string
      */
-    public function stub()
+    public function stub() : string
     {
         return $this->link();
+    }
+
+    /**
+     * A short preview of the item in question
+     *
+     * @return string
+     */
+    public function preview() : string
+    {
+        return 'No summary available.';
+    }
+
+    /**
+     * Generates the options for this element's preview tooltip
+     *
+     * @return array
+     */
+    protected function prepareTooltipOptions() : array
+    {
+        return [
+            'content' => $this->preview(),
+            'html' => true,
+            'delay' => [
+                'show' => 500,
+                'hide' => 100
+            ],
+            'placement' => 'bottom',
+            'classes' => ['preview'],
+            'autoHide' => false
+        ];
     }
 
     /**
@@ -68,7 +97,7 @@ class AlgPresenter extends Presenter implements PresenterInterface
      *
      * @return string
      */
-    protected function getURI()
+    protected function getURI() : string
     {
         return $this->model->uri ?: $this->generateURIFromModel();
     }
@@ -78,7 +107,7 @@ class AlgPresenter extends Presenter implements PresenterInterface
      *
      * @return string
      */
-    protected function generateURIFromModel()
+    protected function generateURIFromModel() : string
     {
         $table = $this->model->getTable();
 
@@ -87,7 +116,7 @@ class AlgPresenter extends Presenter implements PresenterInterface
         return strtolower($tableName);
     }
 
-    protected function format(string $str, string $format)
+    protected function format(string $str, string $format) : string
     {
         if (strpos('bold', $format) !== false) {
             $str = sprintf('<strong>%s</strong>', $str);

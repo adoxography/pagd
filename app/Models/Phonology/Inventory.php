@@ -46,7 +46,7 @@ class Inventory implements Jsonable
                                     ->where('isArchiphoneme', false)
                                     ->sortBy(function ($phoneme) {
                                         return array_search(
-                                            str_replace('*', '', $phoneme->algoName),
+                                            str_replace('*', '', $phoneme->algo_name),
                                             ['p', 't', 'k', 'ʔ', 'θ', 's', 'š', 'h', 'č', 'm', 'n', 'r', 'w', 'y']
                                         );
                                     });
@@ -55,14 +55,14 @@ class Inventory implements Jsonable
                                 ->sortBy(function ($phoneme) {
                                     return [
                                         array_search(
-                                            str_replace('*', '', $phoneme->algoName)[0],
+                                            str_replace('*', '', $phoneme->algo_name)[0],
                                             ['i', 'o', 'e', 'a']
                                         ),
-                                        strlen($phoneme->algoName)];
+                                        strlen($phoneme->algo_name)];
                                 });
         $this->clusters = $phonemes->where('featureable_type', 'clusterTypes')
                                 ->sortBy(function ($phoneme) {
-                                    $name = str_replace('*', '', $phoneme->algoName);
+                                    $name = str_replace('*', '', $phoneme->algo_name);
 
                                     return [
                                         array_search(
@@ -210,7 +210,7 @@ class Inventory implements Jsonable
     public function getClusters(Phoneme $firstSegment, Phoneme $secondSegment)
     {
         return $this->clusters->filter(function ($value) use ($firstSegment, $secondSegment) {
-            return $value->featureable->firstSegment_id == $firstSegment->id && $value->featureable->secondSegment_id == $secondSegment->id;
+            return $value->featureable->first_segment_id == $firstSegment->id && $value->featureable->second_segment_id == $secondSegment->id;
         })->sortBy(function ($cluster) {
             return strlen($cluster->name);
         });

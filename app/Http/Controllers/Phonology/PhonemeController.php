@@ -30,9 +30,9 @@ class PhonemeController extends AlgModelController
 
     public function clone(Phoneme $phoneme)
     {
-        $phoneme->algoName = '';
-        $phoneme->ipaName = '';
-        $phoneme->orthoName = '';
+        $phoneme->algo_name = '';
+        $phoneme->ipa_name = '';
+        $phoneme->ortho_name = '';
 
         return view('phonemes.create', compact('phoneme'));
     }

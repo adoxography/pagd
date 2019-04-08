@@ -79,6 +79,6 @@ trait HasPhonemeType
 
     protected function parseClusterData($data)
     {
-        return Arr::only($data, ['firstSegment_id', 'secondSegment_id']);
+        return Arr::only($data, ['first_segment_id', 'second_segment_id']);
     }
 }

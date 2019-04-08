@@ -19,8 +19,8 @@ $factory->define(ClusterType::class, function (Faker $faker) {
     $secondSegmentType = $faker->randomElement($types);
 
     return [
-        'firstSegment_id'  => factory(Phoneme::class, $firstSegmentType)->create()->id,
-        'secondSegment_id' => factory(Phoneme::class, $secondSegmentType)->create()->id,
+        'first_segment_id'  => factory(Phoneme::class, $firstSegmentType)->create()->id,
+        'second_segment_id' => factory(Phoneme::class, $secondSegmentType)->create()->id,
     ];
 });
 

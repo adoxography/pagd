@@ -19,9 +19,9 @@ $factory->define(Phoneme::class, function (Faker $faker) {
 
     $data = [
             'language_id'      => factory(Language::class)->create()->id,
-            'algoName'         => $this->faker->randomLetter,
-            'ipaName'          => $this->faker->randomLetter,
-            'orthoName'        => $this->faker->randomLetter,
+            'algo_name'        => $this->faker->randomLetter,
+            'ipa_name'         => $this->faker->randomLetter,
+            'ortho_name'       => $this->faker->randomLetter,
             'phoneticNotes'    => $this->faker->paragraph,
             'orthoNotes'       => $this->faker->paragraph,
             'privateNotes'     => $this->faker->paragraph,
@@ -41,9 +41,9 @@ $factory->define(Phoneme::class, function (Faker $faker) {
 $factory->defineAs(Phoneme::class, 'consonant', function (Faker $faker) {
     $data = [
             'language_id'      => factory(Language::class)->create()->id,
-            'algoName'         => $this->faker->randomLetter,
-            'ipaName'          => $this->faker->randomLetter,
-            'orthoName'        => $this->faker->randomLetter,
+            'algo_name'        => $this->faker->randomLetter,
+            'ipa_name'         => $this->faker->randomLetter,
+            'ortho_name'       => $this->faker->randomLetter,
             'phoneticNotes'    => $this->faker->paragraph,
             'orthoNotes'       => $this->faker->paragraph,
             'privateNotes'     => $this->faker->paragraph,
@@ -63,9 +63,9 @@ $factory->defineAs(Phoneme::class, 'consonant', function (Faker $faker) {
 $factory->defineAs(Phoneme::class, 'vowel', function (Faker $faker) {
     $data = [
             'language_id'      => factory(Language::class)->create()->id,
-            'algoName'         => $this->faker->randomLetter,
-            'ipaName'          => $this->faker->randomLetter,
-            'orthoName'        => $this->faker->randomLetter,
+            'algo_name'        => $this->faker->randomLetter,
+            'ipa_name'         => $this->faker->randomLetter,
+            'ortho_name'       => $this->faker->randomLetter,
             'phoneticNotes'    => $this->faker->paragraph,
             'orthoNotes'       => $this->faker->paragraph,
             'privateNotes'     => $this->faker->paragraph,
@@ -85,9 +85,9 @@ $factory->defineAs(Phoneme::class, 'vowel', function (Faker $faker) {
 $factory->defineAs(Phoneme::class, 'cluster', function (Faker $faker) {
     $data = [
             'language_id'      => factory(Language::class)->create()->id,
-            'algoName'         => $this->faker->randomLetter,
-            'ipaName'          => $this->faker->randomLetter,
-            'orthoName'        => $this->faker->randomLetter,
+            'algo_name'        => $this->faker->randomLetter,
+            'ipa_name'         => $this->faker->randomLetter,
+            'ortho_name'       => $this->faker->randomLetter,
             'phoneticNotes'    => $this->faker->paragraph,
             'orthoNotes'       => $this->faker->paragraph,
             'privateNotes'     => $this->faker->paragraph,

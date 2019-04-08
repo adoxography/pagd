@@ -325,21 +325,21 @@ class SearchController extends Controller
         $this->filter($formQuery);
         $this->filter($gapQuery);
 
-        return $formQuery->get(['Word_Forms.*'])->merge($gapQuery->get(['Word_Gaps.*']));
+        return $formQuery->get(['word_forms.*'])->merge($gapQuery->get(['word_gaps.*']));
     }
 
     protected function order(&$query)
     {
-        $query->join('Verb_Structures as Structures', 'Structures.id', '=', 'structure_id')
-        ->join('Languages', 'Languages.id', '=', 'language_id')
-        ->join('Groups', 'Groups.id', '=', 'Languages.group_id')
-        ->join('Verb_Orders as Orders', 'Orders.id', '=', 'Structures.order_id')
-        ->orderBy('Groups.position', 'asc')
-        ->orderBy('Languages.position', 'asc')
-        ->orderBy('Orders.position', 'asc')
-        ->orderByRaw('-Structures.isAbsolute ASC')
-        ->orderBy('Structures.isNegative', 'asc')
-        ->orderBy('Structures.isDiminutive', 'asc');
+        $query->join('verb_structures as structures', 'structures.id', '=', 'structure_id')
+        ->join('languages', 'languages.id', '=', 'language_id')
+        ->join('groups', 'groups.id', '=', 'languages.group_id')
+        ->join('verb_orders as orders', 'orders.id', '=', 'structures.order_id')
+        ->orderBy('groups.position', 'asc')
+        ->orderBy('languages.position', 'asc')
+        ->orderBy('orders.position', 'asc')
+        ->orderByRaw('-structures.is_absolute ASC')
+        ->orderBy('structures.is_negative', 'asc')
+        ->orderBy('structures.is_diminutive', 'asc');
     }
 
     protected function filter(&$query)

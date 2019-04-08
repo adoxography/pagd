@@ -80,7 +80,7 @@ export default {
         },
 
         phoneName(phoneme) {
-            return phoneme.algoName;
+            return phoneme.algo_name;
         },
 
         selectAll() {

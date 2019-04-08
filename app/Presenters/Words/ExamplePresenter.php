@@ -10,7 +10,7 @@ class ExamplePresenter extends AlgPresenter
 {
     use PhonemeablePresentation, MorphemeablePresentation;
 
-    public function name(string $format = '')
+    public function name(string $format = '') : string
     {
         $name = parent::name($format);
 
@@ -26,7 +26,7 @@ class ExamplePresenter extends AlgPresenter
         }
     }
 
-    public function stub()
+    public function stub() : string
     {
         $name = $this->model->present('phonemicForm');
         $uri = $this->getURI();

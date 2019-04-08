@@ -19,7 +19,7 @@ class SlotPresenter extends AlgPresenter
      * @param string $format
      * @return string
      */
-    public function link(string $addon = '', string $format = '')
+    public function link(string $addon = '', string $format = '') : string
 	{
 		if(strlen($addon) > 0) {
 			$addon = '/' . $addon;

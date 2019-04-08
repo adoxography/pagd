@@ -15,7 +15,7 @@ class FormPresenter extends AlgPresenter
         return $this->name();
     }
 
-    public function name(string $format = '')
+    public function name(string $format = '') : string
     {
         $name = parent::name($format);
 
@@ -30,7 +30,7 @@ class FormPresenter extends AlgPresenter
         return $this->convertToPhonemes('phonemic_form');
     }
 
-    public function stub()
+    public function stub() : string
     {
         $name = $this->model->phonemicForm ?: $this->name();
 

@@ -25,7 +25,7 @@ class MarkdownPresenter extends Presenter implements PresenterInterface
 		return $output;
 	}
 
-	public function link(string $addon = '', string $format = '')
+	public function link(string $addon = '', string $format = '') : string
 	{
 		if (strlen($addon) > 0) {
 			$addon = '/' . $addon;
@@ -46,7 +46,7 @@ class MarkdownPresenter extends Presenter implements PresenterInterface
 	 * 
 	 * @return string
 	 */
-	protected function getURI()
+	protected function getURI() : string
 	{
 		if(isset($this->uri)) {
 			return $this->uri;
@@ -60,7 +60,7 @@ class MarkdownPresenter extends Presenter implements PresenterInterface
 	 * 
 	 * @return string
 	 */
-	protected function generateURIFromModel()
+	protected function generateURIFromModel() : string
 	{
 		$table = $this->model->getTable();
 

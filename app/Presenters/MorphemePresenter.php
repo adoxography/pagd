@@ -8,7 +8,7 @@ class MorphemePresenter extends AlgPresenter
 {
     use PhonemeablePresentation;
 
-    public function name(string $format = '')
+    public function name(string $format = '') : string
     {
         $name = parent::name($format);
 
@@ -20,7 +20,7 @@ class MorphemePresenter extends AlgPresenter
         return "<em>$name</em>";
     }
 
-    public function disambiguatedName(string $format = '')
+    public function disambiguatedName(string $format = '') : string
     {
         $name = $this->name() . '<sup>' . $this->model->disambiguator . '</sup>';
 
@@ -31,12 +31,12 @@ class MorphemePresenter extends AlgPresenter
         return $name;
     }
 
-    public function phonemicForm(string $format = '')
+    public function phonemicForm(string $format = '') : string
     {
         return $this->convertToPhonemes('name');
     }
 
-    public function unique(string $method = 'name', string $format = '')
+    public function unique(string $method = 'name', string $format = '') : string
     {
         $modelHTML = $this->model->present($method);
         $glossNameHTML = $this->model->gloss->present();
@@ -44,7 +44,7 @@ class MorphemePresenter extends AlgPresenter
         return "$modelHTML ($glossNameHTML)";
     }
 
-    public function stub()
+    public function stub() : string
     {
         return $this->unique('name', 'coloured');
     }

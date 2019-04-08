@@ -8,7 +8,7 @@ use Illuminate\Support\Arr;
 
 class PhonemePresenter extends AlgPresenter
 {
-    public function name(string $format = '')
+    public function name(string $format = '') : string
     {
         if ($this->model->isNull()) {
             return $this->model->algo_name;
@@ -25,7 +25,7 @@ class PhonemePresenter extends AlgPresenter
         return $name;
     }
 
-    public function link(string $addon = '', string $format = '')
+    public function link(string $addon = '', string $format = '') : string
     {
         if ($this->model->isNull()) {
             return $this->name;
@@ -179,7 +179,7 @@ class PhonemePresenter extends AlgPresenter
         return sprintf('<li>%s</li>', $output);
     }
 
-    protected function getURI()
+    protected function getURI() : string
     {
         $this->model->load('features');
 

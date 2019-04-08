@@ -342,7 +342,7 @@ class Paradigm
     {
         // Loop through each class
         foreach ($rows as $class => $argumentStructures) {
-            $keys = Arr::keys($argumentStructures);
+            $keys = array_keys($argumentStructures);
             $classHasForms = false;
 
             // Loop through each set of arguments

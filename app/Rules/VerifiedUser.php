@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Rules\Rules;
+namespace App\Rules;
 
 use App\Models\Users\RegistrationCode;
 use Illuminate\Contracts\Validation\Rule;

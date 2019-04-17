@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-@extends('components.form.field')
-
->>>>>>> Replace verb form form template with blade components
-=======
->>>>>>> Put remaining UI elements into verb form form
 @php
 use Illuminate\Support\Str;
 $list     = $list     ?? Str::plural($name);

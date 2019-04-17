@@ -1,53 +1,6 @@
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "/js/app.js": "/js/app.js?id=bab1d7624172ffebeee6",
-    "/css/app.css": "/css/app.css?id=e92d12db8298d0f728d5",
-    "/js/vendor.js": "/js/vendor.js?id=7a0fcb16daa4f31dae42",
-=======
-    "/js/app.js": "/js/app.js?id=773fc4fb218422fb2d4e",
-    "/css/app.css": "/css/app.css?id=da602c455382916de9bb",
-    "/js/vendor.js": "/js/vendor.js?id=be31cfea4fd594c56d72",
->>>>>>> Move gloss rendering into the GlossLine class
-    "/js/manifest.js": "/js/manifest.js?id=361fab92417fb3b17ab3"
-=======
-    "/js/app.js": "/js/app.js?id=7074a17e8051c1f7d37e",
-    "/css/app.css": "/css/app.css?id=48ec5f0abd935efb30ab",
-    "/js/vendor.js": "/js/vendor.js?id=e89158684803356a8d06",
-    "/js/manifest.js": "/js/manifest.js?id=5128965f3c81be39539e"
->>>>>>> Start working on initial change
-=======
-    "/js/app.js": "/js/app.js?id=488df298a2efb769ce1a",
-    "/css/app.css": "/css/app.css?id=48ec5f0abd935efb30ab",
-    "/js/vendor.js": "/js/vendor.js?id=953176e7aea9e5dc14b9",
-    "/js/manifest.js": "/js/manifest.js?id=44f829812c5e2a8b4285"
->>>>>>> Remove old morpheme tag input component
-=======
-    "/js/app.js": "/js/app.js?id=06a37e5da2e20a9a5bac",
-    "/css/app.css": "/css/app.css?id=48ec5f0abd935efb30ab",
-    "/js/vendor.js": "/js/vendor.js?id=e89158684803356a8d06",
-=======
-    "/js/app.js": "/js/app.js?id=2b78a62d65d6719cfb36",
-    "/css/app.css": "/css/app.css?id=679634a52d4bc8ab0ff9",
-    "/js/vendor.js": "/js/vendor.js?id=afa838c7ca7d295b5e41",
->>>>>>> Bump composer dependencies and remove unused packages
-    "/js/manifest.js": "/js/manifest.js?id=5128965f3c81be39539e"
->>>>>>> Remove the morpheme alert component
-=======
-    "/js/app.js": "/js/app.js?id=820f6c5b53be1b0aeb92",
-    "/css/app.css": "/css/app.css?id=438f6d7320cec673905a",
-    "/js/vendor.js": "/js/vendor.js?id=7f9f73523193f147497c",
-    "/js/manifest.js": "/js/manifest.js?id=00ead3e33cec6059d2bd"
->>>>>>> Bump npm packages
-=======
     "/js/app.js": "/js/app.js?id=a0edef86dffa2e95116d",
     "/css/app.css": "/css/app.css?id=d3121fb67ca2c9e7794f",
     "/js/vendor.js": "/js/vendor.js?id=989b849a591090a21811",
     "/js/manifest.js": "/js/manifest.js?id=5128965f3c81be39539e"
->>>>>>> Add preview tooltips to all model links
 }

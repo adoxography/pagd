@@ -10,9 +10,9 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.8.1",
     "axios": "^0.18.0",
-    "axios-retry": "^3.1.1",
-    "buefy": "^0.7.2",
-    "bulma": "^0.7.2",
+    "axios-retry": "^3.1.2",
+    "buefy": "^0.7.3",
+    "bulma": "^0.7.4",
     "cross-env": "^5.2.0",
     "d3-force": "^2.0.1",
     "exports-loader": "^0.7.0",

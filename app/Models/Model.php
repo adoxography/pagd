@@ -13,6 +13,12 @@ class Model extends BaseModel
 
     protected static $template = ['name' => '', 'id' => ''];
 
+    public function __construct(array $attributes=[])
+    {
+        parent::__construct($attributes);
+        $this->adaptToConnection();
+    }
+
     public static function fieldTemplate(bool $root = true) : Collection
     {
         $fields = collect();

@@ -189,8 +189,8 @@ class BatchController extends Controller
     protected function getTransformers() : array
     {
         return [
-            new TextTransformer(1, false, false),
-            new TextTransformer(2, true, false),
+            new TextTransformer(0, false, false),
+            new TextTransformer(1, true, false),
             new ModelTransformer(2, Feature::class),
             new ModelTransformer(3, Feature::class, true),
             new ModelTransformer(4, Feature::class, true),

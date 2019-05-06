@@ -10,7 +10,14 @@
 			<nav class="level">
 				<div class="level-left">
 					<div class="level-item">
-						<a class="button" @click="toggleShow" :disabled="!hasMorphemes">Show/Hide Morphology</a>
+						<a class="button" @click="toggleShow" :disabled="!hasMorphemes">
+                            <span v-if="show">
+                                Hide Morphology
+                            </span>
+                            <span v-else>
+                                Show Morphology
+                            </span>
+                        </a>
 					</div>
 					<div class="level-item">
 						<form style="margin: 0;" method="GET" action="/verbs/search/paradigm">

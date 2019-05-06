@@ -7,7 +7,7 @@
 				<span class="label">
 					Description
 					<alg-tooltip
-						label="Verb form descriptions are given in the following&#10;order:&#10;&#10;Subject—(Primary object)+(Secondary object)&#10;Class&#10;Order&#10;Mode"
+						label="Verb form descriptions are given in the following&#10;order:&#10;&#10;Subject→(Primary object)+(Secondary object)&#10;Class&#10;Order&#10;Mode"
 						size="large"
 						placement="top"
 					>

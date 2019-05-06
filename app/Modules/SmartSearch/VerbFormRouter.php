@@ -89,7 +89,7 @@ class VerbFormRouter implements RouterInterface
         $args = Feature::find($this->results->subject)->name;
 
         if ($this->results->primaryObject) {
-            $args .= '—' . Feature::find($this->results->primaryObject)->name;
+            $args .= '→' . Feature::find($this->results->primaryObject)->name;
         }
 
         if ($this->results->secondaryObject) {

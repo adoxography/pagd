@@ -513,7 +513,7 @@ class Paradigm
      */
     private function hasNumberlessArgument(string $argSeries) : bool
     {
-        $args = preg_split("/[—+]/u", $argSeries);
+        $args = preg_split("/[→+]/u", $argSeries);
 
         foreach ($args as $arg) {
             if ($this->isNumberless($arg)) {
@@ -549,10 +549,10 @@ class Paradigm
     private function generatePossibleMatches(string $args) : Collection
     {
         // The possible delimiters are the em dash and the plus
-        $arguments = preg_split("/[—+]/u", $args);
+        $arguments = preg_split("/[→+]/u", $args);
 
         // An argument set is AI+O if it doesn't have a dash but does have a plus
-        $isAIPlusO = !!preg_match("/^[^—]+\+/u", $args);
+        $isAIPlusO = !!preg_match("/^[^→]+\+/u", $args);
 
         return $this->recursivelyBuildPossibleMatches($arguments, $args, $isAIPlusO);
     }
@@ -571,7 +571,7 @@ class Paradigm
         bool $isAIPlusO, int $index = 0) : Collection
     {
         $options = collect();
-        $delimiter = ($index == 0 && !$isAIPlusO) ? '—' : '+';
+        $delimiter = ($index == 0 && !$isAIPlusO) ? '→' : '+';
 
         if ($index < count($args)) {
             $arg = $args[$index];
@@ -661,8 +661,8 @@ class Paradigm
      *              they are equal
      */
     private function compareFeatureSets($a, $b) {
-        $aFeatures = preg_split('/[+—]/', $a);
-        $bFeatures = preg_split('/[+—]/', $b);
+        $aFeatures = preg_split('/[+→]/', $a);
+        $bFeatures = preg_split('/[+→]/', $b);
 
         for ($i = 0; $i < count($aFeatures); $i++) {
             $aFeature = $aFeatures[$i];

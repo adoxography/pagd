@@ -47,7 +47,7 @@ class Structure extends Model
             $output .= $this->pronominalFeature->name;
 
             if($this->nominalFeature) {
-                $output .= '—' . $this->nominalFeature->name;
+                $output .= '→' . $this->nominalFeature->name;
             }
         } else {
             $output .= $this->nominalFeature->name;

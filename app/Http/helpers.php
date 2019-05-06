@@ -220,3 +220,19 @@ function tagExamples($languageId, $morphemeString, $morphemeReplacement) {
         $example->save();
     }
 }
+
+function replaceEmDashes()
+{
+    foreach (\App\Models\Verbs\Structure::whereNotNull('subclass')->get() as $structure) {
+        $subclass = $structure->subclass;
+        $subclass = str_replace('—', '→', $subclass);
+
+        if ($subclass === 'TA Obviative (mixed 3\'–1/2)') {
+            $subclass = 'TA Obviative (mixed 3\'→1/2)';
+        } elseif ($subclass === 'TA Obviative (mixed 1/2–3\')') {
+            $sublass = 'TA Obviative (mixed 1/2→3\')';
+        }
+
+        $structure->update(['subclass', $subclass]);
+    }
+}

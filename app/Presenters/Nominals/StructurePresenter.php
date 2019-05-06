@@ -25,7 +25,7 @@ class StructurePresenter extends AlgPresenter
             $output .= $this->model->pronominalFeature->name;
 
             if ($this->model->nominalFeature) {
-                $output .= '—' . $this->model->nominalFeature->name;
+                $output .= '→' . $this->model->nominalFeature->name;
             }
         } else {
             $output .= $this->model->nominalFeature->name;

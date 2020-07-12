@@ -1,5 +1,4 @@
 let mix = require('laravel-mix');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 /*
  |--------------------------------------------------------------------------
@@ -16,13 +15,6 @@ mix.autoload({
 });
 
 mix.webpackConfig({
-  output: {
-    publicPath: "/",
-    chunkFilename: `assets/merchant/js/chunk[name].${ mix.inProduction() ? '[chunkhash].' : '' }js`
-  },
-
-  plugins: [new VueLoaderPlugin()],
-
   externals: {
     tinymce: 'tinymce'
   },
@@ -55,7 +47,6 @@ mix.webpackConfig({
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
    .copy('resources/assets/libs/font-awesome/fonts', 'public/build/fonts')
-   .extract(['vue', 'axios', 'axios-retry', 'lodash', 'vee-validate', 'tinymce'])
    .version();
 
 // mix.browserSync('algling.dev');

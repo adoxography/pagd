@@ -21,6 +21,8 @@
     "jquery-ui": "^1.12.1",
     "jquery-ui-bundle": "^1.12.1",
     "laravel-mix": "^4.0.7",
+    "leaflet": "^1.6.0",
+    "leaflet-defaulticon-compatibility": "^0.1.1",
     "lodash": "^4.17.19",
     "node-sass": "^4.14.1",
     "portal-vue": "^1.5.1",
@@ -45,6 +47,7 @@
     "vue-tinymce": "^1.0.5",
     "vue-typeahead": "^2.3.2",
     "vue2-google-maps": "^0.10.7",
+    "vue2-leaflet": "^2.5.2",
     "vuebar": "git://github.com/DominikSerafin/vuebar.git#development",
     "vuedraggable": "^2.24.0"
   },

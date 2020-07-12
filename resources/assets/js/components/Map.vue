@@ -1,77 +1,34 @@
 <template>
-  <div>
-    <div class="control" v-show="addMode">
-      <label class="radio">
-        <input type="radio" :value="null" v-model="addType" />
-        None
-      </label>
-      <label class="radio">
-        <input type="radio" value="point" v-model="addType" />
-        Point
-      </label>
-      <label class="radio">
-        <input type="radio" value="area" v-model="addType" />
-        Area
-      </label>
-    </div>
-
-    <gmap-map
-      :center="center"
-      :zoom="zoom"
-      style="width: 100%; height: 400px"
-      :options="{streetViewControl: false, mapTypeControl: false}"
-      @dragend="onRightClick($event)"
+  <l-map
+    :center="center"
+    :zoom="zoom"
+    style="width: 100%; height: 400px"
     >
-      <!-- Pre-existing zones -->
-      <gmap-polygon
-        v-for="zone in zones"
-        :key="'polygon-'+zone.id"
-        :path="zone.location.position"
-        :options="{fillColor: '#'+zone.color, strokeColor: '#'+zone.color}"
-        :clickable="true"
-        @click="onClickMarker(zone, 'area', $event)"
-      ></gmap-polygon>
-
-      <!-- New zone -->
-      <gmap-polygon
-        :path="newZone.location.position"
-        :options="{visible: addType == 'area', fillColor: '#'+newZone.color, strokeColor: '#'+newZone.color}"
-        :editable="true"
-        :draggable="true"
-        @path_changed="updateEdited($event)"
-      ></gmap-polygon>
-
-      <!-- Pre-existing markers -->
-      <gmap-marker
-        v-for="(marker, index) in markerArray"
+    <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <l-marker
+        v-for="(marker, i) in markerArray"
         :key="'marker-' + marker.id"
-        :position="marker.location.position"
-        :clickable="true"
-        :icon="getIcon(marker)"
-        @click="onClickMarker(marker, 'point')"
-      ></gmap-marker>
-
-      <!-- New marker -->
-      <gmap-marker
-        :visible="addType == 'point'"
-        :position="newMarker.location.position"
-        :icon="getIcon(newMarker)"
-        :draggable="true"
-        @dragend="onRightClick($event)"
-      ></gmap-marker>
-
-      <gmap-info-window
-        :opened="infoWindow.opened"
-        :position="infoWindow.position"
-        @closeclick="infoWindow.opened = !infoWindow.opened"
-      >
-        <span v-html="infoWindow.content"></span>
-      </gmap-info-window>
-    </gmap-map>
-  </div>
+        :lat-lng="marker.location.position"
+        >
+        <l-popup>
+          <div v-html="getInfoWindowContent(marker)" />
+        </l-popup>
+      </l-marker>
+  </l-map>
 </template>
 
 <script>
+import 'leaflet/dist/leaflet.css';
+import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css';
+
+import {
+  LMap,
+  LTileLayer,
+  LMarker,
+  LPopup
+} from 'vue2-leaflet';
+import 'leaflet-defaulticon-compatibility';
+
 import * as VueGoogleMaps from 'vue2-google-maps';
 
 // Initialze google maps
@@ -93,6 +50,13 @@ export default {
     }
   },
 
+  components: {
+    LMap,
+    LTileLayer,
+    LMarker,
+    LPopup
+  },
+
 	data() {
 		return {
 
@@ -103,52 +67,9 @@ export default {
         lng: -87.659916
       },
 
-      zones: [],
-
-      addType: null,
-      edited: null,
-
-      newMarker: {
-        id: 0,
-        name: 'New language',
-        color: '0000ff',
-        location: {
-          type: 'point',
-          position: {lng: -96.194, lat: 53.430}
-        }
-      },
-
-      newZone: {
-        id: 0,
-        name: 'New language',
-        color: '0000ff',
-        location: {
-          type: 'area',
-          position: [
-            {lng: -96.194, lat: 53.430},
-            {lng: -96.194, lat: 51.300},
-            {lng: -92.284, lat: 51.300},
-            {lng: -92.284, lat: 53.430}
-          ]
-        }
-      },
-
-			// Variables for the floating info window
-			infoWindow: {
-				position: this.center,
-				opened: false,
-				content: ''
-			},
-
 			markerArray: []
 		};
 	},
-
-  watch: {
-    addType() {
-      this.fireEvent();
-    }
-  },
 
 	created() {
     /**
@@ -163,23 +84,6 @@ export default {
 
 			this.center = this.getMapCenter();
 		}
-
-    /**
-     * Handle the special marker, if provided
-     */
-    if (this.marker && this.validateEntity(this.marker)) {
-      if (this.marker.location.type == 'point') {
-        this.newMarker = this.marker;
-      } else if (this.marker.location.type == 'area') {
-        this.newZone = this.marker;
-      }
-
-      this.newMarker.color = '0000ff';
-      this.newZone.color = '0000ff';
-      this.addType = this.marker.location.type;
-    }
-
-    this.edited = this.newZone.location.position;
 	},
 
 	mounted() {
@@ -190,24 +94,6 @@ export default {
 
 	methods: {
     /**
-     * Fires when a marker or zone is left clicked
-     */
-		onClickMarker(location, type, event=null) {
-			this.openInfoWindow(location, type, event);
-		},
-
-    /**
-     * Fires when a marker is right clicked
-     */
-		onRightClick(e) {
-			if(this.addType == 'point') {
-        let latLng = e.latLng;
-        this.newMarker.location.position = e.latLng;
-        this.fireEvent();
-			}
-		},
-
-    /**
      * Adds an entity to the appropriate array
      *
      * The entity will only be added if it passes validation.
@@ -216,17 +102,7 @@ export default {
      */
     addEntity(entity) {
       if (this.validateEntity(entity) && (!this.marker || this.marker.id != entity.id)) {
-        if (entity.location.type == 'point') {
-          this.markerArray.push(entity);
-        } else if (entity.location.type == 'area') {
-          if (this.zonesEnabled) {
-            this.zones.push(entity);
-          } else {
-            let center = this.getCenter(entity.location.position, 0);
-            entity.location.position = center;
-            this.markerArray.push(entity);
-          }
-        }
+        this.markerArray.push(entity);
       }
     },
 
@@ -263,64 +139,6 @@ export default {
     },
 
     /**
-     * Fires when a zone has been edited
-     *
-     * @param mvcArray  The data from the editing event
-     */
-    updateEdited(mvcArray) {
-      let path = [];
-
-      for (let j = 0; j < mvcArray.getLength(); j++) {
-        let point = mvcArray.getAt(j);
-        path.push({lat: point.lat(), lng: point.lng()});
-      }
-
-      this.edited = path;
-      this.fireEvent();
-    },
-
-    /**
-     * Fires an update event with the current marker/zone information
-     */
-    fireEvent() {
-      let position = null;
-
-      switch (this.addType) {
-        case 'point':
-          position = this.newMarker.location.position;
-          break;
-        case 'area':
-          position = this.edited;
-          break;
-        default:
-          break;
-      }
-
-      this.$emit('marker-added', {
-        type: this.addType,
-        position: position ? JSON.stringify(position) : null
-      });
-    },
-
-    /**
-     * Opens the info window, loaded with the appropriate information
-     *
-     * @param entity  The marker or zone that was clicked
-     * @param type    The type of marker -- marker or zone
-     * @param event   The event that accompanied the click
-     */
-		openInfoWindow(entity, type, event) {
-      if (type == 'point') {
-        this.infoWindow.position = entity.location.position;
-      } else if (type == 'area') {
-        this.infoWindow.position = event.latLng;
-      }
-
-			this.infoWindow.opened   = true;
-			this.infoWindow.content  = this.getInfoWindowContent(entity);
-		},
-
-    /**
      * Gets the info window content based on an entity
      *
      * @param entity  The entity to base the content off of
@@ -350,10 +168,7 @@ export default {
      */
     getMapCenter() {
       let markerPositions = this.markerArray.map(marker => marker.location.position);
-      let zonePositions = this.zones.flatMap(zone => zone.location.position);
-      const allPositions = [...markerPositions, ...zonePositions];
-
-      return this.getCenter(allPositions);
+      return this.getCenter(markerPositions);
     },
 
     /**

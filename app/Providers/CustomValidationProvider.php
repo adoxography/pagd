@@ -33,13 +33,13 @@ class CustomValidationProvider extends ServiceProvider
             $result = false;
 
             // If there's a hyphen at the beginning, remove it
-            if($str{0} == '-') {
+            if($str[0] == '-') {
                 $str = substr($str, 1);
                 $hyphenAtEnd = true;
             }
 
             // If there's a hyphen at the end, remove it
-            if($str{strlen($str) - 1} == '-') {
+            if($str[strlen($str) - 1] == '-') {
                 $str = substr($str, 0, strlen($str) - 2);
                 $hyphenAtEnd = true;
             }

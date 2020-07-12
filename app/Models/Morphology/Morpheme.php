@@ -334,7 +334,7 @@ class Morpheme extends Model implements PhonemeableInterface
             }
 
             if (strlen($glossText) > 0) {
-                if ($glossText{0} == '"') {
+                if ($glossText[0] == '"') {
                     $currGloss = str_replace('"', '', $glossText);
                     $currGloss = str_replace(' ', '.', $currGloss);
 

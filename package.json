@@ -8,7 +8,7 @@
     "prod": "npm run production"
   },
   "devDependencies": {
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "axios-retry": "^3.1.8",
     "bootstrap-sass": "^3.4.1",
     "bulma": "^0.7.5",

@@ -30,7 +30,7 @@
     "pug-plain-loader": "^1.0.0",
     "resolve-url-loader": "^3.1.0",
     "sass-loader": "^7.3.1",
-    "tinymce": "^4.9.10",
+    "tinymce": "^5.7.1",
     "vee-validate": "^2.2.15",
     "vis": "^4.21.0",
     "vue": "^2.6.11",
